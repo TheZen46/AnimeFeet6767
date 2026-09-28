@@ -34,3 +34,5 @@ SJF is **NOT** a pre-emptive algorithm (the process cannot be interrupted)
 ### Why is SJF not that great?
 If job A arrives before B and C (say, $T=10$), the average turnaround time will be much higher.
 $\operatorname{avg}\ T_{\text{turnaround}}=\frac{100+(110-10)+(120-10)}{3}=103+\frac13sec$
+
+## STCF
