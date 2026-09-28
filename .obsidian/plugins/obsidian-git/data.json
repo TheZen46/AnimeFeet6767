@@ -39,7 +39,7 @@
   "diffTimeout": 50,
   "autoStageOnEmptyIndex": true,
   "hunks": {
-    "showSigns": true,
+    "showSigns": false,
     "hunkCommands": false,
     "statusBar": "disabled"
   },

@@ -49,3 +49,22 @@ $\operatorname{avg}\ T_{\text{turnaround}}=\frac{100+(20-10)+(30-10)}{3}=50sec$
 
 # Response time
 The time from when the job arrives to the first time it is scheduled    $T_{\text{response}}=T_{\text{firstrun}}-T_{\text{arrival}}$
+STCF and related disciplines are not particularly good for response time.
+
+How can we build a  scheduler that is **sensitive** to response time?
+
+# Round Robin
+Time slicing Scheduling
+- Run a job for a time slice and then switch to the next job in the run queue until the jobs are finished.
+	Time slice is sometimes called a scheduling quantum.
+- It repeatedly does so until the jobs are finished.
+- The length of a time slice must be a multiple of the timer-interrupt period.
+
+RR is fair, but performs poorly on metrics such as turnaround time
+
+Short time-slices:
+- Better response time
+- The cost of context switching will dominate overall performance.
+Long time-slices:
+- Amortize the cost of switching
+- Worse response time
