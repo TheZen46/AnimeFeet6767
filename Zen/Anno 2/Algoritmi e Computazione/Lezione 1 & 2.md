@@ -1,126 +1,407 @@
-Il corso di Algoritmi e Computazione, tenuto dal docente Armando Tacchella, si pone l'obiettivo di fornire i fondamenti teorici dell'informatica e della programmazione, elevando lo studente dal ruolo di mero programmatore a quello di ingegnere del software consapevole dei limiti strutturali e matematici delle architetture di calcolo. L'insegnamento annuale è strutturato in due semestri: il primo focalizzato sull'informatica teorica e la programmazione in C++, e il secondo dedicato alla complessità computazionale, agli algoritmi e alle strutture dati. L'esame prevede un progetto obbligatorio, che consiste nello sviluppo di un interprete valutato tramite discussione per accertarne la reale comprensione da parte dello studente, e prove scritte "closed book" da svolgere rigorosamente senza ausili esterni. Il corso sottolinea con forza l'importanza dell'ingegneria informatica citando disastri storici causati da difetti del software, come il razzo europeo Ariane 5 o l'analogo ingegneristico del ponte di Tacoma, dimostrando che gli errori di programmazione hanno un impatto cinetico, economico e di spreco di risorse nel mondo reale. Tale enfasi giustifica lo studio formale e rigoroso: la verifica della correttezza del software non può essere interamente delegata o automatizzata alle macchine o alle moderne intelligenze artificiali, richiedendo l'intervento e l'ingegno di un progettista umano qualificato.
+
+```
+---
+lezione: 1 e 2
+data: 2026-09-24
+argomenti: [introduzione al corso, architettura di un interprete, analisi lessicale, analisi sintattica, analisi semantica, alfabeti, stringhe, linguaggi formali, word problem]
+---
+```
+
+# Introduzione al Corso e Filosofia dell'Ingegneria del Software
+
+Il corso si articola su due moduli principali spalmati su due semestri. Nel primo semestre vengono affrontati i fondamenti dell'informatica teorica (4 CFU) e la programmazione avanzata in C++ (2 CFU). Nel secondo semestre il focus si sposta sulla teoria della complessità (2 CFU) e sull'analisi di algoritmi e strutture dati (4 CFU).
 
   
 
-**Fondamenti Teorici e Struttura di un Interprete** La teoria della computazione definisce le caratteristiche formali che devono avere gli algoritmi e i linguaggi in cui essi sono espressi, fornendo la base tecnologica e concettuale per la costruzione di traduttori, compilatori e interpreti. Il processo di interpretazione di un programma sorgente, ad esempio scritto in un sottoinsieme del linguaggio C++, viene suddiviso in tre macro-fasi sequenziali per dominare la complessità del problema e scomporlo in componenti computazionalmente trattabili.
+Lo scopo ultimo della disciplina non è formare semplici programmatori, ma ingegneri informatici. Un programmatore sta all'ingegnere informatico come un muratore sta all'ingegnere civile: mentre il primo si occupa della stesura materiale del codice, il secondo deve possedere i fondamenti teorico-matematici per garantire la solidità, la correttezza e l'efficienza architetturale del sistema. L'ingegneria del software ha un impatto diretto e "cinetico" sul mondo reale: errori concettuali o di implementazione possono portare a guasti catastrofici. Esempi storici includono il disastro del razzo Ariane 5 nel 1996, causato da un'eccezione software dovuta alla conversione non protetta di un numero in virgola mobile a 64 bit in un intero a 16 bit, o i malfunzionamenti delle macchine per radioterapia Therac-25.
 
   
 
-- **Analisi Lessicale (Lexer):**
-    
-      
-    - L'analizzatore lessicale prende in input il codice sorgente grezzo sotto forma di file di testo e lo converte in una sequenza lineare di elementi strutturati chiamati "token".
-        
-          
-        
-    - Ogni token estratto è un'entità logica composta da un lessema, ovvero l'effettiva stringa di testo individuata, e da un tag (etichetta) che ne specifica la natura semantica, classificandolo ad esempio come un tipo di dato (int), un identificatore di variabile o funzione, un operatore matematico o un segno di interpunzione.
-        
-          
-        
-    - Durante l'elaborazione lessicale, il lexer si occupa di scartare deliberatamente lo spazio bianco (whitespace), le indentazioni, le tabulazioni e i ritorni a capo, poiché tali artefatti visivi servono unicamente a migliorare la leggibilità del codice per l'essere umano, ma non veicolano informazioni rilevanti per la logica di compilazione.
-        
-          
-        
-    - Il risultato finale di questa operazione è una lista sequenziale di token, generata solitamente in memoria, che rappresenta l'input epurato e categorizzato per lo stadio successivo.
-        
-          
-        
-- **Analisi Sintattica (Parser):**
-    
-      
-    - L'analizzatore sintattico prende in consegna la lista lineare generata dal lexer e verifica rigorosamente se la disposizione dei token rispetta la grammatica formale prestabilita del linguaggio di programmazione utilizzato.
-        
-          
-        
-    - La struttura dei linguaggi di programmazione non è lineare ma gerarchica: un intero programma è composto da funzioni, che delimitano blocchi logici, i quali a loro volta aggregano sequenze di istruzioni semplici o composte.
-        
-          
-        
-    - Il compito del parser è trasformare la lista lineare dei token in una struttura ramificata e multidimensionale, definita tecnicamente albero sintattico (o grafo), in cui i singoli nodi astraggono e incapsulano le relazioni gerarchiche tra i costrutti del codice sorgente.
-        
-          
-        
-    - Questa fase di verifica è fondamentale e irrinunciabile, in quanto un insieme di token validi e sintatticamente corretti a livello lessicale potrebbe essere stato disposto in un ordine che non costituisce in alcun modo un programma logicamente sensato per le regole del C++.
-        
-          
-        
-- **Analisi Semantica e Valutazione (Evaluator):**
-    
-      
-    - L'evaluator costituisce il cuore dell'esecuzione, procedendo a visitare sistematicamente l'albero sintattico nodo per nodo per associare a ciascun blocco la sua definizione semantica ed eseguirne le istruzioni computazionali.
-        
-          
-        
-    - Per mantenere la coerenza dello stato del programma, l'evaluator si appoggia a una struttura dati dinamica denominata "symbol table" (tabella dei simboli) per registrare in memoria lo stato e la visibilità degli elementi logici, tenendo traccia delle firme delle funzioni (includendo parametri e tipo di ritorno) e delle allocazioni e assegnazioni delle variabili locali o globali.
-        
-          
-        
-    - Valutando le espressioni aritmetiche, manipolando i blocchi di memoria e calcolando le chiamate a funzione incontrate nell'albero, l'interprete risolve i procedimenti logici e determina l'output o il comportamento finale atteso dal software.
-        
-          
-        
-
-**Alfabeti, Stringhe e Linguaggi** Ogni componente pratica che forma un interprete affonda le proprie basi nell'informatica teorica e nella matematica discreta, materie deputate alla modellazione e alla definizione rigorosa dei linguaggi formali.
+Attualmente, l'automazione della stesura del codice tramite Intelligenza Artificiale (come i Large Language Models) solleva ulteriormente la necessità di una profonda comprensione teorica: nessuna macchina, stante gli attuali modelli di computazione, può dimostrare algoritmicamente e in modo assoluto la correttezza formale del software che essa stessa genera. Lo studio dei limiti della computazione serve esattamente a definire i confini di ciò che è calcolabile, ciò che è intrattabile in tempi ragionevoli e ciò che richiede imperativamente la validazione ingegneristica umana.
 
   
 
-- **Alfabeti:** Un alfabeto, rappresentato formalmente in matematica discreta tramite la lettera greca maiuscola $\Sigma$, è rigorosamente definito come un insieme finito e non vuoto composto da simboli atomici indivisibili. Esempi pratici e ricorrenti di tali alfabeti includono l'alfabeto binario costituito dai soli elementi $\Sigma = \{0, 1\}$, l'elenco sequenziale di tutte le singole lettere dell'alfabeto minuscolo o l'esteso set comprensivo di tutti i caratteri della codifica ASCII.
-    
-      
-    
-- **Stringhe:** Sulla base degli alfabeti è possibile generare le stringhe, definite come sequenze finite di simboli ordinati selezionati dall'alfabeto $\Sigma$ di riferimento.
-    
-      
-    - Un elemento fondamentale dell'informatica teorica è la stringa vuota, che si differenzia per l'assenza totale di simboli al suo interno e viene denotata storicamente con la lettera greca $\epsilon$.
-        
-          
-        
-    - La proprietà dimensionale di una stringa $w$, indicata con la notazione di cardinalità $\vert{}w\vert{}$, si calcola determinando il numero di posizioni occupate dai caratteri, il che implica che la lunghezza della stringa vuota $\epsilon$ sia costantemente pari a 0.
-        
-          
-        
-    - La manipolazione delle stringhe avviene tramite l'operazione di concatenazione insiemistica, che fonde due elementi testuali posizionando la totalità della seconda stringa al termine della prima; in tale operazione, la stringa $\epsilon$ si comporta da elemento neutro o identità, per cui concatenarla a destra o a sinistra di una stringa $x$ restituisce il valore inalterato $x$.
-        
-          
-        
-    - Esiste l'operazione di potenza applicata a un alfabeto, trascritta come $\Sigma^k$, che identifica univocamente l'insieme di cardinalità finita contenente tutte e sole le possibili permutazioni di stringhe aventi l'esatta lunghezza $k$ generate tramite i simboli di $\Sigma$.
-        
-          
-        
-    - L'aggregazione esaustiva di tutte le possibili stringhe generabili a partire da un alfabeto $\Sigma$, includendo di base anche la stringa vuota, viene raggruppata sotto l'operatore matematico asterisco, originando l'insieme infinito $\Sigma^*$ noto come chiusura di Kleene.
-        
-          
-        
-- **Linguaggi:** Partendo da questi assunti, la definizione universale di linguaggio $L$ stabilisce che esso corrisponde a un qualunque sottoinsieme, sia esso proprio o improprio, estratto dall'insieme generatore universale $\Sigma^*$, formalizzabile tramite la dicitura matematica $L \subseteq \Sigma^*$.
-    
-      
-    - Le proprietà di cardinalità permettono l'esistenza di linguaggi composti da un numero strettamente finito di elementi, arrivando ai casi estremi del linguaggio vuoto denotato dal simbolo $\emptyset$, che si caratterizza per non avere alcuna stringa al suo interno e una cardinalità di 0, e il linguaggio unitario composto esclusivamente dalla stringa vuota $\{\epsilon\}$, il quale possiede una cardinalità pari a 1.
-        
-          
-        
-    - Simmetricamente, la maggior parte dei linguaggi interessanti dal punto di vista informatico presenta un numero totalmente infinito di stringhe, sebbene esse siano circoscritte e generate a partire da un set chiuso e strettamente finito di regole costruttive grammaticali. Fanno parte di tale tipologia insiemi complessi come l'insieme di ogni programma C++ sintatticamente immacolato, o linguaggi descrittivi matematici come l'insieme di stringhe binarie dove occorrono quantità identiche di simboli zero e uno.
-        
-          
-        
-    - Sui linguaggi, concepiti matematicamente come insiemi, possono operare logiche e trasformazioni algebriche standard e peculiari, incluse l'unione (la fusione degli elementi di due sottoinsiemi garantendo computatività), la concatenazione (la generazione di nuove stringhe giustapponendo in modo vincolato un prefisso appartenente al primo linguaggio a un suffisso originario del secondo) e la ripetizione indefinita tramite la chiusura di Kleene (l'unione insiemistica di ogni possibile operazione di potenza iterata sul medesimo linguaggio).
-        
-          
-        
+# L'Architettura di un Interprete
 
-**Il Problema della Parola (Word Problem)** Tutte le strutture descritte convergono all'interno dell'assioma del "Word Problem" (il problema dell'appartenenza della parola), la cui risoluzione impone di determinare, in modo algoritmico e in tempi circoscritti, se una specifica stringa arbitraria $w$, facente parte dell'insieme chiusura $\Sigma^*$, sia effettivamente o meno un elemento che compone il linguaggio $L$ in esame. L'intera sovrastruttura applicativa dei software e ogni singola divisione funzionale di un compilatore possono essere matematicamente classificate come risoluzioni in scala di vari "Word Problem" innestati l'uno dentro l'altro:
+L'approccio ingegneristico alla risoluzione di problemi complessi consiste nella scomposizione del problema in sottoproblemi più semplici. La progettazione di un interprete o di un compilatore (un campo di ricerca consolidato da oltre settant'anni) segue esattamente questo principio gerarchico.
 
   
 
-- L'analisi lessicale svolge un "Word Problem" il cui obiettivo è stabilire se stringhe di byte e caratteri ASCII rientrino perfettamente nei limiti del linguaggio delimitante i token corretti, ad esempio discriminando se una combinazione testuale sia un nome ammissibile all'interno del linguaggio isolato degli identificatori di programma.
+Per comprendere il processo di interpretazione, consideriamo un semplice programma scritto in un sottoinsieme del linguaggio C++:
+
+  
+
+
+``` c++
+int f(int x){
+    int y = x * x;
+    return y;
+}
+
+void main(){
+    int z = f(5);
+    printf("Il quadrato di 5 è %d", z);
+    return ;
+}
+```
+
+La trasformazione di questo testo sorgente in un output calcolabile attraversa tre fasi sequenziali e distinte: l'analisi lessicale, l'analisi sintattica e l'analisi semantica (o valutazione).
+
+  
+
+
+
+```
+graph LR
+    A[File Sorgente testuale] -->|Flusso di caratteri| B(Analisi Lessicale<br>Lexer)
+    B -->|Lista lineare di Token| C(Analisi Sintattica<br>Parser)
+    C -->|Albero Sintattico Astratto| D(Analisi Semantica<br>Evaluator)
+    D -->|Esecuzione logica| E[Output]
+```
+
+## 1. Analisi Lessicale (Lexer)
+
+La prima fase elabora il codice sorgente trattandolo come una pura sequenza di caratteri. Il modulo responsabile, chiamato _Lexer_ (Lexical Analyzer), ha due compiti fondamentali:
+
+  
+
+- **Rimozione del rumore:** Elimina lo "spazio bianco", ovvero gli spazi, le tabulazioni e i ritorni a capo, che sono utili alla leggibilità umana ma irrilevanti per la logica della macchina.
     
       
     
-- L'analisi sintattica si configura a propria volta come la medesima famiglia di problemi logici che, modificando il proprio dominio di base assumendo la lista dei token appena creata come alfabeto generativo primitivo, deve discriminare categoricamente se la catena formata da suddetti blocchi token appartenga al linguaggio di proporzioni infinite inglobante ogni programma formalmente valevole secondo il set di direttive della grammatica del codice.
+- **Tokenizzazione:** Raggruppa i caratteri in unità logiche indivisibili chiamate _token_.
     
       
     
-- Le ultime barriere architettoniche e l'analisi semantica sono preposte a sentenziare su linguaggi aventi un grado di ambiguità e una scala concettuale che impongono calcoli estesi, come l'onere di risolvere il word problem volto a sancire la presenza o meno della stringa raffigurante il nome di una variabile prima che ne sia richiesta la computazione dinamica.
+
+Un _token_ è una struttura dati elementare composta tipicamente da due attributi:
+
+  
+
+1. Il **lessema**: la stringa di caratteri effettiva estratta dal codice (es. `int`, `f`, `(`).
     
       
     
-- Lo scibile della computazione artificiale riposa sulla costruzione di meccanismi fisici o matematici (che si estendono dagli automi a stati finiti in possesso di limitatissima memoria per i lexer e i parser, scalando in alto per potenza e capacità descrittiva fino all'apoteosi del modello universale offerto dalla macchina di Turing e dalle architetture dei moderni processori) destinati essenzialmente alla sola mansione di abbattere e calcolare le risposte per i "Word Problem", la cui classificazione stabilisce le basi per la dimostrazione inconfutabile non solo delle enormi facoltà, ma soprattutto dei perentori e invalicabili limiti strutturali presenti in ciascun sistema di calcolo esistente.
+2. Il **tag** (o etichetta): la categoria logica a cui il lessema appartiene.
+    
+      
+    
+
+Ad esempio, l'elaborazione della prima riga `int f(int x) {` produce la seguente sequenza logica:
+
+  
+
+- `(int, tipo)`
+    
+      
+    
+      
+    
+- `(f, id)` (dove `id` sta per identificatore)
+    
+      
+    
+- `(lp)` (left parenthesis - parentesi tonda aperta)
+    
+      
+    
+- `(int, tipo)`
+    
+      
+    
+      
+    
+- `(x, id)`
+    
+      
+    
+      
+    
+- `(rp)` (right parenthesis)
+    
+      
+    
+- `(lb)` (left brace - parentesi graffa aperta)
+    
+      
+    
+
+L'output del Lexer è una lista lineare e sequenziale (o un vettore) di token immagazzinata in memoria. Se il codice sorgente contiene stringhe che non appartengono al vocabolario del linguaggio, l'analisi lessicale fallisce, sollevando un errore.
+
+  
+
+## 2. Analisi Sintattica (Parser)
+
+La lista lineare di token, pur essendo composta da "parole" corrette, non garantisce che la frase abbia un senso strutturale. Ad esempio, la sequenza di token derivata da `void x } ; int (` è lessicalmente valida ma non forma un costrutto C++ ammissibile.
+
+  
+
+L'Analisi Sintattica, delegata a un modulo chiamato _Parser_, ha il compito di verificare se la sequenza di token rispetta le regole grammaticali del linguaggio. Tali regole definiscono una struttura fortemente gerarchica:
+
+  
+
+- Un programma è composto da funzioni.
+    
+      
+    
+- Una funzione è definita da un'intestazione e da un blocco.
+    
+      
+    
+- Un blocco contiene una sequenza di istruzioni.
+    
+      
+    
+
+Formalmente, si stabilisce una grammatica, ad esempio:
+
+  
+
+- `<funzione> := <tipo> <id> lp <param> rp <blocco>`
+    
+      
+    
+      
+    
+- `<blocco> := lb <istruzioni> rb`
+    
+      
+    
+      
+    
+
+Se l'analisi ha successo, il Parser abbandona la struttura lineare della lista per costruire una struttura dati ramificata: l'**Albero Sintattico** (o Grafo Sintattico).
+
+  
+
+Snippet di codice
+
+```
+graph TD
+    Prog[Programma] --> F[Funzione: f]
+    Prog --> M[Funzione: main]
+    F --> Param[Parametri: int x]
+    F --> CorpoF[Corpo]
+    CorpoF --> Ass1[Assegnamento]
+    Ass1 --> Esp1[Espressione: x * x]
+    CorpoF --> Ret1[Return: y]
+    M --> ParamM[Parametri: vuoti]
+    M --> CorpoM[Corpo]
+    CorpoM --> Ass2[Assegnamento]
+    Ass2 --> Esp2[Chiamata: f 5]
+    CorpoM --> Pr[Print]
+```
+
+## 3. Analisi Semantica e Valutazione (Evaluator)
+
+L'ultima fase è l'interpretazione del significato (semantica) e la conseguente esecuzione logica. Il modulo di valutazione (_Evaluator_) opera visitando (ovvero percorrendo sistematicamente) l'albero sintattico. Ad ogni nodo dell'albero viene associata l'azione semantica definita per quel particolare costrutto.
+
+  
+
+Durante questa traversata, l'Evaluator si avvale di una fondamentale struttura dati mantenuta in memoria, denominata **Symbol Table** (Tabella dei Simboli). Quando l'Evaluator visita la definizione della funzione `f`, non ne esegue immediatamente il corpo, ma registra nella Symbol Table il suo nome, i parametri richiesti (`int`) e il tipo di ritorno (`int`).
+
+  
+
+Successivamente, visitando la funzione `main`, incontra l'assegnamento alla variabile `z` tramite la chiamata `f(5)`. L'Evaluator interroga la Symbol Table per recuperare la definizione di `f`, assegna il valore `5` al parametro formale `x`, calcola il risultato del blocco (`5 * 5 = 25`), e infine salva il risultato per stamparlo.
+
+  
+
+> [!important] Definizione: Lexer, Parser ed Evaluator
+> 
+>   
+> 
+> - **Lexer:** converte i caratteri in unità logiche minimali (token). Lavora su strutture lineari.
+>     
+>       
+>     
+> - **Parser:** converte la lista di token in una gerarchia strutturale (albero sintattico) basata su regole grammaticali.
+>     
+>       
+>     
+> - **Evaluator:** esegue il codice percorrendo l'albero sintattico e gestendo lo stato in memoria tramite la Symbol Table.
+>     
+>       
+>     
+
+# Fondamenti Teorici: Alfabeti, Stringhe e Linguaggi
+
+La tecnologia dei compilatori è supportata da una rigorosa modellizzazione matematica. Per capire come un Lexer discrimina un identificatore valido o come un Parser riconosce un costrutto lecito, si ricorre alla teoria dei linguaggi formali.
+
+  
+
+## Alfabeti e Stringhe
+
+- **Alfabeto ($\Sigma$):** Un insieme finito e strettamente non vuoto di simboli.
+    
+      
+    - Esempi: L'alfabeto binario $\Sigma = \{0, 1\}$; l'insieme di tutti i caratteri ASCII.
+        
+          
+        
+- **Stringa:** Una sequenza finita di simboli prelevati da un alfabeto $\Sigma$. Nonostante i simboli appartengano a un set finito, la costruzione della stringa implica un numero finito di occorrenze. Un codice sorgente C++ è, nella sua interezza, una singola, lunga stringa.
+    
+      
+    
+- **Stringa vuota ($\epsilon$):** La stringa definita con zero occorrenze di simboli.
+    
+      
+    
+- **Lunghezza ($\vert{}w\vert{}$):** Il numero di posizioni occupate dai simboli all'interno della stringa $w$. Ad esempio, per la stringa "0110", la lunghezza è $\vert{}0110\vert{} = 4$; per la stringa vuota è $\vert{}\epsilon\vert{} = 0$.
+    
+      
+    
+
+## Potenze di un Alfabeto e Chiusure
+
+Per descrivere insiemi di stringhe, l'informatica teorica introduce l'operatore di potenza:
+
+  
+
+- $\Sigma^k$ denota l'insieme (finito) di tutte le stringhe di esatta lunghezza $k$ componibili con i simboli di $\Sigma$.
+    
+      
+    
+- Esempio: Se $\Sigma = \{0, 1\}$, allora $\Sigma^2 = \{00, 01, 10, 11\}$. La cardinalità in questo caso è $\vert{}\Sigma^2\vert{} = 4$.
+    
+      
+    
+- Per convenzione fondamentale, $\Sigma^0 = \{\epsilon\}$.
+    
+      
+    
+
+Da questo deriviamo due insiemi infiniti cruciali:
+
+  
+
+- La **Chiusura di Kleene (Stella di Kleene):** $\Sigma^*$ è l'insieme (infinito) di _tutte_ le possibili stringhe generabili sull'alfabeto $\Sigma$, inclusa la stringa vuota. $\Sigma^* = \bigcup_{k=0}^{\infty} \Sigma^k$.
+    
+      
+    
+- **Chiusura Positiva:** $\Sigma^+$ è l'insieme di tutte le stringhe generabili escludendo (salvo che non vi rientri in altre forme) la componente nulla isolata. $\Sigma^+ = \bigcup_{k=1}^{\infty} \Sigma^k$. Ne deriva che $\Sigma^* = \Sigma^+ \cup \{\epsilon\}$.
+    
+      
+    
+
+> [!warning] Sezione ricostruita — inizio
+> 
+> (Chiarimento matematico sulla differenza tra chiusura positiva e stella di Kleene).
+> 
+> La relazione $\Sigma^* = \Sigma^+ \cup \{\epsilon\}$ è una delle uguaglianze più fondamentali dell'informatica teorica. Si noti che $\Sigma^+$ non esclude a priori l'utilizzo di un simbolo di stringa vuota _se_ questo facesse parte dell'alfabeto originale, ma la definizione rigorosa impone che l'alfabeto contenga "simboli", mentre $\epsilon$ rappresenta l'assenza di simboli. Dunque $\Sigma^+$ garantisce la presenza di almeno un simbolo formale nella stringa.
+> 
+> [!warning] Sezione ricostruita — fine
+> 
+>   
+
+## I Linguaggi Formali
+
+Un **Linguaggio** $L$, dato un alfabeto $\Sigma$, è un qualsiasi sottoinsieme dell'insieme di tutte le stringhe possibili: $L \subseteq \Sigma^*$. Un linguaggio può essere un set infinito di elementi nonostante l'alfabeto da cui attinge sia strettamente finito. I programmi C++ sintatticamente corretti sono infiniti, ma scaturiscono da un insieme finito di caratteri ASCII e da un set ristretto di regole.
+
+  
+
+Esempi notevoli di linguaggi:
+
+  
+
+- $L_p = \{10, 11, 101, \dots\}$, ovvero l'insieme dei numeri binari il cui valore decimale associato è un numero primo.
+    
+      
+    
+- L'insieme di stringhe costituite da un numero uguale di zero e di uno.
+    
+      
+    
+- $L_\emptyset = \emptyset$: il linguaggio vuoto (non contiene alcuna stringa).
+    
+      
+    
+- $L_\epsilon = \{\epsilon\}$: il linguaggio che contiene esclusivamente la stringa vuota.
+    
+      
+    
+- _Nota Bene:_ Il linguaggio vuoto è strutturalmente diverso dal linguaggio contenente la stringa vuota ($L_\emptyset \neq L_\epsilon$).
+    
+      
+    
+
+### Operazioni sui Linguaggi e Leggi Algebriche
+
+Sui linguaggi è possibile applicare operatori insiemistici e specifici dell'informatica teorica:
+
+  
+
+1. **Unione:** $L \cup M = \{w \mid w \in L \lor w \in M\}$. L'unione è commutativa e associativa.
+    
+      
+    
+2. **Concatenazione:** $L \cdot M = \{w \mid w = xy, x \in L, y \in M\}$. Date le stringhe $x$ e $y$, la concatenazione $xy$ giustappone una copia di $y$ immediatamente dopo $x$.
+    
+      
+    - La concatenazione è associativa, ma **non** commutativa ($L \cdot M \neq M \cdot L$).
+        
+          
+        
+    - È distributiva a destra e a sinistra rispetto all'unione.
+        
+          
+        
+    - L'identità (elemento neutro) della concatenazione è il linguaggio $L_\epsilon = \{\epsilon\}$.
+        
+          
+        
+    - L'elemento assorbente della concatenazione è il linguaggio vuoto $\emptyset$ ($L \cdot \emptyset = \emptyset \cdot L = \emptyset$).
+        
+          
+        
+3. **Potenza di un linguaggio:** $L^0 = \{\epsilon\}$, $L^1 = L$, e ricorsivamente $L^{k+1} = L \cdot L^k$.
+    
+      
+    
+4. **Chiusura di Kleene su linguaggi:** $L^* = \bigcup_{i=0}^{\infty} L^i$. La chiusura è un operatore idempotente, per cui $(L^*)^* = L^*$.
+    
+      
+    - Applicando la chiusura all'insieme vuoto o all'insieme della stringa vuota si ottiene lo stesso risultato: $\emptyset^* = \{\epsilon\}$ e $\{\epsilon\}^* = \{\epsilon\}$.
+        
+          
+        
+
+> [!tip] Approfondimento: Elemento assorbente della concatenazione
+> 
+> Perché $L \cdot \emptyset = \emptyset$? #approfondimento
+> 
+> Per definizione formale di concatenazione, una stringa $w$ appartiene a $L \cdot M$ se e solo se esiste una porzione $x \in L$ e una porzione $y \in M$ tali che $w = xy$. Se $M = \emptyset$, non esiste alcun $y$ prelevabile da $M$. Poiché la proposizione richiede la congiunzione logica (AND) di entrambe le esistenze, l'intera proposizione risulta falsa. Di conseguenza, non si può formare alcuna stringa valida, risultando nell'insieme vuoto. L'approccio deduttivo alla teoria degli insiemi è alla base di queste dimostrazioni (Sipser, _Introduction to the Theory of Computation_).
+> 
+>   
+
+# Il Problema della Parola (Word Problem)
+
+La definizione dei linguaggi introduce il problema centrale dell'informatica teorica: il **Problema della Parola** (Word Problem).
+
+  
+
+**Definizione:** Dato un alfabeto $\Sigma$ e un linguaggio formalmente descritto $L \subseteq \Sigma^*$, verificare se una stringa data $w \in \Sigma^*$ è un elemento appartenente a $L$.
+
+  
+
+Decidere se una stringa appartiene o meno a un linguaggio equivale a processare computazionalmente il problema soggiacente. Se il linguaggio $L_p$ è l'insieme delle stringhe binarie indicanti numeri primi, decidere se la stringa $w \in L_p$ è l'esatto equivalente logico e computazionale di testare se il numero codificato in $w$ è primo. Analogamente per decidere se un numero è pari nel linguaggio delle stringhe binarie a valore pari ($L_e$).
+
+  
+
+La correlazione con le fasi del compilatore studiate precedentemente è diretta e assoluta:
+
+  
+
+- Verificare se una sequenza di caratteri ASCII compone un nome di variabile ammissibile in C++ (linguaggio $L_{id}$) è la soluzione di un Word Problem eseguita dal Lexer.
+    
+      
+    
+- Verificare se una sequenza di token costituisce un programma gerarchicamente conforme alle regole sintattiche del C++ è la soluzione di un Word Problem eseguita dal Parser (dove in questo caso l'alfabeto di partenza è costituito dall'insieme dei token e non dai singoli caratteri).
+    
+      
+    
+- Verificare che una variabile sia stata precedentemente dichiarata prima di essere usata è un'ulteriore iterazione del Word Problem processata nell'Analisi Semantica.
+    
+      
+    
+
+Ogni fase risolve la sua istanza del Word Problem facendo affidamento su specifici modelli di automi computazionali (es. Automi a Stati Finiti per l'analisi lessicale, sistemi computazionali più complessi come la Macchina di Turing per l'analisi semantica) a seconda della potenza espressiva richiesta dal linguaggio che modella il problema. L'intera impalcatura concettuale dell'Informatica risiede nella composizione di questi modelli per risolvere i problemi di appartenenza associati.
