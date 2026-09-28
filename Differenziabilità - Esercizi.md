@@ -22,4 +22,15 @@ $\vec w=(\alpha,\beta)\mskip{24mu}\vec w\ne(0,0)$
 $\displaystyle \frac{\partial f}{\partial \vec w}=\lim\limits_{t\to 0}\frac{f(0+t\vec w)-f(0)}{t}=\frac{\cancel {t^3}}{\cancel {t^3}}\frac{\alpha^2\beta}{\alpha^2+\beta^2}$
 	$\vec x=t\vec w=(t\alpha,t\beta)$
 	$\displaystyle f(0+t\vec w)=\frac{t^2}{(\alpha^2+\beta^2)}$
-$\displaystyle \forall\ \vec w\ne0\ \ \exists \frac{\partial f}{\partial \vec w}\big((0,0)\big)=\frac{\alpha^2\beta}{\alpha^2+\beta^2}$
+$\displaystyle \forall\ \vec w\ne0\ \ \exists \frac{\partial f}{\partial \vec w}(0,0)=\frac{\alpha^2\beta}{\alpha^2+\beta^2}$
+
+Supponiamo che $f(\vec x)$ sia differenziabile in $(0,0)\Rightarrow d_0f|\mathbb R^2\to\mathbb R$
+	$\displaystyle \frac{\partial f}{\partial \vec w}=d_0f\vec w=\nabla f(0,0)\vec w=\frac{\partial f}{\partial x}(0,0)w_1+\frac{\partial f}{\partial y}(0,0)w_2=0 w_1+0w_2=0\Leftarrow\text{Assurdo}$
+
+$f$ differenziabile $\Rightarrow\ f$ derivabile
+
+
+Teorema
+$f:D\subset\mathbb R^n\to\mathbb R$
+$\hat x\in\mathring D$, $\exists\ r>0$ tale che $B(\hat x,r)\subset D$
+Se $f$ ammette derivate parziali in $B(\hat x,r)$ e le derivate parziali sono continue $\Rightarrow\ f$ è differenziabile in $\hat x$
