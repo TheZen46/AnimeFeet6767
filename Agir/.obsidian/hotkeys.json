@@ -1,0 +1,11 @@
+{
+  "unicode-search:search-unicode-chars": [
+    {
+      "modifiers": [
+        "Mod",
+        "Shift"
+      ],
+      "key": "U"
+    }
+  ]
+}
