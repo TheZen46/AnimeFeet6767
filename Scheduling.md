@@ -33,6 +33,19 @@ SJF is **NOT** a pre-emptive algorithm (the process cannot be interrupted)
 
 ### Why is SJF not that great?
 If job A arrives before B and C (say, $T=10$), the average turnaround time will be much higher.
-$\operatorname{avg}\ T_{\text{turnaround}}=\frac{100+(110-10)+(120-10)}{3}=103+\frac13sec$
+$\operatorname{avg}\ T_{\text{turnaround}}=\frac{100+(110-10)+(120-10)}{3}=103.\overline3sec$
 
 ## STCF
+Also knows as **Pre-emptive Shortest Job First (PSJF)**
+Add pre-emption to SJF (processes can now be interrupted)
+A new job enters the system:
+- Determine of the remaining jobs and new job
+- Schedule the job which has the lest time left
+
+Example:
+- A arrives at t=0 and needs to run for 100 seconds.
+- B and C arrive at t=10 and each need to run for 10 seconds
+$\operatorname{avg}\ T_{\text{turnaround}}=\frac{100+(20-10)+(30-10)}{3}=50sec$
+
+# Response time
+The time from when the job arrives to the first time it is scheduled    $T_{\text{response}}=T_{\text{firstrun}}-T_{\text{arrival}}$
