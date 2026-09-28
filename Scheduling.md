@@ -68,3 +68,27 @@ Short time-slices:
 Long time-slices:
 - Amortize the cost of switching
 - Worse response time
+
+# Multi-Level Feedback Queue
+A Scheduler that learns from the past to predict the future.
+Objective:
+- Optimize turnaround time $\rightarrow$ Run shorter jobs first
+- Minimize response time without a priori knowledge of job length.
+
+MLFQ has a number of distinct queues.
+- Each queues is assigned a different priority level.
+A job that is ready to run is on a single queue.
+- A job on a higher queue is chosen to run.
+- Use round-robin scheduling among jobs in the same queue
+$\boxed{\begin{array}{c}&\text{Rule 1:}&\text{If Priority(A) > Priority(B), A runs (B doesn’t).}&\\&\text{Rule 2:}&\text{If Priority(A) = Priority(B), A \& B run in RR.}&\end{array}}$
+
+MLFQ varies the priority of a job based on its observed behavior.
+Example:
+- A job repeatedly relinquishes the CPU while waiting IOs $\rightarrow$ Keep its priority high
+- A job uses the CPU intensively for long periods of time $\rightarrow$ Reduce its priority.
+
+## Priority adjustment algorithm
+Rule 3: When a job enters the system, it is placed at the highest priority.
+Rule 4a: If a job uses up an entire time slice while running, its priority is reduced (i.e., it moves down on queue).
+Rule 4b: If a job gives up the CPU before the time slice is up, it stays at the same priority level.
+In this manner, MLFQ approximates SJF
