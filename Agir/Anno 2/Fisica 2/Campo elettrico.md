@@ -82,3 +82,4 @@ $\displaystyle \sigma=\bigr[\frac Q{L^2}\bigr]=\frac{Q}{A}$
 Particella $P$ in $C$, elevata di $Z$
 
 $\displaystyle d\sigma=\frac{dq}{dA}$
+$\displaystyle |dE_z|=k\frac{dq\ Z}{}$
