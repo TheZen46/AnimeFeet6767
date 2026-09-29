@@ -42,3 +42,11 @@ $\underline b<b<\overline b$
 
 Se consideriamo la funzione $g(x_1,x_2)=a_1x_1+a_2x_2$
 Il vettore $a=\pmatrix{a_1\\a_2}$ ci indica la direzione (e gli insiemi di livello di $g$ sono rette parallele alla forma $a_1x_1+a_2x_2=b$)
+
+$\cases{x_1\ge\frac12\\2x_1+x_2\ge3\\x_1+2x_2\ge3\\x_2\ge0}$
+
+Con queste condizioni, tracciamo i vincoli su un piano
+Appaiono $3$ intersezioni tra vincoli
+$\matrix{A=(\frac12,2)\\B=(1,1)\\C=(3,0)}$
+
+## Soluzione
