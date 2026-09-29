@@ -14,7 +14,7 @@ $\displaystyle \lim\limits_{x\to\hat x}\frac{o(\Vert\vec x-\hat{\vec x}\Vert)}{\
 $\phi\vec h= d_{\hat x}f\vec h$
 $\vec h\in\mathbb R^n$ lineare
 
-$\left.\overbrace{\begin{pmatrix}&&&&\\&&&&\\&&&&\end{pmatrix}}^{n}\right\}m$
+$\overbrace{\begin{pmatrix}&&&&\\&&&&\\&&&&\end{pmatrix}}^{n}\left.\array{\\\\\\}\right\}m$
 
 La matrice che descrive $d_{\hat x}f$ è detta Jacobiana
 $\displaystyle J_{\hat x}f=\begin{pmatrix}\frac{\partial f_1}{\partial x_1}&\frac{\partial f_1}{\partial x_2}&&\frac{\partial f_1}{\partial x_n}\\\frac{\partial f_2}{\partial x_1}&\frac{\partial f_2}{\partial x_2}&&\frac{\partial f_2}{\partial x_n}\\\\\frac{\partial f_m}{\partial x_1}&\frac{\partial f_m}{\partial x_2}&&\frac{\partial f_m}{\partial x_n}\end{pmatrix}$
