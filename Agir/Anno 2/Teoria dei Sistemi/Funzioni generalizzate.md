@@ -47,6 +47,6 @@ $1(t-T_1)-1(t-T_2)=\begin{cases}0&(-\infty,T_1)\cup(T_2,+\infty)\\1&(T_1,T_2)\en
 
 
 Funzione con $cos(x)$ da $0$ a $\frac\pi 2$, e una retta con coefficiente $\frac{1}{4-\pi}$ da $\pi$ a $4$
-$\displaystyle f(t)=cos(t)\left[1(t)-1(t-\frac\pi2)\right]+\frac{1}{4-\pi}\left[1(t-\pi)-1(t-4)\right]$
+$\displaystyle f(t)=cos(t)\left[1(t)-1(t-\frac\pi2)\right]+\frac{1}{4-\pi}(t-\pi)\left[1(t-\pi)-1(t-4)\right]$
 
 $\displaystyle\dot f(t)=-\sin(t)\left[1(t)-1(t-\frac\pi2)\right]+\cos(t)\left[\delta(t)-\delta(t-\frac\pi2)\right]+\frac{1}{4-\pi}\left[1(t)-1(t-\frac\pi2)\right]+\frac{1}{4-\pi}(t-\pi)\left[\delta(t)-\delta(t-\frac\pi2)\right]=-\sin(t)\left[1(t)-1(t-\frac\pi2)\right]+\delta(t)+\frac{1}{4-\pi}\left[1(t)-1(t-\frac\pi2)\right]-\frac{1}{\cancel{4-\pi}}\cancel{4-\pi}\delta(t-4)$
