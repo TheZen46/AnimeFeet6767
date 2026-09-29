@@ -4,7 +4,7 @@ $\displaystyle\mathcal L\left\{f(t)\right\}=F(s)=\int_{0^-}^\infty f(t)e^{-st}dt
 $\displaystyle s=\sigma+j\omega=\int_{0^-}^{\infty}f(t)e^{-j\omega t}e^{-\sigma t}$
 
 # Proprietà
-$\mathcal L\left\{\alpha f+\beta f_2\right\}=\alpha F(s)+\beta F_2(s)$
+$\mathcal L\left\{\alpha f_1+\beta f_2\right\}=\alpha F_1(s)+\beta F_2(s)$
 $\displaystyle\mathcal L\left\{f(t)g(t)\right\}\neq F(s)G(s)$
 $\mathcal L\left\{\dot f(t)\right\}=sF(s)-f(0^-)$
 $\displaystyle\mathcal L\left\{\int_{0^-}^t f(\tau)d\tau\right\}=\frac1s F(s)$
