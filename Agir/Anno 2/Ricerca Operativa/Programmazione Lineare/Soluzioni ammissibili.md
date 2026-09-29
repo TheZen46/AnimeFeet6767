@@ -53,7 +53,7 @@ $x_1\ge0,x_2\ge0,x_3\ge0$
 | $\overset3C$    | $16$         | $81$         | $10$         |     | $5$                            |
 |                 |              |              |              |     |                                |
 | $\text{Prezzo}$ | $1\ 000$     | $1\ 500$     | $2\ 200$     |     |                                |
-### Variabili-
+### Variabili
 $x_{ij}:\ n\text{ di auto di tipo }j\text{ prodotte dal reparto }i\mskip{28mu}i=\underset1A,\underset2B,\underset3C\mskip{12mu}j=\underset1E,\underset2N,\underset3L$
 
 ### Funzione obiettivo
