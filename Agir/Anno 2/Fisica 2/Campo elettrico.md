@@ -27,3 +27,58 @@ $\displaystyle E=\underbrace{K\frac{q}{(Z-\frac d2)^2}}_{E_+}-\underbrace{K\frac
 
 $z\gg d$
 $p=qd\leftarrow\text{momento di dipolo elettrico}$
+
+
+# Anello
+$\text{raggio }R\text{ in centro }C$
+$\text{densità di carica }\lambda$
+$\displaystyle \lambda=\bigr[\frac QL\bigr]$
+
+Particella $P$ in $C$, elevata di $Z$
+
+$\displaystyle \text{Un segmento }ds\text{ ha carica dq (se omogenea). Se l'elemento è sufficientemente piccolo, }|dE|=k\frac{dq}{r^2}\Rightarrow\text{se uniforme }\frac{Q_{tot}}{S_{tot}}$
+$dq=\lambda ds$
+
+$\vec {PR}=\sqrt{\vec{PR}^2+\vec {CR}^2}=\sqrt{Z^2+R^2}$
+$\displaystyle |k|=k\frac{ds}{r^2}=k\frac{\lambda ds}{R^2+Z^2}$
+
+$\displaystyle dE_z=|dE|\cos\theta=K\lambda\frac{ds}{R^2+Z^2}\cos\theta=K\lambda\frac{ds}{R^2+Z^2}\frac{Z}{\underbrace{\bigl(R^2+Z^2\bigr)^{1/2}}_{r}}=k\lambda\frac{dsZ}{\bigl(R^2+Z^2\bigr)^{3/2}}$
+$\displaystyle F_z=\int dE_z=\int\frac{k\ \lambda\ dsZ}{\bigl(R^2+Z^2\bigr)^{3/2}}=\frac{k\ \lambda\ Z}{\bigl(R^2+Z^2\bigr)^{3/2}}\int_0^{\pi/2} ds=\frac{k\ \lambda Z\ 2\pi R}{\bigl(R^2+Z^2\bigr)^{3/2}}$
+$\displaystyle \lambda=\frac{Q_{tot}}{2\pi R}\mskip{24mu}2\pi R\lambda=Q_{tot}$
+$\displaystyle E_z=K\frac{Q_{tot}z}{\bigl(R^2+Z^2\bigr)^{3/2}}$
+
+$Z\gg R\Rightarrow Z^2\gg R^2$
+$R^2+Z^2\simeq Z^2$
+$\displaystyle E_z\simeq k\frac{Q_{tot}Z}{\bigl(Z^{\cancel 2})^{\frac 3{\cancel 2}}}=k\frac{Q_{tot}\cancel Z}{Z^{\cancel 3 2}}=k\frac{Q_{tot}}{Z^2}$
+
+
+
+
+Arco di circonferenza di $120\degree$
+$Q_{tot}=-Q$
+$r$
+$\varphi=60\deg$
+Campo elettrico nel centro della circonferenza
+
+$ds\to dq$
+$\displaystyle |dE|=K\frac{dq}{r^2}=k\frac{\lambda\ ds}{r^2}$
+$dq=\lambda\ ds$
+
+$\displaystyle dE_x=|dE|\cos\theta=k\ \lambda\frac{ds}{r^2}\cos\theta$
+
+$r\sin\theta=s\Rightarrow r\theta=s\mskip{12mu}\sin\theta\simeq\theta$
+$r\ d\theta=ds$
+
+$\displaystyle dE_x=k\lambda\frac{\cancel r}{r^{\cancel 2}}\cos\theta\ d\theta=\frac{k\lambda}{r}\cos\theta\ d\theta$
+$\displaystyle E_x=\int dE_x=\int_{-60\degree}^{60\degree}\frac{k\lambda}{r}\cos\mskip{-2mu}\theta\ d\theta=\frac{k\lambda}{r}\int_{-60\degree}^{60\degree}\cos\mskip{-2mu}\theta\ d\theta=\frac{k\lambda}{r}\Bigl[\sin\mskip{-2mu}\theta\Bigr]_{-60\degree}^{60\degree}=\frac{k\lambda}{r}\ 2\sin\mskip{-2mu}\theta=\frac{k\lambda}{r}\frac{\cancel 2\sqrt 3}{\cancel 2}=\sqrt3\frac{k\lambda}{r}$
+
+
+
+# Cerchio
+$\text{raggio }R\text{ in centro }C$
+$\text{densità di carica }\sigma$
+$\displaystyle \sigma=\bigr[\frac Q{L^2}\bigr]=\frac{Q}{A}$
+
+Particella $P$ in $C$, elevata di $Z$
+
+$\displaystyle d\sigma=\frac{dq}{dA}$
