@@ -82,4 +82,22 @@ $\displaystyle \sigma=\bigr[\frac Q{L^2}\bigr]=\frac{Q}{A}$
 Particella $P$ in $C$, elevata di $Z$
 
 $\displaystyle d\sigma=\frac{dq}{dA}$
-$\displaystyle |dE_z|=k\frac{dq\ Z}{}$
+$\displaystyle |dE_z|=k\frac{dq\ Z}{\bigl(Z^2+r^2\bigr)^{3/2}}$
+
+$dq=6dA$
+
+Si prende un anello interno al cerchio, lasciando tra i due $dr$ distanza
+
+$A=\pi r^2$
+$dA=2r\ \pi\ dr$
+
+$dq=\sigma\ 2\pi r\ di$
+
+$\displaystyle |dE|=k\frac{\sigma\ Z}{\bigl(Z^2+r^2\bigr)^{3/2}}2\pi r\ dr$
+
+$\displaystyle P=\int dE=\int_0^Rk\sigma Z\frac{2\pi r}{\bigl(Z^2+r^2\bigr)^{3/2}}dr=\pi k \sigma Z\int_0^R \frac{2\pi}{\bigl(Z^2+r^2\bigr)^{3/2}}dr$
+	$x=r^2+Z^2\Rightarrow r^2=x-Z^2\Rightarrow 2rdr=dx$
+	$\displaystyle \int\frac{2\pi}{\bigl(Z^2+r^2\bigr)^{3/2}}dr\Rightarrow\int \frac{1}{x^{3/2}}dx=\Bigl[x^{-1/2}\Bigr]\Rightarrow$
+$\displaystyle \pi k \sigma Z$
+
+$E=2\pi k\sigma z\Bigl(\frac{1}{\sqrt{R^2+Z^2}}-\frac1Z\Bigr)=$
