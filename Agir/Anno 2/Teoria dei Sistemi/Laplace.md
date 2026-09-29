@@ -26,3 +26,13 @@ $\displaystyle \mathcal L\{te^{at}\sin(\omega t)\}=\frac{2(s-a)\omega}{[(s-a)^2+
 
 $\mathcal L\{\delta_k(t)\}=s^k$
 $\mathcal L\{t \}$
+
+
+
+$f(t)\to F(s)=\frac ND$
+$\displaystyle \mathcal L\{tf(t)\}=-\frac d{ds}\frac ND=-\frac{N'D-D'N}{D^2}$
+
+$f(t)\to F(s)=\frac N{D^\alpha}$
+$\displaystyle \mathcal L\{tf(t)\}=-\frac d{ds}\frac N{D^\alpha}=-\frac{N'D^\alpha-\alpha D^{\alpha-1}D'N}{D^{2\alpha}}=-\frac{D^{\alpha-1}(N'D-\alpha D'N)}{D^{2\alpha}}=\frac{\varphi}{D^{\alpha+1}}$
+$\mathcal L\{e^{a(t-T)\cos\omega(t-T)1(t-T)}\}=e^{-sT}\frac{s-a}{(s-a)^2+\omega^2}$
+$\displaystyle \mathcal L\{1(t-3)+\delta(t)+t1(t)\}=\underbrace{\mathcal L\{1(t-3)\}}_{\ \ 1/s}+\underbrace{\mathcal L\{\delta(t)\}}_{1}+\underbrace{\mathcal L\{t1(t)\}}_{1/s^2}=\frac{se^{-3s}+s^2+1}{s^2}=1+\frac{se^{-3s}+1}{s^2}$
