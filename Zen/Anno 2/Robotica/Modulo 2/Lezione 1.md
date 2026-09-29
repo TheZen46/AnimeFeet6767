@@ -125,15 +125,14 @@ Quando anche la mappa è ignota, il problema diventa **SLAM (Simultaneous Locali
 
   
 
-> [!tip] Approfondimento #approfondimento Lo sviluppo dello SLAM e del filtro a particelle ha sbloccato la robotica negli anni 2000, culminando poi nella necessità di standardizzare il software. Nel 2010 nasce **ROS (Robot Operating System)**, un framework basato su nodi (processi indipendenti) che comunicano tramite messaggi. Questo ecosistema open-source ha permesso ai ricercatori di smettere di "reinventare la ruota" (driver, matrici matematiche) per focalizzarsi sull'algoritmica avanzata, rendendo possibile l'integrazione di sensori ad alta densità come i LIDAR (sebbene accecati dai vetri) e l'evoluzione della percezione profonda (Deep Learning, es. algoritmo YOLO per il rilevamento real-time).
+> [!tip] Approfondimento #approfondimento 
+> Lo sviluppo dello SLAM e del filtro a particelle ha sbloccato la robotica negli anni 2000, culminando poi nella necessità di standardizzare il software. Nel 2010 nasce **ROS (Robot Operating System)**, un framework basato su nodi (processi indipendenti) che comunicano tramite messaggi. Questo ecosistema open-source ha permesso ai ricercatori di smettere di "reinventare la ruota" (driver, matrici matematiche) per focalizzarsi sull'algoritmica avanzata, rendendo possibile l'integrazione di sensori ad alta densità come i LIDAR (sebbene accecati dai vetri) e l'evoluzione della percezione profonda (Deep Learning, es. algoritmo YOLO per il rilevamento real-time).
 > 
 >   
 
 # Cinematica e Odometria della Guida Differenziale
 
 Passando dalla teoria generale all'implementazione fisica, il primo passo è comprendere come si modella matematicamente il movimento di una piattaforma robotica. Il modello più comune e studiato, in quanto semplice ma emblematico del problema dell'autonomia, è il **robot a guida differenziale**.
-
-  
 
 ## Geometria e Modello di Stato
 
@@ -168,7 +167,8 @@ I parametri costruttivi della macchina sono esclusivamente geometrici:
       
     
 
-> [!important] Il concetto di "Raggio Efficace" Nella pratica, non si usano quasi mai i raggi nominali da libretto di istruzioni. Le ruote reali possono essere leggermente sgonfie, usurate, o gravate dal carico in modo asimmetrico. Se $r_L \neq r_R$, imponendo ai motori la stessa velocità angolare, il robot non andrà dritto ma devierà costantemente (bias laterale). Usare i parametri "efficaci" (calibrati) è essenziale per limitare gli errori sistematici.
+> [!important] Il concetto di "Raggio Efficace" 
+> Nella pratica, non si usano quasi mai i raggi nominali da libretto di istruzioni. Le ruote reali possono essere leggermente sgonfie, usurate, o gravate dal carico in modo asimmetrico. Se $r_L \neq r_R$, imponendo ai motori la stessa velocità angolare, il robot non andrà dritto ma devierà costantemente (bias laterale). Usare i parametri "efficaci" (calibrati) è essenziale per limitare gli errori sistematici.
 > 
 >   
 
