@@ -1,14 +1,14 @@
-| Simbolo                       | Significato                         | Unità |
-| ----------------------------- | ----------------------------------- | ----- |
-| $x, y$                        | Coordinate del punto di riferimento |       |
-| $\theta$                      | Orientamento del robot              |       |
-| $r_L,r_R$                     | Raggi efficaci delle ruote motrici  |       |
-| $b$                           | Distanza efficace fra le ruote      |       |
-| $\varphi_L,\varphi_R$         | Angoli di rotazione delle ruote     |       |
-| $\dot\varphi_L,\dot\varphi_R$ |                                     |       |
-| $v$                           |                                     |       |
-| $\omega=\dot\theta$           |                                     |       |
-| $\delta t$                    |                                     |       |
+| Simbolo                       | Significato                         | Unità   |
+| ----------------------------- | ----------------------------------- | ------- |
+| $x, y$                        | Coordinate del punto di riferimento | $m$     |
+| $\theta$                      | Orientamento del robot              | $rad$   |
+| $r_L,r_R$                     | Raggi efficaci delle ruote motrici  | $m$     |
+| $b$                           | Distanza efficace fra le ruote      | $m$     |
+| $\varphi_L,\varphi_R$         | Angoli di rotazione delle ruote     | $rad$   |
+| $\dot\varphi_L,\dot\varphi_R$ | Velocità angolare delle ruote       | $rad/s$ |
+| $v$                           | Velocità longitudinale              | $m/s$   |
+| $\omega=\dot\theta$           | Velocità angolare dl corpo          | $rad/s$ |
+| $\delta t$                    | Periodo di campionamento            | $s$     |
 
 Corpo rigido: 3 gradi di libertà ($x,y,\theta$)
 $Q=\left[x\ \ y\ \ \theta\right]^T\mskip{18mu}^B\xi=\left[v\ \ 0\ \ \omega\right]^T$
