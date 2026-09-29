@@ -42,4 +42,3 @@ $\underline b<b<\overline b$
 
 Se consideriamo la funzione $g(x_1,x_2)=a_1x_1+a_2x_2$
 Il vettore $a=\pmatrix{a_1\\a_2}$ ci indica la direzione (e gli insiemi di livello di $g$ sono rette parallele alla forma $a_1x_1+a_2x_2=b$)
-
