@@ -84,7 +84,8 @@ Come reazione a questa inefficienza, negli anni '80 nacque il paradigma **Reatti
 
   
 
-> [!important] Il fallimento dei modelli puri e la sintesi ibrida Sebbene velocissimo, un sistema puramente reattivo soffre di miopia: i campi di potenziale si incastrano nei minimi locali e l'architettura _Subsumption_ non permette di pianificare compiti complessi a lungo termine. La soluzione adottata universalmente oggi è l'**Architettura Ibrida a tre livelli**, che separa il problema su scale temporali differenti.
+> [!important] Il fallimento dei modelli puri e la sintesi ibrida 
+> Sebbene velocissimo, un sistema puramente reattivo soffre di miopia: i campi di potenziale si incastrano nei minimi locali e l'architettura _Subsumption_ non permette di pianificare compiti complessi a lungo termine. La soluzione adottata universalmente oggi è l'**Architettura Ibrida a tre livelli**, che separa il problema su scale temporali differenti.
 > 
 >   
 
