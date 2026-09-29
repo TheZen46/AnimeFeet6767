@@ -28,7 +28,8 @@ Parallelamente, il sistema operativo gestisce la virtualizzazione della memoria.
 
   
 
-> [!important] Definizione: Time Sharing Il sistema operativo condivide la CPU fisica attraverso una tecnica chiamata **time sharing** (condivisione del tempo). Consiste nell'eseguire un processo per un breve lasso di tempo, fermarlo, e mandarne in esecuzione un altro, promuovendo così l'illusione che esistano molte CPU virtuali. Il costo potenziale di questa operazione è legato alle prestazioni, a causa del tempo speso per effettuare il cambio di contesto (context switch).
+> [!important] Definizione: Time Sharing 
+> Il sistema operativo condivide la CPU fisica attraverso una tecnica chiamata **time sharing** (condivisione del tempo). Consiste nell'eseguire un processo per un breve lasso di tempo, fermarlo, e mandarne in esecuzione un altro, promuovendo così l'illusione che esistano molte CPU virtuali. Il costo potenziale di questa operazione è legato alle prestazioni, a causa del tempo speso per effettuare il cambio di contesto (context switch).
 > 
 >   
 
@@ -103,9 +104,7 @@ La creazione di un processo segue passaggi rigorosi orchestrati dal sistema oper
 5. **Avvio:** Il sistema operativo trasferisce il controllo della CPU al processo appena creato, avviando l'esecuzione a partire dal punto d'ingresso `main()`.
     
       
-    
 
-Snippet di codice
 
 ```
 block-beta
@@ -129,7 +128,8 @@ block-beta
   Disco --> DatiStatici
 ```
 
-> [!tip] #approfondimento Lo schema di organizzazione della memoria del processo è standardizzato in modo da separare le aree che crescono dinamicamente. Posizionando l'Heap nella parte superiore (dopo codice e dati statici) in modo che cresca verso il basso, e lo Stack nella parte inferiore in modo che cresca verso l'alto, il sistema operativo massimizza lo spazio contiguo a disposizione per l'allocazione dinamica della memoria, minimizzando il rischio che le due aree entrino in collisione precocemente.
+> [!tip] #approfondimento 
+> Lo schema di organizzazione della memoria del processo è standardizzato in modo da separare le aree che crescono dinamicamente. Posizionando l'Heap nella parte superiore (dopo codice e dati statici) in modo che cresca verso il basso, e lo Stack nella parte inferiore in modo che cresca verso l'alto, il sistema operativo massimizza lo spazio contiguo a disposizione per l'allocazione dinamica della memoria, minimizzando il rischio che le due aree entrino in collisione precocemente.
 > 
 >   
 
@@ -138,8 +138,6 @@ block-beta
 Durante il suo ciclo di vita, dal punto di vista del processore, un processo attraversa diversi stati operativi.
 
   
-
-Snippet di codice
 
 ```
 stateDiagram-v2
@@ -286,7 +284,8 @@ Se il sistema operativo opta per la sostituzione, esegue un **Context Switch** (
       
     
 
-> [!important] La temporizzazione e il timer interrupt sono gli elementi cardine che prevengono la monopolizzazione della CPU, garantendo che lo scheduler venga invocato e, conseguentemente, operi lo switch di contesto mantenendo attiva l'illusione della concorrenza. Qualora, durante la gestione di un interrupt, ne insorga un altro, il sistema operativo interviene o disabilitando la gestione dei nuovi interrupt provvisoriamente, o sfruttando sofisticati schemi di locking.
+> [!important] ☻
+> La temporizzazione e il timer interrupt sono gli elementi cardine che prevengono la monopolizzazione della CPU, garantendo che lo scheduler venga invocato e, conseguentemente, operi lo switch di contesto mantenendo attiva l'illusione della concorrenza. Qualora, durante la gestione di un interrupt, ne insorga un altro, il sistema operativo interviene o disabilitando la gestione dei nuovi interrupt provvisoriamente, o sfruttando sofisticati schemi di locking.
 > 
 >   
 
@@ -358,9 +357,9 @@ Se la `fork()` crea solo un duplicato, come si fa a far eseguire al sistema un p
 > 
 >   
 > 
-> C
 > 
-> ```
+> 
+> ``` c
 > #include <stdio.h>
 > #include <stdlib.h>
 > #include <unistd.h>

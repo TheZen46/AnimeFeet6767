@@ -77,7 +77,8 @@ La rappresentazione visiva diretta di tale grafico è fisicamente possibile solo
       
     
 
-> [!example] Campo Vettoriale Si consideri la funzione $f(x_1, x_2) = (-x_2, x_1)$. Questa mappa prende un punto nel piano e gli associa un vettore ruotato di 90 gradi rispetto al vettore posizione originale. Disegnando questo campo, si ottiene un pattern di frecce circolari attorno all'origine, tipico della rappresentazione di moti di fluidi o atmosfere.
+> [!example] Campo Vettoriale 
+> Si consideri la funzione $f(x_1, x_2) = (-x_2, x_1)$. Questa mappa prende un punto nel piano e gli associa un vettore ruotato di 90 gradi rispetto al vettore posizione originale. Disegnando questo campo, si ottiene un pattern di frecce circolari attorno all'origine, tipico della rappresentazione di moti di fluidi o atmosfere.
 > 
 >   
 
@@ -157,7 +158,8 @@ In una dimensione, l'esistenza della derivata garantisce la continuità della fu
 
   
 
-> [!tip] #approfondimento Relazione tra derivabilità e continuità A differenza di quanto avviene in $\mathbb{R}$, in $\mathbb{R}^n$ l'esistenza delle derivate parziali in un punto non implica la continuità della funzione in quel punto. Ad esempio, la funzione $f(x,y) = \frac{xy}{x^2+y^2}$ per $(x,y) \neq (0,0)$ e $f(0,0)=0$, ha derivate parziali nulle nell'origine, ma non è continua, poiché avvicinandosi all'origine lungo la bisettrice $y=x$ il limite vale $1/2 \neq 0$. Serve un concetto di regolarità più "forte".
+> [!tip] #approfondimento Relazione tra derivabilità e continuità 
+> A differenza di quanto avviene in $\mathbb{R}$, in $\mathbb{R}^n$ l'esistenza delle derivate parziali in un punto non implica la continuità della funzione in quel punto. Ad esempio, la funzione $f(x,y) = \frac{xy}{x^2+y^2}$ per $(x,y) \neq (0,0)$ e $f(0,0)=0$, ha derivate parziali nulle nell'origine, ma non è continua, poiché avvicinandosi all'origine lungo la bisettrice $y=x$ il limite vale $1/2 \neq 0$. Serve un concetto di regolarità più "forte".
 > 
 >   
 
