@@ -18,7 +18,7 @@ Diciamo che:
 - Il vincolo è attivo in $\overline x$ se $g(\overline x)=b$
 - Il vincolo è ridondante se si può eliminare senza cambiare l'insieme $S$
 
-## Modelli di allocazione ottima di risorse
+## Modelli di allocazione ottima di risorse scarse
 Azienda automobilistica produce $3$ modelli: economica, normale, lusso
 (Minuti impiegate in ogni reparto per produzione)
 
@@ -53,7 +53,7 @@ $x_1\ge0,x_2\ge0,x_3\ge0$
 | $\overset3C$    | $16$         | $81$         | $10$         |     | $5$                            |
 |                 |              |              |              |     |                                |
 | $\text{Prezzo}$ | $1\ 000$     | $1\ 500$     | $2\ 200$     |     |                                |
-### Variabili
+### Variabili-
 $x_{ij}:\ n\text{ di auto di tipo }j\text{ prodotte dal reparto }i\mskip{28mu}i=\underset1A,\underset2B,\underset3C\mskip{12mu}j=\underset1E,\underset2N,\underset3L$
 
 ### Funzione obiettivo
@@ -93,3 +93,4 @@ $\cases{\max C^Tx\\Ax\le b\\x\ge 0}$
 $x\in\mathbb R^n$
 
 $m+n\text{ vincoli lineari}$
+
