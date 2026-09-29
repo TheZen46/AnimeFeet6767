@@ -37,4 +37,8 @@ $A=\pmatrix{140&0\\20&10\\25&50\\0&1}$
 $b=\pmatrix{70\\30\\75\\0}$
 
 Retta: $a_1x_1+a_2x_2=b$
-S
+Semipiani (chiusi): $\array{a_1x_1+a_2x_2\ge b\Leftarrow \underline b\\a_1x_1+a_2x_2\le b\Leftarrow \overline b}$
+$\underline b<b<\overline b$
+
+Se consideriamo la funzione $g(x_1,x_2)=a_1x_1+a_2x_2$
+Il vettore $a=\pmatrix{a_1\\a_2}$ ci indica la direzione (e gli insiemi di livello di $g$ sono rette parallele alla forma $a_1x_1+a_2x_2=b$)
