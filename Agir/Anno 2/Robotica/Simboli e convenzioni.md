@@ -25,3 +25,8 @@ $v=\frac{v_R+v_L}{2}=\frac{r_R\dot\varphi_R+r_L\dot\varphi_L}{2}$
 $\omega=\frac{v_R-v_L}{b}=\frac{r_R\dot\varphi_R-r_L\dot\varphi_L}{b}$
 
 ${v\\\omega}0=$
+
+
+# Encoder
+$\Delta c=c_k-c_{k-1}$
+$\Delta c\leftarrow\big((\Delta c+\frac M2)\mod M\big)-\frac M2$
