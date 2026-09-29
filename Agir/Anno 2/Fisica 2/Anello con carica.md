@@ -20,3 +20,20 @@ $Z\gg R\Rightarrow Z^2\gg R^2$
 $R^2+Z^2\simeq Z^2$
 $\displaystyle E_z\simeq k\frac{Q_{tot}Z}{\bigl(Z^{\cancel 2})^{\frac 3{\cancel 2}}}=k\frac{Q_{tot}\cancel Z}{Z^{\cancel 3 2}}=k\frac{Q_{tot}}{Z^2}$
 
+
+
+
+Arco di circonferenza di $120\degree$
+$Q_{tot}=-Q$
+$r$
+$\varphi=60\deg$
+Campo elettrico nel centro della circonferenza
+
+$ds\to dq$
+$\displaystyle |dE|=K\frac{dq}{r^2}=k\frac{\lambda\ ds}{r^2}$
+$dq=\lambda\ ds$
+
+$\displaystyle dE_x=|dE|\cos\theta=k\ \lambda\frac{ds}{r^2}\cos\theta$
+$ds=rd\theta$
+$r\sin\theta=s\Rightarrow r\theta=s\mskip{12mu}\sin\theta\simeq\theta$
+$r\ d\theta=ds$
