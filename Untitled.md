@@ -10,13 +10,31 @@ $\text{Vincoli sulle quantità di vitamina C, sali minerali, zucchero}$
 | $\text{Costo}$    | $\text{€}4$    | $\text{€}6$           |
 ### Vincoli
 Succo contiene:
-	$\le70mg\text{ vitamina C}$
-	$\le30\text{mg sali minerali}$
-	$\le75\text{g zucchero}$
+	$\ge70mg\text{ vitamina C}$
+	$\ge30\text{mg sali minerali}$
+	$\ge75\text{g zucchero}$
 $\min\text{ costo}$?
+
+### Funzione obiettivo
+$f(x,y)=4x_1+6x_2$
 
 ### Variabili
 $x_1=\text{quantità di polpa }(x_1\cdot 100\text{g})$
 $x_2=\text{quantità di dolcificante }(x_2\cdot 100\text{g})$
 
-$\displaystyle \begin{array}{l}\frac{140x_1}{x_1+x_2}\le 70\rightarrow\frac{x_1}{x_1+x_2}\le\frac12\rightarrow1+\frac{x_2}{x_1}\ge2\rightarrow x_2\ge x_\\\frac{20x_1+10x_2}{x_1+x_2}\le 30\\\frac{25x_1+50x_2}{x_1+x_2}\le 75\end{array}$
+### Vincoli
+$\displaystyle \begin{array}{l}\frac{140x_1}{x_1+x_2}\ge 70\rightarrow\frac{x_1}{x_1+x_2}\ge\frac12\rightarrow1+\frac{x_2}{x_1}\le2\rightarrow x_2\le x_1\\\frac{20x_1+10x_2}{x_1+x_2}\ge 30\\\frac{25x_1+50x_2}{x_1+x_2}\ge 75\\x_1\ge0\\x_2\ge0\end{array}$`
+
+
+$\min(x_1,x_2)=Ax\ge b$
+$x=\pmatrix{x_1\\x_2}$
+$A=\pmatrix{140&0\\20&10\\25&50\\1&0\\0&1}$
+$b=\pmatrix{70\\30\\75\\0\\0}$
+
+Il vincolo $x_1\ge0$ è ridondante perché da $140x_1\ge70$ abbiamo già $x_1\ge\frac12$
+
+$A=\pmatrix{140&0\\20&10\\25&50\\0&1}$
+$b=\pmatrix{70\\30\\75\\0}$
+
+Retta: $a_1x_1+a_2x_2=b$
+S
