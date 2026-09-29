@@ -6,5 +6,8 @@
     "landscape": false,
     "margin": "0",
     "downscalePercent": 100
-  }
+  },
+  "showLineNumber": false,
+  "vimMode": false,
+  "settingsPopoutWindow": false
 }

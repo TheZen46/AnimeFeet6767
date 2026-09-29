@@ -21,7 +21,7 @@ $\displaystyle\mathcal L\left\{\frac{t^K}{K!}e^{at}\right\}=\frac{1}{(s-a)^{K+1}
 $\displaystyle\mathcal L\left\{\sin(\omega t)\right\}=\displaystyle\mathcal L\left\{\frac{e^{j\omega t}-e^{-j\omega t}}{2j}\right\}=\frac{1}{2j}\left(\mathcal L\left\{e^{j\omega t}\right\}-\mathcal L\left\{e^{-j\omega t}\right\}\right)=\frac1{2j}\left(\frac{1}{s-j\omega}-\frac{1}{s+j\omega}\right)=\frac{1}{\cancel{2j}}\left(\frac{\cancel s+\cancel j\omega\cancel {-s}+\cancel j\omega}{s^2+\omega^2}\right)=\frac{\omega}{s^2+\omega^2}$
 $\displaystyle\mathcal L\left\{\cos(\omega t)\right\}=\frac{s}{s^2+\omega^2}$
 $\displaystyle\mathcal L\left\{e^{at}\sin(\omega t)\right\}=\mathcal L\left\{t\left(e^{at}\sin(\omega t)\right)\right\}=-\frac{d}{ds}\mathcal L\left\{e^{at}\sin{\omega t}\right\}=-\frac{d}{ds}\frac{\omega}{(s-a)^2+\omega^2}$
-$\displaystyle\mathcal L\left\{e^{at}\cos(\omega t)\right\}=\frac{s-a}{(s-1)^2+\omega^2}$
+$\displaystyle\mathcal L\left\{e^{at}\cos(\omega t)\right\}=\frac{s-a}{(s-a)^2+\omega^2}$
 $\displaystyle \mathcal L\{te^{at}\sin(\omega t)\}=\frac{2(s-a)\omega}{[(s-a)^2+\omega^2]^2}$
 
 $\mathcal L\{\delta_k(t)\}=s^k$

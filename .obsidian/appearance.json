@@ -1,5 +1,8 @@
 {
   "accentColor": "#7f67c9",
   "interfaceFontFamily": "Lexend Deca",
-  "textFontFamily": "Lexend Deca"
+  "textFontFamily": "Lexend Deca",
+  "showRibbon": true,
+  "showViewHeader": true,
+  "nativeMenus": false
 }
