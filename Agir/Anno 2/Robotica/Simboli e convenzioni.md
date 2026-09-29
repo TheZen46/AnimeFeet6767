@@ -17,7 +17,7 @@ $\dot q=G(q)u,\mskip{12mu} u=\left[ v\ \ \omega\right]^T$
 
 
 In caso ideale, le ruote non hanno velocità laterale
-Velocità lungo asse laterale: $v_{YB}=-\dot x\sin\theta_\dot y\cos\theta$
+Velocità lungo asse laterale: $v_{Y\mskip{-3mu}B}=-\dot x\sin\theta+\dot y\cos\theta$
 # Cinematica diretta
 Permette di calcolare, in base alla velocità ai giunti, l'evoluzione nel piano cartesiano
 $v_L=r_L\dot\varphi_L\mskip{18mu}v_R=r_R\dot\varphi_R$
