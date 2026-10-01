@@ -8,7 +8,8 @@
 
 La prima lezione apre il corso con le informazioni organizzative e poi entra nel primo grande blocco del programma, il calcolo differenziale per funzioni di più variabili. Prima di poter parlare di derivate occorre però fissare il linguaggio: che cosa si intende per funzione da un sottoinsieme di $\mathbb{R}^n$ a $\mathbb{R}^m$, quali strutture possiede lo spazio $\mathbb{R}^n$ (norma, distanza, prodotto scalare) e quali nozioni "topologiche" (palle, punti di accumulazione, insiemi aperti, chiusi e compatti) permettono di dare senso ai concetti di limite e di continuità. La lezione si chiude con un esempio di verifica di un limite in $\mathbb{R}^3$ tramite la definizione.
 
-> [!note] Convenzioni di notazione usate in queste note I vettori di $\mathbb{R}^n$ sono indicati in grassetto ($\mathbf{x}, \mathbf{y}, \mathbf{h}, \mathbf{v}$), le loro componenti in carattere normale ($x_1, \dots, x_n$). Un punto "fissato", che a lezione viene chiamato _x segnato_, è indicato con $\hat{\mathbf{x}}$, in accordo con gli appunti manuali. Gli scalari reali sono indicati con lettere greche o con $t, h$ quando hanno il ruolo di parametri.
+> [!note] Convenzioni di notazione usate in queste note 
+> I vettori di $\mathbb{R}^n$ sono indicati in grassetto ($\mathbf{x}, \mathbf{y}, \mathbf{h}, \mathbf{v}$), le loro componenti in carattere normale ($x_1, \dots, x_n$). Un punto "fissato", che a lezione viene chiamato _x segnato_, è indicato con $\hat{\mathbf{x}}$, in accordo con gli appunti manuali. Gli scalari reali sono indicati con lettere greche o con $t, h$ quando hanno il ruolo di parametri.
 
 ## Informazioni sul corso
 
@@ -33,7 +34,8 @@ Il programma è articolato in quattro parti.
 3. **Serie di Fourier.** Lo strumento è centrale nella teoria dei segnali. L'interesse del corso non è tanto scrivere la serie o calcolarne i coefficienti, quanto capire _quando_ e _in che senso_ la serie approssima davvero un segnale, e quali condizioni fini garantiscono la convergenza.
 4. **Analisi complessa**, cioè lo studio delle funzioni di variabile complessa. Questo capitolo fornisce tecniche più efficienti per calcolare integrali altrimenti inaccessibili; l'esempio emblematico è l'integrale della funzione _sinc_, $\int_{-\infty}^{+\infty} \frac{\sin x}{x},dx$, sul quale i metodi di Analisi 1 (integrazione per parti e simili) falliscono.
 
-> [!tip] Approfondimento — Il valore dell'integrale della sinc #approfondimento Con il teorema dei residui e il lemma di Jordan, che verranno trattati nella parte di analisi complessa, si ottiene $$\int_{-\infty}^{+\infty} \frac{\sin x}{x},dx = \pi .$$ La dispensa di riferimento svolge esattamente questo calcolo nel paragrafo dedicato alla funzione sinc, e ne deduce che la sinc normalizzata $\operatorname{sinc} x = \frac{\sin \pi x}{\pi x}$ ha integrale su $\mathbb{R}$ uguale a 1 [@morro2023, §6.7.2].
+> [!tip] Approfondimento — Il valore dell'integrale della sinc #approfondimento 
+> Con il teorema dei residui e il lemma di Jordan, che verranno trattati nella parte di analisi complessa, si ottiene $$\int_{-\infty}^{+\infty} \frac{\sin x}{x},dx = \pi .$$ La dispensa di riferimento svolge esattamente questo calcolo nel paragrafo dedicato alla funzione sinc, e ne deduce che la sinc normalizzata $\operatorname{sinc} x = \frac{\sin \pi x}{\pi x}$ ha integrale su $\mathbb{R}$ uguale a 1 [@morro2023, §6.7.2].
 
 ## Funzioni di più variabili a valori vettoriali
 
@@ -41,7 +43,8 @@ Il programma è articolato in quattro parti.
 
 L'oggetto di studio del corso sono le funzioni (dette anche mappe o applicazioni) che il docente descrive come "macchinette": a ogni elemento di un insieme di partenza, il **dominio** $D$, associano uno e un solo elemento di un insieme di arrivo. La novità rispetto ad Analisi 1 è duplice: il dominio è un sottoinsieme di $\mathbb{R}^n$, e i valori assunti non sono necessariamente numeri reali ma possono essere collezioni ordinate di numeri reali, cioè elementi di $\mathbb{R}^m$.
 
-> [!important] Definizione — Funzione di più variabili Una funzione $f : D \subseteq \mathbb{R}^n \to \mathbb{R}^m$ è una legge che a ogni $\mathbf{x} \in D$ associa un unico elemento di $\mathbb{R}^m$: $$\forall, \mathbf{x} \in D \quad \exists!, \mathbf{y} \in \mathbb{R}^m \ : \ f(\mathbf{x}) = \mathbf{y}.$$
+> [!important] Definizione — Funzione di più variabili 
+> Una funzione $f : D \subseteq \mathbb{R}^n \to \mathbb{R}^m$ è una legge che a ogni $\mathbf{x} \in D$ associa un unico elemento di $\mathbb{R}^m$: $$\forall, \mathbf{x} \in D \quad \exists!, \mathbf{y} \in \mathbb{R}^m \ : \ f(\mathbf{x}) = \mathbf{y}.$$
 
 ### Esempi dalla fisica
 
@@ -126,11 +129,12 @@ In parole: il prodotto scalare di due vettori è un numero il cui valore assolut
 
 L'espressione ottenuta, pensata come funzione di $\lambda$, è un polinomio di secondo grado: il suo grafico è una parabola, rivolta verso l'alto perché il coefficiente $\lVert \mathbf{y} \rVert^2$ è strettamente positivo. Il fatto che il polinomio sia non negativo per _ogni_ $\lambda$ significa che la parabola non scende mai sotto l'asse delle ascisse: al più lo tocca in un punto. Questo è possibile solo se l'equazione associata non ha due radici reali distinte, cioè se il **discriminante** è minore o uguale a zero: $$\Delta = 4 (\mathbf{x} \cdot \mathbf{y})^2 - 4 \lVert \mathbf{x} \rVert^2 \lVert \mathbf{y} \rVert^2 \le 0 .$$
 
-Rileggendo questa condizione si ottiene $(\mathbf{x} \cdot \mathbf{y})^2 \le \lVert \mathbf{x} \rVert^2 \lVert \mathbf{y} \rVert^2$ e, estraendo la radice quadrata (la radice di un quadrato è il valore assoluto), la tesi: $$|\mathbf{x} \cdot \mathbf{y}| \le \lVert \mathbf{x} \rVert , \lVert \mathbf{y} \rVert . \qquad \blacksquare$$
+Rileggendo questa condizione si ottiene $(\mathbf{x} \cdot \mathbf{y})^2 \le \lVert \mathbf{x} \rVert^2 \lVert \mathbf{y} \rVert^2$ e, estraendo la radice quadrata (la radice di un quadrato è il valore assoluto), la tesi: $$|\mathbf{x} \cdot \mathbf{y}| \le \lVert \mathbf{x} \rVert , \lVert \mathbf{y} \rVert . \qquad$$
 
 > [!warning] Discrepanza tra fonti: valore assoluto Nella versione Markdown degli appunti l'ultimo passaggio è scritto senza valore assoluto, $(\mathbf{x} \cdot \mathbf{y}) \le \lVert \mathbf{x} \rVert \lVert \mathbf{y} \rVert$, e nello sviluppo manca un quadrato su $\lambda$ davanti a $\lVert \mathbf{y} \rVert^2$. La trascrizione e gli appunti scritti a mano riportano correttamente $\lambda^2$ e il valore assoluto, che è essenziale: la disuguaglianza senza modulo è più debole e non controlla i prodotti scalari negativi.
 
-> [!tip] Approfondimento — Caso di uguaglianza e disuguaglianza triangolare #approfondimento La stessa dimostrazione dice anche _quando_ vale l'uguaglianza. Se $\mathbf{y} \neq \mathbf{0}$, si ha $|\mathbf{x} \cdot \mathbf{y}| = \lVert \mathbf{x} \rVert \lVert \mathbf{y} \rVert$ esattamente quando $\Delta = 0$, cioè quando la parabola ha una radice (doppia) $\lambda_0$. In quel caso $\lVert \mathbf{x} + \lambda_0 \mathbf{y} \rVert^2 = 0$, quindi $\mathbf{x} = -\lambda_0 \mathbf{y}$: l'uguaglianza vale se e solo se i due vettori sono paralleli.
+> [!tip] Approfondimento — Caso di uguaglianza e disuguaglianza triangolare #approfondimento 
+> La stessa dimostrazione dice anche _quando_ vale l'uguaglianza. Se $\mathbf{y} \neq \mathbf{0}$, si ha $|\mathbf{x} \cdot \mathbf{y}| = \lVert \mathbf{x} \rVert \lVert \mathbf{y} \rVert$ esattamente quando $\Delta = 0$, cioè quando la parabola ha una radice (doppia) $\lambda_0$. In quel caso $\lVert \mathbf{x} + \lambda_0 \mathbf{y} \rVert^2 = 0$, quindi $\mathbf{x} = -\lambda_0 \mathbf{y}$: l'uguaglianza vale se e solo se i due vettori sono paralleli.
 > 
 > Cauchy–Schwarz fornisce inoltre una dimostrazione della disuguaglianza triangolare per la norma: $$\lVert \mathbf{x} + \mathbf{y} \rVert^2 = \lVert \mathbf{x} \rVert^2 + 2, \mathbf{x} \cdot \mathbf{y} + \lVert \mathbf{y} \rVert^2 \le \lVert \mathbf{x} \rVert^2 + 2 \lVert \mathbf{x} \rVert \lVert \mathbf{y} \rVert + \lVert \mathbf{y} \rVert^2 = \big( \lVert \mathbf{x} \rVert + \lVert \mathbf{y} \rVert \big)^2 ,$$ da cui la tesi estraendo la radice. Entrambi i risultati, insieme a una dimostrazione alternativa di Cauchy–Schwarz basata sulla scomposizione di $\mathbf{x}$ in una parte parallela e una ortogonale a $\mathbf{y}$, si trovano nel primo paragrafo della dispensa di riferimento [@morro2023, §1.1].
 
