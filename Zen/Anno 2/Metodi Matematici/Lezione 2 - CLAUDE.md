@@ -30,7 +30,8 @@ Ogni elemento del grafico si ottiene mettendo uno accanto all'altro il punto $\m
 
 Per una funzione a valori scalari definita su un dominio di $\mathbb{R}^2$, il generico elemento del dominio è una coppia $(x_1, x_2)$ e il grafico è formato dalle terne $\big(x_1, x_2, f(x_1, x_2)\big) \in \mathbb{R}^3$, al variare di $(x_1, x_2) \in D$. Per disegnarlo si individua il dominio nel piano orizzontale $x_1 x_2$ (il piano $z = 0$ passante per l'origine) e, sopra ciascun punto, si riporta lungo l'asse verticale il valore della funzione. Si ottiene una **superficie** nello spazio tridimensionale. Per renderne visibile la forma si disegnano di solito su di essa le curve ottenute tenendo fissa una delle due variabili: le curve a $x_2$ costante e quelle a $x_1$ costante formano una sorta di reticolo sulla superficie.
 
-> [!tip] Schema consigliato In questo punto sarebbe utile uno schizzo a mano (ad esempio con Excalidraw) di una superficie $z = f(x_1, x_2)$ sopra un dominio del piano, con il reticolo delle curve a $x_1$ costante e a $x_2$ costante: è la stessa figura che servirà più avanti per interpretare le derivate parziali.
+> [!tip] Schema consigliato 
+> In questo punto sarebbe utile uno schizzo a mano (ad esempio con Excalidraw) di una superficie $z = f(x_1, x_2)$ sopra un dominio del piano, con il reticolo delle curve a $x_1$ costante e a $x_2$ costante: è la stessa figura che servirà più avanti per interpretare le derivate parziali.
 
 ### Caso $n = 1$, $m = 2$: grafico e immagine di una curva
 
@@ -70,7 +71,8 @@ Si studiano per ora funzioni **a valori reali**, $f : D \subseteq \mathbb{R}^n \
 
 Per calcolare una derivata bisogna valutare la funzione in tutta una serie di punti vicini a quello di interesse, spostandosi in ogni direzione: serve quindi che tutti questi punti stiano nel dominio. Questo motiva la seguente definizione.
 
-> [!important] Definizione — Punto interno Un punto $\hat{\mathbf{x}} \in D$ è interno a $D$ se esiste $r > 0$ tale che $B(\hat{\mathbf{x}}, r) \subseteq D$. L'insieme dei punti interni di $D$ si indica con $\mathring{D}$.
+> [!important] Definizione — Punto interno 
+> Un punto $\hat{\mathbf{x}} \in D$ è interno a $D$ se esiste $r > 0$ tale che $B(\hat{\mathbf{x}}, r) \subseteq D$. L'insieme dei punti interni di $D$ si indica con $\mathring{D}$.
 
 Un punto è interno se "sta ben dentro" il dominio, cioè se attorno a esso si può costruire una pallina, magari di raggio molto piccolo, interamente contenuta in $D$ (si veda la figura nella [[MM L01 - Spazio Rn, limiti e continuità#Punti di accumulazione|lezione 1]]). Un punto isolato del dominio appartiene a $D$ ma non è interno, perché nessuna palla centrata in esso, per quanto piccola, resta contenuta nel dominio. Un punto del bordo è di accumulazione, come visto nella lezione precedente, ma non è interno: per quanto piccola si prenda la palla, circa metà di essa sta fuori dal dominio.
 
@@ -82,7 +84,8 @@ Due osservazioni collegano questa definizione a quelle della lezione 1. Un insie
 
 L'idea è guardare la funzione lungo una sola delle direzioni coordinate. Si fissa un punto $\hat{\mathbf{x}}$ del dominio e, invece di far variare tutte le coordinate, si fa variare soltanto la $k$-esima, tenendo bloccate tutte le altre: il punto del dominio si muove allora lungo una retta parallela all'asse $x_k$, e sul grafico si percorre la curva corrispondente. La prima cosa che interessa di questa curva è la sua pendenza nel punto considerato.
 
-> [!important] Definizione — Derivata parziale Siano $f : D \subseteq \mathbb{R}^n \to \mathbb{R}$, $\hat{\mathbf{x}} \in \mathring{D}$ e $k \in {1, \dots, n}$. La derivata parziale di $f$ rispetto a $x_k$ nel punto $\hat{\mathbf{x}}$ è $$\frac{\partial f}{\partial x_k}(\hat{\mathbf{x}}) = \lim_{h \to 0} \frac{f(\hat{x}_1, \dots, \hat{x}_{k-1}, \ \hat{x}_k + h, \ \hat{x}_{k+1}, \dots, \hat{x}_n) - f(\hat{\mathbf{x}})}{h},$$ se il limite esiste (ed è finito).
+> [!important] Definizione — Derivata parziale 
+> Siano $f : D \subseteq \mathbb{R}^n \to \mathbb{R}$, $\hat{\mathbf{x}} \in \mathring{D}$ e $k \in {1, \dots, n}$. La derivata parziale di $f$ rispetto a $x_k$ nel punto $\hat{\mathbf{x}}$ è $$\frac{\partial f}{\partial x_k}(\hat{\mathbf{x}}) = \lim_{h \to 0} \frac{f(\hat{x}_1, \dots, \hat{x}_{k-1}, \ \hat{x}_k + h, \ \hat{x}_{k+1}, \dots, \hat{x}_n) - f(\hat{\mathbf{x}})}{h},$$ se il limite esiste (ed è finito).
 
 Come ogni derivata, è il limite di un rapporto incrementale: si valuta la funzione nel punto in cui solo la $k$-esima coordinata è stata spostata di $h$, si sottrae il valore in $\hat{\mathbf{x}}$, si divide per $h$ e si passa al limite per $h \to 0$. Il limite può esistere oppure no; se esiste, è la derivata parziale.
 
@@ -102,11 +105,13 @@ Questo punto di vista si generalizza al grafico di $f$ in $\mathbb{R}^{n+1}$. La
 
 Facendo variare $k$ si ottengono $n$ vettori, tanti quante sono le dimensioni del dominio. Se esistono, essi sono **linearmente indipendenti**, perché le loro prime $n$ componenti sono i vettori della base canonica (la posizione dell'1 si sposta al variare di $k$), e sono **tangenti al grafico**. Le derivate parziali servono quindi a costruire vettori tangenti al grafico. Se la funzione è "buona", e più precisamente, come si vedrà, se è differenziabile, le combinazioni lineari di questi vettori generano l'**iperpiano tangente** al grafico nel punto $\big(\hat{\mathbf{x}}, f(\hat{\mathbf{x}})\big)$, cioè il piano tangente nel caso $n = 2$.
 
-> [!tip] Approfondimento — Il piano tangente per $n = 2$ #approfondimento Per $f(x, y)$ in un punto $(\hat{x}, \hat{y})$ i due vettori tangenti sono $\mathbf{v}_1 = (1, 0, \partial_x f)$ e $\mathbf{v}_2 = (0, 1, \partial_y f)$, con le derivate calcolate in $(\hat{x}, \hat{y})$. Il piano che essi generano, passante per $\big(\hat{x}, \hat{y}, f(\hat{x}, \hat{y})\big)$, ha equazione $$z = f(\hat{x}, \hat{y}) + \partial_x f(\hat{x}, \hat{y}),(x - \hat{x}) + \partial_y f(\hat{x}, \hat{y}),(y - \hat{y}),$$ e la sua normale è parallela a $\mathbf{v}_1 \times \mathbf{v}_2 = (-\partial_x f, \ -\partial_y f, \ 1)$. La dispensa di riferimento mostra che, per una funzione differenziabile, questo è il piano "di miglior contatto" con la superficie, cioè il piano tangente, e lo scrive con la normale $(\partial_x f, \partial_y f, -1)$, parallela a quella trovata qui [@morro2023, §1.3.1].
+> [!tip] Approfondimento — Il piano tangente per $n = 2$ #approfondimento 
+> Per $f(x, y)$ in un punto $(\hat{x}, \hat{y})$ i due vettori tangenti sono $\mathbf{v}_1 = (1, 0, \partial_x f)$ e $\mathbf{v}_2 = (0, 1, \partial_y f)$, con le derivate calcolate in $(\hat{x}, \hat{y})$. Il piano che essi generano, passante per $\big(\hat{x}, \hat{y}, f(\hat{x}, \hat{y})\big)$, ha equazione $$z = f(\hat{x}, \hat{y}) + \partial_x f(\hat{x}, \hat{y}),(x - \hat{x}) + \partial_y f(\hat{x}, \hat{y}),(y - \hat{y}),$$ e la sua normale è parallela a $\mathbf{v}_1 \times \mathbf{v}_2 = (-\partial_x f, \ -\partial_y f, \ 1)$. La dispensa di riferimento mostra che, per una funzione differenziabile, questo è il piano "di miglior contatto" con la superficie, cioè il piano tangente, e lo scrive con la normale $(\partial_x f, \partial_y f, -1)$, parallela a quella trovata qui [@morro2023, §1.3.1].
 
 ### Un esempio di calcolo
 
-> [!example] Esempio — Derivate parziali di $f(x, y) = e^{xy}, y$ Sia $f : \mathbb{R}^2 \to \mathbb{R}$, $f(x, y) = e^{xy}, y$.
+> [!example] Esempio — Derivate parziali di $f(x, y) = e^{xy}, y$ 
+> Sia $f : \mathbb{R}^2 \to \mathbb{R}$, $f(x, y) = e^{xy}, y$.
 > 
 > Per derivare rispetto a $x$ si tratta $y$ come un parametro fissato e si deriva come in Analisi 1: il fattore $y$ è una costante moltiplicativa e la derivata di $e^{xy}$ rispetto a $x$ è $y, e^{xy}$, quindi $$\frac{\partial f}{\partial x}(x, y) = y \cdot y, e^{xy} = y^2 e^{xy}.$$
 > 
@@ -120,7 +125,8 @@ Facendo variare $k$ si ottengono $n$ vettori, tanti quante sono le dimensioni de
 
 Le derivate parziali descrivono la variazione della funzione lungo rette parallele agli assi. Può essere utile, però, fissare un punto e calcolare una derivata lungo una retta passante per esso con direzione qualsiasi. Si ottiene così la derivata direzionale.
 
-> [!important] Definizione — Derivata direzionale Siano $f : D \subseteq \mathbb{R}^n \to \mathbb{R}$, $\hat{\mathbf{x}} \in \mathring{D}$ e $\mathbf{v} \in \mathbb{R}^n$ con $\mathbf{v} \neq \mathbf{0}$. La derivata di $f$ nella direzione $\mathbf{v}$ nel punto $\hat{\mathbf{x}}$ è $$\frac{\partial f}{\partial \mathbf{v}}(\hat{\mathbf{x}}) = \lim_{t \to 0} \frac{f(\hat{\mathbf{x}} + t\mathbf{v}) - f(\hat{\mathbf{x}})}{t},$$ se il limite esiste.
+> [!important] Definizione — Derivata direzionale 
+> Siano $f : D \subseteq \mathbb{R}^n \to \mathbb{R}$, $\hat{\mathbf{x}} \in \mathring{D}$ e $\mathbf{v} \in \mathbb{R}^n$ con $\mathbf{v} \neq \mathbf{0}$. La derivata di $f$ nella direzione $\mathbf{v}$ nel punto $\hat{\mathbf{x}}$ è $$\frac{\partial f}{\partial \mathbf{v}}(\hat{\mathbf{x}}) = \lim_{t \to 0} \frac{f(\hat{\mathbf{x}} + t\mathbf{v}) - f(\hat{\mathbf{x}})}{t},$$ se il limite esiste.
 
 La retta lungo cui ci si muove è descritta dalla mappa $t \mapsto \hat{\mathbf{x}} + t\mathbf{v}$: per $t = 0$ si è in $\hat{\mathbf{x}}$, e al variare di $t$ ci si sposta lungo la retta passante per $\hat{\mathbf{x}}$ con direzione $\mathbf{v}$. Il rapporto incrementale è costruito proprio con questo parametro $t$.
 
@@ -132,7 +138,8 @@ Il docente segnala una convenzione di notazione da tenere presente: quando "al d
 
 Che cosa succede alla derivata direzionale se si allunga o si accorcia il vettore che indica la direzione? Siano $\hat{\mathbf{x}} \in \mathring{D}$, $\mathbf{v} \neq \mathbf{0}$ e $\mathbf{u} = \lambda \mathbf{v}$ con $\lambda \in \mathbb{R}$, $\lambda \neq 0$. Il vettore $\mathbf{u}$ ha la stessa direzione di $\mathbf{v}$; la lunghezza cambia di un fattore $|\lambda|$ e, se $\lambda < 0$, cambia anche il verso.
 
-> [!important] Proposizione — Omogeneità della derivata direzionale Se $\mathbf{u} = \lambda \mathbf{v}$ con $\lambda \neq 0$, allora $$\frac{\partial f}{\partial \mathbf{u}}(\hat{\mathbf{x}}) = \lambda , \frac{\partial f}{\partial \mathbf{v}}(\hat{\mathbf{x}}),$$ nel senso che l'una esiste se e solo se esiste l'altra, e in tal caso vale l'uguaglianza.
+> [!important] Proposizione — Omogeneità della derivata direzionale 
+> Se $\mathbf{u} = \lambda \mathbf{v}$ con $\lambda \neq 0$, allora $$\frac{\partial f}{\partial \mathbf{u}}(\hat{\mathbf{x}}) = \lambda , \frac{\partial f}{\partial \mathbf{v}}(\hat{\mathbf{x}}),$$ nel senso che l'una esiste se e solo se esiste l'altra, e in tal caso vale l'uguaglianza.
 
 **Dimostrazione.** Si parte dalla definizione e si sostituisce $\mathbf{u} = \lambda\mathbf{v}$. L'idea è "spostare" il fattore $\lambda$ dal vettore al parametro: per farlo, ogni $t$ che compare nella formula deve essere accompagnato dal suo $\lambda$, quindi si moltiplica e si divide per $\lambda$ e si rinomina $h = t\lambda$: $$\begin{aligned} \frac{\partial f}{\partial \mathbf{u}}(\hat{\mathbf{x}}) &= \lim_{t \to 0} \frac{f(\hat{\mathbf{x}} + t\lambda\mathbf{v}) - f(\hat{\mathbf{x}})}{t} = \lim_{t \to 0} \lambda , \frac{f\big(\hat{\mathbf{x}} + (t\lambda)\mathbf{v}\big) - f(\hat{\mathbf{x}})}{t\lambda} \ &= \lambda \lim_{h \to 0} \frac{f(\hat{\mathbf{x}} + h\mathbf{v}) - f(\hat{\mathbf{x}})}{h} = \lambda , \frac{\partial f}{\partial \mathbf{v}}(\hat{\mathbf{x}}). \end{aligned}$$ Il cambio di variabile è lecito perché, essendo $\lambda \neq 0$ fissato, $h = t\lambda$ tende a zero se e solo se $t$ tende a zero, ed è non nullo se e solo se lo è $t$. $\blacksquare$
 

@@ -55,7 +55,8 @@ $$\int_{t_1}^{t_2}\dot f(t),dt = f(t_2) - f(t_1).$$
 
 Facciamo ora tendere $t_1$ a zero da sinistra e $t_2$ a zero da destra. L'intervallo di integrazione si riduce fino a «$[0^-, 0^+]$», ma il secondo membro non tende a zero: tende al salto $f(0^+) - 0 = f(0^+)$, un numero finito. Perché l'integrale di qualcosa su un intervallo infinitamente piccolo resti un numero diverso da zero, quel qualcosa deve essere infinitamente grande in quell'intervallo («base microscopica, altezza gigantesca»), altrimenti l'area sarebbe nulla. L'unico oggetto che dà un'area finita su un intervallo nullo è, per definizione, l'impulso. Nel punto del salto la derivata deve dunque contenere un impulso, di area pari all'ampiezza del salto.
 
-> [!important] Salti e impulsi Se una funzione presenta in $t_0$ un salto di ampiezza $\Delta = f(t_0^+) - f(t_0^-)$, la sua derivata contiene il termine $$\Delta\cdot\delta(t - t_0),$$ cioè un impulso centrato nel punto del salto, rivolto verso l'alto se il salto è positivo e verso il basso se è negativo.
+> [!important] Salti e impulsi 
+> Se una funzione presenta in $t_0$ un salto di ampiezza $\Delta = f(t_0^+) - f(t_0^-)$, la sua derivata contiene il termine $$\Delta\cdot\delta(t - t_0),$$ cioè un impulso centrato nel punto del salto, rivolto verso l'alto se il salto è positivo e verso il basso se è negativo.
 
 La regola del prodotto conferma il ragionamento grafico. Derivando $f(t)\cdot1(t)$ e usando il campionamento:
 
