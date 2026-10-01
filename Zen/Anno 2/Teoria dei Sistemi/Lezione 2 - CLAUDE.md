@@ -303,8 +303,6 @@ Il prodotto delle trasformate corrisponde a un'altra operazione nel tempo, l'**i
 
 Il docente aggiunge un avvertimento per chi segue o seguirà corsi di teoria dei segnali o di comunicazioni. La trasformata di Fourier e quella di Laplace sono «parenti» e a prima vista si assomigliano molto, ma in realtà si assomigliano solo un po'. Capire fino in fondo il loro legame richiederebbe un corso a sé, e le domande che si possono porre in proposito sono di una densità inimmaginabile. Il consiglio è di prenderne atto («si assomigliano») e andare avanti.
 
-> [!tip] Approfondimento: il legame con la trasformata di Fourier #approfondimento Per chi volesse almeno l'idea di base: se $f$ è nulla per $t<0$ e la regione di convergenza della sua trasformata di Laplace contiene l'asse immaginario, valutando $F(s)$ per $s = j\omega$ si ottiene la trasformata di Fourier di $f$ [@oppenheim1997, cap. 9]. Quando l'asse immaginario non appartiene alla regione di convergenza (ad esempio per $e^{at}$ con $a>0$), la trasformata di Laplace esiste ma quella di Fourier, nel senso ordinario, no. È uno dei motivi per cui le due trasformate «si assomigliano solo un po'».
-
 #### Riepilogo delle proprietà
 
 |Nel tempo|Nel dominio di $s$|Nome|
