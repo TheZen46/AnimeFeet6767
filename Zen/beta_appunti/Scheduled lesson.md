@@ -3,6 +3,7 @@
 
 ## Algoritmi
 	Lezione 3
+	Lezione 4
 
 ## Metodi Matematici
 	Lezione 3
@@ -20,7 +21,9 @@
 
 ## Sistemi Operativi
 	Lezione 3
-	Lezione 4
+	Lezione 4 --> in realtà non serve, lo devo mettere solo per non perdere il conto
+	
 
 ## Teoria dei Sistemi
 	Lezione 3
+	Lezione 4
