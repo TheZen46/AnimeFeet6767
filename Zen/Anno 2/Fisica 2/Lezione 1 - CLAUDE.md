@@ -54,7 +54,8 @@ L'esperimento si ripete in tre varianti, che danno tre esiti distinti.
 
 La rotazione della bacchetta sospesa rivela che su di essa agisce una forza. Per il terzo principio della dinamica, sulla bacchetta tenuta in mano agisce una forza uguale e opposta. Non la si avverte perché è troppo debole per essere percepita da chi tiene la bacchetta.
 
-> [!tip] Schema consigliato In questo punto sarebbe utile uno schizzo in Excalidraw con le due coppie di bacchette (stesso materiale e materiali diversi) e il verso di rotazione della bacchetta sospesa. Un disegno di questo tipo si trova nella prima pagina dei tuoi appunti a mano.
+> [!tip] Schema consigliato 
+> In questo punto sarebbe utile uno schizzo in Excalidraw con le due coppie di bacchette (stesso materiale e materiali diversi) e il verso di rotazione della bacchetta sospesa. Un disegno di questo tipo si trova nella prima pagina dei tuoi appunti a mano.
 
 ### Interpretazione: esistono due tipi di carica
 
@@ -62,13 +63,15 @@ Le tre osservazioni si spiegano ammettendo che la materia contenga due tipi di c
 
 Con questa interpretazione i risultati sperimentali si riassumono così: due bacchette strofinate con lo stesso materiale acquistano carica dello stesso segno e si respingono; due bacchette strofinate con materiali diversi acquistano cariche di segno opposto e si attraggono. Lo stesso vale sia per due cariche positive sia per due cariche negative.
 
-> [!important] Legge qualitativa dell'interazione elettrica Esistono due tipi di carica elettrica, positiva e negativa. Cariche dello stesso segno si **respingono**, cariche di segno opposto si **attraggono**. Un corpo neutro contiene cariche dei due tipi in quantità uguali.
+> [!important] Legge qualitativa dell'interazione elettrica 
+> Esistono due tipi di carica elettrica, positiva e negativa. Cariche dello stesso segno si **respingono**, cariche di segno opposto si **attraggono**. Un corpo neutro contiene cariche dei due tipi in quantità uguali.
 
 ### Il segno delle cariche è una convenzione
 
 L'assegnazione dei nomi "positiva" e "negativa" è arbitraria. Ciò che conta fisicamente è solo distinguere i due tipi e sapere che tipi uguali si respingono e tipi opposti si attraggono. In linea di principio l'elettrone potrebbe essere considerato una carica positiva: è solo una convenzione stabilita storicamente. Questa arbitrarietà ha una conseguenza che rivedremo: il verso della **corrente elettrica** è definito convenzionalmente come il verso di moto delle cariche positive. Nei conduttori metallici, però, le cariche che si muovono sono gli elettroni, che sono negativi. La convenzione fu fissata quando non si sapeva ancora quali cariche fossero effettivamente in moto.
 
-> [!tip] Approfondimento — L'origine dei segni "più" e "meno" #approfondimento La notazione positivo/negativo per l'elettricità fu introdotta da Benjamin Franklin nel 1747. Franklin chiamò positivo il vetro strofinato, che secondo la sua teoria acquistava un eccesso di "fluido elettrico". Oggi sappiamo che il vetro strofinato perde elettroni: la scelta di Franklin è il motivo per cui gli elettroni, cioè le cariche che effettivamente si muovono nei metalli, risultano negativi e la corrente convenzionale scorre in verso opposto al loro moto [@jensen2005]. Il segno che un materiale acquista per strofinio dipende dalla coppia di materiali a contatto. Per questo i testi presentano spesso l'esperimento con vetro e seta (il vetro si carica positivamente) e con plastica o ambra e pelle (la plastica si carica negativamente). Nell'esempio della lezione conta il principio, non la coppia specifica di materiali.
+> [!tip] Approfondimento — L'origine dei segni "più" e "meno" #approfondimento 
+> La notazione positivo/negativo per l'elettricità fu introdotta da Benjamin Franklin nel 1747. Franklin chiamò positivo il vetro strofinato, che secondo la sua teoria acquistava un eccesso di "fluido elettrico". Oggi sappiamo che il vetro strofinato perde elettroni: la scelta di Franklin è il motivo per cui gli elettroni, cioè le cariche che effettivamente si muovono nei metalli, risultano negativi e la corrente convenzionale scorre in verso opposto al loro moto [@jensen2005]. Il segno che un materiale acquista per strofinio dipende dalla coppia di materiali a contatto. Per questo i testi presentano spesso l'esperimento con vetro e seta (il vetro si carica positivamente) e con plastica o ambra e pelle (la plastica si carica negativamente). Nell'esempio della lezione conta il principio, non la coppia specifica di materiali.
 
 ## Conduttori, isolanti, semiconduttori, superconduttori
 
@@ -91,7 +94,8 @@ I **superconduttori** sono una classe ancora più particolare. Un buon conduttor
 
 Nel seguito del corso, cioè nell'elettromagnetismo classico, ci interessano soprattutto **conduttori e isolanti**. Su questa distinzione si basano, ad esempio, la distribuzione delle cariche nei materiali e le applicazioni della legge di Gauss.
 
-> [!tip] Approfondimento — La scoperta della superconduttività #approfondimento A lezione la scoperta è datata "1913, se non sbaglio", e la temperatura citata è resa in modo incomprensibile dalla trascrizione. Le ricostruzioni storiche collocano la scoperta l'8 aprile 1911 nel laboratorio di Heike Kamerlingh Onnes a Leida. La resistenza di un campione di mercurio scompariva intorno a 4,2 K, circa −269 °C. Il 1913 è l'anno del premio Nobel a Kamerlingh Onnes, assegnato per le sue ricerche sulle basse temperature, che avevano portato alla liquefazione dell'elio, più che per la superconduttività in sé. La persistenza di correnti senza forza elettromotrice in circuiti superconduttori, cioè l'esperimento dell'anello descritto a lezione, fu riportata dallo stesso gruppo nel 1914 [@vanDelft2010].
+> [!tip] Approfondimento — La scoperta della superconduttività #approfondimento 
+> A lezione la scoperta è datata "1913, se non sbaglio", e la temperatura citata è resa in modo incomprensibile dalla trascrizione. Le ricostruzioni storiche collocano la scoperta l'8 aprile 1911 nel laboratorio di Heike Kamerlingh Onnes a Leida. La resistenza di un campione di mercurio scompariva intorno a 4,2 K, circa −269 °C. Il 1913 è l'anno del premio Nobel a Kamerlingh Onnes, assegnato per le sue ricerche sulle basse temperature, che avevano portato alla liquefazione dell'elio, più che per la superconduttività in sé. La persistenza di correnti senza forza elettromotrice in circuiti superconduttori, cioè l'esperimento dell'anello descritto a lezione, fu riportata dallo stesso gruppo nel 1914 [@vanDelft2010].
 
 ## La carica indotta
 
@@ -110,20 +114,24 @@ Se la bacchetta è un conduttore, le cariche sono libere di muoversi. Le cariche
 
 Lo stesso ragionamento vale se la bacchetta in mano è carica negativamente. Le cariche negative mobili vengono respinte verso l'estremità lontana, quella vicina resta positiva, e di nuovo i poli più vicini hanno segno opposto: la forza è ancora attrattiva e la rotazione avviene nello stesso verso.
 
-> [!important] Carica indotta Avvicinando un corpo carico a un conduttore neutro, le cariche mobili del conduttore si ridistribuiscono: sul lato più vicino si accumula carica di segno opposto a quella del corpo inducente, sul lato lontano carica dello stesso segno. Il conduttore resta globalmente neutro, ma viene attratto. Rispetto all'elettrizzazione per strofinio ci sono due differenze:
+> [!important] Carica indotta 
+> Avvicinando un corpo carico a un conduttore neutro, le cariche mobili del conduttore si ridistribuiscono: sul lato più vicino si accumula carica di segno opposto a quella del corpo inducente, sul lato lontano carica dello stesso segno. Il conduttore resta globalmente neutro, ma viene attratto. Rispetto all'elettrizzazione per strofinio ci sono due differenze:
 > 
 > 1. il fenomeno richiede un **conduttore**, perché le cariche devono potersi spostare;
 > 2. la forza dovuta alla carica indotta è **sempre attrattiva**, qualunque sia il segno della carica inducente.
 
-> [!tip] Schema consigliato La ridistribuzione delle cariche nella bacchetta conduttrice (prima e dopo l'avvicinamento) si presta a uno schizzo in Excalidraw. Una versione è nella prima pagina dei tuoi appunti a mano, nella sezione "Carica indotta".
+> [!tip] Schema consigliato 
+> La ridistribuzione delle cariche nella bacchetta conduttrice (prima e dopo l'avvicinamento) si presta a uno schizzo in Excalidraw. Una versione è nella prima pagina dei tuoi appunti a mano, nella sezione "Carica indotta".
 
-> [!tip] Approfondimento — Gli isolanti non sono del tutto insensibili #approfondimento Nel modello della lezione un isolante neutro non risente della bacchetta carica. In realtà anche negli isolanti la distribuzione di carica di ogni molecola si deforma leggermente in presenza di un corpo carico: il materiale si _polarizza_. Ne nasce un'attrazione molto più debole di quella osservata nei conduttori. È lo stesso meccanismo per cui un pettine strofinato attira piccoli pezzi di carta. I testi di Fisica 2 trattano questo fenomeno nel capitolo sui dielettrici.
+> [!tip] Approfondimento — Gli isolanti non sono del tutto insensibili #approfondimento 
+> Nel modello della lezione un isolante neutro non risente della bacchetta carica. In realtà anche negli isolanti la distribuzione di carica di ogni molecola si deforma leggermente in presenza di un corpo carico: il materiale si _polarizza_. Ne nasce un'attrazione molto più debole di quella osservata nei conduttori. È lo stesso meccanismo per cui un pettine strofinato attira piccoli pezzi di carta. I testi di Fisica 2 trattano questo fenomeno nel capitolo sui dielettrici.
 
 ## La legge di Coulomb
 
 Fin qui la descrizione è stata qualitativa: sappiamo se due cariche si attraggono o si respingono, ma non quanto. Il passaggio a una descrizione quantitativa si deve al fisico francese Charles-Augustin de Coulomb. Lavorando con piccole sfere cariche, Coulomb non si limitò a constatare attrazione e repulsione, ma ricavò la legge che dà l'intensità della forza tra due cariche.
 
-> [!tip] Approfondimento — La bilancia di torsione #approfondimento Coulomb presentò i risultati nel "Premier mémoire sur l'électricité et le magnétisme", relativo all'anno 1785 delle memorie dell'Académie royale des sciences e pubblicato nel 1788. Lo strumento era una bilancia di torsione: un filo metallico che, torcendosi, esercita una forza di reazione proporzionale all'angolo di torsione. Misurando l'angolo, Coulomb poteva misurare la forza di repulsione tra sfere cariche dello stesso segno e stabilire la dipendenza dall'inverso del quadrato della distanza [@coulomb1785].
+> [!tip] Approfondimento — La bilancia di torsione #approfondimento 
+> Coulomb presentò i risultati nel "Premier mémoire sur l'électricité et le magnétisme", relativo all'anno 1785 delle memorie dell'Académie royale des sciences e pubblicato nel 1788. Lo strumento era una bilancia di torsione: un filo metallico che, torcendosi, esercita una forza di reazione proporzionale all'angolo di torsione. Misurando l'angolo, Coulomb poteva misurare la forza di repulsione tra sfere cariche dello stesso segno e stabilire la dipendenza dall'inverso del quadrato della distanza [@coulomb1785].
 
 ### Enunciato
 
@@ -163,7 +171,8 @@ Prodotto positivo significa repulsione: cariche uguali si respingono, sia che si
 
 Nella forma vettoriale queste informazioni sono contenute nel **versore** $\hat r$. Un versore è un vettore di modulo unitario, ottenuto dividendo un vettore per il suo modulo, $\hat r = \vec r / |\vec r|$, dove $\vec r$ è il vettore lungo la congiungente. In questo modo il modulo $k,|q_1||q_2|/r^2$ resta separato da tutta l'informazione vettoriale, cioè direzione e verso, affidata a $\hat r$ e al segno del prodotto delle cariche. Perché il segno funzioni correttamente, per la forza $\vec F_{1,2}$ il versore $\hat r$ va orientato dalla carica 2 verso la carica 1. Se $q_1 q_2 > 0$ la forza punta lungo $\hat r$, cioè via dalla carica 2 (repulsione). Se $q_1 q_2 < 0$ punta in verso opposto, cioè verso la carica 2 (attrazione).
 
-> [!warning] Precisazione terminologica sugli appunti Negli appunti (.md) e in un passaggio della trascrizione si legge che "la direzione dipende dal prodotto fra le cariche". Secondo le definizioni date a lezione, la direzione è sempre quella della congiungente: ciò che dipende dal segno del prodotto è il **verso**.
+> [!warning] Precisazione terminologica sugli appunti 
+> Negli appunti (.md) e in un passaggio della trascrizione si legge che "la direzione dipende dal prodotto fra le cariche". Secondo le definizioni date a lezione, la direzione è sempre quella della congiungente: ciò che dipende dal segno del prodotto è il **verso**.
 
 ### Unità di misura e costanti
 
