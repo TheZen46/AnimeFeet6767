@@ -47,7 +47,8 @@ Questo risultato non si ricava immediatamente dalla legge di Coulomb. Si ottiene
 
 Il risultato ha un'importanza pratica. Il campo di una carica puntiforme decresce rapidamente allontanandosi, come l'inverso del quadrato della distanza. Se si vuole un campo **costante**, il modo è caricare un piano. Un piano reale non è infinito, ma se è abbastanza grande e ci si trova vicino a esso, lontano dai bordi, lo si "vede" come infinito e il campo generato è praticamente uniforme. Questi risultati permettono, come dice il docente, di "bypassare" in parte la legge di Coulomb e ragionare più velocemente: se serve un campo costante, si costruisce un piano carico.
 
-> [!warning] Discrepanza negli appunti a mano Accanto al disegno dei piani carichi, negli appunti a mano compare la dicitura "campo elettrico infinito". Secondo la trascrizione è **infinito il piano**, mentre il campo che genera è **uniforme**: costante in modulo, direzione e verso, e finito.
+> [!warning] Discrepanza negli appunti a mano 
+> Accanto al disegno dei piani carichi, negli appunti a mano compare la dicitura "campo elettrico infinito". Secondo la trascrizione è **infinito il piano**, mentre il campo che genera è **uniforme**: costante in modulo, direzione e verso, e finito.
 
 ## Il campo di una carica puntiforme
 
