@@ -2,5 +2,6 @@
   "obsidian-git",
   "obsidian-excalidraw-plugin",
   "better-export-pdf",
-  "obsidian-charts"
+  "obsidian-charts",
+  "obsidian-linter"
 ]
