@@ -110,7 +110,8 @@ Questo meccanismo ha due conseguenze pratiche. Una funzione definita a tratti, c
 
 ### 3.3 Esempio svolto a lezione
 
-> [!example] Coseno e rampa a tratti Si consideri la funzione che:
+> [!example] Coseno e rampa a tratti 
+> Si consideri la funzione che:
 > 
 > - vale $\cos t$ tra $0$ e $\pi/2$;
 > - è nulla tra $\pi/2$ e $\pi$;
@@ -210,13 +211,15 @@ Per tutto il corso vale una **convenzione di notazione**:
 
 Quando si vede una lettera minuscola si sa che si tratta di una funzione del tempo; quando se ne vede una maiuscola si sa che è una trasformata. Gli argomenti sono di natura diversa: il tempo, reale, in un caso; la variabile complessa $s$ nell'altro.
 
-> [!important] Trasformata di Laplace La trasformata di Laplace della funzione $f(t)$ è $$\mathcal{L}{f(t)} = F(s) \triangleq \int_{0^-}^{\infty} f(t),e^{-st},dt, \qquad s\in\mathbb{C}.$$ L'operatore fa passare dal **dominio del tempo** al **dominio di $s$**: $;f(t)\ \longrightarrow\ \mathcal{L}{\cdot}\ \longrightarrow\ F(s)$.
+> [!important] Trasformata di Laplace 
+> La trasformata di Laplace della funzione $f(t)$ è $$\mathcal{L}{f(t)} = F(s) \triangleq \int_{0^-}^{\infty} f(t) e^{-st}dt \qquad s\in\mathbb{C}.$$ L'operatore fa passare dal **dominio del tempo** al **dominio di $s$**: $;f(t)\ \longrightarrow\ \mathcal{L}{\cdot}\ \longrightarrow\ F(s)$.
 
 Il simbolo $\triangleq$ («uguale per definizione») indica che l'uguaglianza è una definizione e non il risultato di un calcolo. Nell'integrale compaiono sia $t$ sia $s$. Integrando rispetto a $t$, la variabile di integrazione sparisce e il risultato dipende soltanto da $s$.
 
 Due osservazioni sull'estremo inferiore. La trasformata «vede» solo ciò che accade **da $0^-$ in avanti**: il comportamento della funzione per $t<0$ non le interessa e non può essere ricostruito dalla trasformata. Inoltre partire da $0^-$ significa includere nell'integrale anche ciò che è concentrato nell'origine, come un impulso.
 
-> [!tip] Approfondimento: perché $0^-$ e non $0^+$ #approfondimento La scelta dell'estremo inferiore non è un dettaglio. Lundberg, Miller e Trumper hanno analizzato le incongruenze che nascono nei testi quando non è chiaro se l'origine sia inclusa o meno [@lundberg2007]. Sostengono la forma con estremo $0^-$, accompagnata dalla regola della derivata $\mathcal{L}{\dot f} = sF(s) - f(0^-)$, proprio quella adottata nel corso. Con questa convenzione gli impulsi nell'origine sono sempre inclusi, e le condizioni iniziali sono quelle «pre-iniziali», cioè lo stato del sistema prima che l'ingresso intervenga. Ne risulta un trattamento coerente dei transitori con ingressi discontinui o impulsivi.
+> [!tip] Approfondimento: perché $0^-$ e non $0^+$ #approfondimento 
+> La scelta dell'estremo inferiore non è un dettaglio. Lundberg, Miller e Trumper hanno analizzato le incongruenze che nascono nei testi quando non è chiaro se l'origine sia inclusa o meno [@lundberg2007]. Sostengono la forma con estremo $0^-$, accompagnata dalla regola della derivata $\mathcal{L}{\dot f} = sF(s) - f(0^-)$, proprio quella adottata nel corso. Con questa convenzione gli impulsi nell'origine sono sempre inclusi, e le condizioni iniziali sono quelle «pre-iniziali», cioè lo stato del sistema prima che l'ingresso intervenga. Ne risulta un trattamento coerente dei transitori con ingressi discontinui o impulsivi.
 
 ### 5.3 Esistenza e ascissa di convergenza
 
@@ -226,7 +229,8 @@ $$F(s) = \int_{0^-}^{\infty} f(t),e^{-\sigma t},e^{-j\omega t},dt .$$
 
 Il fattore $e^{-j\omega t}$ ha modulo unitario: oscilla senza crescere né decrescere. Il fattore $e^{-\sigma t}$ è un esponenziale reale che, per $\sigma>0$, tende a zero. Anche se la funzione cresce, il crollo a zero dell'esponenziale può controbilanciarne la crescita, purché sia più rapido. A meno che $f$ non sia una funzione patologica che cresce più velocemente di qualunque esponenziale (un esempio classico è $e^{t^2}$), esiste quindi un valore di $\sigma$ oltre il quale l'integrale converge. La trasformata non deve esistere per ogni $s$: basta che esista per gli $s$ con parte reale abbastanza grande.
 
-> [!important] Ascissa di convergenza Se esiste la trasformata di $f$, esiste un valore critico $\bar\sigma$ tale che l'integrale converge per $\mathrm{Re}(s) = \sigma > \bar\sigma$ e non converge per $\sigma < \bar\sigma$. Tale valore si chiama **ascissa di convergenza**. Sul piano complesso (piano di Gauss) la regione di convergenza è il semipiano a destra della retta verticale $\mathrm{Re}(s) = \bar\sigma$.
+> [!important] Ascissa di convergenza 
+> Se esiste la trasformata di $f$, esiste un valore critico $\bar\sigma$ tale che l'integrale converge per $\mathrm{Re}(s) = \sigma > \bar\sigma$ e non converge per $\sigma < \bar\sigma$. Tale valore si chiama **ascissa di convergenza**. Sul piano complesso (piano di Gauss) la regione di convergenza è il semipiano a destra della retta verticale $\mathrm{Re}(s) = \bar\sigma$.
 
 Per esempio, per il gradino il calcolo diretto (dispensa, p. 13) dà
 
@@ -302,7 +306,8 @@ cioè **ogni moltiplicazione per $t$ aumenta di uno la potenza del denominatore*
 
 #### Attenzione: il prodotto
 
-> [!warning] Da «scrivere col sangue» Date due funzioni del tempo $f$ e $g$: $$\mathcal{L}{f(t),g(t)} \neq F(s),G(s).$$ La trasformata del prodotto **non** è il prodotto delle trasformate.
+> [!warning] Da «scrivere col sangue» 
+> Date due funzioni del tempo $f$ e $g$: $$\mathcal{L}{f(t),g(t)} \neq F(s),G(s).$$ La trasformata del prodotto **non** è il prodotto delle trasformate.
 
 Il prodotto delle trasformate corrisponde a un'altra operazione nel tempo, l'**integrale di convoluzione**. La sua definizione non è stata data in questa lezione; per funzioni nulle prima dell'origine è $(f_g)(t) = \int_{0^-}^{t} f(\tau),g(t-\tau),d\tau$, e vale $\mathcal{L}{f_g} = F(s),G(s)$.
 
@@ -381,7 +386,8 @@ Per il coseno esistono due strade:
 - con gli esponenziali: $\cos\omega t = \frac{e^{j\omega t}+e^{-j\omega t}}{2}$, quindi $\mathcal{L}{\cos\omega t} = \frac{1}{2}\left(\frac{1}{s-j\omega}+\frac{1}{s+j\omega}\right) = \frac{s}{s^2+\omega^2}$;
 - con le funzioni generalizzate (dispensa, p. 15): $\frac{d}{dt}\big[\sin\omega t\cdot1(t)\big] = \omega\cos\omega t\cdot1(t)$, perché l'impulso si annulla essendo $\sin 0 = 0$. Allora $\mathcal{L}{\cos\omega t} = \frac{1}{\omega}\big(s\cdot\frac{\omega}{s^2+\omega^2} - 0\big) = \frac{s}{s^2+\omega^2}$.
 
-> [!important] Trasformate reali di funzioni reali La trasformata di una funzione reale è sempre una funzione della variabile complessa $s$ **a coefficienti reali**. Nei passaggi possono comparire quantità complesse, come $\frac{1}{2j}$ e $\frac{1}{s\mp j\omega}$, ma quando si mettono insieme tutte le parti complesse si semplificano.
+> [!important] Trasformate reali di funzioni reali 
+> La trasformata di una funzione reale è sempre una funzione della variabile complessa $s$ **a coefficienti reali**. Nei passaggi possono comparire quantità complesse, come $\frac{1}{2j}$ e $\frac{1}{s\mp j\omega}$, ma quando si mettono insieme tutte le parti complesse si semplificano.
 
 #### Funzioni smorzate e moltiplicate per $t$
 
@@ -417,7 +423,8 @@ Il docente osserva che le funzioni che si incontrano nel corso non sono tutte le
 
 Poiché più avanti si dovranno calcolare le radici di polinomi in $s$, il docente chiarisce che cosa è richiesto. Nessuno chiederà di calcolare a mano le radici di polinomi di grado $3$ o $4$, né tanto meno di grado $5$, per il quale non esiste nemmeno una formula generale. Le radici dei polinomi di **secondo grado** vanno invece sapute calcolare con facilità. Lo stesso vale per le **equazioni binomie** del tipo $s^{10} = 27$.
 
-> [!example] Le radici di $s^{10} = 27$ Nel campo complesso l'equazione ha **dieci** radici. Hanno tutte lo stesso modulo, $\sqrt[10]{27}\approx 1{,}39$, e argomenti equispaziati di $2\pi/10$: $$s_k = \sqrt[10]{27};e^{,j\frac{2\pi k}{10}}, \qquad k = 0,1,\dots,9 .$$ Geometricamente sono i vertici di un **decagono regolare** inscritto nella circonferenza di raggio $\sqrt[10]{27}$ centrata nell'origine. Una delle radici è reale positiva ($k=0$) e una reale negativa ($k=5$).
+> [!example] Le radici di $s^{10} = 27$ 
+> Nel campo complesso l'equazione ha **dieci** radici. Hanno tutte lo stesso modulo, $\sqrt[10]{27}\approx 1{,}39$, e argomenti equispaziati di $2\pi/10$: $$s_k = \sqrt[10]{27};e^{,j\frac{2\pi k}{10}}, \qquad k = 0,1,\dots,9 .$$ Geometricamente sono i vertici di un **decagono regolare** inscritto nella circonferenza di raggio $\sqrt[10]{27}$ centrata nell'origine. Una delle radici è reale positiva ($k=0$) e una reale negativa ($k=5$).
 > 
 > Nella trascrizione il raggio compare con un valore diverso, quasi certamente per un errore di trascrizione: il modulo comune delle radici è necessariamente $\sqrt[10]{27}$.
 
@@ -425,7 +432,8 @@ Poiché più avanti si dovranno calcolare le radici di polinomi in $s$, il docen
 
 ### 6.1 Esercizio di fine lezione
 
-> [!example] Calcolare $\mathcal{L}{t,e^{at}\sin\omega t}$ Conviene leggere la funzione come $t\cdot\big(e^{at}\sin\omega t\big)$ e procedere dall'interno verso l'esterno.
+> [!example] Calcolare $\mathcal{L}{t,e^{at}\sin\omega t}$ 
+> Conviene leggere la funzione come $t\cdot\big(e^{at}\sin\omega t\big)$ e procedere dall'interno verso l'esterno.
 > 
 > 1. Trasformata del seno: $\mathcal{L}{\sin\omega t} = \dfrac{\omega}{s^2+\omega^2}$.
 > 2. Moltiplicazione per $e^{at}$, cioè traslazione in $s$: $\mathcal{L}{e^{at}\sin\omega t} = \dfrac{\omega}{(s-a)^2+\omega^2}$.
@@ -437,9 +445,11 @@ Poiché più avanti si dovranno calcolare le radici di polinomi in $s$, il docen
 
 ### 6.2 Esempi dalla dispensa
 
-> [!example] Esempio PM 2 (dispensa, p. 15): $\mathcal{L}{e^{-2(t-3)},1(t-3)}$ La funzione ha esattamente la forma $g(t-3)\cdot1(t-3)$ con $g(t) = e^{-2t}$: è l'esponenziale traslato e acceso dal gradino traslato della stessa quantità. Per la traslazione nel tempo: $$\mathcal{L}{e^{-2(t-3)},1(t-3)} = e^{-3s},\mathcal{L}{e^{-2t}\cdot1(t)} = \frac{e^{-3s}}{s+2}.$$
+> [!example] Esempio PM 2 (dispensa, p. 15): $\mathcal{L}{e^{-2(t-3)},1(t-3)}$ 
+> La funzione ha esattamente la forma $g(t-3)\cdot1(t-3)$ con $g(t) = e^{-2t}$: è l'esponenziale traslato e acceso dal gradino traslato della stessa quantità. Per la traslazione nel tempo: $$\mathcal{L}{e^{-2(t-3)},1(t-3)} = e^{-3s},\mathcal{L}{e^{-2t}\cdot1(t)} = \frac{e^{-3s}}{s+2}.$$
 
-> [!example] Esempio PM 3 (dispensa, p. 15) Calcolare $\mathcal{L}\big{t,e^{-3t}\cdot1(t) + \delta(t-4)\cdot1(t-5) + e^{-2(t-2)}\sin(t-2)\cdot1(t-2)\big}$.
+> [!example] Esempio PM 3 (dispensa, p. 15) 
+> Calcolare $\mathcal{L}\big{t,e^{-3t}\cdot1(t) + \delta(t-4)\cdot1(t-5) + e^{-2(t-2)}\sin(t-2)\cdot1(t-2)\big}$.
 > 
 > Il **secondo termine è nullo**. L'impulso è concentrato in $t=4$, dove il gradino $1(t-5)$ vale ancora zero: per campionamento $\delta(t-4),1(t-5) = 1(4-5),\delta(t-4) = 0$.
 > 
@@ -449,11 +459,14 @@ Poiché più avanti si dovranno calcolare le radici di polinomi in $s$, il docen
 
 > [!warning] Provenienza Gli esercizi di questo paragrafo compaiono nella nota personale «Laplace» ma **non** nella parte di trascrizione disponibile. Potrebbero appartenere alla seconda parte della lezione o a una lezione successiva; se arriverà la relativa trascrizione, verranno ricollocati e confrontati con quanto detto dal docente. Le soluzioni sono state verificate anche per integrazione diretta.
 
-> [!example] $\mathcal{L}{1(t-3) + \delta(t) + t\cdot1(t)}$ Per linearità si trasforma un termine alla volta: il gradino traslato dà $e^{-3s}/s$, l'impulso $1$, la rampa $1/s^2$. $$\mathcal{L}{\dots} = \frac{e^{-3s}}{s} + 1 + \frac{1}{s^2} = \frac{s,e^{-3s} + s^2 + 1}{s^2} = 1 + \frac{s,e^{-3s}+1}{s^2}.$$
+> [!example] $\mathcal{L}{1(t-3) + \delta(t) + t\cdot1(t)}$ 
+> Per linearità si trasforma un termine alla volta: il gradino traslato dà $e^{-3s}/s$, l'impulso $1$, la rampa $1/s^2$. $$\mathcal{L}{\dots} = \frac{e^{-3s}}{s} + 1 + \frac{1}{s^2} = \frac{s,e^{-3s} + s^2 + 1}{s^2} = 1 + \frac{s,e^{-3s}+1}{s^2}.$$
 
-> [!example] $\mathcal{L}{e^{a(t-T)}\cos\omega(t-T)\cdot1(t-T)}$ La funzione è $g(t-T),1(t-T)$ con $g(t) = e^{at}\cos\omega t$, quindi $$\mathcal{L}{\dots} = e^{-sT},\frac{s-a}{(s-a)^2+\omega^2}.$$ Nella nota il risultato è corretto, ma nel codice LaTeX la parentesi graffa dell'esponente racchiude per errore tutta la funzione, che risulta quindi stampata come esponente.
+> [!example] $\mathcal{L}{e^{a(t-T)}\cos\omega(t-T)\cdot1(t-T)}$ 
+> La funzione è $g(t-T),1(t-T)$ con $g(t) = e^{at}\cos\omega t$, quindi $$\mathcal{L}{\dots} = e^{-sT},\frac{s-a}{(s-a)^2+\omega^2}.$$ Nella nota il risultato è corretto, ma nel codice LaTeX la parentesi graffa dell'esponente racchiude per errore tutta la funzione, che risulta quindi stampata come esponente.
 
-> [!example] Trasformata della funzione a tratti del §3.3 (segnata «RIFARE» negli appunti) Si vuole trasformare $$f(t) = \cos t,\Big[1(t) - 1\big(t-\tfrac{\pi}{2}\big)\Big] + \frac{t-\pi}{4-\pi},\Big[1(t-\pi) - 1(t-4)\Big].$$ Si separano i quattro termini: $$f(t) = \underbrace{\cos t\cdot1(t)}_{(a)} - \underbrace{\cos t\cdot1\big(t-\tfrac{\pi}{2}\big)}_{(b)} + \frac{1}{4-\pi}\Big[\underbrace{(t-\pi)\cdot1(t-\pi)}_{(c)} - \underbrace{(t-\pi)\cdot1(t-4)}_{(d)}\Big].$$
+> [!example] Trasformata della funzione a tratti del §3.3 (segnata «RIFARE» negli appunti) 
+> Si vuole trasformare $$f(t) = \cos t,\Big[1(t) - 1\big(t-\tfrac{\pi}{2}\big)\Big] + \frac{t-\pi}{4-\pi},\Big[1(t-\pi) - 1(t-4)\Big].$$ Si separano i quattro termini: $$f(t) = \underbrace{\cos t\cdot1(t)}_{(a)} - \underbrace{\cos t\cdot1\big(t-\tfrac{\pi}{2}\big)}_{(b)} + \frac{1}{4-\pi}\Big[\underbrace{(t-\pi)\cdot1(t-\pi)}_{(c)} - \underbrace{(t-\pi)\cdot1(t-4)}_{(d)}\Big].$$
 > 
 > **(a)** È il coseno con $\omega = 1$: $\dfrac{s}{s^2+1}$.
 > 
@@ -467,7 +480,8 @@ Poiché più avanti si dovranno calcolare le radici di polinomi in $s$, il docen
 > 
 > **Verifica con la proprietà della derivata.** Poiché $f(0^-) = 0$, deve valere $\mathcal{L}{\dot f} = s,F(s)$. Si trasforma termine per termine la derivata trovata nel §3.3, usando $\sin t = \cos\big(t-\frac{\pi}{2}\big)$ per il termine traslato: $$\mathcal{L}{\dot f} = -\frac{1}{s^2+1} + \frac{s,e^{-\pi s/2}}{s^2+1} + 1 + \frac{e^{-\pi s} - e^{-4s}}{(4-\pi),s} - e^{-4s}.$$ Moltiplicando $F(s)$ per $s$ e usando $\frac{s^2}{s^2+1} = 1 - \frac{1}{s^2+1}$ si ottiene esattamente la stessa espressione. Il confronto conferma il risultato: un altro caso di «se due cose sono uguali, sono uguali».
 
-> [!warning] Errori nel tentativo presente negli appunti Il tentativo nella nota «Laplace» contiene quattro errori:
+> [!warning] Errori nel tentativo presente negli appunti 
+> Il tentativo nella nota «Laplace» contiene quattro errori:
 > 
 > - il fattore $\frac{t-\pi}{4-\pi}$ viene portato fuori dalla trasformata, ma per linearità si possono portare fuori solo le **costanti**, non quantità che dipendono da $t$;
 > - la trasformata del coseno è scritta $\frac{s}{s^2+\omega^2}$ anziché $\frac{s}{s^2+1}$ (qui $\omega = 1$);
