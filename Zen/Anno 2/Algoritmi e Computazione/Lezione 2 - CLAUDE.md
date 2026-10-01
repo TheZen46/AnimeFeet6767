@@ -5,7 +5,7 @@
 ---
 # Lezione 2 — Architettura di un interprete e fondamenti dei linguaggi formali
 
-La lezione riprende il problema posto alla fine della [[Lezione 01 - Presentazione del corso|prima lezione]]: costruire un interprete. Lo fa in due tempi. Nella prima parte, «tecnologica», mostra come la letteratura sui compilatori scompone il problema in tre fasi: analisi lessicale, sintattica e semantica. Nella seconda parte, sulle slide _Argomenti preliminari_, introduce i concetti di alfabeto, stringa e linguaggio, con l'obiettivo di mostrare che le tre fasi risolvono, dal punto di vista teorico, **lo stesso problema**: il _word problem_.
+La lezione riprende il problema posto alla fine della [[Zen/Anno 2/Algoritmi e Computazione/Lezione 1 - CLAUDE|Lezione 1 - CLAUDE]]: costruire un interprete. Lo fa in due tempi. Nella prima parte, «tecnologica», mostra come la letteratura sui compilatori scompone il problema in tre fasi: analisi lessicale, sintattica e semantica. Nella seconda parte, sulle slide _Argomenti preliminari_, introduce i concetti di alfabeto, stringa e linguaggio, con l'obiettivo di mostrare che le tre fasi risolvono, dal punto di vista teorico, **lo stesso problema**: il _word problem_.
 
 Il docente precisa che lo scopo non è ancora spiegare come si fa il progetto, ma far capire perché il corso è impostato in questo modo. Non bisogna quindi preoccuparsi se qualche dettaglio sfugge: conta la visione d'insieme, che verrà ripresa più volte.
 
@@ -58,7 +58,7 @@ Il docente sottolinea che questa organizzazione non è un'invenzione sua: è ci�
 
 ### Parole e token
 
-La prima fase è l'**analisi lessicale**, svolta da un modulo chiamato _lexer_ (da _lexical analyzer_). Il suo compito è individuare le **parole** del programma. Nel linguaggio di programmazione le parole non sono soltanto quelle che intuitivamente chiameremmo tali. `int` è una parola del linguaggio, che indica un tipo; `f` è un **identificatore**, cioè il nome scelto dal programmatore per la funzione. Anche la parentesi tonda aperta è una parola, benché si sia portati a considerarla un segno di interpunzione: la si indica con `lp` (_left parenthesis_). Analogamente `rp` è la parentesi tonda chiusa, `lb` e `rb` (_left/right brace_) le parentesi graffe aperta e chiusa. Le parole riservate del linguaggio, come `return`, sono dette **parole chiave** (_keyword_, `kw`).
+La prima fase è l'**analisi lessicale**, svolta da un modulo chiamato **_lexer_** (da _lexical analyzer_). Il suo compito è individuare le **parole** del programma. Nel linguaggio di programmazione le parole non sono soltanto quelle che intuitivamente chiameremmo tali. `int` è una parola del linguaggio, che indica un tipo; `f` è un **identificatore**, cioè il nome scelto dal programmatore per la funzione. Anche la parentesi tonda aperta è una parola, benché si sia portati a considerarla un segno di interpunzione: la si indica con `lp` (_left parenthesis_). Analogamente `rp` è la parentesi tonda chiusa, `lb` e `rb` (_left/right brace_) le parentesi graffe aperta e chiusa. Le parole riservate del linguaggio, come `return`, sono dette **parole chiave** (_keyword_, `kw`).
 
 Ogni parola riconosciuta diventa un **token** (in italiano a volte «gettone», o elemento lessicale). Un token è una piccola struttura composta in genere da due attributi:
 
@@ -407,7 +407,7 @@ Che $\emptyset$ sia **assorbente** si dimostra direttamente dalla definizione. U
 
 Le due leggi sulle chiusure di $\emptyset$ e di ${\epsilon}$ evidenziano un fatto curioso. I due linguaggi sono diversi, ma hanno la stessa chiusura. In entrambi i casi la potenza zero vale ${\epsilon}$ per definizione. Per $\emptyset$ tutte le potenze successive sono vuote, perché $\emptyset$ è assorbente; per ${\epsilon}$ tutte le potenze valgono ancora ${\epsilon}$. L'unione dà quindi ${\epsilon}$ in entrambi i casi.
 
-Il docente chiama $L^+$ chiusura «transitiva» e $L^_$ chiusura «riflessiva e transitiva». La legge $L^+ = LL^_ = L^_L$ dice che le stringhe della chiusura positiva si ottengono anteponendo o posponendo un elemento di $L$ a una stringa di $L^_$. Infine, la chiusura è **idempotente**: chiudere una chiusura non aggiunge nulla.
+Il docente chiama $L^+$ chiusura «transitiva» e $L^-$ chiusura «riflessiva e transitiva». La legge $L^+ = LL^- = L^-L$ dice che le stringhe della chiusura positiva si ottengono anteponendo o posponendo un elemento di $L$ a una stringa di $L^_$. Infine, la chiusura è **idempotente**: chiudere una chiusura non aggiunge nulla.
 
 > [!example] Dimostrazione della distributività a sinistra Si vuole provare che $L(M \cup N) = LM \cup LN$. Per una stringa $w$ valgono le seguenti equivalenze: $$ \begin{aligned} w \in L(M \cup N) &\iff \exists x \in L,\ \exists y \in M \cup N : w = xy \ &\iff \exists x \in L,\ \exists y : w = xy \text{ e } (y \in M \text{ oppure } y \in N) \ &\iff (\exists x \in L,\ \exists y \in M : w = xy) \text{ oppure } (\exists x \in L,\ \exists y \in N : w = xy) \ &\iff w \in LM \text{ oppure } w \in LN \iff w \in LM \cup LN . \end{aligned} $$ I due insiemi hanno gli stessi elementi e sono quindi uguali. La distributività a destra si prova allo stesso modo.
 
