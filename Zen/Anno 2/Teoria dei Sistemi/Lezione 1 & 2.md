@@ -225,7 +225,7 @@ L'integrazione, al contrario, trasforma singolarità impulsive in funzioni regol
     
 
 
-``` 
+``` chart
 type: line
 labels: [-1, 0, 1, 2, 3, 4]
 series:
