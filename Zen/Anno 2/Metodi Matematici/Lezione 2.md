@@ -231,9 +231,9 @@ $$\lim_{t \to 0} \frac{f(\hat{\mathbf{x}} + t\mathbf{v}) - f(\hat{\mathbf{x}})}{
 
   
 
-Snippet di codice
 
-```
+
+``` mermaid
 graph TD
     A[Differenziabilità] -->|Implica| B(Continuità)
     A -->|Implica| C(Esistenza derivate direzionali)
