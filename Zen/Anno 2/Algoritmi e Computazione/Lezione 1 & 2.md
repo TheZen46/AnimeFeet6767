@@ -51,7 +51,7 @@ La trasformazione di questo testo sorgente in un output calcolabile attraversa t
 
 
 
-```
+``` mermaid
 graph LR
     A[File Sorgente testuale] -->|Flusso di caratteri| B(Analisi Lessicale<br>Lexer)
     B -->|Lista lineare di Token| C(Analisi Sintattica<br>Parser)
@@ -174,9 +174,8 @@ Se l'analisi ha successo, il Parser abbandona la struttura lineare della lista p
 
   
 
-Snippet di codice
 
-```
+``` mermaid
 graph TD
     Prog[Programma] --> F[Funzione: f]
     Prog --> M[Funzione: main]

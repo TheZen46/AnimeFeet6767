@@ -89,7 +89,7 @@ Come reazione a questa inefficienza, negli anni '80 nacque il paradigma **Reatti
 
 
 
-```
+``` mermaid
 graph TD
     subgraph Architettura_Ibrida
         A[Livello Deliberativo: Pianificazione globale, Mappatura <br> Tempo: Secondi/Minuti]

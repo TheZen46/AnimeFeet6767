@@ -19,7 +19,7 @@ L'obiettivo fondamentale dell'ingegneria dei sistemi e del controllo è determin
   
 
 
-```
+``` mermaid
 graph LR
     C[Causa c_e] -->|Input| S[SISTEMA - Operatore O]
     S -->|Output| E[Effetto e]
@@ -224,9 +224,8 @@ L'integrazione, al contrario, trasforma singolarità impulsive in funzioni regol
       
     
 
-Snippet di codice
 
-```
+``` 
 type: line
 labels: [-1, 0, 1, 2, 3, 4]
 series:
