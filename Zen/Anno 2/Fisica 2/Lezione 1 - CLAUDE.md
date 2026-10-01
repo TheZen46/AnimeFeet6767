@@ -210,13 +210,15 @@ Il coulomb è un'unità difficile da realizzare e misurare direttamente. È lega
 
 Ogni volta che la carica contenuta in una regione di spazio varia nel tempo, c'è una corrente elettrica. Un ampere corrisponde al passaggio di un coulomb al secondo. Si può anche invertire la relazione: misurare una corrente è molto più preciso che misurare direttamente una carica. Quando il coulomb è difficile da misurare, conviene quindi passare dall'ampere e ricavare la carica dalla corrente, con $1\ \mathrm C = 1\ \mathrm{A\cdot s}$. Quale strada convenga dipende naturalmente dalla situazione.
 
-> [!tip] Approfondimento — Ampere, coulomb e carica elementare nel SI attuale #approfondimento Dal 20 maggio 2019, con la revisione del Sistema Internazionale, l'ampere è definito fissando il valore numerico esatto della carica elementare: $e = 1{,}602,176,634\times10^{-19}\ \mathrm C$. La definizione precedente dell'ampere, in vigore dal 1948, è stata abrogata. Il coulomb resta un'unità derivata, $1\ \mathrm C = 1\ \mathrm{A,s}$, coerentemente con quanto detto a lezione [@bipm2019]. Le cariche usate negli esercizi della lezione successiva, $1{,}6\times10^{-19}\ \mathrm C$ e $3{,}2\times10^{-19}\ \mathrm C$, corrispondono a $e$ e $2e$.
+> [!tip] Approfondimento — Ampere, coulomb e carica elementare nel SI attuale #approfondimento 
+> Dal 20 maggio 2019, con la revisione del Sistema Internazionale, l'ampere è definito fissando il valore numerico esatto della carica elementare: $e = 1{,}602,176,634\times10^{-19}\ \mathrm C$. La definizione precedente dell'ampere, in vigore dal 1948, è stata abrogata. Il coulomb resta un'unità derivata, $1\ \mathrm C = 1\ \mathrm{A,s}$, coerentemente con quanto detto a lezione [@bipm2019]. Le cariche usate negli esercizi della lezione successiva, $1{,}6\times10^{-19}\ \mathrm C$ e $3{,}2\times10^{-19}\ \mathrm C$, corrispondono a $e$ e $2e$.
 
 ## Conservazione della carica e della corrente
 
 Una delle leggi fondamentali della natura stabilisce che la carica si conserva.
 
-> [!important] Principio di conservazione della carica La carica elettrica totale si conserva: non può essere né creata né distrutta, ma solo spostata da un punto all'altro.
+> [!important] Principio di conservazione della carica 
+> La carica elettrica totale si conserva: non può essere né creata né distrutta, ma solo spostata da un punto all'altro.
 
 Possiamo trasportare carica, ad esempio facendo scorrere una corrente, ma la carica totale deve restare la stessa. Questo principio ha una conseguenza diretta sulla corrente. Si consideri un filo conduttore che a un certo punto si divide in due rami. Il punto di diramazione si chiama **nodo**. Se nel nodo entra una corrente $i$ e nei due rami escono le correnti $i_1$ e $i_2$, necessariamente
 
@@ -231,7 +233,8 @@ flowchart LR
 
 In generale, la somma delle correnti entranti in un nodo è uguale alla somma delle correnti uscenti. Se così non fosse, ad esempio se entrasse più corrente di quanta ne esce, nel nodo verrebbe distrutta carica, oppure creata nel caso opposto. Un nodo di un circuito non può accumulare carica, e la conservazione lo vieta. La conservazione della carica è l'assunzione fisica di base; la conservazione della corrente ai nodi ne è una conseguenza.
 
-> [!tip] Approfondimento — Anticipazione sui circuiti #approfondimento Nella parte del corso dedicata ai circuiti, questa relazione è nota come legge dei nodi, o prima legge di Kirchhoff.
+> [!tip] Approfondimento — Anticipazione sui circuiti #approfondimento 
+> Nella parte del corso dedicata ai circuiti, questa relazione è nota come legge dei nodi, o prima legge di Kirchhoff.
 
 ## Il principio di sovrapposizione
 
@@ -255,4 +258,5 @@ Entrambe le forze sono attrattive, perché la carica 2 è negativa mentre la 1 e
 
 La somma è stata eseguita qui per via grafica. La somma analitica, che passa dalla scomposizione dei vettori in componenti, è stata svolta negli esercizi della lezione successiva: si veda [[Fisica 2 - Lezione 02 - Campo elettrico e dipolo]].
 
-> [!tip] Schema consigliato La costruzione con il parallelogramma per le cariche 1 e 2 è nella seconda pagina dei tuoi appunti a mano. Riprodurla in Excalidraw, con i vettori colorati per sorgente, aiuta a fissare la procedura.
+> [!tip] Schema consigliato 
+> La costruzione con il parallelogramma per le cariche 1 e 2 è nella seconda pagina dei tuoi appunti a mano. Riprodurla in Excalidraw, con i vettori colorati per sorgente, aiuta a fissare la procedura.
