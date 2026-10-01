@@ -69,12 +69,13 @@ George B. Dantzig (1914–2005), matematico statunitense, è l'inventore del **m
 
 Un'azienda ha **70 lavoratori** e **70 lavori**. Si vuole assegnare a ogni lavoratore esattamente un lavoro, in modo che ogni lavoro sia svolto esattamente da un lavoratore. I lavoratori hanno competenze diverse; con un'ipotesi semplificativa, si suppone che ciascuno impieghi un **tempo diverso** per svolgere ciascun lavoro. Questi tempi sono raccolti in una tabella, con i lavoratori (risorse $R_i$) sulle righe e i lavori $L_j$ sulle colonne:
 
-||$L_1$|$L_2$|$\dots$|$L_{70}$|
-|---|---|---|---|---|
-|$R_1$|$1$|$10$|$\dots$||
-|$R_2$|$3$|$1$|$\dots$||
-|$\vdots$|||||
-|$R_{70}$|||||
+
+|          | $L_1$ | $L_2$ | $\dots$ | $L_{70}$ |
+| -------- | ----- | ----- | ------- | -------- |
+| $R_1$    | 1     | 10    |         |          |
+| $R_2$    | 3     | 1     |         |          |
+| $\vdots$ |       |       |         |          |
+| $R_{70}$ | 9     | 7     |         |          |
 
 Il lavoratore $R_1$, per esempio, è molto bravo nel lavoro $L_1$ (un'ora) ma lento nel lavoro $L_2$ (dieci ore). L'obiettivo è trovare un'assegnazione lavoratori–lavori che **minimizzi il tempo totale** di svolgimento di tutti i lavori.
 
@@ -178,7 +179,8 @@ La ricerca operativa è trasversale a molte discipline, al punto che diversi stu
 > 
 > Una precisazione terminologica: il premio di Roth e Shapley riguarda il _market design_, cioè la progettazione di "mercati" in cui le assegnazioni si fanno tramite regole di abbinamento anziché tramite prezzi. Il _mechanism design_ in senso stretto è stato premiato separatamente nel 2007 (Hurwicz, Maskin, Myerson). Kantorovich è citato anche dalle dispense come precursore della programmazione lineare, con una monografia del 1939 rimasta a lungo ignorata in Occidente [@roma2023, §4.1].
 
-> [!tip] Approfondimento — Il rapporto sulle _Grand Challenges_ #approfondimento La docente ha segnalato un rapporto per l'agenzia di ricerca statunitense sulle grandi sfide della ricerca operativa (da cercare come "OR Grand Challenges"). Si tratta del rapporto alla National Science Foundation _Operations Research – A Catalyst for Engineering Grand Challenges_, redatto da un comitato coordinato da Suvrajeet Sen (University of Southern California). Il rapporto è stato diffuso nel 2014 e ripreso nel 2015–2016 da una serie di articoli su _OR/MS Today_ [@morton2016]; la docente lo data al 2015. Prende come riferimento le _Grand Challenges for Engineering_ della National Academy of Engineering e individua come aree la ricerca operativa per la **sostenibilità**, la **sicurezza**, la **salute umana** e la _joy of living_ (la qualità della vita), oltre alla ricerca operativa come teoria generale dell'analisi dei dati (_analytics_). Secondo la docente gran parte dei problemi delineati nel rapporto è ancora aperta.
+> [!tip] Approfondimento — Il rapporto sulle _Grand Challenges_ #approfondimento 
+> La docente ha segnalato un rapporto per l'agenzia di ricerca statunitense sulle grandi sfide della ricerca operativa (da cercare come "OR Grand Challenges"). Si tratta del rapporto alla National Science Foundation _Operations Research – A Catalyst for Engineering Grand Challenges_, redatto da un comitato coordinato da Suvrajeet Sen (University of Southern California). Il rapporto è stato diffuso nel 2014 e ripreso nel 2015–2016 da una serie di articoli su _OR/MS Today_ [@morton2016]; la docente lo data al 2015. Prende come riferimento le _Grand Challenges for Engineering_ della National Academy of Engineering e individua come aree la ricerca operativa per la **sostenibilità**, la **sicurezza**, la **salute umana** e la _joy of living_ (la qualità della vita), oltre alla ricerca operativa come teoria generale dell'analisi dei dati (_analytics_). Secondo la docente gran parte dei problemi delineati nel rapporto è ancora aperta.
 
 ## Primo modello — il problema di assegnamento
 
