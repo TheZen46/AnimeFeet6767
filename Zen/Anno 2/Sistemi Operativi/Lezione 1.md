@@ -106,7 +106,7 @@ La creazione di un processo segue passaggi rigorosi orchestrati dal sistema oper
       
 
 
-```
+``` mermaid
 block-beta
   columns 3
   CPU["CPU"]
@@ -139,7 +139,7 @@ Durante il suo ciclo di vita, dal punto di vista del processore, un processo att
 
   
 
-```
+``` mermaid
 stateDiagram-v2
     [*] --> Ready
     Ready --> Running : Scheduled (Schedulato)

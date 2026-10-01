@@ -116,7 +116,7 @@ Questo meccanismo ha due conseguenze pratiche. Una funzione definita a tratti, c
 > 
 > La retta deve annullarsi in $\pi$, quindi contiene il fattore $(t-\pi)$. Deve valere $1$ in $t=4$, quindi va divisa per $4-\pi$: il coefficiente angolare è il rapporto tra l'altezza raggiunta, $1$, e il cateto su cui poggia l'angolo, $4-\pi$. Con le finestre: $$f(t) = \cos t,\Big[1(t) - 1\big(t-\tfrac{\pi}{2}\big)\Big] + \frac{t-\pi}{4-\pi},\Big[1(t-\pi) - 1(t-4)\Big].$$ Nell'intervallo $[\pi/2, \pi)$ la funzione è nulla e non serve scrivere nulla: si scrivono solo i tratti diversi da zero. La formula vale per ogni $t$ e restituisce sempre il valore giusto.
 
-```chart
+``` chart
 type: line
 labels: [-0.5, -0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3, 4.4, 4.5]
 series:
@@ -162,7 +162,8 @@ $$\dot f(t) = -\sin t,\Big[1(t) - 1\big(t-\tfrac{\pi}{2}\big)\Big] + \delta(t) +
 
 Il confronto con la previsione grafica è completo. Gli impulsi sono uno positivo di area unitaria in $t=0$ e uno negativo di area unitaria in $t=4$. La parte ordinaria vale $-\sin t$ tra $0$ e $\pi/2$, zero tra $\pi/2$ e $\pi$ (nessun termine «acceso» in quell'intervallo), la costante $\frac{1}{4-\pi}$ tra $\pi$ e $4$, e zero dopo. Come ripete il docente, «se due cose sono uguali, sono uguali»: i due procedimenti non possono dare risultati diversi, e confrontarli è un ottimo controllo.
 
-> [!warning] Discrepanza negli appunti (nota «Funzioni generalizzate») Nella nota il terzo e il quarto termine della derivata sono scritti con le finestre del primo tratto, $\big[1(t) - 1(t-\frac{\pi}{2})\big]$ e $\big[\delta(t) - \delta(t-\frac{\pi}{2})\big]$, anziché con quelle del secondo tratto, $\big[1(t-\pi) - 1(t-4)\big]$ e $\big[\delta(t-\pi) - \delta(t-4)\big]$. L'errore si propaga al risultato finale, dove compare $\frac{1}{4-\pi}\big[1(t) - 1(t-\frac{\pi}{2})\big]$. La versione corretta è quella riportata sopra, che coincide con gli appunti a mano.
+> [!warning] Discrepanza negli appunti (nota «Funzioni generalizzate») 
+> Nella nota il terzo e il quarto termine della derivata sono scritti con le finestre del primo tratto, $\big[1(t) - 1(t-\frac{\pi}{2})\big]$ e $\big[\delta(t) - \delta(t-\frac{\pi}{2})\big]$, anziché con quelle del secondo tratto, $\big[1(t-\pi) - 1(t-4)\big]$ e $\big[\delta(t-\pi) - \delta(t-4)\big]$. L'errore si propaga al risultato finale, dove compare $\frac{1}{4-\pi}\big[1(t) - 1(t-\frac{\pi}{2})\big]$. La versione corretta è quella riportata sopra, che coincide con gli appunti a mano.
 
 ### 3.4 Esempio dalla dispensa: un segnale di controllo a tratti
 
@@ -174,7 +175,8 @@ La dispensa (pp. 11–12, Esempio PM 1) applica lo stesso metodo a un segnale di
 - risale linearmente fino a $1$ in $t=3$;
 - ridiscende a $0$ in $t=4$.
 
-> [!example] Esempio PM 1 (dispensa) Individuate le quattro finestre corrispondenti agli intervalli $[0,1)$, $[1,2)$, $[2,3)$, $[3,4)$, si scrive l'andamento della funzione in ciascuna: $$u(t) = 2t,\big[1(t)-1(t-1)\big] + 2,\big[1(t-1)-1(t-2)\big] + (t-2),\big[1(t-2)-1(t-3)\big] + (4-t),\big[1(t-3)-1(t-4)\big].$$ Raccogliendo i coefficienti di ciascun gradino si ottiene la forma compatta: $$u(t) = 2t\cdot1(t) + 2(1-t)\cdot1(t-1) + (t-4)\cdot1(t-2) - 2(t-3)\cdot1(t-3) + (t-4)\cdot1(t-4).$$ Il coefficiente di $1(t-1)$, ad esempio, è $-2t+2$; quello di $1(t-3)$ è $-(t-2)+(4-t) = 6-2t$.
+> [!example] Esempio PM 1 (dispensa) 
+> Individuate le quattro finestre corrispondenti agli intervalli $[0,1)$, $[1,2)$, $[2,3)$, $[3,4)$, si scrive l'andamento della funzione in ciascuna: $$u(t) = 2t,\big[1(t)-1(t-1)\big] + 2,\big[1(t-1)-1(t-2)\big] + (t-2),\big[1(t-2)-1(t-3)\big] + (4-t),\big[1(t-3)-1(t-4)\big].$$ Raccogliendo i coefficienti di ciascun gradino si ottiene la forma compatta: $$u(t) = 2t\cdot1(t) + 2(1-t)\cdot1(t-1) + (t-4)\cdot1(t-2) - 2(t-3)\cdot1(t-3) + (t-4)\cdot1(t-4).$$ Il coefficiente di $1(t-1)$, ad esempio, è $-2t+2$; quello di $1(t-3)$ è $-(t-2)+(4-t) = 6-2t$.
 > 
 > Derivando con la regola del prodotto: $$\begin{aligned} \dot u(t) ={}& 2\cdot1(t) + 2t,\delta(t) - 2\cdot1(t-1) + 2(1-t),\delta(t-1) + 1(t-2) + (t-4),\delta(t-2) \ &- 2\cdot1(t-3) - 2(t-3),\delta(t-3) + 1(t-4) + (t-4),\delta(t-4). \end{aligned}$$ Per campionamento tutti gli impulsi si annullano tranne quello in $t=2$, dove $(t-4),\delta(t-2) = (2-4),\delta(t-2) = -2,\delta(t-2)$. Quindi $$\dot u(t) = 2\cdot1(t) - 2\cdot1(t-1) + 1(t-2) - 2\cdot1(t-3) + 1(t-4) - 2,\delta(t-2).$$ Graficamente la derivata vale $2$ su $[0,1)$, $0$ su $[1,2)$, $1$ su $[2,3)$ e $-1$ su $[3,4)$, poi $0$. In $t=2$ c'è un impulso verso il basso di area $2$: è l'unico salto della funzione, che passa da $2$ a $0$. La dispensa lascia il termine nella forma $(t-4),\delta(t-2)$, che per campionamento è proprio $-2,\delta(t-2)$.
 
@@ -249,7 +251,7 @@ Qui la notazione va letta con attenzione. $F(s)$ è la trasformata della funzion
 
 La dimostrazione, l'unica di questo tipo svolta per esteso dal docente, è un'integrazione per parti:
 
-$$\begin{aligned} \mathcal{L}{\dot f(t)} &= \int_{0^-}^{\infty}\dot f(t),e^{-st},dt = \Big[f(t),e^{-st}\Big]_{0^-}^{\infty} - \int_{0^-}^{\infty} f(t),\big(-s,e^{-st}\big),dt \[4pt] &= \underbrace{\lim_{t\to\infty} f(t),e^{-st}}_{=,0} ;-; f(0^-) ;+; s\int_{0^-}^{\infty} f(t),e^{-st},dt = s,F(s) - f(0^-). \end{aligned}$$
+$$\begin{aligned} \mathcal{L}{\dot f(t)} &= \int_{0^-}^{\infty}\dot f(t),e^{-st},dt = \Big[f(t),e^{-st}\Big]_{0^-}^{\infty} - \int_{0^-}^{\infty} f(t),\big(-s,e^{-st}\big),dt [4pt] &= \underbrace{\lim_{t\to\infty} f(t),e^{-st}}_{=,0} ;-; f(0^-) ;+; s\int_{0^-}^{\infty} f(t),e^{-st},dt = s,F(s) - f(0^-). \end{aligned}$$
 
 Il termine all'infinito è nullo, perché altrimenti l'integrale che definisce $F(s)$ non esisterebbe. In $0^-$ l'esponenziale vale $1$.
 
