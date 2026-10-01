@@ -43,3 +43,5 @@ $$\displaystyle =\frac{s}{s^2+\omega^2}- +\frac{e^{-\pi s}}{s}-\frac{e^{-4s}}{s}
 RIFARE $\displaystyle f(t)=cos(t)\left[1(t)-1(t-\frac\pi2)\right]+\frac{1}{4-\pi}(t-\pi)\left[1(t-\pi)-1(t-4)\right]$
 
 $\displaystyle \mathcal L\Bigr\{\frac{t^k}{k!}e^{at}\array{\sin(\omega t)\\\cos(\omega t)}\Bigl\}=\frac{}{\bigr[(s-a)^2+\omega^2\bigl]^{k+1}}$
+
+$\displaystyle \mathcal L\{e^{2t}+e^{-3t}\}=\mathcal L\{e^{2t}\}+\mathcal L\{e^{-et}\}=\frac{1}{s-2}+\frac{1}{s+3}=\frac{2s+1}{(s-2)(s+3)}$
