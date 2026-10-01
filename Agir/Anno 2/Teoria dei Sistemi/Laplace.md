@@ -9,6 +9,7 @@ $\displaystyle\mathcal L\left\{f(t)g(t)\right\}\neq F(s)G(s)$
 $\mathcal L\left\{\dot f(t)\right\}=sF(s)-f(0^-)$
 $\displaystyle\mathcal L\left\{\int_{0^-}^t f(\tau)d\tau\right\}=\frac1s F(s)$
 $\displaystyle\mathcal L\left\{f(t-T)1(t-T)\right\}=e^{-sT}F(s)$
+$\displaystyle \mathcal L\{f(t-T)u(t-\varphi)\}=\int_\varphi^\infty f(t-T)e^{-st}dt\mskip{24mu}\forall\phi\in\mathbb R^+$
 $\displaystyle\mathcal L\left\{e^{at}f(t)\right\}=F(s-a)$
 $\displaystyle\mathcal L\left\{tf(t)\right\}=-\frac{d}{ds}F(s)$
 $\displaystyle\mathcal L\left\{\delta(t)\right\}=\int_{0^-}^\infty \delta(t)\underbrace{e^{-st}}_{e^0=1}dt=1$
