@@ -5,3 +5,7 @@ $\displaystyle 2\frac{1}{(s-2)}+\frac{1}{(s+3)}$
 
 $\displaystyle F(s)=\frac{1+3e^{-2s}}{(s+2)}=\underbrace{\frac{1}{s+2}}_{\overset{\mathcal L^{-1}}{e^{-2t}}}+\frac{3}{(s+2)}e^{-2s}=e^{-2t}+3\frac{1}{s+2}e^{-2s}=e^{-2t}+3e^{-2(t-2)}1(t-2)$
 $\displaystyle \mathcal L^{-1}\{\frac{1}{(s+\alpha)}e^{-\tau s}\}=e^{-\alpha(t-\tau)}u(t-\tau)$
+
+$\displaystyle F(s)=\frac{s^2}{s+1}=s-1+\frac{1}{s+1}=\delta_1(t)-\delta(t)+e^{-t}$
+
+$$\displaystyle F(s)=\frac{s^3+^2e^{3s}+1}{s^2+1}=\frac{s^3}{s^2+1}+\frac{s^2e^{-3s}}{s^2+1}+\frac1{s^2+1}=s-\frac{s}{s^2+1}+e^{-3s}(1-\frac{1}{s^2+1})+\frac{1}{s^2+1}=\delta_1(t)-\cos(t)+u(t-3)\bigl(\delta(t)-\sin(t)\bigr)+\sin(t)=\delta_1(t)-\cos(t)+u(t-3)-\sin(t)\bigr)+\sin(t)$$
