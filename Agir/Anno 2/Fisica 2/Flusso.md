@@ -6,4 +6,13 @@ $\vec A=A\vec n$
 $\Phi_E=\vec E\cdot \vec A=EA\cos\theta$
 
 
-Superficie 
+Superficie **non** piana
+Si prende una regione abbastanza piccola $dA$ da considerarla piana $\Rightarrow d\vec A=dA\hat n$ 
+$d\Phi_E=\vec E\cdot d\vec A$
+$\displaystyle \Phi_E=\oint\vec E\cdot d\vec A$
+
+I vettori vengono presi uscenti dalla superficie
+
+
+Cilindro $\bigcirc\small\begin{array}{l}\textemdash\\\textemdash\end{array}$
+$\Phi=\Phi_1+\Phi_2+\Phi_3$
