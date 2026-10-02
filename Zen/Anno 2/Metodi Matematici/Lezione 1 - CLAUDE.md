@@ -71,13 +71,13 @@ Per lavorare con queste funzioni bisogna sapere con che cosa si sta lavorando, e
 
 $\mathbb{R}^n$ è l'insieme delle $n$-uple ordinate di numeri reali. Un suo elemento è $$\mathbf{x} = (x_1, x_2, \dots, x_n), \qquad x_i \in \mathbb{R} \quad \forall, i \in {1, \dots, n}.$$
 
-Nel corso si useranno, a seconda della comodità, diverse notazioni equivalenti per lo stesso oggetto: $\underline{x}$, $\vec{x}$, $\mathbf{x}$, oppure semplicemente $x$ quando non c'è ambiguità. Le componenti si possono elencare in riga, $(x_1, \dots, x_n)$, oppure in colonna, $$\mathbf{x} = \begin{pmatrix} x_1 \ x_2 \ \vdots \ x_n \end{pmatrix},$$ forma che risulta più comoda quando si usa il calcolo matriciale.
+Nel corso si useranno, a seconda della comodità, diverse notazioni equivalenti per lo stesso oggetto: $\underline{x}$, $\vec{x}$, $\mathbf{x}$, oppure semplicemente $x$ quando non c'è ambiguità. Le componenti si possono elencare in riga, $(x_1, \dots, x_n)$, oppure in colonna, $$\mathbf{x} = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix},$$ forma che risulta più comoda quando si usa il calcolo matriciale.
 
 ### Struttura di spazio vettoriale e base canonica
 
 $\mathbb{R}^n$ è uno **spazio vettoriale**: i suoi elementi si possono sommare, moltiplicare per scalari e quindi combinare linearmente. Dati $\mathbf{x} = (x_1, \dots, x_n)$, $\mathbf{y} = (y_1, \dots, y_n)$ e $\lambda_1, \lambda_2 \in \mathbb{R}$, la combinazione lineare si calcola componente per componente: $$\lambda_1 \mathbf{x} + \lambda_2 \mathbf{y} = (\lambda_1 x_1 + \lambda_2 y_1, \ \dots, \ \lambda_1 x_n + \lambda_2 y_n) \in \mathbb{R}^n.$$
 
-La dimensione di $\mathbb{R}^n$ è $n$, cioè il numero di componenti che si possono scegliere liberamente. Una base naturale è la **base canonica** ${\mathbf{e}_i}_{i \in {1, \dots, n}}$, in cui il vettore $\mathbf{e}_i$ ha la componente $i$-esima uguale a 1 e tutte le altre nulle: $$\mathbf{e}_1 = \begin{pmatrix} 1 \ 0 \  \dots \ 0 \end{pmatrix}, \quad \mathbf{e}_2 = \begin{pmatrix} 0 \ 1 \ \dots \ 0 \end{pmatrix}, \quad \dots, \quad \mathbf{e}_n = \begin{pmatrix} 0 \ 0 \ \vdots \ 1 \end{pmatrix}.$$
+La dimensione di $\mathbb{R}^n$ è $n$, cioè il numero di componenti che si possono scegliere liberamente. Una base naturale è la **base canonica** ${\mathbf{e}_i}_{i \in {1, \dots, n}}$, in cui il vettore $\mathbf{e}_i$ ha la componente $i$-esima uguale a 1 e tutte le altre nulle: $$\mathbf{e}_1 = \begin{pmatrix} 1 \\ 0 \\  \vdots \\ 0 \end{pmatrix}, \quad \mathbf{e}_2 = \begin{pmatrix} 0 \\ 1 \\ \vdots \\ 0 \end{pmatrix}, \quad \dots, \quad \mathbf{e}_n = \begin{pmatrix} 0 \\ 0 \\ \vdots \\ 1 \end{pmatrix}.$$
 
 Dire che si tratta di una base significa che ogni vettore si scrive in modo unico come combinazione lineare dei suoi elementi. Per la base canonica i coefficienti della scomposizione sono proprio le componenti del vettore: $$\mathbf{x} = x_1 \mathbf{e}_1 + x_2 \mathbf{e}_2 + \dots + x_n \mathbf{e}_n = \sum_{i=1}^{n} x_i \mathbf{e}_i .$$ La scrittura con la sommatoria è compatta e verrà usata spesso.
 
@@ -91,7 +91,7 @@ Questa operazione è un esempio di **norma**, cioè una funzione che soddisfa le
 
 **Positività.** Per ogni $\mathbf{x}$ si ha $\lVert \mathbf{x} \rVert \ge 0$; inoltre $\lVert \mathbf{x} \rVert = 0$ se e solo se $\mathbf{x} = \mathbf{0}$, cioè l'unico vettore di lunghezza nulla è l'origine.
 
-**Omogeneità.** Per ogni $\lambda \in \mathbb{R}$ e ogni $\mathbf{x} \in \mathbb{R}^n$, $$\lVert \lambda \mathbf{x} \rVert = |\lambda| , \lVert \mathbf{x} \rVert .$$ Moltiplicare un vettore per $\lambda$ lo allunga o lo accorcia di un fattore $|\lambda|$ (ed eventualmente ne inverte il verso). Il docente osserva che si tratta di "un pezzettino di linearità", che però funziona solo con il valore assoluto di $\lambda$ e solo rispetto alla moltiplicazione per scalari: in generale la norma di una somma _non_ è la somma delle norme.
+**Omogeneità.** Per ogni $\lambda \in \mathbb{R}$ e ogni $\mathbf{x} \in \mathbb{R}^n$, $$\lVert \lambda \mathbf{x} \rVert = |\lambda| \cdot \lVert \mathbf{x} \rVert .$$ Moltiplicare un vettore per $\lambda$ lo allunga o lo accorcia di un fattore $|\lambda|$ (ed eventualmente ne inverte il verso). Il docente osserva che si tratta di "un pezzettino di linearità", che però funziona solo con il valore assoluto di $\lambda$ e solo rispetto alla moltiplicazione per scalari: in generale la norma di una somma _non_ è la somma delle norme.
 
 **Disuguaglianza triangolare.** Per ogni $\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$, $$\lVert \mathbf{x} + \mathbf{y} \rVert \le \lVert \mathbf{x} \rVert + \lVert \mathbf{y} \rVert .$$ Disegnando $\mathbf{x}$ e $\mathbf{y}$ con la regola del parallelogramma, $\mathbf{x} + \mathbf{y}$ è la diagonale: la sua lunghezza non supera la somma delle lunghezze dei due lati, come in ogni triangolo.
 
@@ -103,7 +103,7 @@ La norma permette di misurare non solo la lunghezza dei vettori ma anche la dist
 
 Le proprietà della norma si traducono in tre proprietà della distanza. È **positiva**: $d(\mathbf{x}, \mathbf{y}) \ge 0$ per ogni coppia di punti, e $d(\mathbf{x}, \mathbf{y}) = 0$ se e solo se $\mathbf{x} = \mathbf{y}$. È **simmetrica**: $d(\mathbf{x}, \mathbf{y}) = d(\mathbf{y}, \mathbf{x})$, perché scambiare $\mathbf{x}$ e $\mathbf{y}$ equivale a moltiplicare il vettore $\mathbf{x} - \mathbf{y}$ per $-1$ e, per omogeneità, $\lVert -(\mathbf{x} - \mathbf{y}) \rVert = |-1|, \lVert \mathbf{x} - \mathbf{y} \rVert$. Infine soddisfa la **disuguaglianza triangolare**: per ogni $\mathbf{x}, \mathbf{y}, \mathbf{z} \in \mathbb{R}^n$ $$d(\mathbf{x}, \mathbf{y}) \le d(\mathbf{x}, \mathbf{z}) + d(\mathbf{z}, \mathbf{y}),$$ che discende da quella della norma scrivendo $\mathbf{x} - \mathbf{y} = (\mathbf{x} - \mathbf{z}) + (\mathbf{z} - \mathbf{y})$: passare per un punto intermedio $\mathbf{z}$ non può accorciare il percorso.
 
-### Prodotto scalare
+### Prodotto scalare (che restituisce quindi uno scalare)
 
 $\mathbb{R}^n$ è dotato in modo naturale di un **prodotto scalare**, indicato con un punto, che prende una coppia di vettori e restituisce uno scalare.
 
@@ -121,7 +121,7 @@ L'essere **definito positivo** significa che $\mathbf{x} \cdot \mathbf{x} \ge 0$
 
 Norma e prodotto scalare "si comportano bene" l'una rispetto all'altro, nel senso precisato dalla seguente proposizione.
 
-> [!important] Proposizione — Disuguaglianza di Cauchy–Schwarz Per ogni $\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$ $$|\mathbf{x} \cdot \mathbf{y}| \le \lVert \mathbf{x} \rVert , \lVert \mathbf{y} \rVert .$$
+> [!important] Proposizione — Disuguaglianza di Cauchy–Schwarz Per ogni $\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$ $$|\mathbf{x} \cdot \mathbf{y}| \le \lVert \mathbf{x} \rVert \cdot \lVert \mathbf{y} \rVert .$$
 
 In parole: il prodotto scalare di due vettori è un numero il cui valore assoluto è controllato dal prodotto delle lunghezze dei due vettori.
 
@@ -136,7 +136,7 @@ Rileggendo questa condizione si ottiene $(\mathbf{x} \cdot \mathbf{y})^2 \le \lV
 > [!tip] Approfondimento — Caso di uguaglianza e disuguaglianza triangolare #approfondimento 
 > La stessa dimostrazione dice anche _quando_ vale l'uguaglianza. Se $\mathbf{y} \neq \mathbf{0}$, si ha $|\mathbf{x} \cdot \mathbf{y}| = \lVert \mathbf{x} \rVert \lVert \mathbf{y} \rVert$ esattamente quando $\Delta = 0$, cioè quando la parabola ha una radice (doppia) $\lambda_0$. In quel caso $\lVert \mathbf{x} + \lambda_0 \mathbf{y} \rVert^2 = 0$, quindi $\mathbf{x} = -\lambda_0 \mathbf{y}$: l'uguaglianza vale se e solo se i due vettori sono paralleli.
 > 
-> Cauchy–Schwarz fornisce inoltre una dimostrazione della disuguaglianza triangolare per la norma: $$\lVert \mathbf{x} + \mathbf{y} \rVert^2 = \lVert \mathbf{x} \rVert^2 + 2, \mathbf{x} \cdot \mathbf{y} + \lVert \mathbf{y} \rVert^2 \le \lVert \mathbf{x} \rVert^2 + 2 \lVert \mathbf{x} \rVert \lVert \mathbf{y} \rVert + \lVert \mathbf{y} \rVert^2 = \big( \lVert \mathbf{x} \rVert + \lVert \mathbf{y} \rVert \big)^2 ,$$ da cui la tesi estraendo la radice. Entrambi i risultati, insieme a una dimostrazione alternativa di Cauchy–Schwarz basata sulla scomposizione di $\mathbf{x}$ in una parte parallela e una ortogonale a $\mathbf{y}$, si trovano nel primo paragrafo della dispensa di riferimento [@morro2023, §1.1].
+> Cauchy–Schwarz fornisce inoltre una dimostrazione della disuguaglianza triangolare per la norma: $$\lVert \mathbf{x} + \mathbf{y} \rVert^2 = \lVert \mathbf{x} \rVert^2 + 2 ,,,, \mathbf{x} \cdot \mathbf{y} + \lVert \mathbf{y} \rVert^2 \le \lVert \mathbf{x} \rVert^2 + 2 \lVert \mathbf{x} \rVert \lVert \mathbf{y} \rVert + \lVert \mathbf{y} \rVert^2 = \big( \lVert \mathbf{x} \rVert + \lVert \mathbf{y} \rVert \big)^2 ,$$ da cui la tesi estraendo la radice. Entrambi i risultati, insieme a una dimostrazione alternativa di Cauchy–Schwarz basata sulla scomposizione di $\mathbf{x}$ in una parte parallela e una ortogonale a $\mathbf{y}$, si trovano nel primo paragrafo della dispensa di riferimento [@morro2023, §1.1].
 
 Lo schema seguente riassume la catena di strutture costruite finora e il loro ruolo nel resto della lezione: ciascuna è definita a partire dalla precedente.
 

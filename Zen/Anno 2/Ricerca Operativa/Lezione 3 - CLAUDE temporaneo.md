@@ -46,7 +46,8 @@ $$ \begin{cases} 140,x_1 \ge 70 & \text{(vitamina C)} \ 20,x_1 + 10,x_2 \ge 30 &
 
 ### Un vincolo ridondante
 
-> [!important] Osservazione — $x_1 \ge 0$ è ridondante Dal primo vincolo, $140x_1 \ge 70$, segue $x_1 \ge \tfrac{1}{2}$, che è più restrittivo di $x_1 \ge 0$. Ogni punto che soddisfa il primo vincolo soddisfa automaticamente anche $x_1 \ge 0$: eliminando il vincolo di non negatività su $x_1$ l'insieme ammissibile non cambia. Il vincolo è quindi **ridondante**, secondo la definizione data nella lezione 2.
+> [!important] Osservazione — $x_1 \ge 0$ è ridondante 
+> Dal primo vincolo, $140x_1 \ge 70$, segue $x_1 \ge \tfrac{1}{2}$, che è più restrittivo di $x_1 \ge 0$. Ogni punto che soddisfa il primo vincolo soddisfa automaticamente anche $x_1 \ge 0$: eliminando il vincolo di non negatività su $x_1$ l'insieme ammissibile non cambia. Il vincolo è quindi **ridondante**, secondo la definizione data nella lezione 2.
 
 ### Forma matriciale
 
@@ -78,7 +79,8 @@ $$ a = \begin{pmatrix} a_1 \ a_2 \end{pmatrix}. $$
 
 Al variare di $b$, le rette $a_1x_1 + a_2x_2 = b$ formano una **famiglia di rette parallele**. Il vettore $a$ è **ortogonale** a tutte queste rette ed è **orientato verso le rette con valori di $b$ crescenti**, cioè verso il semipiano $a_1 x_1 + a_2 x_2 \ge b$.
 
-> [!important] Lemma (dispense, Lemma 4.3.1) Data la famiglia di rette parallele $a^T x = b$, con $a \in \mathbb{R}^2$ fissato e $b \in \mathbb{R}$, il vettore $a$ è ortogonale alle rette della famiglia ed è orientato dalla parte in cui si trovano le rette con valori di $b$ crescenti, cioè verso il semipiano $a^T x \ge b$.
+> [!important] Lemma (dispense, Lemma 4.3.1) 
+> Data la famiglia di rette parallele $a^T x = b$, con $a \in \mathbb{R}^2$ fissato e $b \in \mathbb{R}$, il vettore $a$ è ortogonale alle rette della famiglia ed è orientato dalla parte in cui si trovano le rette con valori di $b$ crescenti, cioè verso il semipiano $a^T x \ge b$.
 > 
 > _Dimostrazione_ [@roma2023, Lemma 4.3.1]. Siano $\bar x, \bar z$ due punti della retta $a^T x = b$. Sottraendo $a^T \bar z = b$ e $a^T \bar x = b$ si ottiene $a^T(\bar z - \bar x) = 0$: il vettore $a$ è ortogonale a $\bar z - \bar x$, che dà la direzione della retta. Sia ora $\bar y$ un punto con $a^T \bar y \ge b$. Allora $a^T(\bar y - \bar x) \ge 0$: l'angolo tra $a$ e $\bar y - \bar x$ è acuto (o retto), quindi $a$ punta verso il semipiano che contiene $\bar y$.
 
@@ -93,7 +95,8 @@ le rette $a_1x_1 + a_2x_2 = b$ sono le sue **curve di livello**, cioè gli insie
 - in un problema di **massimo** si traslano le rette di livello nel verso di $c$;
 - in un problema di **minimo** si traslano nel verso di $-c$.
 
-> [!tip] Approfondimento — Perché "massima" crescita #approfondimento Il fatto che $a$ sia la direzione di crescita _più rapida_ si dimostra con la disuguaglianza di Cauchy–Schwarz. Spostandosi da un punto $x$ nella direzione di un vettore unitario $d$ ($|d| = 1$) per un passo $t > 0$, la funzione lineare varia di $$ g(x + t d) - g(x) = t, a^T d \le t, |a|, |d| = t, |a|, $$ con uguaglianza se e solo se $d = a / |a|$. Tra tutte le direzioni unitarie, quella di $a$ produce quindi l'aumento maggiore. In termini di analisi in più variabili, che il corso richiamerà più avanti, $a$ è il **gradiente** di $g$: $\nabla g(x) = a$ in ogni punto. Il gradiente indica sempre la direzione di massima crescita di una funzione differenziabile, ed è proprio questa proprietà che sfruttano gli algoritmi del primo ordine della seconda parte del corso.
+> [!tip] Approfondimento — Perché "massima" crescita #approfondimento 
+> Il fatto che $a$ sia la direzione di crescita _più rapida_ si dimostra con la disuguaglianza di Cauchy–Schwarz. Spostandosi da un punto $x$ nella direzione di un vettore unitario $d$ ($|d| = 1$) per un passo $t > 0$, la funzione lineare varia di $$ g(x + t d) - g(x) = t, a^T d \le t, |a|, |d| = t, |a|, $$ con uguaglianza se e solo se $d = a / |a|$. Tra tutte le direzioni unitarie, quella di $a$ produce quindi l'aumento maggiore. In termini di analisi in più variabili, che il corso richiamerà più avanti, $a$ è il **gradiente** di $g$: $\nabla g(x) = a$ in ogni punto. Il gradiente indica sempre la direzione di massima crescita di una funzione differenziabile, ed è proprio questa proprietà che sfruttano gli algoritmi del primo ordine della seconda parte del corso.
 
 > [!tip] Schema da disegnare Negli appunti c'è uno schizzo di tre rette parallele $a_1x_1 + a_2x_2 = b$ nel primo quadrante, con il vettore $a$ disegnato perpendicolare a una di esse e rivolto verso le rette con $b$ maggiore. Vale la pena rifarlo in Excalidraw, perché è la figura su cui si basa tutta la risoluzione grafica.
 
