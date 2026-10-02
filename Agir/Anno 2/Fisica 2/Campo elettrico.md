@@ -106,3 +106,4 @@ $\displaystyle E=2\pi k\sigma z\Bigl(\frac{1}{\sqrt{R^2+Z^2}}-\frac1Z\Bigr)=\fra
 $R\to\infty\mskip{24mu}(R\gg Z)$
 $\displaystyle \frac{Z}{\sqrt{R^2+Z^2}}\simeq\frac{Z}{R}\to0$
 $E=2\pi k\sigma$
+
