@@ -157,6 +157,8 @@ Si parte dal caso semplice di una funzione $g : D \subseteq \mathbb{R} \to \math
 
 Dire che il resto è un "o piccolo di $h$" significa che si annulla **più velocemente** di $h$: non solo tende a zero, ma continua a tendere a zero anche dopo averlo diviso per $|h|$. È il senso in cui lo sviluppo di Taylor arrestato al primo ordine è "giusto fino all'ordine $h$": l'errore commesso è di ordine superiore.
 
+$\frac{\partial f}{\partial x} = \text partial$
+
 Per visualizzare il concetto si può considerare (esempio aggiunto a scopo illustrativo) $g(x) = e^x$ nel punto $x = 0$. Poiché $g(0) = g'(0) = 1$, il resto è $r(h) = e^h - 1 - h$, e il rapporto $r(h)/h$ tende a zero al diminuire di $h$:
 
 ```chart
