@@ -26,3 +26,9 @@ $|\vec r\times\vec F_\perp|=rF_\perp$
 $\displaystyle |\vec\tau_-|=r|F|\sin\theta=qEr\sin\theta=\frac{qEd}{2}\sin\theta$
 
 $\displaystyle |\tau|=\tau_++\tau_-=\cancel 2\frac{qd}{\cancel 2}E\sin\theta=qdE\sin\theta$
+
+
+
+$\displaystyle \vec F=ds=-\frac{\tau}{d}ds$
+$\displaystyle L=\int_i^\gamma\vec F\cdot d\vec s=\int_i^\gamma Fds\cos(90\degree-\theta)=\int_i^\gamma Fds\sin\theta=\int_i^\gamma qE\sin\theta ds$
+
