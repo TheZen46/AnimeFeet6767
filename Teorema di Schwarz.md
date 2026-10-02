@@ -30,13 +30,25 @@ $\psi(x)=f(\hat x+h,\hat y)-f(\hat x,y)\mskip{36mu}\varphi:I_x\to\mathbb R$
 
 $\varphi(\hat x+h)-\phi(\hat x)=\Delta(h,k)$
 $\Delta(h,k)=\psi(\hat y+k)-\psi(\hat y)$
-Ripetendo lànalisi precedentemente discussa $\displaystyle \lim\limits_{(h,k)\to(0,0)}(a,b)=\frac{\Delta(h,k)}{hk}=\frac{\partial^2}{\partial x\partial y}f(\hat x,\hat y)$
+Ripetendo l'analisi precedentemente discussa $\displaystyle \lim\limits_{(h,k)\to(0,0)}(a,b)=\frac{\Delta(h,k)}{hk}=\frac{\partial^2}{\partial x\partial y}f(\hat x,\hat y)$
 Per l' unicità del limite le derivate possono essere scambiate le derivate
 
 
-## Esempio
-$\displaystyle f(x,y)=x^2e^{x-y}\sin(y^{-1})\mskip{30mu}D=\Bigl\{(x,y)\in\mathbb R^2,\ y\ne0\Bigr\}$
+## Esercizi
+1) $\displaystyle f(x,y)=x^2e^{x-y}\sin(y^{-1})\mskip{30mu}D=\Bigl\{(x,y)\in\mathbb R^2,\ y\ne0\Bigr\}$
 $\displaystyle \frac{\partial f}{\partial x}=2xe^{x-y}\sin(y^{-1})+x^2e^{x-y}\sin(y^{-1})$
 $\displaystyle \frac{\partial f}{\partial y}=x^2e^{x-y}\bigl(-\sin(y^{-1})\cos(y^{-1})y^{-2}\bigr)$
 
 $\displaystyle \frac{\partial^2 f}{\partial x\partial y}=\frac{\partial }{\partial y}(2x+x^2)e^{x-y}\sin(y^{-1})=(2x+x^2)(e^{x-y})\bigl(-\sin(y^{-1})\cos(y^{-1})y^{-2}\bigr)$
+
+2) Derivazione di funzioni composte
+$\begin{array}{l}f:\mathbb R^2\to\mathbb R&g:D\to\mathbb R^2\\&D=\Bigl\{(r,\theta)\in\mathbb R^2,r>0\\\displaystyle f(x,y)=e^{x^2+y^2}\ x&g(r,\theta)=\bigl(r\cos\theta,r\sin\theta\bigr)\end{array}$
+
+$f\circ g:D\to\mathbb R$
+$\displaystyle f\circ g(r,\theta)=f\bigl(g(r,\theta)\bigr)=e^{e^2}\ r\cos\theta$
+
+$\displaystyle \frac{\partial f\circ g}{\partial r}=\frac{\partial f}{\partial x}\frac{\partial g_1}{\partial r}+\frac{\partial f}{\partial y}\frac{\partial g_1}{\partial r}=e^{x^2+y^2}(2x\ x+1)\cos\theta+e^{x^2+y^2}(2y x)\sin\theta$
+$\displaystyle \frac{\partial f\circ g}{\partial r}=e^{r^2}\ (2r^2\cos^2\theta+1)\cos\theta+e^{r^2}\ (2r^2\sin^2\theta)\sin\theta=e^{r^2}\ (2r^2+1)\cos\theta$
+
+Altro modo
+$\displaystyle \frac{\partial f\circ g}{\partial r}=\frac{\partial}{\partial r}=\Bigr(e^{e^2}\ r\cos\theta\Bigl)=e^{r^2}\ (2r^2+1)\cos\theta$
