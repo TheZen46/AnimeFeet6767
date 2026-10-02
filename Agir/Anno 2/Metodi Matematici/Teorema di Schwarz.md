@@ -52,3 +52,4 @@ $\displaystyle \frac{\partial f\circ g}{\partial r}=e^{r^2}\ (2r^2\cos^2\theta+1
 
 Altro modo
 $\displaystyle \frac{\partial f\circ g}{\partial r}=\frac{\partial}{\partial r}=\Bigr(e^{e^2}\ r\cos\theta\Bigl)=e^{r^2}\ (2r^2+1)\cos\theta$
+
