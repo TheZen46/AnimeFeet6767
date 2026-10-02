@@ -37,7 +37,8 @@ Fin qui nulla di nuovo rispetto a Fondamenti. Il passo successivo è ragionare s
 
 L'esempio classico è la tassonomia naturalistica. Gli animali si dividono grossolanamente in mammiferi e uccelli. I mammiferi si specializzano a loro volta, per esempio in carnivori e ungulati, e così via: scendendo nella gerarchia la specializzazione cresce. Un gatto domestico non è un leone, ma i due si somigliano: sono entrambi felini, carnivori e mammiferi. Il comportamento sociale di un gatto e quello di un leone differiscono, ma alcuni attributi e comportamenti si ritrovano in entrambi.
 
-> [!important] Definizione: ereditarietà Nella programmazione orientata agli oggetti, se una classe $A$ **deriva** (o **eredita**) da una classe $B$, allora $A$ possiede **almeno** tutti i comportamenti (metodi) e gli attributi (campi) di $B$.
+> [!important] Definizione: ereditarietà 
+> Nella programmazione orientata agli oggetti, se una classe $A$ **deriva** (o **eredita**) da una classe $B$, allora $A$ possiede **almeno** tutti i comportamenti (metodi) e gli attributi (campi) di $B$.
 
 La parola «almeno» è essenziale: la classe derivata può aggiungere attributi e metodi propri, ma non può perdere quelli della classe da cui deriva.
 
