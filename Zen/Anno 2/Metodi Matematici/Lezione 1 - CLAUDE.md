@@ -44,7 +44,7 @@ Il programma è articolato in quattro parti.
 L'oggetto di studio del corso sono le funzioni (dette anche mappe o applicazioni) che il docente descrive come "macchinette": a ogni elemento di un insieme di partenza, il **dominio** $D$, associano uno e un solo elemento di un insieme di arrivo. La novità rispetto ad Analisi 1 è duplice: il dominio è un sottoinsieme di $\mathbb{R}^n$, e i valori assunti non sono necessariamente numeri reali ma possono essere collezioni ordinate di numeri reali, cioè elementi di $\mathbb{R}^m$.
 
 > [!important] Definizione — Funzione di più variabili 
-> Una funzione $f : D \subseteq \mathbb{R}^n \to \mathbb{R}^m$ è una legge che a ogni $\mathbf{x} \in D$ associa un unico elemento di $\mathbb{R}^m$: $$\forall, \mathbf{x} \in D \quad \exists!, \mathbf{y} \in \mathbb{R}^m \ : \ f(\mathbf{x}) = \mathbf{y}.$$
+> Una funzione $f : D \subseteq \mathbb{R}^n \to \mathbb{R}^m$ è una legge che a ogni $\mathbf{x} \in D$ associa un unico elemento di $\mathbb{R}^m$: $$\forall \mathbf{x} \in D \quad \exists! \mathbf{y} \in \mathbb{R}^m \ : \ f(\mathbf{x}) = \mathbf{y}.$$
 
 ### Esempi dalla fisica
 
@@ -77,7 +77,7 @@ Nel corso si useranno, a seconda della comodità, diverse notazioni equivalenti 
 
 $\mathbb{R}^n$ è uno **spazio vettoriale**: i suoi elementi si possono sommare, moltiplicare per scalari e quindi combinare linearmente. Dati $\mathbf{x} = (x_1, \dots, x_n)$, $\mathbf{y} = (y_1, \dots, y_n)$ e $\lambda_1, \lambda_2 \in \mathbb{R}$, la combinazione lineare si calcola componente per componente: $$\lambda_1 \mathbf{x} + \lambda_2 \mathbf{y} = (\lambda_1 x_1 + \lambda_2 y_1, \ \dots, \ \lambda_1 x_n + \lambda_2 y_n) \in \mathbb{R}^n.$$
 
-La dimensione di $\mathbb{R}^n$ è $n$, cioè il numero di componenti che si possono scegliere liberamente. Una base naturale è la **base canonica** ${\mathbf{e}_i}_{i \in {1, \dots, n}}$, in cui il vettore $\mathbf{e}_i$ ha la componente $i$-esima uguale a 1 e tutte le altre nulle: $$\mathbf{e}_1 = \begin{pmatrix} 1 \ 0 \ \vdots \ 0 \end{pmatrix}, \quad \mathbf{e}_2 = \begin{pmatrix} 0 \ 1 \ \vdots \ 0 \end{pmatrix}, \quad \dots, \quad \mathbf{e}_n = \begin{pmatrix} 0 \ 0 \ \vdots \ 1 \end{pmatrix}.$$
+La dimensione di $\mathbb{R}^n$ è $n$, cioè il numero di componenti che si possono scegliere liberamente. Una base naturale è la **base canonica** ${\mathbf{e}_i}_{i \in {1, \dots, n}}$, in cui il vettore $\mathbf{e}_i$ ha la componente $i$-esima uguale a 1 e tutte le altre nulle: $$\mathbf{e}_1 = \begin{pmatrix} 1 \ 0 \  \dots \ 0 \end{pmatrix}, \quad \mathbf{e}_2 = \begin{pmatrix} 0 \ 1 \ \dots \ 0 \end{pmatrix}, \quad \dots, \quad \mathbf{e}_n = \begin{pmatrix} 0 \ 0 \ \vdots \ 1 \end{pmatrix}.$$
 
 Dire che si tratta di una base significa che ogni vettore si scrive in modo unico come combinazione lineare dei suoi elementi. Per la base canonica i coefficienti della scomposizione sono proprio le componenti del vettore: $$\mathbf{x} = x_1 \mathbf{e}_1 + x_2 \mathbf{e}_2 + \dots + x_n \mathbf{e}_n = \sum_{i=1}^{n} x_i \mathbf{e}_i .$$ La scrittura con la sommatoria è compatta e verrà usata spesso.
 
