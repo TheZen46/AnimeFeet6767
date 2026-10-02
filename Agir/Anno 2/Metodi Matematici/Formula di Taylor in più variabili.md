@@ -18,10 +18,11 @@ $f(x,y)=e^{x-y}(\sin x+1)$
 Maclaurin di ordine $2$
 $f(0,0)=1$
 $\displaystyle \frac{\partial f}{\partial x}(x,y)=e^{x-y}(\sin x+1+\cos x)\mskip{36mu}\frac{\partial f}{\partial x}(0,0)=2$
-$\displaystyle \frac{\partial f}{\partial y}(x,y)=-e^{x-y}(\sin x+1\cos x)\mskip{36mu}\frac{\partial f}{\partial y}(0,0)=2$
+$\displaystyle \frac{\partial f}{\partial y}(x,y)=-e^{x-y}(\sin x+1)\mskip{36mu}\frac{\partial f}{\partial y}(0,0)=-1$
 
-$\displaystyle \frac{\partial^2 f}{\partial x^2}=e^{x-y}(\cos x+\cancel{\sin x} +1-\cancel{\sin x}+\cos x)\mskip{36mu}\frac{\partial f^2}{\partial x^2}(0,0)=3$
-$\displaystyle \frac{\partial^2 f}{\partial y^2}=e^{x-y}(\sin x+1)\mskip{36mu}\frac{\partial f^2}{\partial y^2}(0,0)=1$
-$\displaystyle \frac{\partial^2 f}{\partial x\partial y}=-e^{x-y}(\sin x+1)\mskip{36mu}\frac{\partial f^2}{\partial x\partial y}(0,0)=-1$
+$\displaystyle \frac{\partial^2 f}{\partial x^2}=e^{x-y}(\cos x+\cancel{\sin x} +1-\cancel{\sin x}+\cos x)\mskip{36mu}\frac{\partial ^2f}{\partial x^2}(0,0)=3$
+$\displaystyle \frac{\partial^2 f}{\partial y^2}=e^{x-y}(\sin x+1)\mskip{36mu}\frac{\partial ^2f}{\partial y^2}(0,0)=1$
+$\displaystyle \frac{\partial^2 f}{\partial x\partial y}=-e^{x-y}(\sin x+1)\mskip{36mu}\frac{\partial ^2f}{\partial x\partial y}(0,0)=-2$
 
-$P_2(x,y)=f(0,0)+\frac{\partial f}{\partial x}(0,0)$
+$\displaystyle P_2(x,y)=f(0,0)+\frac{\partial f}{\partial x}(0,0)x+\frac{\partial f}{\partial y}(0,0)y+\frac12\frac{\partial ^2f}{\partial x^2}(0,0)x^2+\frac12\frac{\partial ^2f}{\partial y^2}(0,0)y^2+\frac{\cancel 2}{\cancel 2}\frac{\partial ^2f}{\partial x\partial y}(0,0)xy$
+$\displaystyle P_2(x,y)=1+2x-y+\frac32x^2+\frac12y^2-2xy$
