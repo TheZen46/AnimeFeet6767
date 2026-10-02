@@ -29,6 +29,11 @@ $\displaystyle |\tau|=\tau_++\tau_-=\cancel 2\frac{qd}{\cancel 2}E\sin\theta=qdE
 
 
 
-$\displaystyle \vec F=ds=-\frac{\tau}{d}ds$
-$\displaystyle L=\int_i^\gamma\vec F\cdot d\vec s=\int_i^\gamma Fds\cos(90\degree-\theta)=\int_i^\gamma Fds\sin\theta=\int_i^\gamma qE\sin\theta ds$
 
+$\displaystyle L=\int_i^\gamma\vec F\cdot d\vec s=\int_i^\gamma Fds\cos(90\degree-\theta)=\int_i^\gamma Fds\sin\theta=\int_i^\gamma qE\sin\theta ds$
+$\displaystyle \vec F\cdot \vec ds=-\frac{\tau}{d}ds$
+	$\displaystyle \frac{ds}{d}=d\theta$
+$\vec F=-\tau\ d\theta$
+$\displaystyle L=-\int_{\theta_i}^{\theta_f}\tau\ d\theta=\int_{\theta_i}^{\theta_f}=-\int_{\pi/2}^{\theta}pE\ \sin\theta\ d\theta=-pE\int_{\pi/2}^{\theta}\sin\theta\ d\theta=pE\bigr[\cos\theta\bigl]_{\pi/2}^\theta=pE\cos\theta=\vec p\cdot\vec E$
+
+$\Delta U=-L=-pE\cos\theta=-\vec P\cdot\vec E$
