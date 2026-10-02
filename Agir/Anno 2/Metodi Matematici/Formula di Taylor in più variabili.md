@@ -10,3 +10,4 @@ $f\in C^K(U)$
 $f(x)=f(\hat x)+P_K(\hat x,x)+R$
 	$\displaystyle P_K(\hat x)=\sum\limits_{p_0}^K\sum\limits_{\mathcal I}\frac{1}{i_1!\ldots i_n!}{\partial_1}^{i_1}f(\hat x)$
 		$\mathcal I=\bigl\{i_1,\ldots,i_n\bigr\}$
+$h^{(P)}(t)=$
