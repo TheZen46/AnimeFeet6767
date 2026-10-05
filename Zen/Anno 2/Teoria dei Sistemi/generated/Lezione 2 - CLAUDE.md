@@ -9,7 +9,7 @@ Questa nota ricostruisce la seconda lezione a partire dalla trascrizione della r
 
 ## 1. Riepilogo della lezione precedente
 
-Il docente riprende brevemente quanto visto in [[Lezione 01 - Sistemi dinamici e funzioni generalizzate]]. L'impulso di ordine zero $\delta(t)$ gode della proprietà del campionamento, anche nella forma estesa: per una funzione regolare $f$ vale $f(t),\delta(t-T) = f(T),\delta(t-T)$. Derivando l'impulso si ottengono gli impulsi di ordine positivo $\delta_k$, $k>0$, oggetti concentrati in un punto e impossibili da disegnare in modo significativo («frecce che salgono e scendono»). Integrando si scende di ordine: $\int_{0^-}^{t}\delta_k(\tau),d\tau = \delta_{k-1}(t)$. Gli impulsi di ordine negativo sono tutti nulli fino all'origine e poi diventano costanti, rette, parabole e così via: ogni integrazione aumenta di uno il grado del polinomio.
+Il docente riprende brevemente quanto visto in [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 1 - CLAUDE|Lezione 1 - CLAUDE]]. L'impulso di ordine zero $\delta(t)$ gode della proprietà del campionamento, anche nella forma estesa: per una funzione regolare $f$ vale $f(t),\delta(t-T) = f(T),\delta(t-T)$. Derivando l'impulso si ottengono gli impulsi di ordine positivo $\delta_k$, $k>0$, oggetti concentrati in un punto e impossibili da disegnare in modo significativo («frecce che salgono e scendono»). Integrando si scende di ordine: $\int_{0^-}^{t}\delta_k(\tau),d\tau = \delta_{k-1}(t)$. Gli impulsi di ordine negativo sono tutti nulli fino all'origine e poi diventano costanti, rette, parabole e così via: ogni integrazione aumenta di uno il grado del polinomio.
 
 ## 2. Regole di derivazione con le funzioni generalizzate
 
@@ -17,8 +17,7 @@ Il docente riprende brevemente quanto visto in [[Lezione 01 - Sistemi dinamici e
 
 Il primo risultato della lezione è un principio che, dice il docente, va **ammesso più che dimostrato**: alle funzioni generalizzate si possono applicare le stesse regole di derivazione imparate in analisi.
 
-> [!important] Derivata del prodotto 
-> Se $f$ e $g$ sono due funzioni di cui **almeno una è derivabile nel senso ordinario**, vale $$\frac{d}{dt}\big(f,g\big) = \dot f,g + f,\dot g,$$ anche quando l'altra è una funzione generalizzata, e quindi di per sé non derivabile nel senso ordinario (un gradino, un impulso, ...).
+> [!important] Derivata del prodotto Se $f$ e $g$ sono due funzioni di cui **almeno una è derivabile nel senso ordinario**, vale $$\frac{d}{dt}\big(f,g\big) = \dot f,g + f,\dot g,$$ anche quando l'altra è una funzione generalizzata, e quindi di per sé non derivabile nel senso ordinario (un gradino, un impulso, ...).
 
 La condizione è essenziale. Non si considerano prodotti di due funzioni generalizzate tra loro, come $1(t)\cdot1(t)$ o $\delta(t)\cdot\delta(t)$: le formule riguardano sempre una funzione ordinaria (pensiamola derivabile ovunque, ad esempio di classe $C^\infty$) moltiplicata per un oggetto generalizzato.
 
@@ -40,8 +39,7 @@ Le due espressioni derivano la stessa cosa e devono coincidere. Uguagliandole si
 
 Il meccanismo si estende agli ordini superiori. Moltiplicando per $\ddot\delta$ vengono campionate la funzione, la derivata prima e la derivata seconda. Moltiplicando per un impulso di ordine $37$, osserva il docente, si ottiene un'espressione «lunga un chilometro», in cui compaiono tutte le derivate della funzione fino alla trentasettesima, ciascuna moltiplicata per un impulso di ordine opportuno. Solo per l'impulso di ordine zero viene campionata la sola funzione.
 
-> [!tip] Approfondimento: la formula generale #approfondimento 
-> Iterando lo stesso procedimento (risultato non presentato a lezione, che si dimostra per induzione) si ottiene, per una funzione $f$ sufficientemente regolare, $$f(t),\delta_n(t) = \sum_{k=0}^{n} (-1)^k \binom{n}{k}, f^{(k)}(0);\delta_{n-k}(t).$$ Per $n=1$ si ritrova la formula precedente. Per $n=2$ si deriva $f(t)\dot\delta(t) = f(0)\dot\delta(t) - \dot f(0)\delta(t)$: il primo membro dà $\dot f,\dot\delta + f,\ddot\delta$, il secondo $f(0),\ddot\delta - \dot f(0),\dot\delta$. Applicando la formula per $n=1$ alla funzione $\dot f$, cioè $\dot f(t)\dot\delta(t) = \dot f(0)\dot\delta(t) - \ddot f(0)\delta(t)$, si ottiene $$f(t),\ddot\delta(t) = f(0),\ddot\delta(t) - 2\dot f(0),\dot\delta(t) + \ddot f(0),\delta(t).$$ I coefficienti sono quelli binomiali con segni alterni, come nella regola di Leibniz per la derivata $n$-esima di un prodotto.
+> [!tip] Approfondimento: la formula generale #approfondimento Iterando lo stesso procedimento (risultato non presentato a lezione, che si dimostra per induzione) si ottiene, per una funzione $f$ sufficientemente regolare, $$f(t),\delta_n(t) = \sum_{k=0}^{n} (-1)^k \binom{n}{k}, f^{(k)}(0);\delta_{n-k}(t).$$ Per $n=1$ si ritrova la formula precedente. Per $n=2$ si deriva $f(t)\dot\delta(t) = f(0)\dot\delta(t) - \dot f(0)\delta(t)$: il primo membro dà $\dot f,\dot\delta + f,\ddot\delta$, il secondo $f(0),\ddot\delta - \dot f(0),\dot\delta$. Applicando la formula per $n=1$ alla funzione $\dot f$, cioè $\dot f(t)\dot\delta(t) = \dot f(0)\dot\delta(t) - \ddot f(0)\delta(t)$, si ottiene $$f(t),\ddot\delta(t) = f(0),\ddot\delta(t) - 2\dot f(0),\dot\delta(t) + \ddot f(0),\delta(t).$$ I coefficienti sono quelli binomiali con segni alterni, come nella regola di Leibniz per la derivata $n$-esima di un prodotto.
 
 > [!warning] Discrepanza negli appunti (nota «Funzioni generalizzate») Nella nota compare $$\tfrac{d}{dt}\big[f(t)\delta(t)\big] = \dot f(t)\delta(t) + f(t)\dot\delta(t) = f(0),\delta(t),$$ che non è corretta: la derivata di $f(0),\delta(t)$ è $f(0),\dot\delta(t)$, non $f(0),\delta(t)$. Gli appunti a mano riportano correttamente il risultato $f(t)\dot\delta(t) = f(0)\dot\delta(t) - \dot f(0)\delta(t)$, che coincide con la dispensa (p. 11).
 
@@ -55,8 +53,7 @@ $$\int_{t_1}^{t_2}\dot f(t),dt = f(t_2) - f(t_1).$$
 
 Facciamo ora tendere $t_1$ a zero da sinistra e $t_2$ a zero da destra. L'intervallo di integrazione si riduce fino a «$[0^-, 0^+]$», ma il secondo membro non tende a zero: tende al salto $f(0^+) - 0 = f(0^+)$, un numero finito. Perché l'integrale di qualcosa su un intervallo infinitamente piccolo resti un numero diverso da zero, quel qualcosa deve essere infinitamente grande in quell'intervallo («base microscopica, altezza gigantesca»), altrimenti l'area sarebbe nulla. L'unico oggetto che dà un'area finita su un intervallo nullo è, per definizione, l'impulso. Nel punto del salto la derivata deve dunque contenere un impulso, di area pari all'ampiezza del salto.
 
-> [!important] Salti e impulsi 
-> Se una funzione presenta in $t_0$ un salto di ampiezza $\Delta = f(t_0^+) - f(t_0^-)$, la sua derivata contiene il termine $$\Delta\cdot\delta(t - t_0),$$ cioè un impulso centrato nel punto del salto, rivolto verso l'alto se il salto è positivo e verso il basso se è negativo.
+> [!important] Salti e impulsi Se una funzione presenta in $t_0$ un salto di ampiezza $\Delta = f(t_0^+) - f(t_0^-)$, la sua derivata contiene il termine $$\Delta\cdot\delta(t - t_0),$$ cioè un impulso centrato nel punto del salto, rivolto verso l'alto se il salto è positivo e verso il basso se è negativo.
 
 La regola del prodotto conferma il ragionamento grafico. Derivando $f(t)\cdot1(t)$ e usando il campionamento:
 
@@ -110,8 +107,7 @@ Questo meccanismo ha due conseguenze pratiche. Una funzione definita a tratti, c
 
 ### 3.3 Esempio svolto a lezione
 
-> [!example] Coseno e rampa a tratti 
-> Si consideri la funzione che:
+> [!example] Coseno e rampa a tratti Si consideri la funzione che:
 > 
 > - vale $\cos t$ tra $0$ e $\pi/2$;
 > - è nulla tra $\pi/2$ e $\pi$;
@@ -120,7 +116,7 @@ Questo meccanismo ha due conseguenze pratiche. Una funzione definita a tratti, c
 > 
 > La retta deve annullarsi in $\pi$, quindi contiene il fattore $(t-\pi)$. Deve valere $1$ in $t=4$, quindi va divisa per $4-\pi$: il coefficiente angolare è il rapporto tra l'altezza raggiunta, $1$, e il cateto su cui poggia l'angolo, $4-\pi$. Con le finestre: $$f(t) = \cos t,\Big[1(t) - 1\big(t-\tfrac{\pi}{2}\big)\Big] + \frac{t-\pi}{4-\pi},\Big[1(t-\pi) - 1(t-4)\Big].$$ Nell'intervallo $[\pi/2, \pi)$ la funzione è nulla e non serve scrivere nulla: si scrivono solo i tratti diversi da zero. La formula vale per ogni $t$ e restituisce sempre il valore giusto.
 
-``` chart
+```chart
 type: line
 labels: [-0.5, -0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4, 4.1, 4.2, 4.3, 4.4, 4.5]
 series:
@@ -166,8 +162,7 @@ $$\dot f(t) = -\sin t,\Big[1(t) - 1\big(t-\tfrac{\pi}{2}\big)\Big] + \delta(t) +
 
 Il confronto con la previsione grafica è completo. Gli impulsi sono uno positivo di area unitaria in $t=0$ e uno negativo di area unitaria in $t=4$. La parte ordinaria vale $-\sin t$ tra $0$ e $\pi/2$, zero tra $\pi/2$ e $\pi$ (nessun termine «acceso» in quell'intervallo), la costante $\frac{1}{4-\pi}$ tra $\pi$ e $4$, e zero dopo. Come ripete il docente, «se due cose sono uguali, sono uguali»: i due procedimenti non possono dare risultati diversi, e confrontarli è un ottimo controllo.
 
-> [!warning] Discrepanza negli appunti (nota «Funzioni generalizzate») 
-> Nella nota il terzo e il quarto termine della derivata sono scritti con le finestre del primo tratto, $\big[1(t) - 1(t-\frac{\pi}{2})\big]$ e $\big[\delta(t) - \delta(t-\frac{\pi}{2})\big]$, anziché con quelle del secondo tratto, $\big[1(t-\pi) - 1(t-4)\big]$ e $\big[\delta(t-\pi) - \delta(t-4)\big]$. L'errore si propaga al risultato finale, dove compare $\frac{1}{4-\pi}\big[1(t) - 1(t-\frac{\pi}{2})\big]$. La versione corretta è quella riportata sopra, che coincide con gli appunti a mano.
+> [!warning] Discrepanza negli appunti (nota «Funzioni generalizzate») Nella nota il terzo e il quarto termine della derivata sono scritti con le finestre del primo tratto, $\big[1(t) - 1(t-\frac{\pi}{2})\big]$ e $\big[\delta(t) - \delta(t-\frac{\pi}{2})\big]$, anziché con quelle del secondo tratto, $\big[1(t-\pi) - 1(t-4)\big]$ e $\big[\delta(t-\pi) - \delta(t-4)\big]$. L'errore si propaga al risultato finale, dove compare $\frac{1}{4-\pi}\big[1(t) - 1(t-\frac{\pi}{2})\big]$. La versione corretta è quella riportata sopra, che coincide con gli appunti a mano.
 
 ### 3.4 Esempio dalla dispensa: un segnale di controllo a tratti
 
@@ -179,8 +174,7 @@ La dispensa (pp. 11–12, Esempio PM 1) applica lo stesso metodo a un segnale di
 - risale linearmente fino a $1$ in $t=3$;
 - ridiscende a $0$ in $t=4$.
 
-> [!example] Esempio PM 1 (dispensa) 
-> Individuate le quattro finestre corrispondenti agli intervalli $[0,1)$, $[1,2)$, $[2,3)$, $[3,4)$, si scrive l'andamento della funzione in ciascuna: $$u(t) = 2t,\big[1(t)-1(t-1)\big] + 2,\big[1(t-1)-1(t-2)\big] + (t-2),\big[1(t-2)-1(t-3)\big] + (4-t),\big[1(t-3)-1(t-4)\big].$$ Raccogliendo i coefficienti di ciascun gradino si ottiene la forma compatta: $$u(t) = 2t\cdot1(t) + 2(1-t)\cdot1(t-1) + (t-4)\cdot1(t-2) - 2(t-3)\cdot1(t-3) + (t-4)\cdot1(t-4).$$ Il coefficiente di $1(t-1)$, ad esempio, è $-2t+2$; quello di $1(t-3)$ è $-(t-2)+(4-t) = 6-2t$.
+> [!example] Esempio PM 1 (dispensa) Individuate le quattro finestre corrispondenti agli intervalli $[0,1)$, $[1,2)$, $[2,3)$, $[3,4)$, si scrive l'andamento della funzione in ciascuna: $$u(t) = 2t,\big[1(t)-1(t-1)\big] + 2,\big[1(t-1)-1(t-2)\big] + (t-2),\big[1(t-2)-1(t-3)\big] + (4-t),\big[1(t-3)-1(t-4)\big].$$ Raccogliendo i coefficienti di ciascun gradino si ottiene la forma compatta: $$u(t) = 2t\cdot1(t) + 2(1-t)\cdot1(t-1) + (t-4)\cdot1(t-2) - 2(t-3)\cdot1(t-3) + (t-4)\cdot1(t-4).$$ Il coefficiente di $1(t-1)$, ad esempio, è $-2t+2$; quello di $1(t-3)$ è $-(t-2)+(4-t) = 6-2t$.
 > 
 > Derivando con la regola del prodotto: $$\begin{aligned} \dot u(t) ={}& 2\cdot1(t) + 2t,\delta(t) - 2\cdot1(t-1) + 2(1-t),\delta(t-1) + 1(t-2) + (t-4),\delta(t-2) \ &- 2\cdot1(t-3) - 2(t-3),\delta(t-3) + 1(t-4) + (t-4),\delta(t-4). \end{aligned}$$ Per campionamento tutti gli impulsi si annullano tranne quello in $t=2$, dove $(t-4),\delta(t-2) = (2-4),\delta(t-2) = -2,\delta(t-2)$. Quindi $$\dot u(t) = 2\cdot1(t) - 2\cdot1(t-1) + 1(t-2) - 2\cdot1(t-3) + 1(t-4) - 2,\delta(t-2).$$ Graficamente la derivata vale $2$ su $[0,1)$, $0$ su $[1,2)$, $1$ su $[2,3)$ e $-1$ su $[3,4)$, poi $0$. In $t=2$ c'è un impulso verso il basso di area $2$: è l'unico salto della funzione, che passa da $2$ a $0$. La dispensa lascia il termine nella forma $(t-4),\delta(t-2)$, che per campionamento è proprio $-2,\delta(t-2)$.
 
@@ -211,15 +205,13 @@ Per tutto il corso vale una **convenzione di notazione**:
 
 Quando si vede una lettera minuscola si sa che si tratta di una funzione del tempo; quando se ne vede una maiuscola si sa che è una trasformata. Gli argomenti sono di natura diversa: il tempo, reale, in un caso; la variabile complessa $s$ nell'altro.
 
-> [!important] Trasformata di Laplace 
-> La trasformata di Laplace della funzione $f(t)$ è $$\mathcal{L}{f(t)} = F(s) \triangleq \int_{0^-}^{\infty} f(t) e^{-st}dt \qquad s\in\mathbb{C}.$$ L'operatore fa passare dal **dominio del tempo** al **dominio di $s$**: $;f(t)\ \longrightarrow\ \mathcal{L}{\cdot}\ \longrightarrow\ F(s)$.
+> [!important] Trasformata di Laplace La trasformata di Laplace della funzione $f(t)$ è $$\mathcal{L}{f(t)} = F(s) \triangleq \int_{0^-}^{\infty} f(t),e^{-st},dt, \qquad s\in\mathbb{C}.$$ L'operatore fa passare dal **dominio del tempo** al **dominio di $s$**: $;f(t)\ \longrightarrow\ \mathcal{L}{\cdot}\ \longrightarrow\ F(s)$.
 
 Il simbolo $\triangleq$ («uguale per definizione») indica che l'uguaglianza è una definizione e non il risultato di un calcolo. Nell'integrale compaiono sia $t$ sia $s$. Integrando rispetto a $t$, la variabile di integrazione sparisce e il risultato dipende soltanto da $s$.
 
 Due osservazioni sull'estremo inferiore. La trasformata «vede» solo ciò che accade **da $0^-$ in avanti**: il comportamento della funzione per $t<0$ non le interessa e non può essere ricostruito dalla trasformata. Inoltre partire da $0^-$ significa includere nell'integrale anche ciò che è concentrato nell'origine, come un impulso.
 
-> [!tip] Approfondimento: perché $0^-$ e non $0^+$ #approfondimento 
-> La scelta dell'estremo inferiore non è un dettaglio. Lundberg, Miller e Trumper hanno analizzato le incongruenze che nascono nei testi quando non è chiaro se l'origine sia inclusa o meno [@lundberg2007]. Sostengono la forma con estremo $0^-$, accompagnata dalla regola della derivata $\mathcal{L}{\dot f} = sF(s) - f(0^-)$, proprio quella adottata nel corso. Con questa convenzione gli impulsi nell'origine sono sempre inclusi, e le condizioni iniziali sono quelle «pre-iniziali», cioè lo stato del sistema prima che l'ingresso intervenga. Ne risulta un trattamento coerente dei transitori con ingressi discontinui o impulsivi.
+> [!tip] Approfondimento: perché $0^-$ e non $0^+$ #approfondimento La scelta dell'estremo inferiore non è un dettaglio. Lundberg, Miller e Trumper hanno analizzato le incongruenze che nascono nei testi quando non è chiaro se l'origine sia inclusa o meno [@lundberg2007]. Sostengono la forma con estremo $0^-$, accompagnata dalla regola della derivata $\mathcal{L}{\dot f} = sF(s) - f(0^-)$, proprio quella adottata nel corso. Con questa convenzione gli impulsi nell'origine sono sempre inclusi, e le condizioni iniziali sono quelle «pre-iniziali», cioè lo stato del sistema prima che l'ingresso intervenga. Ne risulta un trattamento coerente dei transitori con ingressi discontinui o impulsivi.
 
 ### 5.3 Esistenza e ascissa di convergenza
 
@@ -229,8 +221,7 @@ $$F(s) = \int_{0^-}^{\infty} f(t),e^{-\sigma t},e^{-j\omega t},dt .$$
 
 Il fattore $e^{-j\omega t}$ ha modulo unitario: oscilla senza crescere né decrescere. Il fattore $e^{-\sigma t}$ è un esponenziale reale che, per $\sigma>0$, tende a zero. Anche se la funzione cresce, il crollo a zero dell'esponenziale può controbilanciarne la crescita, purché sia più rapido. A meno che $f$ non sia una funzione patologica che cresce più velocemente di qualunque esponenziale (un esempio classico è $e^{t^2}$), esiste quindi un valore di $\sigma$ oltre il quale l'integrale converge. La trasformata non deve esistere per ogni $s$: basta che esista per gli $s$ con parte reale abbastanza grande.
 
-> [!important] Ascissa di convergenza 
-> Se esiste la trasformata di $f$, esiste un valore critico $\bar\sigma$ tale che l'integrale converge per $\mathrm{Re}(s) = \sigma > \bar\sigma$ e non converge per $\sigma < \bar\sigma$. Tale valore si chiama **ascissa di convergenza**. Sul piano complesso (piano di Gauss) la regione di convergenza è il semipiano a destra della retta verticale $\mathrm{Re}(s) = \bar\sigma$.
+> [!important] Ascissa di convergenza Se esiste la trasformata di $f$, esiste un valore critico $\bar\sigma$ tale che l'integrale converge per $\mathrm{Re}(s) = \sigma > \bar\sigma$ e non converge per $\sigma < \bar\sigma$. Tale valore si chiama **ascissa di convergenza**. Sul piano complesso (piano di Gauss) la regione di convergenza è il semipiano a destra della retta verticale $\mathrm{Re}(s) = \bar\sigma$.
 
 Per esempio, per il gradino il calcolo diretto (dispensa, p. 13) dà
 
@@ -258,7 +249,7 @@ Qui la notazione va letta con attenzione. $F(s)$ è la trasformata della funzion
 
 La dimostrazione, l'unica di questo tipo svolta per esteso dal docente, è un'integrazione per parti:
 
-$$\begin{aligned} \mathcal{L}{\dot f(t)} &= \int_{0^-}^{\infty}\dot f(t),e^{-st},dt = \Big[f(t),e^{-st}\Big]_{0^-}^{\infty} - \int_{0^-}^{\infty} f(t),\big(-s,e^{-st}\big),dt [4pt] &= \underbrace{\lim_{t\to\infty} f(t),e^{-st}}_{=,0} ;-; f(0^-) ;+; s\int_{0^-}^{\infty} f(t),e^{-st},dt = s,F(s) - f(0^-). \end{aligned}$$
+$$\begin{aligned} \mathcal{L}{\dot f(t)} &= \int_{0^-}^{\infty}\dot f(t),e^{-st},dt = \Big[f(t),e^{-st}\Big]_{0^-}^{\infty} - \int_{0^-}^{\infty} f(t),\big(-s,e^{-st}\big),dt \[4pt] &= \underbrace{\lim_{t\to\infty} f(t),e^{-st}}_{=,0} ;-; f(0^-) ;+; s\int_{0^-}^{\infty} f(t),e^{-st},dt = s,F(s) - f(0^-). \end{aligned}$$
 
 Il termine all'infinito è nullo, perché altrimenti l'integrale che definisce $F(s)$ non esisterebbe. In $0^-$ l'esponenziale vale $1$.
 
@@ -306,12 +297,13 @@ cioè **ogni moltiplicazione per $t$ aumenta di uno la potenza del denominatore*
 
 #### Attenzione: il prodotto
 
-> [!warning] Da «scrivere col sangue» 
-> Date due funzioni del tempo $f$ e $g$: $$\mathcal{L}{f(t),g(t)} \neq F(s),G(s).$$ La trasformata del prodotto **non** è il prodotto delle trasformate.
+> [!warning] Da «scrivere col sangue» Date due funzioni del tempo $f$ e $g$: $$\mathcal{L}{f(t),g(t)} \neq F(s),G(s).$$ La trasformata del prodotto **non** è il prodotto delle trasformate.
 
 Il prodotto delle trasformate corrisponde a un'altra operazione nel tempo, l'**integrale di convoluzione**. La sua definizione non è stata data in questa lezione; per funzioni nulle prima dell'origine è $(f_g)(t) = \int_{0^-}^{t} f(\tau),g(t-\tau),d\tau$, e vale $\mathcal{L}{f_g} = F(s),G(s)$.
 
 Il docente aggiunge un avvertimento per chi segue o seguirà corsi di teoria dei segnali o di comunicazioni. La trasformata di Fourier e quella di Laplace sono «parenti» e a prima vista si assomigliano molto, ma in realtà si assomigliano solo un po'. Capire fino in fondo il loro legame richiederebbe un corso a sé, e le domande che si possono porre in proposito sono di una densità inimmaginabile. Il consiglio è di prenderne atto («si assomigliano») e andare avanti.
+
+> [!tip] Approfondimento: il legame con la trasformata di Fourier #approfondimento Per chi volesse almeno l'idea di base: se $f$ è nulla per $t<0$ e la regione di convergenza della sua trasformata di Laplace contiene l'asse immaginario, valutando $F(s)$ per $s = j\omega$ si ottiene la trasformata di Fourier di $f$ [@oppenheim1997, cap. 9]. Quando l'asse immaginario non appartiene alla regione di convergenza (ad esempio per $e^{at}$ con $a>0$), la trasformata di Laplace esiste ma quella di Fourier, nel senso ordinario, no. È uno dei motivi per cui le due trasformate «si assomigliano solo un po'».
 
 #### Riepilogo delle proprietà
 
@@ -386,8 +378,7 @@ Per il coseno esistono due strade:
 - con gli esponenziali: $\cos\omega t = \frac{e^{j\omega t}+e^{-j\omega t}}{2}$, quindi $\mathcal{L}{\cos\omega t} = \frac{1}{2}\left(\frac{1}{s-j\omega}+\frac{1}{s+j\omega}\right) = \frac{s}{s^2+\omega^2}$;
 - con le funzioni generalizzate (dispensa, p. 15): $\frac{d}{dt}\big[\sin\omega t\cdot1(t)\big] = \omega\cos\omega t\cdot1(t)$, perché l'impulso si annulla essendo $\sin 0 = 0$. Allora $\mathcal{L}{\cos\omega t} = \frac{1}{\omega}\big(s\cdot\frac{\omega}{s^2+\omega^2} - 0\big) = \frac{s}{s^2+\omega^2}$.
 
-> [!important] Trasformate reali di funzioni reali 
-> La trasformata di una funzione reale è sempre una funzione della variabile complessa $s$ **a coefficienti reali**. Nei passaggi possono comparire quantità complesse, come $\frac{1}{2j}$ e $\frac{1}{s\mp j\omega}$, ma quando si mettono insieme tutte le parti complesse si semplificano.
+> [!important] Trasformate reali di funzioni reali La trasformata di una funzione reale è sempre una funzione della variabile complessa $s$ **a coefficienti reali**. Nei passaggi possono comparire quantità complesse, come $\frac{1}{2j}$ e $\frac{1}{s\mp j\omega}$, ma quando si mettono insieme tutte le parti complesse si semplificano.
 
 #### Funzioni smorzate e moltiplicate per $t$
 
@@ -423,8 +414,7 @@ Il docente osserva che le funzioni che si incontrano nel corso non sono tutte le
 
 Poiché più avanti si dovranno calcolare le radici di polinomi in $s$, il docente chiarisce che cosa è richiesto. Nessuno chiederà di calcolare a mano le radici di polinomi di grado $3$ o $4$, né tanto meno di grado $5$, per il quale non esiste nemmeno una formula generale. Le radici dei polinomi di **secondo grado** vanno invece sapute calcolare con facilità. Lo stesso vale per le **equazioni binomie** del tipo $s^{10} = 27$.
 
-> [!example] Le radici di $s^{10} = 27$ 
-> Nel campo complesso l'equazione ha **dieci** radici. Hanno tutte lo stesso modulo, $\sqrt[10]{27}\approx 1{,}39$, e argomenti equispaziati di $2\pi/10$: $$s_k = \sqrt[10]{27};e^{,j\frac{2\pi k}{10}}, \qquad k = 0,1,\dots,9 .$$ Geometricamente sono i vertici di un **decagono regolare** inscritto nella circonferenza di raggio $\sqrt[10]{27}$ centrata nell'origine. Una delle radici è reale positiva ($k=0$) e una reale negativa ($k=5$).
+> [!example] Le radici di $s^{10} = 27$ Nel campo complesso l'equazione ha **dieci** radici. Hanno tutte lo stesso modulo, $\sqrt[10]{27}\approx 1{,}39$, e argomenti equispaziati di $2\pi/10$: $$s_k = \sqrt[10]{27};e^{,j\frac{2\pi k}{10}}, \qquad k = 0,1,\dots,9 .$$ Geometricamente sono i vertici di un **decagono regolare** inscritto nella circonferenza di raggio $\sqrt[10]{27}$ centrata nell'origine. Una delle radici è reale positiva ($k=0$) e una reale negativa ($k=5$).
 > 
 > Nella trascrizione il raggio compare con un valore diverso, quasi certamente per un errore di trascrizione: il modulo comune delle radici è necessariamente $\sqrt[10]{27}$.
 
@@ -432,8 +422,7 @@ Poiché più avanti si dovranno calcolare le radici di polinomi in $s$, il docen
 
 ### 6.1 Esercizio di fine lezione
 
-> [!example] Calcolare $\mathcal{L}{t,e^{at}\sin\omega t}$ 
-> Conviene leggere la funzione come $t\cdot\big(e^{at}\sin\omega t\big)$ e procedere dall'interno verso l'esterno.
+> [!example] Calcolare $\mathcal{L}{t,e^{at}\sin\omega t}$ Conviene leggere la funzione come $t\cdot\big(e^{at}\sin\omega t\big)$ e procedere dall'interno verso l'esterno.
 > 
 > 1. Trasformata del seno: $\mathcal{L}{\sin\omega t} = \dfrac{\omega}{s^2+\omega^2}$.
 > 2. Moltiplicazione per $e^{at}$, cioè traslazione in $s$: $\mathcal{L}{e^{at}\sin\omega t} = \dfrac{\omega}{(s-a)^2+\omega^2}$.
@@ -445,50 +434,17 @@ Poiché più avanti si dovranno calcolare le radici di polinomi in $s$, il docen
 
 ### 6.2 Esempi dalla dispensa
 
-> [!example] Esempio PM 2 (dispensa, p. 15): $\mathcal{L}{e^{-2(t-3)},1(t-3)}$ 
-> La funzione ha esattamente la forma $g(t-3)\cdot1(t-3)$ con $g(t) = e^{-2t}$: è l'esponenziale traslato e acceso dal gradino traslato della stessa quantità. Per la traslazione nel tempo: $$\mathcal{L}{e^{-2(t-3)},1(t-3)} = e^{-3s},\mathcal{L}{e^{-2t}\cdot1(t)} = \frac{e^{-3s}}{s+2}.$$
+> [!example] Esempio PM 2 (dispensa, p. 15): $\mathcal{L}{e^{-2(t-3)},1(t-3)}$ La funzione ha esattamente la forma $g(t-3)\cdot1(t-3)$ con $g(t) = e^{-2t}$: è l'esponenziale traslato e acceso dal gradino traslato della stessa quantità. Per la traslazione nel tempo: $$\mathcal{L}{e^{-2(t-3)},1(t-3)} = e^{-3s},\mathcal{L}{e^{-2t}\cdot1(t)} = \frac{e^{-3s}}{s+2}.$$
 
-> [!example] Esempio PM 3 (dispensa, p. 15) 
-> Calcolare $\mathcal{L}\big{t,e^{-3t}\cdot1(t) + \delta(t-4)\cdot1(t-5) + e^{-2(t-2)}\sin(t-2)\cdot1(t-2)\big}$.
+> [!example] Esempio PM 3 (dispensa, p. 15) Calcolare $\mathcal{L}\big{t,e^{-3t}\cdot1(t) + \delta(t-4)\cdot1(t-5) + e^{-2(t-2)}\sin(t-2)\cdot1(t-2)\big}$.
 > 
 > Il **secondo termine è nullo**. L'impulso è concentrato in $t=4$, dove il gradino $1(t-5)$ vale ancora zero: per campionamento $\delta(t-4),1(t-5) = 1(4-5),\delta(t-4) = 0$.
 > 
 > Il primo termine è $t$ per $e^{-3t}$, e dà $\dfrac{1}{(s+3)^2}$. Il terzo ha la forma $g(t-2),1(t-2)$ con $g(t) = e^{-2t}\sin t$, la cui trasformata è $\dfrac{1}{(s+2)^2+1}$. Quindi $$\mathcal{L}{\dots} = \frac{1}{(s+3)^2} + \frac{e^{-2s}}{(s+2)^2+1}.$$
 
-### 6.3 Esercizi dagli appunti personali
+### 6.3 Esercizi spostati nella Lezione 3
 
-> [!warning] Provenienza Gli esercizi di questo paragrafo compaiono nella nota personale «Laplace» ma **non** nella parte di trascrizione disponibile. Potrebbero appartenere alla seconda parte della lezione o a una lezione successiva; se arriverà la relativa trascrizione, verranno ricollocati e confrontati con quanto detto dal docente. Le soluzioni sono state verificate anche per integrazione diretta.
-
-> [!example] $\mathcal{L}{1(t-3) + \delta(t) + t\cdot1(t)}$ 
-> Per linearità si trasforma un termine alla volta: il gradino traslato dà $e^{-3s}/s$, l'impulso $1$, la rampa $1/s^2$. $$\mathcal{L}{\dots} = \frac{e^{-3s}}{s} + 1 + \frac{1}{s^2} = \frac{s,e^{-3s} + s^2 + 1}{s^2} = 1 + \frac{s,e^{-3s}+1}{s^2}.$$
-
-> [!example] $\mathcal{L}{e^{a(t-T)}\cos\omega(t-T)\cdot1(t-T)}$ 
-> La funzione è $g(t-T),1(t-T)$ con $g(t) = e^{at}\cos\omega t$, quindi $$\mathcal{L}{\dots} = e^{-sT},\frac{s-a}{(s-a)^2+\omega^2}.$$ Nella nota il risultato è corretto, ma nel codice LaTeX la parentesi graffa dell'esponente racchiude per errore tutta la funzione, che risulta quindi stampata come esponente.
-
-> [!example] Trasformata della funzione a tratti del §3.3 (segnata «RIFARE» negli appunti) 
-> Si vuole trasformare $$f(t) = \cos t,\Big[1(t) - 1\big(t-\tfrac{\pi}{2}\big)\Big] + \frac{t-\pi}{4-\pi},\Big[1(t-\pi) - 1(t-4)\Big].$$ Si separano i quattro termini: $$f(t) = \underbrace{\cos t\cdot1(t)}_{(a)} - \underbrace{\cos t\cdot1\big(t-\tfrac{\pi}{2}\big)}_{(b)} + \frac{1}{4-\pi}\Big[\underbrace{(t-\pi)\cdot1(t-\pi)}_{(c)} - \underbrace{(t-\pi)\cdot1(t-4)}_{(d)}\Big].$$
-> 
-> **(a)** È il coseno con $\omega = 1$: $\dfrac{s}{s^2+1}$.
-> 
-> **(b)** Il coseno non è scritto come funzione di $t-\frac{\pi}{2}$, quindi la traslazione non si applica direttamente. Bisogna prima riscriverlo: $\cos t = \cos\big((t-\tfrac{\pi}{2}) + \tfrac{\pi}{2}\big) = -\sin\big(t-\tfrac{\pi}{2}\big)$. Allora $(b) = -\sin\big(t-\frac{\pi}{2}\big),1\big(t-\frac{\pi}{2}\big)$, che si trasforma in $-e^{-\pi s/2}\dfrac{1}{s^2+1}$.
-> 
-> **(c)** È una rampa traslata in $\pi$: $\dfrac{e^{-\pi s}}{s^2}$.
-> 
-> **(d)** Anche qui bisogna esprimere tutto in funzione di $t-4$: $t-\pi = (t-4) + (4-\pi)$. Quindi $(d) = (t-4),1(t-4) + (4-\pi),1(t-4)$, che si trasforma in $\dfrac{e^{-4s}}{s^2} + (4-\pi)\dfrac{e^{-4s}}{s}$.
-> 
-> Mettendo insieme, con i segni corretti: $$F(s) = \frac{s}{s^2+1} + \frac{e^{-\pi s/2}}{s^2+1} + \frac{e^{-\pi s} - e^{-4s}}{(4-\pi),s^2} - \frac{e^{-4s}}{s}.$$
-> 
-> **Verifica con la proprietà della derivata.** Poiché $f(0^-) = 0$, deve valere $\mathcal{L}{\dot f} = s,F(s)$. Si trasforma termine per termine la derivata trovata nel §3.3, usando $\sin t = \cos\big(t-\frac{\pi}{2}\big)$ per il termine traslato: $$\mathcal{L}{\dot f} = -\frac{1}{s^2+1} + \frac{s,e^{-\pi s/2}}{s^2+1} + 1 + \frac{e^{-\pi s} - e^{-4s}}{(4-\pi),s} - e^{-4s}.$$ Moltiplicando $F(s)$ per $s$ e usando $\frac{s^2}{s^2+1} = 1 - \frac{1}{s^2+1}$ si ottiene esattamente la stessa espressione. Il confronto conferma il risultato: un altro caso di «se due cose sono uguali, sono uguali».
-
-> [!warning] Errori nel tentativo presente negli appunti 
-> Il tentativo nella nota «Laplace» contiene quattro errori:
-> 
-> - il fattore $\frac{t-\pi}{4-\pi}$ viene portato fuori dalla trasformata, ma per linearità si possono portare fuori solo le **costanti**, non quantità che dipendono da $t$;
-> - la trasformata del coseno è scritta $\frac{s}{s^2+\omega^2}$ anziché $\frac{s}{s^2+1}$ (qui $\omega = 1$);
-> - il termine $\cos t\cdot1(t-\frac{\pi}{2})$ è rimasto incompleto: va riscritto come $-\sin(t-\frac{\pi}{2}),1(t-\frac{\pi}{2})$ prima di applicare la traslazione;
-> - la rampa traslata dà $\frac{1}{s^2}$, non $\frac{1}{s}$.
-> 
-> Inoltre la formula generale in fondo alla nota, $\mathcal{L}\big{\frac{t^k}{k!}e^{at}\sin/\cos\big}$, ha il numeratore vuoto. Per $k=0$ e $k=1$ i numeratori sono quelli della tabella del §5.5; per $k$ generico non esiste una forma semplice.
+> [!note] Ricollocazione In una prima versione di questa nota, qui comparivano tre esercizi presi dagli appunti personali e di provenienza incerta: $\mathcal{L}{1(t-3)+\delta(t)+t\cdot1(t)}$, $\mathcal{L}{e^{a(t-T)}\cos\omega(t-T)\cdot1(t-T)}$ e la trasformata della funzione a tratti del §3.3. La trascrizione della lezione successiva mostra che sono stati svolti in aula il 29 settembre. Sono quindi stati spostati, insieme alle relative verifiche e correzioni, in [[Lezione 03 - Trasformate notevoli, poli e andamento nel tempo#4. Esercizi svolti in aula]].
 
 ## Domande di autoverifica
 
