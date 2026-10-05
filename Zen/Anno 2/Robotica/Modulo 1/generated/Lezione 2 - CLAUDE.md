@@ -225,7 +225,7 @@ Uno studente ha chiesto dei sistemi **a cavi** (_tendon-driven_). Sono robot azi
 - **Pinza morbida pneumatica**: una struttura di silicone stampata con un solo azionamento, l'aspirazione dell'aria, e quindi un solo grado di libertà (aperta/chiusa). È molto semplice.
 - **Mano a tendini**: tanti piccoli motori collegati. È più complessa, ma anche più funzionale.
 
----
+
 
 ## 9. Robotica marina
 
@@ -312,7 +312,7 @@ In ogni caso un **modello accurato** è indispensabile. Se il modello è sbaglia
 
 Più raramente si posano sul fondale dei **transponder** di posizione nota, che svolgono lo stesso ruolo. A grandi profondità, per esempio 2000 m, comunicare in modo affidabile con la superficie è difficile. Le onde acustiche non viaggiano in linea retta ma **si incurvano** propagandosi, perché le proprietà dell'acqua cambiano con la profondità.
 
----
+
 
 ## 10. Sistemi multi-robot
 
@@ -328,7 +328,7 @@ La robotica di **intervento** è particolarmente interessante e difficile. Rigua
 
 Come nota la slide, con più robot **aumentano le risorse disponibili, ma anche i problemi di coordinamento**.
 
----
+
 
 ## 11. Il contributo dell'ingegneria informatica
 
@@ -455,7 +455,7 @@ Il glossario essenziale della slide 51 fissa la terminologia del corso.
 |AGV / AMR|_Automated Guided Vehicle_ / _Autonomous Mobile Robot_|
 |ROV / AUV / ASV|_Remotely Operated_ / _Autonomous Underwater_ / _Autonomous Surface Vehicle_|
 
----
+
 
 ## 12. Perché servono i sistemi di riferimento
 
@@ -481,7 +481,7 @@ Nasce così una **catena di trasformazioni** che bisogna saper gestire. Come dic
 
 Lo stesso vale per un **manipolatore**. Si colloca una terna su ogni giunto (giunto 0, giunto 1, …) e una terna sull'utensile, il _tool frame_. Per sapere dove si trova l'utensile bisogna **concatenare** tutte le trasformazioni tra terne successive. C'è poi la terna del mondo, rispetto alla quale si trova il robot. Per afferrare un oggetto che è in un punto dello spazio bisogna sapere come sono disposte tutte queste terne nello spazio. Entra quindi in gioco tutta una serie di **cambi di coordinate**.
 
----
+
 
 ## 13. Sistemi di riferimento nel piano: notazione e strumenti
 
@@ -539,7 +539,7 @@ $${}^{w}P ;\neq; {}^{b}P ;\neq; {}^{s}P .$$
 
 Le coordinate coincidono solo nel caso in cui le terne coincidono, con robot e sensore entrambi nell'origine del mondo e orientati allo stesso modo. Nella pratica non capita mai.
 
----
+
 
 ## 14. Posizioni e spostamenti
 
@@ -570,7 +570,7 @@ Se gli assi di $b$ sono **ruotati** rispetto a quelli di $a$, anche le component
 
 I vettori vanno trattati con attenzione anche quando si sceglie **chi** realizza uno spostamento. Il docente ha fatto l'esempio di un manipolatore mobile che deve raggiungere un oggetto spostandosi lungo una certa direzione. Lo spostamento si può realizzare tutto con il braccio. Oppure lo si può **scomporre** in due componenti: una affidata alla base mobile e una al braccio. È possibile proprio perché lo spostamento è un vettore e si può scomporre e applicare dove serve, purché si badi a dove lo si applica.
 
----
+
 
 ## 15. Il prodotto matrice-vettore come combinazione di colonne
 
@@ -586,7 +586,7 @@ $$(AB),\mathbf{v} = A,(B,\mathbf{v}).$$
 
 Applicare il prodotto $AB$ a un vettore equivale ad applicare **prima $B$ e poi $A$**: la matrice più vicina al vettore agisce per prima. Il docente l'ha richiamata in vista della composizione di più trasformazioni per ottenere una posizione finale.
 
----
+
 
 ## 16. Cambio di base e matrice di rotazione
 
@@ -648,7 +648,7 @@ Secondo il docente questa lettura «per colonne» è molto utile nella pratica. 
 
 > [!tip] Excalidraw Uno schizzo delle due terne $a$ e $b$, con $b$ ruotata di $\pi/2$ e le colonne di $R(\pi/2)$ disegnate come frecce, aiuta molto a fissare la lettura «per colonne».
 
----
+
 
 ## 17. Proprietà delle matrici di rotazione e gruppo SO(2)
 
@@ -707,7 +707,7 @@ La differenza sostanziale è questa: **le matrici di rotazione non cambiano mai 
 - **Elemento inverso**: ogni $R$ ha l'inversa $R^{-1} = R^T$, che è ancora una rotazione.
 - **Associatività**: è ereditata dal prodotto di matrici.
 
----
+
 
 ## 18. Composizione di rotazioni nel piano
 
@@ -739,7 +739,7 @@ $${}^{a}\mathbf{v} = {}^{a}_{b}R;{}^{b}\mathbf{v} = {}^{a}_{b}R;{}^{b}_{c}R;{}^{
 
 Gli indici interni si «semplificano» a catena. È lo stesso meccanismo che, con le trasformazioni omogenee, permetterà di passare dalla terna dell'utensile a quella del mondo.
 
----
+
 
 ## 19. Interpretazione passiva e attiva di una rotazione
 
@@ -766,7 +766,7 @@ Un esempio: il robot ruota e con lui ruota la direzione della sua velocità. Se 
 
 Bisogna sempre chiarire in quale dei due casi ci si trova. Nel primo, tra virgolette, «si muove il mondo» (il riferimento) e il vettore resta fermo; nel secondo è il vettore a spostarsi. Le implicazioni sono diverse. Ruotare il riferimento di $+\theta$ equivale, in termini di componenti, a ruotare il vettore di $-\theta$. Per esprimere in $b$ un vettore noto in $a$ si usa infatti $\big({}^{a}_{b}R\big)^{T} = R(-\theta)$.
 
----
+
 
 ## 20. Prossima lezione
 
