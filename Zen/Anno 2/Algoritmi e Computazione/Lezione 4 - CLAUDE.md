@@ -31,7 +31,8 @@ Un **enunciato** è un'affermazione che può essere vera o falsa. Anche un enunc
 
 Altri enunciati sono più difficili, come «la somma dei primi $k$ numeri naturali dispari è uguale a $k^2$». Si possono provare alcuni casi e constatare che sembrano funzionare. Se l'enunciato è falso, basta trovare un caso in cui non vale; se è vero, va dimostrato.
 
-> [!warning] Fare esempi non è dimostrare Il docente riporta un errore frequente negli scritti: alla richiesta di dimostrare un enunciato universale, si risponde che «funziona per 1, funziona per 2, funziona per 3, quindi si vede che funziona per tutti». **Questa non è una dimostrazione.** Un numero finito di verifiche non copre gli infiniti casi di un enunciato universale.
+> [!warning] Fare esempi non è dimostrare 
+> Il docente riporta un errore frequente negli scritti: alla richiesta di dimostrare un enunciato universale, si risponde che «funziona per 1, funziona per 2, funziona per 3, quindi si vede che funziona per tutti». **Questa non è una dimostrazione.** Un numero finito di verifiche non copre gli infiniti casi di un enunciato universale.
 
 In una dimostrazione si parte da **ipotesi**, cioè enunciati assunti come veri, e si arriva alle conclusioni applicando **regole deduttive**, che permettono di derivare un enunciato da altri enunciati. Il docente osserva che sono regole che chiunque abbia «cablate in testa», in quanto capace di ragionare. Due esempi:
 
@@ -40,7 +41,8 @@ In una dimostrazione si parte da **ipotesi**, cioè enunciati assunti come veri,
 
 ### Dimostrazioni deduttive
 
-> [!important] Definizione: dimostrazione Una **dimostrazione** è una sequenza di enunciati in cui ciascun enunciato è un'ipotesi oppure il risultato dell'applicazione di una regola deduttiva a uno o più enunciati precedenti. L'enunciato $A$ **deriva** dall'enunciato $B$ se $A = B$ oppure se $A$ è dimostrato a partire da $B$.
+> [!important] Definizione: dimostrazione 
+> Una **dimostrazione** è una sequenza di enunciati in cui ciascun enunciato è un'ipotesi oppure il risultato dell'applicazione di una regola deduttiva a uno o più enunciati precedenti. L'enunciato $A$ **deriva** dall'enunciato $B$ se $A = B$ oppure se $A$ è dimostrato a partire da $B$.
 
 Alcuni autori rappresentano le dimostrazioni come alberi anziché come sequenze; il corso usa la forma più semplice. Un teorema nella forma «se $H$ allora $C$» si dimostra assumendo l'ipotesi $H$ e derivandone $C$. Un teorema nella forma «$A$ se e solo se $B$» esprime un'equivalenza logica e richiede due dimostrazioni, una per ciascuna «freccia»: «se $A$ allora $B$» e «se $B$ allora $A$».
 
@@ -67,7 +69,8 @@ Il docente commenta le regole con esempi.
 
 I passi logici delle dimostrazioni che si incontreranno nelle dispense saranno quasi sempre riconducibili a queste regole: sono il criterio con cui un ragionamento si può ritenere corretto.
 
-> [!tip] Approfondimento — Le origini della deduzione naturale #approfondimento Il nome «deduzione naturale» risale a Gerhard Gentzen, che nel 1935 presentò un sistema formale in cui ogni connettivo è governato proprio da una regola di introduzione e da una di eliminazione [@gentzen1935]. L'obiettivo dichiarato era formalizzare il modo in cui i matematici ragionano effettivamente, da cui l'aggettivo «naturale». La regola sulla doppia negazione è caratteristica della logica **classica**. Nella logica intuizionista, che non la ammette in generale, da «non non $B$» non si può concludere $B$.
+> [!tip] Approfondimento — Le origini della deduzione naturale #approfondimento 
+> Il nome «deduzione naturale» risale a Gerhard Gentzen, che nel 1935 presentò un sistema formale in cui ogni connettivo è governato proprio da una regola di introduzione e da una di eliminazione [@gentzen1935]. L'obiettivo dichiarato era formalizzare il modo in cui i matematici ragionano effettivamente, da cui l'aggettivo «naturale». La regola sulla doppia negazione è caratteristica della logica **classica**. Nella logica intuizionista, che non la ammette in generale, da «non non $B$» non si può concludere $B$.
 
 ### Quantificatori
 
