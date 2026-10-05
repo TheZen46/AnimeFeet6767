@@ -9,7 +9,7 @@ La lezione riprende il dipolo elettrico da un altro punto di vista. Finora il di
 
 ## Riepilogo della lezione precedente
 
-In apertura il docente ricorda che nella [[Zen/Anno 2/Fisica 2/Lezione 3 - CLAUDE|Lezione 3 - CLAUDE]] è stato calcolato il campo elettrico generato da distribuzioni continue di carica: un anello e un disco carichi, sul loro asse. Annuncia poi lo schema della lezione: prima la teoria, poi gli esercizi sui campi elettrici.
+In apertura il docente ricorda che nella [[Zen/Anno 2/Fisica 2/generated/Lezione 3 - CLAUDE|Lezione 3 - CLAUDE]] è stato calcolato il campo elettrico generato da distribuzioni continue di carica: un anello e un disco carichi, sul loro asse. Annuncia poi lo schema della lezione: prima la teoria, poi gli esercizi sui campi elettrici.
 
 ## Il dipolo come sistema rigido
 
@@ -64,7 +64,7 @@ $$ |\vec\tau| = |\vec\tau_+| + |\vec\tau_-| = 2,q,E,\frac d2,\sin\theta = q,d,E,
 
 ### Forma vettoriale: $\vec\tau = \vec p\times\vec E$
 
-Nella [[Zen/Anno 2/Fisica 2/Lezione 2 - CLAUDE|Lezione 2 - CLAUDE]] è stato introdotto il **momento di dipolo** $p = qd$. Il dipolo è caratterizzato da due grandezze, la carica e la distanza tra le cariche. Poiché le due cariche sono uguali in modulo, lo si può descrivere in modo efficace senza pensare alle singole particelle, attraverso un unico vettore: il **vettore momento di dipolo** $\vec p$, di modulo $qd$ e diretto lungo l'asse del dipolo dalla carica negativa a quella positiva. Con questa grandezza il risultato si condensa in una forma compatta.
+Nella [[Zen/Anno 2/Fisica 2/generated/Lezione 2 - CLAUDE|Lezione 2 - CLAUDE]] è stato introdotto il **momento di dipolo** $p = qd$. Il dipolo è caratterizzato da due grandezze, la carica e la distanza tra le cariche. Poiché le due cariche sono uguali in modulo, lo si può descrivere in modo efficace senza pensare alle singole particelle, attraverso un unico vettore: il **vettore momento di dipolo** $\vec p$, di modulo $qd$ e diretto lungo l'asse del dipolo dalla carica negativa a quella positiva. Con questa grandezza il risultato si condensa in una forma compatta.
 
 > [!important] Momento torcente su un dipolo in un campo uniforme $$ |\vec\tau| = p,E,\sin\theta, \qquad \vec\tau = \vec p\times\vec E $$ dove $\theta$ è l'angolo tra $\vec p$ ed $\vec E$. Il momento tende a ruotare $\vec p$ verso la direzione di $\vec E$.
 

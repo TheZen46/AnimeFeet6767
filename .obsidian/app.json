@@ -9,5 +9,6 @@
   },
   "showLineNumber": false,
   "vimMode": false,
-  "settingsPopoutWindow": false
+  "settingsPopoutWindow": false,
+  "alwaysUpdateLinks": true
 }

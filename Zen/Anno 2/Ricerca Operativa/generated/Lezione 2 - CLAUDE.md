@@ -11,7 +11,7 @@ Nella lezione precedente si è arrivati alla forma generale di un problema di ot
 
 $$ \min_{x \in S} f(x) \qquad \text{oppure} \qquad \max_{x \in S} f(x), $$
 
-con variabili $x$, funzione obiettivo $f$ e insieme $S$ definito dai vincoli (si veda [[Zen/Anno 2/Ricerca Operativa/Lezione 1 - CLAUDE|Lezione 1 - CLAUDE]]). L'obiettivo di questa lezione è esercitarsi a portare problemi concreti in questa forma, determinando ogni volta, nell'ordine, **variabili**, **funzione obiettivo** e **insieme ammissibile**, e introdurre la nomenclatura di base.
+con variabili $x$, funzione obiettivo $f$ e insieme $S$ definito dai vincoli (si veda [[Zen/Anno 2/Ricerca Operativa/generated/Lezione 1 - CLAUDE|Lezione 1 - CLAUDE]]). L'obiettivo di questa lezione è esercitarsi a portare problemi concreti in questa forma, determinando ogni volta, nell'ordine, **variabili**, **funzione obiettivo** e **insieme ammissibile**, e introdurre la nomenclatura di base.
 
 ## Esempio: un'industria chimica
 

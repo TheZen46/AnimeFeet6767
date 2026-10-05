@@ -5,7 +5,7 @@
 ---
 # Lezione 4 — Tecniche deduttive e automi a stati finiti
 
-La lezione di teoria riprende dove si era fermata la [[Zen/Anno 2/Algoritmi e Computazione/Lezione 2 - CLAUDE|Lezione 2 - CLAUDE]] e si articola in tre parti. Si apre con la correzione di un errore nelle slide sulle leggi algebriche dei linguaggi. Segue la terza sezione delle slide _Argomenti preliminari_ (slide 15–32), dedicata alle **tecniche deduttive**, che nella lezione 2 era stata saltata. Infine inizia il primo blocco vero e proprio di informatica teorica, i **linguaggi regolari** (slide 1–18 del pacchetto _Linguaggi regolari_): automi a stati finiti deterministici e non deterministici.
+La lezione di teoria riprende dove si era fermata la [[Zen/Anno 2/Algoritmi e Computazione/generated/Lezione 2 - CLAUDE|Lezione 2 - CLAUDE]] e si articola in tre parti. Si apre con la correzione di un errore nelle slide sulle leggi algebriche dei linguaggi. Segue la terza sezione delle slide _Argomenti preliminari_ (slide 15–32), dedicata alle **tecniche deduttive**, che nella lezione 2 era stata saltata. Infine inizia il primo blocco vero e proprio di informatica teorica, i **linguaggi regolari** (slide 1–18 del pacchetto _Linguaggi regolari_): automi a stati finiti deterministici e non deterministici.
 
 ## Una correzione alle slide: l'elemento assorbente
 
