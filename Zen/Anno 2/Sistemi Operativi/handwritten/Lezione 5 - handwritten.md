@@ -1,3 +1,6 @@
 materiale utilizzato durante la lezione:
 
-Scheduling the multi level feedback
+	8 Scheduling the multi level feedback
+	10 Multi processor scheduling
+	13 The Abstraction Address Space
+
