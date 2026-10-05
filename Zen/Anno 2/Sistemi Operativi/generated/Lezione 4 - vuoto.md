@@ -1,0 +1,1 @@
+Abbiamo usato il software, quindi non ci sono dati importanti per lo studio all'interno di questa lezione
