@@ -301,4 +301,4 @@ La docente ha insistito sull'importanza di **fare i conti da soli**, perché all
 - Un **poliedro** è l'intersezione di un numero finito di semispazi chiusi; un **politopo** è un poliedro limitato. Ogni poliedro è convesso e si scrive come ${x \mid Ax \ge b}$; l'insieme ammissibile di un problema di PL è il poliedro $P = {x \mid Ax \ge b}$.
 - $\bar x \in P$ è un **vertice** se non sta all'interno di un segmento di $P$. Vincolo $i$ **attivo** in $\bar x$: $a_i^T \bar x = b_i$; $I(\bar x)$ è l'insieme dei vincoli attivi.
 - **Teorema**: $\bar x$ è un vertice $\iff$ esistono $n$ vincoli attivi linearmente indipendenti $\iff$ $\bar x$ è l'unica soluzione di $A_{I(\bar x)}x = b_{I(\bar x)}$ $\iff$ $\operatorname{rk} A_{I(\bar x)} = n$.
-- **Corollari**: un poliedro ha al più $\binom{m}{n}$ vertici (quindi un numero finito); se $m < n$ (o più in generale $\operatorname{rk} A < n$) non ha vertici.
+	- **Corollari**: un poliedro ha al più $\binom{m}{n}$ vertici (quindi un numero finito); se $m < n$ (o più in generale $\operatorname{rk} A < n$) non ha vertici.
