@@ -12,8 +12,7 @@
 
 ## Robotica 
 ### modulo 1 
-	Lezione 1
-	Lezione 2
+	
 ### modulo 2
 	Lezione 2
 
