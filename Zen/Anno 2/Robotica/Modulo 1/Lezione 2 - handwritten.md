@@ -22,4 +22,4 @@ $|R| = +1$
 $R^{-1} R^T = R(-\theta)$
 
 $SO(2) = \{ R \in R^{2x2} : R^TR = I, det(R) = 1 \}$
-$R(\alpha)R(\beta) = \pmatrix{cos\alpha cos\beta - sin\alpha sin\beta && -cos\lpha sin\beta - sin\alpha cos \beta \\ sin\alpha cos}$
+$R(\alpha)R(\beta) = \pmatrix{cos\alpha cos\beta - sin\alpha sin\beta && -cos\alpha sin\beta - sin\alpha cos \beta \\ sin\alpha cos\beta + cos\alpha sin\beta && -sin\alpha sin\beta + cos\alpha cos\beta} = R(\alpha +\beta)$
