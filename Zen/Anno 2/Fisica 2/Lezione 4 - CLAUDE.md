@@ -9,7 +9,7 @@ La lezione riprende il dipolo elettrico da un altro punto di vista. Finora il di
 
 ## Riepilogo della lezione precedente
 
-In apertura il docente ricorda che nella [[Fisica 2 - Lezione 03 - Distribuzioni continue di carica|lezione 3]] è stato calcolato il campo elettrico generato da distribuzioni continue di carica: un anello e un disco carichi, sul loro asse. Annuncia poi lo schema della lezione: prima la teoria, poi gli esercizi sui campi elettrici.
+In apertura il docente ricorda che nella [[Zen/Anno 2/Fisica 2/Lezione 3 - CLAUDE|Lezione 3 - CLAUDE]] è stato calcolato il campo elettrico generato da distribuzioni continue di carica: un anello e un disco carichi, sul loro asse. Annuncia poi lo schema della lezione: prima la teoria, poi gli esercizi sui campi elettrici.
 
 ## Il dipolo come sistema rigido
 
@@ -21,7 +21,8 @@ La molecola d'acqua, $\mathrm{H_2O}$, è formata da un atomo di ossigeno e da du
 
 Anche nel caso delle molecole la distanza $d$ tra i "poli" si può considerare fissa. Le distanze tra gli atomi di idrogeno e di ossigeno possono variare un poco, perché gli atomi oscillano attorno alle posizioni di equilibrio, ma in media restano costanti. La schematizzazione con due cariche a distanza fissa ha quindi un interesse pratico: molte molecole, e non solo, si possono approssimare con un dipolo.
 
-> [!warning] Discrepanza sul segno delle cariche nella molecola d'acqua Nella trascrizione si sente che "la regione in cui ci sono gli atomi di idrogeno è mediamente più carica negativamente, mentre quella con l'atomo di ossigeno è carica positivamente". Anche negli appunti a mano gli idrogeni sono segnati "$-$" e l'ossigeno "$+$". È il contrario. L'ossigeno è molto più **elettronegativo** dell'idrogeno, cioè attira più fortemente gli elettroni di legame: attorno all'ossigeno si accumula una **parziale carica negativa** ($\delta^-$), mentre gli idrogeni restano con una **parziale carica positiva** ($\delta^+$). Il momento di dipolo della molecola, diretto per convenzione dalla carica negativa a quella positiva, punta quindi dall'ossigeno verso il punto medio tra i due idrogeni. Il ragionamento fisico della lezione non cambia: la molecola è neutra ma polare.
+> [!warning] Discrepanza sul segno delle cariche nella molecola d'acqua 
+> Nella trascrizione si sente che "la regione in cui ci sono gli atomi di idrogeno è mediamente più carica negativamente, mentre quella con l'atomo di ossigeno è carica positivamente". Anche negli appunti a mano gli idrogeni sono segnati "$-$" e l'ossigeno "$+$". È il contrario. L'ossigeno è molto più **elettronegativo** dell'idrogeno, cioè attira più fortemente gli elettroni di legame: attorno all'ossigeno si accumula una **parziale carica negativa** ($\delta^-$), mentre gli idrogeni restano con una **parziale carica positiva** ($\delta^+$). Il momento di dipolo della molecola, diretto per convenzione dalla carica negativa a quella positiva, punta quindi dall'ossigeno verso il punto medio tra i due idrogeni. Il ragionamento fisico della lezione non cambia: la molecola è neutra ma polare.
 
 ## Dipolo in un campo elettrico uniforme
 
@@ -42,7 +43,8 @@ $$ \vec\tau = \vec r \times \vec F . $$
 
 Per scriverlo bisogna scegliere un **polo** $\Omega$, il punto rispetto al quale si misurano i vettori posizione e quindi i momenti. La scelta è arbitraria, ma per un'asta su cui agiscono due forze che la fanno ruotare la scelta migliore, per simmetria, è il centro dell'asta. Altre scelte darebbero calcoli più complicati. Con il polo nel centro del dipolo, il vettore $\vec r$ va dal centro a ciascuna carica e ha modulo $r = d/2$. Si indica con $\theta$ l'angolo tra l'asse del dipolo e il campo elettrico.
 
-> [!tip] Richiamo — Il prodotto vettoriale Il prodotto vettoriale $\vec A\times\vec B$ è un vettore. Il suo **modulo** è $$ |\vec A\times\vec B| = |\vec A|,|\vec B|\sin\theta , $$ con $\theta$ angolo compreso tra i due vettori. La sua **direzione** è perpendicolare al piano dei due vettori, e il **verso** è dato dalla regola della mano destra. In particolare il prodotto vettoriale di due vettori paralleli è nullo, perché $\sin0 = 0$, mentre per due vettori perpendicolari il modulo è semplicemente il prodotto dei moduli.
+> [!tip] Richiamo — Il prodotto vettoriale 
+> Il prodotto vettoriale $\vec A\times\vec B$ è un vettore. Il suo **modulo** è $$ |\vec A\times\vec B| = |\vec A|,|\vec B|\sin\theta , $$ con $\theta$ angolo compreso tra i due vettori. La sua **direzione** è perpendicolare al piano dei due vettori, e il **verso** è dato dalla regola della mano destra. In particolare il prodotto vettoriale di due vettori paralleli è nullo, perché $\sin0 = 0$, mentre per due vettori perpendicolari il modulo è semplicemente il prodotto dei moduli.
 
 **Carica positiva.** Si scompone la forza $\vec F_+$ in una componente parallela al vettore posizione $\vec r$ e una perpendicolare:
 
@@ -62,7 +64,7 @@ $$ |\vec\tau| = |\vec\tau_+| + |\vec\tau_-| = 2,q,E,\frac d2,\sin\theta = q,d,E,
 
 ### Forma vettoriale: $\vec\tau = \vec p\times\vec E$
 
-Nella [[Fisica 2 - Lezione 02 - Campo elettrico e dipolo|lezione 2]] è stato introdotto il **momento di dipolo** $p = qd$. Il dipolo è caratterizzato da due grandezze, la carica e la distanza tra le cariche. Poiché le due cariche sono uguali in modulo, lo si può descrivere in modo efficace senza pensare alle singole particelle, attraverso un unico vettore: il **vettore momento di dipolo** $\vec p$, di modulo $qd$ e diretto lungo l'asse del dipolo dalla carica negativa a quella positiva. Con questa grandezza il risultato si condensa in una forma compatta.
+Nella [[Zen/Anno 2/Fisica 2/Lezione 2 - CLAUDE|Lezione 2 - CLAUDE]] è stato introdotto il **momento di dipolo** $p = qd$. Il dipolo è caratterizzato da due grandezze, la carica e la distanza tra le cariche. Poiché le due cariche sono uguali in modulo, lo si può descrivere in modo efficace senza pensare alle singole particelle, attraverso un unico vettore: il **vettore momento di dipolo** $\vec p$, di modulo $qd$ e diretto lungo l'asse del dipolo dalla carica negativa a quella positiva. Con questa grandezza il risultato si condensa in una forma compatta.
 
 > [!important] Momento torcente su un dipolo in un campo uniforme $$ |\vec\tau| = p,E,\sin\theta, \qquad \vec\tau = \vec p\times\vec E $$ dove $\theta$ è l'angolo tra $\vec p$ ed $\vec E$. Il momento tende a ruotare $\vec p$ verso la direzione di $\vec E$.
 
@@ -76,7 +78,8 @@ I calcoli sono esattamente gli stessi di prima: si è solo riassunta l'informazi
 
 Tra questi due limiti il dipolo ruota con un momento che dipende dall'angolo come $\sin\theta$.
 
-> [!tip] Approfondimento — Anche l'antiparallelo ha momento nullo #approfondimento $\sin\theta$ si annulla anche per $\theta = \pi$, quando il dipolo è allineato al campo ma con verso **opposto**. Anche lì il momento è nullo, ma l'equilibrio è **instabile**: basta una piccola rotazione perché compaia un momento che allontana ulteriormente il dipolo da quella posizione, fino a portarlo verso $\theta = 0$. L'analisi energetica più avanti rende questa differenza evidente.
+> [!tip] Approfondimento — Anche l'antiparallelo ha momento nullo #approfondimento 
+> $\sin\theta$ si annulla anche per $\theta = \pi$, quando il dipolo è allineato al campo ma con verso **opposto**. Anche lì il momento è nullo, ma l'equilibrio è **instabile**: basta una piccola rotazione perché compaia un momento che allontana ulteriormente il dipolo da quella posizione, fino a portarlo verso $\theta = 0$. L'analisi energetica più avanti rende questa differenza evidente.
 
 > [!warning] Discrepanze negli appunti (.md e a mano) sul momento torcente
 > 
@@ -89,7 +92,8 @@ Il docente sottolinea che il comportamento dei dipoli in un campo elettrico non 
 
 Nel vuoto queste oscillazioni non produrrebbero alcun effetto. Le molecole, però, sono immerse in un mezzo e interagiscono con quelle vicine. Si genera una sorta di attrito, c'è **dissipazione di energia** e il materiale si riscalda. Per questo il forno a microonde scalda i cibi, che sono fondamentalmente a base d'acqua, mentre un alimento secco in genere si scalda poco. Alla base di tutto c'è il fatto che la molecola d'acqua ha un **dipolo intrinseco**, che si può manipolare con i campi elettrici.
 
-> [!tip] Approfondimento — Non è una "frequenza di risonanza" dell'acqua #approfondimento I forni a microonde domestici lavorano a circa $2{,}45\ \mathrm{GHz}$. Un'idea molto diffusa è che questa sia una frequenza di risonanza della molecola d'acqua, ma non è così. Le risonanze di assorbimento dell'acqua si trovano a frequenze molto più alte, oltre $1\ \mathrm{THz}$, verso l'infrarosso. Il valore di $2{,}45\ \mathrm{GHz}$ deriva dall'assegnazione di quella banda di frequenze, da parte delle autorità di regolamentazione, all'uso nei forni. Il meccanismo è quello descritto a lezione, detto **riscaldamento dielettrico**: il campo fa ruotare le molecole polari, e le collisioni con le molecole vicine trasformano questo moto ordinato in agitazione termica, cioè calore [@baird2014].
+> [!tip] Approfondimento — Non è una "frequenza di risonanza" dell'acqua #approfondimento 
+> I forni a microonde domestici lavorano a circa $2{,}45\ \mathrm{GHz}$. Un'idea molto diffusa è che questa sia una frequenza di risonanza della molecola d'acqua, ma non è così. Le risonanze di assorbimento dell'acqua si trovano a frequenze molto più alte, oltre $1\ \mathrm{THz}$, verso l'infrarosso. Il valore di $2{,}45\ \mathrm{GHz}$ deriva dall'assegnazione di quella banda di frequenze, da parte delle autorità di regolamentazione, all'uso nei forni. Il meccanismo è quello descritto a lezione, detto **riscaldamento dielettrico**: il campo fa ruotare le molecole polari, e le collisioni con le molecole vicine trasformano questo moto ordinato in agitazione termica, cioè calore [@baird2014].
 
 ## Lavoro ed energia potenziale del dipolo
 
