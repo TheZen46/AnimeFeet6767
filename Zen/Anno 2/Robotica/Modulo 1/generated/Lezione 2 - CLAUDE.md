@@ -19,7 +19,7 @@ Partecipare a uno _student team_ è un buon modo per «mettere le mani in pasta�
 
 ## 2. Riepilogo della lezione precedente
 
-Il docente ha riassunto rapidamente quanto visto nella [[Robotica MOD1 - Lezione 01|lezione 1]]:
+Il docente ha riassunto rapidamente quanto visto nella [[Zen/Anno 2/Robotica/Modulo 1/generated/Lezione 1 - CLAUDE|Lezione 1 - CLAUDE]]:
 
 - le definizioni di robot e di autonomia;
 - il ciclo di controllo e il feedback;
