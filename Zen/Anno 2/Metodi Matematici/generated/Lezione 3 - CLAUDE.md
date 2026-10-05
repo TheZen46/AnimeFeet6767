@@ -59,7 +59,8 @@ La figura (aggiunta a scopo illustrativo) rende evidente il motivo. Dal calcolo 
 
 L'esempio mostra che le sole derivate non bastano. Serve un criterio che, a partire da proprietà delle derivate parziali, garantisca la differenziabilità; questo criterio è il teorema seguente, spesso chiamato **teorema del differenziale totale**.
 
-> [!important] Teorema — Condizione sufficiente per la differenziabilità Siano $f : D \subseteq \mathbb{R}^n \to \mathbb{R}$ e $\hat{\mathbf{x}} \in \mathring{D}$, con $r > 0$ tale che $B(\hat{\mathbf{x}}, r) \subseteq D$. Se $f$ ammette tutte le derivate parziali in $B(\hat{\mathbf{x}}, r)$ e le derivate parziali sono continue, allora $f$ è differenziabile in $\hat{\mathbf{x}}$.
+> [!important] Teorema — Condizione sufficiente per la differenziabilità 
+> Siano $f : D \subseteq \mathbb{R}^n \to \mathbb{R}$ e $\hat{\mathbf{x}} \in \mathring{D}$, con $r > 0$ tale che $B(\hat{\mathbf{x}}, r) \subseteq D$. Se $f$ ammette tutte le derivate parziali in $B(\hat{\mathbf{x}}, r)$ e le derivate parziali sono continue, allora $f$ è differenziabile in $\hat{\mathbf{x}}$.
 
 ### Dimostrazione (caso $n = 2$)
 
