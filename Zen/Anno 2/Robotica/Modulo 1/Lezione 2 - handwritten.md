@@ -12,5 +12,14 @@ $\pmatrix{a & b \\ c & d}\cdot\pmatrix{x \\ y} = \pmatrix{ax+by \\ cx+dy} = x \c
 
 
 ```
-
+{a}, {b}
 ```
+$^av = v_{x,b}^ai_b+v_{y,b}^aj_b = \pmatrix{^ai_b & ^aj_b}\cdot\pmatrix{v_{x,b} \\ v_{y,b}} = ^a_bR^bv$
+
+$R(\theta) = \pmatrix{cos\theta & -sin\theta \\ sin\theta & cos\theta} \mskip{15mu} R(0) = \pmatrix{1 & 0 \\ 0 & 1}, \mskip{5mu} \rightarrow \mskip{5mu} R(\frac{\pi}{2}) = \pmatrix{0 & -1 \\ 1 & 0}$
+
+$|R| = +1$
+$R^{-1} R^T = R(-\theta)$
+
+$SO(2) = \{ R \in R^{2x2} : R^TR = I, det(R) = 1 \}$
+$R(\alpha)R(\beta) = \pmatrix{cos\alpha cos\beta - sin\alpha sin\beta && -cos\lpha sin\beta - sin\alpha cos \beta \\ sin\alpha cos}$
