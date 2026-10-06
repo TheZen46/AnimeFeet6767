@@ -20,7 +20,7 @@ L'ultima riga della tabella delle trasformate è, per il docente, «multiuso»:
 $$$$
 $$\frac{t^k}{k!} e^{at} \left\{ \begin{matrix} \sin(\omega t) \\ \cos(\omega t) \end{matrix} \right. \quad \longleftrightarrow \quad \frac{\cdots}{\big[(s-a)^2+\omega^2\big]^{k+1}}$$
 
-Il denominatore è lo stesso sia per il seno sia per il coseno, e si ricava indifferentemente da una strada o dall'altra. La differenza sta nel numeratore. Il docente dichiara di non ricordarlo e, se gli serve, lo ricava applicando $-\frac{d}{ds}$ tante volte quante sono necessarie (vedi [[Lezione 03 - Trasformate notevoli, poli e andamento nel tempo#2. Moltiplicazione per $t$ e struttura del denominatore|lezione 3, §2]]).
+Il denominatore è lo stesso sia per il seno sia per il coseno, e si ricava indifferentemente da una strada o dall'altra. La differenza sta nel numeratore. Il docente dichiara di non ricordarlo e, se gli serve, lo ricava applicando $-\frac{d}{ds}$ tante volte quante sono necessarie (vedi [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 3 - CLAUDE|Lezione 3 - CLAUDE]]).
 
 Il punto da mettere bene a fuoco è la relazione tra queste funzioni e i poli della loro trasformata. Il coefficiente dell'esponenziale, la pulsazione della sinusoide e la potenza del tempo sono «mappati» nelle caratteristiche del denominatore. Ad esempio, un polo reale $s=3$ con molteplicità $4$, cioè $\frac{1}{(s-3)^4}$, rivela una funzione $\frac{t^3}{3!}e^{3t}$.
 
