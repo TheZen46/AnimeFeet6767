@@ -4,7 +4,7 @@ $\displaystyle\frac{3s+4}{(s-2)(s+3)}=A\frac{1}{(s-2)}+B\frac{1}{(s+3)}$
 $\displaystyle 2\frac{1}{(s-2)}+\frac{1}{(s+3)}$
 
 $\displaystyle F(s)=\frac{1+3e^{-2s}}{(s+2)}=\underbrace{\frac{1}{s+2}}_{\overset{\mathcal L^{-1}}{e^{-2t}}}+\frac{3}{(s+2)}e^{-2s}=e^{-2t}+3\frac{1}{s+2}e^{-2s}=e^{-2t}+3e^{-2(t-2)}1(t-2)$
-$\displaystyle \mathcal L^{-1}\{\frac{1}{(s+\alpha)}e^{-\tau s}\}=e^{-\alpha(t-\tau)}u(t-\tau)$
+$\displaystyle \mathcal L^{-1}\Bigl\{\frac{1}{(s+\alpha)}e^{-\tau s}\Bigr\}=e^{-\alpha(t-\tau)}u(t-\tau)$
 
 $\displaystyle F(s)=\frac{s^2}{s+1}=s-1+\frac{1}{s+1}=\delta_1(t)-\delta(t)+e^{-t}$
 
@@ -21,5 +21,10 @@ $\displaystyle (s-p_1)^{k_1}F(s)=\cancel{C_{11}(s-p_1)^{k_{i-1}}}+\ldots+C_{1k_1
 
 
 $\displaystyle F(s)=\frac{1}{(s+1)(s+2)(s+3)(s+4)}$
-$C_1=\lim\limits_{s\to p_1}(s-p_1)\ F(s)$
+$\displaystyle C_1=\lim\limits_{s\to p_1}(s-p_1)\ F(s)$
 
+$\frac{A}{s+1}+\frac{B}{s+2}+\frac{C}{s+3}+\frac{D}{s+4}$
+$\displaystyle A=\lim\limits_{s\to 1}(s-p_1)\ F(s)=\lim\limits_{s\to 1}\frac{1}{(s+2)(s+3)(s+4)}=\frac{1}{(1)(2)(3)}=\frac16$
+$\displaystyle B=\lim\limits_{s\to 2}(s-p_1)\ F(s)=\lim\limits_{s\to 1}\frac{1}{(s+1)(s+3)(s+4)}=\frac{1}{(-1)(1)(2)}=-\frac12$
+$\displaystyle C=\lim\limits_{s\to 3}(s-p_1)\ F(s)=\lim\limits_{s\to 1}\frac{1}{(s+1)(s+2)(s+4)}=\frac{1}{(-2)(-1)(1))}=\frac12$
+$\displaystyle D=\lim\limits_{s\to 4}(s-p_1)\ F(s)=\lim\limits_{s\to 1}\frac{1}{(s+1)(s+2)(s+4)}=\frac{1}{(-3)(-2)(-1))}=-\frac16$
