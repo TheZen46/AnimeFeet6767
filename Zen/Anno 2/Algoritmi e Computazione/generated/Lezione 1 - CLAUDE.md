@@ -5,7 +5,7 @@
 ---
 # Lezione 1 — Presentazione del corso e motivazioni
 
-La prima lezione non introduce ancora contenuti tecnici in senso stretto. Serve a inquadrare il corso, a chiarirne l'organizzazione e le modalità d'esame e, soprattutto, a spiegare _perché_ un ingegnere informatico debba studiare la teoria della computazione. Il filo conduttore che emerge, e che verrà ripreso per tutto l'anno, è il problema di costruire un **interprete** corretto per un linguaggio di programmazione: viene posto alla fine di questa lezione e sviluppato nella [[Lezione 02 - Architettura di un interprete e linguaggi formali|lezione successiva]].
+La prima lezione non introduce ancora contenuti tecnici in senso stretto. Serve a inquadrare il corso, a chiarirne l'organizzazione e le modalità d'esame e, soprattutto, a spiegare _perché_ un ingegnere informatico debba studiare la teoria della computazione. Il filo conduttore che emerge, e che verrà ripreso per tutto l'anno, è il problema di costruire un **interprete** corretto per un linguaggio di programmazione: viene posto alla fine di questa lezione e sviluppato nella [[Zen/Anno 2/Algoritmi e Computazione/generated/Lezione 2 - CLAUDE|lezione successiva]].
 
 ## Il corso in sintesi
 
@@ -34,7 +34,7 @@ Il docente osserva che si tratta di un ritorno all'antico. Nell'anno accademico 
 
 ### Prerequisiti e materiale di supporto
 
-Il corso presuppone le nozioni di Fondamenti di Informatica e di Architetture (reti logiche) e, in parte, di Analisi e Algebra. Del C++ ci si aspetta una conoscenza operativa, sufficiente a partire subito con argomenti più complessi. Sul sito del corso è disponibile un compendio di nozioni matematiche di base: alcune verranno riprese, altre saranno date per scontate. Il docente consiglia di scorrerlo subito, soffermandosi sulle parti meno familiari e chiedendo chiarimenti, e di tenerlo poi come riferimento. Il contenuto del compendio è sviluppato nella nota [[Nozioni di base (compendio)]].
+Il corso presuppone le nozioni di Fondamenti di Informatica e di Architetture (reti logiche) e, in parte, di Analisi e Algebra. Del C++ ci si aspetta una conoscenza operativa, sufficiente a partire subito con argomenti più complessi. Sul sito del corso è disponibile un compendio di nozioni matematiche di base: alcune verranno riprese, altre saranno date per scontate. Il docente consiglia di scorrerlo subito, soffermandosi sulle parti meno familiari e chiedendo chiarimenti, e di tenerlo poi come riferimento. Il contenuto del compendio è sviluppato nella nota $Nozioni \ di \ base \ (compendio)$.
 
 ## Modalità d'esame
 
@@ -54,28 +54,29 @@ Il **progetto** è obbligatorio e individuale, e consiste nella realizzazione in
 
 Gli **scritti** sono a libro chiuso nel senso più stretto. Non sono ammessi cellulare, tablet o appunti; il foglio viene fornito dai docenti e lo studente porta solo penna, matita e gomma. La motivazione è la stessa del controllo sul progetto: con l'IA a disposizione, qualunque materiale aggiuntivo rischierebbe di sostituirsi alla comprensione. Il docente chiede inoltre elaborati leggibili e ordinati, con il codice indentato correttamente, e suggerisce di esercitarsi a scrivere a mano se necessario.
 
-> [!important] Struttura dell'esame Progetto (10 punti, individuale, con discussione) + scritto di informatica teorica (20 punti) + scritto del secondo semestre (20 punti) = 50 punti, riportati in trentesimi. Gli scritti sono a libro chiuso, durano 2 ore ciascuno e si superano con almeno 12/20.
+> [!important] Struttura dell'esame 
+> Progetto (10 punti, individuale, con discussione) + scritto di informatica teorica (20 punti) + scritto del secondo semestre (20 punti) = 50 punti, riportati in trentesimi. Gli scritti sono a libro chiuso, durano 2 ore ciascuno e si superano con almeno 12/20.
 
 ### Calendario e validità del progetto
 
 Il progetto, come dice il docente, «scade come il latte»: la sua validità è legata alla scadenza del progetto dell'anno successivo. La sequenza prevista è la seguente:
 
-|Periodo|Evento|
-|---|---|
-|Settembre 2026|Inizio del corso|
-|Metà dicembre 2026|Assegnazione del progetto|
-|Gennaio–febbraio 2027|Primi appelli: si può sostenere lo scritto di informatica teorica|
-|Fine febbraio 2027|Consegna del progetto, valutazione e discussione|
-|Giugno–luglio 2027|Chi ha superato la prima metà sostiene la seconda; gli altri possono sostenere entrambe|
-|Settembre 2027|Ulteriore appello, parziale o completo|
-|Gennaio–febbraio 2028|Ultimi appelli validi con il progetto di quest'anno|
-|Dopo|Il progetto scade e va rifatto quello dell'anno successivo|
+| Periodo               | Evento                                                                                  |
+| --------------------- | --------------------------------------------------------------------------------------- |
+| Settembre 2026        | Inizio del corso                                                                        |
+| Metà dicembre 2026    | Assegnazione del progetto                                                               |
+| Gennaio–febbraio 2027 | Primi appelli: si può sostenere lo scritto di informatica teorica                       |
+| Fine febbraio 2027    | Consegna del progetto, valutazione e discussione                                        |
+| Giugno–luglio 2027    | Chi ha superato la prima metà sostiene la seconda; gli altri possono sostenere entrambe |
+| Settembre 2027        | Ulteriore appello, parziale o completo                                                  |
+| Gennaio–febbraio 2028 | Ultimi appelli validi con il progetto di quest'anno                                     |
+| Dopo                  | Il progetto scade e va rifatto quello dell'anno successivo                              |
 
 Chi deve ancora sostenere il vecchio esame di Informatica e Computazione consegna il progetto e svolge lo scritto corrispondente al vecchio programma.
 
 Il consiglio del docente è di sostenere l'esame per parti. I contenuti sono corposi, e affrontare quattro ore di scritto su informatica teorica e algoritmi in un'unica sessione è molto gravoso. Le due parti sono in gran parte indipendenti, con un'eccezione: la complessità computazionale del secondo semestre si appoggia sulla macchina di Turing del primo, e il secondo scritto contiene anche una domanda su quella parte. Gli algoritmi e le strutture dati sono invece del tutto indipendenti. L'ordine naturale di studio è dall'alto verso il basso. Chi non supera il primo parziale può comunque tentare il secondo e recuperare il primo in seguito, e chi non è soddisfatto del voto di una parte può ripeterla. Le situazioni eccezionali vanno discusse direttamente con il docente.
 
-### Indicazioni del docente sul metodo
+### Indicazioni del docente sul metodo (INFO INUTILI MA FANNO RIDERE)
 
 La frequenza è libera: non si raccolgono firme, e tutto il materiale necessario è sul sito. Per chi frequenta il docente chiede puntualità (le lezioni iniziano alle 16:15 e terminano entro le 18), cellulari almeno silenziati e partecipazione attiva. In particolare invita a evitare due comportamenti: distogliere lo sguardo quando viene posta una domanda, e la «mano di piombo», cioè la reticenza ad alzare la mano quando qualcosa non è chiaro. Anche il docente e le slide possono sbagliare, e segnalare ciò che non torna è utile a tutti. Chi decide di fare qualcosa o di chiedere aiuto lo faccia per tempo: non il giorno prima della scadenza del progetto, mostrando ciò che ha provato e dove si è bloccato.
 
