@@ -30,3 +30,20 @@ $f(x)=x{^-1}$
 Non ammette minimo ma è limitata dal basso
 Questa situazione NON si verifica per i problemi di PL.
 
+
+$\displaystyle \begin{cases}x\ge0\\y\ge0\\y\ge1-x\end{cases}$
+Funzione costo: $y\le\frac x2$
+
+Problema illimitato inferiormente
+Proprietà dell'insieme delle soluzioni
+Sia $S=\{\overline x\in P\ |\ c^T\overline x=\underbrace{\min\limits_{x\in P}\ c^Tx}_{=m}\}=P\cap\{\overline x\ |\ c^T\overline x=m\}$ (insieme delle soluzioni dev'essere un poliedro)
+
+
+$\displaystyle \begin{cases}x\ge0\\y\ge0\\y\ge1-x\end{cases}$
+Funzione costo: $y\ge\frac x2$
+$S=\{1\text{ vertice}\}$
+
+
+$\displaystyle \begin{cases}x\ge0\\y\ge0\\y\ge1-x\end{cases}$
+Funzione costo: $y\ge1-x$
+$S=\{\text{segmento }[A,B]\}$
