@@ -65,4 +65,10 @@ $x\ge0$
 $\begin{array}{l}m\\m\\n\end{array}\left[\begin{array}{c}A\\-A\\I\end{array}\right]x\ge\left[\begin{array}{c}b\\-b\\0\end{array}\right]$
 
 Supponiamo che le componenti nulle di $x$ siano le ultime $n-r\Rightarrow\text{Matrice vincoli arrivi}:\operatorname{rank}\left(\left[\begin{array}{c}A\\-A\\I_{n-r}\end{array}\right]\right)=n\iff\overline x\text{ è un vertice}$
-$\operatorname{rank}\left(\left[\begin{array}{c}A\\-A\\I_{n-r}\end{array}\right]\right)=\operatorname{rank}\left(\left[\begin{array}{c}A\\I_{n-r}\end{array}\right]\right)\iff\operatorname{rank}\left[\begin{array}{l}a_1\\\vdots\\a_n\\0&\small{\begin{array}{l}1&&0\\\\0&&1\end{array}\end{array}\right]$
+$\operatorname{rank}\left(\left[\begin{array}{c}A\\-A\\I_{n-r}\end{array}\right]\right)=\operatorname{rank}\left(\left[\begin{array}{c}A\\I_{n-r}\end{array}\right]\right)\iff\operatorname{rank}\overset{\tilde A}{\left[{\begin{array}{l}a_1\\\vdots\\a_n\\0&\begin{array}{l}1&&0\\\\0&&1\end{array}\end{array}}\right]}\left[\begin{array}{c}x_1\\x_2\\\vdots\\\vdots\\\vdots\\x_n\end{array}\right]$
+
+$\operatorname{rank}(\tilde A)=n\iff\tilde A\left[\begin{array}{l}x_1\\\vdots\\x_n\end{array}\right]=\left[\begin{array}{l}0\\vdots\\0\end{array}\right]\Rightarrow\left[\begin{array}{l}x_1\\\vdots\\x_n\end{array}\right]=\left[\begin{array}{l}0\\\vdots\\0\end{array}\right]$
+
+$\displaystyle \operatorname{rank}\left[\begin{array}{l}x_1\\\vdots\\x_n\end{array}\right]=\left[\begin{array}{l}y\\z\end{array}\right],\text{ con }y=(y_1,\ldots,y_r),\ \ z=(z_1,\ldots,z_{n-r})$
+$\tilde a\left[\begin{array}{l}y\\z\end{array}\right]=\left[\begin{array}{l}0\\\vdots\\0\end{array}\right]\iff\cases{{a_1}^T\pmatrix{y\\z}=0\\\vdots\\{a_m}^T\pmatrix{y\\z}=0\\z=0}\iff\cases{{a_1}^T[1,\ldots,r]=0\\\vdots\\{a_m}^T\pmatrix[1,\ldots,r]=0\\z=0}\Rightarrow\text{la matrice fatta dalle prime }r\text{ colonne di }A\text{ ha rango }r$
+Ma poi sotto ho $I_{n-r}$ che ha $n-r$ colonne indipendenti $\Rightarrow$ ci sono $n$ colonne indipendenti
