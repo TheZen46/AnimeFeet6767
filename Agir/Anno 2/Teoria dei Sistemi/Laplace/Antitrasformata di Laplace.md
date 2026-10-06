@@ -13,6 +13,13 @@ $\displaystyle f(t)=\mathcal L^{-1}\biggl\{\frac{s^3}{s^2+1}+\frac{s^2e^{-3s}}{s
 
 
 $\displaystyle F(s)=\frac{}{(s+1)(s+2)\ldots(s+100)}$
-$\displaystyle F(s)=\frac{N}{D}=\frac{}{(s-p_1)^{k_1}(s-p_2)^{k_2}\ldots(s-p_{nd})^{k_{nd}}}=\sum\limits_{i=1}^{nd}\sum\limits_{k=1}^{k_i}\frac{C_{ik}}{(s-p_i)^k}=\frac{C_{11}}{(s-p_1)}+\ldots+\frac{C_{1k_1}}{(s-p_i)^{k_1}}+\sum\limits_{i=1}^{nd}\sum\limits_{k=2}^{k_i}\frac{C_{ik}}{(s-p_i)^k}$
+$\displaystyle F(s)=\frac{N}{D}=\frac{}{(s-p_1)^{k_1}(s-p_2)^{k_2}\ldots(s-p_{nd})^{k_{nd}}}=\sum\limits_{i=1}^{nd}\sum\limits_{k=1}^{k_i}\frac{C_{ik}}{(s-p_i)^k}=\frac{C_{11}}{(s-p_1)}+\ldots+\frac{C_{1k_1}}{(s-p_1)^{k_1}}+\sum\limits_{i=1}^{nd}\sum\limits_{k=2}^{k_i}\frac{C_{ik}}{(s-p_i)^k}$
 $nd=\text{poli distinti}$
 $k_i\text{ moltiplicità di }P_i\mskip{30mu}P_i\in\mathbb C$
+
+$\displaystyle (s-p_1)^{k_1}F(s)=\cancel{C_{11}(s-p_1)^{k_{i-1}}}+\ldots+C_{1k_1}+\cancel{(s-p_1)^{k_i}\sum\sum}$
+
+
+$\displaystyle F(s)=\frac{1}{(s+1)(s+2)(s+3)(s+4)}$
+$C_1=\lim\limits_{s\to p_1}(s-p_1)\ F(s)$
+
