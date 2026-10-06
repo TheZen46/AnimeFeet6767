@@ -3,13 +3,13 @@ $F(s) = \frac{s^4}{(s+1)(s+2)(s^{2} +4)}$
 impostare il sistema, in latex, senza risolverlo
 
 $$
-F(s) = \frac{s^4}{(s+1)(s+2)(s^2+4)} = K + \frac{A}{s+1} + \frac{B}{s+2} + \frac{Cs + D}{s^2+4}
+F(s) = \frac{s^4}{(s+1)(s+2)(s^2+4)} = K + \frac{A}{s+1} + \frac{B}{s+2} + \frac{2\cdot C + D\cdot s}{s^2+4}
 $$
 
 Moltiplicando per il denominatore $(s+1)(s+2)(s^2+4) = s^4 + 3s^3 + 6s^2 + 12s + 8$:
 
 $$
-s^4 = K\,(s^4 + 3s^3 + 6s^2 + 12s + 8) + A\,(s+2)(s^2+4) + B\,(s+1)(s^2+4) + (Cs + D)(s+1)(s+2)
+s^4 = K\,(s^4 + 3s^3 + 6s^2 + 12s + 8) + A\,(s+2)(s^2+4) + B\,(s+1)(s^2+4) + (2\cdot C + D\cdot s)(s+1)(s+2)
 $$
 
 Sviluppando i prodotti:
