@@ -10,3 +10,9 @@ $\displaystyle F(s)=\frac{s^2}{s+1}=s-1+\frac{1}{s+1}=\delta_1(t)-\delta(t)+e^{-
 
 $\displaystyle F(s)=\frac{s^3+^2e^{3s}+1}{s^2+1}$
 $\displaystyle f(t)=\mathcal L^{-1}\biggl\{\frac{s^3}{s^2+1}+\frac{s^2e^{-3s}}{s^2+1}+\frac1{s^2+1}\biggr\}=\mathcal L^{-1}\biggl\{s-\frac{s}{s^2+1}+e^{-3s}\Bigl(1-\frac{1}{s^2+1}\Bigr)+\frac{1}{s^2+1}\biggr\}=\delta_1(t)-\cos(t)+\delta(t-3)-\sin(t-3)u(t-3)+\sin(t)$
+
+
+$\displaystyle F(s)=\frac{}{(s+1)(s+2)\ldots(s+100)}$
+$\displaystyle F(s)=\frac{N}{D}=\frac{}{(s-p_1)^{k_1}(s-p_2)^{k_2}\ldots(s-p_{nd})^{k_{nd}}}=\sum\limits_{i=1}^{nd}\sum\limits_{k=1}^{k_i}\frac{C_{ik}}{(s-p_i)^k}=\frac{C_{11}}{(s-p_1)}+\ldots+\frac{C_{1k_1}}{(s-p_i)^{k_1}}+\sum\limits_{i=1}^{nd}\sum\limits_{k=2}^{k_i}\frac{C_{ik}}{(s-p_i)^k}$
+$nd=\text{poli distinti}$
+$k_i\text{ moltiplicità di }P_i\mskip{30mu}P_i\in\mathbb C$
