@@ -152,7 +152,8 @@ Nell'informatica questa distinzione tende a sfumare, perché il software sembra 
 
 La ricerca degli errori (_bug_) non è meccanizzabile in generale. Si possono eseguire test e prove, ma nessuna quantità di prove dà la certezza totale dell'assenza di errori. È per questo che sistemi operativi e applicazioni continuano a ricevere aggiornamenti correttivi, anche dopo decenni di lavoro dei migliori informatici del mondo: gli errori sono molti meno che in passato, ma non sono eliminabili per via automatica.
 
-> [!tip] Approfondimento — Testing e assenza di errori #approfondimento L'osservazione che le prove non bastano a garantire l'assenza di errori ha una formulazione celebre dovuta a Edsger W. Dijkstra, nella conferenza per il premio Turing del 1972. Il testing, osservò, può essere molto efficace nel mostrare la _presenza_ di bug, ma è del tutto inadeguato a dimostrarne l'_assenza_ [@dijkstra1972]. Il motivo è combinatorio prima ancora che teorico: anche una funzione che riceve due interi a 32 bit ammette $2^{64} \approx 1{,}8 \times 10^{19}$ input distinti, un numero che rende impraticabile il collaudo esaustivo.
+> [!tip] Approfondimento — Testing e assenza di errori #approfondimento 
+> L'osservazione che le prove non bastano a garantire l'assenza di errori ha una formulazione celebre dovuta a Edsger W. Dijkstra, nella conferenza per il premio Turing del 1972. Il testing, osservò, può essere molto efficace nel mostrare la _presenza_ di bug, ma è del tutto inadeguato a dimostrarne l'_assenza_ [@dijkstra1972]. Il motivo è combinatorio prima ancora che teorico: anche una funzione che riceve due interi a 32 bit ammette $2^{64} \approx 1{,}8 \times 10^{19}$ input distinti, un numero che rende impraticabile il collaudo esaustivo.
 
 ### Casi storici
 
