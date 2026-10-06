@@ -25,3 +25,29 @@ Esempio
 	$2\cdot1+1\cdot0+\underset{\small\array{\uparrow\\\!s}}1=3$
 
 $\text{vincoli di }\ge\mskip{14mu}\rightarrow a_1x_1+a_2x_2+\ldots+a_nx_n\ge b\mskip{14mu}\rightarrow\text{aggiungo }u\text{ e scrivo }a_1x_1+\ldots+a_nx_n+-=b\text{ con }u\ge0$
+
+
+$\left[\begin{array}{l}\min\ 12x_1+x_2+5x_3\\x_2-2x_3\ge7\\2x_1x_3\le10\\3x_1-x_2-2x_3=3\\x_1\ge0,\ x_3\ge0\end{array}\right.\Rightarrow\left[\begin{array}{l}\min\ 12x_1+x_2+5x_3\\x_2-2x_3-u_1=7\\2x_1x_3+s_1=10\\3x_1-x_2-2x_3=3\\x_1\ge0,\ x_3\ge0,\ u_1\ge0,\ s_1\ge0\end{array}\right.$
+
+$\operatorname{rank}x_2={x_2}^-{x_2}^-$
+
+$\left[\begin{array}{l}\min\ 12x_1+x_2+5x_3\\{x_2}^+-{x_2}^--2x_3-u_1=7\\2x_1x_3+s_1=10\\3x_1-({x_2}^+-{x_2}^-)-2x_3=3\\x_1\ge0,\ {x_2}^+\ge0,\ {x_2}^-\ge0,\ x_3\ge0,\ u_1\ge0,\ s_1\ge0\end{array}\right.$
+
+$A=\underset{{x_1\mskip{24mu}{x_2}^+\mskip{18mu}{x_2}^-\mskip{30mu}x_3\mskip{24mu}s_1\mskip{24mu}u_1}}{\left[\begin{array}{c}0&1&-1&-2&0&1\\2&0&0&1&1&0\\3&1&1&2&0&0\end{array}\right]}$
+$A$ è $3\times 6$
+$b=\left[\array{7\\10\\3}\right]$
+
+# Caratterizazione di vertici in un poliedro in forma standard
+$P=\{x\in\mathbb R^n|Ax=b,\ x\ge0\}$
+$A:\ m\times n$
+Supposiamo $P\ne\varnothing$ e $\operatorname{rank}(A)=m\ \ (\Rightarrow m\le n)$
+## Teorema
+Sia $\overline x\in P$
+Allora $\overline x$ è un vertice di $P\iff$ le colonne corrispondenti alle entrate strettamente positive di $\overline x$ sono linearmente indipendenti
+
+### Esempio
+$m=2,\mskip{12mu}n=4\mskip{24mu}\overline x=(1,0,2,0)\in P$
+
+$m=2,\mskip{12mu}n=4\mskip{24mu}\overline x=(1,1,2,0)\in P\text{    Non è un vertice}$
+## Osservazione
+Ogni vertice ha al più $m$ entrate non nulle
