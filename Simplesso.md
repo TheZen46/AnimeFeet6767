@@ -26,6 +26,8 @@ Esempio
 
 $\text{vincoli di }\ge\mskip{14mu}\rightarrow a_1x_1+a_2x_2+\ldots+a_nx_n\ge b\mskip{14mu}\rightarrow\text{aggiungo }u\text{ e scrivo }a_1x_1+\ldots+a_nx_n+-=b\text{ con }u\ge0$
 
+$x\rightarrow x=x^+-x^-\mskip{36mu}x^+\ge0,\ x^-\ge0$
+
 
 $\left[\begin{array}{l}\min\ 12x_1+x_2+5x_3\\x_2-2x_3\ge7\\2x_1x_3\le10\\3x_1-x_2-2x_3=3\\x_1\ge0,\ x_3\ge0\end{array}\right.\Rightarrow\left[\begin{array}{l}\min\ 12x_1+x_2+5x_3\\x_2-2x_3-u_1=7\\2x_1x_3+s_1=10\\3x_1-x_2-2x_3=3\\x_1\ge0,\ x_3\ge0,\ u_1\ge0,\ s_1\ge0\end{array}\right.$
 
@@ -51,3 +53,16 @@ $m=2,\mskip{12mu}n=4\mskip{24mu}\overline x=(1,0,2,0)\in P$
 $m=2,\mskip{12mu}n=4\mskip{24mu}\overline x=(1,1,2,0)\in P\text{    Non è un vertice}$
 ## Osservazione
 Ogni vertice ha al più $m$ entrate non nulle
+
+$\overline x=(1,0,0,0)$ è un vertice (se la corrispondente colonna è non nulla)
+
+## Dimostrazione
+Scrivo $P$ in forma generale
+$Ax\ge b$
+$-Ax\ge-b$
+$x\ge0$
+
+$\begin{array}{l}m\\m\\n\end{array}\left[\begin{array}{c}A\\-A\\I\end{array}\right]x\ge\left[\begin{array}{c}b\\-b\\0\end{array}\right]$
+
+Supponiamo che le componenti nulle di $x$ siano le ultime $n-r\Rightarrow\text{Matrice vincoli arrivi}:\operatorname{rank}\left(\left[\begin{array}{c}A\\-A\\I_{n-r}\end{array}\right]\right)=n\iff\overline x\text{ è un vertice}$
+$\operatorname{rank}\left(\left[\begin{array}{c}A\\-A\\I_{n-r}\end{array}\right]\right)=\operatorname{rank}\left(\left[\begin{array}{c}A\\I_{n-r}\end{array}\right]\right)\iff\operatorname{rank}\left[\begin{array}{l}a_1\\\vdots\\a_n\\0&\small{\begin{array}{l}1&&0\\\\0&&1\end{array}\end{array}\right]$
