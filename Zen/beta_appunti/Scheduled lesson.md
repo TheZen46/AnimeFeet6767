@@ -2,7 +2,7 @@
 	Lezione 5
  
 ## Algoritmi
-	
+	Lezione 5
 
 ## Metodi Matematici
 	Lezione 5
@@ -19,6 +19,7 @@
 
 ## Sistemi Operativi
 	Lezione 5
+	Lezione 6
 
 ## Teoria dei Sistemi
 	Lezione 5
