@@ -102,7 +102,6 @@ In forma compatta, riga per riga:
 
 La disposizione su righe serve solo alla leggibilità: l'output del lexer è un'unica **sequenza lineare** di token, che si può pensare come una lista o un vettore.
 
-> [!warning] Discrepanze negli appunti manuali Negli appunti scritti a mano la lista di token della prima riga omette il token `(lp)` dopo `(f, id)`; la sequenza corretta è quella riportata sopra. In un'altra nota manuale la parentesi tonda chiusa `)` è etichettata `RB`: va etichettata `rp`, perché `rb` indica la graffa chiusa. Infine, il tag `colon` per il punto e virgola è quello usato a lezione. In inglese il punto e virgola è però _semicolon_, mentre _colon_ indica i due punti. Il nome di un tag è una scelta arbitraria, ma conviene sapere che la denominazione corretta è _semicolon_.
 
 ### Lo spazio bianco
 
@@ -110,7 +109,8 @@ Oltre a riconoscere i token, il lexer **elimina lo spazio bianco**: spazi, tabul
 
 Lo spazio bianco non è però sempre irrilevante. Tra `int` e `f` almeno uno spazio è indispensabile: scrivendo `intf` il compilatore non riconosce più due parole distinte e segnala un errore. Il lexer usa quindi lo spazio bianco per **separare** i token, e solo dopo lo scarta. Altri spazi e ritorni a capo sono invece superflui. Dopo una parentesi graffa, per esempio, l'andata a capo non è necessaria, e in C++ si potrebbe scrivere l'intero programma su una riga, rendendolo però incomprensibile a un lettore umano. In altri linguaggi le regole cambiano: in Python i blocchi sono delimitati dall'indentazione, e se questa manca l'interprete segnala un errore.
 
-> [!tip] Approfondimento — Lo spazio bianco in Python #approfondimento In Python l'indentazione fa parte della sintassi, quindi il lexer non può semplicemente scartarla. Secondo il manuale di riferimento del linguaggio, il lexer confronta il livello di indentazione di ogni riga logica con i livelli precedenti, conservati su una pila. Quando il livello aumenta genera un token speciale `INDENT`, quando diminuisce uno o più token `DEDENT` [@python-lexical]. In questo modo il parser riceve la struttura a blocchi come se fosse delimitata da parentesi, e il resto della catena funziona come per il C++.
+> [!tip] Approfondimento — Lo spazio bianco in Python #approfondimento 
+> In Python l'indentazione fa parte della sintassi, quindi il lexer non può semplicemente scartarla. Secondo il manuale di riferimento del linguaggio, il lexer confronta il livello di indentazione di ogni riga logica con i livelli precedenti, conservati su una pila. Quando il livello aumenta genera un token speciale `INDENT`, quando diminuisce uno o più token `DEDENT` [@python-lexical]. In questo modo il parser riceve la struttura a blocchi come se fosse delimitata da parentesi, e il resto della catena funziona come per il C++.
 
 ### Errori lessicali e collocazione dei dati
 
@@ -118,7 +118,8 @@ Il lexer è anche il primo punto in cui si può rilevare un errore: se il sorgen
 
 Il file sorgente risiede normalmente su disco. La lista di token prodotta dal lexer risiede invece **in memoria**, nelle strutture dati dell'interprete. Il docente osserva che scrivere un lexer è già alla portata di chi ha superato Fondamenti 1. Occorre cercare gli spazi e sapere com'è fatto un identificatore, com'è fatto un tipo, quali simboli di punteggiatura sono ammessi. Tutto dipende dalla definizione del linguaggio, che per ora resta informale. Un lexer non risolve ancora il problema, ma ne rimuove una parte: il formato «umano» del sorgente sparisce, e restano parole certificate come lecite. Nei compilatori reali c'è perfino una fase precedente: il compilatore C++ esegue prima il **preprocessore**, che espande le direttive come `#define` e `#include`.
 
-> [!tip] Approfondimento — Come potrebbe apparire un token in C++ #approfondimento Un'implementazione minimale della struttura descritta a lezione potrebbe essere la seguente. È solo un'illustrazione: le scelte effettive dipenderanno dal linguaggio del progetto.
+> [!tip] Approfondimento — Come potrebbe apparire un token in C++ #approfondimento 
+> Un'implementazione minimale della struttura descritta a lezione potrebbe essere la seguente. È solo un'illustrazione: le scelte effettive dipenderanno dal linguaggio del progetto.
 > 
 > ```cpp
 > #include <string>
@@ -161,13 +162,13 @@ Come qualcuno deve aver stabilito quali sono i token del linguaggio, così qualc
 <istruzione> := ...
 ```
 
-La prima regola dice che una funzione è formata da un tipo, un identificatore, una parentesi tonda aperta, i parametri, una parentesi tonda chiusa e un blocco. La seconda dice che un blocco è una sequenza di istruzioni racchiusa tra graffe. La terza è la più interessante: un elenco di istruzioni è **vuoto** ($\epsilon$) oppure è un'istruzione **seguita da un altro elenco di istruzioni**. La regola è _ricorsiva_: con una definizione finita descrive sequenze di istruzioni di lunghezza arbitraria. Le definizioni ricorsive vengono riprese nella [[Lezione 04 - Tecniche deduttive e automi a stati finiti#Definizioni ricorsive|lezione 4]].
+La prima regola dice che una funzione è formata da un tipo, un identificatore, una parentesi tonda aperta, i parametri, una parentesi tonda chiusa e un blocco. La seconda dice che un blocco è una sequenza di istruzioni racchiusa tra graffe. La terza è la più interessante: un elenco di istruzioni è **vuoto** ($\epsilon$) oppure è un'istruzione **seguita da un altro elenco di istruzioni**. La regola è _ricorsiva_: con una definizione finita descrive sequenze di istruzioni di lunghezza arbitraria. Le definizioni ricorsive vengono riprese nella [[Zen/Anno 2/Algoritmi e Computazione/generated/Lezione 4 - CLAUDE|lezione 4]].
 
 Il docente avverte di non prendere questa grammatica come quella effettiva del C++: è solo un esempio di ciò che c'è dietro, e scriverla per intero richiederebbe molto più spazio.
 
-> [!warning] Discrepanza negli appunti manuali Negli appunti scritti a mano la regola per `<istruzioni>` compare come `tab <istruzione> <istruzionbi>`. Dalla trascrizione risulta invece che un elenco di istruzioni «è vuoto oppure è un'istruzione seguita da altre istruzioni». Il simbolo letto come «tab» è quindi il simbolo di stringa vuota, riportato correttamente in un'altra nota manuale.
 
-> [!tip] Approfondimento — La notazione BNF #approfondimento La notazione usata alla lavagna, con le categorie sintattiche tra parentesi angolari e un simbolo di definizione, è una variante della **Backus-Naur Form** (BNF), introdotta per descrivere la sintassi del linguaggio ALGOL 60 [@naur1963]. Nella BNF il simbolo di definizione è `::=` e le alternative si separano con `|`. Le grammatiche verranno formalizzate nel corso; la notazione usata a lezione ne è un'anticipazione informale.
+> [!tip] Approfondimento — La notazione BNF #approfondimento 
+> La notazione usata alla lavagna, con le categorie sintattiche tra parentesi angolari e un simbolo di definizione, è una variante della **Backus-Naur Form** (BNF), introdotta per descrivere la sintassi del linguaggio ALGOL 60 [@naur1963]. Nella BNF il simbolo di definizione è `::=` e le alternative si separano con `|`. Le grammatiche verranno formalizzate nel corso; la notazione usata a lezione ne è un'anticipazione informale.
 
 ### Grammatiche informali e formali
 
