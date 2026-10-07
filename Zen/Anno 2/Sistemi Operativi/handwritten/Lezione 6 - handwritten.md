@@ -1,1 +1,4 @@
-materiale utilizzato
+materiale utilizzato:
+
+	14 Memory API
+	
