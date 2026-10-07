@@ -371,27 +371,27 @@ La **chiusura di Kleene** è l'unione di tutte le potenze:
 
 $$ L^* = \bigcup_{i=0}^{\infty} L^i . $$
 
-Le notazioni sono coerenti con quelle viste per gli alfabeti. Se si considera $\Sigma$ come il linguaggio delle sue stringhe di lunghezza 1, le sue potenze sono proprio i $\Sigma^k$ e la sua chiusura è $\Sigma^_$. Per esempio, con $L = {01}$ si ottiene $L^_ = {\epsilon, 01, 0101, 010101, \dots}$.
+Le notazioni sono coerenti con quelle viste per gli alfabeti. Se si considera $\Sigma$ come il linguaggio delle sue stringhe di lunghezza 1, le sue potenze sono proprio i $\Sigma^k$ e la sua chiusura è $\Sigma^-$. Per esempio, con $L = {01}$ si ottiene $L^- = {\epsilon, 01, 0101, 010101, \dots}$.
 
 ### Leggi algebriche
 
 Le operazioni sui linguaggi soddisfano le seguenti leggi, che il docente invita a tenere come riferimento:
 
-|Legge|Formula|
-|---|---|
-|Commutatività dell'unione|$L \cup M = M \cup L$|
-|Associatività dell'unione|$(L \cup M) \cup N = L \cup (M \cup N)$|
-|Associatività della concatenazione|$(L.M).N = L.(M.N)$|
-|Non commutatività della concatenazione|esistono $L, M$ con $L.M \neq M.L$|
-|Identità per l'unione|$\emptyset \cup L = L \cup \emptyset = L$|
-|Identità (sinistra e destra) per la concatenazione|${\epsilon}L = L{\epsilon} = L$|
-|Elemento assorbente (sinistro e destro) per la concatenazione|$\emptyset L = L\emptyset = \emptyset$|
-|Distributività a sinistra della concatenazione sull'unione|$L(M \cup N) = LM \cup LN$|
-|Distributività a destra della concatenazione sull'unione|$(M \cup N)L = ML \cup NL$|
-|Idempotenza dell'unione|$L \cup L = L$|
-|Chiusure di $\emptyset$ e di ${\epsilon}$|$\emptyset^* = {\epsilon}$, ${\epsilon}^* = {\epsilon}$|
-|Chiusura positiva|$L^+ = LL^* = L^_L$, e $L^_ = L^+ \cup {\epsilon}$|
-|Idempotenza della chiusura|$(L^_)^_ = L^*$|
+| Legge                                                         | Formula                                                 |
+| ------------------------------------------------------------- | ------------------------------------------------------- |
+| Commutatività dell'unione                                     | $L \cup M = M \cup L$                                   |
+| Associatività dell'unione                                     | $(L \cup M) \cup N = L \cup (M \cup N)$                 |
+| Associatività della concatenazione                            | $(L.M).N = L.(M.N)$                                     |
+| Non commutatività della concatenazione                        | esistono $L, M$ con $L.M \neq M.L$                      |
+| Identità per l'unione                                         | $\emptyset \cup L = L \cup \emptyset = L$               |
+| Identità (sinistra e destra) per la concatenazione            | ${\epsilon}L = L{\epsilon} = L$                         |
+| Elemento assorbente (sinistro e destro) per la concatenazione | $\emptyset L = L\emptyset = \emptyset$                  |
+| Distributività a sinistra della concatenazione sull'unione    | $L(M \cup N) = LM \cup LN$                              |
+| Distributività a destra della concatenazione sull'unione      | $(M \cup N)L = ML \cup NL$                              |
+| Idempotenza dell'unione                                       | $L \cup L = L$                                          |
+| Chiusure di $\emptyset$ e di ${\epsilon}$                     | $\emptyset^* = {\epsilon}$, ${\epsilon}^* = {\epsilon}$ |
+| Chiusura positiva                                             | $L^+ = LL^* = L^-L$, e $L^- = L^+ \cup {\epsilon}$      |
+| Idempotenza della chiusura                                    | $(L^-)^- = L^*$                                         |
 
 Le prime due leggi sono quelle dell'algebra degli insiemi. Le altre meritano un commento.
 
@@ -405,11 +405,11 @@ Che $\emptyset$ sia **assorbente** si dimostra direttamente dalla definizione. U
 
 Le due leggi sulle chiusure di $\emptyset$ e di ${\epsilon}$ evidenziano un fatto curioso. I due linguaggi sono diversi, ma hanno la stessa chiusura. In entrambi i casi la potenza zero vale ${\epsilon}$ per definizione. Per $\emptyset$ tutte le potenze successive sono vuote, perché $\emptyset$ è assorbente; per ${\epsilon}$ tutte le potenze valgono ancora ${\epsilon}$. L'unione dà quindi ${\epsilon}$ in entrambi i casi.
 
-Il docente chiama $L^+$ chiusura «transitiva» e $L^_$ chiusura «riflessiva e transitiva». La legge $L^+ = LL^_ = L^_L$ dice che le stringhe della chiusura positiva si ottengono anteponendo o posponendo un elemento di $L$ a una stringa di $L^_$. Infine, la chiusura è **idempotente**: chiudere una chiusura non aggiunge nulla.
+Il docente chiama $L^+$ chiusura «transitiva» e $L^-$ chiusura «riflessiva e transitiva». La legge $L^+ = LL^- = L^-L$ dice che le stringhe della chiusura positiva si ottengono anteponendo o posponendo un elemento di $L$ a una stringa di $L^-$. Infine, la chiusura è **idempotente**: chiudere una chiusura non aggiunge nulla.
 
 > [!example] Dimostrazione della distributività a sinistra Si vuole provare che $L(M \cup N) = LM \cup LN$. Per una stringa $w$ valgono le seguenti equivalenze: $$ \begin{aligned} w \in L(M \cup N) &\iff \exists x \in L,\ \exists y \in M \cup N : w = xy \ &\iff \exists x \in L,\ \exists y : w = xy \text{ e } (y \in M \text{ oppure } y \in N) \ &\iff (\exists x \in L,\ \exists y \in M : w = xy) \text{ oppure } (\exists x \in L,\ \exists y \in N : w = xy) \ &\iff w \in LM \text{ oppure } w \in LN \iff w \in LM \cup LN . \end{aligned} $$ I due insiemi hanno gli stessi elementi e sono quindi uguali. La distributività a destra si prova allo stesso modo.
 
-> [!tip] Approfondimento — $\Sigma^+$ e $L^+$ non si comportano allo stesso modo #approfondimento Per un alfabeto vale sempre $\epsilon \notin \Sigma^+$, come visto sopra. Per un linguaggio qualsiasi non è così. Se $\epsilon \in L$, allora $\epsilon \in L^1 = L \subseteq L^+$, e la chiusura positiva coincide con quella di Kleene. Per esempio, con $L = {\epsilon, a}$ si ottiene $L^+ = L^* = {a}^_$. La relazione $L^_ = L^+ \cup {\epsilon}$ vale in ogni caso [@hopcroft2007]. L'uguaglianza $L^+ = L^* \setminus {\epsilon}$ vale invece solo quando $\epsilon \notin L$, e in particolare vale per gli alfabeti.
+> [!tip] Approfondimento — $\Sigma^+$ e $L^+$ non si comportano allo stesso modo #approfondimento Per un alfabeto vale sempre $\epsilon \notin \Sigma^+$, come visto sopra. Per un linguaggio qualsiasi non è così. Se $\epsilon \in L$, allora $\epsilon \in L^1 = L \subseteq L^+$, e la chiusura positiva coincide con quella di Kleene. Per esempio, con $L = {\epsilon, a}$ si ottiene $L^+ = L^* = {a}^-$. La relazione $L^- = L^+ \cup {\epsilon}$ vale in ogni caso . L'uguaglianza $L^+ = L^* \setminus {\epsilon}$ vale invece solo quando $\epsilon \notin L$, e in particolare vale per gli alfabeti.
 
 ## Il word problem
 
