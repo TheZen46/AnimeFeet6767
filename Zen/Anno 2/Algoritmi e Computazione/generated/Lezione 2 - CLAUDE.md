@@ -5,7 +5,7 @@
 ---
 # Lezione 2 — Architettura di un interprete e fondamenti dei linguaggi formali
 
-La lezione riprende il problema posto alla fine della [[Lezione 01 - Presentazione del corso|prima lezione]]: costruire un interprete. Lo fa in due tempi. Nella prima parte, «tecnologica», mostra come la letteratura sui compilatori scompone il problema in tre fasi: analisi lessicale, sintattica e semantica. Nella seconda parte, sulle slide _Argomenti preliminari_, introduce i concetti di alfabeto, stringa e linguaggio, con l'obiettivo di mostrare che le tre fasi risolvono, dal punto di vista teorico, **lo stesso problema**: il _word problem_.
+La lezione riprende il problema posto alla fine della [[Zen/Anno 2/Algoritmi e Computazione/generated/Lezione 1 - CLAUDE|prima lezione]]: costruire un interprete. Lo fa in due tempi. Nella prima parte, «tecnologica», mostra come la letteratura sui compilatori scompone il problema in tre fasi: analisi lessicale, sintattica e semantica. Nella seconda parte, sulle slide _Argomenti preliminari_, introduce i concetti di alfabeto, stringa e linguaggio, con l'obiettivo di mostrare che le tre fasi risolvono, dal punto di vista teorico, **lo stesso problema**: il _word problem_.
 
 Il docente precisa che lo scopo non è ancora spiegare come si fa il progetto, ma far capire perché il corso è impostato in questo modo. Non bisogna quindi preoccuparsi se qualche dettaglio sfugge: conta la visione d'insieme, che verrà ripresa più volte.
 
