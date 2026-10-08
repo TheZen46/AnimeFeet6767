@@ -38,6 +38,13 @@ $\displaystyle B=\lim\limits_{s\to -2}(s-p_1)\ F(s)=\lim\limits_{s\to -2}\frac{1
 
 
 
-$\displaystyle F(s)=\frac{N(s)}{D(s)(s^2+{\omega_0}^2)}=\underbrace{\frac{N}{D\omega_0}}_{G(s)}\frac{\omega_0}{s^2+{\omega_0}^2}=E_G(s)+C_1\frac{\omega_0}{s^2+{\omega_0}^2}+C_2\frac{s}{s^2+{\omega_0}^2}$
+$\displaystyle F(s)=\frac{N(s)}{D(s)(s^2+{\omega_0}^2)}=\underbrace{\frac{N}{D\omega_0}}_{G(s)}\frac{\omega_0}{s^2+{\omega_0}^2}=E_G(s)+\overline{C_1}\frac{\omega_0}{s^2+{\omega_0}^2}+\overline{C_2}\frac{s}{s^2+{\omega_0}^2}$
 	$\mathcal L{^-1}\Bigl\{E_G(s)\Bigr\}+c_1\sin(\omega_0 t)+c_2\cos(\omega_0 t)$
-$F(s)$
+$\displaystyle F(s)=E_G+C_1\frac{1}{s+j\omega_0}+C_2\frac{1}{s-j\omega_0}$
+$\displaystyle C_1=\lim\limits_{s\to-j\omega_0}F(s)=\lim\limits_{s\to-j\omega_0}\cancel{(s+j\omega_0)}\ G(s)\frac{\omega_0}{\cancel{(s+j\omega_0)}(s-j\omega_0)}=\frac{G(-j\omega_0)\cancel{\omega_0}}{-2j\cancel{\omega_0}}=-\frac{G(-j\omega_0)}{2j}$
+$\displaystyle C_2=\lim\limits_{s\to j\omega_0}F(s)=\frac{G(j\omega_0)}{2j}$
+
+$G(j\omega_0)=\Re\bigl(G(j\omega_0)\bigr)+j\ \Im\bigl(G(j\omega_0)\bigr)=A+jB$
+$\displaystyle \mathcal L^{-1}\Bigl\{F(s)\Bigr\}=\mathcal L^{-1}\Bigl\{E_G\Bigr\}+\left(-\frac{A-jB}{2j}\right)e^{-j\omega_0 t}+\left(-\frac{A-jB}{2j}\right)e^{j\omega_0t}$
+
+$-\frac A{2j}e^{j\omega_0t}+\frac A{2j}e^{j\omega_0t}$
