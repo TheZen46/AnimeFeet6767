@@ -3,3 +3,4 @@ materiale utilizzato durante la lezione:
 	01 programming --> dalla exploration 39
 	Introduione a UML
 
+no appunti presi a mano
