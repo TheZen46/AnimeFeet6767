@@ -39,7 +39,7 @@ $\displaystyle B=\lim\limits_{s\to -2}(s-p_1)\ F(s)=\lim\limits_{s\to -2}\frac{1
 
 
 $\displaystyle F(s)=\frac{N(s)}{D(s)(s^2+{\omega_0}^2)}=\underbrace{\frac{N}{D\omega_0}}_{G(s)}\frac{\omega_0}{s^2+{\omega_0}^2}=E_G(s)+\overline{C_1}\frac{\omega_0}{s^2+{\omega_0}^2}+\overline{C_2}\frac{s}{s^2+{\omega_0}^2}$
-	$\mathcal L{^-1}\Bigl\{E_G(s)\Bigr\}+c_1\sin(\omega_0 t)+c_2\cos(\omega_0 t)$
+	$\mathcal L{^-1}\Bigl\{E_G(s)\Bigr\}+C_1\sin(\omega_0 t)+C_2\cos(\omega_0 t)$
 $\displaystyle F(s)=E_G+C_1\frac{1}{s+j\omega_0}+C_2\frac{1}{s-j\omega_0}$
 $\displaystyle C_1=\lim\limits_{s\to-j\omega_0}F(s)=\lim\limits_{s\to-j\omega_0}\cancel{(s+j\omega_0)}\ G(s)\frac{\omega_0}{\cancel{(s+j\omega_0)}(s-j\omega_0)}=\frac{G(-j\omega_0)\cancel{\omega_0}}{-2j\cancel{\omega_0}}=-\frac{G(-j\omega_0)}{2j}$
 $\displaystyle C_2=\lim\limits_{s\to j\omega_0}F(s)=\frac{G(j\omega_0)}{2j}$
@@ -47,4 +47,16 @@ $\displaystyle C_2=\lim\limits_{s\to j\omega_0}F(s)=\frac{G(j\omega_0)}{2j}$
 $G(j\omega_0)=\Re\bigl(G(j\omega_0)\bigr)+j\ \Im\bigl(G(j\omega_0)\bigr)=A+jB$
 $\displaystyle \mathcal L^{-1}\Bigl\{F(s)\Bigr\}=\mathcal L^{-1}\Bigl\{E_G\Bigr\}+\left(-\frac{A-jB}{2j}\right)e^{-j\omega_0 t}+\left(-\frac{A-jB}{2j}\right)e^{j\omega_0t}$
 
-$-\frac A{2j}e^{j\omega_0t}+\frac A{2j}e^{j\omega_0t}$
+$\displaystyle -\frac A{2j}e^{-j\omega_0t}+\frac A{2j}e^{j\omega_0t}+\frac B{2}e^{-j\omega_0t}+\frac B{2}e^{-j\omega_0t}=A\Bigl(\underbrace{\frac{e^{j\omega_0 t}-e^{-j\omega_0 t}}{2j}}_{\sin(\omega_0t)}\Bigr)+B\Bigl(\underbrace{\frac{e^{j\omega_0 t}+e^{-j\omega_0 t}}{2}}_{\cos(\omega_0t)}\Bigr)$
+$(s+j\omega_0)(s-j\omega_0)\mathcal L^{-1}\Bigl\{E_G(s)\Bigr\}+\overline {C_1}\sin(\omega_0t)+\overline {C_2}\cos(\omega_0t)\Rightarrow=\mathcal L^{-1}\Bigl\{E_G(s)\Bigr\}+\Re\bigl(G(j\omega_0)\bigr)\sin(\omega_0t)+\Im\bigl(G(j\omega_0)\bigr)\cos(\omega_0t)\Rightarrow$
+	$M\sin(\omega_0 t+\varphi)=M\sin(\omega_0t)\cos(\phi)+M\cos(\omega_0t)\sin(\phi)$
+		$M\cos\phi=\Re\bigl(G(j\omega_0)\bigr)$
+		$M\sin\phi=\Im\bigl(G(j\omega_0)\bigr)$
+		$\Re^2+\Im^2=M^2$
+	$M=|G(j\omega_0)|$
+	$\displaystyle \tan(\phi)=\frac{\Im}{\Re}$
+	$\phi=\angle G(j\omega_0)$
+$\Rightarrow |G(j\omega_0)|\sin\bigl(\omega_0t+\angle G(j\omega_0)\bigr)$
+
+
+$\displaystyle F(s)=\frac{1}{(s+1)(s+2)\underset{s=\pm 2j}{(s^2+4)}}=\underbrace{\frac{1}{2(s+1)(s+2)}}_G\frac{2}{s^2+4}$
