@@ -28,4 +28,3 @@ $\displaystyle A=\lim\limits_{s\to 1}(s-p_1)\ F(s)=\lim\limits_{s\to 1}\frac{1}{
 $\displaystyle B=\lim\limits_{s\to 2}(s-p_1)\ F(s)=\lim\limits_{s\to 1}\frac{1}{(s+1)(s+3)(s+4)}=\frac{1}{(-1)(1)(2)}=-\frac12$
 $\displaystyle C=\lim\limits_{s\to 3}(s-p_1)\ F(s)=\lim\limits_{s\to 1}\frac{1}{(s+1)(s+2)(s+4)}=\frac{1}{(-2)(-1)(1))}=\frac12$
 $\displaystyle D=\lim\limits_{s\to 4}(s-p_1)\ F(s)=\lim\limits_{s\to 1}\frac{1}{(s+1)(s+2)(s+4)}=\frac{1}{(-3)(-2)(-1))}=-\frac16$
-//////////////////////////////////////////////////////
