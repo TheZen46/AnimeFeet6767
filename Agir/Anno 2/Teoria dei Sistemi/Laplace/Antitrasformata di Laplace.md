@@ -60,3 +60,15 @@ $\Rightarrow |G(j\omega_0)|\sin\bigl(\omega_0t+\angle G(j\omega_0)\bigr)$
 
 
 $\displaystyle F(s)=\frac{1}{(s+1)(s+2)\underset{s=\pm 2j}{(s^2+4)}}=\underbrace{\frac{1}{2(s+1)(s+2)}}_G\frac{2}{s^2+4}$
+$\displaystyle G(j\omega_0)=\frac{1}{2(2j+1)(2j+2)}=\frac{1}{2(-4+4j+2j+2)}=\frac{1}{2(-2+6j)}=\frac{1}{-4+12j}\frac{-4-12j}{-4-12j}=\frac{-4-12j}{160}=-\frac{1}{40}-\frac{3}{40}j$
+$\displaystyle -\frac{1}{40}\sin(2t)-\frac3{40}\cos(2t)$
+
+$\displaystyle G(2j)=\frac{1}{2(2j+1)(2j+2)}$
+	$\displaystyle |G(2j)|=\frac1{2|(2j+1)(2j+2)|}=\frac1{2\sqrt 5\ 2\sqrt 2}=\frac{1}{4\sqrt{10}}$
+	$\angle G(2j)=0-\angle\bigl(2(2j+1)(2j+2)\bigr)=\bigl(0+\arctan2+\frac\pi4\bigr)$
+$\displaystyle G(2j)=\frac{1}{4\sqrt{10}}\sin(2t-\frac\pi4-\arctan2)$
+
+
+
+
+$\displaystyle F(s)=$
