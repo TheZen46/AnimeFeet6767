@@ -3,6 +3,7 @@
  
 ## Algoritmi
 	Lezione 5
+	Lezione 6
 
 ## Metodi Matematici
 	Lezione 5
@@ -23,3 +24,4 @@
 
 ## Teoria dei Sistemi
 	Lezione 5
+	Lezione 6
