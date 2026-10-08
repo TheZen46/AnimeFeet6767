@@ -21,10 +21,23 @@ $\displaystyle (s-p_1)^{k_1}F(s)=\cancel{C_{11}(s-p_1)^{k_{i-1}}}+\ldots+C_{1k_1
 
 
 $\displaystyle F(s)=\frac{1}{(s+1)(s+2)(s+3)(s+4)}$
-$\displaystyle C_1=\lim\limits_{s\to p_1}(s-p_1)\ F(s)$
+$\displaystyle C_1=\lim\limits_{s\to -p_1}(s-p_1)\ F(s)$
 
-$\frac{A}{s+1}+\frac{B}{s+2}+\frac{C}{s+3}+\frac{D}{s+4}$
-$\displaystyle A=\lim\limits_{s\to 1}(s-p_1)\ F(s)=\lim\limits_{s\to 1}\frac{1}{(s+2)(s+3)(s+4)}=\frac{1}{(1)(2)(3)}=\frac16$
-$\displaystyle B=\lim\limits_{s\to 2}(s-p_1)\ F(s)=\lim\limits_{s\to 1}\frac{1}{(s+1)(s+3)(s+4)}=\frac{1}{(-1)(1)(2)}=-\frac12$
-$\displaystyle C=\lim\limits_{s\to 3}(s-p_1)\ F(s)=\lim\limits_{s\to 1}\frac{1}{(s+1)(s+2)(s+4)}=\frac{1}{(-2)(-1)(1))}=\frac12$
-$\displaystyle D=\lim\limits_{s\to 4}(s-p_1)\ F(s)=\lim\limits_{s\to 1}\frac{1}{(s+1)(s+2)(s+4)}=\frac{1}{(-3)(-2)(-1))}=-\frac16$
+$\displaystyle \frac{A}{s+1}+\frac{B}{s+2}+\frac{C}{s+3}+\frac{D}{s+4}$
+$\displaystyle A=\lim\limits_{s\to -1}(s-p_1)\ F(s)=\lim\limits_{s\to -1}\frac{1}{(s+2)(s+3)(s+4)}=\frac{1}{(1)(2)(3)}=\frac16$
+$\displaystyle B=\lim\limits_{s\to -2}(s-p_1)\ F(s)=\lim\limits_{s\to -1}\frac{1}{(s+1)(s+3)(s+4)}=\frac{1}{(-1)(1)(2)}=-\frac12$
+$\displaystyle C=\lim\limits_{s\to -3}(s-p_1)\ F(s)=\lim\limits_{s\to -1}\frac{1}{(s+1)(s+2)(s+4)}=\frac{1}{(-2)(-1)(1))}=\frac12$
+$\displaystyle D=\lim\limits_{s\to -4}(s-p_1)\ F(s)=\lim\limits_{s\to -1}\frac{1}{(s+1)(s+2)(s+4)}=\frac{1}{(-3)(-2)(-1))}=-\frac16$
+
+
+$\displaystyle F(s)=\frac{1}{(s+1)(s+2)(s^2+4)}$
+$\displaystyle \frac{A}{s+1}+\frac{B}{s+2}+\frac{2C}{s^2+4}+\frac{sD}{s^2+4}$
+
+$\displaystyle A=\lim\limits_{s\to -1}(s-p_1)\ F(s)=\lim\limits_{s\to -1}\frac{1}{(s+2)(s^2+4)}=\frac{1}{(1)(5)}=\frac15$
+$\displaystyle B=\lim\limits_{s\to -2}(s-p_1)\ F(s)=\lim\limits_{s\to -2}\frac{1}{(s+1)(s^2+4)}=\frac{1}{(-1)(8)}=-\frac18$
+
+
+
+$\displaystyle F(s)=\frac{N(s)}{D(s)(s^2+{\omega_0}^2)}=\underbrace{\frac{N}{D\omega_0}}_{G(s)}\frac{\omega_0}{s^2+{\omega_0}^2}=E_G(s)+C_1\frac{\omega_0}{s^2+{\omega_0}^2}+C_2\frac{s}{s^2+{\omega_0}^2}$
+	$\mathcal L{^-1}\Bigl\{E_G(s)\Bigr\}+c_1\sin(\omega_0 t)+c_2\cos(\omega_0 t)$
+$F(s)$
