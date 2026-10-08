@@ -29,7 +29,7 @@ $\displaystyle B=\lim\limits_{s\to -2}(s-p_1)\ F(s)=\lim\limits_{s\to -1}\frac{1
 $\displaystyle C=\lim\limits_{s\to -3}(s-p_1)\ F(s)=\lim\limits_{s\to -1}\frac{1}{(s+1)(s+2)(s+4)}=\frac{1}{(-2)(-1)(1))}=\frac12$
 $\displaystyle D=\lim\limits_{s\to -4}(s-p_1)\ F(s)=\lim\limits_{s\to -1}\frac{1}{(s+1)(s+2)(s+4)}=\frac{1}{(-3)(-2)(-1))}=-\frac16$
 
-
+\leftarrow\leftarrow\Leftarrow
 $\displaystyle F(s)=\frac{1}{(s+1)(s+2)(s^2+4)}$
 $\displaystyle \frac{A}{s+1}+\frac{B}{s+2}+\frac{2C}{s^2+4}+\frac{sD}{s^2+4}$
 
