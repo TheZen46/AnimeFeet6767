@@ -41,4 +41,15 @@ Sfera conduttrice
 $E(r)=?$
 
 1) $r<R$
-$\displaystyle E=\frac{q'}{4\pi r^2\ \epsilon_0}$
+$\displaystyle E=\frac{q'}{4\pi r^2\ \epsilon_0}=$
+	$q=\chi\frac43\pi R^3$
+	$q' =\chi\frac43\pi r^3$
+	$\displaystyle \frac{q' }q=\frac{r^3}{R^3}\Rightarrow q'=\bigl(\frac rR\bigr)^3q$
+$\displaystyle =\frac{1}{4\pi\ \epsilon_0\ \cancel{r^2}}\frac{r^{\cancel 3}}{R^3}q=\frac{q\ r}{4\pi R^3\ \epsilon_0}$
+
+2) $r>R$
+$\displaystyle E=\frac{q}{4\pi r^2\ \epsilon_0}$
+
+
+Piano non-conduttore positivo
+Densità $\sigma=\frac qA$
