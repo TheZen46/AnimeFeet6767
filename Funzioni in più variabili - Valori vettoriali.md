@@ -24,7 +24,7 @@ Consideriamo $g(x)=f(x)-J_{\hat x}x$
 $g:B\subset\mathbb R^n\to\mathbb R^m$
 
 $f\text{ è }C^1(B)$
-$J_{\hat x}x\text{ è }C^1(B)$
+	$J_{\hat x}x\text{ è }C^1(B)$
 $g(x)\text{ è }C^1$
 $\partial _{x_j}g\text{ sono continue}$
 
