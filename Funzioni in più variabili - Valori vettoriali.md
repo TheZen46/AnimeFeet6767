@@ -21,3 +21,20 @@ $J_{\hat x}=d_{\hat x}f$
 
 ## Dimostrazione
 Consideriamo $g(x)=f(x)-J_{\hat x}x$
+$g:B\subset\mathbb R^n\to\mathbb R^m$
+
+$f\text{ è }C^1(B)$
+$J_{\hat x}x\text{ è }C^1(B)$
+$g(x)\text{ è }C^1$
+$\partial _{x_j}g\text{ sono continue}$
+
+$\displaystyle \partial_x g(x)=\partial_{x_j}f(x)-\underbrace{J_{\hat x}e_j}_{\partial_{x_j}f(x)-\partial_{x_j}f(\hat x)}$
+$\lim\limits_{x\to\hat x}\partial_x g(x)=0$
+
+$\forall\epsilon\quad\exists\delta_\epsilon\text{ t.c. }x\in B(\hat x,\delta_\epsilon)$
+$\displaystyle \bigl|\partial_{x_j}g_i(x)\bigr|<\frac{\epsilon}{\sqrt{mn}}$
+$\displaystyle g_i(x)-g_i(y)=\sum\limits_j\partial_{x_j}g_i(\tilde x)(x-y)_j$
+$\displaystyle \bigl|g_i(x)-g_i(y)\bigr|^2=\bigl|\sum\limits_{j=1}^n\partial_{x_j}g_i(\tilde x)(x-y)_j\bigr|^2=\bigl|\nabla_{\tilde x}g_i\ (x-y)\bigr|^2\quad \forall\ i\text{ per Cauchy-Schwarz }\le\bigl|\nabla_{\tilde x}g_i\bigr|^2|\bigl|x-y\bigr|^2$
+$\displaystyle \bigl|\nabla_{\tilde x}g_i\bigr|^2=\sum\limits_j|\bigl|\partial_{x_j}g_i(\tilde x)\bigr|^2\le\sum\limits_{j=1}^n\frac{\epsilon^2}{mn}=\cancel n\frac{\epsilon^2}{m\cancel n}=\frac{\epsilon^2}{m}$
+$\bigl|\bigr|$
+$\forall\epsilon\ \ \exists\ \delta_e\spilo$
