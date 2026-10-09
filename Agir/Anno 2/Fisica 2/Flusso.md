@@ -30,4 +30,15 @@ Campo elettrico a distanza $r$
 Cilindro attraversante il filo
 Poli ortogonali a campo elettrico $\Rightarrow \Phi_1=\Phi_2=0$
 $\Phi_3=\int_3\vec E\cdot d\vec A=\oint_3 EdA=E\int dA=EA=E\ 2\pi r\ h$
-$\left.\array{\Phi_{TOT}=2\pi r\ h E\\q=\lambda h}\right}\quad\epsilon_0=2\pir\ $
+$\displaystyle \mskip{-10mu}\left.\begin{array}{l}\Phi_{TOT}=2\pi r\ h E\\q=\lambda h\end{array}\right\}\quad\epsilon_0=2\pi r\cancel h\ E=\lambda\cancel h\Rightarrow E=\frac{\lambda}{2\pi r}$
+
+
+
+Sfera conduttrice
+	Carica $q$
+	Densità di carica omogenea $\displaystyle \chi=\frac dv$
+	Raggio $R$
+$E(r)=?$
+
+1) $r<R$
+$\displaystyle E=\frac{q'}{4\pi r^2\ \epsilon_0}$
