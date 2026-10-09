@@ -1,5 +1,6 @@
 ## Fisica
 	Lezione 5
+	Lezione 6
  
 ## Algoritmi
 	Lezione 5
@@ -7,9 +8,11 @@
 
 ## Metodi Matematici
 	Lezione 5
+	Lezione 6
 
 ## Ricerca Operativa
 	Lezione 5
+	Lezione 6
 
 ## Robotica 
 ### modulo 1 
