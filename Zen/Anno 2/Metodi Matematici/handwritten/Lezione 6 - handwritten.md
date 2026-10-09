@@ -13,7 +13,7 @@ $f \in C^1(D)$
 $(x_0, y_0) \in D \mskip{55mu} f(x_0, y_0) = a$
 $\nabla _{(x_0, y_0)}f \neq 0$
 
-$\partial _x f(x, g(x)) \ + \ \partial _y f(x,g(x))g'(x) \ = \ 0$
+$\partial _x f(x, \underline{g(x)}) \ + \ \partial _y f(x,\underline{g(x)})\underline{g'(x)} \ = \ 0$
 $\partial _y f(x, g(x))g'(x) = -\partial _x f(x, g(x))$
 
-$\begin{cases} \end{cases}$
+$\begin{cases} g'(x) = -\frac{\partial _x f(x, g(x))}{\partial _y f(x,g(x))} \mskip{60mu} Ipotesi \ \exists \text{ ! soluzione Teo. Cauchy} \\ g(x_0) = y_0 \mskip{140mu} \exists \ \text{I} \subset \mathbb R \ x_0 \in \text{I}^{tc} \end{cases}$
