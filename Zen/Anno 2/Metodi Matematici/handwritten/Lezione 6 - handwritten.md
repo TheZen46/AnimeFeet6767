@@ -5,9 +5,15 @@ $f :D \subset \mathbb R^2 \rightarrow \mathbb R$
 $\{(x,y)\subset D \ | \ f(x,y) = a\}$
 
 $\underline{TEOREMA} (\text{funzione implicita})$
-$f:D\subset \mathbb R^2 \rightarrow \mathbb R \mskip{25mu} \text{D aperto} \ \Rightarrow \ \ \exists \text{B intorn di } (x_0,y_0) \text{ t.c. {(x,)}}$
+$f:D\subset \mathbb R^2 \rightarrow \mathbb R \mskip{25mu} \text{D aperto} \ \Rightarrow \ \ \exists \text{B intorn di } (x_0,y_0) \text{ t.c. {(x,y)}} \in B \ | \ f(x,y)=a\} \text{ coincide con il grafico di una funzione di classe } C^1 \text{ o y=g(x)  o  x=}\hat g(y)$
+più precisamente
+$\text{se } \frac{\partial f}{\partial y}(x_0,y_0) \neq 0 \Rightarrow \exists \ g:I \subset \mathbb R \rightarrow \mathbb R \ t.c. \ (x,y) \in B \ | \  something....$
+
 $f \in C^1(D)$
 $(x_0, y_0) \in D \mskip{55mu} f(x_0, y_0) = a$
 $\nabla _{(x_0, y_0)}f \neq 0$
 
-$$
+$\partial _x f(x, g(x)) \ + \ \partial _y f(x,g(x))g'(x) \ = \ 0$
+$\partial _y f(x, g(x))g'(x) = -\partial _x f(x, g(x))$
+
+$\begin{cases} \end{cases}$
