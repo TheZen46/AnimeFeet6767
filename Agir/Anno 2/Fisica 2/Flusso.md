@@ -20,3 +20,14 @@ $P$ giace sull'asse di entrambe le circonferenze ad altezza $D=2R$
 
 $Q'=?$ tale che $\vec E\ m\cdot P=0$
 
+
+
+
+Filo infinito
+$\displaystyle \lambda=\frac{dq}{dl}=\frac{Q}{L}$
+Campo elettrico a distanza $r$
+
+Cilindro attraversante il filo
+Poli ortogonali a campo elettrico $\Rightarrow \Phi_1=\Phi_2=0$
+$\Phi_3=\int_3\vec E\cdot d\vec A=\oint_3 EdA=E\int dA=EA=E\ 2\pi r\ h$
+$\left.\array{\Phi_{TOT}=2\pi r\ h E\\q=\lambda h}\right}\quad\epsilon_0=2\pir\ $
