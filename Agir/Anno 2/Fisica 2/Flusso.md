@@ -49,7 +49,3 @@ $\displaystyle =\frac{1}{4\pi\ \epsilon_0\ \cancel{r^2}}\frac{r^{\cancel 3}}{R^3
 
 2) $r>R$
 $\displaystyle E=\frac{q}{4\pi r^2\ \epsilon_0}$
-
-
-Piano non-conduttore positivo
-Densità $\sigma=\frac qA$
