@@ -24,5 +24,4 @@ $\exists\ I\subset\mathbb R\quad x_0\in I\text{ t.c. }\exists!\ g(x)$ che risolv
 
 ### Osservazione
 $x\mapsto g(x)$
-$f\bigl(x,g(x)\bigr)=a
-$\partial f+\partial $
+$f\bigl(x,g(x)\bigr)=a$
