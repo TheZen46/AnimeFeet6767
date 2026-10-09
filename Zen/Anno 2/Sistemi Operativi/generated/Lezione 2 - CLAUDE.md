@@ -10,7 +10,7 @@ La lezione affronta i processi da due punti di vista complementari. Nella prima 
 
 ## Riepilogo della lezione precedente
 
-Il professore apre con un breve richiamo ai processi; per i dettagli si veda [[Lezione 01 - Introduzione ai SO e processi]]. Il sistema operativo implementa il concetto di **CPU virtuale**: anche con una sola CPU fisica, ogni processo ha l'illusione di eseguire su un processore tutto suo. A decidere di volta in volta quale processo debba eseguire è l'algoritmo di **scheduling**.
+Il professore apre con un breve richiamo ai processi; per i dettagli si veda [[Zen/Anno 2/Sistemi Operativi/generated/Lezione 1 - CLAUDE|Lezione 1 - CLAUDE]]. Il sistema operativo implementa il concetto di **CPU virtuale**: anche con una sola CPU fisica, ogni processo ha l'illusione di eseguire su un processore tutto suo. A decidere di volta in volta quale processo debba eseguire è l'algoritmo di **scheduling**.
 
 Un processo è l'esecuzione di un programma. Quando il SO lo manda in esecuzione, predispone un'area di memoria con il codice e i dati statici, l'**heap** per la memoria allocata dinamicamente (`malloc` in C, `new` in C++) e lo **stack** per le variabili locali. Heap e stack crescono in direzioni opposte. Lo stack si comporta come una pila: le variabili locali di una funzione chiamata vanno sopra quelle della funzione chiamante e vengono tolte per prime quando la funzione termina.
 
@@ -97,7 +97,8 @@ Ci si può chiedere a che cosa serva, nella pratica, creare una copia identica d
 > [!tip] Approfondimento — La copia non è davvero immediata #approfondimento 
 > Copiare l'intero spazio di indirizzamento a ogni `fork()` sarebbe costoso, tanto più se subito dopo il figlio chiamerà `exec()` e butterà via quella copia. Per questo Linux implementa `fork()` con la tecnica **copy-on-write**. Alla creazione, padre e figlio condividono le stesse pagine fisiche di memoria, marcate in sola lettura. Una pagina viene effettivamente duplicata solo quando uno dei due prova a modificarla. Il costo della `fork()` si riduce così alla duplicazione delle tabelle delle pagine e alla creazione della struttura che descrive il nuovo processo. Dal punto di vista del programmatore nulla cambia: i due processi hanno spazi di memoria separati, e le scritture dell'uno non sono visibili all'altro [@linuxman2fork].
 
-> [!warning] Discrepanza con gli appunti manuali (`Process API.md`) Il primo blocco di codice degli appunti mescola i due esempi delle slide `p1.c` e `p2.c`. Contiene una `wait(NULL)`, che nelle slide compare solo in `p2.c`, senza includere `<sys/wait.h>`. Inoltre passa a `printf` tre argomenti (`rc, wc, getpid()`) con una stringa di formato che ne prevede due. Il blocco è anche etichettato come C++, mentre il codice è C. Per lo studio fanno fede le versioni delle slide riportate in questa nota.
+> [!warning] Discrepanza con gli appunti manuali (`Process API.md`) 
+> Il primo blocco di codice degli appunti mescola i due esempi delle slide `p1.c` e `p2.c`. Contiene una `wait(NULL)`, che nelle slide compare solo in `p2.c`, senza includere `<sys/wait.h>`. Inoltre passa a `printf` tre argomenti (`rc, wc, getpid()`) con una stringa di formato che ne prevede due. Il blocco è anche etichettato come C++, mentre il codice è C. Per lo studio fanno fede le versioni delle slide riportate in questa nota.
 
 #### La `fork()` nel simulatore
 

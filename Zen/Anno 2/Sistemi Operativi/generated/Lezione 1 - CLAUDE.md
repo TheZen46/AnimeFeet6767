@@ -13,7 +13,8 @@ La lezione si divide in due parti. La prima presenta il sistema operativo nel su
 
 ## Parte I — Che cos'è un sistema operativo
 
-> [!warning] Sezione ricostruita — inizio La registrazione di questa lezione comincia dopo la pausa, quindi per la prima parte non c'è trascrizione. Il testo che segue sviluppa le slide _02 – Introduction to Operating Systems_ e gli appunti manuali, con spiegazioni tecniche aggiunte dove le slide sono solo schematiche. Non riporta quindi esempi o commenti specifici del professore, salvo quelli che lui stesso richiama nella seconda parte.
+> [!warning] Sezione ricostruita — inizio La registrazione di questa lezione comincia dopo la pausa, quindi per la prima parte non c'è trascrizione. 
+> Il testo che segue sviluppa le slide _02 – Introduction to Operating Systems_ e gli appunti manuali, con spiegazioni tecniche aggiunte dove le slide sono solo schematiche. Non riporta quindi esempi o commenti specifici del professore, salvo quelli che lui stesso richiama nella seconda parte.
 
 ### Che cosa succede quando un programma è in esecuzione
 
@@ -386,7 +387,7 @@ Qualunque SO moderno offre un insieme di chiamate di sistema per gestire i proce
 - **Miscellaneous Control**: altri controlli, per esempio sospendere un processo e farlo poi riprendere. Il professore cita in questa categoria anche i meccanismi di semaforizzazione.
 - **Status**: ottenere informazioni sullo stato di un processo, come lo stato in cui si trova o da quanto tempo esegue.
 
-Il professore aggiunge una chiamata di sistema che permette di **sostituire il codice** eseguito da un processo con quello di un altro programma. Il processo resta lo stesso, ma da quel momento esegue un codice diverso. Queste chiamate sono il tema di [[Lezione 02 - Process API e Limited Direct Execution|Lezione 2]].
+Il professore aggiunge una chiamata di sistema che permette di **sostituire il codice** eseguito da un processo con quello di un altro programma. Il processo resta lo stesso, ma da quel momento esegue un codice diverso. Queste chiamate sono il tema di [[Zen/Anno 2/Sistemi Operativi/generated/Lezione 2 - CLAUDE|Lezione 2 - CLAUDE]].
 
 ### Creazione di un processo
 

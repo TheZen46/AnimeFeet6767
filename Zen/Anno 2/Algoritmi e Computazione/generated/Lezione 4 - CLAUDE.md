@@ -434,7 +434,8 @@ Il docente propone di specificare i DFA per i seguenti linguaggi sull'alfabeto $
 
 I primi due sono abbastanza facili, gli altri un po' più complicati. Le soluzioni proposte qui sotto sono ripiegate, per poter provare prima da soli. Sono state verificate confrontando il comportamento di ciascun automa con la definizione del linguaggio su tutte le stringhe di lunghezza fino a 12. Quelle presentate a lezione potrebbero differire nella forma, per esempio nei nomi degli stati, pur essendo equivalenti.
 
-> [!example]- Soluzione dell'esercizio 1 (finiscono con 00) Gli stati ricordano quanti zeri consecutivi chiudono la stringa letta finora, fino a un massimo di due: $s_0$ nessuno (o stringa vuota), $s_1$ esattamente uno, $s_2$ almeno due. Un 1 riporta sempre in $s_0$.
+> [!example]- Soluzione dell'esercizio 1 (finiscono con 00) 
+> Gli stati ricordano quanti zeri consecutivi chiudono la stringa letta finora, fino a un massimo di due: $s_0$ nessuno (o stringa vuota), $s_1$ esattamente uno, $s_2$ almeno due. Un 1 riporta sempre in $s_0$.
 > 
 > |$\delta$|0|1|
 > |---|---|---|
@@ -454,7 +455,8 @@ I primi due sono abbastanza facili, gli altri un po' più complicati. Le soluzio
 >     style S fill:none,stroke:none
 > ```
 
-> [!example]- Soluzione dell'esercizio 2 (tre zeri consecutivi) Gli stati contano gli zeri consecutivi appena letti, finché non diventano tre: da quel momento l'automa resta nello stato finale $a_3$, qualunque cosa segua.
+> [!example]- Soluzione dell'esercizio 2 (tre zeri consecutivi)
+>  Gli stati contano gli zeri consecutivi appena letti, finché non diventano tre: da quel momento l'automa resta nello stato finale $a_3$, qualunque cosa segua.
 > 
 > |$\delta$|0|1|
 > |---|---|---|
@@ -476,7 +478,8 @@ I primi due sono abbastanza facili, gli altri un po' più complicati. Le soluzio
 >     style S fill:none,stroke:none
 > ```
 
-> [!example]- Soluzione dell'esercizio 3 (011 come sottostringa) Gli stati ricordano il più lungo prefisso di $011$ con cui termina la stringa letta: $b_0$ nessuno, $b_1$ la stringa termina con $0$, $b_2$ termina con $01$, $b_3$ la sottostringa $011$ è già comparsa. Il punto delicato è cosa fare quando la lettura «si interrompe». Da $b_2$ con uno 0 non si torna in $b_0$ ma in $b_1$, perché quello 0 può essere l'inizio di una nuova occorrenza. Per lo stesso motivo da $b_1$ con uno 0 si resta in $b_1$.
+> [!example]- Soluzione dell'esercizio 3 (011 come sottostringa) 
+> Gli stati ricordano il più lungo prefisso di $011$ con cui termina la stringa letta: $b_0$ nessuno, $b_1$ la stringa termina con $0$, $b_2$ termina con $01$, $b_3$ la sottostringa $011$ è già comparsa. Il punto delicato è cosa fare quando la lettura «si interrompe». Da $b_2$ con uno 0 non si torna in $b_0$ ma in $b_1$, perché quello 0 può essere l'inizio di una nuova occorrenza. Per lo stesso motivo da $b_1$ con uno 0 si resta in $b_1$.
 > 
 > |$\delta$|0|1|
 > |---|---|---|
@@ -498,7 +501,8 @@ I primi due sono abbastanza facili, gli altri un po' più complicati. Le soluzio
 >     style S fill:none,stroke:none
 > ```
 
-> [!example]- Soluzione dell'esercizio 4 (cominciano o finiscono con 01) L'automa ha due «rami».
+> [!example]- Soluzione dell'esercizio 4 (cominciano o finiscono con 01) 
+> L'automa ha due «rami».
 > 
 > Il primo verifica l'inizio: $c_0$ è lo stato iniziale, $c_1$ indica che si è letto $0$ come primo simbolo, $c_2$ che la stringa comincia con $01$. In $c_2$ la stringa è accettata comunque prosegua, e l'automa vi resta.
 > 
@@ -542,11 +546,13 @@ Anche i calcolatori sono deterministici, salvo guasti hardware. Inserito un coma
 
 In informatica teorica, invece, il **non determinismo**, cioè la possibilità di fare ora una cosa ora un'altra, è un concetto interessante che porterà in luoghi interessanti. Tornerà con gli automi a pila e con le macchine di Turing. Con le macchine di Turing è legato a uno dei più importanti problemi aperti della matematica e dell'informatica, per la cui soluzione è in palio un premio da un milione di dollari.
 
-> [!tip] Approfondimento — Il premio da un milione di dollari #approfondimento Il problema a cui allude il docente è **P contro NP**. Detto in breve: se verificare che una soluzione è corretta è facile, è facile anche trovarla? È uno dei sette **problemi del millennio** annunciati dal Clay Mathematics Institute il 24 maggio 2000, ciascuno con un premio di un milione di dollari [@clay-millennium]. Il problema risulta tuttora irrisolto. La classe NP verrà definita nel secondo semestre proprio a partire dalle macchine di Turing non deterministiche.
+> [!tip] Approfondimento — Il premio da un milione di dollari #approfondimento 
+> Il problema a cui allude il docente è **P contro NP**. Detto in breve: se verificare che una soluzione è corretta è facile, è facile anche trovarla? È uno dei sette **problemi del millennio** annunciati dal Clay Mathematics Institute il 24 maggio 2000, ciascuno con un premio di un milione di dollari [@clay-millennium]. Il problema risulta tuttora irrisolto. La classe NP verrà definita nel secondo semestre proprio a partire dalle macchine di Turing non deterministiche.
 
 ### Automi a stati finiti non deterministici
 
-> [!important] Definizione: automa a stati finiti non deterministico (NFA) Un automa a stati finiti non deterministico (_Nondeterministic Finite-state Automaton_, NFA) è una quintupla $$A = (Q, \Sigma, \delta, q_0, F)$$ in cui $Q$, $\Sigma$, $q_0$ e $F$ hanno lo stesso significato che nel DFA, mentre $$\delta : Q \times \Sigma \to 2^Q$$ è una funzione di transizione da uno stato e un simbolo a un **insieme di stati**.
+> [!important] Definizione: automa a stati finiti non deterministico (NFA) 
+> Un automa a stati finiti non deterministico (_Nondeterministic Finite-state Automaton_, NFA) è una quintupla $$A = (Q, \Sigma, \delta, q_0, F)$$ in cui $Q$, $\Sigma$, $q_0$ e $F$ hanno lo stesso significato che nel DFA, mentre $$\delta : Q \times \Sigma \to 2^Q$$ è una funzione di transizione da uno stato e un simbolo a un **insieme di stati**.
 
 Fin qui tutto è come prima: insieme finito di stati, alfabeto, stato iniziale, stati finali. È la funzione $\delta$ a diventare non deterministica. Il simbolo $2^Q$ indica l'**insieme delle parti** di $Q$, cioè l'insieme di tutti i suoi sottoinsiemi (si veda la nota [[Nozioni di base (compendio)]]). Contiene l'insieme vuoto, che è sottoinsieme di qualunque insieme, $Q$ stesso e tutti i sottoinsiemi intermedi. I sottoinsiemi sono tanti: se $|Q| = n$, allora $|2^Q| = 2^n$. Con due elementi, per esempio, i sottoinsiemi sono quattro: il vuoto, i due singoletti e l'insieme intero.
 
@@ -579,17 +585,20 @@ Le slide rappresentano tutte le «tracce» possibili su $00101$:
 
 A ogni 0 la traccia che resta in $q_0$ genera anche una traccia verso $q_1$. Le tracce che si trovano in $q_1$ quando arriva uno 0, o in $q_2$ quando arriva un simbolo qualsiasi, si bloccano.
 
-> [!important] Accettazione in un NFA (informalmente) Una stringa è accettata da un NFA se **esiste** almeno una traccia, cioè una sequenza di transizioni, che dopo aver consumato tutta la stringa termina in uno stato finale. Altrimenti è rifiutata.
+> [!important] Accettazione in un NFA (informalmente) 
+> Una stringa è accettata da un NFA se **esiste** almeno una traccia, cioè una sequenza di transizioni, che dopo aver consumato tutta la stringa termina in uno stato finale. Altrimenti è rifiutata.
 
 Il docente ammette che la cosa sorprende. Calata su un circuito, significherebbe che il dispositivo una volta fa una cosa e una volta un'altra, e che bisogna aspettare che «indovini» la scelta giusta, cosa che potrebbe non succedere mai. L'NFA è quindi un **dispositivo puramente teorico**. Ha però proprietà interessanti, e uno spoiler: questo non determinismo si rivelerà meno potente di quanto sembri.
 
-> [!tip] Approfondimento — L'origine degli automi non deterministici #approfondimento Gli automi non deterministici furono introdotti da Michael Rabin e Dana Scott nell'articolo del 1959 _Finite Automata and Their Decision Problems_ [@rabin1959]. Lo stesso lavoro mostra che ogni NFA si può trasformare in un DFA equivalente, il risultato che il corso vedrà tra poco con la **costruzione per sottoinsiemi**. Per quell'articolo, e in particolare per l'idea delle macchine non deterministiche, i due autori ricevettero il premio Turing nel 1976 [@acm-rabin1976].
+> [!tip] Approfondimento — L'origine degli automi non deterministici #approfondimento 
+> Gli automi non deterministici furono introdotti da Michael Rabin e Dana Scott nell'articolo del 1959 _Finite Automata and Their Decision Problems_ [@rabin1959]. Lo stesso lavoro mostra che ogni NFA si può trasformare in un DFA equivalente, il risultato che il corso vedrà tra poco con la **costruzione per sottoinsiemi**. Per quell'articolo, e in particolare per l'idea delle macchine non deterministiche, i due autori ricevettero il premio Turing nel 1976 [@acm-rabin1976].
 
 ### La computazione di un NFA, formalmente
 
 Anche per l'NFA la funzione di transizione si estende alle stringhe. Poiché da uno stato e un simbolo si arriva in un **insieme** di stati, da uno stato e una stringa si arriverà, in generale, in un insieme di stati.
 
-> [!important] Definizione: funzione di transizione estesa di un NFA Dato un NFA $A = (Q, \Sigma, \delta, q_0, F)$, la funzione $\delta : Q \times \Sigma \to 2^Q$ si estende a $\hat{\delta} : Q \times \Sigma^* \to 2^Q$ come segue:
+> [!important] Definizione: funzione di transizione estesa di un NFA 
+> Dato un NFA $A = (Q, \Sigma, \delta, q_0, F)$, la funzione $\delta : Q \times \Sigma \to 2^Q$ si estende a $\hat{\delta} : Q \times \Sigma^* \to 2^Q$ come segue:
 > 
 > - **base**: $\hat{\delta}(q, \epsilon) = {q}$;
 > - **passo**: per $a \in \Sigma$ e $w \in \Sigma^*$, se $\hat{\delta}(q, w) = {p_1, p_2, \dots, p_k}$, allora $$\hat{\delta}(q, wa) = \bigcup_{i=1}^{k} \delta(p_i, a) .$$
@@ -598,11 +607,13 @@ Il docente richiama l'attenzione sul caso base: la stringa vuota non porta nello
 
 Il passo si legge così. Consumata la stringa $w$, l'automa si trova in un insieme di stati, cioè in tutti i «mondi possibili». Per consumare il simbolo $a$ si considera **ogni** stato di quell'insieme, si guarda dove porta $a$ a partire da quello stato, e si raccolgono tutti i risultati. Il modo giusto di immaginare la computazione di un NFA non è quindi una scelta casuale di uno stato alla volta. L'automa evolve da un insieme di stati a un altro insieme di stati: si muove su una **frontiera** di stati, come se esplorasse contemporaneamente tutte le possibilità. Questa chiave di lettura è anche quella che mostrerà perché la potenza del non determinismo non è così «tremenda» come sembra.
 
-> [!important] Definizione: accettazione e linguaggio di un NFA Una stringa $w \in \Sigma^*$ è **accettata** dall'NFA $A$ se $\hat{\delta}(q_0, w) \cap F \neq \emptyset$, cioè se almeno uno degli stati raggiungibili da $q_0$ leggendo $w$ è finale. Il **linguaggio accettato** da $A$ è $$L(A) = { w \mid \hat{\delta}(q_0, w) \cap F \neq \emptyset } .$$
+> [!important] Definizione: accettazione e linguaggio di un NFA Una stringa $w \in \Sigma^*$ è **accettata** dall'NFA $A$ se $\hat{\delta}(q_0, w) \cap F \neq \emptyset$, cioè se almeno uno degli stati raggiungibili da $q_0$ leggendo $w$ è finale.
+> Il **linguaggio accettato** da $A$ è $$L(A) = { w \mid \hat{\delta}(q_0, w) \cap F \neq \emptyset } .$$
 
 L'intersezione non vuota con $F$ è la traduzione formale di «esiste almeno un percorso che porta in uno stato finale».
 
-> [!tip] Approfondimento — Esplorare tutti gli stati raggiungibili #approfondimento Il docente osserva che ragionare per insiemi di stati è fondamentale anche nel suo lavoro di ricerca. Quando non interessa una singola computazione ma tutte quelle possibili, si calcola l'insieme degli stati raggiungibili dallo stato iniziale, poi quelli raggiungibili da questi, e così via. Si verifica quindi se tra essi compare uno stato indesiderato, che segnala un comportamento scorretto del sistema. È l'idea alla base del **model checking**, la tecnica di verifica automatica di sistemi hardware e software. Per averne fatto una tecnologia di verifica molto efficace e ampiamente adottata nell'industria, Edmund Clarke, Allen Emerson e Joseph Sifakis hanno ricevuto il premio Turing 2007 [@acm-turing2007].
+> [!tip] Approfondimento — Esplorare tutti gli stati raggiungibili #approfondimento 
+> Il docente osserva che ragionare per insiemi di stati è fondamentale anche nel suo lavoro di ricerca. Quando non interessa una singola computazione ma tutte quelle possibili, si calcola l'insieme degli stati raggiungibili dallo stato iniziale, poi quelli raggiungibili da questi, e così via. Si verifica quindi se tra essi compare uno stato indesiderato, che segnala un comportamento scorretto del sistema. È l'idea alla base del **model checking**, la tecnica di verifica automatica di sistemi hardware e software. Per averne fatto una tecnologia di verifica molto efficace e ampiamente adottata nell'industria, Edmund Clarke, Allen Emerson e Joseph Sifakis hanno ricevuto il premio Turing 2007 [@acm-turing2007].
 
 ### Esempio: stringhe che finiscono con 01
 
@@ -616,7 +627,8 @@ L'NFA dell'esempio precedente è $A = ({q_0, q_1, q_2}, {0, 1}, \delta, q_0, {q_
 
 Nella tabella ogni casella contiene un **insieme**. Anche quando la transizione porta in un solo stato, si scrive il singoletto, per lo stesso motivo di tipo visto sopra. Nel diagramma le transizioni verso l'insieme vuoto sono semplicemente **omesse**: da $q_1$ con lo 0 non esce alcuna freccia, e infatti in tabella c'è $\emptyset$. In un DFA, invece, le transizioni non si possono omettere formalmente, perché $\delta$ deve dire per ogni stato e ogni simbolo dove si va. Le slide successive (19–20) mostreranno in quali casi si accetta di ometterle anche nei DFA.
 
-> [!example] Computazione di $\hat{\delta}(q_0, 00101)$ Applicando la definizione simbolo per simbolo, si ritrovano le colonne della tabella delle tracce: $$ \begin{aligned} \hat{\delta}(q_0, \epsilon) &= {q_0} \ \hat{\delta}(q_0, 0) &= \delta(q_0, 0) = {q_0, q_1} \ \hat{\delta}(q_0, 00) &= \delta(q_0, 0) \cup \delta(q_1, 0) = {q_0, q_1} \cup \emptyset = {q_0, q_1} \ \hat{\delta}(q_0, 001) &= \delta(q_0, 1) \cup \delta(q_1, 1) = {q_0} \cup {q_2} = {q_0, q_2} \ \hat{\delta}(q_0, 0010) &= \delta(q_0, 0) \cup \delta(q_2, 0) = {q_0, q_1} \cup \emptyset = {q_0, q_1} \ \hat{\delta}(q_0, 00101) &= \delta(q_0, 1) \cup \delta(q_1, 1) = {q_0} \cup {q_2} = {q_0, q_2} \end{aligned} $$ Poiché ${q_0, q_2} \cap {q_2} = {q_2} \neq \emptyset$, la stringa $00101$ è accettata.
+> [!example] Computazione di $\hat{\delta}(q_0, 00101)$ 
+> Applicando la definizione simbolo per simbolo, si ritrovano le colonne della tabella delle tracce: $$ \begin{aligned} \hat{\delta}(q_0, \epsilon) &= {q_0} \ \hat{\delta}(q_0, 0) &= \delta(q_0, 0) = {q_0, q_1} \ \hat{\delta}(q_0, 00) &= \delta(q_0, 0) \cup \delta(q_1, 0) = {q_0, q_1} \cup \emptyset = {q_0, q_1} \ \hat{\delta}(q_0, 001) &= \delta(q_0, 1) \cup \delta(q_1, 1) = {q_0} \cup {q_2} = {q_0, q_2} \ \hat{\delta}(q_0, 0010) &= \delta(q_0, 0) \cup \delta(q_2, 0) = {q_0, q_1} \cup \emptyset = {q_0, q_1} \ \hat{\delta}(q_0, 00101) &= \delta(q_0, 1) \cup \delta(q_1, 1) = {q_0} \cup {q_2} = {q_0, q_2} \end{aligned} $$ Poiché ${q_0, q_2} \cap {q_2} = {q_2} \neq \emptyset$, la stringa $00101$ è accettata.
 
 ### La dimostrazione di correttezza dell'NFA
 
