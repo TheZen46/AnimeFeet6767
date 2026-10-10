@@ -278,7 +278,7 @@ Il docente aggiunge due varianti. Se mancasse il fattore $(s-1)^2$, la funzione 
 
 ```mermaid
 flowchart TD
-    A["F(s) data"] --> B["Separare i termini con $$e^{(−sTᵢ)} $$<br/>F = F₀ + F₁e^(−sT₁) + …"]
+    A["F(s) data"] --> B["Separare i termini con $$e^{(−sTᵢ)} \mskip{25mu}$$ <br/>F = F₀ + F₁e^(−sT₁) + …"]
     B --> C["Per ogni Fᵢ = N/D:<br/>semplificare le radici comuni"]
     C --> E{"deg N ≥ deg D?"}
     E -- "sì" --> F["Divisione tra polinomi:<br/>Q(s) + R(s)/D(s)<br/>Q(s) → impulsi δₖ"]
@@ -306,7 +306,7 @@ Nel materiale del corso ci sono esercizi adatti a quanto visto finora.
 - **Dispensa italiana**, cap. 1, pp. 16–21: Esempi PM 4–8 (espansioni con poli multipli, poli immaginari e divisione). Nell'Esempio PM 6, $F(s) = \frac{1}{(s+1)(s^2+1)}$, il primo polo è indicato per refuso come $s=1$: è $s=-1$. Il risultato riportato, $\frac{1}{2}e^{-t} + \frac{1}{2}\sin t - \frac{1}{2}\cos t$, è corretto.
 - **Raccolta di esercizi svolti** di D. Giglio (`esercizi.pdf`):
     - Esercizio 1.1 (p. 7): tre antitrasformate in cui numeratore e denominatore hanno lo stesso grado, quindi si parte dalla divisione. La terza richiede anche un'espansione con poli complessi.
-    - Esercizi 3.1, 3.3 e 3.4, primo punto: trasformate di segnali a tratti e di funzioni come $t,e^{t},1(t-1)$. Quest'ultima va riscritta tutta in funzione di $t-1$, come visto nella [[Lezione 03 - Trasformate notevoli, poli e andamento nel tempo#4.3 La funzione a tratti della lezione 2|lezione 3]].
+    - Esercizi 3.1, 3.3 e 3.4, primo punto: trasformate di segnali a tratti e di funzioni come $t,e^{t},1(t-1)$. Quest'ultima va riscritta tutta in funzione di $t-1$, come visto nella [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 3 - CLAUDE|lezione 3]].
 
 ## Domande di autoverifica
 

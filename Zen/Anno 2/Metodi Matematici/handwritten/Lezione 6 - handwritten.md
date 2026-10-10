@@ -17,3 +17,17 @@ $\partial _x f(x, \underline{g(x)}) \ + \ \partial _y f(x,\underline{g(x)})\unde
 $\partial _y f(x, g(x))g'(x) = -\partial _x f(x, g(x))$
 
 $\begin{cases} g'(x) = -\frac{\partial _x f(x, g(x))}{\partial _y f(x,g(x))} \mskip{60mu} Ipotesi \ \exists \text{ ! soluzione Teo. Cauchy} \\ g(x_0) = y_0 \mskip{140mu} \exists \ \text{I} \subset \mathbb R \ x_0 \in \text{I}^{tc} \end{cases}$
+
+
+
+- Lezione 5 del 5 ottobre 2026
+    
+    - Punti stazioni per funzioni di più variabili
+    - Massimi e minimi di funzioni di più variabili e matrice Hessiana
+    - Derivazione sotto il segno di integrale
+    
+- Lezione 6 del 9 ottobre 2026
+    
+    - Teorema della funzione implicita
+    - Stima locale per funzioni di più variabili a valori vettoriali derivabili con continuità
+    - Trasformazioni invertibili e matrici Jacobiane
