@@ -94,7 +94,8 @@ Tornando alla domanda iniziale, che cosa si poteva dire dell'andamento della fun
 
 Il docente propone anche una variante. Se il fattore fosse stato $(s^2+4)^2$, le frazioni sarebbero state sei e non quattro: alle due precedenti si aggiungerebbero quelle con $(s^2+4)^2$ al denominatore, cioè i termini $t\sin 2t$ e $t\cos 2t$. I poli $\pm2j$ avrebbero molteplicità $2$, poli a parte reale nulla con molteplicità maggiore di $1$, e la funzione **non** sarebbe stata limitata.
 
-> [!warning] Nota personale «Antitrasformata di Laplace - Esercizi» L'impostazione e il sistema riportati nella nota sono corretti. Tre precisazioni:
+> [!warning] Nota personale «Antitrasformata di Laplace - Esercizi» 
+> L'impostazione e il sistema riportati nella nota sono corretti. Tre precisazioni:
 > 
 > - la conclusione «funzione limitata» è giustificata con «nessun polo con parte reale positiva». Questo non basta: serve anche che i poli sull'asse immaginario siano **semplici**, come è qui. Con $(s^2+4)^2$ la conclusione sarebbe falsa;
 > - la limitatezza riguarda la parte senza impulsi: l'antitrasformata contiene anche $\delta(t)$;
