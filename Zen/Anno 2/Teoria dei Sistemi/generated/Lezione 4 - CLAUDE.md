@@ -17,8 +17,7 @@ Dopo un riepilogo del legame tra poli e andamento nel tempo, la lezione affronta
 
 L'ultima riga della tabella delle trasformate è, per il docente, «multiuso»:
 
-$$$$
-$$\frac{t^k}{k!} e^{at} \left\{ \begin{matrix} \sin(\omega t) \\ \cos(\omega t) \end{matrix} \right. \quad \longleftrightarrow \quad \frac{\cdots}{\big[(s-a)^2+\omega^2\big]^{k+1}}$$
+$$\frac{t^k}{k!},e^{at}\left\{\begin{matrix}\sin\omega t\ \cos\omega t\end{matrix}\right. ;\longleftrightarrow; \frac{\cdots}{\big[(s-a)^2+\omega^2\big]^{k+1}} .$$
 
 Il denominatore è lo stesso sia per il seno sia per il coseno, e si ricava indifferentemente da una strada o dall'altra. La differenza sta nel numeratore. Il docente dichiara di non ricordarlo e, se gli serve, lo ricava applicando $-\frac{d}{ds}$ tante volte quante sono necessarie (vedi [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 3 - CLAUDE|Lezione 3 - CLAUDE]]).
 
@@ -152,7 +151,7 @@ Il quoziente $Q(s) = c_m s^m + \dots + c_1 s + c_0$ è un polinomio, la cui anti
 > 
 > $$f(t) = \delta_1(t) - \delta(t) + e^{-t}.$$
 
-> [!example] Divisione con un polo doppio (dispensa italiana, Esempio PM 8, p. 21) $$\frac{s^3}{(s+2)^2} = s - 4 + \frac{12s+16}{(s+2)^2} = s - 4 + \frac{12}{s+2} - \frac{8}{(s+2)^2},$$ da cui $$\mathcal{L}^{-1}\left\{\frac{s^3}{(s+2)^2}\right} = \delta_1(t) - 4,\delta(t) + 12,e^{-2t},1(t) - 8,t,e^{-2t},1(t).$$ L'espansione del resto si ottiene con $\frac{12s+16}{(s+2)^2} = \frac{A}{s+2} + \frac{B}{(s+2)^2}$, cioè $A(s+2) + B = 12s + 16$: $A = 12$, $B = 16 - 24 = -8$.
+> [!example] Divisione con un polo doppio (dispensa italiana, Esempio PM 8, p. 21) $$\frac{s^3}{(s+2)^2} = s - 4 + \frac{12s+16}{(s+2)^2} = s - 4 + \frac{12}{s+2} - \frac{8}{(s+2)^2},$$ da cui $$\mathcal{L}^{-1}\left\{\frac{s^3}{(s+2)^2}\right\} = \delta_1(t) - 4,\delta(t) + 12,e^{-2t},1(t) - 8,t,e^{-2t},1(t).$$ L'espansione del resto si ottiene con $\frac{12s+16}{(s+2)^2} = \frac{A}{s+2} + \frac{B}{(s+2)^2}$, cioè $A(s+2) + B = 12s + 16$: $A = 12$, $B = 16 - 24 = -8$.
 
 ### 5.3 Esercizio proposto in aula
 
@@ -249,7 +248,7 @@ $$f(t) = \sum_{\text{poli reali}}\ \sum_{k=1}^{\mu} c_k,\frac{t^{k-1}}{(k-1)!},e
 > 
 > **Completamento dei conti** (non svolto a lezione, verificato anche con il calcolo simbolico): $$A = -\frac{2}{25}, \qquad B = \frac{1}{5}, \qquad C = -\frac{3}{50}, \qquad D = \frac{2}{25}.$$ L'antitrasformata si legge in tabella. $\frac{1}{(s-1)^2}$ ha $k=1$: non c'è solo $e^t$ ma anche $t,e^t$. Le ultime due frazioni danno $\sin 2t$ e $\cos 2t$: $$f(t) = -\frac{2}{25},e^{t} + \frac{1}{5},t,e^{t} - \frac{3}{50}\sin 2t + \frac{2}{25}\cos 2t .$$ Prima ancora dei numeri, la struttura si poteva prevedere guardando i poli. Il polo $s=1$ ha parte reale positiva, quindi la funzione non è limitata.
 
-> [!tip] Una scorciatoia che si vedrà più avanti La dispensa in inglese (§2.2.2, formula 2.23) presenta anche un metodo per calcolare direttamente i coefficienti relativi ai poli reali, tramite limiti e derivate, senza risolvere l'intero sistema. Il docente ha annunciato che l'antitrasformata occuperà ancora un paio di lezioni. Il metodo verrà inserito negli appunti quando sarà presentato a lezione.
+> [!tip] Una scorciatoia vista nelle lezioni successive La dispensa in inglese (§2.2.2, formula 2.23) presenta anche un metodo per calcolare direttamente i coefficienti relativi ai poli reali, tramite limiti e derivate, senza risolvere l'intero sistema. È il **metodo dei residui**, presentato nella [[Lezione 05 - Fratti semplici, interpretazione e metodo dei residui#4. Il metodo dei residui|lezione 5]]. Nella [[Lezione 06 - Residui e poli immaginari semplici|lezione 6]] lo si usa anche per estrarre direttamente la parte oscillante dovuta a una coppia di poli immaginari semplici.
 
 ## 7. La cosa davvero importante: leggere l'antitrasformata senza calcolarla
 
@@ -279,7 +278,7 @@ Il docente aggiunge due varianti. Se mancasse il fattore $(s-1)^2$, la funzione 
 
 ```mermaid
 flowchart TD
-    A["F(s) data"] --> B["Separare i termini con e^(−sTᵢ)<br/>F = F₀ + F₁e^(−sT₁) + …"]
+    A["F(s) data"] --> B["Separare i termini con $$e^{(−sTᵢ)} $$<br/>F = F₀ + F₁e^(−sT₁) + …"]
     B --> C["Per ogni Fᵢ = N/D:<br/>semplificare le radici comuni"]
     C --> E{"deg N ≥ deg D?"}
     E -- "sì" --> F["Divisione tra polinomi:<br/>Q(s) + R(s)/D(s)<br/>Q(s) → impulsi δₖ"]

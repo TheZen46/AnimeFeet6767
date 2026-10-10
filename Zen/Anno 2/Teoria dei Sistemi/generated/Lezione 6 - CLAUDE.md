@@ -18,7 +18,7 @@ La lezione completa i metodi per l'antitrasformata con due strumenti.
 
 ## 1. Riepilogo e uso combinato con l'identificazione
 
-L'ultima cosa vista nella [[Lezione 5 - CLAUDE|lezione 5]] è il **metodo del calcolo dei residui**. La formula è generale, ma è davvero conveniente solo in alcuni casi particolari: soprattutto per i poli reali semplici, per i quali il coefficiente si ottiene con un limite, senza derivate, ed è già il coefficiente reale dell'esponenziale.
+L'ultima cosa vista nella [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 5 - CLAUDE|lezione 5]] è il **metodo del calcolo dei residui**. La formula è generale, ma è davvero conveniente solo in alcuni casi particolari: soprattutto per i poli reali semplici, per i quali il coefficiente si ottiene con un limite, senza derivate, ed è già il coefficiente reale dell'esponenziale.
 
 La lezione si apre con un esempio che mostra come combinare i due metodi.
 
