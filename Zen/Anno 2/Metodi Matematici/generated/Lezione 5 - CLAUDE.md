@@ -4,7 +4,7 @@
 ---
 # Lezione 5 — Massimi e minimi, matrice hessiana, derivazione sotto il segno di integrale
 
-Il titolo della lezione è "massimi e minimi". Si vuole capire come trovare i punti in cui una funzione di più variabili ha un massimo o un minimo locale e come riconoscerli. La strategia ricalca quella di Analisi 1: prima si individuano i candidati, i punti in cui il gradiente si annulla, poi se ne studia il carattere con le derivate seconde, raccolte nella **matrice hessiana**. Gli strumenti sono la formula di Taylor della [[MM L04 - Teorema di Schwarz e formula di Taylor|lezione 4]] e alcuni fatti di algebra lineare sulle matrici simmetriche. Nella seconda parte due esempi mostrano i limiti del criterio, e un esercizio completo ne mostra l'uso. Nell'ultimo quarto d'ora si dimostra quando si può derivare sotto il segno di integrale, risultato che richiede la nozione di **continuità uniforme**.
+Il titolo della lezione è "massimi e minimi". Si vuole capire come trovare i punti in cui una funzione di più variabili ha un massimo o un minimo locale e come riconoscerli. La strategia ricalca quella di Analisi 1: prima si individuano i candidati, i punti in cui il gradiente si annulla, poi se ne studia il carattere con le derivate seconde, raccolte nella **matrice hessiana**. Gli strumenti sono la formula di Taylor della [[Zen/Anno 2/Metodi Matematici/generated/Lezione 4 - CLAUDE|Lezione 4 - CLAUDE]] e alcuni fatti di algebra lineare sulle matrici simmetriche. Nella seconda parte due esempi mostrano i limiti del criterio, e un esercizio completo ne mostra l'uso. Nell'ultimo quarto d'ora si dimostra quando si può derivare sotto il segno di integrale, risultato che richiede la nozione di **continuità uniforme**.
 
 > [!note] Fonti di questa lezione Da questa lezione è disponibile anche la versione ufficiale delle note del docente (_Note del corso Metodi Matematici per l'Ingegneria_, a.a. 2026-2027, versione del 2 ottobre 2026), citate come [@pinamonti2026]. Essendo materiale del docente, sono la fonte di riferimento per enunciati e definizioni. Le figure di questa nota non provengono dalle note (che non ne contengono) ma sono state costruite per rappresentare ciò che il docente descrive e disegna alla lavagna.
 
@@ -183,11 +183,7 @@ Per conoscere il carattere dell'hessiana in dimensione qualunque non basta guard
 > **Controllo con il determinante.** $\det H_{P_1} = -9 < 0$ (sella); $\det H_{P_2} = 18 - 9 = 9 > 0$ con $H_{11} = 6 > 0$ (minimo), in accordo con il calcolo degli autovalori.
 
 
-
-
-# ATTENZIONE, MANCA UNA IMMAGINE CHE DEVO SISTEMARE CHE ADESSO SI TROVA IN [[Lezione 5 - CLAUDE 1]]
-
-
+[[Lezione5svg.svg]]
 
 Disegnare il grafico di questa funzione non è facile, ammette il docente; le curve di livello (figura costruita qui a scopo illustrativo) rendono però visibile il risultato. Attorno a $P_2$ le curve sono chiuse e concentriche, come attorno al fondo di una conca; attraverso $P_1$ passa la curva di livello $f = 0$, che lì si incrocia con sé stessa formando una "X", il segno tipico di un punto di sella (vicino all'origine $f \approx y(\tfrac{3}{2}y - 3x)$, che si annulla sulle due rette $y = 0$ e $y = 2x$).
 
