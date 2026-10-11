@@ -10,7 +10,7 @@ La lezione completa il discorso sul flusso con un esempio in cui il campo non è
 
 ## Riepilogo: il flusso del campo elettrico
 
-La registrazione comincia mentre il docente riprende la definizione di flusso vista nella [[Fisica 2 - Lezione 04 - Dipolo in campo elettrico e flusso|lezione 4]]. A ogni elemento infinitesimo di superficie si associa il vettore $d\vec A = dA,\hat n$, che ha per modulo l'area dell'elemento e per direzione la normale alla superficie. Il flusso infinitesimo è il prodotto scalare $d\Phi_E = \vec E\cdot d\vec A$, e il flusso attraverso tutta la superficie chiusa si ottiene sommando i contributi di tutti gli elementi:
+La registrazione comincia mentre il docente riprende la definizione di flusso vista nella [[Zen/Anno 2/Fisica 2/generated/Lezione 4 - CLAUDE|lezione 4]]. A ogni elemento infinitesimo di superficie si associa il vettore $d\vec A = dA,\hat n$, che ha per modulo l'area dell'elemento e per direzione la normale alla superficie. Il flusso infinitesimo è il prodotto scalare $d\Phi_E = \vec E\cdot d\vec A$, e il flusso attraverso tutta la superficie chiusa si ottiene sommando i contributi di tutti gli elementi:
 
 $$ \Phi_E = \oint \vec E\cdot d\vec A . $$
 
@@ -110,7 +110,8 @@ La struttura è la stessa della relazione per gli archi: là una lunghezza è il
 
 ![[F2-L05-angolo-solido.svg]]
 
-> [!tip] Approfondimento — L'angolo solido in coordinate sferiche #approfondimento L'unità di misura dell'angolo solido è lo **steradiante** ($\mathrm{sr}$). L'angolo solido sotteso da una superficie è l'area che essa ritaglia sulla sfera di raggio unitario centrata nel vertice, e l'intera sfera corrisponde a $4\pi\ \mathrm{sr}$. In coordinate sferiche, con $\theta$ angolo dall'asse $z$ e $\varphi$ angolo nel piano $xy$, l'elemento di angolo solido è $d\Omega = \sin\theta,d\theta,d\varphi$. L'immagine del "prodotto di due angoli" è corretta per un elemento infinitesimo delimitato da due direzioni perpendicolari. Il fattore $\sin\theta$ tiene conto del fatto che i paralleli si accorciano avvicinandosi ai poli. Integrando, $\int_0^{2\pi}!\int_0^{\pi}\sin\theta,d\theta,d\varphi = 4\pi$.
+> [!tip] Approfondimento — L'angolo solido in coordinate sferiche #approfondimento 
+> L'unità di misura dell'angolo solido è lo **steradiante** ($\mathrm{sr}$). L'angolo solido sotteso da una superficie è l'area che essa ritaglia sulla sfera di raggio unitario centrata nel vertice, e l'intera sfera corrisponde a $4\pi\ \mathrm{sr}$. In coordinate sferiche, con $\theta$ angolo dall'asse $z$ e $\varphi$ angolo nel piano $xy$, l'elemento di angolo solido è $d\Omega = \sin\theta,d\theta,d\varphi$. L'immagine del "prodotto di due angoli" è corretta per un elemento infinitesimo delimitato da due direzioni perpendicolari. Il fattore $\sin\theta$ tiene conto del fatto che i paralleli si accorciano avvicinandosi ai poli. Integrando, $\int_0^{2\pi}!\int_0^{\pi}\sin\theta,d\theta,d\varphi = 4\pi$.
 
 ### Il flusso non dipende dal raggio
 
@@ -118,7 +119,7 @@ La relazione $dA = R^2 d\Omega$ vale per qualsiasi sfera. Si prende allora un un
 
 Su entrambe le sfere il versore normale all'elemento di superficie è **radiale**. Anche il campo di una carica puntiforme è radiale, come la forza di Coulomb da cui deriva. I due vettori sono quindi paralleli, e il prodotto scalare si riduce al prodotto dei moduli. Sostituendo il campo di Coulomb a distanza $R_1$ e a distanza $R_2$:
 
-$$ \begin{aligned} d\Phi_1 &= \vec E\cdot d\vec A_1 = E,dA_1 = \frac{kq}{R_1^2},R_1^2,d\Omega = kq,d\Omega,\[4pt] d\Phi_2 &= \vec E\cdot d\vec A_2 = E,dA_2 = \frac{kq}{R_2^2},R_2^2,d\Omega = kq,d\Omega . \end{aligned} $$
+$$ \begin{aligned} d\Phi_1 &= \vec E\cdot d\vec A_1 = E,dA_1 = \frac{kq}{R_1^2},R_1^2,d\Omega = kq,d\Omega,\mskip{25mu} d\Phi_2 &= \vec E\cdot d\vec A_2 = E,dA_2 = \frac{kq}{R_2^2},R_2^2,d\Omega = kq,d\Omega . \end{aligned} $$
 
 Quindi $d\Phi_1 = d\Phi_2 = kq,d\Omega$. Il flusso attraverso l'elemento **non dipende dal raggio** della sfera: dipende solo dall'angolo solido spazzato e dalla carica $q$. Il "trucchetto", come lo chiama il docente, è che il campo scala come $1/R^2$, mentre l'area dell'elemento scala come $R^2$, e le due dipendenze si cancellano.
 
