@@ -5,7 +5,7 @@
 ---
 # Lezione 4 — Tecniche deduttive e automi a stati finiti
 
-La lezione di teoria riprende dove si era fermata la [[Zen/Anno 2/Algoritmi e Computazione/generated/Lezione 2 - CLAUDE|Lezione 2 - CLAUDE]] e si articola in tre parti. Si apre con la correzione di un errore nelle slide sulle leggi algebriche dei linguaggi. Segue la terza sezione delle slide _Argomenti preliminari_ (slide 15–32), dedicata alle **tecniche deduttive**, che nella lezione 2 era stata saltata. Infine inizia il primo blocco vero e proprio di informatica teorica, i **linguaggi regolari** (slide 1–18 del pacchetto _Linguaggi regolari_): automi a stati finiti deterministici e non deterministici.
+La lezione di teoria riprende dove si era fermata la [[Lezione 02 - Architettura di un interprete e linguaggi formali|lezione 2]] e si articola in tre parti. Si apre con la correzione di un errore nelle slide sulle leggi algebriche dei linguaggi. Segue la terza sezione delle slide _Argomenti preliminari_ (slide 15–32), dedicata alle **tecniche deduttive**, che nella lezione 2 era stata saltata. Infine inizia il primo blocco vero e proprio di informatica teorica, i **linguaggi regolari** (slide 1–18 del pacchetto _Linguaggi regolari_): automi a stati finiti deterministici e non deterministici.
 
 ## Una correzione alle slide: l'elemento assorbente
 
@@ -31,8 +31,7 @@ Un **enunciato** è un'affermazione che può essere vera o falsa. Anche un enunc
 
 Altri enunciati sono più difficili, come «la somma dei primi $k$ numeri naturali dispari è uguale a $k^2$». Si possono provare alcuni casi e constatare che sembrano funzionare. Se l'enunciato è falso, basta trovare un caso in cui non vale; se è vero, va dimostrato.
 
-> [!warning] Fare esempi non è dimostrare 
-> Il docente riporta un errore frequente negli scritti: alla richiesta di dimostrare un enunciato universale, si risponde che «funziona per 1, funziona per 2, funziona per 3, quindi si vede che funziona per tutti». **Questa non è una dimostrazione.** Un numero finito di verifiche non copre gli infiniti casi di un enunciato universale.
+> [!warning] Fare esempi non è dimostrare Il docente riporta un errore frequente negli scritti: alla richiesta di dimostrare un enunciato universale, si risponde che «funziona per 1, funziona per 2, funziona per 3, quindi si vede che funziona per tutti». **Questa non è una dimostrazione.** Un numero finito di verifiche non copre gli infiniti casi di un enunciato universale.
 
 In una dimostrazione si parte da **ipotesi**, cioè enunciati assunti come veri, e si arriva alle conclusioni applicando **regole deduttive**, che permettono di derivare un enunciato da altri enunciati. Il docente osserva che sono regole che chiunque abbia «cablate in testa», in quanto capace di ragionare. Due esempi:
 
@@ -41,8 +40,7 @@ In una dimostrazione si parte da **ipotesi**, cioè enunciati assunti come veri,
 
 ### Dimostrazioni deduttive
 
-> [!important] Definizione: dimostrazione 
-> Una **dimostrazione** è una sequenza di enunciati in cui ciascun enunciato è un'ipotesi oppure il risultato dell'applicazione di una regola deduttiva a uno o più enunciati precedenti. L'enunciato $A$ **deriva** dall'enunciato $B$ se $A = B$ oppure se $A$ è dimostrato a partire da $B$.
+> [!important] Definizione: dimostrazione Una **dimostrazione** è una sequenza di enunciati in cui ciascun enunciato è un'ipotesi oppure il risultato dell'applicazione di una regola deduttiva a uno o più enunciati precedenti. L'enunciato $A$ **deriva** dall'enunciato $B$ se $A = B$ oppure se $A$ è dimostrato a partire da $B$.
 
 Alcuni autori rappresentano le dimostrazioni come alberi anziché come sequenze; il corso usa la forma più semplice. Un teorema nella forma «se $H$ allora $C$» si dimostra assumendo l'ipotesi $H$ e derivandone $C$. Un teorema nella forma «$A$ se e solo se $B$» esprime un'equivalenza logica e richiede due dimostrazioni, una per ciascuna «freccia»: «se $A$ allora $B$» e «se $B$ allora $A$».
 
@@ -69,8 +67,7 @@ Il docente commenta le regole con esempi.
 
 I passi logici delle dimostrazioni che si incontreranno nelle dispense saranno quasi sempre riconducibili a queste regole: sono il criterio con cui un ragionamento si può ritenere corretto.
 
-> [!tip] Approfondimento — Le origini della deduzione naturale #approfondimento 
-> Il nome «deduzione naturale» risale a Gerhard Gentzen, che nel 1935 presentò un sistema formale in cui ogni connettivo è governato proprio da una regola di introduzione e da una di eliminazione [@gentzen1935]. L'obiettivo dichiarato era formalizzare il modo in cui i matematici ragionano effettivamente, da cui l'aggettivo «naturale». La regola sulla doppia negazione è caratteristica della logica **classica**. Nella logica intuizionista, che non la ammette in generale, da «non non $B$» non si può concludere $B$.
+> [!tip] Approfondimento — Le origini della deduzione naturale #approfondimento Il nome «deduzione naturale» risale a Gerhard Gentzen, che nel 1935 presentò un sistema formale in cui ogni connettivo è governato proprio da una regola di introduzione e da una di eliminazione [@gentzen1935]. L'obiettivo dichiarato era formalizzare il modo in cui i matematici ragionano effettivamente, da cui l'aggettivo «naturale». La regola sulla doppia negazione è caratteristica della logica **classica**. Nella logica intuizionista, che non la ammette in generale, da «non non $B$» non si può concludere $B$.
 
 ### Quantificatori
 
@@ -285,7 +282,7 @@ graph LR
     style S fill:none,stroke:none
 ```
 
-Si «dà da mangiare» all'automa una sequenza di caratteri ASCII. Se, dopo averli consumati tutti, l'automa si trova nello stato finale, la parola chiave è stata riconosciuta. In altre parole, l'automa ha risolto il word problem per il linguaggio formato dall'unica stringa `then`. Questo collega gli automi all'analisi lessicale. Il docente si affida per ora all'intuizione: a rigore questo automa non rispetta la definizione che segue, perché non specifica le transizioni per tutti i simboli, e il problema verrà ripreso più avanti (slide 19–20).
+Si «dà da mangiare» all'automa una sequenza di caratteri ASCII. Se, dopo averli consumati tutti, l'automa si trova nello stato finale, la parola chiave è stata riconosciuta. In altre parole, l'automa ha risolto il word problem per il linguaggio formato dall'unica stringa `then`. Questo collega gli automi all'analisi lessicale. Il docente si affida per ora all'intuizione: a rigore questo automa non rispetta la definizione che segue, perché non specifica le transizioni per tutti i simboli, e il problema è ripreso nella [[Lezione 06 - Equivalenza tra automi ed espressioni regolari#DFA con transizioni omesse e stati bloccanti|lezione 6]] (slide 19–20).
 
 ### Automi a stati finiti deterministici
 
@@ -416,8 +413,7 @@ graph LR
 
 La lettura del docente è la seguente. In $q_0$ gli uni non interessano, e l'automa vi resta. Appena arriva uno 0 passa in $q_2$, lo stato che ricorda di aver appena letto uno 0, e vi resta finché continuano ad arrivare zeri. Appena arriva un 1, la sottostringa $01$ è stata letta e l'automa passa in $q_1$. Lì resta qualunque cosa segua, perché ciò che viene dopo non conta più. Gli stati hanno quindi questo significato: $q_0$ indica che $01$ non è ancora comparso e l'ultimo simbolo non è 0; $q_2$ che $01$ non è ancora comparso e l'ultimo simbolo è 0; $q_1$ che $01$ è già comparso.
 
-> [!example] Computazione di $\hat{\delta}(q_0, 001)$ svolta alla lavagna 
-> La stringa $001$ appartiene a $L$ con $x = 0$ e $y = \epsilon$. Applicando ripetutamente il passo della definizione di $\hat{\delta}$, la computazione si «srotola» fino al caso base: $$ \begin{aligned} \hat{\delta}(q_0, 001) &= \delta\big(\hat{\delta}(q_0, 00), 1\big) \ &= \delta\Big(\delta\big(\hat{\delta}(q_0, 0), 0\big), 1\Big) \ &= \delta\Big(\delta\big(\delta(\hat{\delta}(q_0, \epsilon), 0), 0\big), 1\Big) . \end{aligned} $$ Ora compaiono solo applicazioni di $\delta$, che si valutano dall'interno verso l'esterno: $\hat{\delta}(q_0, \epsilon) = q_0$ per il caso base, poi $\delta(q_0, 0) = q_2$, $\delta(q_2, 0) = q_2$, $\delta(q_2, 1) = q_1$. Quindi $\hat{\delta}(q_0, 001) = q_1 \in F$, e la stringa è accettata.
+> [!example] Computazione di $\hat{\delta}(q_0, 001)$ svolta alla lavagna La stringa $001$ appartiene a $L$ con $x = 0$ e $y = \epsilon$. Applicando ripetutamente il passo della definizione di $\hat{\delta}$, la computazione si «srotola» fino al caso base: $$ \begin{aligned} \hat{\delta}(q_0, 001) &= \delta\big(\hat{\delta}(q_0, 00), 1\big) \ &= \delta\Big(\delta\big(\hat{\delta}(q_0, 0), 0\big), 1\Big) \ &= \delta\Big(\delta\big(\delta(\hat{\delta}(q_0, \epsilon), 0), 0\big), 1\Big) . \end{aligned} $$ Ora compaiono solo applicazioni di $\delta$, che si valutano dall'interno verso l'esterno: $\hat{\delta}(q_0, \epsilon) = q_0$ per il caso base, poi $\delta(q_0, 0) = q_2$, $\delta(q_2, 0) = q_2$, $\delta(q_2, 1) = q_1$. Quindi $\hat{\delta}(q_0, 001) = q_1 \in F$, e la stringa è accettata.
 
 > [!warning] Discrepanza negli appunti manuali Nel disegno Excalidraw della lezione, l'ultima riga del calcolo contiene $\delta(q_0, \epsilon)$. Va scritto $\hat{\delta}(q_0, \epsilon)$: la funzione $\delta$ è definita solo su singoli simboli, mentre la stringa vuota è il caso base di $\hat{\delta}$. Nel disegno manca inoltre il passaggio intermedio $\hat{\delta}(q_0, 0) = \delta(\hat{\delta}(q_0, \epsilon), 0)$, riportato sopra.
 
@@ -425,7 +421,7 @@ Una computazione si può quindi vedere in due modi. Il primo è come un **percor
 
 ### Esercizi proposti
 
-Il docente propone di specificare i DFA per i seguenti linguaggi sull'alfabeto ${0, 1}$. Le soluzioni verranno svolte insieme nella prossima lezione. Il consiglio è di affrontarli come macchine a stati, cioè disegnando cerchi e frecce: il «pallogramma», come lo chiamava un vecchio docente del professore.
+Il docente propone di specificare i DFA per i seguenti linguaggi sull'alfabeto ${0, 1}$. Il docente ha annunciato che le soluzioni sarebbero state svolte insieme in aula; fino alla lezione 6 compresa non sono ancora state riprese. Il consiglio è di affrontarli come macchine a stati, cioè disegnando cerchi e frecce: il «pallogramma», come lo chiamava un vecchio docente del professore.
 
 1. L'insieme di tutte le stringhe che finiscono con $00$.
 2. L'insieme di tutte le stringhe con tre zeri consecutivi.
@@ -434,8 +430,7 @@ Il docente propone di specificare i DFA per i seguenti linguaggi sull'alfabeto $
 
 I primi due sono abbastanza facili, gli altri un po' più complicati. Le soluzioni proposte qui sotto sono ripiegate, per poter provare prima da soli. Sono state verificate confrontando il comportamento di ciascun automa con la definizione del linguaggio su tutte le stringhe di lunghezza fino a 12. Quelle presentate a lezione potrebbero differire nella forma, per esempio nei nomi degli stati, pur essendo equivalenti.
 
-> [!example]- Soluzione dell'esercizio 1 (finiscono con 00) 
-> Gli stati ricordano quanti zeri consecutivi chiudono la stringa letta finora, fino a un massimo di due: $s_0$ nessuno (o stringa vuota), $s_1$ esattamente uno, $s_2$ almeno due. Un 1 riporta sempre in $s_0$.
+> [!example]- Soluzione dell'esercizio 1 (finiscono con 00) Gli stati ricordano quanti zeri consecutivi chiudono la stringa letta finora, fino a un massimo di due: $s_0$ nessuno (o stringa vuota), $s_1$ esattamente uno, $s_2$ almeno due. Un 1 riporta sempre in $s_0$.
 > 
 > |$\delta$|0|1|
 > |---|---|---|
@@ -455,8 +450,7 @@ I primi due sono abbastanza facili, gli altri un po' più complicati. Le soluzio
 >     style S fill:none,stroke:none
 > ```
 
-> [!example]- Soluzione dell'esercizio 2 (tre zeri consecutivi)
->  Gli stati contano gli zeri consecutivi appena letti, finché non diventano tre: da quel momento l'automa resta nello stato finale $a_3$, qualunque cosa segua.
+> [!example]- Soluzione dell'esercizio 2 (tre zeri consecutivi) Gli stati contano gli zeri consecutivi appena letti, finché non diventano tre: da quel momento l'automa resta nello stato finale $a_3$, qualunque cosa segua.
 > 
 > |$\delta$|0|1|
 > |---|---|---|
@@ -478,8 +472,7 @@ I primi due sono abbastanza facili, gli altri un po' più complicati. Le soluzio
 >     style S fill:none,stroke:none
 > ```
 
-> [!example]- Soluzione dell'esercizio 3 (011 come sottostringa) 
-> Gli stati ricordano il più lungo prefisso di $011$ con cui termina la stringa letta: $b_0$ nessuno, $b_1$ la stringa termina con $0$, $b_2$ termina con $01$, $b_3$ la sottostringa $011$ è già comparsa. Il punto delicato è cosa fare quando la lettura «si interrompe». Da $b_2$ con uno 0 non si torna in $b_0$ ma in $b_1$, perché quello 0 può essere l'inizio di una nuova occorrenza. Per lo stesso motivo da $b_1$ con uno 0 si resta in $b_1$.
+> [!example]- Soluzione dell'esercizio 3 (011 come sottostringa) Gli stati ricordano il più lungo prefisso di $011$ con cui termina la stringa letta: $b_0$ nessuno, $b_1$ la stringa termina con $0$, $b_2$ termina con $01$, $b_3$ la sottostringa $011$ è già comparsa. Il punto delicato è cosa fare quando la lettura «si interrompe». Da $b_2$ con uno 0 non si torna in $b_0$ ma in $b_1$, perché quello 0 può essere l'inizio di una nuova occorrenza. Per lo stesso motivo da $b_1$ con uno 0 si resta in $b_1$.
 > 
 > |$\delta$|0|1|
 > |---|---|---|
@@ -501,8 +494,7 @@ I primi due sono abbastanza facili, gli altri un po' più complicati. Le soluzio
 >     style S fill:none,stroke:none
 > ```
 
-> [!example]- Soluzione dell'esercizio 4 (cominciano o finiscono con 01) 
-> L'automa ha due «rami».
+> [!example]- Soluzione dell'esercizio 4 (cominciano o finiscono con 01) L'automa ha due «rami».
 > 
 > Il primo verifica l'inizio: $c_0$ è lo stato iniziale, $c_1$ indica che si è letto $0$ come primo simbolo, $c_2$ che la stringa comincia con $01$. In $c_2$ la stringa è accettata comunque prosegua, e l'automa vi resta.
 > 
@@ -546,13 +538,11 @@ Anche i calcolatori sono deterministici, salvo guasti hardware. Inserito un coma
 
 In informatica teorica, invece, il **non determinismo**, cioè la possibilità di fare ora una cosa ora un'altra, è un concetto interessante che porterà in luoghi interessanti. Tornerà con gli automi a pila e con le macchine di Turing. Con le macchine di Turing è legato a uno dei più importanti problemi aperti della matematica e dell'informatica, per la cui soluzione è in palio un premio da un milione di dollari.
 
-> [!tip] Approfondimento — Il premio da un milione di dollari #approfondimento 
-> Il problema a cui allude il docente è **P contro NP**. Detto in breve: se verificare che una soluzione è corretta è facile, è facile anche trovarla? È uno dei sette **problemi del millennio** annunciati dal Clay Mathematics Institute il 24 maggio 2000, ciascuno con un premio di un milione di dollari [@clay-millennium]. Il problema risulta tuttora irrisolto. La classe NP verrà definita nel secondo semestre proprio a partire dalle macchine di Turing non deterministiche.
+> [!tip] Approfondimento — Il premio da un milione di dollari #approfondimento Il problema a cui allude il docente è **P contro NP**. Detto in breve: se verificare che una soluzione è corretta è facile, è facile anche trovarla? È uno dei sette **problemi del millennio** annunciati dal Clay Mathematics Institute il 24 maggio 2000, ciascuno con un premio di un milione di dollari [@clay-millennium]. Il problema risulta tuttora irrisolto. La classe NP verrà definita nel secondo semestre proprio a partire dalle macchine di Turing non deterministiche.
 
 ### Automi a stati finiti non deterministici
 
-> [!important] Definizione: automa a stati finiti non deterministico (NFA) 
-> Un automa a stati finiti non deterministico (_Nondeterministic Finite-state Automaton_, NFA) è una quintupla $$A = (Q, \Sigma, \delta, q_0, F)$$ in cui $Q$, $\Sigma$, $q_0$ e $F$ hanno lo stesso significato che nel DFA, mentre $$\delta : Q \times \Sigma \to 2^Q$$ è una funzione di transizione da uno stato e un simbolo a un **insieme di stati**.
+> [!important] Definizione: automa a stati finiti non deterministico (NFA) Un automa a stati finiti non deterministico (_Nondeterministic Finite-state Automaton_, NFA) è una quintupla $$A = (Q, \Sigma, \delta, q_0, F)$$ in cui $Q$, $\Sigma$, $q_0$ e $F$ hanno lo stesso significato che nel DFA, mentre $$\delta : Q \times \Sigma \to 2^Q$$ è una funzione di transizione da uno stato e un simbolo a un **insieme di stati**.
 
 Fin qui tutto è come prima: insieme finito di stati, alfabeto, stato iniziale, stati finali. È la funzione $\delta$ a diventare non deterministica. Il simbolo $2^Q$ indica l'**insieme delle parti** di $Q$, cioè l'insieme di tutti i suoi sottoinsiemi (si veda la nota [[Nozioni di base (compendio)]]). Contiene l'insieme vuoto, che è sottoinsieme di qualunque insieme, $Q$ stesso e tutti i sottoinsiemi intermedi. I sottoinsiemi sono tanti: se $|Q| = n$, allora $|2^Q| = 2^n$. Con due elementi, per esempio, i sottoinsiemi sono quattro: il vuoto, i due singoletti e l'insieme intero.
 
@@ -585,20 +575,17 @@ Le slide rappresentano tutte le «tracce» possibili su $00101$:
 
 A ogni 0 la traccia che resta in $q_0$ genera anche una traccia verso $q_1$. Le tracce che si trovano in $q_1$ quando arriva uno 0, o in $q_2$ quando arriva un simbolo qualsiasi, si bloccano.
 
-> [!important] Accettazione in un NFA (informalmente) 
-> Una stringa è accettata da un NFA se **esiste** almeno una traccia, cioè una sequenza di transizioni, che dopo aver consumato tutta la stringa termina in uno stato finale. Altrimenti è rifiutata.
+> [!important] Accettazione in un NFA (informalmente) Una stringa è accettata da un NFA se **esiste** almeno una traccia, cioè una sequenza di transizioni, che dopo aver consumato tutta la stringa termina in uno stato finale. Altrimenti è rifiutata.
 
 Il docente ammette che la cosa sorprende. Calata su un circuito, significherebbe che il dispositivo una volta fa una cosa e una volta un'altra, e che bisogna aspettare che «indovini» la scelta giusta, cosa che potrebbe non succedere mai. L'NFA è quindi un **dispositivo puramente teorico**. Ha però proprietà interessanti, e uno spoiler: questo non determinismo si rivelerà meno potente di quanto sembri.
 
-> [!tip] Approfondimento — L'origine degli automi non deterministici #approfondimento 
-> Gli automi non deterministici furono introdotti da Michael Rabin e Dana Scott nell'articolo del 1959 _Finite Automata and Their Decision Problems_ [@rabin1959]. Lo stesso lavoro mostra che ogni NFA si può trasformare in un DFA equivalente, il risultato che il corso vedrà tra poco con la **costruzione per sottoinsiemi**. Per quell'articolo, e in particolare per l'idea delle macchine non deterministiche, i due autori ricevettero il premio Turing nel 1976 [@acm-rabin1976].
+> [!tip] Approfondimento — L'origine degli automi non deterministici #approfondimento Gli automi non deterministici furono introdotti da Michael Rabin e Dana Scott nell'articolo del 1959 _Finite Automata and Their Decision Problems_ [@rabin1959]. Lo stesso lavoro mostra che ogni NFA si può trasformare in un DFA equivalente, il risultato che il corso vedrà tra poco con la **costruzione per sottoinsiemi**. Per quell'articolo, e in particolare per l'idea delle macchine non deterministiche, i due autori ricevettero il premio Turing nel 1976 [@acm-rabin1976].
 
 ### La computazione di un NFA, formalmente
 
 Anche per l'NFA la funzione di transizione si estende alle stringhe. Poiché da uno stato e un simbolo si arriva in un **insieme** di stati, da uno stato e una stringa si arriverà, in generale, in un insieme di stati.
 
-> [!important] Definizione: funzione di transizione estesa di un NFA 
-> Dato un NFA $A = (Q, \Sigma, \delta, q_0, F)$, la funzione $\delta : Q \times \Sigma \to 2^Q$ si estende a $\hat{\delta} : Q \times \Sigma^* \to 2^Q$ come segue:
+> [!important] Definizione: funzione di transizione estesa di un NFA Dato un NFA $A = (Q, \Sigma, \delta, q_0, F)$, la funzione $\delta : Q \times \Sigma \to 2^Q$ si estende a $\hat{\delta} : Q \times \Sigma^* \to 2^Q$ come segue:
 > 
 > - **base**: $\hat{\delta}(q, \epsilon) = {q}$;
 > - **passo**: per $a \in \Sigma$ e $w \in \Sigma^*$, se $\hat{\delta}(q, w) = {p_1, p_2, \dots, p_k}$, allora $$\hat{\delta}(q, wa) = \bigcup_{i=1}^{k} \delta(p_i, a) .$$
@@ -607,13 +594,11 @@ Il docente richiama l'attenzione sul caso base: la stringa vuota non porta nello
 
 Il passo si legge così. Consumata la stringa $w$, l'automa si trova in un insieme di stati, cioè in tutti i «mondi possibili». Per consumare il simbolo $a$ si considera **ogni** stato di quell'insieme, si guarda dove porta $a$ a partire da quello stato, e si raccolgono tutti i risultati. Il modo giusto di immaginare la computazione di un NFA non è quindi una scelta casuale di uno stato alla volta. L'automa evolve da un insieme di stati a un altro insieme di stati: si muove su una **frontiera** di stati, come se esplorasse contemporaneamente tutte le possibilità. Questa chiave di lettura è anche quella che mostrerà perché la potenza del non determinismo non è così «tremenda» come sembra.
 
-> [!important] Definizione: accettazione e linguaggio di un NFA Una stringa $w \in \Sigma^*$ è **accettata** dall'NFA $A$ se $\hat{\delta}(q_0, w) \cap F \neq \emptyset$, cioè se almeno uno degli stati raggiungibili da $q_0$ leggendo $w$ è finale.
-> Il **linguaggio accettato** da $A$ è $$L(A) = { w \mid \hat{\delta}(q_0, w) \cap F \neq \emptyset } .$$
+> [!important] Definizione: accettazione e linguaggio di un NFA Una stringa $w \in \Sigma^*$ è **accettata** dall'NFA $A$ se $\hat{\delta}(q_0, w) \cap F \neq \emptyset$, cioè se almeno uno degli stati raggiungibili da $q_0$ leggendo $w$ è finale. Il **linguaggio accettato** da $A$ è $$L(A) = { w \mid \hat{\delta}(q_0, w) \cap F \neq \emptyset } .$$
 
 L'intersezione non vuota con $F$ è la traduzione formale di «esiste almeno un percorso che porta in uno stato finale».
 
-> [!tip] Approfondimento — Esplorare tutti gli stati raggiungibili #approfondimento 
-> Il docente osserva che ragionare per insiemi di stati è fondamentale anche nel suo lavoro di ricerca. Quando non interessa una singola computazione ma tutte quelle possibili, si calcola l'insieme degli stati raggiungibili dallo stato iniziale, poi quelli raggiungibili da questi, e così via. Si verifica quindi se tra essi compare uno stato indesiderato, che segnala un comportamento scorretto del sistema. È l'idea alla base del **model checking**, la tecnica di verifica automatica di sistemi hardware e software. Per averne fatto una tecnologia di verifica molto efficace e ampiamente adottata nell'industria, Edmund Clarke, Allen Emerson e Joseph Sifakis hanno ricevuto il premio Turing 2007 [@acm-turing2007].
+> [!tip] Approfondimento — Esplorare tutti gli stati raggiungibili #approfondimento Il docente osserva che ragionare per insiemi di stati è fondamentale anche nel suo lavoro di ricerca. Quando non interessa una singola computazione ma tutte quelle possibili, si calcola l'insieme degli stati raggiungibili dallo stato iniziale, poi quelli raggiungibili da questi, e così via. Si verifica quindi se tra essi compare uno stato indesiderato, che segnala un comportamento scorretto del sistema. È l'idea alla base del **model checking**, la tecnica di verifica automatica di sistemi hardware e software. Per averne fatto una tecnologia di verifica molto efficace e ampiamente adottata nell'industria, Edmund Clarke, Allen Emerson e Joseph Sifakis hanno ricevuto il premio Turing 2007 [@acm-turing2007].
 
 ### Esempio: stringhe che finiscono con 01
 
@@ -625,14 +610,13 @@ L'NFA dell'esempio precedente è $A = ({q_0, q_1, q_2}, {0, 1}, \delta, q_0, {q_
 |$q_1$|$\emptyset$|${q_2}$|
 |$\star q_2$|$\emptyset$|$\emptyset$|
 
-Nella tabella ogni casella contiene un **insieme**. Anche quando la transizione porta in un solo stato, si scrive il singoletto, per lo stesso motivo di tipo visto sopra. Nel diagramma le transizioni verso l'insieme vuoto sono semplicemente **omesse**: da $q_1$ con lo 0 non esce alcuna freccia, e infatti in tabella c'è $\emptyset$. In un DFA, invece, le transizioni non si possono omettere formalmente, perché $\delta$ deve dire per ogni stato e ogni simbolo dove si va. Le slide successive (19–20) mostreranno in quali casi si accetta di ometterle anche nei DFA.
+Nella tabella ogni casella contiene un **insieme**. Anche quando la transizione porta in un solo stato, si scrive il singoletto, per lo stesso motivo di tipo visto sopra. Nel diagramma le transizioni verso l'insieme vuoto sono semplicemente **omesse**: da $q_1$ con lo 0 non esce alcuna freccia, e infatti in tabella c'è $\emptyset$. In un DFA, invece, le transizioni non si possono omettere formalmente, perché $\delta$ deve dire per ogni stato e ogni simbolo dove si va. Le slide successive (19–20), trattate nella [[Lezione 06 - Equivalenza tra automi ed espressioni regolari#DFA con transizioni omesse e stati bloccanti|lezione 6]], mostrano in quali casi si accetta di ometterle anche nei DFA.
 
-> [!example] Computazione di $\hat{\delta}(q_0, 00101)$ 
-> Applicando la definizione simbolo per simbolo, si ritrovano le colonne della tabella delle tracce: $$ \begin{aligned} \hat{\delta}(q_0, \epsilon) &= {q_0} \ \hat{\delta}(q_0, 0) &= \delta(q_0, 0) = {q_0, q_1} \ \hat{\delta}(q_0, 00) &= \delta(q_0, 0) \cup \delta(q_1, 0) = {q_0, q_1} \cup \emptyset = {q_0, q_1} \ \hat{\delta}(q_0, 001) &= \delta(q_0, 1) \cup \delta(q_1, 1) = {q_0} \cup {q_2} = {q_0, q_2} \ \hat{\delta}(q_0, 0010) &= \delta(q_0, 0) \cup \delta(q_2, 0) = {q_0, q_1} \cup \emptyset = {q_0, q_1} \ \hat{\delta}(q_0, 00101) &= \delta(q_0, 1) \cup \delta(q_1, 1) = {q_0} \cup {q_2} = {q_0, q_2} \end{aligned} $$ Poiché ${q_0, q_2} \cap {q_2} = {q_2} \neq \emptyset$, la stringa $00101$ è accettata.
+> [!example] Computazione di $\hat{\delta}(q_0, 00101)$ Applicando la definizione simbolo per simbolo, si ritrovano le colonne della tabella delle tracce: $$ \begin{aligned} \hat{\delta}(q_0, \epsilon) &= {q_0} \ \hat{\delta}(q_0, 0) &= \delta(q_0, 0) = {q_0, q_1} \ \hat{\delta}(q_0, 00) &= \delta(q_0, 0) \cup \delta(q_1, 0) = {q_0, q_1} \cup \emptyset = {q_0, q_1} \ \hat{\delta}(q_0, 001) &= \delta(q_0, 1) \cup \delta(q_1, 1) = {q_0} \cup {q_2} = {q_0, q_2} \ \hat{\delta}(q_0, 0010) &= \delta(q_0, 0) \cup \delta(q_2, 0) = {q_0, q_1} \cup \emptyset = {q_0, q_1} \ \hat{\delta}(q_0, 00101) &= \delta(q_0, 1) \cup \delta(q_1, 1) = {q_0} \cup {q_2} = {q_0, q_2} \end{aligned} $$ Poiché ${q_0, q_2} \cap {q_2} = {q_2} \neq \emptyset$, la stringa $00101$ è accettata.
 
 ### La dimostrazione di correttezza dell'NFA
 
-> [!warning] Dimostrazione solo mostrata in aula Il docente ha solo mostrato questa dimostrazione (slide 17–18), rimandandone lo svolgimento alla lezione della settimana successiva. La versione qui sotto completa lo schema delle slide e andrà confrontata con quella presentata in aula. La dimostrazione è anche sul libro da cui sono tratte le slide.
+> [!warning] Dimostrazione presentata in aula solo come traccia In questa lezione il docente ha solo mostrato la dimostrazione (slide 17–18). Nella [[Lezione 06 - Equivalenza tra automi ed espressioni regolari#La dimostrazione di correttezza, ripresa|lezione 6]] l'ha ripresa come traccia: caso base e struttura del passo induttivo, lasciando i dettagli agli studenti come esercizio («fill in the blanks»). La versione qui sotto completa quei dettagli seguendo lo schema delle slide. La dimostrazione è anche sul libro da cui sono tratte le slide.
 
 Si vuole dimostrare che l'NFA precedente accetta esattamente il linguaggio ${x01 : x \in \Sigma^*}$ delle stringhe che finiscono con $01$. La prova è per induzione sulla lunghezza di $w$, e dimostra contemporaneamente tre enunciati, uno per ogni stato:
 
@@ -642,7 +626,7 @@ Si vuole dimostrare che l'NFA precedente accetta esattamente il linguaggio ${x01
 
 L'enunciato 3 è quello che interessa: dice che $\hat{\delta}(q_0, w) \cap F \neq \emptyset$, cioè $q_2 \in \hat{\delta}(q_0, w)$, esattamente quando $w$ finisce con $01$. Gli enunciati 1 e 2 servono come «appoggio» per dimostrarlo. È tipico: per dimostrare la correttezza di un automa si caratterizza il significato di **ogni** stato.
 
-> [!warning] Discrepanza nelle slide La slide 17 numera gli enunciati 1, 2 e 3, mentre la slide 18 li richiama come (0), (1) e (2): l'enunciato «(0)» della slide 18 è l'1 della slide 17, e così via. Qui si usa la numerazione della slide 17.
+> [!warning] Discrepanza nelle slide La slide 17 numera gli enunciati 1, 2 e 3, mentre la slide 18 li richiama come (0), (1) e (2): l'enunciato «(0)» della slide 18 è l'1 della slide 17, e così via. Nella lezione 6 il docente ha confermato l'errore, spiegando di aver numerato la slide 18 «alla C», cioè partendo da 0. Qui si usa la numerazione della slide 17.
 
 > [!example] Dimostrazione **Base** ($|w| = 0$, cioè $w = \epsilon$). Per definizione $\hat{\delta}(q_0, \epsilon) = {q_0}$.
 > 
@@ -665,4 +649,4 @@ Il docente ricorda infine che le slide di questa parte seguono fedelmente un lib
 
 La lezione ha corretto la legge dell'elemento assorbente ($\emptyset L = L\emptyset = \emptyset$) e ha passato in rassegna gli strumenti deduttivi del corso. Una dimostrazione è una sequenza di enunciati ottenuti da ipotesi tramite regole di introduzione ed eliminazione dei connettivi. I quantificatori universale ed esistenziale sono legati dalla dualità, che giustifica la tecnica del controesempio. Si sono visti la riduzione ad assurdo e l'induzione, numerica sui naturali e strutturale sulle strutture definite ricorsivamente, come stringhe ed espressioni. Fare esempi, per quanti siano, non è dimostrare un enunciato universale.
 
-Con i linguaggi regolari inizia la scalata dei modelli di calcolo, parallela alle fasi dell'interprete. Un DFA è una quintupla $(Q, \Sigma, \delta, q_0, F)$ con una funzione di transizione totale $\delta : Q \times \Sigma \to Q$. La sua computazione è descritta dalla funzione estesa $\hat{\delta}$, definita per induzione, e il linguaggio accettato è $L(A) = {w \mid \hat{\delta}(q_0, w) \in F}$. I linguaggi regolari sono quelli accettati da qualche DFA. Un NFA differisce solo nella funzione di transizione, che restituisce insiemi di stati ($\delta : Q \times \Sigma \to 2^Q$). La sua computazione evolve su una frontiera di stati, e una stringa è accettata se $\hat{\delta}(q_0, w) \cap F \neq \emptyset$, cioè se esiste un percorso verso uno stato finale. La prossima lezione di teoria riprenderà la dimostrazione di correttezza dell'NFA e gli esercizi; si vedrà poi che il non determinismo non aumenta la potenza degli automi a stati finiti.
+Con i linguaggi regolari inizia la scalata dei modelli di calcolo, parallela alle fasi dell'interprete. Un DFA è una quintupla $(Q, \Sigma, \delta, q_0, F)$ con una funzione di transizione totale $\delta : Q \times \Sigma \to Q$. La sua computazione è descritta dalla funzione estesa $\hat{\delta}$, definita per induzione, e il linguaggio accettato è $L(A) = {w \mid \hat{\delta}(q_0, w) \in F}$. I linguaggi regolari sono quelli accettati da qualche DFA. Un NFA differisce solo nella funzione di transizione, che restituisce insiemi di stati ($\delta : Q \times \Sigma \to 2^Q$). La sua computazione evolve su una frontiera di stati, e una stringa è accettata se $\hat{\delta}(q_0, w) \cap F \neq \emptyset$, cioè se esiste un percorso verso uno stato finale. Nella [[Lezione 06 - Equivalenza tra automi ed espressioni regolari|lezione 6]] si vedrà che il non determinismo non aumenta la potenza degli automi a stati finiti.
