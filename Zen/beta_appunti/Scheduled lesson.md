@@ -1,10 +1,8 @@
 ## Fisica
-	Lezione 5
-	Lezione 6
+	
  
 ## Algoritmi
-	Lezione 5
-	Lezione 6
+	
 
 ## Metodi Matematici
 	
@@ -16,6 +14,7 @@
 ## Robotica 
 ### modulo 1 
 	
+
 ### modulo 2
 	Lezione 2
 	Lezione 3

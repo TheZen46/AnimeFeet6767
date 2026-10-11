@@ -12,7 +12,8 @@ Gli automi a stati finiti sono una riedizione delle macchine a stati viste in Re
 
 L'automa non deterministico si distacca invece da quanto visto in Reti logiche, perché non si può realizzare in pratica: un circuito che decidesse «un po' come gli pare» sarebbe guasto. Il docente fa l'esempio di un'unità aritmetico-logica che ogni tanto calcolasse $2 + 2 = 4$ e ogni tanto $2 + 2 = 5$. Ricorda che qualcosa del genere accadde a Intel negli anni Novanta, con il celebre difetto di divisione del Pentium, che costò all'azienda un grave danno di immagine e il ritiro dei processori.
 
-> [!tip] Approfondimento — Il difetto FDIV del Pentium #approfondimento Il difetto, scoperto nel 1994, riguardava l'istruzione di divisione in virgola mobile (FDIV) del Pentium. L'algoritmo di divisione usava una tabella di valori precalcolati, nella quale mancavano alcune voci, e certe coppie di operandi producevano quindi un quoziente sbagliato. Intel sostenne un costo di 475 milioni di dollari per la sostituzione dei processori [@shirriff-fdiv]. Rispetto all'esempio della lezione va fatta una precisazione: il difetto era del tutto **deterministico**. Con un dividendo e un divisore che lo attivano, il risultato è sbagliato il 100% delle volte; per divisioni casuali, il caso si presentava circa una volta su nove miliardi [@shirriff-fdiv]. Era quindi un circuito _scorretto_, non _non deterministico_. Resta un buon esempio dei danni di un errore di progettazione hardware, in linea con i casi visti nella lezione 1.
+> [!tip] Approfondimento — Il difetto FDIV del Pentium #approfondimento 
+> Il difetto, scoperto nel 1994, riguardava l'istruzione di divisione in virgola mobile (FDIV) del Pentium. L'algoritmo di divisione usava una tabella di valori precalcolati, nella quale mancavano alcune voci, e certe coppie di operandi producevano quindi un quoziente sbagliato. Intel sostenne un costo di 475 milioni di dollari per la sostituzione dei processori [@shirriff-fdiv]. Rispetto all'esempio della lezione va fatta una precisazione: il difetto era del tutto **deterministico**. Con un dividendo e un divisore che lo attivano, il risultato è sbagliato il 100% delle volte; per divisioni casuali, il caso si presentava circa una volta su nove miliardi [@shirriff-fdiv]. Era quindi un circuito _scorretto_, non _non deterministico_. Resta un buon esempio dei danni di un errore di progettazione hardware, in linea con i casi visti nella lezione 1.
 
 Come dispositivo **teorico**, però, il non determinismo accompagnerà tutto il semestre e riserverà diverse sorprese; nel secondo semestre sarà collegato al problema da un milione di dollari già citato. Il punto chiave è la condizione di accettazione. Un NFA accetta una stringa se **esiste** un percorso dallo stato iniziale a uno stato finale che consumi tutta la stringa. In modo equivalente, l'NFA non calcola, dato uno stato e un simbolo, un singolo stato, ma sempre un **insieme di stati**. Da un insieme di stati, considerando tutte le transizioni possibili sul simbolo letto, si passa a un altro insieme di stati, e così via. Se nell'insieme raggiunto dopo aver consumato l'intera stringa c'è almeno uno stato finale, la stringa è accettata.
 
@@ -52,7 +53,8 @@ L'automa rispetta però la definizione di **NFA**: una transizione non indicata 
 
 Lo stato di errore della seconda soluzione si chiama **stato bloccante** (_dead state_). Le slide ne danno la definizione precisa, che il docente sottolinea essere univoca.
 
-> [!important] Completamento con lo stato bloccante Dato un automa in cui da ogni stato esce al più una transizione per ogni simbolo, si ottiene un DFA equivalente aggiungendo uno stato bloccante $t$ tale che:
+> [!important] Completamento con lo stato bloccante 
+> Dato un automa in cui da ogni stato esce al più una transizione per ogni simbolo, si ottiene un DFA equivalente aggiungendo uno stato bloccante $t$ tale che:
 > 
 > - $\delta(t, a) = t$ per ogni simbolo $a \in \Sigma$: una volta entrati, non si esce più;
 > - $\delta(q, a) = t$ per ogni stato $q$ privo di una transizione sul simbolo $a$;
@@ -105,13 +107,16 @@ graph LR
 
 Il funzionamento è il seguente. Da $q_0$ l'automa può leggere il segno $+$ o $-$, oppure passare in $q_1$ **senza leggere nulla**. La decisione di non consumare simboli è anch'essa non deterministica. In $q_1$ resta finché legge cifre. Al punto decimale ha due strade. Se ha già letto la parte intera, può leggere l'ultima cifra passando in $q_4$ e poi il punto passando in $q_3$. Oppure può leggere il punto direttamente da $q_1$ passando in $q_2$, da cui deve leggere almeno una cifra per arrivare in $q_3$. In $q_3$ legge le eventuali altre cifre e infine passa in $q_5$, lo stato finale, con una transizione su $\epsilon$. Una stringa con due punti, come `5.5.`, non viene accettata: dopo il secondo punto nessuno stato raggiungibile ha una transizione uscente con il punto, e l'automa si blocca.
 
-> [!important] Il linguaggio accettato L'automa accetta tutte e sole le stringhe formate da un segno opzionale, una sequenza di cifre, un punto e un'altra sequenza di cifre, **con almeno una cifra** prima o dopo il punto. Sono accettate, per esempio, `-12.3`, `5.`, `.5` e `+.5`. Sono rifiutate `5`, perché il punto è obbligatorio, `.` e `5.5.`. La caratterizzazione è stata verificata confrontando l'automa con la descrizione su tutte le stringhe di lunghezza fino a 6 sull'alfabeto ${+, -, ., 0, 5}$.
+> [!important] Il linguaggio accettato 
+> L'automa accetta tutte e sole le stringhe formate da un segno opzionale, una sequenza di cifre, un punto e un'altra sequenza di cifre, **con almeno una cifra** prima o dopo il punto. Sono accettate, per esempio, `-12.3`, `5.`, `.5` e `+.5`. Sono rifiutate `5`, perché il punto è obbligatorio, `.` e `5.5.`. La caratterizzazione è stata verificata confrontando l'automa con la descrizione su tutte le stringhe di lunghezza fino a 6 sull'alfabeto ${+, -, ., 0, 5}$.
 
-> [!warning] Discrepanza nella trascrizione Nella descrizione a voce compaiono due affermazioni da correggere. Una è che il numero «potrebbe non avere la virgola»: in realtà il punto è obbligatorio, e la stringa `5` è rifiutata. Probabilmente il riferimento era al percorso attraverso $q_4$, che permette di non avere cifre **dopo** il punto, come in `5.`. L'altra è che non esisterebbe un percorso verso lo stato finale per una stringa che inizia con un punto. In realtà `.5` è accettata ($q_0 \xrightarrow{\epsilon} q_1 \xrightarrow{.} q_2 \xrightarrow{5} q_3 \xrightarrow{\epsilon} q_5$). Più avanti, costruendo il DFA equivalente, il docente rileva lui stesso che l'automa accetta anche i numeri che iniziano con il punto. La dimostrazione formale della correttezza, per induzione, è stata omessa in aula.
+> [!warning] Discrepanza nella trascrizione 
+> Nella descrizione a voce compaiono due affermazioni da correggere. Una è che il numero «potrebbe non avere la virgola»: in realtà il punto è obbligatorio, e la stringa `5` è rifiutata. Probabilmente il riferimento era al percorso attraverso $q_4$, che permette di non avere cifre **dopo** il punto, come in `5.`. L'altra è che non esisterebbe un percorso verso lo stato finale per una stringa che inizia con un punto. In realtà `.5` è accettata ($q_0 \xrightarrow{\epsilon} q_1 \xrightarrow{.} q_2 \xrightarrow{5} q_3 \xrightarrow{\epsilon} q_5$). Più avanti, costruendo il DFA equivalente, il docente rileva lui stesso che l'automa accetta anche i numeri che iniziano con il punto. La dimostrazione formale della correttezza, per induzione, è stata omessa in aula.
 
 ### La definizione di ε-NFA
 
-> [!important] Definizione: ε-NFA Un automa non deterministico con transizioni su $\epsilon$ (_NFA with $\epsilon$-transitions_, ε-NFA) è una quintupla $A = (Q, \Sigma, \delta, q_0, F)$ in cui $Q$, $\Sigma$, $q_0$ e $F$ sono definiti come negli NFA, mentre la funzione di transizione $$\delta : Q \times (\Sigma \cup {\epsilon}) \to 2^Q$$ ammette anche $\epsilon$ come simbolo in input. Un ε-NFA può quindi cambiare stato senza consumare input.
+> [!important] Definizione: ε-NFA 
+> Un automa non deterministico con transizioni su $\epsilon$ (_NFA with $\epsilon$-transitions_, ε-NFA) è una quintupla $A = (Q, \Sigma, \delta, q_0, F)$ in cui $Q$, $\Sigma$, $q_0$ e $F$ sono definiti come negli NFA, mentre la funzione di transizione $$\delta : Q \times (\Sigma \cup {\epsilon}) \to 2^Q$$ ammette anche $\epsilon$ come simbolo in input. Un ε-NFA può quindi cambiare stato senza consumare input.
 
 Le slide scrivono il dominio come $Q \times \Sigma \cup {\epsilon}$, senza parentesi; il significato inteso è quello riportato sopra, con l'unione tra $\Sigma$ e ${\epsilon}$.
 
@@ -170,9 +175,11 @@ Risulta $$ \mathrm{ECLOSE}(1) = {1, 2, 3, 4, 6}, \qquad \mathrm{ECLOSE}(4) = {4}
 
 Rispetto agli NFA cambiano due cose. La prima è il caso base: senza leggere nulla l'automa non resta solo in $q$, ma si trova in tutti gli stati della chiusura di $q$. La seconda è il passo. Raggiunto l'insieme $\hat{\delta}(q, x)$, si fa un passo sul simbolo $a$ da ciascuno dei suoi stati, esattamente come negli NFA. Poi si chiude ciascuno degli stati ottenuti, aggiungendo quelli raggiungibili con transizioni su $\epsilon$.
 
-> [!warning] Discrepanze nella slide 26 La formula del passo nelle slide contiene due imprecisioni, segnalate in aula, una delle quali da uno studente; il docente ha annunciato la pubblicazione delle slide corrette. La prima: la stringa è indicata come $wa$ nella parte sinistra e come $x$ nella parte destra, mentre va usato lo stesso nome ($w = xa$). La seconda: la funzione $\delta$ è applicata direttamente all'insieme $\hat{\delta}(q, x)$, mentre è definita su singoli stati, e va quindi presa l'unione su tutti gli stati dell'insieme, come nella formula sopra. Dalla trascrizione non si ricava con certezza quale fosse il secondo errore segnalato in aula.
+> [!warning] Discrepanze nella slide 26 
+> La formula del passo nelle slide contiene due imprecisioni, segnalate in aula, una delle quali da uno studente; il docente ha annunciato la pubblicazione delle slide corrette. La prima: la stringa è indicata come $wa$ nella parte sinistra e come $x$ nella parte destra, mentre va usato lo stesso nome ($w = xa$). La seconda: la funzione $\delta$ è applicata direttamente all'insieme $\hat{\delta}(q, x)$, mentre è definita su singoli stati, e va quindi presa l'unione su tutti gli stati dell'insieme, come nella formula sopra. Dalla trascrizione non si ricava con certezza quale fosse il secondo errore segnalato in aula.
 
-> [!example] Esercizio: $\hat{\delta}(q_0, 5.6)$ nell'automa dei numeri decimali Il docente lo propone come verifica e lo svolge rapidamente.
+> [!example] Esercizio: $\hat{\delta}(q_0, 5.6)$ nell'automa dei numeri decimali 
+> Il docente lo propone come verifica e lo svolge rapidamente.
 > 
 > |Lettura|Passo sul simbolo|Dopo la chiusura ε|
 > |---|---|---|
@@ -191,7 +198,8 @@ Ci si potrebbe chiedere perché aggiungere questa ulteriore complicazione, quand
 
 Ora arriva quella che il docente chiama «la parte bella». I tre tipi di automa visti finora sono **equivalenti**, nel senso che riconoscono la stessa classe di linguaggi. Che un linguaggio riconosciuto da un DFA sia riconosciuto anche da un NFA e da un ε-NFA è banale. Sorprendente è il viceversa. Se un ε-NFA, apparentemente il più potente dei tre, riconosce un linguaggio, si può **calcolare**, senza tirare a indovinare, un DFA che riconosce esattamente lo stesso linguaggio. Ricordando che per il corso la potenza di un modello di calcolo è la sua capacità di riconoscere linguaggi, i tre modelli hanno la stessa potenza.
 
-> [!important] Teorema (equivalenza tra NFA e DFA) Per ogni NFA $N$ esiste un DFA $D$ tale che $L(D) = L(N)$, e viceversa.
+> [!important] Teorema (equivalenza tra NFA e DFA) 
+> Per ogni NFA $N$ esiste un DFA $D$ tale che $L(D) = L(N)$, e viceversa.
 
 **Da DFA a NFA** la direzione è banale. Un DFA si trasforma in un NFA equivalente ponendo $\delta_N(q, a) = {p}$ ogni volta che $\delta_D(q, a) = p$. Un NFA la cui funzione di transizione restituisce sempre un singoletto compie esattamente la stessa computazione di un DFA. Per induzione sulla lunghezza di $w$ si mostra che, se $\hat{\delta}_D(q_0, w) = p$, allora $\hat{\delta}_N(q_0, w) = {p}$. In questo senso la definizione di NFA include quella di DFA, e si sarebbe potuto partire direttamente dagli NFA; di solito si preferisce però introdurre prima gli automi deterministici.
 
@@ -203,7 +211,8 @@ L'idea è quella già suggerita: pensare la computazione di un NFA non come «st
 
 Se si usano come **stati** del nuovo automa gli **insiemi di stati** dell'NFA, tutto torna deterministico. Da un insieme di stati, con un dato simbolo, si arriva sempre a **uno e un solo** insieme di stati. E poiché gli insiemi sono in numero finito, l'automa risultante è ancora un automa a stati finiti deterministico.
 
-> [!important] Definizione: costruzione per sottoinsiemi (_subset construction_) Dato l'NFA $N = (Q_N, \Sigma, \delta_N, q_0, F_N)$, il DFA $D = (Q_D, \Sigma, \delta_D, {q_0}, F_D)$ è definito da:
+> [!important] Definizione: costruzione per sottoinsiemi (_subset construction_) 
+> Dato l'NFA $N = (Q_N, \Sigma, \delta_N, q_0, F_N)$, il DFA $D = (Q_D, \Sigma, \delta_D, {q_0}, F_D)$ è definito da:
 > 
 > - $Q_D = { S : S \subseteq Q_N }$: gli stati di $D$ sono i sottoinsiemi di stati di $N$;
 > - lo stato iniziale è il singoletto ${q_0}$;
@@ -258,11 +267,13 @@ Il risultato è un DFA vero e proprio: da ogni stato escono esattamente due tran
 
 La costruzione si può applicare a qualunque NFA. Resta da dimostrare che funziona sempre.
 
-> [!important] Teorema Sia $D$ il DFA ottenuto da un NFA $N$ con la costruzione per sottoinsiemi. Allora $L(D) = L(N)$.
+> [!important] Teorema 
+> Sia $D$ il DFA ottenuto da un NFA $N$ con la costruzione per sottoinsiemi. Allora $L(D) = L(N)$.
 
 La dimostrazione si appoggia su un **lemma**, cioè un risultato ausiliario.
 
-> [!important] Lemma Per qualsiasi $w \in \Sigma^*$, la funzione di transizione estesa del DFA $D$ e quella dell'NFA $N$ danno lo stesso risultato: $$\hat{\delta}_D({q_0}, w) = \hat{\delta}_N(q_0, w) .$$
+> [!important] Lemma 
+> Per qualsiasi $w \in \Sigma^*$, la funzione di transizione estesa del DFA $D$ e quella dell'NFA $N$ danno lo stesso risultato: $$\hat{\delta}_D({q_0}, w) = \hat{\delta}_N(q_0, w) .$$
 
 Il lemma è «quello giusto da avere», osserva il docente. A sinistra c'è la funzione estesa di un DFA, che restituisce un singolo stato di $D$; ma gli stati di $D$ sono insiemi di stati di $N$. A destra c'è la funzione estesa dell'NFA, che restituisce un insieme di stati di $N$. Il lemma dice che l'insieme raggiunto dal DFA dopo aver letto $w$ è esattamente l'insieme raggiunto dall'NFA.
 
@@ -285,7 +296,8 @@ Se gli NFA non sono più potenti, che cosa li distingue? La **compattezza**. Un 
 
 In generale $|Q_D| = 2^{|Q_N|}$, ma di solito molti stati non sono raggiungibili, e il DFA effettivamente costruito è molto più piccolo. Nell'esempio di $01$ il DFA ha 3 stati come l'NFA. Ci si potrebbe chiedere se vada sempre così bene. Purtroppo no, e per dimostrarlo basta un controesempio.
 
-> [!important] Il caso pessimo Esiste un NFA con $n + 1$ stati che non ha alcun DFA equivalente con meno di $2^n$ stati. Nel caso pessimo, quindi, la conversione da NFA a DFA comporta una crescita esponenziale del numero di stati.
+> [!important] Il caso pessimo 
+> Esiste un NFA con $n + 1$ stati che non ha alcun DFA equivalente con meno di $2^n$ stati. Nel caso pessimo, quindi, la conversione da NFA a DFA comporta una crescita esponenziale del numero di stati.
 
 L'NFA delle slide ha stati $q_0, q_1, \dots, q_n$. Da $q_0$ escono un anello su 0 e 1 e una transizione su 1 verso $q_1$, l'unica scelta non deterministica. Da ogni $q_i$ con $1 \leq i < n$ si passa a $q_{i+1}$ con qualunque simbolo, e $q_n$ è l'unico stato finale.
 
@@ -304,9 +316,11 @@ L'automa accetta le stringhe in cui l'**$n$-esimo simbolo dalla fine è 1**. La 
 
 Applicando la costruzione per sottoinsiemi, gli insiemi continuano ad allargarsi. Da ${q_0}$ con lo 0 si resta in ${q_0}$, con l'1 si va in ${q_0, q_1}$. Da ${q_0, q_1}$ con lo 0 si va in ${q_0, q_2}$, con l'1 in ${q_0, q_1, q_2}$, e così via. Il DFA deve in sostanza ricordare quali degli ultimi $n$ simboli erano 1, e gli stati raggiungibili sono tutti i $2^n$ sottoinsiemi che contengono $q_0$. Lo si è verificato al calcolatore per $n$ da 1 a 7: gli stati raggiungibili sono esattamente $2^n$, e neppure minimizzando il DFA se ne elimina alcuno.
 
-> [!warning] Discrepanze tra trascrizione e slide Nella descrizione a voce dell'espansione dei sottoinsiemi, il passo da ${q_0, q_1}$ con lo 0 è indicato come ${q_0, q_1, q_2}$. Il risultato corretto è ${q_0, q_2}$: $q_0$ con lo 0 resta in $q_0$, e $q_1$ con lo 0 va in $q_2$. Nella slide 34, inoltre, si parla di conversione «da DFA a NFA»: la conversione che comporta la crescita esponenziale è quella **da NFA a DFA**.
+> [!warning] Discrepanze tra trascrizione e slide 
+> Nella descrizione a voce dell'espansione dei sottoinsiemi, il passo da ${q_0, q_1}$ con lo 0 è indicato come ${q_0, q_1, q_2}$. Il risultato corretto è ${q_0, q_2}$: $q_0$ con lo 0 resta in $q_0$, e $q_1$ con lo 0 va in $q_2$. Nella slide 34, inoltre, si parla di conversione «da DFA a NFA»: la conversione che comporta la crescita esponenziale è quella **da NFA a DFA**.
 
-> [!tip] Approfondimento — Perché nessun DFA più piccolo #approfondimento Il risultato si dimostra con un argomento di «indistinguibilità» [@hopcroft2007]. Si supponga, per assurdo, che un DFA con meno di $2^n$ stati riconosca il linguaggio $L_n$ delle stringhe il cui $n$-esimo simbolo dalla fine è 1. Le stringhe binarie di lunghezza $n$ sono $2^n$, più degli stati. Per il **principio dei cassetti**, due stringhe distinte $u$ e $v$ di lunghezza $n$ portano il DFA nello stesso stato. Essendo distinte, differiscono in qualche posizione $i$; si supponga $u_i = 1$ e $v_i = 0$. Si aggiungano a entrambe $i - 1$ zeri. In $u0^{i-1}$ l'$n$-esimo simbolo dalla fine è $u_i = 1$, quindi la stringa sta in $L_n$; in $v0^{i-1}$ è $v_i = 0$, quindi la stringa non ci sta. Ma dopo $u$ e dopo $v$ il DFA si trova nello stesso stato, e leggendo gli stessi simboli arriva nello stesso stato finale della computazione: o accetta entrambe le stringhe o le rifiuta entrambe. È una contraddizione, quindi ogni DFA per $L_n$ ha almeno $2^n$ stati.
+> [!tip] Approfondimento — Perché nessun DFA più piccolo #approfondimento 
+> Il risultato si dimostra con un argomento di «indistinguibilità» [@hopcroft2007]. Si supponga, per assurdo, che un DFA con meno di $2^n$ stati riconosca il linguaggio $L_n$ delle stringhe il cui $n$-esimo simbolo dalla fine è 1. Le stringhe binarie di lunghezza $n$ sono $2^n$, più degli stati. Per il **principio dei cassetti**, due stringhe distinte $u$ e $v$ di lunghezza $n$ portano il DFA nello stesso stato. Essendo distinte, differiscono in qualche posizione $i$; si supponga $u_i = 1$ e $v_i = 0$. Si aggiungano a entrambe $i - 1$ zeri. In $u0^{i-1}$ l'$n$-esimo simbolo dalla fine è $u_i = 1$, quindi la stringa sta in $L_n$; in $v0^{i-1}$ è $v_i = 0$, quindi la stringa non ci sta. Ma dopo $u$ e dopo $v$ il DFA si trova nello stesso stato, e leggendo gli stessi simboli arriva nello stesso stato finale della computazione: o accetta entrambe le stringhe o le rifiuta entrambe. È una contraddizione, quindi ogni DFA per $L_n$ ha almeno $2^n$ stati.
 
 Il docente anticipa che nel secondo semestre si imparerà a parlare di **caso pessimo**. Vista come algoritmo, la costruzione per sottoinsiemi nel caso pessimo provoca un'esplosione esponenziale dello spazio occupato dall'automa. Di solito non succede, ma se succede è fastidioso.
 
@@ -314,7 +328,8 @@ Il docente anticipa che nel secondo semestre si imparerà a parlare di **caso pe
 
 Anche gli ε-NFA non sono più potenti. Si potrebbe procedere in due passi, trasformando prima l'ε-NFA in un NFA equivalente. Ma si può anche costruire direttamente il DFA: la costruzione è la stessa di prima, ragionando però sulle **chiusure** degli insiemi di stati.
 
-> [!important] Definizione: dal ε-NFA al DFA Dato l'ε-NFA $E = (Q_E, \Sigma, \delta_E, q_0, F_E)$, il DFA $D = (Q_D, \Sigma, \delta_D, q_D, F_D)$ con $L(D) = L(E)$ è definito da:
+> [!important] Definizione: dal ε-NFA al DFA 
+> Dato l'ε-NFA $E = (Q_E, \Sigma, \delta_E, q_0, F_E)$, il DFA $D = (Q_D, \Sigma, \delta_D, q_D, F_D)$ con $L(D) = L(E)$ è definito da:
 > 
 > - $Q_D = { S : S \subseteq Q_E \text{ e } S = \mathrm{ECLOSE}(S) }$: gli stati sono gli insiemi di stati **chiusi** rispetto alle transizioni su $\epsilon$;
 > - $q_D = \mathrm{ECLOSE}(q_0)$;
@@ -349,7 +364,8 @@ graph LR
 
 Il diagramma coincide con quello della slide 36 ed è stato verificato al calcolatore applicando la costruzione. Come osserva il docente, a rigore va ancora completato con lo stato bloccante, cioè l'insieme vuoto, per tutti i simboli che in un dato stato non sono leciti. Per esempio, un segno letto dopo una cifra, o un secondo punto. Per la convenzione vista prima, lo si omette. Il diagramma conferma anche che l'automa accetta numeri che iniziano con il punto: da ${q_0, q_1}$ con il punto si va in ${q_2}$, e con una cifra nello stato finale ${q_3, q_5}$.
 
-> [!important] Teorema (equivalenza tra ε-NFA e DFA) Un linguaggio $L$ è accettato da un ε-NFA se e solo se è accettato da un DFA.
+> [!important] Teorema (equivalenza tra ε-NFA e DFA) 
+> Un linguaggio $L$ è accettato da un ε-NFA se e solo se è accettato da un DFA.
 
 Una direzione è di nuovo banale: un DFA è un ε-NFA senza transizioni su $\epsilon$ e con transizioni deterministiche. Per l'altra si costruisce $D$ come sopra e si mostra per induzione su $w$ che $\hat{\delta}_E(q_0, w) = \hat{\delta}_D(q_D, w)$. Il docente non ripete la dimostrazione in aula, perché è identica a quella per gli NFA, con l'aggiunta delle chiusure su $\epsilon$:
 
@@ -370,7 +386,8 @@ Per i linguaggi regolari, questo è il ruolo delle **espressioni regolari**: son
 
 ### Definizione
 
-> [!important] Definizione: espressione regolare Dato un alfabeto $\Sigma$, le espressioni regolari (RE) su $\Sigma$ e i linguaggi che descrivono sono definiti induttivamente:
+> [!important] Definizione: espressione regolare 
+> Dato un alfabeto $\Sigma$, le espressioni regolari (RE) su $\Sigma$ e i linguaggi che descrivono sono definiti induttivamente:
 > 
 > - $\epsilon$ e $\emptyset$ sono espressioni regolari, con $L(\epsilon) = {\epsilon}$ e $L(\emptyset) = \emptyset$;
 > - se $a \in \Sigma$, allora $a$ è un'espressione regolare, con $L(a) = {a}$;
@@ -401,7 +418,7 @@ Si vuole descrivere il linguaggio $$ L = { w \in {0, 1}^* \mid \text{0 e 1 si al
 - $0(10)^*$: quelle che iniziano e finiscono con 0 ($0$, $010$, ...);
 - $1(01)^*$: quelle che iniziano e finiscono con 1 ($1$, $101$, ...).
 
-Un'espressione equivalente e più compatta è $$ (\epsilon + 1)(01)^_(\epsilon + 0) . $$ Qui la parte centrale $(01)^_$ produce le coppie alternate, il fattore iniziale permette di cominciare **opzionalmente** con un 1 e quello finale di terminare opzionalmente con uno 0. Se la stringa inizia con 1 si sceglie il termine $1$ del primo fattore, se inizia con 0 si sceglie $\epsilon$; analogamente per la fine. Entrambe le espressioni sono state verificate confrontandole con la definizione del linguaggio su tutte le stringhe binarie di lunghezza fino a 10.
+Un'espressione equivalente e più compatta è $$ (\epsilon + 1)(01)^-(\epsilon + 0) . $$ Qui la parte centrale $(01)^-$ produce le coppie alternate, il fattore iniziale permette di cominciare **opzionalmente** con un 1 e quello finale di terminare opzionalmente con uno 0. Se la stringa inizia con 1 si sceglie il termine $1$ del primo fattore, se inizia con 0 si sceglie $\epsilon$; analogamente per la fine. Entrambe le espressioni sono state verificate confrontandole con la definizione del linguaggio su tutte le stringhe binarie di lunghezza fino a 10.
 
 ### Precedenza degli operatori
 
@@ -411,9 +428,10 @@ Per ridurre le parentesi si fissa un ordine di precedenza, dal più forte al pi�
 2. concatenazione;
 3. unione.
 
-In caso di dubbio conviene comunque usare le parentesi. Per esempio, $01^* + 1$ si raggruppa come $\big(0(1)^_\big) + 1$. La stella si applica solo all'1, la concatenazione lega lo 0 a $1^_$, e l'unione viene per ultima. Il linguaggio descritto contiene quindi la stringa $1$ e tutte le stringhe formate da uno 0 seguito da zero o più 1: $0$, $01$, $011$, $0111$, e così via. È diverso da $(01)^* + 1$ e da $0(1^* + 1)$.
+In caso di dubbio conviene comunque usare le parentesi. Per esempio, $01^* + 1$ si raggruppa come $\big(0(1)^-\big) + 1$. La stella si applica solo all'1, la concatenazione lega lo 0 a $1^-$, e l'unione viene per ultima. Il linguaggio descritto contiene quindi la stringa $1$ e tutte le stringhe formate da uno 0 seguito da zero o più 1: $0$, $01$, $011$, $0111$, e così via. È diverso da $(01)^* + 1$ e da $0(1^* + 1)$.
 
-> [!tip] Approfondimento — Le espressioni regolari nei linguaggi di programmazione #approfondimento Le espressioni regolari degli strumenti di programmazione usano una sintassi leggermente diversa da quella teorica, ma con lo stesso significato di base. Nel C++, la libreria `<regex>`, disponibile dal C++11, usa per default la grammatica ECMAScript [@cppref-regex]. Lì l'unione si scrive con la barra verticale `|`, che ha la precedenza più bassa, come il $+$ teorico. La stella `*` indica zero o più ripetizioni. Ci sono poi abbreviazioni comode: `+` per una o più ripetizioni ($E^+ = EE^_$) e `?` per un elemento opzionale ($\epsilon + E$). L'espressione $(\epsilon + 1)(01)^_(\epsilon + 0)$ si scrive così `1?(01)*0?`. È lo strumento naturale per descrivere i token nell'analisi lessicale del progetto, come anticipato nella lezione 2.
+> [!tip] Approfondimento — Le espressioni regolari nei linguaggi di programmazione #approfondimento 
+> Le espressioni regolari degli strumenti di programmazione usano una sintassi leggermente diversa da quella teorica, ma con lo stesso significato di base. Nel C++, la libreria `<regex>`, disponibile dal C++11, usa per default la grammatica ECMAScript [@cppref-regex]. Lì l'unione si scrive con la barra verticale `|`, che ha la precedenza più bassa, come il $+$ teorico. La stella `*` indica zero o più ripetizioni. Ci sono poi abbreviazioni comode: `+` per una o più ripetizioni ($E^+ = EE^-$) e `?` per un elemento opzionale ($\epsilon + E$). L'espressione $(\epsilon + 1)(01)^-(\epsilon + 0)$ si scrive così `1?(01)*0?`. È lo strumento naturale per descrivere i token nell'analisi lessicale del progetto, come anticipato nella lezione 2.
 
 La prossima lezione mostrerà che tutti i linguaggi descritti da espressioni regolari sono riconosciuti da automi a stati finiti, e viceversa.
 
