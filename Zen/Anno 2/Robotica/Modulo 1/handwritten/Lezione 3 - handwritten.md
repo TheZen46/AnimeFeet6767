@@ -11,3 +11,6 @@ $^a_cT = ^a_bT^b_cT = \pmatrix{^a_bR^b_cR \ &^aO_b+^a_bR^bO_c \\ 0 \ &1}$
 $\{a\} ^b\leftarrow \{b\} ^c\leftarrow \{c\}$
 
 $^aP = ^a_bR^bP + ^aO_b \rightarrow ^aP-^aO_b = ^a_bR^bP \Rightarrow ^bP = ^a_bR^T(^aP-^aO_b)$
+
+$^b_aT = ^a_bT^{-1}=\pmatrix{^a_bR^T \ &-^a_bR^TO_b \\ 0 \ &1}$
+$^a_bT^b_aT = ^b_aT^a_bT = I \mskip{25mu}; \mskip{25mu}$
