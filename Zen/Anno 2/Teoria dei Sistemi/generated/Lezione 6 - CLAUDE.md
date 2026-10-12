@@ -88,7 +88,8 @@ Nel primo limite, sostituendo $s=-j\omega_0$ nel fattore rimasto $s - j\omega_0$
 
 Per andare avanti serve una proprietà che il docente chiede agli studenti di conoscere, o di verificare da soli.
 
-> [!important] Polinomi e complesso coniugato Sia $P(s)$ un polinomio a **coefficienti reali**. Sostituendo a $s$ un numero complesso si ottiene un numero complesso. Sostituendo il **complesso coniugato** di quel numero si ottiene il **complesso coniugato** del risultato: $$P(\bar s) = \overline{P(s)} .$$ Lo stesso vale per un rapporto di polinomi a coefficienti reali. In particolare $$G(-j\omega_0) = \overline{G(j\omega_0)} .$$
+> [!important] Polinomi e complesso coniugato 
+> Sia $P(s)$ un polinomio a **coefficienti reali**. Sostituendo a $s$ un numero complesso si ottiene un numero complesso. Sostituendo il **complesso coniugato** di quel numero si ottiene il **complesso coniugato** del risultato: $$P(\bar s) = \overline{P(s)} .$$ Lo stesso vale per un rapporto di polinomi a coefficienti reali. In particolare $$G(-j\omega_0) = \overline{G(j\omega_0)} .$$
 
 La verifica, accennata a lezione, usa la forma polare. Si scrive il polinomio come $P(s) = \sum_{i=0}^{n} a_i s^i$ con $a_i$ reali, e il numero complesso come $s = \rho,e^{j\theta}$. Allora $s^i = \rho^i e^{ji\theta}$: si eleva il modulo alla $i$ e l'indice entra nell'esponente. Per la formula di Eulero,
 
