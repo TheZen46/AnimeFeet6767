@@ -49,17 +49,8 @@ L'andamento spaziale si scompone nelle tre coordinate cartesiane:
   
 
 - **Componente $x$:** Vale $E_x = 3x E_0$; si annulla sull'origine e cresce linearmente allontanandosi lungo l'asse $x$.
-    
-      
-    
 - **Componente $y$:** Vale costantemente $E_y = 4 E_0$, priva di qualsiasi dipendenza spaziale dalle coordinate.
-    
-      
-    
 - **Componente $z$:** Identicamente nulla ($E_z = 0$).
-    
-      
-    
 
 Il campo giace dunque nel piano $xy$ ed è rappresentato considerando una terna destra con l'asse $z$ rivolto verso chi guarda.
 
