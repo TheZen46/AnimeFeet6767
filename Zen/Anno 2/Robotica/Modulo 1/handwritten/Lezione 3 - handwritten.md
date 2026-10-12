@@ -14,3 +14,7 @@ $^aP = ^a_bR^bP + ^aO_b \rightarrow ^aP-^aO_b = ^a_bR^bP \Rightarrow ^bP = ^a_bR
 
 $^b_aT = ^a_bT^{-1}=\pmatrix{^a_bR^T \ &-^a_bR^TO_b \\ 0 \ &1}$
 $^a_bT^b_aT = ^b_aT^a_bT = I \mskip{25mu}; \mskip{25mu}^b_aT^{-1} \neq ^b_aT^T$
+
+
+$^\omega_bT=\pmatrix{^\omega_bR \ &^\omega O_b \\ 0 \ &1} = \pmatrix{\pmatrix{0 \ &-1 \\ 1\ &0} \pmatrix{2 \\ 1} \\ 0 \ \mskip{25mu} 0 \  \mskip{25mu} 1}$
+$^b_ST = \pmatrix{1 \ &0 \ &0.5 \\ 0 \ &1 \ &0 \\ 0 \ &0 \ &1}$
