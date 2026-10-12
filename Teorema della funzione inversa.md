@@ -9,7 +9,7 @@ $\det J_\hx^f\ne0\Rightarrow J_\hx^f\text{ è invertibile}$
 
 $\text{Indichiamo con}({J_\hx^f})^{-1}\text{ la matrice inversa}$
 
-$\displaystyle \Bigl\Vert ({J_\hx^f})^{-1}\Bigr\Vert=\sup\limits_{z\ne0}\left|\ ({J_\hx^f})^{-1}\frac{z}{|z|}\right|=\frac1r$
+$\displaystyle \norm{({J_\hx^f})^{-1}}=\sup\limits_{z\ne0}\abs{({J_\hx^f})^{-1}\frac{z}{|z|}}=\frac1r$
 Funzione ausiliaria
 $g(x)=f(x)-{J_\hx^f}(x)$
 $g(x)-g(y)=f(x)-f(y)-{J_\hx^f}(x-y)$
@@ -24,5 +24,6 @@ $\abs{f(x)-f(y)}+\abs{g(x)-g(y)}\ge r\abs{x-y}$
 $\abs{f(x)-f(y)}\ge r\abs{x-y}-\abs{g(x)-g(y)}$
 
 Dal teorema della stima applicato a $g$
-$\forall\epsilon\quad\exists\ \delta_\epsilon\text{ t.c. }N=B(\hx,\deleps)$
-$\forall\ x,y\in N\m{30}\abs{g(x)-g(y)}<$
+$\forall\epsilon\quad\exists\ \deleps\text{ t.c. }N=B(\hx,\deleps)$
+$\forall\ x,y\in N\m{30}\abs{g(x)-g(y)}<\bigl(\norm{f_\hx g}+\epsilon\bigr)\abs{x-y}$
+$d_\hx g=J_\hx^g$
