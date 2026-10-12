@@ -1,6 +1,6 @@
 1) $2$ cariche a distanza $r=0.2m$
 
-$\overset{\vec F_{1,2}}{\longleftarrow}\overset 1{\rlap{\bigcirc}{\kern 0.25em {\mskip{-2.5mu}+}}}\underbrace{--}_{r}\overset 2{\rlap{\bigcirc}{\kern 0.25em {\mskip{-2.5mu}+}}}\mskip{20mu}\overset x\longrightarrow$
+$\overset{\vec F_{1,2}}{\longleftarrow}\overset 1{\Large\oplus}\!\underbrace{--}_{r}\!\overset 2{\Large\ominus}\mskip{20mu}\overset x\longrightarrow$
 
 $q_1=1.6\cdot 10^{-13}C$
 $q_2=3.2\cdot 10^{-13}C$
@@ -25,14 +25,13 @@ $\vec F_{1,\text{netta}}=\vec F_{12}+\vec F_{13}=(F_{13}\cos\theta-F_{12})\hat i
 
 
 2) $2$ cariche a distanza $L$
-$\overset 1{\rlap{\bigcirc}{\kern 0.25em {\mskip{-2.5mu}+}}}\underbrace{--}_{L}\overset 2{\rlap{\bigcirc}{\kern 0.25em {\mskip{-2.5mu}-}}}\mskip{20mu}\overset x\longrightarrow$
+$\overset 1{\Large\oplus}\!\underbrace{--}_{L}\!\overset 2{\Large\ominus}\mskip{20mu}\overset x\longrightarrow$
 $q_1=8q\mskip{40mu}q_2=-2q\mskip{40mu}\left\vert\frac{q_1}{q_2}\right\vert=4$
 $q>0$
 
 Non può essere posizionata una carica positiva in equilibrio, in quanto entrambe le forze la spingerebbo verso il negativo
 
-$\overset 3{\rlap{\bigcirc}{\kern 0.25em {\mskip{-2.5mu}+}}}\overbrace{\underbrace{-}_{r}\overset 1{\rlap{\bigcirc}{\kern 0.25em {\mskip{-2.5mu}+}}}\underbrace{--}_{L}}^{r+L}\overset 2{\rlap{\bigcirc}{\kern 0.25em {\mskip{-2.5mu}-}}}\mskip{20mu}\overset x\longrightarrow$
+$\overset 3{\Large\oplus}\!\!\overbrace{\underbrace{-}_{r}\!\!\overset 1{\Large\oplus}\!\underbrace{--}_{L}}^{r+L}\!\overset 2{\ominus}\mskip{20mu}\overset x\longrightarrow$
 
-$F=-F_1+F_2=-K\frac{q\ q_1}{r^2}+\frac{Kq|q_2|}{\big(x+L\big)^2}=-\cancel K\frac{\bcancel 8^4\cancel {q_2}}{r^2}+\cancel K\frac{\bcancel 2\cancel {q_2}}{\big(r+L\big)^2}=0\Rightarrow-\frac{4}{x^2}+\frac{1}{\big(r+L\big)^2}=0\Rightarrow\frac{4}{x^2}=\frac{1}{\big(r+L\big)^2}\Rightarrow\frac{r^2}{4}=(r+L)^2\Rightarrow\frac{r}{2}=r+l\Rightarrow\frac x2=-L\ \times$
-
+$\displaystyle F=-F_1+F_2=-K\frac{q\ q_1}{r^2}+\frac{Kq|q_2|}{\big(x+L\big)^2}=-\cancel K\frac{\bcancel 8^4\cancel {q_2}}{r^2}+\cancel K\frac{\bcancel 2\cancel {q_2}}{\big(r+L\big)^2}=0\Rightarrow-\frac{4}{x^2}+\frac{1}{\big(r+L\big)^2}=0\Rightarrow\frac{4}{x^2}=\frac{1}{\big(r+L\big)^2}\Rightarrow\frac{r^2}{4}=(r+L)^2\Rightarrow\frac{r}{2}=r+l\Rightarrow\frac r2=-L$
 Prova con carica dall'altro lato

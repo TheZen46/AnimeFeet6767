@@ -26,7 +26,7 @@ $+\cdot + = +\mskip{18mu}-\cdot\ -=+\mskip{18mu}+\cdot\ -=-$
 Il Coulomb ($C$) è l'unità di carica
 
 Corrente elettrica
-$\displaystyle i=\frac{dq}{dt}\begin{align*}\rightarrow\text{carica}\\\rightarrow\text{tempo}\end{align*}$
+$\displaystyle i=\frac{dq}{dt}\begin{aligned}\rightarrow\text{carica}\\\rightarrow\text{tempo}\end{aligned}$
 $\displaystyle\text{Ampere}=A=\frac{C}{s}$
 
 $q\text{ si conserva}\Rightarrow i\text{ si conserva}$
