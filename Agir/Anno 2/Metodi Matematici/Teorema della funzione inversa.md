@@ -3,7 +3,6 @@ $f:D\subset\R^n\to\R^n$
 - $f\in C^1(D)$
 - $J_\hx^f=d_\hx f\m{30}\det J_\hx f\ne0$}
 $\Rightarrow\ \exists\ N\text{ intorno di }\hx\text{ t.c. }f\text{ ristretta a }N\text{ è invertibile}\qquad N\subset D$
-
 # Dimostrazione
 $\det J_\hx^f\ne0\Rightarrow J_\hx^f\text{ è invertibile}$
 
