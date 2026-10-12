@@ -246,7 +246,7 @@ $$ \int x^{-3/2},dx = \frac{x^{-1/2}}{-\tfrac12} = -2,x^{-1/2} = -\frac{2}{\sqrt
 
 Tornando all'integrale definito e valutando tra gli estremi:
 
-$$ \begin{aligned} E &= \pi k\sigma z\left[-\frac{2}{\sqrt{z^2+r^2}}\right]_0^R = -2\pi k\sigma z\left(\frac{1}{\sqrt{R^2+z^2}} - \frac{1}{z}\right) \[4pt] &= 2\pi k\sigma z\left(\frac{1}{z} - \frac{1}{\sqrt{R^2+z^2}}\right) = 2\pi k\sigma\left(1 - \frac{z}{\sqrt{R^2+z^2}}\right). \end{aligned} $$
+$$ \begin{aligned} E &= \pi k\sigma z\left[-\frac{2}{\sqrt{z^2+r^2}}\right]_0^R = -2\pi k\sigma z\left(\frac{1}{\sqrt{R^2+z^2}} - \frac{1}{z}\right) = 2\pi k\sigma z\left(\frac{1}{z} - \frac{1}{\sqrt{R^2+z^2}}\right) = 2\pi k\sigma\left(1 - \frac{z}{\sqrt{R^2+z^2}}\right). \end{aligned} $$
 
 Per $r = R$ si ottiene $1/\sqrt{R^2+z^2}$; per $r = 0$ resta solo $z^2$ sotto radice, quindi $1/z$. Nell'ultimo passaggio il segno meno è stato portato dentro la parentesi, invertendo l'ordine dei termini, e si è raccolto $z$.
 

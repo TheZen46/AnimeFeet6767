@@ -55,7 +55,7 @@ Le quantità prodotte non possono essere negative. Si aggiungono quindi i **vinc
 
 ### Il modello
 
-> [!important] Modello dell'industria chimica $$ \begin{aligned} \max \quad & 250x_1 + 230x_2 + 110x_3 + 350x_4 \ \text{s.t.} \quad & x = (x_1, x_2, x_3, x_4) \in S, \end{aligned} $$ $$ S = \left{ x \in \mathbb{R}^4 ;\middle|; \begin{aligned} & 2x_1 + 1.5x_2 + 0.5x_3 + 2.5x_4 \le 100 \ & 0.5x_1 + 0.25x_2 + 0.25x_3 + x_4 \le 50 \ & x_1 \ge 0,\ x_2 \ge 0,\ x_3 \ge 0,\ x_4 \ge 0 \end{aligned} \right}. $$ $S$ è l'**insieme ammissibile**; ogni suo elemento è una **soluzione ammissibile**.
+> [!important] Modello dell'industria chimica $$ \begin{aligned} \max \quad & 250x_1 + 230x_2 + 110x_3 + 350x_4 \ \text{s.t.} \quad & x = (x_1, x_2, x_3, x_4) \in S, \end{aligned} $$ $$ S = \left\{ x \in \mathbb{R}^4 ;\middle|; \begin{aligned} & 2x_1 + 1.5x_2 + 0.5x_3 + 2.5x_4 \le 100 \ & 0.5x_1 + 0.25x_2 + 0.25x_3 + x_4 \le 50 \ & x_1 \ge 0,\ x_2 \ge 0,\ x_3 \ge 0,\ x_4 \ge 0 \end{aligned} \right}. $$ $S$ è l'**insieme ammissibile**; ogni suo elemento è una **soluzione ammissibile**.
 
 La funzione obiettivo è **lineare** (le incognite compaiono al primo grado), i vincoli sono **lineari** (in questo caso vincoli di disuguaglianza, sia "$\le$" sia "$\ge$") e le variabili sono **continue**. Il problema è quindi di **programmazione lineare continua**. Il nome di un problema dipende sia dalla **struttura** della funzione obiettivo e dei vincoli, sia dal **tipo di variabili**.
 

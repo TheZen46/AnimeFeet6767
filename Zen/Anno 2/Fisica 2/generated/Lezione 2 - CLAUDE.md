@@ -115,7 +115,7 @@ $$ E_+ = k,\frac{q}{\left(z-\frac d2\right)^2}, \qquad E_- = k,\frac{q}{\left(z+
 
 Raccogliendo $kq$ e portando le frazioni a denominatore comune:
 
-$$ \begin{aligned} E = E_+ - E_- &= \frac{kq}{\left(z-\frac d2\right)^2} - \frac{kq}{\left(z+\frac d2\right)^2} = kq,\frac{\left(z+\frac d2\right)^2 - \left(z-\frac d2\right)^2}{\left(z-\frac d2\right)^2\left(z+\frac d2\right)^2} \[4pt] &= kq,\frac{\left(z^2 + zd + \frac{d^2}{4}\right) - \left(z^2 - zd + \frac{d^2}{4}\right)}{\left(z^2-\frac{d^2}{4}\right)^2} = \frac{2kq,d,z}{\left(z^2-\frac{d^2}{4}\right)^2}. \end{aligned} $$
+$$ \begin{aligned} E = E_+ - E_- &= \frac{kq}{\left(z-\frac d2\right)^2} - \frac{kq}{\left(z+\frac d2\right)^2} = kq,\frac{\left(z+\frac d2\right)^2 - \left(z-\frac d2\right)^2}{\left(z-\frac d2\right)^2\left(z+\frac d2\right)^2} = kq,\frac{\left(z^2 + zd + \frac{d^2}{4}\right) - \left(z^2 - zd + \frac{d^2}{4}\right)}{\left(z^2-\frac{d^2}{4}\right)^2} = \frac{2kq,d,z}{\left(z^2-\frac{d^2}{4}\right)^2}. \end{aligned} $$
 
 Al numeratore si sviluppano i quadrati: i termini $z^2$ e $d^2/4$ si elidono, mentre i doppi prodotti $\pm zd$ diventano entrambi positivi, perché il segno meno davanti alla seconda parentesi cambia $-zd$ in $+zd$. Al denominatore si usa il prodotto notevole $(a-b)(a+b) = a^2 - b^2$: il prodotto dei due quadrati è il quadrato del prodotto, $\left(z-\frac d2\right)^2\left(z+\frac d2\right)^2 = \left[\left(z-\frac d2\right)\left(z+\frac d2\right)\right]^2 = \left(z^2 - \frac{d^2}{4}\right)^2$.
 
@@ -137,7 +137,8 @@ $$ E \simeq \frac{2kq,d}{z^3} \qquad (z \gg d). $$
 
 In questa approssimazione il dipolo entra nel campo solo attraverso il prodotto $qd$. È naturale quindi introdurre una grandezza che lo caratterizza da sola.
 
-> [!important] Momento di dipolo elettrico e campo a grande distanza Il **momento di dipolo elettrico** è $$ p = q,d \qquad [\mathrm{C\cdot m}] $$ e, a grande distanza sull'asse del dipolo, $$ E \simeq \frac{2k,p}{z^3} \qquad (z \gg d). $$
+> [!important] Momento di dipolo elettrico e campo a grande distanza 
+> Il **momento di dipolo elettrico** è $$ p = q,d \qquad [\mathrm{C\cdot m}] $$ e, a grande distanza sull'asse del dipolo, $$ E \simeq \frac{2k,p}{z^3} \qquad (z \gg d). $$
 
 Il campo del dipolo a grande distanza decresce come $1/z^3$, più rapidamente del campo di una singola carica, che va come $1/z^2$. Il motivo è fisico: visto da lontano il dipolo è complessivamente neutro, i campi delle due cariche sono quasi uguali e opposti, e ne resta solo la piccola differenza dovuta alla diversa distanza. Il momento di dipolo contiene tutta l'informazione necessaria a descrivere il campo a grandi distanze. Per questo negli esercizi il dipolo è spesso caratterizzato direttamente dal valore di $p$, invece che da $q$ e $d$ separatamente.
 
@@ -173,7 +174,8 @@ fill: false
 beginAtZero: true
 ```
 
-> [!tip] Approfondimento — Il momento di dipolo come vettore e la prima correzione #approfondimento Nei testi standard il momento di dipolo è definito come vettore, $\vec p = q,\vec d$, con $\vec d$ diretto dalla carica negativa a quella positiva. Con questa convenzione, sull'asse e dalla parte della carica positiva il campo ha lo stesso verso di $\vec p$, come trovato sopra. Il termine trascurato si può anche stimare. Con lo sviluppo $(1-x)^{-2} \simeq 1 + 2x$ per $x \ll 1$, ponendo $x = d^2/(4z^2)$, si ottiene $$ E \simeq \frac{2kp}{z^3}\left(1 + \frac{d^2}{2z^2}\right), $$ che mostra esplicitamente come la correzione relativa vada a zero come $(d/z)^2$.
+> [!tip] Approfondimento — Il momento di dipolo come vettore e la prima correzione #approfondimento 
+> Nei testi standard il momento di dipolo è definito come vettore, $\vec p = q,\vec d$, con $\vec d$ diretto dalla carica negativa a quella positiva. Con questa convenzione, sull'asse e dalla parte della carica positiva il campo ha lo stesso verso di $\vec p$, come trovato sopra. Il termine trascurato si può anche stimare. Con lo sviluppo $(1-x)^{-2} \simeq 1 + 2x$ per $x \ll 1$, ponendo $x = d^2/(4z^2)$, si ottiene $$ E \simeq \frac{2kp}{z^3}\left(1 + \frac{d^2}{2z^2}\right), $$ che mostra esplicitamente come la correzione relativa vada a zero come $(d/z)^2$.
 
 > [!warning] Discrepanze negli appunti (.md) sul dipolo Nel file "Campo elettrico.md" ci sono alcuni refusi, assenti invece negli appunti a mano:
 > 
@@ -193,13 +195,15 @@ La seconda parte della lezione è dedicata agli esercizi. Il docente avverte che
 
 ### Esercizio 1 — Forza tra due cariche positive
 
-> [!example] Esercizio 1a Due cariche positive $q_1 = 1{,}6\times10^{-19}\ \mathrm C$ e $q_2 = 3{,}2\times10^{-19}\ \mathrm C$ si trovano a distanza $r = 0{,}2\ \mathrm m$. Determinare la forza $\vec F_{1,2}$ che agisce sulla carica 1 per effetto della carica 2.
+> [!example] Esercizio 1a 
+> Due cariche positive $q_1 = 1{,}6\times10^{-19}\ \mathrm C$ e $q_2 = 3{,}2\times10^{-19}\ \mathrm C$ si trovano a distanza $r = 0{,}2\ \mathrm m$. Determinare la forza $\vec F_{1,2}$ che agisce sulla carica 1 per effetto della carica 2.
 > 
 > **Ragionamento.** La forza è diretta lungo la congiungente. Le cariche sono entrambe positive, quindi la forza è repulsiva: sulla carica 1 punta in verso opposto alla carica 2. Il problema è unidimensionale e basta un asse. Si sceglie l'asse $x$ orientato dalla carica 1 verso la carica 2. Con questa scelta la forza sulla carica 1 è diretta contro l'asse e la sua componente è negativa: $$ \vec F_{1,2} = -k,\frac{q_1,q_2}{r^2},\hat\imath . $$ **Calcolo.** $$ F_{1,2} = 8{,}99\times10^{9}\ \frac{\mathrm{N,m^2}}{\mathrm{C^2}}\cdot\frac{(1{,}6\times10^{-19}\ \mathrm C)(3{,}2\times10^{-19}\ \mathrm C)}{(0{,}2\ \mathrm m)^2} $$ Il prodotto delle cariche vale $5{,}12\times10^{-38}\ \mathrm{C^2}$; diviso per $0{,}04\ \mathrm{m^2}$ dà $1{,}28\times10^{-36}\ \mathrm{C^2/m^2}$; moltiplicato per $k$ dà $$ \vec F_{1,2} = -1{,}15\times10^{-26}\ \mathrm N\ \hat\imath . $$ **Controllo dimensionale.** $\dfrac{\mathrm{N,m^2}}{\mathrm{C^2}}\cdot\dfrac{\mathrm C\cdot\mathrm C}{\mathrm{m^2}} = \mathrm N$: le unità si semplificano e resta il newton, come deve essere.
 
 > [!warning] Discrepanza sull'ordine di grandezza Negli appunti (.md e a mano) il risultato è $-1{,}15\times10^{-24}\ \mathrm N$; nella trascrizione l'esponente non si sente. Il ricalcolo con i dati dell'esercizio dà $1{,}15\times10^{-26}\ \mathrm N$. Gli esponenti valgono $9 - 19 - 19 = -29$, e la divisione per $0{,}04$ moltiplica per $25$: $8{,}99 \cdot 1{,}6 \cdot 3{,}2 \cdot 25 \simeq 1151$, da cui $1151\times10^{-29}\ \mathrm N = 1{,}15\times10^{-26}\ \mathrm N$. Di conseguenza vanno corretti di un fattore 100 anche i risultati numerici dei punti successivi. Nel file "Elettrostatica - Esercizi.md", inoltre, i dati riportano $10^{-13}\ \mathrm C$ invece di $10^{-19}\ \mathrm C$, mentre il calcolo usa correttamente $10^{-19}$.
 
-> [!example] Esercizio 1b — Aggiunta di una carica negativa Si aggiunge una terza carica $q_3 = -q_2$ sulla congiungente, tra le due cariche, a distanza $\tfrac34 r$ dalla carica 1. Determinare la forza netta sulla carica 1.
+> [!example] Esercizio 1b — Aggiunta di una carica negativa 
+> Si aggiunge una terza carica $q_3 = -q_2$ sulla congiungente, tra le due cariche, a distanza $\tfrac34 r$ dalla carica 1. Determinare la forza netta sulla carica 1.
 > 
 > **Ragionamento.** Per il principio di sovrapposizione la forza netta è la somma di $\vec F_{1,2}$ e $\vec F_{1,3}$. Il sistema è ancora unidimensionale e si proietta sullo stesso asse $x$. Ora però i segni non sono più indifferenti: con due forze, a seconda del verso, si sommano o si sottraggono. $\vec F_{1,2}$ è repulsiva e diretta lungo $-x$, come prima. $\vec F_{1,3}$ è attrattiva, perché $q_1>0$ e $q_3<0$, quindi è diretta verso la carica 3, cioè lungo $+x$. Si ha allora $$ F_{1,\text{netta}} = F_{1,3} - F_{1,2} = \frac{k,q_1,q_2}{\left(\frac34 r\right)^2} - \frac{k,q_1,q_2}{r^2}. $$ Nel primo termine compare $q_2$ invece di $|q_3|$ perché le due cariche hanno lo stesso modulo.
 > 
@@ -211,7 +215,8 @@ Durante l'esercizio uno studente ha chiesto perché nella formula compaia $q_2$ 
 
 Il controllo intuitivo non è sempre possibile. Se il valore di $q_3$ fosse diverso da quello di $q_2$, non si potrebbe dire a priori quale forza prevale: la carica 3 è più vicina, ma il risultato dipenderebbe dal suo valore. In questo caso il confronto era immediato.
 
-> [!example] Esercizio 1c — La terza carica fuori dall'asse La carica $q_3 = -q_2$ viene ruotata attorno alla carica 1 di un angolo $\theta = 60^\circ$, mantenendo la distanza $\tfrac34 r$. Determinare la forza netta sulla carica 1.
+> [!example] Esercizio 1c — La terza carica fuori dall'asse 
+> La carica $q_3 = -q_2$ viene ruotata attorno alla carica 1 di un angolo $\theta = 60^\circ$, mantenendo la distanza $\tfrac34 r$. Determinare la forza netta sulla carica 1.
 > 
 > **Ragionamento.** Ora il problema è bidimensionale: servono gli assi $x$ (verso la carica 2) e $y$, con i rispettivi versori $\hat\imath$ e $\hat\jmath$. Il modulo di $\vec F_{1,3}$ non cambia, perché la distanza è la stessa: $$ |\vec F_{1,3}| = \frac{k,|q_1|,|q_3|}{\left(\frac34 r\right)^2} = \frac{16}{9},\frac{k,|q_1|,|q_2|}{r^2} = \frac{16}{9},F_{1,2}. $$ La forza è attrattiva, quindi diretta dalla carica 1 verso la carica 3, a $60^\circ$ dall'asse $x$. Le sue componenti si ricavano dal triangolo rettangolo che ha $\vec F_{1,3}$ come ipotenusa: il cateto adiacente all'angolo è la componente $x$ e quello opposto è la componente $y$: $$ F_{1,3}^{x} = F_{1,3}\cos\theta, \qquad F_{1,3}^{y} = F_{1,3}\sin\theta \quad\Longrightarrow\quad \vec F_{1,3} = F_{1,3}\cos\theta\ \hat\imath + F_{1,3}\sin\theta\ \hat\jmath . $$ Per sommare correttamente anche $\vec F_{1,2}$ va scritta in forma vettoriale. Ha solo componente lungo $x$, negativa: $\vec F_{1,2} = -F_{1,2},\hat\imath$.
 > 
@@ -259,7 +264,3 @@ La soluzione è positiva e quindi accettabile. La radice negativa, $2x = -(x+L)$
 > In entrambi i casi la carica si allontana dalla posizione di equilibrio.
 
 > [!tip] Approfondimento — Il teorema di Earnshaw #approfondimento Il risultato precedente non è un caso particolare. Il teorema di Earnshaw (1842) stabilisce che un insieme di cariche puntiformi soggette solo a forze elettrostatiche non può trovarsi in equilibrio stabile: per ogni posizione di equilibrio esiste almeno una direzione lungo cui una piccola perturbazione allontana la carica [@earnshaw1842]. È uno dei motivi per cui le trappole per particelle cariche usano campi variabili nel tempo o campi magnetici.
-
-### Esercizio 3 — Due sfere conduttrici (incompleto)
-
-> [!warning] Trascrizione interrotta L'ultimo esercizio della lezione, che il docente presenta come "concettuale e abbastanza semplice", riguarda due sfere conduttrici A e B separate da una certa distanza, con una condizione iniziale. La trascrizione della Parte 1 si interrompe proprio all'inizio del testo, prima dei dati e della soluzione, e negli appunti non ce n'è traccia. L'esercizio verrà integrato qui se arriva la parte successiva della registrazione o il testo del problema.

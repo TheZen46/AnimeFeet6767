@@ -183,7 +183,7 @@ Per conoscere il carattere dell'hessiana in dimensione qualunque non basta guard
 > **Controllo con il determinante.** $\det H_{P_1} = -9 < 0$ (sella); $\det H_{P_2} = 18 - 9 = 9 > 0$ con $H_{11} = 6 > 0$ (minimo), in accordo con il calcolo degli autovalori.
 
 
-[[Lezione5svg.svg]]
+![[Lezione5svg.svg]]
 
 Disegnare il grafico di questa funzione non è facile, ammette il docente; le curve di livello (figura costruita qui a scopo illustrativo) rendono però visibile il risultato. Attorno a $P_2$ le curve sono chiuse e concentriche, come attorno al fondo di una conca; attraverso $P_1$ passa la curva di livello $f = 0$, che lì si incrocia con sé stessa formando una "X", il segno tipico di un punto di sella (vicino all'origine $f \approx y(\tfrac{3}{2}y - 3x)$, che si annulla sulle due rette $y = 0$ e $y = 2x$).
 

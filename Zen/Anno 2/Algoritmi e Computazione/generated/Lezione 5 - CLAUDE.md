@@ -292,7 +292,8 @@ Le classi viste finora non avrebbero bisogno di un distruttore, perché non c'è
 
 > [!warning] Precisazione sulle motivazioni A lezione la regola viene collegata ai problemi delle gerarchie «a diamante», in cui una classe eredita da due classi che hanno una base comune; in un passaggio si parla, per un evidente lapsus, di costruttore virtuale (in C++ i costruttori non possono essere virtuali). La motivazione principale documentata è un'altra, e riguarda gli oggetti allocati dinamicamente. Distruggere un oggetto derivato con `delete` tramite un puntatore alla classe base ha **comportamento indefinito** se il distruttore della classe base non è virtuale [@cppref-destructor]. In pratica, di solito viene eseguito solo il distruttore della classe base, e le risorse della parte derivata non vengono rilasciate. Le gerarchie a diamante pongono un problema diverso, che in C++ si affronta con l'ereditarietà virtuale.
 
-> [!tip] Approfondimento — Il distruttore virtuale in azione #approfondimento Con il distruttore virtuale, `delete` su un puntatore alla base distrugge correttamente l'oggetto intero, dalla classe derivata alla base, nell'ordine inverso alla costruzione visto nella lezione 3:
+> [!tip] Approfondimento — Il distruttore virtuale in azione #approfondimento 
+> Con il distruttore virtuale, `delete` su un puntatore alla base distrugge correttamente l'oggetto intero, dalla classe derivata alla base, nell'ordine inverso alla costruzione visto nella lezione 3:
 > 
 > ```cpp
 > #include <iostream>
