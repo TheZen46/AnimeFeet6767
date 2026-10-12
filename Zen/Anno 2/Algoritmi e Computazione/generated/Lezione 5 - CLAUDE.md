@@ -257,7 +257,8 @@ class work {
 };
 ```
 
-> [!important] Classi astratte Una classe che contiene almeno una funzione virtuale pura è **astratta**: non si possono creare oggetti di quella classe. Una classe derivata che non ridefinisce tutte le funzioni virtuali pure ereditate è anch'essa astratta. Per essere istanziabile, una classe derivata deve ridefinirle tutte.
+> [!important] Classi astratte 
+> Una classe che contiene almeno una funzione virtuale pura è **astratta**: non si possono creare oggetti di quella classe. Una classe derivata che non ridefinisce tutte le funzioni virtuali pure ereditate è anch'essa astratta. Per essere istanziabile, una classe derivata deve ridefinirle tutte.
 
 È un esempio di **contratto di programmazione**: «se derivi da me, devi ridefinire queste funzioni, altrimenti non potrai essere istanziata».
 
@@ -284,7 +285,8 @@ La sezione [[Lezione 03 - Ereditarietà in C++#`default`, `delete` e costruttori
 
 ### Distruttori virtuali
 
-> [!important] Regola Se una classe dichiara virtuale uno qualsiasi dei suoi membri, standard o puro, deve sempre includere un distruttore dichiarato `virtual`.
+> [!important] Regola 
+> Se una classe dichiara virtuale uno qualsiasi dei suoi membri, standard o puro, deve sempre includere un distruttore dichiarato `virtual`.
 
 Le classi viste finora non avrebbero bisogno di un distruttore, perché non c'è nulla da ripulire. Il compilatore non impone il distruttore virtuale: è una buona pratica per evitare errori sottili. Il docente promette di tornare sull'argomento se il corso affronterà l'ereditarietà multipla.
 

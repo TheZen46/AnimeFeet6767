@@ -418,7 +418,7 @@ Il docente chiama $L^+$ chiusura «transitiva» e $L^-$ chiusura «riflessiva e 
 
 Siamo ora in grado di formulare il problema che, secondo il docente, rappresenta in generale tutti i problemi dell'informatica.
 
-> [!important] Definizione: word problem (problema della parola) Dato un alfabeto $\Sigma$ e un linguaggio $L \subseteq \Sigma^_$, stabilire se una stringa $w \in \Sigma^_$ è un elemento di $L$.
+> [!important] Definizione: word problem (problema della parola) Dato un alfabeto $\Sigma$ e un linguaggio $L \subseteq \Sigma^-$, stabilire se una stringa $w \in \Sigma^-$ è un elemento di $L$.
 
 Si tratta di un **problema di decisione**: la risposta è sempre sì oppure no. Alcuni esempi mostrano quanto sia generale.
 

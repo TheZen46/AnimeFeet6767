@@ -5,7 +5,7 @@
 ---
 # Lezione 4 — Tecniche deduttive e automi a stati finiti
 
-La lezione di teoria riprende dove si era fermata la [[Lezione 02 - Architettura di un interprete e linguaggi formali|lezione 2]] e si articola in tre parti. Si apre con la correzione di un errore nelle slide sulle leggi algebriche dei linguaggi. Segue la terza sezione delle slide _Argomenti preliminari_ (slide 15–32), dedicata alle **tecniche deduttive**, che nella lezione 2 era stata saltata. Infine inizia il primo blocco vero e proprio di informatica teorica, i **linguaggi regolari** (slide 1–18 del pacchetto _Linguaggi regolari_): automi a stati finiti deterministici e non deterministici.
+La lezione di teoria riprende dove si era fermata la [[Zen/Anno 2/Algoritmi e Computazione/generated/Lezione 2 - CLAUDE|lezione 2]] e si articola in tre parti. Si apre con la correzione di un errore nelle slide sulle leggi algebriche dei linguaggi. Segue la terza sezione delle slide _Argomenti preliminari_ (slide 15–32), dedicata alle **tecniche deduttive**, che nella lezione 2 era stata saltata. Infine inizia il primo blocco vero e proprio di informatica teorica, i **linguaggi regolari** (slide 1–18 del pacchetto _Linguaggi regolari_): automi a stati finiti deterministici e non deterministici.
 
 ## Una correzione alle slide: l'elemento assorbente
 
@@ -67,7 +67,8 @@ Il docente commenta le regole con esempi.
 
 I passi logici delle dimostrazioni che si incontreranno nelle dispense saranno quasi sempre riconducibili a queste regole: sono il criterio con cui un ragionamento si può ritenere corretto.
 
-> [!tip] Approfondimento — Le origini della deduzione naturale #approfondimento Il nome «deduzione naturale» risale a Gerhard Gentzen, che nel 1935 presentò un sistema formale in cui ogni connettivo è governato proprio da una regola di introduzione e da una di eliminazione [@gentzen1935]. L'obiettivo dichiarato era formalizzare il modo in cui i matematici ragionano effettivamente, da cui l'aggettivo «naturale». La regola sulla doppia negazione è caratteristica della logica **classica**. Nella logica intuizionista, che non la ammette in generale, da «non non $B$» non si può concludere $B$.
+> [!tip] Approfondimento — Le origini della deduzione naturale #approfondimento 
+> Il nome «deduzione naturale» risale a Gerhard Gentzen, che nel 1935 presentò un sistema formale in cui ogni connettivo è governato proprio da una regola di introduzione e da una di eliminazione [@gentzen1935]. L'obiettivo dichiarato era formalizzare il modo in cui i matematici ragionano effettivamente, da cui l'aggettivo «naturale». La regola sulla doppia negazione è caratteristica della logica **classica**. Nella logica intuizionista, che non la ammette in generale, da «non non $B$» non si può concludere $B$.
 
 ### Quantificatori
 
@@ -90,7 +91,8 @@ L'esempio del docente è il primo enunciato della lezione: se esiste un numero d
 
 Gli esempi delle slide formalizzano alcune frasi. «Esiste almeno un numero naturale divisibile per 2» si scrive $\exists n \in \mathbb{N}.(n \bmod 2) = 0$, dove $n \bmod 2$ è il resto della divisione intera per 2, la stessa operazione dei contatori modulo visti in Reti logiche. «Tutti i numeri naturali hanno un successore» si scrive $\forall n \in \mathbb{N}.(n + 1) \in \mathbb{N}$, assumendo che $+$ denoti la somma.
 
-> [!warning] Discrepanze nelle slide La slide 23 accompagna la frase «Non tutti i numeri naturali sono dispari» con l'affermazione che l'enunciato $\forall n \in \mathbb{N}.(n \bmod 2) = 0$ è falso. In aula il docente la legge così: è falso che tutti i naturali abbiano resto 0, cioè esiste un naturale con resto diverso da 0. Quella formula, però, afferma che tutti i naturali sono _pari_, e la sua falsità esprime «non tutti i naturali sono pari». La formalizzazione coerente con la frase della slide è che sia falso $\forall n \in \mathbb{N}.(n \bmod 2) = 1$, o equivalentemente, per dualità, che sia vero $\exists n \in \mathbb{N}.(n \bmod 2) = 0$. Le due affermazioni sono entrambe vere, ma non sono la stessa affermazione. Nella slide 22, inoltre, $\forall s.P(S)$ e $\exists s.P(S)$ vanno letti $\forall s.P(s)$ e $\exists s.P(s)$.
+> [!warning] Discrepanze nelle slide 
+> La slide 23 accompagna la frase «Non tutti i numeri naturali sono dispari» con l'affermazione che l'enunciato $\forall n \in \mathbb{N}.(n \bmod 2) = 0$ è falso. In aula il docente la legge così: è falso che tutti i naturali abbiano resto 0, cioè esiste un naturale con resto diverso da 0. Quella formula, però, afferma che tutti i naturali sono _pari_, e la sua falsità esprime «non tutti i naturali sono pari». La formalizzazione coerente con la frase della slide è che sia falso $\forall n \in \mathbb{N}.(n \bmod 2) = 1$, o equivalentemente, per dualità, che sia vero $\exists n \in \mathbb{N}.(n \bmod 2) = 0$. Le due affermazioni sono entrambe vere, ma non sono la stessa affermazione. Nella slide 22, inoltre, $\forall s.P(S)$ e $\exists s.P(S)$ vanno letti $\forall s.P(s)$ e $\exists s.P(s)$.
 
 ### Dimostrazione per assurdo
 
@@ -103,7 +105,8 @@ Un insieme di assunzioni che porta a una contraddizione non può essere tutto ve
 
 L'esempio del docente è il teorema «se una funzione è derivabile, allora è continua». Per assurdo si assume che la funzione sia derivabile ma non continua, e si arriva a una contraddizione. In aula la dimostrazione è solo impostata; la si completa così.
 
-> [!example] Una funzione derivabile è continua **Teorema.** Se $f$ è derivabile in $x_0$, allora è continua in $x_0$.
+> [!example] Una funzione derivabile è continua **Teorema.** 
+> Se $f$ è derivabile in $x_0$, allora è continua in $x_0$.
 > 
 > **Dimostrazione per assurdo.** Si assume che $f$ sia derivabile in $x_0$ ma non continua in $x_0$. La non continuità significa che non vale $\lim_{x \to x_0} \big(f(x) - f(x_0)\big) = 0$. Per $x \neq x_0$ si può però scrivere $$ f(x) - f(x_0) = \frac{f(x) - f(x_0)}{x - x_0} \cdot (x - x_0) . $$ Per la derivabilità, il primo fattore tende al numero finito $f'(x_0)$; il secondo tende a 0. Per il teorema sul limite del prodotto, $\lim_{x \to x_0} \big(f(x) - f(x_0)\big) = f'(x_0) \cdot 0 = 0$. Questo contraddice l'assunzione di non continuità, quindi $f$ è continua in $x_0$.
 
@@ -111,7 +114,7 @@ L'esempio del docente è il teorema «se una funzione è derivabile, allora è c
 
 Per dimostrare che un enunciato del tipo «tutti gli elementi $x$ dell'insieme $S$ hanno la proprietà $P$» è **falso**, basta trovare un elemento $s^* \in S$ per cui $P$ non vale. Un tale $s^*$ si chiama **controesempio** della proprietà $P$. Nell'esempio di inizio lezione, 9 è un controesempio dell'enunciato «tutti i numeri naturali dispari sono primi»: 9 è dispari, perché $9/2 = 4$ con resto 1, e non è primo, perché $9 = 3^2$.
 
-Il docente osserva che il controesempio è, in qualche modo, una riduzione ad assurdo. Si assume l'enunciato universale, lo si applica al caso particolare $s^_$ e si ottiene un enunciato che contraddice ciò che si sa di $s^_$. Nell'esempio, dall'enunciato universale segue che 9 è primo, ma $9 = 3 \cdot 3$. In termini di quantificatori, il controesempio dimostra direttamente $\exists s.\overline{P}(s)$, che per dualità equivale a $\neg,\forall s.P(s)$.
+Il docente osserva che il controesempio è, in qualche modo, una riduzione ad assurdo. Si assume l'enunciato universale, lo si applica al caso particolare $s^-$ e si ottiene un enunciato che contraddice ciò che si sa di $s^-$. Nell'esempio, dall'enunciato universale segue che 9 è primo, ma $9 = 3 \cdot 3$. In termini di quantificatori, il controesempio dimostra direttamente $\exists s.\overline{P}(s)$, che per dualità equivale a $\neg,\forall s.P(s)$.
 
 ### Induzione matematica
 
