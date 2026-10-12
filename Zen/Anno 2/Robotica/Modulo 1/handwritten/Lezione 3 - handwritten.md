@@ -20,3 +20,4 @@ $^\omega_bT=\pmatrix{^\omega_bR \ &^\omega O_b \\ 0 \ &1} = \pmatrix{\pmatrix{0 
 $^b_ST = \pmatrix{1 \ &0 \ &0.5 \\ 0 \ &1 \ &0 \\ 0 \ &0 \ &1}$
 $^s\overline P = \pmatrix{1 \\ 0 \\ 1}$
 $^b\overline P = ^b_sT^s\overline P$
+
