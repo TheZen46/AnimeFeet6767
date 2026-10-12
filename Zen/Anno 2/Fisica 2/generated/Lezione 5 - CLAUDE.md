@@ -6,7 +6,8 @@
 
 La lezione completa il discorso sul flusso con un esempio in cui il campo non è uniforme, poi introduce il risultato centrale dell'elettrostatica: il **teorema di Gauss**, che lega il flusso del campo elettrico attraverso una superficie chiusa alle cariche contenute al suo interno. Il teorema non viene dimostrato in generale. Il docente mostra però che vale per superfici sferiche attorno a una carica puntiforme, introducendo l'angolo solido. Ne ricava la legge di Coulomb e lo applica a un primo esercizio tipico. Infine lo usa "al contrario", per capire come si distribuiscono le cariche in un conduttore.
 
-> [!tip] Legenda delle figure In tutte le figure del corso le cariche positive sono in **blu** e quelle negative in **rosso**, come nei tuoi appunti. Il campo elettrico è in **verde petrolio**, le superfici gaussiane in **giallo tratteggiato**, i versori normali in **viola** e le forze in **verde**. I file `.svg` vanno nella cartella `Allegati` del vault, ma Obsidian li trova anche in qualsiasi altra cartella, purché il nome resti invariato.
+> [!tip] Legenda delle figure 
+> In tutte le figure del corso le cariche positive sono in **blu** e quelle negative in **rosso**, come nei tuoi appunti. Il campo elettrico è in **verde petrolio**, le superfici gaussiane in **giallo tratteggiato**, i versori normali in **viola** e le forze in **verde**. I file `.svg` vanno nella cartella `Allegati` del vault, ma Obsidian li trova anche in qualsiasi altra cartella, purché il nome resti invariato.
 
 ## Riepilogo: il flusso del campo elettrico
 
