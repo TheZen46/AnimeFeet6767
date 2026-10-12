@@ -48,8 +48,8 @@ $G(j\omega_0)=\Re\bigl(G(j\omega_0)\bigr)+j\ \Im\bigl(G(j\omega_0)\bigr)=A+jB$
 $\displaystyle \mathcal L^{-1}\Bigl\{F(s)\Bigr\}=\mathcal L^{-1}\Bigl\{E_G\Bigr\}+\left(-\frac{A-jB}{2j}\right)e^{-j\omega_0 t}+\left(-\frac{A-jB}{2j}\right)e^{j\omega_0t}$
 
 $\displaystyle -\frac A{2j}e^{-j\omega_0t}+\frac A{2j}e^{j\omega_0t}+\frac B{2}e^{-j\omega_0t}+\frac B{2}e^{-j\omega_0t}=A\Bigl(\underbrace{\frac{e^{j\omega_0 t}-e^{-j\omega_0 t}}{2j}}_{\sin(\omega_0t)}\Bigr)+B\Bigl(\underbrace{\frac{e^{j\omega_0 t}+e^{-j\omega_0 t}}{2}}_{\cos(\omega_0t)}\Bigr)$
-$(s+j\omega_0)(s-j\omega_0)\mathcal L^{-1}\Bigl\{E_G(s)\Bigr\}+\overline {C_1}\sin(\omega_0t)+\overline {C_2}\cos(\omega_0t)\Rightarrow=\mathcal L^{-1}\Bigl\{E_G(s)\Bigr\}+\Re\bigl(G(j\omega_0)\bigr)\sin(\omega_0t)+\Im\bigl(G(j\omega_0)\bigr)\cos(\omega_0t)\Rightarrow$
-	$M\sin(\omega_0 t+\varphi)=M\sin(\omega_0t)\cos(\phi)+M\cos(\omega_0t)\sin(\phi)$
+$\mathcal L^{-1}\Bigl\{E_G(s)\Bigr\}+\overline {C_1}\sin(\omega_0t)+\overline {C_2}\cos(\omega_0t)\Rightarrow=\mathcal L^{-1}\Bigl\{E_G(s)\Bigr\}+\Re\bigl(G(j\omega_0)\bigr)\sin(\omega_0t)+\Im\bigl(G(j\omega_0)\bigr)\cos(\omega_0t)\Rightarrow$
+$M\sin(\omega_0 t+\varphi)=M\sin(\omega_0t)\cos(\phi)+M\cos(\omega_0t)\sin(\phi)$
 		$M\cos\phi=\Re\bigl(G(j\omega_0)\bigr)$
 		$M\sin\phi=\Im\bigl(G(j\omega_0)\bigr)$
 		$\Re^2+\Im^2=M^2$
