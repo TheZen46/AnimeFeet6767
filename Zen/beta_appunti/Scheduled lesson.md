@@ -5,7 +5,7 @@
 	
 
 ## Metodi Matematici
-	
+	Leizione 7
 
 ## Ricerca Operativa
 	Lezione 5
@@ -25,6 +25,7 @@
 ## Sistemi Operativi
 	Lezione 5
 	Lezione 6 - la spiegazione sarà si e no una 30ina di minuti
+	Lezione 7
 
 ## Teoria dei Sistemi
 	
