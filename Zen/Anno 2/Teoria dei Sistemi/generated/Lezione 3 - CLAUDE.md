@@ -84,7 +84,7 @@ $$-\frac{D^{\alpha-1}\big(N'D - \alpha D'N\big)}{D^{2\alpha}} = \frac{\alpha D'N
 
 Questa regola è il primo mattone del discorso che chiude la lezione (§6). La potenza del tempo che moltiplica una funzione si legge direttamente nella potenza del denominatore della sua trasformata.
 
-> [!warning] Nota personale «Trasformata di Laplace» La formula generale in fondo alla nota, $\mathcal{L}\big{\frac{t^k}{k!}e^{at}\sin/\cos,\omega t\big} = \frac{\cdots}{[(s-a)^2+\omega^2]^{k+1}}$, ha il numeratore vuoto. Questo è coerente con quanto detto a lezione: il denominatore ha una forma generale semplice, il numeratore no. Per $k=0$ e $k=1$ i numeratori sono nella tabella della lezione 2; per $k$ maggiori si ricavano applicando ripetutamente $-\frac{d}{ds}$.
+> [!warning] Nota personale «Trasformata di Laplace» La formula generale in fondo alla nota, $\mathcal{L}\big\{\frac{t^k}{k!}e^{at}\sin/\cos,\omega t\big\} = \frac{\cdots}{[(s-a)^2+\omega^2]^{k+1}}$, ha il numeratore vuoto. Questo è coerente con quanto detto a lezione: il denominatore ha una forma generale semplice, il numeratore no. Per $k=0$ e $k=1$ i numeratori sono nella tabella della lezione 2; per $k$ maggiori si ricavano applicando ripetutamente $-\frac{d}{ds}$.
 
 ### 2.3 Perché questa regola è importante
 
@@ -214,7 +214,7 @@ Il docente suggerisce di associare la molteplicità proprio a questo: quante vol
 
 Osservando la tabella delle trasformate, ci si accorge che i parametri che definiscono l'andamento nel tempo della funzione diventano i **coefficienti** del denominatore della trasformata, e in particolare i **valori dei poli** e la loro **molteplicità** (dispensa inglese, p. 14). Le funzioni chiave sono due.
 
-> [!important] Il dizionario funzione ↔ poli $$\frac{t^k}{k!},e^{at} ;\longleftrightarrow; \frac{1}{(s-a)^{k+1}} \qquad\text{polo reale } s = a \text{ con molteplicità } k+1$$ $$\frac{t^k}{k!},e^{at}\left{\begin{matrix}\sin\omega t\ \cos\omega t\end{matrix}\right. ;\longleftrightarrow; \frac{\cdots}{\big[(s-a)^2+\omega^2\big]^{k+1}} \qquad\text{poli complessi } s = a\pm j\omega \text{ con molteplicità } k+1$$
+> [!important] Il dizionario funzione ↔ poli $$\frac{t^k}{k!},e^{at} ;\longleftrightarrow; \frac{1}{(s-a)^{k+1}} \qquad\text{polo reale } s = a \text{ con molteplicità } k+1$$ $$\frac{t^k}{k!},e^{at}\left\{\begin{matrix}\sin\omega t\ \cos\omega t\end{matrix}\right. ;\longleftrightarrow; \frac{\cdots}{\big[(s-a)^2+\omega^2\big]^{k+1}} \qquad\text{poli complessi } s = a\pm j\omega \text{ con molteplicità } k+1$$
 > 
 > - Il **coefficiente dell'esponenziale** $a$ diventa la **parte reale** del polo.
 > - La **pulsazione** $\omega$ dell'oscillazione diventa la **parte immaginaria** del polo.

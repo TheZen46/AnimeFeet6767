@@ -261,7 +261,7 @@ e in generale ogni derivazione moltiplica per $s$ e sottrae una condizione inizi
 
 #### Trasformata dell'integrale
 
-> [!important] Integrale $$\mathcal{L}\left{\int_{0^-}^{t} f(\tau),d\tau\right} = \frac{1}{s},F(s)$$
+> [!important] Integrale $$\mathcal{L}\left\{\int_{0^-}^{t} f(\tau),d\tau\right\} = \frac{1}{s},F(s)$$
 
 La dispensa dimostra la proprietà per parti. Una via più rapida è usare la proprietà precedente. Posto $g(t) = \int_{0^-}^{t} f(\tau),d\tau$, si ha $\dot g = f$ e $g(0^-) = 0$, quindi $F(s) = s,G(s) - 0$, cioè $G(s) = F(s)/s$. Derivare nel tempo corrisponde a moltiplicare per $s$; integrare a dividere per $s$.
 
@@ -334,7 +334,7 @@ Qui si vede perché l'estremo inferiore è $0^-$. Partire da $-\infty$ non cambi
 
 Il gradino è l'integrale dell'impulso (impulso di ordine $-1$). Per la proprietà dell'integrale:
 
-$$\mathcal{L}{1(t)} = \mathcal{L}\left{\int_{0^-}^{t}\delta(\tau),d\tau\right} = \frac{1}{s}\cdot 1 = \frac{1}{s}.$$
+$$\mathcal{L}{1(t)} = \mathcal{L}\left\{\int_{0^-}^{t}\delta(\tau),d\tau\right\} = \frac{1}{s}\cdot 1 = \frac{1}{s}.$$
 
 Che cosa cambia se al posto del gradino si trasforma la costante $1$? Nulla: l'integrale parte comunque da $0^-$, e da lì in avanti gradino e costante coincidono. Quindi anche $\mathcal{L}{1} = 1/s$. **Per la trasformata di Laplace gradino e costante sono la stessa cosa.**
 
@@ -347,7 +347,7 @@ La rampa $t\cdot1(t)$ si può vedere in due modi, ed entrambi portano allo stess
 
 Proseguendo con le integrazioni successive, ogni integrale porta un ulteriore fattore $1/s$:
 
-$$\mathcal{L}\left{\frac{t^k}{k!},1(t)\right} = \frac{1}{s^{k+1}}.$$
+$$\mathcal{L}\left\{\frac{t^k}{k!},1(t)\right\} = \frac{1}{s^{k+1}}.$$
 
 Il fattoriale a denominatore è proprio quello prodotto dalle integrazioni successive ($t$, poi $t^2/2$, poi $t^3/6$, ...). Si ha così una lettura unitaria di tutti gli impulsi, presente anche negli appunti: poiché $\delta_k$ è la derivata $k$-esima di $\delta$ (con condizioni nulle in $0^-$) e $\delta_{-(k+1)} = \frac{t^k}{k!}1(t)$,
 
@@ -359,7 +359,7 @@ $$\mathcal{L}{\delta_k(t)} = s^k \qquad \text{per ogni intero } k$$
 
 Applicando la traslazione in $s$ alla trasformata del gradino:
 
-$$\mathcal{L}{e^{at}\cdot1(t)} = \frac{1}{s-a}, \qquad\qquad \mathcal{L}\left{\frac{t^k}{k!},e^{at}\right} = \frac{1}{(s-a)^{k+1}}.$$
+$$\mathcal{L}{e^{at}\cdot1(t)} = \frac{1}{s-a}, \qquad\qquad \mathcal{L}\left\{\frac{t^k}{k!},e^{at}\right\} = \frac{1}{(s-a)^{k+1}}.$$
 
 #### Seno e coseno
 
@@ -436,7 +436,7 @@ Poiché più avanti si dovranno calcolare le radici di polinomi in $s$, il docen
 
 > [!example] Esempio PM 2 (dispensa, p. 15): $\mathcal{L}{e^{-2(t-3)},1(t-3)}$ La funzione ha esattamente la forma $g(t-3)\cdot1(t-3)$ con $g(t) = e^{-2t}$: è l'esponenziale traslato e acceso dal gradino traslato della stessa quantità. Per la traslazione nel tempo: $$\mathcal{L}{e^{-2(t-3)},1(t-3)} = e^{-3s},\mathcal{L}{e^{-2t}\cdot1(t)} = \frac{e^{-3s}}{s+2}.$$
 
-> [!example] Esempio PM 3 (dispensa, p. 15) Calcolare $\mathcal{L}\big{t,e^{-3t}\cdot1(t) + \delta(t-4)\cdot1(t-5) + e^{-2(t-2)}\sin(t-2)\cdot1(t-2)\big}$.
+> [!example] Esempio PM 3 (dispensa, p. 15) Calcolare $\mathcal{L}\big\{t,e^{-3t}\cdot1(t) + \delta(t-4)\cdot1(t-5) + e^{-2(t-2)}\sin(t-2)\cdot1(t-2)\big\}$.
 > 
 > Il **secondo termine è nullo**. L'impulso è concentrato in $t=4$, dove il gradino $1(t-5)$ vale ancora zero: per campionamento $\delta(t-4),1(t-5) = 1(4-5),\delta(t-4) = 0$.
 > 

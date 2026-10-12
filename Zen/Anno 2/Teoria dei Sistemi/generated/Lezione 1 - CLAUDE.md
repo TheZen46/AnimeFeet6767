@@ -204,7 +204,7 @@ A parole: l'integrale della delta su qualunque intervallo interamente a sinistra
 
 Ci sono moltissimi modi di rappresentare la delta. Tutti soddisfano la definizione, e sono «tutti sbagliati e tutti giusti», a seconda dell'uso. Il più semplice è un **rettangolo** di base $2\varepsilon$ centrato nell'origine e di altezza $1/(2\varepsilon)$ (negli appunti la semiampiezza è indicata con $T$):
 
-$$p_\varepsilon(t) = \begin{cases} \dfrac{1}{2\varepsilon}, & -\varepsilon < t < \varepsilon \[6pt] 0, & \text{altrove}\end{cases} \qquad \int_{-\infty}^{+\infty} p_\varepsilon(t),dt = 2\varepsilon\cdot\frac{1}{2\varepsilon} = 1 \quad \forall,\varepsilon>0 .$$
+$$p_\varepsilon(t) = \begin{cases} \dfrac{1}{2\varepsilon}, & -\varepsilon < t < \varepsilon \mskip{25mu} 0, & \text{altrove}\end{cases} \qquad \int_{-\infty}^{+\infty} p_\varepsilon(t),dt = 2\varepsilon\cdot\frac{1}{2\varepsilon} = 1 \quad \forall,\varepsilon>0 .$$
 
 Qualunque sia $\varepsilon$, l'area è sempre unitaria. Facendo tendere $\varepsilon$ a zero il rettangolo diventa sempre più stretto e sempre più alto, ma conserva l'area. La delta si disegna come il «limite» di questo processo: una **freccia** verticale nell'origine. L'altezza della freccia non rappresenta un valore: per indicare l'area si scrive un numero accanto alla punta.
 

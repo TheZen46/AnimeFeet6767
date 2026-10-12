@@ -4,9 +4,6 @@
 ---
 # Lezione 3 — Miscelazione, trasporto e risoluzione grafica
 
-> [!warning] Discrepanza tra fonti — data della lezione 
-> La scansione degli appunti è datata 29/09/2026, mentre la trascrizione riporta come data di registrazione il **01/10/2026**. Nella lezione 4 (02/10) la docente si riferisce a questa lezione dicendo "avete visto **ieri**", il che conferma la data della trascrizione. Nel front-matter è indicato il 01/10.
-
 ## Programma della lezione
 
 Molinari riprende il quadro generale. Il corso sta affrontando il grande capitolo della **programmazione lineare**, che occupa tutta la prima parte. Con la prof. Villa si è visto che cosa sono la programmazione matematica e la programmazione lineare e un primo modello di **allocazione ottima di risorse scarse**, che Molinari chiama "il colorificio" (si veda la nota sull'ultimo esempio). La lezione introduce altri due modelli e poi torna al primo per risolverlo graficamente, nell'ordine:

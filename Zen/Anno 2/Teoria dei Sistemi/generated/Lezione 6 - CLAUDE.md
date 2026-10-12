@@ -128,7 +128,7 @@ Elevando al quadrato e sommando, $M^2(\cos^2\varphi + \sin^2\varphi) = M^2 = A^2
 
 $$M = \sqrt{A^2+B^2} = |G(j\omega_0)|, \qquad \varphi = \angle G(j\omega_0) .$$
 
-> [!important] Forma modulo e fase $$\mathcal{L}^{-1}\left{G(s),\frac{\omega_0}{s^2+\omega_0^2}\right} = \mathcal{L}^{-1}{E_G(s)} + |G(j\omega_0)|,\sin\big(\omega_0 t + \angle G(j\omega_0)\big).$$ Se in una funzione «fatta di un sacco di roba» interessa solo il pezzo di antitrasformata dovuto alla coppia di poli immaginari, non si deve antitrasformare tutto. Si costruisce $G$, se ne calcolano modulo e fase in $j\omega_0$, e la parte oscillante è questa sinusoide.
+> [!important] Forma modulo e fase $$\mathcal{L}^{-1}\left\{G(s),\frac{\omega_0}{s^2+\omega_0^2}\right\} = \mathcal{L}^{-1}{E_G(s)} + |G(j\omega_0)|,\sin\big(\omega_0 t + \angle G(j\omega_0)\big).$$ Se in una funzione «fatta di un sacco di roba» interessa solo il pezzo di antitrasformata dovuto alla coppia di poli immaginari, non si deve antitrasformare tutto. Si costruisce $G$, se ne calcolano modulo e fase in $j\omega_0$, e la parte oscillante è questa sinusoide.
 
 > [!warning] La fase va presa nel quadrante giusto La relazione $\tan\varphi = B/A$ non basta a determinare $\varphi$, perché la tangente ha periodo $\pi$: $(A, B)$ e $(-A, -B)$ danno lo stesso rapporto. Bisogna tenere conto dei segni di $A$ e $B$, cioè usare l'arcotangente «a quattro quadranti». Lo precisa anche la nota iniziale della dispensa in inglese. In pratica, $\varphi$ è l'angolo del numero complesso $A + jB$ nel piano di Gauss.
 
@@ -184,7 +184,7 @@ Se $G$ è già fattorizzata, modulo e fase si calcolano fattore per fattore, «q
 
 ### 7.2 Ritorno all'esercizio della lezione 5 (osservazione non svolta a lezione)
 
-Nella [[Lezione 05 - Fratti semplici, interpretazione e metodo dei residui#3. Esercizio in aula — leggere un'antitrasformata prima di calcolarla|lezione 5]] si era trovata, risolvendo un sistema $4\times4$, l'antitrasformata di $\frac{s^4}{(s+1)(s+2)(s^2+4)}$. La sua parte oscillante era $-\frac{2}{5}\sin 2t - \frac{6}{5}\cos 2t$. Con il metodo di questa lezione la si ottiene in una riga, osservando che
+Nella [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 5 - CLAUDE#3. Esercizio in aula — leggere un'antitrasformata prima di calcolarla|Lezione 5 - CLAUDE]] si era trovata, risolvendo un sistema $4\times4$, l'antitrasformata di $\frac{s^4}{(s+1)(s+2)(s^2+4)}$. La sua parte oscillante era $-\frac{2}{5}\sin 2t - \frac{6}{5}\cos 2t$. Con il metodo di questa lezione la si ottiene in una riga, osservando che
 
 $$\frac{s^4}{(s+1)(s+2)(s^2+4)} = \underbrace{\frac{s^4}{2(s+1)(s+2)}}_{G(s)}\cdot\frac{2}{s^2+4}, \qquad G(2j) = \frac{(2j)^4}{2(2j+1)(2j+2)} = 16\cdot\Big(-\frac{1}{40} - \frac{3}{40}j\Big) = -\frac{2}{5} - \frac{6}{5},j .$$
 
@@ -194,7 +194,8 @@ Poiché $(2j)^4 = 16$, la parte oscillante è esattamente $16$ volte quella dell
 
 Il docente insiste perché il risultato venga imparato **in questa forma**, $|G(j\omega_0)|,\sin(\omega_0 t + \angle G(j\omega_0))$. Tra qualche lezione, quando lo si rivedrà, si capirà subito perché.
 
-> [!tip] Collegamento con il seguito del corso La dispensa in inglese riprende esattamente questa costruzione nel §3.2 (_Frequency Response_, p. 31). Si considera un sistema descritto da una funzione $T(s)$ (la _funzione di trasferimento_, introdotta più avanti nel corso) e lo si sollecita con un ingresso sinusoidale, la cui trasformata contiene una coppia di poli immaginari semplici. La trasformata dell'uscita ha allora la forma studiata in questa lezione. Se il sistema è stabile, a regime l'uscita è una sinusoide della stessa pulsazione, con ampiezza moltiplicata per $|T(j\omega_0)|$ e sfasata di $\angle T(j\omega_0)$. È la **risposta in frequenza**, che si rappresenta con i diagrammi di Bode.
+> [!tip] Collegamento con il seguito del corso 
+> La dispensa in inglese riprende esattamente questa costruzione nel §3.2 (_Frequency Response_, p. 31). Si considera un sistema descritto da una funzione $T(s)$ (la _funzione di trasferimento_, introdotta più avanti nel corso) e lo si sollecita con un ingresso sinusoidale, la cui trasformata contiene una coppia di poli immaginari semplici. La trasformata dell'uscita ha allora la forma studiata in questa lezione. Se il sistema è stabile, a regime l'uscita è una sinusoide della stessa pulsazione, con ampiezza moltiplicata per $|T(j\omega_0)|$ e sfasata di $\angle T(j\omega_0)$. È la **risposta in frequenza**, che si rappresenta con i diagrammi di Bode.
 
 ## Domande di autoverifica
 
