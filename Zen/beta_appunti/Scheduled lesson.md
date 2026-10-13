@@ -1,15 +1,16 @@
 ## Fisica
-	
+	Lezione 7
  
 ## Algoritmi
 	
 
 ## Metodi Matematici
-	Leizione 7
+	Lezione 7
 
 ## Ricerca Operativa
 	Lezione 5
 	Lezione 6
+	Lezione 7
 
 ## Robotica 
 ### modulo 1 
@@ -28,4 +29,4 @@
 	Lezione 7
 
 ## Teoria dei Sistemi
-	
+	Lezione 7
