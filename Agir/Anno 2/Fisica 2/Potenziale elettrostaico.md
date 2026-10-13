@@ -51,3 +51,11 @@ $\Delta V=V_3-V_1$
 
 
 
+3D
+$\displaystyle V=-\int\bigl(E_xdx+E_ydy+E_zdz\bigr)$
+$\vec E=\bigl(E_x,E_y,E_z\bigr)$
+$d\vec s=\bigl(dx,dy,dz\bigr)$
+
+$\displaystyle \frac{\partial V}{\partial x}=-E_x,\ \frac{\partial V}{\partial y}=-E_y,\ \frac{\partial V}{\partial z}=-E_z$
+$\nabla V=\bigl(\frac{\partial V}{\partial x},\frac{\partial V}{\partial y},\frac{\partial V}{\partial z}\bigr)=-\bigl(E_x,E_y,E_z\bigr)$
+$\nabla V=-\vec E$
