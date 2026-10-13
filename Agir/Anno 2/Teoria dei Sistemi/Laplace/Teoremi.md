@@ -41,4 +41,3 @@ $\displaystyle \mathcal L^{-1}=\suml_{i=1}^\infty c_i\frac{t^{i-1}}{(i-1)!}\Left
 $c_i=f^{i-1}(o^+)$
 
 $\displaystyle F(s)=\frac{1}{s(s+1)}=\frac1{s^2+s}$
-$$
