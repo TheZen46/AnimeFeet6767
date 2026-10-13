@@ -24,8 +24,9 @@ $\boxed{\boxed\star}:\ \begin{cases}F(s)=\frac{N}{sD}&\lim\limits_{s\to0}\cancel
 Aggiustare $\boxed{\boxed\star}$, non sono condizioni separate
 
 
-$\displaystyle F(s)=\frac{1}{(s+a)(s^2+2bs+c)}$
-$\operatorname{roots}\bigl(-a,-b-\sqrt{b^2-4c},-b+\sqrt{b^2-4c}\bigr)$
-
-
+$\displaystyle F(s)=\frac{1}{(s+a)(s^2+2bs+c)}\m{40}a,b,c\in\R$
+$\operatorname{roots}\bigl(D(s)\bigr)=\bigl(-a,-b-\sqrt{b^2-4c},-b+\sqrt{b^2-4c}\bigr)$
+$a<0\m{20}\cancel{\lim\limits_{t\to\infty}f(t)}$
+$\displaystyle a>0:\ \begin{cases}b\ \&\ c<0&\exists\ \lim\\b\ \&\ c>0&\exists\ \lim_{t\to\infty}f(t)=0&\text{perche 3 radici }\Re<0\\b=0,\ c>0&f(t)\text{ limitata, }\nexists\ \lim\limits_{t\to\infty}\\b>0,\ c=0&\exists\ \lim=\frac{1}{2ab}\end{cases}$
+$a=0:\ \begin{cases}b\ \&\ c<0&\exists\ \lim=\frac1c\\b=0,\ c>0&\lim\limits_{s\to0}sF(s)=\frac1c\ne\lim\limits_{t\to\infty}f(t)\\b>0,\ c=0&\exists\ \lim=\frac{1}{2ab}\end{cases}$
 # Teorema del valore iniziale
