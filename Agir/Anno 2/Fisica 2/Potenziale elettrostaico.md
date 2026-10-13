@@ -36,8 +36,18 @@ $\displaystyle W=\int_A^B k\frac{q\ q_0}{r^2}dr=kq\ q_0\int_A^B\frac{dr}{r^2}=kq
 
 2)
 $\displaystyle \vec F\cdot d\vec r=0\ \ \ \ \vec F\perp d\vec r$
-$\displaystyle \int_A^B\vec F\cdot d\vec r$
+$\displaystyle \int_A^B\vec F\cdot d\vec r=\int_A^B F\cdot dr=-kq\ q_0\bigl(\frac1{r_B}-\frac1{r_A}\bigr)$
+
+$\displaystyle \begin{cases}W=\int\vec F\cdot d\vec S=\int q\vec E\cdot d\vec s=q\int\vec E\cdot d\vec s\\W=-qV\end{cases}$
+$\displaystyle -\cancel qV=\cancel q\int\vec E\cdot d\vec s\Rightarrow V=-\int\vec E\cdot d\vec s$
+
+
+
 ## Superfici equipotenziali
-$V=\test{cost}$
+$V=\text{cost}$
 $V_A=V_B$
 $\Delta V=V_B-V_A=0\Rightarrow W=0$
+$\Delta V=V_3-V_1$
+
+
+
