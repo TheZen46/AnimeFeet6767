@@ -37,3 +37,8 @@ $D=s^n+a_{n-1}s^{n-1}+\ldots+a_0$
 $n>m$
 
 $\displaystyle F(s)=\suml_{i=1}^\infty c_i s^{-i}=\suml_{i=1}^\infty\frac{c_i}{s^i}$
+$\displaystyle \mathcal L^{-1}=\suml_{i=1}^\infty c_i\frac{t^{i-1}}{(i-1)!}\Leftarrow\text{ McLaurin di }f(t)$
+$c_i=f^{i-1}(o^+)$
+
+$\displaystyle F(s)=\frac{1}{s(s+1)}=\frac1{s^2+s}$
+$$
