@@ -1,6 +1,5 @@
 # Teorema del valore finale
 Se $\exists$ finito $\lim\limits_{t\to\infty}f(t)=L$ allora $\lim\limits_{s\to0}sF(s)=L$
-(Non al contrario)
 ## Esempio
 ### Errato
 $\displaystyle F(s)=\frac{1}{s-2}\Rightarrow f(t)=e^{2t}$
@@ -27,6 +26,14 @@ Aggiustare $\boxed{\boxed\star}$, non sono condizioni separate
 $\displaystyle F(s)=\frac{1}{(s+a)(s^2+2bs+c)}\m{40}a,b,c\in\R$
 $\operatorname{roots}\bigl(D(s)\bigr)=\bigl(-a,-b-\sqrt{b^2-4c},-b+\sqrt{b^2-4c}\bigr)$
 $a<0\m{20}\cancel{\lim\limits_{t\to\infty}f(t)}$
+
 $\displaystyle a>0:\ \begin{cases}b\ \&\ c<0&\exists\ \lim\\b\ \&\ c>0&\exists\ \lim_{t\to\infty}f(t)=0&\text{perche 3 radici }\Re<0\\b=0,\ c>0&f(t)\text{ limitata, }\nexists\ \lim\limits_{t\to\infty}\\b>0,\ c=0&\exists\ \lim=\frac{1}{2ab}\end{cases}$
-$a=0:\ \begin{cases}b\ \&\ c<0&\exists\ \lim=\frac1c\\b=0,\ c>0&\lim\limits_{s\to0}sF(s)=\frac1c\ne\lim\limits_{t\to\infty}f(t)\\b>0,\ c=0&\exists\ \lim=\frac{1}{2ab}\end{cases}$
+
+$a=0:\ \begin{cases}b\ \&\ c<0&\exists\ \lim=\frac1c\\b=0,\ c>0&\lim\limits_{s\to0}sF(s)=\frac1c\ne\lim\limits_{t\to\infty}f(t)\\b>0,\ c=0&\nexists\ \lim\end{cases}$
 # Teorema del valore iniziale
+Se $\exists$ finito $\lim\limits_{s\to\infty}sF(s)=L$ allora $f(0^+)=L$
+$\N=b_ms^m+\ldots+b_0$
+$D=s^n+a_{n-1}s^{n-1}+\ldots+a_0$
+$n>m$
+
+$\displaystyle F(s)=\suml_{i=1}^\infty c_i s^{-i}=\suml_{i=1}^\infty\frac{c_i}{s^i}$
