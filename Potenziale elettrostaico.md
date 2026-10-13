@@ -21,7 +21,23 @@ $\text{Volt}=\frac{\text{Joule}}{\text{Coulomb}}$
 ```tikz
 \begin{document}
 	\begin{tikzpicture}
-		\draw (-2,-1) -- (2,1);
+		\draw[thick] (-2,-1) -- (2,1) node[midway, below]{1};
+		\draw[thick] (-2,-1) arc[start angle=206.6, end angle=26.6, radius=2.236] node[midway, above]{2};
+		\filldraw[orange] (-2,-1) circle (3pt) node[left]{A};
+		\filldraw[green] (2,1) circle (3pt) node[right]{B};
 	\end{tikzpicture}
 \end{document}
 ```
+
+1)
+$\displaystyle \vec F\cdot d\vec s= F\ dr=k\frac{q\ q_0}{r^2}dr$
+$\displaystyle dW=k\frac{q\ q_0}{r^2}dr$
+$\displaystyle W=\int_A^B k\frac{q\ q_0}{r^2}dr=kq\ q_0\int_A^B\frac{dr}{r^2}=kq\ q_0\int_{r_A}^{r_B}\frac{dr}{r^2}=-\left.k\frac{q\ q_0}{r}\right|_{r_A}^{r_B}=-kq\ q_0\bigl(\frac1{r_B}-\frac1{r_A}\bigr)$
+
+2)
+$\displaystyle \vec F\cdot d\vec r=0\ \ \ \ \vec F\perp d\vec r$
+$\displaystyle \int_A^B\vec F\cdot d\vec r$
+## Superfici equipotenziali
+$V=\test{cost}$
+$V_A=V_B$
+$\Delta V=V_B-V_A=0\Rightarrow W=0$
