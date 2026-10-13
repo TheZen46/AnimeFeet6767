@@ -76,3 +76,4 @@ $\displaystyle F(s)=\frac{1}{(s^2+1)(s^2+4)}$
 
 $\displaystyle \underbrace{\frac{1}{2(s^2+1)}}_G\frac{2}{(s^2+4)}$
 $\displaystyle \underbrace{\frac{1}{s^2+1}}_G\frac{1}{s^2+4}$
+
