@@ -24,7 +24,8 @@ Il docente avverte che, se ci si limita a questa descrizione, si può essere ind
 
 Il docente riprende una frazione della lezione precedente e ne ricava tre avvertenze.
 
-> [!example] $\dfrac{s}{(s+1)^2}$ non è un fratto semplice Il denominatore appartiene alla classe della tabella: è $(s-a)^{k+1}$ con $a=-1$ e $k=1$. Il numeratore, però, non è un numero ma $s$. Se si va a cercare in tabella non si trova nulla: **non è un fratto semplice**, e va quindi decomposto. Ciascun pezzo deve appartenere alla tabella, moltiplicato per un coefficiente: $$\frac{s}{(s+1)^2} = \frac{A}{s+1} + \frac{B}{(s+1)^2} = \frac{A(s+1) + B}{(s+1)^2} .$$ Il primo fratto corrisponde a $a=-1$, $k=0$; il secondo a $a=-1$, $k=1$. Identificando i numeratori, $A = 1$ e $A + B = 0$, quindi $B = -1$: $$\frac{s}{(s+1)^2} = \frac{1}{s+1} - \frac{1}{(s+1)^2} \qquad\Longrightarrow\qquad f(t) = e^{-t} - t,e^{-t}.$$ Nella registrazione il calcolo dei coefficienti non si sente; è stato completato e verificato in questi appunti.
+> [!example] $\dfrac{s}{(s+1)^2}$ non è un fratto semplice 
+> Il denominatore appartiene alla classe della tabella: è $(s-a)^{k+1}$ con $a=-1$ e $k=1$. Il numeratore, però, non è un numero ma $s$. Se si va a cercare in tabella non si trova nulla: **non è un fratto semplice**, e va quindi decomposto. Ciascun pezzo deve appartenere alla tabella, moltiplicato per un coefficiente: $$\frac{s}{(s+1)^2} = \frac{A}{s+1} + \frac{B}{(s+1)^2} = \frac{A(s+1) + B}{(s+1)^2} .$$ Il primo fratto corrisponde a $a=-1$, $k=0$; il secondo a $a=-1$, $k=1$. Identificando i numeratori, $A = 1$ e $A + B = 0$, quindi $B = -1$: $$\frac{s}{(s+1)^2} = \frac{1}{s+1} - \frac{1}{(s+1)^2} \qquad\Longrightarrow\qquad f(t) = e^{-t} - t,e^{-t}.$$ Nella registrazione il calcolo dei coefficienti non si sente; è stato completato e verificato in questi appunti.
 
 Le altre due avvertenze riguardano ciò che **non** si può aggiungere all'espansione.
 
