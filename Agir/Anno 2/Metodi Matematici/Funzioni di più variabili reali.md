@@ -248,5 +248,5 @@ $f\text{ derivabile (ammette derivate parziali)}$
 		$\displaystyle\lim\limits_{t\to0}\frac{f(\hat x+t\vec v)-f(\hat x)}t=d_{\hat x}f\vec v$
 		Esiste il limite, è uguale a $d_{\hat x}f\vec v$
 # Gradiente
-$d_{\hat x}f \vec h=\nabla f(\hat x)\vec h$
-
+$d_{\hat x}f \vec h=\nabla f(\hat x)\vec h+o(h)$ (solo se differenziabile)
+$\mathbb{C}:\ r^{i(st)}=in^\alpha$
