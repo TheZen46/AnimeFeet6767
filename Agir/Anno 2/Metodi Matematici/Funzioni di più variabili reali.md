@@ -232,7 +232,7 @@ $f\text{ derivabile (ammette derivate parziali)}$
 	Dimostrazione
 		$\displaystyle\lim\limits_{x\to\hat x}f(x)\overset?=f(\hat x)$
 		$x=\hat x+h\mskip{30mu}x-\hat x=h$
-		$\displaystyle\lim\limits_{x\to\hat x}f(\hat x+h)-f(\hat x)=\lim\limits_{x\to\hat x}\underbrace{(d_{\hat x}f)g}_{=0}-\frac{o(h)}{|h|}|h|=0$
+		$\displaystyle\lim\limits_{x\to\hat x}f(\hat x+h)-f(\hat x)=\lim\limits_{x\to\hat x}\underbrace{(d_{\hat x}f)(h)}_{=0}-\frac{o(h)}{|h|}|h|=0$
 2) Teorema
 		$f:D\subset\mathbb R^n\to\mathbb R$
 		$\hat x\in \mathring D$
