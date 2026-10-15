@@ -29,7 +29,6 @@ $\displaystyle B=\lim\limits_{s\to -2}(s-p_1)\ F(s)=\lim\limits_{s\to -1}\frac{1
 $\displaystyle C=\lim\limits_{s\to -3}(s-p_1)\ F(s)=\lim\limits_{s\to -1}\frac{1}{(s+1)(s+2)(s+4)}=\frac{1}{(-2)(-1)(1))}=\frac12$
 $\displaystyle D=\lim\limits_{s\to -4}(s-p_1)\ F(s)=\lim\limits_{s\to -1}\frac{1}{(s+1)(s+2)(s+4)}=\frac{1}{(-3)(-2)(-1))}=-\frac16$
 
-\leftarrow\leftarrow\Leftarrow
 $\displaystyle F(s)=\frac{1}{(s+1)(s+2)(s^2+4)}$
 $\displaystyle \frac{A}{s+1}+\frac{B}{s+2}+\frac{2C}{s^2+4}+\frac{sD}{s^2+4}$
 
@@ -73,6 +72,6 @@ $\displaystyle G(2j)=\frac{1}{4\sqrt{10}}\sin(2t-\frac\pi4-\arctan2)$
 
 $\displaystyle F(s)=\frac{1}{(s^2+1)(s^2+4)}=\frac{As+B}{s^2+1}+\frac{Cs+D}{s^2+4}$
 $1=(As+B)(s^2+4)+(Cs+D)(s^2+1)=(A+C)s^3+(B+D)s^2+(4A+C)s+4B+D$
-$\left(\begin{array}{cccc|c}1&0&1&0&0\\0&1&0&1&0\\4&0&1&0&0\\0&4&0&1&1\end{array}\right)\Rightarrow\left(\begin{array}{cccc|c}1&0&1&0&0\\0&1&0&1&0\\3&0&0&0&0\\0&3&0&0&1\end{array}\right)\Rightarrow\left(\begin{array}{cccc|c}1&0&0&0&0\\0&3&0&0&1\\0&0&1&0&0\\0&1&0&1&0\end{array}\right)\Rightarrow\left(\begin{array}{cccc|c}1&0&0&0&0\\0&1&0&0&\frac13\\0&0&1&0&0\\0&0&0&1&-\frac13\end{array}\right)$
+$\left(\begin{array}{cccc|c}1&0&1&0&0\\0&1&0&1&0\\4&0&1&0&0\\0&4&0&1&1\end{array}\right)\Rightarrow\left(\begin{array}{cccc|c}1&0&1&0&0\\0&1&0&1&0\\0&0&-3&0&0\\0&0&0&-3&1\end{array}\right)\Rightarrow\left(\begin{array}{cccc|c}1&0&0&0&0\\0&1&0&0&\frac13\\0&0&1&0&0\\0&0&0&1&-\frac13\end{array}\right)$
 $\displaystyle F(s)=\frac{1}{3(s^2+1)}-\frac{1}{3(s^2+4)}\Leftarrow k_1\frac{\omega_1}{s^2+{\omega_1}^2}+k_2\frac{\omega_2}{s^2+{\omega_2}^2}$
 $\displaystyle \mathcal L^{-1}\Bigl\{F(s)\Bigr\}=\frac13\sin(t)-\frac16\sin(2t)$
