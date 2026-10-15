@@ -72,7 +72,5 @@ $\displaystyle G(2j)=\frac{1}{4\sqrt{10}}\sin(2t-\frac\pi4-\arctan2)$
 
 
 $\displaystyle F(s)=\frac{1}{(s^2+1)(s^2+4)}$
-	$\displaystyle \frac{A}{s^2+1}+\frac{sB}{s^2+1}+\frac{2C}{s^2+4}+\frac{sD}{s^2+4}$
-
-$\displaystyle \underbrace{\frac{1}{2(s^2+1)}}_G\frac{2}{(s^2+4)}$
-$\displaystyle \underbrace{\frac{1}{s^2+1}}_G\frac{1}{s^2+4}$
+$1=(As+B)(s^2+4)+(Cs+D)(s^2+1)=(A+C)s^3+(B+D)s^2+(4A+C)s+4B+D$
+$\left(\begin{array}{cccc|c}{1&0&1&0&0\\0&1&0&1&0\\}\end{array}\right)$
