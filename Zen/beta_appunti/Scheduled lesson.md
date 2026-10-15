@@ -5,7 +5,7 @@
 ## Algoritmi
 	
 
-## Metodi Matematici
+## Metodi Matematici (scheduled)
 	Lezione 7
 	Lezione 8
 
@@ -18,7 +18,7 @@
 ## Robotica 
 ### modulo 1 
 	Lezione 3
-	Lezione 4
+	
 
 ### modulo 2 (scheduled)
 	Lezione 1
