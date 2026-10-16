@@ -23,9 +23,7 @@
 ### modulo 2 (scheduled)
 	
 ## Sistemi Operativi (scheduled)
-	Lezione 5
-	Lezione 6 - la spiegazione sarà si e no una 30ina di minuti
-	Lezione 7
+	
 
 ## Teoria dei Sistemi
 	Lezione 7
