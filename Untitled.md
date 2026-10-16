@@ -53,4 +53,16 @@ $\array{\overline x_B=B^{-1}b\\\overline x_N=\tiny{\sqmatrix{0\\\vdots\\0}}}\lon
 Come scegliere $k$? Come scegliere $t$?
 1) Scegliamo $k=h$, perche $\gamma_h<0$
 $x_B=B^{-1}b-B^{-1}Nx_N=B^{-1}b-\bigl[B^{-1}N\bigr]_h\ t$
-Affinch'
+Affinché il vettore sia ammissibilie:
+	$B^{-1}b_j-\bigl[B^{-1}N\bigr]_{jh}\ t\ge0\qquad\forall\ j$
+Se $\bigl[B^{-1}N\bigr]_{jh}\le0\Rightarrow(x_B)_j\ge0\qquad\forall\ t\ge0$
+Se $\displaystyle \bigl[B^{-1}N\bigr]_{jh}\qquad t\le\frac{\bigl(B^{-1}b\bigr)_j}{\bigl[B^{-1}N\bigr]_{jh}}$
+
+Per garantire $\sqmatrix{x_B\\x_N}$ ammissibile devo scegliere: $\ds t\le\min\limits_{j:B^{-1}N_{jh}>0}\frac{B^{-1}b_j}{\bigl[B^{-1}N\bigr]_{jh}}$
+
+Criterio del rapporto minimo: $\ds\large t\le\min\limits_{j:[B^{-1}N]_{jh}>0}\frac{B^{-1}b_j}{\bigl[B^{-1}N\bigr]_{jh}}$
+Sia $k=$indice su cui si ottiene il minimo
+Allora la nuova SBA si ottiene:
+	$\to$ facendo entrare $(x_N)_h\qquad(\gamma_h<0)$
+	$\to$ facendo uscire $(x_B)_h\qquad(\text{corrispondente al rapporto min})$
+	
