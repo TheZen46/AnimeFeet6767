@@ -249,4 +249,3 @@ $f\text{ derivabile (ammette derivate parziali)}$
 		Esiste il limite, è uguale a $d_{\hat x}f\vec v$
 # Gradiente
 $d_{\hat x}f \vec h=\nabla f(\hat x)\vec h+o(h)$ (solo se differenziabile)
-
