@@ -35,4 +35,22 @@ $\gamma^T=\sqmatrix{-1,0}-\sqmatrix{-1,0}\sqmatrix{-1&1\\0&1}=\sqmatrix{-1,0}-\s
 $\gamma_1=-2<0$
 $\bigl[B^{-1}N\bigr]_1=\sqmatrix{-1\\0}\Rightarrow\text{il pb è illimitato}$
 
-$\cases{\min x_1=1+x_2-x_3\\x_4=1+x_1-x_2=2-x_3\\x\ge0}$
+$\cases{\min\ -x_1-x_2\\x_1=1+x_2-x_3\\x_4=1+x_1-x_2=2-x_3\\x\ge0}\m{30}\cases{\min\ -1-2x_2+x_3\\x_1=1+x_2-x_3\\x_4=2-x_3\\x\ge0}$
+
+$B^{-1}N=\sqmatrix{-1&1\\0&1}$
+
+$\overline x_B=\sqmatrix{1\\2}\quad\overline x_N=\sqmatrix{0\\0}$
+
+### Osservazione
+Test ottimalità non superato $\Rightarrow\exists\ \gamma_h<0$
+Test illimitatezza non superato $\Rightarrow$ in corrispondenza di tutte le entrate negative (streattamente) di $\gamma$ esiste un elemento strettamente positivo nella colonna corrispondente di $B^{-1}N$
+
+Fisso $h$ indice tale che $\gamma_h<0$ e quindi esiste un elemento $B^{-1}N_{ih}>0$
+
+Come si aggiorna le SBA??
+$\array{\overline x_B=B^{-1}b\\\overline x_N=\tiny{\sqmatrix{0\\\vdots\\0}}}\longrightarrow \array{x_B=B^{-1}b-B^{-1}Nte_k\\\\x_N=te_k}$
+
+Come scegliere $k$? Come scegliere $t$?
+1) Scegliamo $k=h$, perche $\gamma_h<0$
+$x_B=B^{-1}b-B^{-1}Nx_N=B^{-1}b-\bigl[B^{-1}N\bigr]_h\ t$
+Affinch'
