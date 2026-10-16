@@ -65,4 +65,3 @@ Sia $k=$indice su cui si ottiene il minimo
 Allora la nuova SBA si ottiene:
 	$\to$ facendo entrare $(x_N)_h\qquad(\gamma_h<0)$
 	$\to$ facendo uscire $(x_B)_h\qquad(\text{corrispondente al rapporto min})$
-	
