@@ -22,7 +22,7 @@
 
 ### modulo 2 
 	
-## Sistemi Operativi (scheduled)
+## Sistemi Operativi
 	
 
 ## Teoria dei Sistemi
