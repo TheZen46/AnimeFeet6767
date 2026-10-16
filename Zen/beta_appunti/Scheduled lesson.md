@@ -20,7 +20,7 @@
 	Lezione 3
 	
 
-### modulo 2 (scheduled)
+### modulo 2 
 	
 ## Sistemi Operativi (scheduled)
 	
