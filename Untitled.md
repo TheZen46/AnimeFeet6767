@@ -34,3 +34,5 @@ ${C_B}^T=\sqmatrix{-1,0}\quad {C_N}^T=\sqmatrix{-1,0}\qquad N=\sqmatrix{-1&1\\1&
 $\gamma^T=\sqmatrix{-1,0}-\sqmatrix{-1,0}\sqmatrix{-1&1\\0&1}=\sqmatrix{-1,0}-\sqmatrix{1,-1}=\sqmatrix{-2,1}\leftarrow\text{vettore costi ridotti}$
 $\gamma_1=-2<0$
 $\bigl[B^{-1}N\bigr]_1=\sqmatrix{-1\\0}\Rightarrow\text{il pb è illimitato}$
+
+$\cases{\min x_1=1+x_2-x_3\\x_4=1+x_1-x_2=2-x_3\\x\ge0}$
