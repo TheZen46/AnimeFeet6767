@@ -33,4 +33,4 @@ $\overline x_B=\sqmatrix{1\\2},\quad \overline x_N=\sqmatrix{0\\0}$
 ${C_B}^T=\sqmatrix{-1,0}\quad {C_N}^T=\sqmatrix{-1,0}\qquad N=\sqmatrix{-1&1\\1&0}\qquad B^{-1}N=\sqmatrix{-1&1\\0&1}$
 $\gamma^T=\sqmatrix{-1,0}-\sqmatrix{-1,0}\sqmatrix{-1&1\\0&1}=\sqmatrix{-1,0}-\sqmatrix{1,-1}=\sqmatrix{-2,1}\leftarrow\text{vettore costi ridotti}$
 $\gamma_1=-2<0$
-$\sqmatrix{}$
+$\bigl[B^{-1}N\bigr]_1=\sqmatrix{-1\\0}\Rightarrow\text{il pb è illimitato}$
