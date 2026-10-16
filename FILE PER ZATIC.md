@@ -1,1 +1,1 @@
-$\Huge\mathbb{C}:\ r^{i(st)}=in^\alpha$
+$\Huge\mathbb{C}\to\mathbb{R}:i^{(sti)}=n^\alpha$
