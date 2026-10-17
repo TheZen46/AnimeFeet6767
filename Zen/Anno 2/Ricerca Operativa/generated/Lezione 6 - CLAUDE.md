@@ -149,7 +149,7 @@ Ogni matrice di base ammissibile individua un solo vertice; un vertice non degen
 
 Anche se le matrici di base possono essere più dei vertici, la corrispondenza dà un limite superiore al numero dei vertici. Con una stima "molto rozza", che conta anche le matrici non ammissibili, i vertici sono al più quante le matrici di base, e queste sono al più quanti i sottoinsiemi di $m$ colonne distinte scelte tra $n$:
 
-$$ #{\text{vertici}} ;\le; \binom{n}{m} = \frac{n!}{m!,(n-m)!} . $$
+$$ \{\text{vertici}\} ;\le; \binom{n}{m} = \frac{n!}{m!,(n-m)!} . $$
 
 In particolare il numero di vertici è **finito**. Rispetto alla stima per la forma generale (lezione 4) i ruoli di $n$ e $m$ si sono scambiati:
 
