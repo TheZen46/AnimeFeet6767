@@ -1,7 +1,7 @@
 ---
 
 ## corso: Ricerca Operativa lezione: 7 data: 2026-10-14 docente: Silvia Villa argomenti: [basi associate ai vertici, variabili di slack e vincoli attivi, vertici degeneri, ricerca esaustiva delle basi ammissibili, soluzioni di base degeneri, metodo del simplesso in due fasi, fase 1, fase 2, forma canonica rispetto a una base, costi ridotti, criterio di ottimalità] fonti: [trascrizione, appunti manuali, dispense] tags: [ricerca-operativa, lezione]
-
+---
 # Lezione 7 — Vertici degeneri e fase 2 del simplesso
 
 > [!info] Fonti di questa nota Trascrizione della lezione (un'unica parte), appunti manuali (scansione della lezione 7, due pagine) e nota Obsidian _Simplesso_, che per questa lezione non aggiunge contenuti. Le dispense [@roma2023, §6.2–6.4.1] e le note di Di Summa [@disumma2015, §3.1] trattano gli stessi argomenti. Le parti prese solo da queste fonti, e i calcoli aggiunti per verifica, sono indicati esplicitamente.
@@ -122,7 +122,7 @@ $$ \begin{cases} x_1 + 2x_2 = 4 \ -x_1 + 4x_2 = 2 \end{cases} $$
 
 Sommando, $x_1$ se ne va e resta $6x_2 = 6$, cioè $x_2 = 1$; sostituendo, $x_1 = 4 - 2 = 2$. Entrambe positive: $B_1$ è ammissibile e la SBA è $(2, 1, 0, 0)$.
 
-||colonne|$\det$|base?|$x_B = B^{-1} b$|ammissibile?|SBA (vertice)|
+| |colonne|$\det$|base?|$x_B = B^{-1} b$|ammissibile?|SBA (vertice)|
 |---|---|---|---|---|---|---|
 |$B_1$|$x_1, x_2$|$6$|sì|$(2, 1)$|sì|$(2, 1, 0, 0)$|
 |$B_2$|$x_1, x_3$|$0$|**no**|—|—|—|
