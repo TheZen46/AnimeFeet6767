@@ -9,7 +9,7 @@
 	Lezione 7
 	Lezione 8
 
-## Ricerca Operativa
+## Ricerca Operativa (scheduled)
 	Lezione 5
 	Lezione 6
 	Lezione 7
@@ -22,9 +22,9 @@
 
 ### modulo 2 
 	
+
 ## Sistemi Operativi
 	
 
 ## Teoria dei Sistemi
 	Lezione 7
-	
