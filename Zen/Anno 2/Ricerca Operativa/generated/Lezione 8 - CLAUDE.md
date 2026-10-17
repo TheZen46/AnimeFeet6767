@@ -1,7 +1,7 @@
 ---
 
 ## corso: Ricerca Operativa lezione: 8 data: 2026-10-16 docente: Silvia Villa argomenti: [fase 2 del simplesso, forma canonica, costi ridotti, unicità della soluzione ottima, test di illimitatezza, semiretta di decrescita, cambio di base, variabile entrante, variabile uscente, criterio del rapporto minimo, regole di scelta, pivot degenere] fonti: [trascrizione, appunti manuali, dispense] tags: [ricerca-operativa, lezione]
-
+---
 # Lezione 8 — Test di illimitatezza e cambio di base
 
 > [!info] Fonti di questa nota Trascrizione della lezione del 16/10/2026 (un'unica parte), appunti manuali (scansione della lezione 8, due pagine) e nota Obsidian _Simplesso_ (seconda metà: esempio numerico, criteri, esercizio, aggiornamento della SBA). Le dispense [@roma2023, §6.4.1–6.4.3, §6.4.6] usano la stessa notazione ($\gamma$, $B^{-1}N$, indice entrante $h$, indice uscente $k$) e contengono lo stesso esempio grande della lezione; le note di Di Summa [@disumma2015, §3.2, §3.5] svolgono la stessa iterazione in forma tableau. Le parti prese solo da queste fonti, e i calcoli aggiunti per verifica, sono indicati esplicitamente.
@@ -83,7 +83,7 @@ perché il prodotto scalare di $\gamma$ con $e_h$ è la componente $h$-esima di 
 
 $$ \lim_{t \to +\infty} \left( c_B^T B^{-1} b + t, \gamma_h \right) = -\infty . $$
 
-A lezione qualcuno ha risposto "più infinito": se tendesse a $+\infty$ non sarebbe un problema, perché si sta cercando il minimo. Si è trovata un'intera semiretta di punti ammissibili su cui la funzione obiettivo diminuisce sempre di più: il problema è illimitato inferiormente. $\square$
+A lezione qualcuno ha risposto "più infinito": se tendesse a $+\infty$ non sarebbe un problema, perché si sta cercando il minimo. Si è trovata un'intera semiretta di punti ammissibili su cui la funzione obiettivo diminuisce sempre di più: il problema è illimitato inferiormente. 
 
 > [!tip] Schema da disegnare Figura consigliata in Excalidraw: un poliedro illimitato di $\mathbb{R}^2$ con un vertice $\bar x$ da cui partono due spigoli; uno dei due è una semiretta che va all'infinito. Sulla semiretta si segnano alcuni punti $x(t) = \bar x + t,d$ per $t = 1, 2, 3$ con i valori decrescenti della funzione obiettivo, e il vettore $-c$ che punta nello stesso verso della semiretta.
 
