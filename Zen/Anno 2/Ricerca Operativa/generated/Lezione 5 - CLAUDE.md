@@ -1,7 +1,7 @@
 ---
 
 ## corso: Ricerca Operativa lezione: 5 data: 2026-10-06 docente: Silvia Villa argomenti: [forma generale, poliedri senza rette, teorema fondamentale della programmazione lineare, problemi illimitati inferiormente, insieme delle soluzioni ottime, idea del metodo del simplesso, maledizione della dimensionalità, forma standard, variabili di slack, variabili di surplus, variabili libere, vertici in forma standard, colonne linearmente indipendenti] fonti: [trascrizione, appunti manuali, dispense] tags: [ricerca-operativa, lezione]
-
+---
 # Lezione 5 — Teorema fondamentale e forma standard
 
 > [!info] Fonti di questa nota Trascrizione della lezione del 06/10/2026 (un'unica parte, comprensiva della ripresa dopo la pausa), appunti manuali (scansione della lezione 5, una sola pagina: arriva fino alla definizione di problema in forma standard) e note Obsidian _Vertici_di_poliedri_ e _Simplesso_ (prima metà: trasformazioni in forma standard, esercizio, caratterizzazione dei vertici e dimostrazione). Le dispense [@roma2023, §5.1–5.2, §6.1–6.2] e le note di Di Summa [@disumma2015, §1.1–1.2, §2.3] contengono gli stessi risultati; le parti prese solo da queste fonti, e i calcoli aggiunti per verifica, sono indicati esplicitamente.
