@@ -1,7 +1,7 @@
 ---
 
 ## corso: Ricerca Operativa lezione: 6 data: 2026-10-09 docente: Silvia Villa argomenti: [vertici in forma standard, matrice di base, matrice delle colonne fuori base, indici in base e fuori base, variabili in base e fuori base, forma canonica, soluzione di base, soluzione di base ammissibile, matrice di base ammissibile, equivalenza tra vertici e soluzioni di base ammissibili, soluzioni di base degeneri, numero massimo di vertici, variabili di slack] fonti: [trascrizione, appunti manuali, dispense] tags: [ricerca-operativa, lezione]
-
+---
 # Lezione 6 — Matrici di base e soluzioni di base ammissibili
 
 > [!info] Fonti di questa nota Trascrizione della lezione del 09/10/2026 (un'unica parte), appunti manuali (scansione della lezione 6) e nota Obsidian _Simplesso_, che per questa lezione non aggiunge contenuti. Le dispense [@roma2023, §6.2] usano la stessa terminologia (matrice di base, matrice delle colonne fuori base, $I_B$, $I_N$, SBA); le note di Di Summa [@disumma2015, §2.3] presentano gli stessi risultati con una notazione insiemistica. Le parti prese solo da queste fonti, e i calcoli aggiunti per verifica, sono indicati esplicitamente.
