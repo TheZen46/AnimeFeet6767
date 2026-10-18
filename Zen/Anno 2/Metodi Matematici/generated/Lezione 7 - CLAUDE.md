@@ -20,9 +20,10 @@ Un indizio viene dal caso lineare. La funzione $f(\mathbf{x}) = \mathbf{y}_0 + A
 
 ### L'enunciato
 
-> [!important] Teorema — Funzione inversa Sia $f : D \subseteq \mathbb{R}^n \to \mathbb{R}^n$ di classe $C^1$ e sia $\hat{\mathbf{x}}$ un punto interno a $D$ tale che la matrice jacobiana $J_{\hat{\mathbf{x}}} = d_{\hat{\mathbf{x}}} f$ abbia $$\det J_{\hat{\mathbf{x}}} \neq 0 .$$ Allora esiste un intorno $N \subseteq D$ di $\hat{\mathbf{x}}$ tale che la funzione $f$ ristretta a $N$ è invertibile sulla sua immagine $f(N)$.
+> [!important] Teorema — Funzione inversa 
+> Sia $f : D \subseteq \mathbb{R}^n \to \mathbb{R}^n$ di classe $C^1$ e sia $\hat{\mathbf{x}}$ un punto interno a $D$ tale che la matrice jacobiana $J_{\hat{\mathbf{x}}} = d_{\hat{\mathbf{x}}} f$ abbia $$\det J_{\hat{\mathbf{x}}} \neq 0 .$$ Allora esiste un intorno $N \subseteq D$ di $\hat{\mathbf{x}}$ tale che la funzione $f$ ristretta a $N$ è invertibile sulla sua immagine $f(N)$.
 > 
-> [@pinamonti2026, Teor. 1.2.12]
+
 
 Alcune osservazioni sulle ipotesi.
 
