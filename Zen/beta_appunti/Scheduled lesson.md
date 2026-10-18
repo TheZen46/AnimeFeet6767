@@ -5,15 +5,11 @@
 ## Algoritmi
 	
 
-## Metodi Matematici (scheduled)
-	Lezione 7
-	Lezione 8
+## Metodi Matematici 
+	
 
-## Ricerca Operativa (scheduled)
-	Lezione 5
-	Lezione 6
-	Lezione 7
-	Lezione 8
+## Ricerca Operativa
+	
 
 ## Robotica 
 ### modulo 1 
