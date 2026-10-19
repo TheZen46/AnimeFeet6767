@@ -29,4 +29,21 @@ $\text{SE(3)} = \left\{ ^a_bT:^a_bR\in SO(3),^aO_b\in \mathbb{R}^3 \right\}$
 
 $^a_cT = ^a_bT^b_cT = \pmatrix{^a_bR^b_cR \ &^aO_b+^a_bT^bO_c \\ 0_{3x1} \ &1}$
 
-$^b_aT = ^a_bT^{-1} = \pmatrix{^a_bR^T \ &-^a_bR^T^aO_b \\ 0 \ &1}$
+$^b_a T = \,^a_b T^{-1} = \pmatrix{ ^a_b R^T & -\,^a_b R^T \,^a O_b \cr 0 & 1 }$
+
+---
+
+$\underline{ESEMPIO } \text{ :Posa 3D sensore}$
+$\omega_bR = R_z(\frac{\pi}{2}) , \mskip{15mu} ^\omega O_b = \pmatrix{1 \\ 2 \\ 0}$
+
+$^b_sR = R_x(\frac{\pi}{2}), \mskip{15mu} ^bO_s = \pmatrix{0.2 \\ 0 \\ 0.5}$
+$^sP = \pmatrix{0 \\ 1 \\ 0}$
+
+$^\omega_b T = \pmatrix{ 0 \ &-1 \ &0 \ &1 \\ 1 \ &0 \ &0 \ &2 \\ 0 \ &0 \ &1 \ &0 \\ 0 \ &0 \ &0 \ &1}$
+
+$^b_s T = \pmatrix{ 1 \ &0 \ &0 \ &0.2 \\ 0 \ &0 \ &-1 \ &0 \\ 0 \ &1 \ &0 \ &0.5 \\ 0 \ &0 \ &0 \ &1}$
+
+$^\omega_sT = ^\omega_bT^b_sT = \pmatrix{ 0 \ &0 \ &1 \ &1 \\ 1 \ &0 \ &0 \ &2.2 \\ 0 \ &1 \ &0 \ &0.5 \\ 0 \ &0 \ &0 \ &1}$
+
+
+$^\omega\overline{P} = ^\omega_sT^s\overline{P} = \pmatrix{ 0 \ &0 \ &1 \ &1 \\ 1 \ &0 \ &0 \ &2.2 \\ 0 \ &1 \ &0 \ &0.5 \\ 0 \ &0 \ &0 \ &1}\pmatrix{0\\ 1 \\ 0 \\ 1} = \pmatrix{1 \\ 2.2 \\ 1.5 \\ 1}$
