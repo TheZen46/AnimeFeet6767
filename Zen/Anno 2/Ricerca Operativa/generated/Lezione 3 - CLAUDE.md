@@ -18,7 +18,7 @@ Gli esempi sono casi reali molto semplificati in cui la programmazione lineare d
 
 Il testo, letto a lezione, riprende l'esercizio impostato nella [[Lezione 02 - Modelli di programmazione matematica#Problemi di miscelazione — impostazione|lezione 2]]. Un'industria produce succhi di frutta mescolando due ingredienti, **polpa di frutta** ($P$) e **dolcificante** ($D$). Si vogliono rispettare requisiti minimi sul contenuto di vitamina C, sali minerali e zucchero, minimizzando il costo. La polpa costa $4$ € all'ettogrammo e il dolcificante $6$ € all'ettogrammo (un ettogrammo è 100 grammi). La composizione **per ettogrammo** di ciascun ingrediente è:
 
-||$P$|$D$|
+| |$P$|$D$|
 |---|---|---|
 |vitamina C|$140\ \text{mg}$|$0\ \text{mg}$|
 |sali minerali|$20\ \text{mg}$|$10\ \text{mg}$|
