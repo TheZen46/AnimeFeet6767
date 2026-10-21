@@ -283,13 +283,15 @@ La **stringa vuota** è la stringa con zero occorrenze di simboli e si denota co
 
 ### Lunghezza
 
-> [!important] Definizione: lunghezza di una stringa La **lunghezza** di una stringa $w$, denotata $|w|$, è il numero di _posizioni_ occupate dai simboli nella stringa.
+> [!important] Definizione: lunghezza di una stringa 
+> La **lunghezza** di una stringa $w$, denotata $|w|$, è il numero di _posizioni_ occupate dai simboli nella stringa.
 
 Il docente insiste sul termine «posizioni». Parlare di «numero di simboli» sarebbe ambiguo, perché si potrebbe intendere il numero di simboli _distinti_, e allora la stringa $010$ risulterebbe lunga 2. La definizione formale elimina l'ambiguità: le ripetizioni contano, quindi $|010| = 3$ e $|0110| = 4$, mentre $|\epsilon| = 0$.
 
 ### Potenze di un alfabeto
 
-> [!important] Definizione: potenza di un alfabeto $\Sigma^k$ è l'insieme (finito) delle stringhe di lunghezza esattamente $k$ composte da simboli di $\Sigma$.
+> [!important] Definizione: potenza di un alfabeto 
+> $\Sigma^k$ è l'insieme (finito) delle stringhe di lunghezza esattamente $k$ composte da simboli di $\Sigma$.
 
 Con $\Sigma = {0, 1}$ si ha:
 
@@ -317,7 +319,8 @@ Poiché ogni stringa di $\Sigma^k$ con $k \geq 1$ ha lunghezza almeno 1, la stri
 
 ### Concatenazione di stringhe
 
-> [!important] Definizione: concatenazione Se $x = a_1 a_2 \dots a_i$ e $y = b_1 b_2 \dots b_j$ sono stringhe, la loro **concatenazione** $xy$ è la stringa ottenuta ponendo una copia di $y$ immediatamente dopo una copia di $x$: $$xy = a_1 a_2 \dots a_i , b_1 b_2 \dots b_j .$$
+> [!important] Definizione: concatenazione 
+> Se $x = a_1 a_2 \dots a_i$ e $y = b_1 b_2 \dots b_j$ sono stringhe, la loro **concatenazione** $xy$ è la stringa ottenuta ponendo una copia di $y$ immediatamente dopo una copia di $x$: $$xy = a_1 a_2 \dots a_i , b_1 b_2 \dots b_j .$$
 
 La notazione è la semplice giustapposizione. Per esempio, con $x = 01101$ e $y = 110$ si ha $xy = 01101110$. È la stessa operazione che in C++ si esegue sulle stringhe di testo, per esempio unendo «ciao» e «mondo». Si osservi che $|xy| = |x| + |y|$.
 
@@ -335,7 +338,8 @@ $$ x\epsilon = \epsilon x = x . $$
 
 ### Definizione
 
-> [!important] Definizione: linguaggio Dato un alfabeto $\Sigma$, un **linguaggio** su $\Sigma$ è un qualsiasi insieme di stringhe $L$ tale che $L \subseteq \Sigma^*$.
+> [!important] Definizione: linguaggio 
+> Dato un alfabeto $\Sigma$, un **linguaggio** su $\Sigma$ è un qualsiasi insieme di stringhe $L$ tale che $L \subseteq \Sigma^*$.
 
 Un linguaggio si ottiene quindi in tre passi: si fissa un alfabeto, si considerano tutte le stringhe costruibili su di esso e se ne individua un sottoinsieme. L'inclusione non è necessariamente stretta: anche $\Sigma^*$ stesso è un linguaggio.
 
@@ -353,7 +357,8 @@ Un linguaggio può essere **infinito** pur avendo un alfabeto finito. L'esempio 
 
 L'esempio di $L_p$ mostra già la potenza del concetto. Stabilire se una stringa appartiene a $L_p$ significa stabilire se il numero che essa rappresenta in binario è primo: un problema di programmazione noto è diventato una questione di appartenenza a un linguaggio.
 
-> [!important] Linguaggio vuoto e linguaggio della stringa vuota $L_\emptyset \neq L_\epsilon$. Il linguaggio vuoto non contiene stringhe e ha cardinalità 0; $L_\epsilon$ contiene una stringa, quella vuota, e ha cardinalità 1.
+> [!important] Linguaggio vuoto e linguaggio della stringa vuota $L_\emptyset \neq L_\epsilon$. 
+> Il linguaggio vuoto non contiene stringhe e ha cardinalità 0; $L_\epsilon$ contiene una stringa, quella vuota, e ha cardinalità 1.
 
 ### Operazioni sui linguaggi
 
