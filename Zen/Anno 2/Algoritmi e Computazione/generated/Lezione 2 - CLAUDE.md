@@ -183,7 +183,8 @@ La grammatica rivela una **struttura gerarchica**. Un programma è composto da f
 
 Il compito del parser è quindi:
 
-> [!important] Compito del parser Trovare, **se esiste**, la corrispondenza tra la lista di token e la struttura sintattica definita dalla grammatica, mettendo in evidenza la gerarchia del programma.
+> [!important] Compito del parser 
+> Trovare, **se esiste**, la corrispondenza tra la lista di token e la struttura sintattica definita dalla grammatica, mettendo in evidenza la gerarchia del programma.
 
 Se la corrispondenza esiste, il parser abbandona la struttura lineare della lista e produce una struttura ramificata: l'**albero sintattico** (più in generale un _grafo_). Le liste dinamiche viste a Fondamenti sono strutture sequenziali; gli alberi, che verranno studiati nella parte su algoritmi e strutture dati, sono strutture ramificate. Per il programma di riferimento l'albero è il seguente:
 
@@ -225,7 +226,8 @@ Dopo le prime due fasi sappiamo che tutte le parole sono corrette e che le frasi
 
 ### Visitare l'albero
 
-> [!important] Definizione: valutazione L'evaluator **visita** l'albero sintattico, cioè lo percorre sistematicamente nodo per nodo, associando a ogni nodo la semantica definita per il costrutto sintattico che quel nodo rappresenta.
+> [!important] Definizione: valutazione 
+> L'evaluator **visita** l'albero sintattico, cioè lo percorre sistematicamente nodo per nodo, associando a ogni nodo la semantica definita per il costrutto sintattico che quel nodo rappresenta.
 
 Visitando il programma di riferimento, l'evaluator incontra per prima la definizione di `f`. Non ha senso valutarne subito il corpo: una funzione si esegue quando viene _chiamata_, non quando viene definita. L'evaluator deve solo ricordarsi che `f` è stata dichiarata e definita. Per farlo usa una struttura dati fondamentale, la **symbol table** (tabella dei simboli), mantenuta in memoria. In essa registra il nome `f`, il fatto che si tratta di una funzione, i suoi parametri (un `int`) e il tipo del valore restituito (`int`).
 
@@ -265,13 +267,15 @@ Per arrivarci servono alcuni concetti formali. Restano infatti domande aperte. C
 
 ### Alfabeto
 
-> [!important] Definizione: alfabeto Un **alfabeto** è un insieme **finito e non vuoto** di simboli. Si denota di solito con la lettera greca maiuscola $\Sigma$.
+> [!important] Definizione: alfabeto 
+> Un **alfabeto** è un insieme **finito e non vuoto** di simboli. Si denota di solito con la lettera greca maiuscola $\Sigma$.
 
 Il concetto è più generale dell'alfabeto delle lingue naturali. Sono alfabeti l'alfabeto binario $\Sigma = {0, 1}$, già incontrato nelle reti logiche, l'insieme delle lettere minuscole $\Sigma = {a, b, c, \dots, z}$ e l'insieme di tutti i caratteri ASCII.
 
 ### Stringa
 
-> [!important] Definizione: stringa Una **stringa** (o parola) su un alfabeto $\Sigma$ è una sequenza **finita** di simboli di $\Sigma$.
+> [!important] Definizione: stringa 
+> Una **stringa** (o parola) su un alfabeto $\Sigma$ è una sequenza **finita** di simboli di $\Sigma$.
 
 La finitezza è essenziale. Esiste una parte dell'informatica teorica che studia stringhe infinite, ma è materia da laurea magistrale e il corso non se ne occupa. Gli esempi familiari sono molti: un identificatore C++ è una stringa sull'alfabeto ASCII, e un intero programma C++ è una singola, lunga stringa sullo stesso alfabeto. Anche la lista di token prodotta dal lexer è una stringa, i cui simboli sono token.
 
