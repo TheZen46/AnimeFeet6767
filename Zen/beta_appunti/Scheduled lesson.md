@@ -4,7 +4,7 @@
 	Lezione 9
  
 ## Algoritmi
-	
+	Lezione 7
 
 ## Metodi Matematici 
 	Lezione 9
@@ -18,10 +18,12 @@
 	Lezione 4
 
 ### modulo 2 
-	Lezione 
+	Lezione 5
 
 ## Sistemi Operativi
 	Lezione 8
+	Lezione 9
 
 ## Teoria dei Sistemi
 	Lezione 7
+	 
