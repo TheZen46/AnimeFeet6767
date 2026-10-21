@@ -1,6 +1,7 @@
 ## Fisica
 	Lezione 7
 	Lezione 8
+	Lezione 9
  
 ## Algoritmi
 	
@@ -17,7 +18,7 @@
 	Lezione 4
 
 ### modulo 2 
-	
+	Lezione 
 
 ## Sistemi Operativi
 	Lezione 8
