@@ -418,9 +418,11 @@ Le due leggi sulle chiusure di $\emptyset$ e di ${\epsilon}$ evidenziano un fatt
 
 Il docente chiama $L^+$ chiusura «transitiva» e $L^-$ chiusura «riflessiva e transitiva». La legge $L^+ = LL^- = L^-L$ dice che le stringhe della chiusura positiva si ottengono anteponendo o posponendo un elemento di $L$ a una stringa di $L^-$. Infine, la chiusura è **idempotente**: chiudere una chiusura non aggiunge nulla.
 
-> [!example] Dimostrazione della distributività a sinistra Si vuole provare che $L(M \cup N) = LM \cup LN$. Per una stringa $w$ valgono le seguenti equivalenze: $$ \begin{aligned} w \in L(M \cup N) &\iff \exists x \in L,\ \exists y \in M \cup N : w = xy \ &\iff \exists x \in L,\ \exists y : w = xy \text{ e } (y \in M \text{ oppure } y \in N) \ &\iff (\exists x \in L,\ \exists y \in M : w = xy) \text{ oppure } (\exists x \in L,\ \exists y \in N : w = xy) \ &\iff w \in LM \text{ oppure } w \in LN \iff w \in LM \cup LN . \end{aligned} $$ I due insiemi hanno gli stessi elementi e sono quindi uguali. La distributività a destra si prova allo stesso modo.
+> [!example] Dimostrazione della distributività a sinistra 
+> Si vuole provare che $L(M \cup N) = LM \cup LN$. Per una stringa $w$ valgono le seguenti equivalenze: $$ \begin{aligned} w \in L(M \cup N) &\iff \exists x \in L,\ \exists y \in M \cup N : w = xy \ &\iff \exists x \in L,\ \exists y : w = xy \text{ e } (y \in M \text{ oppure } y \in N) \ &\iff (\exists x \in L,\ \exists y \in M : w = xy) \text{ oppure } (\exists x \in L,\ \exists y \in N : w = xy) \ &\iff w \in LM \text{ oppure } w \in LN \iff w \in LM \cup LN . \end{aligned} $$ I due insiemi hanno gli stessi elementi e sono quindi uguali. La distributività a destra si prova allo stesso modo.
 
-> [!tip] Approfondimento — $\Sigma^+$ e $L^+$ non si comportano allo stesso modo #approfondimento Per un alfabeto vale sempre $\epsilon \notin \Sigma^+$, come visto sopra. Per un linguaggio qualsiasi non è così. Se $\epsilon \in L$, allora $\epsilon \in L^1 = L \subseteq L^+$, e la chiusura positiva coincide con quella di Kleene. Per esempio, con $L = {\epsilon, a}$ si ottiene $L^+ = L^* = {a}^-$. La relazione $L^- = L^+ \cup {\epsilon}$ vale in ogni caso . L'uguaglianza $L^+ = L^* \setminus {\epsilon}$ vale invece solo quando $\epsilon \notin L$, e in particolare vale per gli alfabeti.
+> [!tip] Approfondimento — $\Sigma^+$ e $L^+$ non si comportano allo stesso modo #approfondimento 
+> Per un alfabeto vale sempre $\epsilon \notin \Sigma^+$, come visto sopra. Per un linguaggio qualsiasi non è così. Se $\epsilon \in L$, allora $\epsilon \in L^1 = L \subseteq L^+$, e la chiusura positiva coincide con quella di Kleene. Per esempio, con $L = {\epsilon, a}$ si ottiene $L^+ = L^* = {a}^-$. La relazione $L^- = L^+ \cup {\epsilon}$ vale in ogni caso . L'uguaglianza $L^+ = L^* \setminus {\epsilon}$ vale invece solo quando $\epsilon \notin L$, e in particolare vale per gli alfabeti.
 
 ## Il word problem
 
@@ -428,7 +430,8 @@ Il docente chiama $L^+$ chiusura «transitiva» e $L^-$ chiusura «riflessiva e 
 
 Siamo ora in grado di formulare il problema che, secondo il docente, rappresenta in generale tutti i problemi dell'informatica.
 
-> [!important] Definizione: word problem (problema della parola) Dato un alfabeto $\Sigma$ e un linguaggio $L \subseteq \Sigma^-$, stabilire se una stringa $w \in \Sigma^-$ è un elemento di $L$.
+> [!important] Definizione: word problem (problema della parola) 
+> Dato un alfabeto $\Sigma$ e un linguaggio $L \subseteq \Sigma^-$, stabilire se una stringa $w \in \Sigma^-$ è un elemento di $L$.
 
 Si tratta di un **problema di decisione**: la risposta è sempre sì oppure no. Alcuni esempi mostrano quanto sia generale.
 
