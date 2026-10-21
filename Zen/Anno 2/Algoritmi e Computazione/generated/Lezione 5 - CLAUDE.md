@@ -164,7 +164,7 @@ Il docente consiglia di memorizzare la forma: è sempre la stessa, con lo stream
 
 In italiano i due termini si traducono spesso entrambi con «ridefinizione», ma indicano cose diverse.
 
-||Overloading (sovraccarico)|Overriding (ridefinizione)|
+| |Overloading (sovraccarico)|Overriding (ridefinizione)|
 |---|---|---|
 |Che cosa|stesso nome di funzione, **firme diverse**|stessa firma, ridefinita in una **classe derivata**|
 |Esempio|`int pow(int, int)` e `float pow(float, float)`|`book::print` ridefinisce `work::print`|
