@@ -28,7 +28,8 @@ void main(){
 
 La funzione `f` calcola il quadrato del suo argomento; `main` la invoca con argomento 5, memorizza il risultato in `z` e lo stampa. Eseguito, il programma produce `Il quadrato di 5 è 25`.
 
-> [!warning] Discrepanza tra le fonti: `void main` La versione alla lavagna, riportata anche negli appunti manuali, usa `void main()` e `return ;`. Una delle note manuali riporta invece `int main()` con `return 0;`. Ai fini della lezione la differenza è irrilevante. Va però ricordato che lo standard C++ richiede che `main` restituisca `int`, e che `printf` richiede l'inclusione di `<cstdio>`. Un programma da compilare davvero userebbe quindi `int main()`.
+> [!warning] Discrepanza tra le fonti: 
+> `void main` La versione alla lavagna, riportata anche negli appunti manuali, usa `void main()` e `return ;`. Una delle note manuali riporta invece `int main()` con `return 0;`. Ai fini della lezione la differenza è irrilevante. Va però ricordato che lo standard C++ richiede che `main` restituisca `int`, e che `printf` richiede l'inclusione di `<cstdio>`. Un programma da compilare davvero userebbe quindi `int main()`.
 
 L'obiettivo non è interpretare _questo_ programma, né sue piccole variazioni (sostituire `x * x` con `2 * x`, per esempio), cosa che si potrebbe fare con un programma banale. L'obiettivo è gestire **un'intera classe di programmi**, scritti in un opportuno sottoinsieme del C++. Si può immaginare un sottoinsieme con le sole operazioni sugli interi, senza numeri in virgola mobile né stringhe, con funzioni, stampa, magari lettura di valori e cicli come `while` e `for`.
 
