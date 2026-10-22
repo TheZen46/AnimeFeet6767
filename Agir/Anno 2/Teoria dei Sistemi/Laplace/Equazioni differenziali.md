@@ -6,7 +6,7 @@ $\lt{y^{(n)}}+a_{n-1}\ \lt{y^{(n-1)}}+\ldots+a_o\ Y(s)=b_m\ \lt{u^{(m)}}+\ldots+
 
 $m\le n\begin{cases}m<n&\text{strettamente proprio}\\m=n&\text{proprio}\end{cases}$
 
-$\displaystyle Y(s)=\frac{b_m\ s^m+\ldots+b_0}{s^n+a_{n-1}\ s^{n-1}+\ldots+a_0}U(s)+\frac{Z\Bigl(\left.s^x{n-1},y^{(k)}(-^0)\right|_{k=0}^{n-1},\ \left.u^{(k)}(-^0)\right|_{k=0}^{n-1}\Bigr)}{s^n+a_{n-1}\ s^{n-1}+\ldots+a_0}$
+$\displaystyle Y(s)=\underbrace{\frac{b_m\ s^m+\ldots+b_0}{s^n+a_{n-1}\ s^{n-1}+\ldots+a_0}\ U(s)}_{\text{risposta nello stato }0}+\underbrace{\frac{Z\Bigl(s^{n-1},y^{(k)}(0^-)\Bigr|_{k=0}^{n-1},\ u^{(k)}(0^-)\Bigr|_{k=0}^{n-1}\Bigr)}{s^n+a_{n-1}\ s^{n-1}+\ldots+a_0}}_{\text{risposta ad ingresso nullo}}$
 
 # Esempio
 Molla-massa
@@ -35,4 +35,12 @@ $\displaystyle \ilt{Y(s)}=\overline y\cos\Bigl(\sqrt{\frac KM}t\Bigr)$
 
 $\cases{y(0^-)=\dot y(0^-)=0\\f=\sin\Bigl(\sqrt{\frac KM}t\Bigr)}$
 $\displaystyle Y(s)=\frac{1/M\ \sqrt\frac KM}{\bigl(s^2+\frac KM\bigr)^2}$
-$4$ poli immaginari, molteplicita $2$
+$4$ poli immaginari, molteplicità $2\Rightarrow\text{non converge}$
+
+
+
+
+
+$\displaystyle \frac{b_m\ s^m+\ldots+b_0}{s^n+a_{n-1}\ s^{n-1}+\ldots+a_0}\array{\text{fuzione di}\\\text{trasferimento}}\ T(s)$
+$\cases{y^{(k)}(0^-)\Bigr|_{k=0}^{n-1}=y^{(k)}(0^-)\Bigr|_{k=0}^{n-1}=0\\u(t)=\delta(t)}$
+$Y(s)=T(s)$
