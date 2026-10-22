@@ -46,10 +46,25 @@ $\cases{y^{(k)}(0^-)\Bigr|_{k=0}^{n-1}=y^{(k)}(0^-)\Bigr|_{k=0}^{n-1}=0\\u(t)=\d
 $Y(s)=T(s)$
 
 
-$\cases{\dot y+y=u\\U=u(t)-u(t-1)\\y(0^-)=0}$
-
+$\cases{\dot y+y=u\\u=1(t)-1(t-1)\\y(0^-)=0}$
+## Laplace
 $\ds T(s)=\frac1{s+1}$
 
 $\ds U(s)=\frac1s-\frac1se^{-s}=\frac1s(1-e^{-s})$
 
 $\displaystyle Y(s)=\frac{1}{s(s+1)}-\frac{1}{s(s+1)}e^{-s}$
+
+$\displaystyle \ilt{\frac1{s(s+1)}}=1-e^{-t}$
+$y(t)=1-e^{-t}-\bigl(1-e^{-(t-1)}\bigr)1(t-1)$
+
+$\cases{0\le t<1&1-e^{-t}\\1\le t\le +\infty&\cancel 1-e^{-t}\cancel{-1}+e^{-(t-1)}}$
+
+
+## ODE
+$y(0^-)=0$
+$\dot y+y=1$
+$y(t)=1+Ae^{-t}$
+	$y(0^-)=0\Rightarrow A=-1$
+$y(t)=1-e^{-t}$
+
+$y(1)=1-e^{-1}$
