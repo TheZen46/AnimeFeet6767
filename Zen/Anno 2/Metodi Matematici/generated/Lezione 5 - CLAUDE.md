@@ -25,7 +25,8 @@ Poiché il differenziale è descritto dal gradiente, chiedere che il gradiente s
 
 ## Massimi e minimi locali
 
-> [!important] Definizione — Minimi e massimi locali Sia $f : D \subseteq \mathbb{R}^n \to \mathbb{R}$ con $D$ aperto e sia $\hat{\mathbf{x}} \in D$.
+> [!important] Definizione — Minimi e massimi locali 
+> Sia $f : D \subseteq \mathbb{R}^n \to \mathbb{R}$ con $D$ aperto e sia $\hat{\mathbf{x}} \in D$.
 > 
 > - $\hat{\mathbf{x}}$ è un punto di **minimo locale** se esiste $r > 0$ tale che $f(\mathbf{x}) \ge f(\hat{\mathbf{x}})$ per ogni $\mathbf{x} \in B(\hat{\mathbf{x}}, r)$.
 > - $\hat{\mathbf{x}}$ è un punto di **massimo locale** se esiste $r > 0$ tale che $f(\mathbf{x}) \le f(\hat{\mathbf{x}})$ per ogni $\mathbf{x} \in B(\hat{\mathbf{x}}, r)$.
