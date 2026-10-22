@@ -10,7 +10,29 @@ $\displaystyle Y(s)=\frac{b_m\ s^m+\ldots+b_0}{s^n+a_{n-1}\ s^{n-1}+\ldots+a_0}U
 
 # Esempio
 Molla-massa
-$M\ddot y=-Ky+F$
-$\displaystyle \ddot y+\frac KMy=\frac FM$
-$F=U$
-$\frac $
+$M\ddot y=-Ky+f$
+$\displaystyle \ddot y+\frac KMy=\frac fM$
+$f=U$
+$\displaystyle \frac KM=a_0\frac1M=b_0$
+
+$\lt{f}=F$
+$\displaystyle s^2Y(s)+sy(0^-)-\dot y(o^-)+\frac KM Y(s)=\frac1M F(s)$
+$\displaystyle \bigl(s^2+\frac KM\bigr)Y(s)=\frac 1M F(s)+sy(0^-)+\dot y(0^-)$
+$\displaystyle Y(s)=\frac{1/M}{s^2+\frac KM}F(x)+\frac{sY(0^-)+y(0^-)}{s^2+\frac KM}$
+
+## Condizioni iniziali
+$\cases{y^(0^-)=\dot y(0^-)\\f=\delta(t)}$
+$\displaystyle Y(s)=\frac{1/M}{s^2+\frac KM}=\frac1M\ \frac{\sqrt{K/M}\sqrt{M/K}}{s^2+\frac KM}=\sqrt{\frac1{MK}}\ \frac{\sqrt{K/M}}{s^2+\frac KM}$
+$\displaystyle y(t)=\sqrt{\frac{1}{MK}}\ \sin\Bigl(\sqrt{\frac KM}t\Bigr)$
+
+
+
+$\cases{f=0\\y(0^-)=\overline y\\\dot y(0^-)=0}$
+$\displaystyle Y(s)=\frac{s\overline y}{s^2+\frac KM}$
+$\displaystyle \ilt{Y(s)}=\overline y\cos\Bigl(\sqrt{\frac KM}t\Bigr)$
+
+
+
+$\cases{y(0^-)=\dot y(0^-)=0\\f=\sin\Bigl(\sqrt{\frac KM}t\Bigr)}$
+$\displaystyle Y(s)=\frac{1/M\ \sqrt\frac KM}{\bigl(s^2+\frac KM\bigr)^2}$
+$4$ poli immaginari, molteplicita $2$
