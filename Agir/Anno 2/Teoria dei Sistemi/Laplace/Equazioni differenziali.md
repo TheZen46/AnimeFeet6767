@@ -41,6 +41,15 @@ $4$ poli immaginari, molteplicità $2\Rightarrow\text{non converge}$
 
 
 
-$\displaystyle \frac{b_m\ s^m+\ldots+b_0}{s^n+a_{n-1}\ s^{n-1}+\ldots+a_0}\array{\text{fuzione di}\\\text{trasferimento}}\ T(s)$
+$\displaystyle \frac{b_m\ s^m+\ldots+b_0}{s^n+a_{n-1}\ s^{n-1}+\ldots+a_0}\array{\text{funzione di}\\\text{trasferimento}}\ T(s)$
 $\cases{y^{(k)}(0^-)\Bigr|_{k=0}^{n-1}=y^{(k)}(0^-)\Bigr|_{k=0}^{n-1}=0\\u(t)=\delta(t)}$
 $Y(s)=T(s)$
+
+
+$\cases{\dot y+y=u\\U=u(t)-u(t-1)\\y(0^-)=0}$
+
+$\ds T(s)=\frac1{s+1}$
+
+$\ds U(s)=\frac1s-\frac1se^{-s}=\frac1s(1-e^{-s})$
+
+$\displaystyle Y(s)=\frac{1}{s(s+1)}-\frac{1}{s(s+1)}e^{-s}$
