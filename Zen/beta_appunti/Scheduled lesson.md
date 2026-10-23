@@ -13,7 +13,7 @@
 	Lezione 10
 
 ## Ricerca Operativa
-	
+	boh
 
 ## Robotica 
 ### modulo 1 
@@ -26,7 +26,7 @@
 ## Sistemi Operativi
 	Lezione 8
 	Lezione 9
-	Lezione 10
+
 
 ## Teoria dei Sistemi
 	Lezione 7
