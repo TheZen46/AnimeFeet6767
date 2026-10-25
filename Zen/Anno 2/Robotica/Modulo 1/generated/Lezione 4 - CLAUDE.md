@@ -754,7 +754,7 @@ Che cosa succede componendo due rotazioni? Si calcola il prodotto:
 $$
 \begin{aligned}
 R(\alpha)\,R(\beta) &= \begin{bmatrix} \cos\alpha & -\sin\alpha \\ \sin\alpha & \cos\alpha \end{bmatrix}\begin{bmatrix} \cos\beta & -\sin\beta \\ \sin\beta & \cos\beta \end{bmatrix} \\[4pt]
-&= \begin{bmatrix} \cos\alpha\cos\beta - \sin\alpha\sin\beta & -\cos\alpha\sin\beta - \sin\alpha\cos\beta \\ \sin\alpha\cos\beta + \cos\alpha\sin\beta & -\sin\alpha\sin\beta + \cos\alpha\cos\beta \end{bmatrix}.
+&= \begin{bmatrix} \cos\alpha\cos\beta - \sin\alpha\sin\beta & -\cos\alpha\sin\beta - \sin\alpha\cos\beta \\ \sin\alpha\cos\beta + \cos\alpha\sin\beta & -\sin\alpha\sin\beta + \cos\alpha\cos\beta \end{bmatrix}
 \end{aligned}
 $$
 
@@ -771,17 +771,17 @@ Ne segue anche la chiusura di SO(2): il prodotto di due rotazioni è una rotazio
 
 **Commutatività nel piano.** L'addizione degli angoli è commutativa ($\alpha + \beta = \beta + \alpha$), quindi
 
-$$R(\alpha)\,R(\beta) = R(\alpha+\beta) = R(\beta)\,R(\alpha).$$
+$$R(\alpha)\,R(\beta) = R(\alpha+\beta) = R(\beta)\,R(\alpha)$$
 
 Le **rotazioni piane godono della proprietà commutativa**: l'ordine in cui si applicano non conta. Il motivo è che nel piano c'è **un solo grado di libertà rotazionale**: tutte le rotazioni avvengono attorno allo stesso asse, perpendicolare al piano, e si limitano a sommare angoli. Il docente ha avvertito che **in generale non è così**. Per le rotazioni nello spazio l'ordine conta, e lo si vedrà più avanti.
 
 > [!example] Esempio: due rotazioni in sequenza
 > Applicando una rotazione di $\pi/6$ e poi una di $\pi/3$, in qualunque ordine, si ottiene
-> $$R\!\left(\tfrac{\pi}{6}\right)R\!\left(\tfrac{\pi}{3}\right) = R\!\left(\tfrac{\pi}{3}\right)R\!\left(\tfrac{\pi}{6}\right) = R\!\left(\tfrac{\pi}{2}\right) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}.$$
+> $$R\!\left(\tfrac{\pi}{6}\right)R\!\left(\tfrac{\pi}{3}\right) = R\!\left(\tfrac{\pi}{3}\right)R\!\left(\tfrac{\pi}{6}\right) = R\!\left(\tfrac{\pi}{2}\right) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$$
 
 **Composizione di cambi di base.** Il docente ha anticipato che la proprietà associativa servirà a **concatenare** trasformazioni. Con tre terne $a$, $b$, $c$, applicando due volte la regola di lettura degli indici:
 
-$${}^{a}\mathbf{v} = {}^{a}_{b}R\;{}^{b}\mathbf{v} = {}^{a}_{b}R\;{}^{b}_{c}R\;{}^{c}\mathbf{v}, \qquad\text{cioè}\qquad {}^{a}_{c}R = {}^{a}_{b}R\;{}^{b}_{c}R.$$
+$${}^{a}\mathbf{v} = {}^{a}_{b}R\;{}^{b}\mathbf{v} = {}^{a}_{b}R\;{}^{b}_{c}R\;{}^{c}\mathbf{v}, \qquad\text{cioè}\qquad {}^{a}_{c}R = {}^{a}_{b}R\;{}^{b}_{c}R$$
 
 Gli indici interni si «semplificano» a catena. È lo stesso meccanismo che, con le trasformazioni omogenee, permetterà di passare dalla terna dell'utensile a quella del mondo.
 
