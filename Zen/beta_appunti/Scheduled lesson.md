@@ -24,8 +24,7 @@
 	
 
 ## Sistemi Operativi
-	Lezione 8
-	Lezione 9
+	
 
 
 ## Teoria dei Sistemi
