@@ -1,8 +1,5 @@
 ## Fisica
-	Lezione 7
-	Lezione 8
-	Lezione 9 (fatta in DAD, non saprei come fare)
-	Lezione 10
+	
  
 ## Algoritmi
 	Lezione 7
