@@ -5,22 +5,20 @@
 	
 
 ## Metodi Matematici 
-	Lezione 9
-	Lezione 10
+	Lezione 11
 
 ## Ricerca Operativa
 	Lezione 9
 
 ## Robotica 
 ### modulo 1 
-	
+	Lezione 5
 
 ### modulo 2 
 	
 
 ## Sistemi Operativi
-	
-
+	Lezione 10
 
 ## Teoria dei Sistemi
 	Lezione 7

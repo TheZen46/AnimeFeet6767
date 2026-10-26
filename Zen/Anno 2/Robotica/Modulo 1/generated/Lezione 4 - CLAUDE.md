@@ -1,819 +1,487 @@
 ---
-lezione: 2
-data: 2026-10-05
-argomenti: [AGV e AMR, manipolatori mobili, robot aerei, field robotics, robotica medica, robotica indossabile, umanoidi, soft robotics, robotica marina, navigazione subacquea, deriva, sistemi multi-robot, ROS 2, sistemi di riferimento, punti e vettori, matrici di rotazione, SO(2), interpretazione attiva e passiva]
+lezione: 4
+data: 2026-10-20
+argomenti: [terne nello spazio, prodotto vettoriale, terne destrorse, SO(3), rotazioni elementari, non commutatività, assi fissi e assi mobili, premoltiplicazione e postmoltiplicazione, trasformazioni omogenee 3D, SE(3), posa 3D di un sensore, angoli roll-pitch-yaw, convenzioni estrinseche e intrinseche, simulatore EDR]
 ---
 
-# Lezione 2 — Completamento della panoramica e introduzione ai sistemi di riferimento
+# Lezione 4 — Rotazioni nello spazio, SE(3) e angoli roll-pitch-yaw
 
-## 1. Informazioni pratiche: attività per studenti
+## 1. Informazioni pratiche sul simulatore
 
-In apertura il docente ha segnalato alcune occasioni per fare esperienza pratica di robotica in dipartimento. I link verranno messi a disposizione online.
+### 1.1 Avvio bloccato su Windows
 
-- Il laboratorio **GRAAL** (al secondo piano) partecipa a competizioni di robotica marina. Al momento non ce ne sono di attive, ma potrebbero aprirsene durante l'anno.
-- Il **team Elettra** è uno *student team* dell'Università di Genova composto quasi interamente da studenti. Progetta **veicoli autonomi marini di superficie** e partecipa a gare in cui si misurano tempo, precisione ed energia utilizzata. È complementare al GRAAL, che lavora soprattutto sulla robotica sottomarina.
-- Un secondo gruppo studentesco dell'ateneo porta avanti progetti di vario tipo: robotica aerea, meccatronica, un braccio robotico.
+Su alcuni computer Windows lo script di avvio del simulatore viene bloccato da **SmartScreen**, la protezione di Windows che impedisce l'esecuzione di programmi non riconosciuti. Il docente lo aveva segnalato anche con un annuncio. Se succede, si può disattivare la relativa protezione basata sulla reputazione nelle impostazioni di sicurezza di Windows (nella sezione dedicata alla protezione delle app). Chi continua ad avere problemi può scrivere al docente.
 
-Partecipare a uno *student team* è un buon modo per «mettere le mani in pasta». Come anticipa il corso, passare «dalla carta al ferro» complica decisamente le cose.
+### 1.2 Aggiornare il simulatore
 
----
+Il simulatore viene **sviluppato man mano che il corso procede**: a ogni lezione possono comparire nuovi esercizi o correzioni. Prima di usarlo bisogna quindi scaricare la versione aggiornata.
 
-## 2. Riepilogo della lezione precedente
+- Chi ha scaricato il repository con `git clone` lo aggiorna con **`git pull`**. Se nel frattempo si sono modificati dei file (per esempio risolvendo un esercizio) e quegli stessi file sono cambiati anche online, Git segnala un **conflitto** da risolvere: si sceglie quale versione tenere. I file modificati solo in locale vengono lasciati come sono e tutto il resto viene aggiornato.
+- Chi ha scaricato lo **ZIP** deve rifare tutto a mano: scaricare il nuovo archivio, estrarlo e, se serve, ricopiare gli esercizi già svolti. In questo modo si accumulano più copie del simulatore.
 
-Il docente ha riassunto rapidamente quanto visto nella [[Robotica MOD1 - Lezione 01|lezione 1]]:
-
-- le definizioni di robot e di autonomia;
-- il ciclo di controllo e il feedback;
-- la classificazione su più assi;
-- i primi tipi di robot, con i manipolatori seriali e paralleli, la manipolabilità e gli utensili;
-- la robotica collaborativa con le sue modalità.
-
-La lezione completa la panoramica sulle tipologie di robot e poi avvia il tema dei **sistemi di riferimento**.
+Il docente invita a imparare a usare Git, che è abbastanza semplice e molto comodo.
 
 ---
 
-## 3. Robot mobili in logistica: AGV e AMR
+## 2. Ripasso dell'esercizio planare
 
-### 3.1 *Automated* non significa *autonomous*
+Il docente ha mostrato la soluzione dell'esercizio sulle trasformazioni planari (`planar.py`) della [[Robotica MOD1 - Lezione 03|lezione 3]]. Gli ingressi della funzione sono la trasformazione dal robot al mondo e quella dal sensore al robot. Il nome *world from robot* va letto mentalmente come ${}^{w}_{b}T$: è la matrice che dalla terna del robot (spesso indicata con $b$, *base*) porta al mondo.
 
-Nella robotica mobile per la logistica si distinguono due famiglie (slide 33). La differenza sta nell'**autonomia nella navigazione**.
+Le due trasformazioni si compongono con l'operatore `@`, che in NumPy è il prodotto matriciale. Ne risulta la trasformazione dal sensore al mondo. Poi:
 
-- **AGV** (*Automated Guided Vehicle*): veicolo **automatizzato** a guida vincolata.
-- **AMR** (*Autonomous Mobile Robot*): robot mobile **autonomo**.
+- il punto osservato si porta in coordinate omogenee aggiungendo un $1$;
+- la direzione osservata si porta in coordinate omogenee aggiungendo uno $0$;
+- entrambi si moltiplicano per la trasformazione e si restituiscono al simulatore, scartando l'ultima componente.
 
-Il docente ha insistito sulla differenza tra *automated* e *autonomous*.
-
-Un AGV esegue in cascata una serie di operazioni programmate **a priori**, ma **non prende decisioni autonome**. In particolare, non aggira gli ostacoli: se ne incontra uno si ferma o esegue una risposta prevista in anticipo. Un AMR, invece, pianifica il proprio percorso e lo **ripianifica** quando trova un ostacolo.
-
-| Specifica | AGV | AMR |
-| --- | --- | --- |
-| Percorso | Predisposto e vincolato | Pianificato e aggiornabile |
-| Navigazione | Guide o riferimenti, anche naturali | Mappa e sensori di bordo |
-| Ostacolo | Arresto o risposta prevista | Arresto, attesa o ripianificazione |
-| Workflow | Flussi ripetitivi e ben organizzati | Maggiore flessibilità di percorso |
-
-### 3.2 Vantaggi e costi delle due soluzioni
-
-Le due soluzioni servono scopi diversi.
-
-**AGV.** La configurazione è più semplice e strutturata, quindi la programmazione è più facile. Il veicolo è anche più **spedito**, perché deve solo seguire un percorso predefinito. È adatto a flussi di lavoro ripetitivi, molto organizzati e statici.
-
-**AMR.** Il veicolo è più «intelligente» e si adatta ad ambienti meno strutturati. In cambio bisogna gestire percezione e ripianificazione, e le criticità aumentano. Se due veicoli decidono contemporaneamente di cambiare strada, possono finire per scontrarsi, e anche questa casistica va gestita. Gli AMR sono inoltre più lenti, perché a volte devono fermarsi e ripianificare.
-
-Più autonomia significa più adattabilità ma anche più complessità. È un compromesso che si ritrova a tutti i livelli della robotica. La slide avverte che si tratta di una **distinzione pratica**: i confini tra prodotti commerciali possono sovrapporsi.
+Il simulatore confronta il risultato con quello atteso (*expected*), che deve coincidere con quello calcolato alla lavagna.
 
 ---
 
-## 4. Manipolatori mobili
+## 3. Terne di riferimento nello spazio
 
-Se si combinano una base mobile e un braccio si ottiene un **manipolatore mobile** (slide 35). Ne sono esempi il KUKA youBot e le piattaforme di Agile Robots. Sono molto usati oggi nei grandi magazzini della logistica per catalogare, prelevare e preparare le spedizioni.
+### 3.1 Definizione
 
-| Componente | Funzione |
-| --- | --- |
-| Base mobile | Porta il robot vicino al luogo di lavoro |
-| Braccio | Posiziona l'utensile rispetto all'oggetto |
-| Coordinamento | Collega navigazione, percezione e presa |
+La lezione estende allo spazio i concetti visti nel piano: in parte è un ripasso, in parte un'estensione. Una terna spaziale $\{a\}$ è definita da un'origine e da **tre** versori:
 
-La caratteristica chiave è il **coordinamento**. Per un essere umano coordinare gambe e braccia è automatico. Per un robot base e braccio sono due sistemi separati, ciascuno con il proprio controllo, e le due informazioni vanno messe insieme.
+$$\{a\} = \big(O_a,\ {}^{a}\mathbf{i}_a,\ {}^{a}\mathbf{j}_a,\ {}^{a}\mathbf{k}_a\big).$$
 
-Supponiamo che l'oggetto da prendere sia fuori portata. Il robot deve spostare la base, sapere dove si trova il proprio utensile rispetto alla base e la base rispetto al mondo, e solo allora afferrare l'oggetto. Tutti questi passaggi da un riferimento all'altro (base, braccio, utensile) sono l'oggetto della seconda parte di questa lezione.
+Come nel piano, la notazione è ridondante: i versori di $\{a\}$ espressi in $\{a\}$ valgono banalmente $(1,0,0)^T$, $(0,1,0)^T$ e $(0,0,1)^T$. Serve però per uniformità, perché quando si esprimeranno gli assi di un'altra terna nella terna $\{a\}$ l'apice sarà indispensabile.
 
-Ne segue un'osservazione importante: **l'errore di localizzazione della base influisce anche sulla manipolazione**. Se la base crede di essere in un punto diverso da quello reale, anche il braccio mancherà l'oggetto.
+### 3.2 Prodotto vettoriale e terne destrorse
 
----
+Nello spazio diventa utile il **prodotto vettoriale**. Dati due vettori $\mathbf a$ e $\mathbf b$, il prodotto $\mathbf a \times \mathbf b$ è un vettore con queste caratteristiche.
 
-## 5. Robot aerei
+- **Direzione**: perpendicolare sia ad $\mathbf a$ sia a $\mathbf b$.
+- **Modulo**: $\left\| \mathbf a \times \mathbf b \right\| = \|\mathbf a\|\,\|\mathbf b\|\sin\vartheta$, dove $\vartheta$ è l'angolo compreso tra i due vettori.
+- **Verso**: dato dalla **regola della mano destra**. Se le dita della mano destra si chiudono andando da $\mathbf a$ verso $\mathbf b$, il pollice indica il verso di $\mathbf a \times \mathbf b$.
 
-### 5.1 Multirotori, ala fissa e configurazioni ibride
+Il prodotto vettoriale descrive esattamente le terne usate nel corso. In una terna **destrorsa** il terzo asse è il prodotto vettoriale dei primi due:
 
-I robot aerei hanno sigle diverse (slide 36): **UAV** (*Unmanned Aerial Vehicle*, velivolo senza pilota a bordo), **AAV** (*Autonomous Aerial Vehicle*, velivolo aereo autonomo) e **UAS** (*Unmanned Aircraft System*, il sistema completo di velivolo e componenti di supporto).
+$$\mathbf i \times \mathbf j = \mathbf k, \qquad \mathbf j \times \mathbf k = \mathbf i, \qquad \mathbf k \times \mathbf i = \mathbf j .$$
 
-Rispetto alla robotica terrestre cambia un aspetto fondamentale. Un robot a terra, per quanto complesso, se si ferma resta fermo. Un robot aereo deve **vincere continuamente la gravità**.
-
-| Tipo | Vantaggi | Limiti |
-| --- | --- | --- |
-| Multirotore | Decollo verticale e volo stazionario | Consumo continuo per sostenersi |
-| Ala fissa | Portanza durante il volo in avanti | Richiede una strategia di lancio e recupero |
-| Configurazioni ibride | Combinano modalità di volo | Aggiungono complessità meccanica e di controllo |
-
-**Multirotori.** Hanno una grande mobilità, ma anche un **grande consumo energetico**, perché le eliche devono sostenere il velivolo in ogni istante. Un drone di questo tipo vola in genere da un quarto d'ora a mezz'ora al massimo, e la missione va pianificata con cura in base a questo limite. Non basta montare una batteria più grande: più il drone è grande, più pesa e più consuma. Esiste una dimensione intermedia ottimale. Si evitano così i micro-droni che non riescono a fare nulla di utile e i velivoli troppo pesanti che volano solo pochi minuti.
-
-Lo stesso vale per il **carico utile** (*payload*), cioè quanto il drone può trasportare. Per droni di circa 45–50 cm di lato il docente ha indicato un ordine di grandezza di circa un chilogrammo. Caricarne cinque significherebbe ridurre l'autonomia a pochi istanti.
-
-**Ala fissa.** È in qualche modo più facile da controllare: il moto è più «direzionato» e la portanza si genera con il volo in avanti. La manovrabilità però è ridotta. Il velivolo non può spostarsi in tutte le direzioni né restare fermo in aria. La differenza ricorda quella tra un veicolo con ruote sterzanti e una piattaforma olonoma.
-
-La scelta dipende da **missione, durata, carico e spazio disponibile**.
-
-### 5.2 Lo stato di un multirotore
-
-Per un robot nello spazio lo stato si allarga (slide 37). Le **variabili di stato** sono il numero minimo di variabili che descrivono adeguatamente il sistema. Nello spazio un corpo rigido ha **6 gradi di libertà**: 3 di posizione e 3 di orientamento. Quindi
-
-$$\mathbf{x} = \begin{bmatrix} x & y & z & \phi & \theta & \psi \end{bmatrix}^{T}.$$
-
-Le prime tre componenti danno la posizione. Gli angoli $\phi$, $\theta$, $\psi$ danno l'orientamento e sono comunemente associati a rollio, beccheggio e imbardata (*roll, pitch, yaw*). Nel piano, invece, bastavano $x$, $y$ e un solo angolo attorno a $z$.
-
-Questo è un modello molto semplificato. Nella realtà il vettore di stato comprende spesso anche le **velocità** (le derivate prime $\dot x, \dot y, \dot z, \dots$) e magari le **accelerazioni** (le derivate seconde $\ddot x, \dots$). Con le velocità le variabili diventano 12, con anche le accelerazioni 18.
-
-Un multirotore deve svolgere tre funzioni:
-
-- **stima**: ricostruire assetto e movimento da sensori e modelli;
-- **controllo**: regolare rapidamente le velocità dei rotori;
-- **missione**: gestire il percorso, i punti da osservare, l'atterraggio.
-
-> [!important] L'IMU da sola non basta
-> L'IMU non fornisce da sola una stima **assoluta, completa e priva di deriva**. Per stimare assetto e posizione bisogna **fondere** le sue misure con quelle di altri sensori.
-
-Per i vincoli energetici, il calcolo a bordo si affida a **microcontrollori** ben calibrati, non a processori potenti e affamati di energia. Esistono piattaforme dedicate al controllo dei velivoli, come **ArduPilot**, nata da Arduino e ottimizzata per il controllo di veicoli aerei. Queste soluzioni commerciali si montano sul drone e gestiscono, almeno in prima istanza, gran parte delle funzioni di base.
-
----
-
-## 6. Robotica sul campo (*field robotics*)
-
-La robotica sul campo riguarda robot che operano all'aperto, in ambienti non preparati (slide 38).
-
-| Scenario | Compito | Problema caratteristico |
-| --- | --- | --- |
-| Agricoltura | Osservare colture o intervenire sulle piante | Terreno variabile, vegetazione, delicatezza |
-| Ispezione e soccorso | Raccogliere dati in luoghi difficili | Accesso, robustezza, comunicazione |
-| Esplorazione planetaria | Muoversi e acquisire misure scientifiche | Terreno incerto, supervisione a distanza |
-
-L'**esplorazione planetaria** è il caso più estremo. Una volta su Marte non si può tornare indietro a prendere qualcosa di dimenticato: tutto deve essere progettato perché funzioni da solo, con una supervisione remota e lontanissima.
-
-L'esempio della slide 39 è il rover **Perseverance** della NASA, un sistema molto complesso con a bordo tutti i tipi di sensori discussi finora:
-
-- telecamere di navigazione e per evitare gli ostacoli;
-- telecamere e strumenti che operano anche al di fuori dello spettro visibile;
-- sensori inerziali;
-- un braccio robotico con strumenti aggiuntivi, tra cui un trapano che preleva campioni di roccia e li conserva in tubi sigillati.
-
-Perseverance usa un sistema chiamato **AutoNav** per scegliere autonomamente percorsi locali e aggirare gli ostacoli. La slide 39 è un'infografica dettagliata degli strumenti: è utile consultarla.
-
-Il rover è stato accompagnato da un piccolo elicottero (Ingenuity) con due rotori coassiali, cioè sovrapposti sullo stesso asse.
-
-> [!warning] Discrepanza tra trascrizione e slide sull'elicottero marziano
-> A lezione il docente ha detto che l'elicottero era pensato per recuperare o trasportare eventualmente dei campioni. La slide 39 lo descrive invece come un **volo di prova**: un dimostratore tecnologico non essenziale per gli obiettivi scientifici principali della missione, pensato per verificare la possibilità del volo nell'atmosfera marziana. Secondo la gerarchia delle fonti vale la descrizione della slide.
-
----
-
-## 7. Robotica medica e di servizio
-
-### 7.1 Robotica medica
-
-La slide 40 distingue due usi principali.
-
-- **Medicina** (chirurgia): il chirurgo guida gli strumenti da una console. Il sistema **da Vinci** è un esempio di **teleoperazione assistita**.
-- **Riabilitazione**: il robot assiste o misura il movimento del paziente.
-
-Il robot chirurgico si usa perché la mano umana è soggetta a **tremori** e a **stanchezza**. Alcune operazioni, per esempio quelle cerebrali, possono durare anche 12 ore, e a un certo punto anche il medico si esaurisce. Il robot, se ben progettato, **sta fermo**. Toglie così carico al chirurgo e permette di eseguire con grande precisione anche operazioni molto lunghe.
-
-I bracci del da Vinci (già visti nella lezione 1) combinano giunti disposti in modo parallelo con altri giunti. Rispetto a una catena seriale semplice, questa configurazione è più rigida e restituisce posizioni più precise, cosa indispensabile in chirurgia.
-
-### 7.2 Robotica di servizio
-
-La **robotica di servizio** (slide 41) comprende robot per pulizia, consegna, assistenza e interazione con le persone. Un esempio sono i robot camerieri come SERVI+ di Bear Robotics.
-
-Le slide 40 e 41 si chiudono con la stessa frase: **il settore d'uso descrive lo scopo, non determina l'autonomia**. Un robot «medico» o «di servizio» può essere teleoperato, assistito o autonomo. Il settore e l'autonomia sono assi diversi della classificazione.
-
----
-
-## 8. Umanoidi, robot indossabili e *soft robotics*
-
-La slide 42 raccoglie tre famiglie distinte da criteri diversi: **forma, materiali e relazione con il corpo**.
-
-### 8.1 Robotica indossabile
-
-Nella **robotica indossabile** il sistema si accoppia alla persona. L'esempio tipico è l'**esoscheletro motorizzato** usato in riabilitazione. È una ricerca di frontiera con problemi di sicurezza molto seri: si stanno accoppiando motori, anche potenti, allo scheletro di una persona. Un errore di progettazione o di software può causare lesioni, per esempio rompere una gamba.
-
-Il sistema deve quindi:
-
-- **limitare le forze**, senza mai applicarne di eccessive;
-- **bloccarsi** in caso di anomalia;
-- rispettare **limiti** di movimento.
-
-A questo si aggiunge la programmazione del moto, che deve essere davvero **riabilitativa**.
-
-### 8.2 Umanoidi e *uncanny valley*
-
-Un **umanoide** ha una forma che richiama il corpo umano. La ricerca su questi robot è attiva da tempo: la slide mostra ASIMO di Honda, del 2000. Oggi è una delle frontiere della robotica. Si cerca di riprogettare le meccaniche del corpo umano per costruire robot con la nostra forma. Le motivazioni sono diverse; una è rendere il robot più simile a noi e quindi **meno estraneo**. Le implicazioni etiche non sono state approfondite.
-
-La slide precisa che **la forma umanoide non implica intelligenza generale**.
-
-Il docente ha introdotto il grafico della ***uncanny valley*** (*uncanny* significa inquietante, perturbante). È un grafico qualitativo, che non va preso alla lettera ma descrive un fenomeno reale.
-
-- Sull'asse orizzontale c'è la **somiglianza del robot all'essere umano**.
-- Sull'asse verticale c'è la **familiarità** o il **gradimento** che suscita in noi.
-
-La curva ha tre tratti.
-
-1. **Bassa somiglianza.** Un robot che non ha nulla di umano non mette a disagio: è semplicemente diverso da noi.
-2. **La valle.** Aumentando la somiglianza il gradimento cresce, fino a un punto in cui il robot è **simile, ma non abbastanza**. Lì il gradimento crolla. Capita vedendo robot quasi umani in cui si scorgono parti meccaniche: il nostro cervello percepisce che «qualcosa non torna».
-3. **Somiglianza quasi perfetta.** Quando il robot diventa indistinguibile da un essere umano il disagio scompare. Questo tratto è però difficilissimo da raggiungere.
-
-Molti umanoidi cadono proprio nella valle. Con silicone e metallo è difficile riprodurre un corpo biologicamente vivo: il colorito della pelle, le microespressioni del volto.
+Fissati $x$ e $y$, l'asse $z$ è quindi determinato. Nel piano si era detto che $z$ «esce» dal piano: è proprio $\mathbf i \times \mathbf j$.
 
 > [!tip] Excalidraw
-> Il grafico della *uncanny valley* è stato disegnato alla lavagna e non compare nelle slide. Uno schizzo a mano della curva (somiglianza sull'asse orizzontale, familiarità sull'asse verticale, con la valle poco prima della somiglianza piena) aiuterebbe a fissarlo.
-
-> [!tip] Approfondimento — L'origine della *uncanny valley*
-> #approfondimento
-> L'ipotesi fu formulata dal robotico giapponese Masahiro Mori in un saggio del 1970 (*Bukimi no tani*), pubblicato sulla rivista giapponese *Energy*. La prima traduzione inglese autorizzata e rivista dall'autore, a cura di K. F. MacDorman e N. Kageki, è apparsa nel 2012 su *IEEE Robotics & Automation Magazine* [@mori2012]. Nel saggio Mori osserva anche che il **movimento** accentua l'effetto: rende più ripidi i due versanti della valle.
-
-### 8.3 *Soft robotics*
-
-Nella ***soft robotics*** parti deformabili, fatte di **materiali morbidi**, contribuiscono al movimento. Spesso l'azionamento sfrutta le **differenze di pressione**.
-
-La slide mostra una pinza a forma di stella in silicone (Princeton Engineering, 2021). È collegata a un sistema pneumatico che aspira l'aria: aspirandola la stella si chiude e afferra un oggetto delicato senza danneggiarlo.
-
-Lo scopo della *soft robotics* è **interagire con oggetti che non devono essere forzati**. Per questo ha implicazioni anche nella robotica umanoide e in quella chirurgica, dove si cerca di essere il meno invasivi possibile. Un esempio ancora più esotico è un drone con un «tentacolo di polpo» morbido, che aspirando l'aria si avvolge attorno a un oggetto e lo trasporta.
-
-Uno studente ha chiesto dei sistemi **a cavi** (*tendon-driven*). Sono robot azionati da tendini, usati soprattutto nelle mani robotiche: un dito di questo tipo, ingrandito, potrebbe svolgere la stessa funzione del tentacolo. Il confronto mostra il compromesso.
-
-- **Pinza morbida pneumatica**: una struttura di silicone stampata con un solo azionamento, l'aspirazione dell'aria, e quindi un solo grado di libertà (aperta/chiusa). È molto semplice.
-- **Mano a tendini**: tanti piccoli motori collegati. È più complessa, ma anche più funzionale.
+> Nello spazio i disegni alla lavagna richiedono un po' di immaginazione. Uno schizzo di una terna destrorsa con la mano destra (pollice $x$, indice $y$, medio $z$) e di una seconda terna $\{b\}$ ruotata e traslata rispetto ad $\{a\}$, con un punto $P$, aiuta a visualizzare tutte le formule di questa lezione.
 
 ---
 
-## 9. Robotica marina
+## 4. Matrici di rotazione nello spazio: il gruppo SO(3)
 
-### 9.1 Tre piattaforme del GRAAL
+La matrice di rotazione che esprime l'orientamento di $\{b\}$ rispetto ad $\{a\}$ si costruisce come nel piano: le sue colonne sono **gli assi di $\{b\}$ espressi in $\{a\}$**.
 
-Le tre piattaforme della slide 43, usate nel laboratorio del docente, coprono i principali ambiti della robotica marina. Sono ordinate per profondità e autonomia crescenti.
+$${}^{a}_{b}R = \begin{bmatrix} {}^{a}\mathbf i_b & {}^{a}\mathbf j_b & {}^{a}\mathbf k_b \end{bmatrix} \in \mathbb{R}^{3\times 3}, \qquad {}^{a}\mathbf v = {}^{a}_{b}R\;{}^{b}\mathbf v .$$
 
-| Sigla | Piattaforma | Tipo | Modalità |
-| --- | --- | --- | --- |
-| ASV / USV | Ulisse | Veicolo di superficie (catamarano) | Missioni di rilievo e supporto |
-| ROV | BlueROV | Veicolo subacqueo con cavo | Teleoperazione e assistenza |
-| AUV | X300 | Veicolo subacqueo senza cavo | Missione autonoma a bordo |
+Il docente ha ricordato che questa lettura per colonne è utile soprattutto quando si scelgono rotazioni facili da intuire, come quelle di $90^\circ$. In generale, però, la definizione resta questa.
 
-Le sigle stanno per *Autonomous/Unmanned Surface Vehicle*, *Remotely Operated Vehicle* e *Autonomous Underwater Vehicle*.
+> [!important] Definizione di SO(3)
+> $$SO(3) = \left\{ R \in \mathbb{R}^{3\times 3} \;:\; R^{T}R = I,\ \det(R) = +1 \right\}.$$
 
-**Ulisse (superficie).** È un catamarano che si muove **sul piano**. Il suo stato essenziale è $(x, y, \psi)$, dove per l'angolo di rotta attorno a $z$ si usa spesso $\psi$. Si muove con lo stesso principio del robot differenziale, con due motori a poppa.
+È la stessa definizione del caso piano, estesa a matrici $3\times 3$, e valgono le stesse proprietà.
 
-Già qui la situazione è più complessa che a terra, perché sotto c'è l'acqua. A terra stimare lo spostamento dagli encoder delle ruote non è banale e non è mai preciso. In acqua capire di quanto è avanzato il veicolo dalla rotazione di un'elica è ancora più difficile, perché l'acqua non offre un punto di appoggio fisso. In superficie aiuta molto il **GPS**, che però ha un'accuratezza tipica attorno al mezzo metro o al metro. Può bastare oppure no, a seconda dell'applicazione.
+- $R^TR = I$ significa che le colonne sono ortonormali e che l'inversa coincide con la trasposta. Ne segue che le rotazioni conservano lunghezze e angoli.
+- $\det R = +1$ esclude le riflessioni. Una matrice ortogonale con determinante $-1$ ribalterebbe un asse e trasformerebbe una terna destrorsa in una **sinistrorsa**.
 
-Servono comunque **modelli molto più complessi**, che tengano conto degli effetti idrodinamici:
-
-- la **spinta di Archimede**;
-- le cosiddette **masse aggiunte**. Un corpo che accelera in acqua deve mettere in moto anche una parte dell'acqua circostante, e dinamicamente si comporta come se avesse una massa maggiore.
-
-**BlueROV (ROV).** Il primo passo sott'acqua è un veicolo **con cavo**. I ROV tradizionali, usati per esempio per ispezionare le piattaforme petrolifere, sono oggetti grandi: un metro e mezzo per un metro e mezzo, tutti in metallo, pesanti. Per metterli in acqua servono una nave d'appoggio e un argano.
-
-Da qualche anno sono comparse piattaforme molto più piccole, come il BlueROV, di circa 60 × 50 cm. Si mettono in acqua facilmente e vi si può montare molta sensoristica per esperimenti interessanti. Il laboratorio lo sta usando per la **mappatura dei fondali** con un sensore acustico. La difficoltà è ricostruire una mappa completa a partire da osservazioni istantanee, un tema che verrà approfondito nell'altra parte del corso.
-
-**X300 (AUV).** Lo stadio successivo è la robotica **autonoma** sott'acqua. Il filo visibile nella foto non è un cavo di comunicazione, ma una semplice cima per maneggiare il veicolo. Gli AUV hanno a bordo tutti i sensori necessari a muoversi da soli. La loro forma è adatta a **missioni a lungo raggio**: affusolata, con un attrito idrodinamico molto minore di quello del BlueROV. Il BlueROV ha la forma di un parallelepipedo che oppone molta resistenza, ma è modulare e permette di montare i sensori dove si vuole.
-
-Con gli AUV si possono svolgere operazioni autonome complesse. Il docente ha citato un progetto per la **batimetria**, cioè la misura della profondità del fondale, in contesti oceanici e non solo costieri. Diversi AUV navigano in formazione, si scambiano dati sott'acqua e costruiscono la mappa del fondale un pezzo alla volta. È molto più difficile da gestire: una volta che il veicolo si è immerso, si comunica solo per via acustica e con pochissima banda.
-
-### 9.2 Sott'acqua cambiano sensori e comunicazione
-
-La slide 44 riassume i vincoli dell'ambiente subacqueo.
-
-| Vincolo | Effetto | Alternativa |
-| --- | --- | --- |
-| Attenuazione elettromagnetica | GNSS e sistemi radio non funzionano in immersione | Stima inerziale, DVL, riferimenti acustici |
-| Visibilità e illuminazione | La camera può osservare poco lontano | Sonar, illuminazione e sensori complementari |
-| Collegamento acustico | Banda e latenza limitano lo scambio dati | Decisioni a bordo e supervisione |
-| Correnti ed energia | Il movimento reale differisce dalla pianificazione | Controllo, riserva energetica e recupero |
-
-GNSS (*Global Navigation Satellite System*) è il nome generico dei sistemi di posizionamento satellitare, di cui il GPS è il più noto.
-
-**Attenuazione elettromagnetica.** L'acqua assorbe fortemente le onde elettromagnetiche: quasi tutte le radiofrequenze vengono assorbite. Un segnale radio sott'acqua arriva a circa un metro, forse due. Quindi niente GPS, niente Wi-Fi: tutto ciò su cui ci si appoggia normalmente a terra non è più disponibile. Servono sistemi e **modelli molto accurati**.
-
-Il posizionamento si basa allora sulla **stima inerziale**, cioè sui sensori propriocettivi (accelerometri e giroscopi). Questi misurano le forze apparenti dovute al moto: è la stessa sensazione che si prova cadendo, quando si percepisce una forza apparente verso l'alto. Il robot capisce così di muoversi in una certa direzione anche senza riferimenti esterni.
-
-Un'eccezione è il **DVL** (*Doppler Velocity Log*), che misura la **velocità del veicolo rispetto al fondale**. Il sensore, rivolto verso il basso, emette **quattro fasci acustici**. Dal ritorno dei fasci, sfruttando l'**effetto Doppler** (lo spostamento di frequenza dell'onda riflessa dovuto al moto relativo), ricava la velocità relativa. Se il fondale è fermo, quella è la velocità del veicolo.
-
-Il DVL funziona solo con il fondale in vista (*bottom lock*). Anche allora le misure hanno grandi incertezze, per riflessioni anomale o attenuazioni del fondale.
-
-**Collegamento acustico.** La banda acustica è **molto minore** di quella radio o Wi-Fi, dell'ordine dei kilobit al secondo. Bisogna scegliere con cura che cosa trasmettere a una stazione di superficie o al porto:
-
-- informazioni compatte come posizione, orientamento, un bersaglio individuato, lo stato del sistema;
-- non uno stream video, ma al più qualche immagine molto piccola (per esempio 32 × 32 pixel in bianco e nero) ogni tanto.
-
-Lo **stream video** è possibile solo con un ROV, che ha un cavo (fibra ottica o Ethernet) collegato alla superficie. Il cavo può portare anche l'**alimentazione**. Senza cavo, invece, si comunica solo acusticamente e l'energia è solo quella a bordo, da ottimizzare al massimo.
-
-**Correnti ed energia.** Esiste un'intera branca di studio sul **muoversi sott'acqua tenendo conto delle correnti**. Se si conosce la corrente, si può scegliere un percorso più lungo che però va meno controcorrente e consuma meno energia.
-
-La slide conclude: **lo stesso compito può richiedere sensori diversi in ambienti diversi**.
-
-### 9.3 La deriva e come correggerla
-
-Uno studente ha chiesto se i sensori di movimento siano per definizione «accumulatori di errore». Il docente ha risposto che sì, è uno dei problemi principali della **localizzazione**, cioè del sapere dove ci si trova. Si chiama **deriva** (*drift*).
-
-> [!example] Esempio: come si accumula la deriva
-> Supponiamo che la stima di spostamento abbia un errore di 1 mm per ogni metro percorso, cioè lo 0,1%. Dopo 100 m l'errore è di 10 cm. Continuando a muoversi l'errore cresce ancora: dopo 1 km è di 1 m. Senza correzioni dall'esterno non smette di aumentare.
-
-**In superficie e a terra** la deriva si corregge con **riferimenti fissi** di posizione nota.
-
-- **GPS**: usato in modo intelligente, fornisce aggiustamenti periodici della posizione stimata.
-- **Marker visivi**: al chiuso il GPS non c'è. Si possono applicare alle pareti marker simili ai QR code, di posizione nota. Quando il robot ne inquadra uno, sapendo dov'è la camera rispetto al robot ricava dove si trova e corregge l'errore. I marker sul ponte di Ulisse, nella slide 43, servono allo stesso scopo per l'atterraggio del drone.
-- **Beacon**: piccoli trasmettitori radio che comunicano la propria posizione, rispetto alla quale il robot si localizza.
-
-In ogni caso un **modello accurato** è indispensabile. Se il modello è sbagliato, la stima deriva fin dall'inizio.
-
-**Sott'acqua** nessuno di questi sistemi è disponibile, e il problema della deriva nella navigazione subacquea è **tuttora aperto**. Una soluzione è una **catena di posizionamento**.
-
-1. Un veicolo di superficie (anche un'imbarcazione) conosce la propria posizione grazie al GPS.
-2. Con un sensore acustico immerso, misura la posizione del veicolo subacqueo rispetto a sé e gliela comunica insieme alla propria posizione GPS.
-3. Combinando le due informazioni, il veicolo subacqueo ricava dove si trova.
-
-Più raramente si posano sul fondale dei **transponder** di posizione nota, che svolgono lo stesso ruolo. A grandi profondità, per esempio 2000 m, comunicare in modo affidabile con la superficie è difficile. Le onde acustiche non viaggiano in linea retta ma **si incurvano** propagandosi, perché le proprietà dell'acqua cambiano con la profondità.
+Il docente ha aperto una parentesi: non tutti i software usano terne destrorse. Alcuni programmi di grafica adottano terne sinistrorse, per ragioni storiche o di efficienza. Nel corso si usa sempre la convenzione destrorsa.
 
 ---
 
-## 10. Sistemi multi-robot
+## 5. Rotazioni elementari
 
-Nei **sistemi multi-robot** al coordinamento interno di un singolo robot (per esempio tra base e braccio) si aggiunge il **coordinamento tra più robot** (slide 45). I robot comunicano e si coordinano tra loro.
+### 5.1 Costruzione per colonne
 
-| Applicazione | Esempio di problema |
-| --- | --- |
-| Logistica | Assegnazione dei compiti e gestione del traffico, per esempio in un magazzino con molti oggetti e molti robot |
-| Monitoraggio | Copertura di un'area e fusione delle osservazioni, come nella mappatura con più veicoli |
-| Intervento | Coordinamento tra veicolo di supporto e ROV |
+Nel piano c'è un solo grado di libertà rotazionale. Nello spazio ce ne sono tre, e qualunque rotazione si può ottenere componendo tre **rotazioni elementari**, cioè rotazioni attorno agli assi $x$, $y$, $z$. Per convenzione gli angoli di rotazione attorno a $x$, $y$ e $z$ si indicano rispettivamente con $\varphi$, $\theta$ e $\psi$.
 
-La robotica di **intervento** è particolarmente interessante e difficile. Riguarda applicazioni di frontiera in territori molto inospitali, come zone terremotate o fondali dove qualcosa o qualcuno è rimasto bloccato. Lì i robot vanno coordinati con grande cura.
+Il **verso positivo** di una rotazione si stabilisce ancora con la regola della mano destra: con il pollice lungo l'asse di rotazione, le dita indicano il verso positivo. È il verso antiorario quando si guarda l'asse «dalla punta». Il docente ha fatto notare che, guardando lo stesso asse da dietro, la stessa rotazione appare oraria: bisogna fare attenzione da che parte si guarda il disegno.
 
-Come nota la slide, con più robot **aumentano le risorse disponibili, ma anche i problemi di coordinamento**.
+**Rotazione attorno a $x$.** Il docente ha chiesto che cosa succede a una terna ruotata attorno al proprio asse $x$. L'asse $x$ resta fermo, quindi la prima colonna è $(1, 0, 0)^T$. Gli altri due assi ruotano nel piano $y$–$z$ esattamente come $x$ e $y$ ruotavano nel piano:
 
----
+$$\mathbf i \to \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}, \qquad \mathbf j \to \begin{bmatrix} 0 \\ \cos\varphi \\ \sin\varphi \end{bmatrix}, \qquad \mathbf k \to \begin{bmatrix} 0 \\ -\sin\varphi \\ \cos\varphi \end{bmatrix}.$$
 
-## 11. Il contributo dell'ingegneria informatica
+Nel blocco in basso a destra ricompare la matrice di rotazione piana $R(\varphi)$.
 
-### 11.1 Le funzioni di un'architettura software robotica
+**Rotazione attorno a $y$.** L'asse $y$ resta fermo e ruotano $z$ e $x$. Qui serve attenzione al segno. L'ordine ciclico degli assi è $x \to y \to z \to x$, quindi nel piano perpendicolare a $y$ il «primo» asse è $z$ e il «secondo» è $x$. Una rotazione positiva di $\theta$ porta $\mathbf k$ verso $\mathbf i$ e $\mathbf i$ verso $-\mathbf k$:
 
-Per un ingegnere informatico conoscere tutte queste tipologie serve a capire il contesto in cui si lavora. L'obiettivo è costruire **architetture software adatte allo scopo**. La slide 46 organizza le funzioni software di un robot in una catena, dalle misure ai comandi fisici.
+$$\mathbf i \to \begin{bmatrix} \cos\theta \\ 0 \\ -\sin\theta \end{bmatrix}, \qquad \mathbf j \to \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}, \qquad \mathbf k \to \begin{bmatrix} \sin\theta \\ 0 \\ \cos\theta \end{bmatrix}.$$
 
-```mermaid
-flowchart LR
-    P["Percezione<br/>Che cosa osservo?"] --> L["Localizzazione<br/>Dove sono e come mi muovo?"]
-    L --> PI["Pianificazione<br/>Quali azioni scelgo?"]
-    PI --> C["Controllo<br/>Quali comandi applico?"]
-    S["Supervisione della missione<br/>e gestione delle anomalie"] -.-> P & L & PI & C
-```
+Per questo in $R_y$ il seno con il segno meno sta in basso a sinistra, e non in alto a destra come nelle altre due.
 
-- La **percezione** lavora sulle misure.
-- **Localizzazione** e **pianificazione** costituiscono l'elaborazione.
-- Il **controllo**, di più basso livello, decide come comandare i motori per realizzare ciò che la pianificazione ha scelto. Produce i comandi fisici.
-- La **supervisione della missione** e la **gestione delle anomalie** sovrintendono a tutto, perché il sistema funzioni correttamente.
+**Rotazione attorno a $z$.** L'asse $z$ resta fermo e $x$, $y$ ruotano come nel piano.
 
-La slide aggiunge: **dati incerti, tempi di esecuzione e guasti influenzano il comportamento fisico**. Un errore software, in robotica, si traduce in un movimento sbagliato nel mondo reale.
+> [!important] Rotazioni elementari
+> $$R_x(\varphi) = \begin{bmatrix} 1 & 0 & 0 \\ 0 & \cos\varphi & -\sin\varphi \\ 0 & \sin\varphi & \cos\varphi \end{bmatrix}, \quad
+> R_y(\theta) = \begin{bmatrix} \cos\theta & 0 & \sin\theta \\ 0 & 1 & 0 \\ -\sin\theta & 0 & \cos\theta \end{bmatrix}, \quad
+> R_z(\psi) = \begin{bmatrix} \cos\psi & -\sin\psi & 0 \\ \sin\psi & \cos\psi & 0 \\ 0 & 0 & 1 \end{bmatrix}.$$
+> In ciascuna, la riga e la colonna dell'asse di rotazione contengono un $1$ e degli zeri, e il resto è una rotazione piana.
 
-### 11.2 Middleware: ROS 2
+> [!warning] Errore negli appunti manuali su $R_y$
+> Negli appunti manuali $R_y(\theta)$ è scritta con uno $0$ nell'elemento in alto a destra. L'elemento corretto è $\sin\theta$. Con lo $0$ la matrice non sarebbe una rotazione: la terza colonna $(0,\ 0,\ \cos\theta)^T$ non avrebbe norma unitaria. La forma corretta è quella del riquadro, ricavata sopra per colonne.
 
-Per implementare tutto questo si usano architetture software già esistenti. Lo strumento standard in robotica, che nel corso verrà visto marginalmente, è **ROS** (*Robot Operating System*), oggi nella versione **ROS 2**. Non è un sistema operativo in senso stretto ma un **middleware**: uno strato di software tra il sistema operativo e l'applicazione, che fornisce un'infrastruttura comune.
+### 5.2 Proprietà
 
-Secondo la slide 47, ROS si basa su tre elementi.
+Per tutte le rotazioni elementari valgono le proprietà già viste nel piano, conseguenza dell'appartenenza a SO(3):
 
-| Elemento | Significato |
-| --- | --- |
-| Nodo | Un'unità software del sistema, che può realizzare una o più funzioni; per esempio, leggere un sensore |
-| Messaggi | Dati con significato, unità di misura e riferimento dichiarati |
-| Interfacce | Flussi di dati, richieste, obiettivi con feedback |
+$$R(0) = I, \qquad R(\alpha)^{-1} = R(-\alpha) = R(\alpha)^{T}.$$
 
-Ogni funzione (percezione, localizzazione, pianificazione, controllo) è realizzata da uno o più **nodi**, cioè processi, che comunicano tra loro scambiandosi **messaggi** attraverso **interfacce**. Lo schema della slide mostra due modalità di comunicazione.
-
-- Il ***topic***: un nodo **pubblica** (*publisher*) messaggi su un canale con nome, e uno o più nodi vi si **iscrivono** (*subscriber*) per riceverli. È il flusso continuo di dati.
-- Il ***service***: un nodo **client** invia una **richiesta** (*request*) a un nodo **server**, che restituisce una **risposta** (*response*).
-
-Il terzo tipo di interfaccia citato nella slide, gli «obiettivi con feedback», corrisponde in ROS 2 alle ***action***. Sono richieste di lunga durata che forniscono aggiornamenti durante l'esecuzione.
-
-Il vantaggio di un middleware è avere già **un'infrastruttura pronta**. Altrimenti bisognerebbe costruirsi da zero:
-
-- la comunicazione tra processi;
-- il meccanismo di scambio dei messaggi;
-- la loro codifica e decodifica.
-
-ROS offre anche **strumenti di compilazione**. Ogni componente usa CMake per ottimizzare la compilazione, e più componenti si raggruppano in un'unica build. Con un solo comando si possono compilare decine di eseguibili; il docente ha citato il caso di 40. Nei sistemi robotici complessi capita spesso.
-
-La slide si chiude con questa sintesi: **ROS 2 offre strumenti per collegare moduli e costruire applicazioni robotiche**.
-
-> [!tip] Approfondimento — ROS 2
-> #approfondimento
-> Il riferimento ufficiale per ROS 2 è l'articolo di Macenski, Foote, Gerkey, Lalancette e Woodall pubblicato su *Science Robotics* nel 2022 [@macenski2022]. L'articolo spiega perché ROS 1 non era adatto a molte esigenze di produzione e descrive la riprogettazione di ROS 2: modularità, scalabilità, affidabilità. Presenta anche casi di studio su terra, aria, mare e spazio. Nella documentazione ufficiale di ROS 2, lo strumento che raggruppa e compila più pacchetti in un'unica build è **colcon**.
-
-### 11.3 Un esempio di architettura
-
-La slide 48 mostra un'architettura generica, tratta dal lavoro di dottorato del docente.
-
-```mermaid
-flowchart LR
-    IG["INPUT GOAL"] -->|"comando di alto livello (API)"| CTRL["CONTROLLER"]
-    RM["Robot Model"] --> CTRL
-    CTRL -->|"CTRL command"| DRV["DRIVER<br/>(dipendente dal robot)"]
-    DRV -->|"CTRL feedback"| CTRL
-    DRV -->|"robot command"| ROB["ROBOT"]
-    ROB -->|"robot feedback"| DRV
-    ROB --> RM
-    CTRL --> LOG["LOGGER"]
-    DRV --> LOG
-```
-
-Ogni blocco è un nodo ROS (o un gruppo di nodi) e i blocchi comunicano attraverso **API** (*Application Programming Interface*), cioè interfacce ben definite, e messaggi.
-
-- L'**input goal** fornisce il comando di alto livello, per esempio da joystick o da un'interfaccia.
-- Il **controller** calcola i comandi di controllo e li invia al **driver**.
-- Il driver, l'unico componente **dipendente dal robot specifico**, traduce i comandi in comandi per il **robot** e ne riceve il feedback.
-- Un **modello del robot** simula che cosa succederebbe dando un certo comando.
-- Un nodo di **logging** registra tutto ciò che accade.
-
-### 11.4 Un esempio concreto: il catamarano Ulisse
-
-La slide 49 mostra un «esploso» del catamarano Ulisse, per far vedere come tutto ciò si traduce in un sistema reale. Gli elementi essenziali sono:
-
-- una **CPU** centrale, alloggiata in un contenitore stagno, insieme ai sensori inerziali e alle schede di controllo delle altre parti del robot;
-- il **pacco batterie**;
-- l'**attuazione**: due motori marini, uno per scafo;
-- un'**antenna di comunicazione**, per parlare con il robot via Wi-Fi dalla banchina.
-
-Sul veicolo gira **ROS 2**. Ci sono due scafi, quindi due batterie e due motori, e per ciascun lato c'è un driver dedicato che gestisce batteria e motore. I comandi ai due lati vanno però decisi in modo congiunto. Una scheda di rete, collegata via Ethernet all'antenna, permette la comunicazione con la terraferma.
-
-```mermaid
-flowchart TB
-    CPU["CPU centrale con ROS 2<br/>+ sensori inerziali"] --> DS["Driver lato sinistro<br/>batteria + motore"]
-    CPU --> DD["Driver lato destro<br/>batteria + motore"]
-    CPU -->|"Ethernet"| NET["Scheda di rete<br/>+ antenna"]
-    NET -.->|"Wi-Fi"| BAN["Postazione in banchina"]
-```
-
-Nella pratica, mettere insieme un sistema così è molto complesso, ma è la prassi in qualunque piattaforma robotica. Bisogna:
-
-1. capire come collegare i componenti hardware;
-2. conoscere le interfacce di batterie e motori e i **protocolli** con cui comunicano;
-3. passare dal basso livello fino alla CPU, un passo alla volta.
-
-### 11.5 La scelta parte dalla missione
-
-La panoramica si chiude con una sintesi metodologica (slide 50). La scelta di una piattaforma parte sempre dalla **missione**, che è il «faro guida». Subito dopo viene l'**ambiente**, perché a seconda di dove si opera le soluzioni cambiano completamente.
-
-| Aspetto | Domanda |
-| --- | --- |
-| Compito | Che cosa deve fare, e con quale criterio di successo? |
-| Ambiente | Quali superfici, ostacoli, persone e disturbi incontrerà? |
-| Risorse | Quali energia, carico utile e comunicazioni sono disponibili? |
-| Autonomia | Quali decisioni può prendere, e quando chiede aiuto? |
-
-> [!important] Criterio di progetto
-> Una soluzione è **motivata** quando ogni scelta risponde a un requisito.
-
-Il glossario essenziale della slide 51 fissa la terminologia del corso.
-
-| Termine | Significato nel corso |
-| --- | --- |
-| Posa / configurazione | Posizione e orientamento / variabili indipendenti del robot |
-| Stima / pianificazione | Ricostruire lo stato / scegliere azioni o percorsi |
-| Controllo / supervisione | Realizzare i riferimenti / gestire missione e anomalie |
-| AGV / AMR | *Automated Guided Vehicle* / *Autonomous Mobile Robot* |
-| ROV / AUV / ASV | *Remotely Operated* / *Autonomous Underwater* / *Autonomous Surface Vehicle* |
+La rotazione di angolo nullo è l'identità; ruotare di $\alpha$ e poi di $-\alpha$ attorno allo stesso asse riporta alla situazione iniziale.
 
 ---
 
-## 12. Perché servono i sistemi di riferimento
+## 6. Nello spazio le rotazioni non commutano
 
-La slide 54 introduce il nuovo tema con una domanda: «*L'oggetto è un metro davanti.*» Davanti **a chi**? La camera, la base del robot e il mondo possono descrivere **lo stesso punto con coordinate diverse**.
+Nel piano le rotazioni commutano: c'è un solo grado di libertà, e fare prima una rotazione e poi l'altra o viceversa porta sempre allo stesso risultato. **Nello spazio non è così**: l'ordine delle rotazioni è importantissimo, e ha un significato fisico preciso, che si vedrà nella sezione 7.
 
-Nella scena della slide compaiono quattro terne:
-
-- il **mondo** $\langle w\rangle$;
-- la base del **robot** $\langle b\rangle$;
-- la **camera** $\langle c\rangle$ montata sul robot;
-- l'**oggetto** $\langle o\rangle$ osservato dalla camera.
-
-Nel mondo si può fissare un riferimento a piacere, al centro di una stanza o in un angolo, e dichiararlo origine $(0,0)$. Ma il robot dove si trova, e rispetto a che cosa sono espresse le sue coordinate?
-
-- **All'aperto**, con il GPS, le coordinate sono latitudine e longitudine, universali rispetto alla Terra.
-- **Più spesso** si usano coordinate **locali** $x, y, z$ in metri.
-
-In ogni caso bisogna decidere dove sta la terna del mondo e dove quella del robot. Il robot ha poi un sensore, per esempio una camera: dove sta la camera rispetto al robot? La camera osserva un oggetto: dove sta l'oggetto rispetto alla camera, che è rispetto al robot, che è rispetto al mondo?
-
-Nasce così una **catena di trasformazioni** che bisogna saper gestire. Come dice la slide, servirà collegare riferimenti e trasformazioni per percepire e agire.
-
-> [!warning] La fonte più frequente di errori
-> Secondo il docente, nelle applicazioni robotiche il problema principale è quasi sempre l'**applicazione scorretta dei sistemi di coordinate**. Quando il robot va in un punto sbagliato o ruota in modo strano, la causa è spesso una terna definita male. Se per esempio la terna della camera è montata ruotata di 90° rispetto a come si crede, il robot «vede» l'oggetto in un'altra direzione e ci va. Capire bene sistemi di riferimento e coordinate è un obiettivo fondamentale per capire la robotica in generale.
-
-Lo stesso vale per un **manipolatore**. Si colloca una terna su ogni giunto (giunto 0, giunto 1, …) e una terna sull'utensile, il *tool frame*. Per sapere dove si trova l'utensile bisogna **concatenare** tutte le trasformazioni tra terne successive. C'è poi la terna del mondo, rispetto alla quale si trova il robot. Per afferrare un oggetto che è in un punto dello spazio bisogna sapere come sono disposte tutte queste terne nello spazio. Entra quindi in gioco tutta una serie di **cambi di coordinate**.
-
----
-
-## 13. Sistemi di riferimento nel piano: notazione e strumenti
-
-### 13.1 Strumenti e convenzioni
-
-Il docente darà per note le basi del calcolo matriciale. Ripeterà alcune nozioni soprattutto per fissare la **notazione**, che in robotica è essenziale per capire che cosa si sta facendo.
-
-Per esercitarsi è previsto un piccolo simulatore pubblicato dal docente su GitHub, l'**EDR Simulator** (Elementi di Robotica). Il link verrà fornito quando lo si inizierà a usare.
-
-- È scritto in **Python**, così non c'è nulla da compilare; serve solo un'installazione di Python. Il docente usa la versione 3.12, abbastanza comune e stabile.
-- Gli esercizi consistono nel **completare delle funzioni** e vederne l'effetto in un **ambiente 3D**, confrontandolo con il comportamento di riferimento atteso.
-- Il focus è sugli aspetti più tecnici e di basso livello: sistemi di riferimento, sensoristica, attuazione.
-
-> [!important] Convenzioni del corso
-> - Gli angoli si esprimono sempre in **radianti** nei calcoli; i gradi si useranno solo per comodità di lettura.
-> - Le lunghezze sono in **metri**, secondo il Sistema Internazionale.
-> - Gli angoli sono **positivi in senso antiorario**, come è convenzione in fisica.
-
-### 13.2 La terna di riferimento
-
-Una terna (*frame*) $\{a\}$ nel piano è definita da un'**origine** e da due **versori** (vettori di lunghezza unitaria) che individuano gli assi:
-
-$$\{a\} = \big(O_a,\; {}^{a}\mathbf{i}_a,\; {}^{a}\mathbf{j}_a\big).$$
-
-- $O_a$ è l'origine.
-- ${}^{a}\mathbf{i}_a$ è il versore dell'asse $x_a$ e ${}^{a}\mathbf{j}_a$ quello dell'asse $y_a$, entrambi **espressi nella terna $a$ stessa**. Valgono banalmente $(1,0)^T$ e $(0,1)^T$.
-
-> [!important] Lettura degli indici
-> - Il **pedice** (in basso a destra) indica **a che cosa si riferisce** la grandezza. ${}^{a}\mathbf{i}_b$ è il versore $x$ **della terna $b$**.
-> - L'**apice a sinistra** (in alto a sinistra) indica **in quale sistema di riferimento** la grandezza è espressa, o proiettata. ${}^{a}\mathbf{i}_b$ è quel versore **espresso nelle coordinate della terna $a$**.
+> [!example] Esempio: due rotazioni di $90^\circ$ in ordine diverso
+> Con $\varphi = \psi = \pi/2$:
+> $$R_x\!\left(\tfrac{\pi}{2}\right) R_z\!\left(\tfrac{\pi}{2}\right) = \begin{bmatrix} 0 & -1 & 0 \\ 0 & 0 & -1 \\ 1 & 0 & 0 \end{bmatrix}, \qquad
+> R_z\!\left(\tfrac{\pi}{2}\right) R_x\!\left(\tfrac{\pi}{2}\right) = \begin{bmatrix} 0 & 0 & 1 \\ 1 & 0 & 0 \\ 0 & 1 & 0 \end{bmatrix}.$$
+> Le due matrici sono diverse. Si segua il versore $\mathbf i = (1,0,0)^T$, ricordando che le matrici agiscono da destra verso sinistra.
+> - In $R_x R_z\,\mathbf i$ agisce prima $R_z$, che porta $\mathbf i$ in $\mathbf j$; poi $R_x$ porta $\mathbf j$ in $\mathbf k$. Risultato: $(0, 0, 1)^T$.
+> - In $R_z R_x\,\mathbf i$ agisce prima $R_x$, che lascia $\mathbf i$ invariato (è il suo asse); poi $R_z$ lo porta in $\mathbf j$. Risultato: $(0, 1, 0)^T$.
 >
-> Nella definizione di $\{a\}$ la doppia indicazione può sembrare superflua. In seguito, però, quasi tutto avrà un apice che dice in che terna è espresso.
-
-**Nomenclatura delle terne.** Nelle applicazioni si useranno nomi parlanti:
-
-- $w$ per il mondo (*world*);
-- $b$ per la base del robot;
-- $s$ per un sensore (nella slide 54, $c$ per la camera e $o$ per l'oggetto).
-
-Nelle derivazioni matematiche si useranno invece $a$, $b$, $c$. Così, in una concatenazione di trasformazioni, gli indici si seguono in ordine alfabetico ($c \to b \to a$ o viceversa) invece di sigle come $s$, $b$, $w$.
-
-### 13.3 Il punto geometrico e le sue coordinate
-
-Un **punto geometrico** $P$ è un oggetto fisico che sta in un certo posto dello spazio, indipendentemente da qualunque riferimento. Di per sé, però, non dice nulla di utilizzabile: per usarlo bisogna esprimerlo **rispetto a una terna**. Nella terna $a$ il punto ha le coordinate
-
-$$ {}^{a}P = \begin{bmatrix} x_{P,a} \\ y_{P,a} \end{bmatrix},$$
-
-cioè l'ascissa e l'ordinata di $P$ misurate lungo gli assi di $a$, a partire da $O_a$.
-
-Lo stesso punto ha in generale coordinate **diverse** in terne diverse:
-
-$${}^{w}P \;\neq\; {}^{b}P \;\neq\; {}^{s}P .$$
-
-Le coordinate coincidono solo nel caso in cui le terne coincidono, con robot e sensore entrambi nell'origine del mondo e orientati allo stesso modo. Nella pratica non capita mai.
+> Lo si può verificare con un libro: ruotarlo di $90^\circ$ attorno a un asse verticale e poi a uno orizzontale non dà la stessa posizione finale dell'ordine inverso.
 
 ---
 
-## 14. Posizioni e spostamenti
+## 7. Rotazioni rispetto ad assi fissi e ad assi mobili
 
-### 14.1 La distinzione
+### 7.1 Il problema
 
-In robotica bisogna distinguere con cura tra **posizioni** e **spostamenti**.
+Si immagini un corpo rigido, per esempio un robot, con la sua terna. Sia $\{b\}$ la terna del corpo **prima** di una rotazione e $\{b'\}$ la terna **dopo** la rotazione. Si consideri un vettore $\mathbf v$ **solidale al corpo**, cioè che ruota insieme a esso, e sia $\mathbf v'$ lo stesso vettore dopo la rotazione.
 
-- Una **posizione** (un punto) identifica dove si trova qualcosa: il robot, un oggetto. È legata a un'**origine**: se si cambia sistema di riferimento, le sue coordinate cambiano.
-- Uno **spostamento** è un **vettore**. Indica soprattutto una **direzione** (con un verso e un'intensità) ed è definito come **differenza tra due punti**. Non dipende dall'origine.
+Valgono due relazioni.
 
-> [!important] Spostamento tra due punti
-> Dati due punti $P$ e $Q$ espressi nella **stessa** terna $a$, il vettore spostamento che va **da $Q$ a $P$** è
-> $${}^{a}(P - Q) \;=\; {}^{a}\mathbf{v}_{P/Q} \;=\; {}^{a}P - {}^{a}Q .$$
-> Invertendo la relazione si ottiene la regola per spostare un punto:
-> $${}^{a}P \;=\; {}^{a}Q + {}^{a}(P - Q).$$
-> Si parte da $Q$, si applica lo spostamento e si arriva in $P$. Il pedice $P/Q$ si legge «$P$ rispetto a $Q$», cioè la posizione di $P$ relativa a $Q$.
+- Prima della rotazione, come sempre: ${}^{w}\mathbf v = {}^{w}_{b}R\;{}^{b}\mathbf v$.
+- Il vettore è solidale al corpo, quindi le sue componenti **nella terna del corpo** non cambiano: le componenti di $\mathbf v$ in $\{b\}$ coincidono con quelle di $\mathbf v'$ in $\{b'\}$, cioè ${}^{b}\mathbf v = {}^{b'}\mathbf v'$.
 
-> [!warning] Verso del vettore $P - Q$
-> Nella trascrizione il docente descrive $P - Q$ come «il vettore che da $P$ va a $Q$». Si tratta di un lapsus: le formule della lezione e degli appunti, ${}^{a}P = {}^{a}Q + {}^{a}(P-Q)$, mostrano che $P - Q$ va **da $Q$ a $P$**. L'esempio seguente lo conferma.
+Una rotazione $Q$ che porta il corpo da $\{b\}$ a $\{b'\}$ può essere descritta in due modi diversi, a seconda della terna in cui è espressa. Il docente ha insistito che sono **casi diversi che capitano davvero** quando si lavora con un robot. Una rotazione del robot può essere nota **rispetto al mondo**, oppure **rispetto al robot stesso** com'era un istante prima.
 
-> [!example] Esempio: spostamento di un utensile
-> Un utensile si trova inizialmente in $Q$ e deve raggiungere $P$, con
-> $${}^{a}Q = \begin{bmatrix} 1 \\ 2 \end{bmatrix}, \qquad {}^{a}P = \begin{bmatrix} 3 \\ 3 \end{bmatrix}.$$
-> Lo spostamento necessario è
-> $${}^{a}\mathbf{v} = {}^{a}P - {}^{a}Q = \begin{bmatrix} 3 - 1 \\ 3 - 2 \end{bmatrix} = \begin{bmatrix} 2 \\ 1 \end{bmatrix}.$$
-> Verifica: ${}^{a}Q + {}^{a}\mathbf{v} = (1+2,\; 2+1)^T = (3,3)^T = {}^{a}P$.
+### 7.2 Assi fissi: premoltiplicazione
 
-> [!warning] Mai sommare grandezze espresse in terne diverse
-> Tutte le grandezze che compaiono in una somma o in una differenza devono essere **proiettate nella stessa terna**. Il docente ha raccomandato di non dimenticare mai l'apice: sommare coordinate di terne diverse non ha senso, matematicamente non torna. È un errore tipico e va segnalato subito.
+Nel primo caso la rotazione avviene attorno agli **assi fissi**, cioè gli assi del mondo, che restano fermi mentre il corpo ruota. La rotazione è espressa nel mondo, e la si indica con ${}^{w}Q$. Agisce sul vettore espresso nel mondo:
 
-### 14.2 Il vettore non dipende dall'origine
+$${}^{w}\mathbf v' = {}^{w}Q\;{}^{w}\mathbf v = {}^{w}Q\;{}^{w}_{b}R\;{}^{b}\mathbf v .$$
 
-Il vettore ${}^{a}\mathbf{v}$ ottenuto come differenza di due punti si può **applicare** in punti diversi. Un punto, invece, è sempre ancorato all'origine della propria terna.
+D'altra parte ${}^{w}\mathbf v' = {}^{w}_{b'}R\;{}^{b'}\mathbf v' = {}^{w}_{b'}R\;{}^{b}\mathbf v$, perché le componenti nel corpo non cambiano. Confrontando le due espressioni:
 
-Si consideri una seconda terna $\{b\}$ con origine $O_b$ diversa da $O_a$ ma con **assi paralleli** a quelli di $a$. Il vettore spostamento ha in $b$ **le stesse componenti** che in $a$: è una differenza tra due punti e la scelta dell'origine si cancella nella sottrazione. Le coordinate dei singoli punti, invece, cambiano.
+$${}^{w}_{b'}R = {}^{w}Q\;{}^{w}_{b}R .$$
 
-Se gli assi di $b$ sono **ruotati** rispetto a quelli di $a$, anche le componenti del vettore cambiano. Per passare dalle une alle altre serve la matrice di rotazione, introdotta tra poco.
+La nuova rotazione si ottiene **premoltiplicando**, cioè moltiplicando a sinistra. Le matrici si leggono da destra verso sinistra: la rotazione aggiunta a sinistra agisce **dopo** che il corpo ha già assunto l'orientamento ${}^{w}_{b}R$.
 
-> [!example] Esempio: coordinate di un punto in una terna traslata
-> Siano $\{w\}$ il mondo e $\{b\}$ la terna del robot, con assi paralleli a quelli del mondo e origine in ${}^{w}O_b = (2, 1)^T$. Un oggetto ha coordinate ${}^{w}P = (5, 3)^T$. Le coordinate di $P$ nella terna del robot coincidono con le componenti del vettore che va da $O_b$ a $P$. Poiché gli assi sono paralleli, queste componenti sono le stesse calcolate nel mondo:
-> $${}^{b}P = {}^{w}(P - O_b) = {}^{w}P - {}^{w}O_b = \begin{bmatrix} 5-2 \\ 3-1 \end{bmatrix} = \begin{bmatrix} 3 \\ 2 \end{bmatrix}.$$
-> Il punto è lo stesso ma le coordinate sono diverse: ${}^{w}P \neq {}^{b}P$. Se gli assi di $b$ fossero ruotati servirebbe anche una rotazione; il caso generale (rototraslazione) sarà trattato nella prossima lezione.
+### 7.3 Assi mobili: postmoltiplicazione
 
-I vettori vanno trattati con attenzione anche quando si sceglie **chi** realizza uno spostamento. Il docente ha fatto l'esempio di un manipolatore mobile che deve raggiungere un oggetto spostandosi lungo una certa direzione. Lo spostamento si può realizzare tutto con il braccio. Oppure lo si può **scomporre** in due componenti: una affidata alla base mobile e una al braccio. È possibile proprio perché lo spostamento è un vettore e si può scomporre e applicare dove serve, purché si badi a dove lo si applica.
+Nel secondo caso la rotazione avviene attorno agli **assi mobili**, cioè gli assi del corpo stesso, ed è espressa nella terna $\{b\}$: la si indica con ${}^{b}Q$. Agisce sulle componenti del vettore nel corpo, prima che queste vengano portate nel mondo:
+
+$${}^{w}\mathbf v' = {}^{w}_{b}R\;\big({}^{b}Q\;{}^{b}\mathbf v\big).$$
+
+Confrontando di nuovo con ${}^{w}\mathbf v' = {}^{w}_{b'}R\;{}^{b}\mathbf v$:
+
+$${}^{w}_{b'}R = {}^{w}_{b}R\;{}^{b}Q .$$
+
+Questa volta la nuova rotazione si ottiene **postmoltiplicando**, cioè moltiplicando a destra.
+
+> [!important] Regola di composizione
+> - Rotazione nota rispetto agli **assi fissi** (del mondo): **premoltiplicazione**, ${}^{w}_{b'}R = {}^{w}Q\;{}^{w}_{b}R$.
+> - Rotazione nota rispetto agli **assi mobili** (del corpo): **postmoltiplicazione**, ${}^{w}_{b'}R = {}^{w}_{b}R\;{}^{b}Q$.
+
+```mermaid
+flowchart TD
+    D["Nuova rotazione Q del corpo"] --> Q1{"In quale terna<br/>è espressa Q?"}
+    Q1 -->|"Mondo (assi fissi)<br/>es. motion capture"| PRE["Premoltiplico:<br/>R' = Q · R"]
+    Q1 -->|"Corpo (assi mobili)<br/>es. sensore a bordo"| POST["Postmoltiplico:<br/>R' = R · Q"]
+```
+
+Non è una regola da applicare a memoria: bisogna capire da dove viene il dato. Il docente ha fatto due esempi.
+
+- Se un **sensore montato sul corpo** misura una rotazione, quella rotazione è espressa nel riferimento del corpo, cioè rispetto ad assi mobili. Per sapere dove è finito il corpo si **postmoltiplica**.
+- Se la rotazione viene da un **sistema di *motion capture***, che osserva il corpo dall'esterno e la fornisce nel riferimento del mondo, si **premoltiplica**.
+
+Questa distinzione tornerà nella sezione 12, dove spiegherà perché due convenzioni diverse sugli angoli producono la stessa matrice.
+
+> [!warning] Refuso negli appunti manuali e un passaggio ambiguo della trascrizione
+> - Negli appunti manuali la formula per gli assi mobili è scritta come ${}^{w}_{b'}R = {}^{w}_{b}R\;{}^{w}_{b}Q$, e il passaggio precedente comincia con ${}^{w}R\,{}^{w}\mathbf v$. La rotazione aggiunta è espressa nel corpo, quindi la forma corretta è ${}^{w}_{b'}R = {}^{w}_{b}R\;{}^{b}Q$, con ${}^{w}\mathbf v' = {}^{w}_{b}R\,({}^{b}Q\,{}^{b}\mathbf v)$, come nella derivazione sopra.
+> - Nella trascrizione un frammento sembra associare la moltiplicazione «a destra» agli assi fissi. Il frammento è poco intelligibile, mentre la derivazione alla lavagna (riportata anche negli appunti) è univoca: assi fissi → premoltiplicazione, assi mobili → postmoltiplicazione.
+
+> [!example] Esempio: la stessa rotazione su assi fissi e su assi mobili
+> Un robot ha orientamento ${}^{w}_{b}R = R_z(\pi/2)$: il suo asse $x_b$, la direzione di marcia, punta lungo $y_w$. Lo si ruota di $90^\circ$ attorno a un asse $x$.
+> - **Attorno all'asse $x$ del mondo** (assi fissi): ${}^{w}_{b'}R = R_x(\tfrac{\pi}{2})\,R_z(\tfrac{\pi}{2})$. La prima colonna è $(0,0,1)^T$: la direzione di marcia ora punta verso l'alto. L'asse $x_w$ è laterale per il robot, quindi il robot ha «alzato il muso».
+> - **Attorno al proprio asse $x$** (assi mobili): ${}^{w}_{b'}R = R_z(\tfrac{\pi}{2})\,R_x(\tfrac{\pi}{2})$. La prima colonna è $(0,1,0)^T$: la direzione di marcia non è cambiata. Il robot ha ruotato attorno al proprio asse longitudinale, come una barca che rolla.
+>
+> Le due matrici sono quelle dell'esempio della sezione 6: la non commutatività ha qui un significato fisico concreto.
 
 ---
 
-## 15. Il prodotto matrice-vettore come combinazione di colonne
+## 8. Trasformazioni omogenee nello spazio: il gruppo SE(3)
 
-Tutto ciò che seguirà consiste nel mettere in **forma matriciale** certe operazioni. Conviene allora rileggere il prodotto matrice-vettore come **combinazione lineare delle colonne** della matrice:
+Chiarita la parte rotazionale, le trasformazioni omogenee si estendono allo spazio senza sorprese: cambiano solo le dimensioni. La parte traslazionale resta identica, con una componente in più. La parte delicata dello spazio è quella rotazionale, appena discussa.
 
-$$\begin{bmatrix} a & b \\ c & d \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} = \begin{bmatrix} ax + by \\ cx + dy \end{bmatrix} = x \begin{bmatrix} a \\ c \end{bmatrix} + y \begin{bmatrix} b \\ d \end{bmatrix}.$$
+> [!important] Trasformazione omogenea nello spazio
+> $${}^{a}_{b}T = \begin{bmatrix} {}^{a}_{b}R & {}^{a}O_b \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix} \in \mathbb{R}^{4\times 4}, \qquad {}^{a}\bar P = \begin{bmatrix} x_{P,a} \\ y_{P,a} \\ z_{P,a} \\ 1 \end{bmatrix}, \qquad {}^{a}\bar P = {}^{a}_{b}T\;{}^{b}\bar P .$$
+> ${}^{a}_{b}R$ è una matrice di rotazione $3\times 3$ e ${}^{a}O_b$ è l'origine di $\{b\}$ espressa in $\{a\}$, un vettore $3\times 1$. Per i vettori la quarta componente vale $0$.
 
-Il vettore «pesa» le colonne: $x$ modula la prima colonna, $y$ la seconda. Ne segue un fatto importante. Una **trasformazione lineare è determinata dalle immagini dei versori della base**. La prima colonna è ciò in cui la matrice trasforma il versore $(1,0)^T$, la seconda ciò in cui trasforma $(0,1)^T$.
+Queste matrici formano il **gruppo speciale euclideo** in dimensione 3:
 
-Vale inoltre la proprietà associativa del prodotto:
+$$SE(3) = \left\{ {}^{a}_{b}T = \begin{bmatrix} {}^{a}_{b}R & {}^{a}O_b \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix} \;:\; {}^{a}_{b}R \in SO(3),\ {}^{a}O_b \in \mathbb{R}^{3} \right\}.$$
 
-$$(AB)\,\mathbf{v} = A\,(B\,\mathbf{v}).$$
+**Gradi di libertà.** Nel piano una posa ha 3 gradi di libertà: $x$, $y$ e l'angolo $\psi$ attorno all'unico asse di rotazione, $z$. Nello spazio i gradi di libertà diventano **6**: tre di posizione ($x$, $y$, $z$) e tre di orientamento ($\varphi$, $\theta$, $\psi$). La matrice $4\times 4$ contiene però 16 numeri. L'ultima riga è fissa, e dei 9 elementi della rotazione solo 3 sono indipendenti, perché i vincoli di ortonormalità ne legano gli altri.
 
-Applicare il prodotto $AB$ a un vettore equivale ad applicare **prima $B$ e poi $A$**: la matrice più vicina al vettore agisce per prima. Il docente l'ha richiamata in vista della composizione di più trasformazioni per ottenere una posizione finale.
+**Composizione e inversa** hanno esattamente la stessa forma vista nel piano; cambiano solo le dimensioni dei blocchi (rotazioni $3\times 3$, origini $3\times 1$):
+
+$${}^{a}_{c}T = {}^{a}_{b}T\;{}^{b}_{c}T = \begin{bmatrix} {}^{a}_{b}R\;{}^{b}_{c}R & {}^{a}O_b + {}^{a}_{b}R\;{}^{b}O_c \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix}, \qquad
+{}^{b}_{a}T = \big({}^{a}_{b}T\big)^{-1} = \begin{bmatrix} {}^{a}_{b}R^{T} & -\,{}^{a}_{b}R^{T}\;{}^{a}O_b \\ \mathbf{0}_{1\times 3} & 1 \end{bmatrix}.$$
+
+> [!warning] Refusi negli appunti manuali sulla composizione
+> Negli appunti la parte traslazionale della composizione è scritta ${}^{a}O_b + {}^{a}_{b}T\,{}^{b}O_c$, e l'ultima riga $\mathbf 0_{3\times 1}$. All'interno del blocco va la **matrice di rotazione** ${}^{a}_{b}R$ (una matrice $3\times 3$ che moltiplica un vettore $3\times 1$), non la trasformazione $4\times 4$. L'ultima riga è una riga di zeri, cioè $\mathbf 0_{1\times 3}$. La formula per l'inversa negli appunti è invece corretta.
 
 ---
 
-## 16. Cambio di base e matrice di rotazione
+## 9. Esempio: posa 3D di un sensore
 
-### 16.1 Derivazione
+### 9.1 I dati
 
-Siano date due terne $\{a\}$ e $\{b\}$ con la stessa origine e un vettore $\mathbf{v}$ di cui si conoscono le componenti in $b$:
+L'esempio riprende quello planare della lezione 3, in versione tridimensionale.
 
-$${}^{b}\mathbf{v} = \begin{bmatrix} v_{x,b} \\ v_{y,b} \end{bmatrix}.$$
+- La base del robot è ruotata di $90^\circ$ attorno a $z$ rispetto al mondo e si trova nel punto $(1, 2, 0)$:
+$${}^{w}_{b}R = R_z\!\left(\tfrac{\pi}{2}\right), \qquad {}^{w}O_b = \begin{bmatrix} 1 \\ 2 \\ 0 \end{bmatrix}.$$
+- Il sensore è montato $20$ cm più avanti rispetto al centro del robot e $50$ cm più in alto. È ruotato di $90^\circ$ attorno al proprio asse $x$ rispetto alla base:
+$${}^{b}_{s}R = R_x\!\left(\tfrac{\pi}{2}\right), \qquad {}^{b}O_s = \begin{bmatrix} 0{,}2 \\ 0 \\ 0{,}5 \end{bmatrix}.$$
+- Il sensore osserva un punto a un metro lungo il proprio asse $y$:
+$${}^{s}P = \begin{bmatrix} 0 \\ 1 \\ 0 \end{bmatrix}.$$
 
-Le componenti dicono quanto il vettore si estende lungo gli assi di $b$. Il vettore è quindi la combinazione lineare dei versori di $b$, pesati con le sue componenti. Questa relazione vale per il vettore come oggetto geometrico. Se la si **esprime nella terna $a$**, rappresentando i versori di $b$ con le loro coordinate in $a$, si ottiene
+Come al solito l'asse $x$ del robot è nella direzione di marcia e gli altri assi seguono la regola della mano destra. La rotazione del sensore rispetto alla base riflette una situazione frequente. I sensori hanno spesso la propria terna stampata sull'involucro, e a seconda di come vengono montati la loro terna non coincide con quella del corpo. Bisogna sapere come è montato il sensore per scrivere la rotazione giusta.
 
-$${}^{a}\mathbf{v} = v_{x,b}\;{}^{a}\mathbf{i}_b + v_{y,b}\;{}^{a}\mathbf{j}_b .$$
+> [!tip] Notazione per gli assi perpendicolari al foglio
+> Per disegnare in due dimensioni un asse perpendicolare alla lavagna si usa una convenzione grafica. Si immagina l'asse come una freccia vista di punta o di coda.
+> - Un **punto in un cerchio** ($\odot$) indica un asse che **esce** dal foglio, verso chi guarda: si vede la punta della freccia.
+> - Una **croce in un cerchio** ($\otimes$) indica un asse che **entra** nel foglio: si vede la coda della freccia.
 
-Per quanto visto sul prodotto matrice-vettore, questa combinazione lineare si scrive in forma matriciale:
+### 9.2 Le matrici, lette per colonne
 
-$${}^{a}\mathbf{v} = \begin{bmatrix} {}^{a}\mathbf{i}_b & {}^{a}\mathbf{j}_b \end{bmatrix} \begin{bmatrix} v_{x,b} \\ v_{y,b} \end{bmatrix} = {}^{a}_{b}R\;{}^{b}\mathbf{v}.$$
+Il docente ha raccomandato di allenare l'intuizione spaziale: invece di sviluppare ogni volta la formula con seni e coseni, si ragiona su dove vanno a finire gli assi.
 
-> [!important] Matrice di rotazione ${}^{a}_{b}R$
-> $${}^{a}_{b}R = \begin{bmatrix} {}^{a}\mathbf{i}_b & {}^{a}\mathbf{j}_b \end{bmatrix}, \qquad {}^{a}\mathbf{v} = {}^{a}_{b}R\;{}^{b}\mathbf{v}.$$
-> - **Le colonne** di ${}^{a}_{b}R$ sono i versori degli assi di $b$ espressi nella terna $a$. La matrice descrive l'orientamento di $b$ rispetto ad $a$.
-> - **Applicata** a un vettore espresso in $b$, la matrice restituisce **lo stesso vettore espresso in $a$**.
-> - **Regola di lettura**: l'indice in basso della matrice deve coincidere con l'apice del vettore a cui si applica. Si «semplificano» e resta l'apice in alto della matrice:
-> $${}^{a}_{\color{red}{b}}R \;\; {}^{\color{red}{b}}\mathbf{v} \;=\; {}^{a}\mathbf{v}.$$
+**Dalla base al mondo.** Si ruota di $90^\circ$ attorno a $z$.
 
-Il docente ha sottolineato un aspetto che a prima vista può sembrare **controintuitivo**. ${}^{a}_{b}R$ è la rotazione che porta la terna $a$ a sovrapporsi alla terna $b$, e in questo senso è la «matrice di rotazione da $a$ a $b$». Applicata a un vettore, però, **porta le sue coordinate da $b$ ad $a$**. Matematicamente torna: le colonne sono gli assi di $b$ visti da $a$, quindi la matrice traduce in linguaggio di $a$ ciò che era scritto in linguaggio di $b$.
+- Il nuovo asse $x$ coincide con il vecchio $y$: prima colonna $(0, 1, 0)^T$.
+- Il nuovo asse $y$ coincide con il vecchio $-x$: seconda colonna $(-1, 0, 0)^T$.
+- L'asse $z$, attorno a cui si ruota, non cambia: terza colonna $(0, 0, 1)^T$.
 
-> [!tip] Approfondimento — L'origine della notazione
-> #approfondimento
-> La notazione con apice e pedice a sinistra, ${}^{A}_{B}R$ e ${}^{A}P = {}^{A}_{B}R\,{}^{B}P$, è quella adottata nel testo di J. J. Craig [@craig2005], in cui ${}^{A}_{B}R$ descrive l'orientamento della terna $\{B\}$ rispetto a $\{A\}$. Altri testi usano notazioni diverse per lo stesso oggetto, per esempio $R^{a}_{b}$ [@siciliano2009]. Il contenuto matematico non cambia.
+$${}^{w}_{b}T = \begin{bmatrix} 0 & -1 & 0 & 1 \\ 1 & 0 & 0 & 2 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}.$$
 
-### 16.2 La matrice di rotazione nel piano
+**Dal sensore alla base.** Si ruota di $90^\circ$ attorno a $x$. Il ragionamento più facile parte dall'asse di rotazione.
 
-Se la terna $b$ è ruotata di un angolo $\theta$, in senso antiorario, rispetto alla terna $a$, le sue colonne si ricavano geometricamente.
+- L'asse $x$ non cambia: prima colonna $(1, 0, 0)^T$.
+- Il nuovo asse $y$ coincide con il vecchio $z$: seconda colonna $(0, 0, 1)^T$.
+- Il nuovo asse $z$ coincide con il vecchio $-y$: terza colonna $(0, -1, 0)^T$.
 
-- Il versore $\mathbf{i}_b$ forma un angolo $\theta$ con l'asse $x_a$, quindi in $a$ vale ${}^{a}\mathbf{i}_b = (\cos\theta,\ \sin\theta)^T$.
-- Il versore $\mathbf{j}_b$ è ruotato di altri $90^\circ$, quindi ${}^{a}\mathbf{j}_b = (\cos(\theta + \tfrac{\pi}{2}),\ \sin(\theta + \tfrac{\pi}{2}))^T = (-\sin\theta,\ \cos\theta)^T$.
+$${}^{b}_{s}T = \begin{bmatrix} 1 & 0 & 0 & 0{,}2 \\ 0 & 0 & -1 & 0 \\ 0 & 1 & 0 & 0{,}5 \\ 0 & 0 & 0 & 1 \end{bmatrix}.$$
 
-Mettendo i due versori in colonna si ottiene la matrice di rotazione elementare nel piano.
+Il docente ha sottolineato perché nello spazio serve più attenzione. Nel piano una rotazione scambia solo destra e sinistra; nello spazio ci sono tre rotazioni possibili, ognuna delle quali cambia gli altri due assi, mentre solo l'asse di rotazione resta fermo.
 
-> [!important] Rotazione piana
-> $$R(\theta) = \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix}.$$
+### 9.3 Dal sensore al mondo
 
-Due casi particolari aiutano a visualizzarla.
+La trasformazione dal sensore al mondo è il prodotto delle due:
 
-**Rotazione nulla.**
+$${}^{w}_{s}T = {}^{w}_{b}T\;{}^{b}_{s}T = \begin{bmatrix} 0 & 0 & 1 & 1 \\ 1 & 0 & 0 & 2{,}2 \\ 0 & 1 & 0 & 0{,}5 \\ 0 & 0 & 0 & 1 \end{bmatrix}.$$
 
-$$R(0) = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix} = I.$$
+Si possono controllare i due blocchi separatamente.
 
-Le due terne sono orientate allo stesso modo, quindi un vettore ha in $b$ le stesse componenti che in $a$. Il «cambio di base» non cambia nulla e la matrice è l'identità.
+- **Rotazione**: ${}^{w}_{s}R = R_z(\tfrac{\pi}{2})\,R_x(\tfrac{\pi}{2})$. È esattamente il caso degli assi mobili della sezione 7: prima si orienta come il robot, poi si ruota attorno al proprio asse $x$. Letta per colonne, dice che $x_s$ punta lungo $y_w$, $y_s$ lungo $z_w$ (verso l'alto) e $z_s$ lungo $x_w$.
+- **Traslazione**: ${}^{w}O_b + {}^{w}_{b}R\,{}^{b}O_s = (1, 2, 0)^T + (0,\ 0{,}2,\ 0{,}5)^T = (1,\ 2{,}2,\ 0{,}5)^T$. I $20$ cm «in avanti» del robot diventano $20$ cm lungo $y_w$, perché il robot guarda lungo $y_w$; i $50$ cm verso l'alto restano lungo $z$.
 
-**Rotazione di un angolo retto.**
+Infine il punto:
 
-$$R\!\left(\tfrac{\pi}{2}\right) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}.$$
+$${}^{w}\bar P = {}^{w}_{s}T\;{}^{s}\bar P = \begin{bmatrix} 0 & 0 & 1 & 1 \\ 1 & 0 & 0 & 2{,}2 \\ 0 & 1 & 0 & 0{,}5 \\ 0 & 0 & 0 & 1 \end{bmatrix}\begin{bmatrix} 0 \\ 1 \\ 0 \\ 1 \end{bmatrix} = \begin{bmatrix} 1 \\ 2{,}2 \\ 1{,}5 \\ 1 \end{bmatrix}.$$
 
-Il docente ha invitato a leggere la matrice **per colonne**. Disegnando $x_a, y_a$ e la terna $b$ ruotata di $90^\circ$ in senso antiorario, si vede che:
-
-- la prima colonna $(0, 1)^T$ è il nuovo asse $x_b$ espresso in $a$. L'unico 1 sta nella posizione della $y$: **il nuovo asse $x$ coincide con il vecchio asse $y$**;
-- la seconda colonna $(-1, 0)^T$ è il nuovo asse $y_b$: **il nuovo asse $y$ coincide con il vecchio asse $x$ cambiato di segno**.
-
-> [!example] Esempio: cambio di coordinate con $\theta = \pi/2$
-> La terna $b$ è ruotata di $\pi/2$ rispetto ad $a$ e un vettore ha in $b$ le componenti ${}^{b}\mathbf{v} = (1, 2)^T$. In $a$:
-> $${}^{a}\mathbf{v} = R\!\left(\tfrac{\pi}{2}\right) {}^{b}\mathbf{v} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}\begin{bmatrix} 1 \\ 2 \end{bmatrix} = \begin{bmatrix} -2 \\ 1 \end{bmatrix}.$$
-> Verifica geometrica. Il vettore vale 1 volta $\mathbf{i}_b$ più 2 volte $\mathbf{j}_b$. Ma $\mathbf{i}_b$ coincide con $\mathbf{j}_a$ e $\mathbf{j}_b$ con $-\mathbf{i}_a$. Quindi $\mathbf{v} = \mathbf{j}_a - 2\,\mathbf{i}_a$, cioè ${}^{a}\mathbf{v} = (-2, 1)^T$.
-
-Secondo il docente questa lettura «per colonne» è molto utile nella pratica. Per un manipolatore si definiscono le matrici che legano le terne dei giunti quando tutti i giunti sono in posizione zero. Ragionando su «dove va a finire» ciascun nuovo asse rispetto ai vecchi, la matrice di rotazione si costruisce rapidamente. Conviene quindi allenarsi ad **avere un'intuizione visiva** del risultato.
+**Verifica intuitiva.** L'asse $y$ del sensore punta verso l'alto, quindi il punto, a un metro lungo $y_s$, sta un metro sopra il sensore. Il sensore è in $(1,\ 2{,}2,\ 0{,}5)$, quindi il punto è in $(1,\ 2{,}2,\ 1{,}5)$. Nel simulatore lo si vede bene: l'asse verde ($y$) del sensore punta verso l'alto e il punto si trova sopra di esso.
 
 > [!tip] Excalidraw
-> Uno schizzo delle due terne $a$ e $b$, con $b$ ruotata di $\pi/2$ e le colonne di $R(\pi/2)$ disegnate come frecce, aiuta molto a fissare la lettura «per colonne».
+> Questo esempio è difficile da seguire solo con le matrici. Uno schizzo in assonometria (mondo, robot in $(1,2,0)$ con $x_b$ lungo $y_w$, sensore più avanti e più in alto con la sua $y_s$ verso l'alto, punto un metro sopra il sensore) è il modo migliore per controllare il risultato.
 
 ---
 
-## 17. Proprietà delle matrici di rotazione e gruppo SO(2)
+## 10. Perché saper leggere le matrici: i manipolatori
 
-### 17.1 Proprietà
+Il docente ha insistito sull'immediatezza nel capire come è fatta una matrice di rotazione, perché servirà subito nello studio dei manipolatori. Il modello di un manipolatore si scrive di solito con il **braccio completamente disteso**. Lungo il braccio ci sono vari punti di riferimento: la terna della base, la terna 1, la terna 2, la terna 3 e così via.
 
-Una matrice di rotazione deve soddisfare due proprietà. Vanno verificate soprattutto quando la matrice è ottenuta in modi diversi da quelli appena visti.
-
-**1. Determinante uguale a $+1$.** Non $\pm 1$: esattamente $+1$. Per la rotazione piana
-
-$$\det R(\theta) = \cos^2\theta + \sin^2\theta = 1.$$
-
-Nel caso di $R(\pi/2)$: $\det = 0 \cdot 0 - (-1)(1) = +1$.
-
-**2. Colonne ortonormali.** Le colonne hanno norma unitaria e sono ortogonali tra loro, perché sono i versori di una terna. In forma compatta questo si scrive
-
-$$R^{T} R = I.$$
-
-Per la rotazione piana si verifica direttamente:
-
-$$R(\theta)^{T} R(\theta) = \begin{bmatrix} \cos\theta & \sin\theta \\ -\sin\theta & \cos\theta \end{bmatrix}\begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix} = \begin{bmatrix} \cos^2\theta + \sin^2\theta & 0 \\ 0 & \sin^2\theta + \cos^2\theta \end{bmatrix} = I.$$
-
-Dall'ortonormalità discende una conseguenza fondamentale: **l'inversa coincide con la trasposta**. Nel piano, entrambe coincidono con la rotazione dell'angolo opposto:
-
-$$R(\theta)^{-1} = R(\theta)^{T} = R(-\theta) = \begin{bmatrix} \cos\theta & \sin\theta \\ -\sin\theta & \cos\theta \end{bmatrix}.$$
-
-Ne segue che per **tornare indietro**, cioè esprimere in $b$ un vettore noto in $a$, basta trasporre:
-
-$${}^{b}_{a}R = \big({}^{a}_{b}R\big)^{-1} = \big({}^{a}_{b}R\big)^{T}, \qquad {}^{b}\mathbf{v} = \big({}^{a}_{b}R\big)^{T}\,{}^{a}\mathbf{v}.$$
-
-Invertire una matrice di rotazione costa quanto trasporla, cioè praticamente nulla.
-
-> [!warning] Refuso negli appunti manuali
-> Negli appunti manuali la relazione è scritta come «$R^{-1} R^{T} = R(-\theta)$», senza segno di uguaglianza tra i primi due termini. La forma corretta, coerente con la trascrizione, è $R^{-1} = R^{T} = R(-\theta)$.
-
-### 17.2 Un controesempio: la riflessione
-
-Il docente ha mostrato una matrice con colonne ortonormali ma **determinante $-1$**. Non è una rotazione: è una **riflessione**, cioè una trasformazione che ribalta gli assi. Non verrà usata direttamente in robotica, ma compare per esempio nella *computer vision*.
-
-> [!warning] Sezione ricostruita — inizio (la trascrizione non permette di identificare con certezza la matrice scritta alla lavagna)
-> Una matrice coerente con quanto descritto (determinante $-1$, assi riflessi e scambiati di ordine) è
-> $$F = \begin{bmatrix} 0 & 1 \\ 1 & 0 \end{bmatrix}, \qquad \det F = 0 \cdot 0 - 1 \cdot 1 = -1.$$
-> Le sue colonne sono ortonormali, quindi vale $F^T F = I$, ma il determinante è $-1$. Letta per colonne, $F$ manda l'asse $x$ nel vecchio asse $y$ e l'asse $y$ nel vecchio asse $x$. È la riflessione rispetto alla bisettrice del primo quadrante, che **inverte l'ordine** degli assi.
->
-> Sezione ricostruita — fine
-
-La differenza sostanziale è questa: **le matrici di rotazione non cambiano mai l'ordine degli assi**. Se una terna ha assi $x, y$ disposti in un certo modo (con $y$ a $90^\circ$ in senso antiorario da $x$), dopo una rotazione continua ad averli disposti così. Lo stesso varrà per le terne $x, y, z$ nello spazio, che si studieranno dopo aver concluso il caso piano. Per distinguere una rotazione da una riflessione bisogna controllare il **determinante**.
-
-### 17.3 Il gruppo speciale ortogonale SO(2)
-
-> [!important] Definizione di SO(2)
-> L'insieme di tutte le matrici di rotazione piane è il **gruppo speciale ortogonale** di dimensione 2:
-> $$SO(2) = \left\{ R \in \mathbb{R}^{2\times 2} \;:\; R^{T}R = I,\ \det(R) = +1 \right\}.$$
-
-- **Ortogonale** si riferisce alla condizione $R^T R = I$, cioè colonne ortonormali, equivalente a $R^{-1} = R^T$.
-- **Speciale** si riferisce alla condizione $\det R = +1$, che esclude le riflessioni.
-- **2** indica che si tratta di matrici $2 \times 2$, cioè rotazioni nel piano.
-
-È un **gruppo** in senso matematico perché, con l'operazione di prodotto tra matrici, soddisfa le proprietà richieste.
-
-- **Chiusura**: il prodotto di due rotazioni è ancora una rotazione (lo si mostra nella sezione seguente).
-- **Elemento neutro**: l'identità $I = R(0)$ appartiene all'insieme.
-- **Elemento inverso**: ogni $R$ ha l'inversa $R^{-1} = R^T$, che è ancora una rotazione.
-- **Associatività**: è ereditata dal prodotto di matrici.
+La prima cosa da fare è collocare le terne e scrivere le matrici di rotazione tra una terna e la successiva. Nel caso disegnato alla lavagna è facile, perché le terne sono allineate, ma un braccio reale può avere giunti orientati in modi diversi. Chi ha capito come le rotazioni scambiano gli assi riesce a scrivere il modello da solo. Questo modello è la base della **cinematica diretta e inversa** dei manipolatori, analoga (ma molto più articolata) a quella vista per la base mobile: partendo dalla base, si vuole sapere dove si trova ciascuna terna, fino all'utensile.
 
 ---
 
-## 18. Composizione di rotazioni nel piano
+## 11. Esercizio nel simulatore: trasformazioni spaziali
 
-Che cosa succede componendo due rotazioni? Si calcola il prodotto:
+Nella versione aggiornata del simulatore c'è il modulo 2, con l'esercizio sulle trasformazioni spaziali (file `spatial.py`). La scena è quella dell'esempio della sezione 9: il robot ruotato di $90^\circ$ su $z$ e il sensore montato sopra di esso.
 
-$$
-\begin{aligned}
-R(\alpha)\,R(\beta) &= \begin{bmatrix} \cos\alpha & -\sin\alpha \\ \sin\alpha & \cos\alpha \end{bmatrix}\begin{bmatrix} \cos\beta & -\sin\beta \\ \sin\beta & \cos\beta \end{bmatrix} \\[4pt]
-&= \begin{bmatrix} \cos\alpha\cos\beta - \sin\alpha\sin\beta & -\cos\alpha\sin\beta - \sin\alpha\cos\beta \\ \sin\alpha\cos\beta + \cos\alpha\sin\beta & -\sin\alpha\sin\beta + \cos\alpha\cos\beta \end{bmatrix}
-\end{aligned}
-$$
+Nel simulatore gli assi sono disegnati in **rosso, verde e blu**. L'ordine non è casuale: i colori seguono la sigla **RGB** e corrispondono, nell'ordine, agli assi **$x$, $y$, $z$**. Guardando la scena dall'alto si vede che l'asse rosso del robot ($x_b$) punta lungo l'asse verde del mondo ($y_w$), come previsto da ${}^{w}_{b}R = R_z(\pi/2)$.
 
-Il risultato sembra complicato, ma basta ricordare le formule di addizione:
+La funzione da completare riceve la trasformazione dalla base al mondo, quella dal sensore alla base e il punto nel sensore. Deve restituire il punto nel mondo, con lo stesso procedimento dell'esercizio planare. Il risultato atteso è $(1,\ 2{,}2,\ 1{,}5)$.
 
-$$\cos(\alpha+\beta) = \cos\alpha\cos\beta - \sin\alpha\sin\beta, \qquad \sin(\alpha+\beta) = \sin\alpha\cos\beta + \cos\alpha\sin\beta.$$
+Un'implementazione scritta in modo indipendente dalla dimensione funziona sia nel piano sia nello spazio, perché le coordinate omogenee hanno sempre la stessa struttura.
 
-Gli elementi diagonali sono entrambi $\cos(\alpha+\beta)$. L'elemento in basso a sinistra è $\sin(\alpha+\beta)$ e quello in alto a destra è $-\sin(\alpha+\beta)$. Quindi:
+```python
+import numpy as np
 
-> [!important] Composizione di rotazioni piane
-> $$R(\alpha)\,R(\beta) = R(\alpha + \beta).$$
+def to_world(world_from_base, base_from_sensor, point_in_sensor):
+    world_from_sensor = world_from_base @ base_from_sensor  # ʷₛT = ʷᵦT ᵇₛT
+    point_h = np.append(point_in_sensor, 1.0)               # punto omogeneo
+    return (world_from_sensor @ point_h)[:-1]               # scarta l'ultima componente
 
-Ne segue anche la chiusura di SO(2): il prodotto di due rotazioni è una rotazione.
+world_from_base = np.array([[0, -1, 0, 1],
+                            [1,  0, 0, 2],
+                            [0,  0, 1, 0],
+                            [0,  0, 0, 1]], dtype=float)
+base_from_sensor = np.array([[1, 0,  0, 0.2],
+                             [0, 0, -1, 0.0],
+                             [0, 1,  0, 0.5],
+                             [0, 0,  0, 1.0]])
 
-**Commutatività nel piano.** L'addizione degli angoli è commutativa ($\alpha + \beta = \beta + \alpha$), quindi
+print(to_world(world_from_base, base_from_sensor, np.array([0.0, 1.0, 0.0])))
+# [1.  2.2 1.5]
+```
 
-$$R(\alpha)\,R(\beta) = R(\alpha+\beta) = R(\beta)\,R(\alpha)$$
-
-Le **rotazioni piane godono della proprietà commutativa**: l'ordine in cui si applicano non conta. Il motivo è che nel piano c'è **un solo grado di libertà rotazionale**: tutte le rotazioni avvengono attorno allo stesso asse, perpendicolare al piano, e si limitano a sommare angoli. Il docente ha avvertito che **in generale non è così**. Per le rotazioni nello spazio l'ordine conta, e lo si vedrà più avanti.
-
-> [!example] Esempio: due rotazioni in sequenza
-> Applicando una rotazione di $\pi/6$ e poi una di $\pi/3$, in qualunque ordine, si ottiene
-> $$R\!\left(\tfrac{\pi}{6}\right)R\!\left(\tfrac{\pi}{3}\right) = R\!\left(\tfrac{\pi}{3}\right)R\!\left(\tfrac{\pi}{6}\right) = R\!\left(\tfrac{\pi}{2}\right) = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}$$
-
-**Composizione di cambi di base.** Il docente ha anticipato che la proprietà associativa servirà a **concatenare** trasformazioni. Con tre terne $a$, $b$, $c$, applicando due volte la regola di lettura degli indici:
-
-$${}^{a}\mathbf{v} = {}^{a}_{b}R\;{}^{b}\mathbf{v} = {}^{a}_{b}R\;{}^{b}_{c}R\;{}^{c}\mathbf{v}, \qquad\text{cioè}\qquad {}^{a}_{c}R = {}^{a}_{b}R\;{}^{b}_{c}R$$
-
-Gli indici interni si «semplificano» a catena. È lo stesso meccanismo che, con le trasformazioni omogenee, permetterà di passare dalla terna dell'utensile a quella del mondo.
+> [!warning] Nomi indicativi
+> I nomi sono ricostruiti da quanto detto a lezione (*world from base*, *base from sensor*). La firma effettiva in `spatial.py` può essere diversa: fa fede il file del repository.
 
 ---
 
-## 19. Interpretazione passiva e attiva di una rotazione
+## 12. Rappresentare l'orientamento con tre angoli: roll, pitch, yaw
 
-La stessa matrice di rotazione si può interpretare in **due modi**, che il docente ha chiamato rotazione **passiva** e rotazione **attiva**.
+### 12.1 Perché non bastano le matrici
 
-**Interpretazione passiva: cambia il riferimento.** Il vettore resta **fermo** e cambia la terna in cui lo si descrive: da una terna $a$ a una terna $b$ ruotata rispetto ad $a$. La matrice esprime nella nuova terna lo stesso vettore. È l'uso visto finora:
+Le matrici omogenee sono il modo più sicuro di rappresentare le trasformazioni e, come si è visto, si compongono con semplici prodotti. Hanno però due limiti pratici.
 
-$${}^{a}\mathbf{v} = {}^{a}_{b}R\;{}^{b}\mathbf{v}.$$
+- Usano molti numeri: una matrice $4\times 4$ ne contiene 16, per descrivere 6 gradi di libertà. Con un braccio a 7 gradi di libertà, come quello del laboratorio, e migliaia di operazioni, la mole di dati cresce rapidamente.
+- **Non sono leggibili a colpo d'occhio.** Guardando una sequenza di numeri come $1, 0, 0, 0, 1, 0, \ldots$ non si capisce come è orientato il corpo. In un'interfaccia che mostra in tempo reale l'orientamento di un robot, una matrice di numeri che cambiano non dice nulla a chi la osserva.
 
-Un esempio tipico è esprimere una direzione nota nella terna del robot nella terna del sensore, o viceversa. Il vettore è sempre lo stesso; cambiano solo le sue componenti.
+Esistono quindi rappresentazioni alternative dell'orientamento. Una delle più usate, perché molto intuitiva, sono gli **angoli roll, pitch, yaw** (RPY), indicati con $\varphi$, $\theta$ e $\psi$. Usano solo **tre parametri** invece dei nove della matrice di rotazione e ciascuno ha un significato fisico chiaro. In cambio, come ha anticipato il docente, comportano alcune complicazioni.
 
-**Interpretazione attiva: cambia il vettore.** La matrice **agisce sul vettore** e lo trasforma in un vettore nuovo, ruotato, espresso nella stessa terna:
+Esistono anche altre rappresentazioni, come i **quaternioni**, che hanno vantaggi nella composizione delle rotazioni e soffrono meno di problemi numerici. Sono però più difficili da interpretare: dai loro valori numerici non si «vede» la rotazione. Il docente si concentrerà prima sul collegamento tra angoli RPY e matrici di rotazione.
 
-$$\mathbf{v}' = R(\theta)\,\mathbf{v}.$$
+Una motivazione pratica per conoscere gli angoli RPY è che molti sensori li forniscono direttamente. Un'unità inerziale con elaborazione a bordo fonde le misure di accelerometri e giroscopi (*sensor fusion*) e restituisce l'orientamento sotto forma di angoli. Più avanti nel corso si vedrà come un sensore usa il vettore della **gravità** $\mathbf g$ per capire se il corpo è inclinato: se si inclina il telefono, il vettore $\mathbf g$ misurato ruota rispetto al telefono. Poiché i dati arrivano in forme diverse, bisogna saper convertire da una rappresentazione all'altra.
 
-Un esempio: il robot ruota e con lui ruota la direzione della sua velocità. Se prima la velocità puntava in una certa direzione, dopo la rotazione del robot punta in un'altra. Qui è il vettore a muoversi.
+### 12.2 La convenzione: estrinseca XYZ
 
-> [!example] Esempio: stessa matrice, due significati
-> Si prenda $R(\pi/2)$ e il vettore di componenti $(1, 0)^T$.
-> - **Passiva.** Il vettore ha componenti $(1,0)^T$ nella terna $b$, ruotata di $\pi/2$ rispetto ad $a$, quindi coincide con l'asse $x_b$. Nella terna $a$ le sue componenti sono $R(\pi/2)(1,0)^T = (0,1)^T$: il vettore è fermo e lo si descrive in un'altra terna.
-> - **Attiva.** Nella terna $a$ si ruota il vettore $(1,0)^T$, che punta lungo $x_a$, di $\pi/2$ in senso antiorario. Il nuovo vettore $(0,1)^T$ punta lungo $y_a$: il vettore si è mosso.
->
-> I numeri coincidono, ma il significato fisico è diverso.
+La matrice di rotazione associata agli angoli RPY è la composizione di tre rotazioni elementari:
 
-Bisogna sempre chiarire in quale dei due casi ci si trova. Nel primo, tra virgolette, «si muove il mondo» (il riferimento) e il vettore resta fermo; nel secondo è il vettore a spostarsi. Le implicazioni sono diverse. Ruotare il riferimento di $+\theta$ equivale, in termini di componenti, a ruotare il vettore di $-\theta$. Per esprimere in $b$ un vettore noto in $a$ si usa infatti $\big({}^{a}_{b}R\big)^{T} = R(-\theta)$.
+> [!important] Matrice di rotazione roll-pitch-yaw
+> $$R(\varphi, \theta, \psi) = R_z(\psi)\;R_y(\theta)\;R_x(\varphi).$$
+
+Perché in quest'ordine? Le rotazioni si leggono da destra verso sinistra. Scrivere $R_z R_y R_x$ significa ruotare **prima attorno a $x$, poi attorno a $y$, poi attorno a $z$**. Inoltre le rotazioni avvengono attorno agli **assi originali del mondo**, cioè ad assi fissi: per la regola della sezione 7 ogni nuova rotazione viene premoltiplicata.
+
+Questa convenzione si chiama **estrinseca XYZ**.
+
+- **XYZ** indica l'ordine degli assi attorno a cui si ruota.
+- **Estrinseca** indica che gli assi sono quelli di un sistema esterno al corpo, per esempio il riferimento del mondo, che resta fermo durante le rotazioni.
+
+### 12.3 La stessa rotazione in forma intrinseca
+
+La stessa identica matrice si ottiene anche con rotazioni **intrinseche**, cioè attorno agli assi del corpo che si muovono con esso, **in ordine inverso**: prima attorno a $z$, poi attorno al nuovo $y$, poi attorno al nuovo $x$. È la convenzione **intrinseca ZYX**.
+
+Lo si vede con la regola degli assi mobili. Si parte dall'identità (il corpo allineato al mondo) e a ogni passo si **postmoltiplica**:
+
+$$I \;\xrightarrow{\ \text{rotazione su } z\ }\; R_z(\psi) \;\xrightarrow{\ \text{su } y \text{ mobile}\ }\; R_z(\psi)\,R_y(\theta) \;\xrightarrow{\ \text{su } x \text{ mobile}\ }\; R_z(\psi)\,R_y(\theta)\,R_x(\varphi).$$
+
+Con gli assi fissi, invece, si parte da $R_x(\varphi)$ e si **premoltiplica** prima per $R_y(\theta)$ e poi per $R_z(\psi)$: il risultato è lo stesso prodotto. Applicare le rotazioni in ordine inverso sugli assi mobili equivale ad applicarle in ordine diretto sugli assi fissi.
+
+> [!warning] Attenzione alla convenzione del software
+> Il docente ha avvertito che molti programmi, come Unity e altri motori grafici, usano convenzioni diverse: ordini come XYX o ZYX, in forma estrinseca o intrinseca. Ci sono tutte le combinazioni immaginabili. Quando si lavora con angoli forniti da un programma o da un sensore, bisogna sempre verificare **quale convenzione** adotta: l'ordine degli assi e se le rotazioni sono estrinseche o intrinseche. Con la convenzione sbagliata si ottiene un orientamento diverso.
+
+In letteratura, quando i tre assi della sequenza sono tutti diversi (come in XYZ), gli angoli si chiamano anche angoli di **Tait–Bryan**.
+
+> [!tip] Approfondimento — Quante convenzioni esistono
+> #approfondimento
+> L'equivalenza vista sopra è un risultato generale. Tre rotazioni attorno ad assi fissi danno lo stesso orientamento finale delle stesse tre rotazioni eseguite in ordine inverso attorno agli assi del corpo. Per questo Craig chiama la stessa parametrizzazione sia «angoli fissi X–Y–Z» sia «angoli di Eulero Z–Y–X» [@craig2005].
+> Quando invece il primo e l'ultimo asse coincidono si parla di angoli di Eulero propriamente detti, come la sequenza ZYZ [@siciliano2009].
+> Il documento REP 103 di ROS osserva che esistono 24 convenzioni «valide» per gli angoli, e proprio per questo scoraggia l'uso degli angoli di Eulero generici. Raccomanda invece, nell'ordine, quaternioni, matrici di rotazione e angoli roll-pitch-yaw su assi fissi X, Y, Z [@rep103].
+> Come esempio di convenzione diversa, la documentazione di Unity indica che il motore applica le rotazioni di Eulero in sequenza attorno a $z$, poi $x$, poi $y$, come rotazione estrinseca [@unityManual].
+
+### 12.4 Significato fisico degli angoli
+
+Si ricordi che l'asse $x$ è la direzione di avanzamento del robot.
+
+- **Roll** ($\varphi$), in italiano **rollio**: rotazione attorno all'asse $x$, cioè attorno all'asse longitudinale. È il movimento di una barca che oscilla da un fianco all'altro.
+- **Pitch** ($\theta$), in italiano **beccheggio**: rotazione attorno all'asse $y$. Indica in qualche modo un'elevazione: il «muso» del robot che si alza o si abbassa.
+- **Yaw** ($\psi$), in italiano **imbardata**: rotazione attorno all'asse $z$, verticale. Indica la direzione verso cui il robot sta andando.
+
+Lo yaw è spesso il più semplice da usare e da ottenere: basta, per esempio, una bussola, e per un robot che si muove sul piano è l'unico angolo che conta. Gli altri due angoli servono, combinati con lo yaw, a descrivere orientamenti generici nello spazio.
+
+> [!tip] Excalidraw
+> Un disegno di un veicolo (una barca o un drone) con i tre assi e le tre rotazioni (rollio attorno a $x$, beccheggio attorno a $y$, imbardata attorno a $z$) fissa il significato degli angoli meglio di qualunque descrizione a parole.
+
+### 12.5 La matrice completa
+
+Eseguendo i prodotti $R_z(\psi)\,R_y(\theta)\,R_x(\varphi)$ si ottiene la matrice esplicita. Per brevità si scrive $c_\varphi = \cos\varphi$, $s_\varphi = \sin\varphi$, e analogamente per gli altri angoli.
+
+> [!important] Matrice RPY esplicita
+> $$R(\varphi,\theta,\psi) = \begin{bmatrix}
+> c_\psi c_\theta & c_\psi s_\theta s_\varphi - s_\psi c_\varphi & c_\psi s_\theta c_\varphi + s_\psi s_\varphi \\
+> s_\psi c_\theta & s_\psi s_\theta s_\varphi + c_\psi c_\varphi & s_\psi s_\theta c_\varphi - c_\psi s_\varphi \\
+> -s_\theta & c_\theta s_\varphi & c_\theta c_\varphi
+> \end{bmatrix}.$$
+
+La formula sembra complicata, ma è solo il prodotto delle tre matrici elementari. Conviene ricavarla almeno una volta in due passi.
+
+1. Si calcola $R_y(\theta)\,R_x(\varphi)$:
+$$R_y(\theta)\,R_x(\varphi) = \begin{bmatrix} c_\theta & s_\theta s_\varphi & s_\theta c_\varphi \\ 0 & c_\varphi & -s_\varphi \\ -s_\theta & c_\theta s_\varphi & c_\theta c_\varphi \end{bmatrix}.$$
+2. Si premoltiplica per $R_z(\psi)$. La terza riga non cambia, perché $R_z$ lascia invariata la componente $z$. Le prime due righe si combinano come in una rotazione piana di angolo $\psi$: la nuova prima riga è $c_\psi\cdot(\text{riga 1}) - s_\psi\cdot(\text{riga 2})$ e la nuova seconda riga è $s_\psi\cdot(\text{riga 1}) + c_\psi\cdot(\text{riga 2})$. Si ottiene la matrice del riquadro.
+
+Il motivo per scriverla esplicitamente, secondo il docente, è che a partire dai suoi elementi si possono **ricavare gli angoli**. Per esempio, l'elemento in basso a sinistra vale $-\sin\theta$. Si può così convertire una matrice di rotazione in angoli RPY e viceversa: è l'argomento che verrà ripreso.
+
+> [!tip] Approfondimento — Dalla matrice agli angoli e il blocco cardanico
+> #approfondimento
+> Indicando con $r_{ij}$ l'elemento di riga $i$ e colonna $j$ della matrice, se $\theta \in (-\pi/2,\ \pi/2)$, cioè $\cos\theta > 0$, gli angoli si ricavano con la funzione $\operatorname{atan2}(y, x)$. È l'arcotangente a due argomenti, che usa i segni di entrambi per restituire l'angolo nel quadrante corretto [@siciliano2009]:
+> $$\psi = \operatorname{atan2}(r_{21},\ r_{11}), \qquad \theta = \operatorname{atan2}\!\Big(-r_{31},\ \sqrt{r_{32}^{2} + r_{33}^{2}}\Big), \qquad \varphi = \operatorname{atan2}(r_{32},\ r_{33}).$$
+> Per $\theta = \pm\pi/2$ si ha $\cos\theta = 0$ e gli elementi $r_{11}, r_{21}, r_{32}, r_{33}$ si annullano. La matrice dipende allora solo da una combinazione di $\psi$ e $\varphi$ (la differenza per $\theta = +\pi/2$, la somma per $\theta = -\pi/2$) e non è più possibile separarli. È una **singolarità** della rappresentazione, nota come *gimbal lock* (blocco cardanico): due assi di rotazione diventano paralleli e si perde un grado di libertà. Nei testi le lettere assegnate ai tre angoli possono essere diverse da quelle usate a lezione: conviene sempre verificare quale angolo corrisponde a quale asse.
+
+### 12.6 Esercizio nel simulatore
+
+Il simulatore contiene un esercizio dedicato agli angoli RPY (il nome esatto non è intelligibile nella trascrizione). Chiede di implementare la conversione da angoli a matrice di rotazione in due modi: prima con la formula esplicita, poi come prodotto delle tre rotazioni elementari. I due risultati devono coincidere, e il confronto è un ottimo controllo sulla correttezza di entrambi.
+
+```python
+import numpy as np
+
+def rot_x(phi):
+    c, s = np.cos(phi), np.sin(phi)
+    return np.array([[1, 0, 0], [0, c, -s], [0, s, c]])
+
+def rot_y(theta):
+    c, s = np.cos(theta), np.sin(theta)
+    return np.array([[c, 0, s], [0, 1, 0], [-s, 0, c]])
+
+def rot_z(psi):
+    c, s = np.cos(psi), np.sin(psi)
+    return np.array([[c, -s, 0], [s, c, 0], [0, 0, 1]])
+
+def rpy_composed(phi, theta, psi):
+    # estrinseca XYZ = intrinseca ZYX
+    return rot_z(psi) @ rot_y(theta) @ rot_x(phi)
+
+def rpy_explicit(phi, theta, psi):
+    cf, sf = np.cos(phi), np.sin(phi)
+    ct, st = np.cos(theta), np.sin(theta)
+    cp, sp = np.cos(psi), np.sin(psi)
+    return np.array([
+        [cp*ct, cp*st*sf - sp*cf, cp*st*cf + sp*sf],
+        [sp*ct, sp*st*sf + cp*cf, sp*st*cf - cp*sf],
+        [-st,   ct*sf,            ct*cf           ]])
+
+def is_rotation(R):
+    # appartenenza a SO(3): colonne ortonormali e determinante +1
+    return np.allclose(R.T @ R, np.eye(3)) and np.isclose(np.linalg.det(R), 1.0)
+
+R1 = rpy_composed(0.3, -0.5, 1.2)
+R2 = rpy_explicit(0.3, -0.5, 1.2)
+print(np.allclose(R1, R2), is_rotation(R1))   # True True
+```
+
+> [!warning] Nomi indicativi
+> Anche qui i nomi delle funzioni sono indicativi: fa fede il file dell'esercizio nel repository.
 
 ---
 
-## 20. Prossima lezione
+## 13. Argomenti anticipati
 
-Nella prossima lezione si introdurranno le **trasformazioni omogenee**. Sono lo strumento che permette di concatenare **rototraslazioni**, cioè combinazioni di rotazioni e traslazioni come quelle tra le terne di mondo, robot, sensore e utensile viste nella slide 54.
+Nelle prossime lezioni si riprenderanno:
+
+- la conversione inversa, dalla matrice di rotazione agli angoli RPY;
+- le altre rappresentazioni dell'orientamento, in particolare i quaternioni;
+- l'uso della gravità per stimare l'inclinazione di un corpo con i sensori inerziali.
