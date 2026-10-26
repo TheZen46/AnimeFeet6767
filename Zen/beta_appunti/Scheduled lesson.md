@@ -21,5 +21,4 @@
 	Lezione 10
 
 ## Teoria dei Sistemi
-	Lezione 7
-	Lezione 8
+	

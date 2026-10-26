@@ -30,12 +30,12 @@ con $\alpha, \beta : [a,b] \to \mathbb{R}$, $\alpha, \beta \in C^1([a,b])$.
 > \draw[dashed] (3,0) -- (3,0.8);
 > \draw (1,0.06) -- (1,-0.06) node[below] {$a$};
 > \draw (3,0.06) -- (3,-0.06) node[below] {$b$};
-> \draw[thick,blue] (1,1.2) .. controls (1.8,0.4) and (2.4,1.4) .. (3,0.8);
-> \draw[thick,blue] (1,2.2) .. controls (1.8,2.4) and (2.4,3.4) .. (3,2.8);
-> \draw[thick,blue] (1,1.2) -- (1,2.2);
-> \draw[thick,blue] (3,0.8) -- (3,2.8);
-> \node[blue] at (1.6,0.55) {$\alpha(x)$};
-> \node[blue] at (1.6,2.75) {$\beta(x)$};
+> \draw[thick,yellow] (1,1.2) .. controls (1.8,0.4) and (2.4,1.4) .. (3,0.8);
+> \draw[thick,yellow] (1,2.2) .. controls (1.8,2.4) and (2.4,3.4) .. (3,2.8);
+> \draw[thick,yellow] (1,1.2) -- (1,2.2);
+> \draw[thick,yellow] (3,0.8) -- (3,2.8);
+> \node[yellow] at (1.6,0.55) {$\alpha(x)$};
+> \node[yellow] at (1.6,2.75) {$\beta(x)$};
 > \draw[->,green!50!black] (1.9,0.6) -- (2.3,0.75);
 > \node[green!50!black] at (2.4,1.25) {$\gamma_1$};
 > \draw[->,green!50!black] (3.2,1.5) -- (3.2,2.1);
@@ -97,4 +97,4 @@ $$\Rightarrow \int_a^b \partial_x \mathcal{E}(x)\,dx = \int_a^b\int_{\alpha(x)}^
 
 $$1 + 2 + 3 + 4 = \iint_D \partial_x F_2(x,y)\,dx\,dy = B$$
 
-$$\int_{\partial D} F\,dP = \iint_D \partial_x F_2 - \partial_y F_1\,dx\,dy = A + B \qquad \square$$
+$$\int_{\partial D} F\,dP = \iint_D \partial_x F_2 - \partial_y F_1\,dx\,dy = A + B \qquad$$
