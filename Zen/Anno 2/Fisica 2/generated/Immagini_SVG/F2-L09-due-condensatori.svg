@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 800 330" width="800" height="330"><title>Condensatore carico collegato a uno scarico</title><defs><path id="gi43" d="M689 664 652 464 634 467Q616 630 485 630Q376 630 286 533Q233 477 205.5 397.0Q178 317 178 232Q178 27 353 27Q415 27 466.5 53.0Q518 79 582 146L600 131Q533 52 468.5 17.0Q404 -18 327 -18Q210 -18 138.0 51.5Q66 121 66 243Q66 346 117.0 439.5Q168 533 253 593Q355 666 472 666Q541 666 589 649Q609 642 630 642Q657 642 668 664Z"/><path id="gi56" d="M688 653V637Q656 636 632 597L259 -18H240L158 485Q141 590 129.5 611.0Q118 632 76 637V653H316V637Q269 632 254.5 622.0Q240 612 240 586Q240 576 241 571L306 128L516 488Q565 572 565 603Q565 630 503 637V653Z"/><path id="gi66" d="M41 428H134Q173 554 206 601Q260 678 338 678Q375 678 399.5 660.5Q424 643 424 616Q424 599 411.5 586.0Q399 573 382 573Q368 573 356.5 584.0Q345 595 345 612Q345 622 350.0 631.0Q355 640 355 643Q355 656 333 656Q291 656 262.0 601.5Q233 547 211 428H318L312 396H204L132 76Q68 -207 -68 -207Q-102 -207 -124.5 -189.5Q-147 -172 -147 -146Q-147 -129 -136.0 -116.5Q-125 -104 -109 -104Q-92 -104 -81.5 -114.5Q-71 -125 -71 -141Q-71 -148 -75.5 -156.5Q-80 -165 -80 -170Q-80 -186 -60 -186Q2 -186 37 -24L125 396H34Z"/><path id="gi71" d="M484 428 319 -151Q317 -159 317 -162Q317 -193 374 -193H389V-209H152V-193Q198 -190 216.0 -178.0Q234 -166 243 -137L333 153Q274 59 229.0 24.0Q184 -11 125 -11Q78 -11 51.5 20.0Q25 51 25 105Q25 182 69.5 261.0Q114 340 182.5 390.5Q251 441 318 441Q381 441 395 379L411 428ZM380 359Q380 384 363.0 401.5Q346 419 321 419Q280 419 228 370Q177 321 144.0 251.0Q111 181 111 119Q111 42 164 42Q205 42 246 78Q297 122 338.5 209.5Q380 297 380 359Z"/><path id="gr2b" d="M636 220H375V-41H309V220H48V286H309V547H375V286H636Z"/><path id="gr30" d="M476 330Q476 263 463.0 203.5Q450 144 424.5 94.0Q399 44 354.0 15.0Q309 -14 250 -14Q189 -14 143.0 17.0Q97 48 72.0 100.0Q47 152 35.5 211.0Q24 270 24 336Q24 429 47.0 503.5Q70 578 123.5 627.0Q177 676 254 676Q352 676 414.0 580.0Q476 484 476 330ZM380 325Q380 483 346.5 566.5Q313 650 248 650Q186 650 153.0 566.0Q120 482 120 329Q120 175 153.0 93.5Q186 12 250 12Q313 12 346.5 93.5Q380 175 380 325Z"/><path id="gr31" d="M394 0H118V15Q173 18 193.0 35.5Q213 53 213 95V544Q213 593 183 593Q169 593 138 581L111 571V585L290 676L299 673V76Q299 43 319.0 29.0Q339 15 394 15Z"/><path id="gr32" d="M474 137 420 0H29V12L207 201Q277 274 307.0 335.0Q337 396 337 461Q337 528 300.0 565.0Q263 602 198 602Q144 602 112.5 574.0Q81 546 51 472L30 477Q47 570 98.5 623.0Q150 676 238 676Q321 676 372.0 626.0Q423 576 423 500Q423 387 295 252L130 76H364Q397 76 416.5 89.0Q436 102 460 143Z"/><path id="gr3d" d="M637 320H48V386H637ZM637 120H48V186H637Z"/></defs><rect x="1" y="1" width="798" height="328" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/><text x="20" y="24" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" fill="#6b7280" text-anchor="start" dominant-baseline="middle" font-weight="600" opacity="1">(a) prima: un condensatore carico, interruttore aperto</text>
+<line x1="60" y1="80" x2="60" y2="160" stroke="#6b7280" stroke-width="1.6" stroke-linecap="round" opacity="1" stroke-dasharray="5 4"/>
+<line x1="60" y1="170" x2="60" y2="250" stroke="#6b7280" stroke-width="1.6" stroke-linecap="round" opacity="1" stroke-dasharray="5 4"/>
+<line x1="42" y1="160" x2="78" y2="160" stroke="#6b7280" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<line x1="51" y1="170" x2="69" y2="170" stroke="#6b7280" stroke-width="5" stroke-linecap="round" opacity="1"/>
+<line x1="60" y1="80" x2="170" y2="80" stroke="#6b7280" stroke-width="1.6" stroke-linecap="round" opacity="1" stroke-dasharray="5 4"/>
+<line x1="60" y1="250" x2="170" y2="250" stroke="#6b7280" stroke-width="1.6" stroke-linecap="round" opacity="1" stroke-dasharray="5 4"/>
+<g fill="#6b7280"><use href="#gi56" xlink:href="#gi56" transform="translate(21.59 169.95) scale(0.01500 -0.01500)"/><use href="#gr30" xlink:href="#gr30" transform="translate(30.75 173.55) scale(0.01050 -0.01050)"/></g>
+<text x="112" y="276" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" dominant-baseline="middle" font-weight="normal" opacity="1">batteria staccata</text>
+<line x1="170" y1="80" x2="170" y2="159" stroke="#1f2937" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<line x1="170" y1="171" x2="170" y2="250" stroke="#1f2937" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<line x1="148" y1="159" x2="192" y2="159" stroke="#1f2937" stroke-width="3" stroke-linecap="round" opacity="1"/>
+<line x1="148" y1="171" x2="192" y2="171" stroke="#1f2937" stroke-width="3" stroke-linecap="round" opacity="1"/>
+<line x1="151.5" y1="150" x2="158.5" y2="150" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="155" y1="146.5" x2="155" y2="153.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="151.5" y1="180" x2="158.5" y2="180" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="161.5" y1="150" x2="168.5" y2="150" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="165" y1="146.5" x2="165" y2="153.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="161.5" y1="180" x2="168.5" y2="180" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="171.5" y1="150" x2="178.5" y2="150" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="175" y1="146.5" x2="175" y2="153.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="171.5" y1="180" x2="178.5" y2="180" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="181.5" y1="150" x2="188.5" y2="150" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="185" y1="146.5" x2="185" y2="153.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="181.5" y1="180" x2="188.5" y2="180" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<g fill="#1f2937"><use href="#gi43" xlink:href="#gi43" transform="translate(200 169.95) scale(0.01500 -0.01500)"/><use href="#gr31" xlink:href="#gr31" transform="translate(210 173.55) scale(0.01050 -0.01050)"/></g>
+<line x1="170" y1="80" x2="240" y2="80" stroke="#1f2937" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<circle cx="240" cy="80" r="3" stroke="#1f2937" stroke-width="1.5" fill="#ffffff" opacity="1"/>
+<circle cx="274" cy="80" r="3" stroke="#1f2937" stroke-width="1.5" fill="#ffffff" opacity="1"/>
+<line x1="240" y1="80" x2="270" y2="64" stroke="#1f2937" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<line x1="274" y1="80" x2="360" y2="80" stroke="#1f2937" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<line x1="170" y1="250" x2="360" y2="250" stroke="#1f2937" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<line x1="360" y1="80" x2="360" y2="159" stroke="#1f2937" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<line x1="360" y1="171" x2="360" y2="250" stroke="#1f2937" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<line x1="338" y1="159" x2="382" y2="159" stroke="#1f2937" stroke-width="3" stroke-linecap="round" opacity="1"/>
+<line x1="338" y1="171" x2="382" y2="171" stroke="#1f2937" stroke-width="3" stroke-linecap="round" opacity="1"/>
+<g fill="#1f2937"><use href="#gi43" xlink:href="#gi43" transform="translate(390 169.95) scale(0.01500 -0.01500)"/><use href="#gr32" xlink:href="#gr32" transform="translate(400 173.55) scale(0.01050 -0.01050)"/></g>
+<text x="412" y="195" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#6b7280" text-anchor="middle" dominant-baseline="middle" font-weight="normal" opacity="1">scarico</text>
+<g fill="#2563eb"><use href="#gi71" xlink:href="#gi71" transform="translate(124.1 169.62) scale(0.01400 -0.01400)"/><use href="#gr30" xlink:href="#gr30" transform="translate(131.1 172.98) scale(0.00980 -0.00980)"/></g>
+<text x="430" y="24" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" fill="#6b7280" text-anchor="start" dominant-baseline="middle" font-weight="600" opacity="1">(b) dopo: interruttore chiuso</text>
+<line x1="500" y1="80" x2="690" y2="80" stroke="#2563eb" stroke-width="2.6" stroke-linecap="round" opacity="1"/>
+<line x1="500" y1="250" x2="690" y2="250" stroke="#dc2626" stroke-width="2.6" stroke-linecap="round" opacity="1"/>
+<line x1="500" y1="80" x2="500" y2="159" stroke="#2563eb" stroke-width="2.6" stroke-linecap="round" opacity="1"/>
+<line x1="500" y1="171" x2="500" y2="250" stroke="#dc2626" stroke-width="2.6" stroke-linecap="round" opacity="1"/>
+<line x1="478" y1="159" x2="522" y2="159" stroke="#1f2937" stroke-width="3" stroke-linecap="round" opacity="1"/>
+<line x1="478" y1="171" x2="522" y2="171" stroke="#1f2937" stroke-width="3" stroke-linecap="round" opacity="1"/>
+<line x1="492.3" y1="150" x2="498.7" y2="150" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="495.5" y1="146.8" x2="495.5" y2="153.2" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="492.3" y1="180" x2="498.7" y2="180" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="501.3" y1="150" x2="507.7" y2="150" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="504.5" y1="146.8" x2="504.5" y2="153.2" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="501.3" y1="180" x2="507.7" y2="180" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<g fill="#1f2937"><use href="#gi43" xlink:href="#gi43" transform="translate(530 169.95) scale(0.01500 -0.01500)"/><use href="#gr31" xlink:href="#gr31" transform="translate(540 173.55) scale(0.01050 -0.01050)"/></g>
+<line x1="690" y1="80" x2="690" y2="159" stroke="#2563eb" stroke-width="2.6" stroke-linecap="round" opacity="1"/>
+<line x1="690" y1="171" x2="690" y2="250" stroke="#dc2626" stroke-width="2.6" stroke-linecap="round" opacity="1"/>
+<line x1="668" y1="159" x2="712" y2="159" stroke="#1f2937" stroke-width="3" stroke-linecap="round" opacity="1"/>
+<line x1="668" y1="171" x2="712" y2="171" stroke="#1f2937" stroke-width="3" stroke-linecap="round" opacity="1"/>
+<line x1="668.8" y1="150" x2="675.2" y2="150" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="672" y1="146.8" x2="672" y2="153.2" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="668.8" y1="180" x2="675.2" y2="180" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="677.8" y1="150" x2="684.2" y2="150" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="681" y1="146.8" x2="681" y2="153.2" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="677.8" y1="180" x2="684.2" y2="180" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="686.8" y1="150" x2="693.2" y2="150" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="690" y1="146.8" x2="690" y2="153.2" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="686.8" y1="180" x2="693.2" y2="180" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="695.8" y1="150" x2="702.2" y2="150" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="699" y1="146.8" x2="699" y2="153.2" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="695.8" y1="180" x2="702.2" y2="180" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="704.8" y1="150" x2="711.2" y2="150" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="708" y1="146.8" x2="708" y2="153.2" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="704.8" y1="180" x2="711.2" y2="180" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<g fill="#1f2937"><use href="#gi43" xlink:href="#gi43" transform="translate(720 169.95) scale(0.01500 -0.01500)"/><use href="#gr32" xlink:href="#gr32" transform="translate(730 173.55) scale(0.01050 -0.01050)"/></g>
+<g fill="#2563eb"><use href="#gi71" xlink:href="#gi71" transform="translate(454.1 169.62) scale(0.01400 -0.01400)"/><use href="#gr31" xlink:href="#gr31" transform="translate(461.1 172.98) scale(0.00980 -0.00980)"/></g>
+<g fill="#2563eb"><use href="#gi71" xlink:href="#gi71" transform="translate(644.1 169.62) scale(0.01400 -0.01400)"/><use href="#gr32" xlink:href="#gr32" transform="translate(651.1 172.98) scale(0.00980 -0.00980)"/></g>
+<line x1="595" y1="236" x2="595" y2="99.6" stroke="#1f2937" stroke-width="1.4" stroke-linecap="round" opacity="1"/>
+<polygon points="595,94 598.29,100.18 595,97.85 591.71,100.18" stroke="#1f2937" stroke-width="1" fill="#1f2937" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<line x1="595" y1="94" x2="595" y2="230.4" stroke="#1f2937" stroke-width="1.4" stroke-linecap="round" opacity="1"/>
+<polygon points="595,236 591.71,229.82 595,232.15 598.29,229.82" stroke="#1f2937" stroke-width="1" fill="#1f2937" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#1f2937"><use href="#gi56" xlink:href="#gi56" transform="translate(605 169.95) scale(0.01500 -0.01500)"/><use href="#gi66" xlink:href="#gi66" transform="translate(614.16 173.55) scale(0.01050 -0.01050)"/></g>
+<g fill="#1f2937"><use href="#gi71" xlink:href="#gi71" transform="translate(286.49 304.95) scale(0.01500 -0.01500)"/><use href="#gr30" xlink:href="#gr30" transform="translate(293.99 308.55) scale(0.01050 -0.01050)"/><use href="#gr3d" xlink:href="#gr3d" transform="translate(302.99 304.95) scale(0.01500 -0.01500)"/><use href="#gi71" xlink:href="#gi71" transform="translate(317.01 304.95) scale(0.01500 -0.01500)"/><use href="#gr31" xlink:href="#gr31" transform="translate(324.51 308.55) scale(0.01050 -0.01050)"/><use href="#gr2b" xlink:href="#gr2b" transform="translate(333.51 304.95) scale(0.01500 -0.01500)"/><use href="#gi71" xlink:href="#gi71" transform="translate(347.54 304.95) scale(0.01500 -0.01500)"/><use href="#gr32" xlink:href="#gr32" transform="translate(355.04 308.55) scale(0.01050 -0.01050)"/><use href="#gi71" xlink:href="#gi71" transform="translate(379.04 304.95) scale(0.01500 -0.01500)"/><use href="#gr31" xlink:href="#gr31" transform="translate(386.54 308.55) scale(0.01050 -0.01050)"/><use href="#gr3d" xlink:href="#gr3d" transform="translate(395.54 304.95) scale(0.01500 -0.01500)"/><use href="#gi43" xlink:href="#gi43" transform="translate(409.56 304.95) scale(0.01500 -0.01500)"/><use href="#gr31" xlink:href="#gr31" transform="translate(419.57 308.55) scale(0.01050 -0.01050)"/><use href="#gi56" xlink:href="#gi56" transform="translate(424.82 304.95) scale(0.01500 -0.01500)"/><use href="#gi66" xlink:href="#gi66" transform="translate(433.98 308.55) scale(0.01050 -0.01050)"/><use href="#gi71" xlink:href="#gi71" transform="translate(455.65 304.95) scale(0.01500 -0.01500)"/><use href="#gr32" xlink:href="#gr32" transform="translate(463.15 308.55) scale(0.01050 -0.01050)"/><use href="#gr3d" xlink:href="#gr3d" transform="translate(472.15 304.95) scale(0.01500 -0.01500)"/><use href="#gi43" xlink:href="#gi43" transform="translate(486.17 304.95) scale(0.01500 -0.01500)"/><use href="#gr32" xlink:href="#gr32" transform="translate(496.18 308.55) scale(0.01050 -0.01050)"/><use href="#gi56" xlink:href="#gi56" transform="translate(501.43 304.95) scale(0.01500 -0.01500)"/><use href="#gi66" xlink:href="#gi66" transform="translate(510.59 308.55) scale(0.01050 -0.01050)"/></g></svg>

@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 780 340" width="780" height="340"><title>Teorema di Gauss in un condensatore con e senza dielettrico</title><defs><path id="gi3b5" d="M360 98 376 88Q298 -11 177 -11Q30 -11 30 100Q30 145 63.0 181.0Q96 217 146 230Q121 234 107.0 252.5Q93 271 93 294Q94 354 155.5 397.5Q217 441 317 441Q365 441 395.0 417.5Q425 394 425 358Q425 338 409.0 325.0Q393 312 377 312Q359 312 348.5 323.0Q338 334 338 352Q338 362 345.5 376.5Q353 391 353 400Q353 420 316 420Q263 420 219.0 390.0Q175 360 175 298Q175 272 195.5 258.5Q216 245 249 245Q252 245 270.0 248.5Q288 252 302.0 252.0Q316 252 326.0 246.0Q336 240 336 231Q336 204 291 204Q282 204 269.0 208.5Q256 213 245 213Q201 213 158.5 185.0Q116 157 116 106Q116 64 142.0 44.5Q168 25 205 25Q292 25 360 98Z"/><path id="gi3ba" d="M153 225 156 226Q289 397 385 436Q398 441 411 441Q437 441 451.0 427.5Q465 414 465 394Q465 373 452.0 360.5Q439 348 419 348Q407 348 391.0 357.5Q375 367 365 367Q339 367 311.0 344.5Q283 322 221 257L319 85Q344 41 361.0 28.5Q378 16 410 16V0Q371 -13 341 -13Q279 -13 243 51L150 211L90 0H14L100 309Q114 362 114 376Q114 400 81 400H53V414Q106 421 204 441L207 438Z"/><path id="gi41" d="M564 0H319V16Q364 18 380.0 30.0Q396 42 396 69Q396 77 394 95L374 226H154L95 115Q73 74 73 49Q73 19 135 16V0H-51V16Q-17 23 4.5 48.0Q26 73 83 172L368 668H394L486 115Q496 53 510.0 36.0Q524 19 564 16ZM369 262 324 525 175 262Z"/><path id="gi45" d="M634 653 603 499 581 501Q584 526 584 547Q584 592 547.0 606.0Q510 620 392 620Q350 620 337.0 615.5Q324 611 319 594L253 361H331Q397 361 419.0 377.0Q441 393 470 458L488 454L420 222L400 227Q407 258 407 279Q407 303 400 310Q383 325 322 325H244L212 213Q176 86 176 67Q176 33 255 33Q384 33 458 72Q496 92 552 170L568 162L506 0H-1V16Q42 24 55.0 35.5Q68 47 80 90L203 532Q214 569 214 596Q214 616 198.5 624.5Q183 633 137 637V653Z"/><path id="gi71" d="M484 428 319 -151Q317 -159 317 -162Q317 -193 374 -193H389V-209H152V-193Q198 -190 216.0 -178.0Q234 -166 243 -137L333 153Q274 59 229.0 24.0Q184 -11 125 -11Q78 -11 51.5 20.0Q25 51 25 105Q25 182 69.5 261.0Q114 340 182.5 390.5Q251 441 318 441Q381 441 395 379L411 428ZM380 359Q380 384 363.0 401.5Q346 419 321 419Q280 419 228 370Q177 321 144.0 251.0Q111 181 111 119Q111 42 164 42Q205 42 246 78Q297 122 338.5 209.5Q380 297 380 359Z"/><path id="gr2032" d="M75 411 142 632Q146 647 150.0 655.5Q154 664 163.0 671.0Q172 678 186 678Q199 678 206.5 668.5Q214 659 214 645Q214 634 200 606L94 402Z"/><path id="gr2212" d="M621 220H64V286H621Z"/><path id="gr2b" d="M636 220H375V-41H309V220H48V286H309V547H375V286H636Z"/><path id="gr2f" d="M287 676 59 -14H-9L220 676Z"/><path id="gr30" d="M476 330Q476 263 463.0 203.5Q450 144 424.5 94.0Q399 44 354.0 15.0Q309 -14 250 -14Q189 -14 143.0 17.0Q97 48 72.0 100.0Q47 152 35.5 211.0Q24 270 24 336Q24 429 47.0 503.5Q70 578 123.5 627.0Q177 676 254 676Q352 676 414.0 580.0Q476 484 476 330ZM380 325Q380 483 346.5 566.5Q313 650 248 650Q186 650 153.0 566.0Q120 482 120 329Q120 175 153.0 93.5Q186 12 250 12Q313 12 346.5 93.5Q380 175 380 325Z"/><path id="gr3d" d="M637 320H48V386H637ZM637 120H48V186H637Z"/></defs><rect x="1" y="1" width="778" height="338" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/><text x="20" y="24" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" fill="#6b7280" text-anchor="start" dominant-baseline="middle" font-weight="600" opacity="1">(a) nel vuoto</text>
+<rect x="80" y="93" width="240" height="14" rx="0" stroke="#6b7280" stroke-width="1.4" fill="#e5e7eb" opacity="1"/>
+<rect x="80" y="243" width="240" height="14" rx="0" stroke="#6b7280" stroke-width="1.4" fill="#e5e7eb" opacity="1"/>
+<line x1="92.64" y1="100" x2="101.64" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="97.14" y1="95.5" x2="97.14" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="126.93" y1="100" x2="135.93" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="131.43" y1="95.5" x2="131.43" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="161.21" y1="100" x2="170.21" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="165.71" y1="95.5" x2="165.71" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="195.5" y1="100" x2="204.5" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="200" y1="95.5" x2="200" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="229.79" y1="100" x2="238.79" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="234.29" y1="95.5" x2="234.29" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="264.07" y1="100" x2="273.07" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="268.57" y1="95.5" x2="268.57" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="298.36" y1="100" x2="307.36" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="302.86" y1="95.5" x2="302.86" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="92.64" y1="250" x2="101.64" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="126.93" y1="250" x2="135.93" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="161.21" y1="250" x2="170.21" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="195.5" y1="250" x2="204.5" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="229.79" y1="250" x2="238.79" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="264.07" y1="250" x2="273.07" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="298.36" y1="250" x2="307.36" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<rect x="140" y="72" width="120" height="76" rx="0" stroke="#d97706" stroke-width="2" fill="none" opacity="1" stroke-dasharray="6 4"/>
+<line x1="110" y1="116" x2="110" y2="226.8" stroke="#0e7490" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="110,234 105.77,226.05 110,229.05 114.23,226.05" stroke="#0e7490" stroke-width="1" fill="#0e7490" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<line x1="290" y1="116" x2="290" y2="226.8" stroke="#0e7490" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="290,234 285.77,226.05 290,229.05 294.23,226.05" stroke="#0e7490" stroke-width="1" fill="#0e7490" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<line x1="200" y1="112" x2="200" y2="137.6" stroke="#0e7490" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="200,144 196.24,136.94 200,139.6 203.76,136.94" stroke="#0e7490" stroke-width="1" fill="#0e7490" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#0e7490"><use href="#gi45" xlink:href="#gi45" transform="translate(308 179.95) scale(0.01500 -0.01500)"/><use href="#gr30" xlink:href="#gr30" transform="translate(317.17 183.55) scale(0.01050 -0.01050)"/></g>
+<line x1="310.55" y1="167.05" x2="315.37" y2="167.05" stroke="#0e7490" stroke-width="1.0" stroke-linecap="round" opacity="1"/>
+<polygon points="318.97,167.05 314.99,169.16 316.49,167.05 314.99,164.94" stroke="#0e7490" stroke-width="1" fill="#0e7490" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#6b7280"><use href="#gi45" xlink:href="#gi45" transform="translate(183.93 60.62) scale(0.01400 -0.01400)"/><use href="#gr3d" xlink:href="#gr3d" transform="translate(195.98 60.62) scale(0.01400 -0.01400)"/><use href="#gr30" xlink:href="#gr30" transform="translate(209.07 60.62) scale(0.01400 -0.01400)"/></g>
+<g fill="#1f2937"><use href="#gi3b5" xlink:href="#gi3b5" transform="translate(169.62 294.95) scale(0.01500 -0.01500)"/><use href="#gr30" xlink:href="#gr30" transform="translate(176.28 298.55) scale(0.01050 -0.01050)"/><use href="#gi45" xlink:href="#gi45" transform="translate(181.53 294.95) scale(0.01500 -0.01500)"/><use href="#gr30" xlink:href="#gr30" transform="translate(190.69 298.55) scale(0.01050 -0.01050)"/><use href="#gi41" xlink:href="#gi41" transform="translate(195.94 294.95) scale(0.01500 -0.01500)"/><use href="#gr3d" xlink:href="#gr3d" transform="translate(208.86 294.95) scale(0.01500 -0.01500)"/><use href="#gi71" xlink:href="#gi71" transform="translate(222.88 294.95) scale(0.01500 -0.01500)"/></g>
+<text x="410" y="24" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" fill="#6b7280" text-anchor="start" dominant-baseline="middle" font-weight="600" opacity="1">(b) con dielettrico</text>
+<rect x="476" y="114" width="228" height="122" rx="0" stroke="#d97706" stroke-width="1.4" fill="#fef3c7" opacity="1"/>
+<rect x="470" y="93" width="240" height="14" rx="0" stroke="#6b7280" stroke-width="1.4" fill="#e5e7eb" opacity="1"/>
+<rect x="470" y="243" width="240" height="14" rx="0" stroke="#6b7280" stroke-width="1.4" fill="#e5e7eb" opacity="1"/>
+<line x1="482.64" y1="100" x2="491.64" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="487.14" y1="95.5" x2="487.14" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="516.93" y1="100" x2="525.93" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="521.43" y1="95.5" x2="521.43" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="551.21" y1="100" x2="560.21" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="555.71" y1="95.5" x2="555.71" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="585.5" y1="100" x2="594.5" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="590" y1="95.5" x2="590" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="619.79" y1="100" x2="628.79" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="624.29" y1="95.5" x2="624.29" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="654.07" y1="100" x2="663.07" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="658.57" y1="95.5" x2="658.57" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="688.36" y1="100" x2="697.36" y2="100" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="692.86" y1="95.5" x2="692.86" y2="104.5" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="482.64" y1="250" x2="491.64" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="516.93" y1="250" x2="525.93" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="551.21" y1="250" x2="560.21" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="585.5" y1="250" x2="594.5" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="619.79" y1="250" x2="628.79" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="654.07" y1="250" x2="663.07" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="688.36" y1="250" x2="697.36" y2="250" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="484.4" y1="122" x2="491.6" y2="122" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="484.4" y1="228" x2="491.6" y2="228" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="488" y1="224.4" x2="488" y2="231.6" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="509.9" y1="122" x2="517.1" y2="122" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="509.9" y1="228" x2="517.1" y2="228" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="513.5" y1="224.4" x2="513.5" y2="231.6" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="535.4" y1="122" x2="542.6" y2="122" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="535.4" y1="228" x2="542.6" y2="228" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="539" y1="224.4" x2="539" y2="231.6" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="560.9" y1="122" x2="568.1" y2="122" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="560.9" y1="228" x2="568.1" y2="228" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="564.5" y1="224.4" x2="564.5" y2="231.6" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="586.4" y1="122" x2="593.6" y2="122" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="586.4" y1="228" x2="593.6" y2="228" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="590" y1="224.4" x2="590" y2="231.6" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="611.9" y1="122" x2="619.1" y2="122" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="611.9" y1="228" x2="619.1" y2="228" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="615.5" y1="224.4" x2="615.5" y2="231.6" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="637.4" y1="122" x2="644.6" y2="122" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="637.4" y1="228" x2="644.6" y2="228" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="641" y1="224.4" x2="641" y2="231.6" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="662.9" y1="122" x2="670.1" y2="122" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="662.9" y1="228" x2="670.1" y2="228" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="666.5" y1="224.4" x2="666.5" y2="231.6" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="688.4" y1="122" x2="695.6" y2="122" stroke="#dc2626" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="688.4" y1="228" x2="695.6" y2="228" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<line x1="692" y1="224.4" x2="692" y2="231.6" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" opacity="1"/>
+<rect x="530" y="72" width="120" height="92" rx="0" stroke="#d97706" stroke-width="2" fill="none" opacity="1" stroke-dasharray="6 4"/>
+<line x1="590" y1="134" x2="590" y2="153.6" stroke="#0e7490" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="590,160 586.24,152.94 590,155.6 593.76,152.94" stroke="#0e7490" stroke-width="1" fill="#0e7490" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<line x1="500" y1="134" x2="500" y2="208.8" stroke="#0e7490" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="500,216 495.77,208.05 500,211.05 504.23,208.05" stroke="#0e7490" stroke-width="1" fill="#0e7490" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<line x1="680" y1="134" x2="680" y2="208.8" stroke="#0e7490" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="680,216 675.77,208.05 680,211.05 684.23,208.05" stroke="#0e7490" stroke-width="1" fill="#0e7490" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#0e7490"><use href="#gi45" xlink:href="#gi45" transform="translate(563.91 209.95) scale(0.01500 -0.01500)"/><use href="#gr3d" xlink:href="#gr3d" transform="translate(576.82 209.95) scale(0.01500 -0.01500)"/><use href="#gi45" xlink:href="#gi45" transform="translate(590.85 209.95) scale(0.01500 -0.01500)"/><use href="#gr30" xlink:href="#gr30" transform="translate(600.01 213.55) scale(0.01050 -0.01050)"/><use href="#gr2f" xlink:href="#gr2f" transform="translate(605.26 209.95) scale(0.01500 -0.01500)"/><use href="#gi3ba" xlink:href="#gi3ba" transform="translate(609.43 209.95) scale(0.01500 -0.01500)"/></g>
+<line x1="566.46" y1="197.05" x2="571.27" y2="197.05" stroke="#0e7490" stroke-width="1.0" stroke-linecap="round" opacity="1"/>
+<polygon points="574.87,197.05 570.9,199.16 572.4,197.05 570.9,194.94" stroke="#0e7490" stroke-width="1" fill="#0e7490" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<line x1="593.4" y1="197.05" x2="598.21" y2="197.05" stroke="#0e7490" stroke-width="1.0" stroke-linecap="round" opacity="1"/>
+<polygon points="601.81,197.05 597.84,199.16 599.34,197.05 597.84,194.94" stroke="#0e7490" stroke-width="1" fill="#0e7490" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#dc2626"><use href="#gr2212" xlink:href="#gr2212" transform="translate(437.36 126.62) scale(0.01400 -0.01400)"/><use href="#gi71" xlink:href="#gi71" transform="translate(446.95 126.62) scale(0.01400 -0.01400)"/><use href="#gr2032" xlink:href="#gr2032" transform="translate(453.95 126.62) scale(0.01400 -0.01400)"/></g>
+<g fill="#2563eb"><use href="#gr2b" xlink:href="#gr2b" transform="translate(437.36 232.62) scale(0.01400 -0.01400)"/><use href="#gi71" xlink:href="#gi71" transform="translate(446.95 232.62) scale(0.01400 -0.01400)"/><use href="#gr2032" xlink:href="#gr2032" transform="translate(453.95 232.62) scale(0.01400 -0.01400)"/></g>
+<g fill="#6b7280"><use href="#gi45" xlink:href="#gi45" transform="translate(573.93 60.62) scale(0.01400 -0.01400)"/><use href="#gr3d" xlink:href="#gr3d" transform="translate(585.98 60.62) scale(0.01400 -0.01400)"/><use href="#gr30" xlink:href="#gr30" transform="translate(599.07 60.62) scale(0.01400 -0.01400)"/></g>
+<g fill="#1f2937"><use href="#gi3b5" xlink:href="#gi3b5" transform="translate(547.44 294.95) scale(0.01500 -0.01500)"/><use href="#gr30" xlink:href="#gr30" transform="translate(554.1 298.55) scale(0.01050 -0.01050)"/><use href="#gi45" xlink:href="#gi45" transform="translate(559.35 294.95) scale(0.01500 -0.01500)"/><use href="#gi41" xlink:href="#gi41" transform="translate(568.51 294.95) scale(0.01500 -0.01500)"/><use href="#gr3d" xlink:href="#gr3d" transform="translate(581.43 294.95) scale(0.01500 -0.01500)"/><use href="#gi71" xlink:href="#gi71" transform="translate(595.45 294.95) scale(0.01500 -0.01500)"/><use href="#gr2212" xlink:href="#gr2212" transform="translate(606.7 294.95) scale(0.01500 -0.01500)"/><use href="#gi71" xlink:href="#gi71" transform="translate(620.73 294.95) scale(0.01500 -0.01500)"/><use href="#gr2032" xlink:href="#gr2032" transform="translate(628.23 294.95) scale(0.01500 -0.01500)"/></g>
+<text x="390" y="322" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" dominant-baseline="middle" font-weight="normal" opacity="1">la superficie gaussiana (tratteggiata) racchiude l&#x27;armatura e, nel caso (b), anche la faccia vicina del dielettrico</text></svg>

@@ -130,7 +130,7 @@ Finché l'interruttore è aperto non passa corrente e il condensatore è scarico
 
 Due armature piane conduttrici di area $A$, affacciate a distanza $d$, portano cariche $+q$ e $-q$. Il metodo, che vale per ogni geometria, è in quattro passi: si calcola il campo con il teorema di Gauss, si calcola la differenza di potenziale con l'integrale del campo, si lega $V$ a $q$ e si fa il rapporto.
 
-**Campo.** Le armature sono conduttori, quindi le cariche stanno sulle superfici, e quelle affacciate si attraggono. Se le armature sono abbastanza grandi da poterle considerare infinite, il campo tra di esse è perpendicolare alle armature e uniforme, come visto nella [[Zen/Anno 2/Fisica 2/generated/Lezione 6 - CLAUDE|lezione 6]]. Si prende una superficie gaussiana a forma di scatola che racchiude la faccia carica dell'armatura positiva.
+**Campo.** Le armature sono conduttori, quindi le cariche stanno sulle superfici, e quelle affacciate si attraggono. Se le armature sono abbastanza grandi da poterle considerare infinite, il campo tra di esse è perpendicolare alle armature e uniforme, come visto nella [[Fisica 2 - Lezione 06 - Applicazioni del teorema di Gauss|lezione 6]]. Si prende una superficie gaussiana a forma di scatola che racchiude la faccia carica dell'armatura positiva.
 
 - **Facce laterali (1 e 2).** Il campo è parallelo a esse, quindi perpendicolare alla loro normale: $\Phi_1 = \Phi_2 = 0$.
 - **Faccia 3.** Si trova dentro il conduttore, dove il campo è nullo: $\Phi_3 = 0$.
@@ -280,7 +280,7 @@ Con queste due regole, cioè capacità che si sommano in parallelo e inversi che
 ![[F2-L08-circuito-misto.svg]]
 
 > [!warning] Dati mancanti
-> Negli appunti il risultato numerico è $C_{\text{eq}} = 3{,}5\ \mu\mathrm F$, ma i valori di $C_1$, $C_2$ e $C_3$ non sono riportati, quindi non posso verificarlo. Il controllo dimensionale della formula è corretto: $\mathrm F\cdot\mathrm F/\mathrm F = \mathrm F$.
+> Negli appunti il risultato numerico è $C_{\text{eq}} = 3{,}5\ \mu\mathrm F$, ma i valori di $C_1$, $C_2$ e $C_3$ non sono riportati, quindi non posso verificarlo. Il controllo dimensionale della formula è corretto: $\mathrm F\cdot\mathrm F/\mathrm F = \mathrm F$. L'esercizio prosegue nella [[Fisica 2 - Lezione 09 - Energia dei condensatori e dielettrici|lezione 9]] con le tensioni e le cariche sui singoli condensatori.
 
 ### Esercizio 2 — Potenziale di un quarto di disco
 

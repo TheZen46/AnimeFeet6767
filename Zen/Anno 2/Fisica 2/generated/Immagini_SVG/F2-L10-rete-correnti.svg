@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 900 400" width="900" height="400"><title>Conservazione della corrente in una rete di fili</title><defs><path id="gi41" d="M564 0H319V16Q364 18 380.0 30.0Q396 42 396 69Q396 77 394 95L374 226H154L95 115Q73 74 73 49Q73 19 135 16V0H-51V16Q-17 23 4.5 48.0Q26 73 83 172L368 668H394L486 115Q496 53 510.0 36.0Q524 19 564 16ZM369 262 324 525 175 262Z"/><path id="gi78" d="M243 355 255 298Q308 379 340.5 410.0Q373 441 406 441Q424 441 435.5 430.5Q447 420 447.0 404.0Q447 388 437.5 378.0Q428 368 413 368Q404 368 389.0 376.5Q374 385 361 385Q332 385 263 264Q263 251 271 219L303 85Q313 44 333 44Q349 44 380 84Q383 88 387.0 93.5Q391 99 394.0 103.5Q397 108 401 112L416 103Q373 36 348.0 12.5Q323 -11 294 -11Q270 -11 257.0 4.0Q244 19 235 57L206 176L118 57Q87 15 67.5 2.0Q48 -11 23 -11Q0 -11 -13.5 0.0Q-27 11 -27 31Q-27 46 -17.5 56.5Q-8 67 7 67Q19 67 39 56Q54 47 65 47Q82 47 116 96L198 212L170 336Q160 380 151.5 392.0Q143 404 124 404Q112 404 85 397L67 392L64 408L75 412Q155 441 192 441Q211 441 222.0 423.0Q233 405 243 355Z"/><path id="gr2b" d="M636 220H375V-41H309V220H48V286H309V547H375V286H636Z"/><path id="gr30" d="M476 330Q476 263 463.0 203.5Q450 144 424.5 94.0Q399 44 354.0 15.0Q309 -14 250 -14Q189 -14 143.0 17.0Q97 48 72.0 100.0Q47 152 35.5 211.0Q24 270 24 336Q24 429 47.0 503.5Q70 578 123.5 627.0Q177 676 254 676Q352 676 414.0 580.0Q476 484 476 330ZM380 325Q380 483 346.5 566.5Q313 650 248 650Q186 650 153.0 566.0Q120 482 120 329Q120 175 153.0 93.5Q186 12 250 12Q313 12 346.5 93.5Q380 175 380 325Z"/><path id="gr31" d="M394 0H118V15Q173 18 193.0 35.5Q213 53 213 95V544Q213 593 183 593Q169 593 138 581L111 571V585L290 676L299 673V76Q299 43 319.0 29.0Q339 15 394 15Z"/><path id="gr32" d="M474 137 420 0H29V12L207 201Q277 274 307.0 335.0Q337 396 337 461Q337 528 300.0 565.0Q263 602 198 602Q144 602 112.5 574.0Q81 546 51 472L30 477Q47 570 98.5 623.0Q150 676 238 676Q321 676 372.0 626.0Q423 576 423 500Q423 387 295 252L130 76H364Q397 76 416.5 89.0Q436 102 460 143Z"/><path id="gr33" d="M61 510 45 514Q68 589 117.0 632.5Q166 676 241 676Q311 676 354.0 638.0Q397 600 397 539Q397 457 304 401Q359 377 387 348Q431 299 431.0 219.0Q431 139 385 79Q351 33 287.5 9.5Q224 -14 153 -14Q41 -14 41 43Q41 59 53.0 69.0Q65 79 82 79Q107 79 143 53Q187 22 229 22Q284 22 321.5 66.5Q359 111 359 175Q359 290 255 320Q224 330 153 330V344Q209 363 237 380Q318 426 318 514Q318 564 289.5 590.0Q261 616 210 616Q120 616 61 510Z"/><path id="gr34" d="M473 167H370V0H292V167H12V231L326 676H370V231H473ZM292 231V574L52 231Z"/><path id="gr35" d="M438 681 402 596Q396 583 375 583H181L141 498Q251 477 300.0 452.5Q349 428 391 370Q426 322 426 243Q426 171 402.5 122.0Q379 73 328 35Q260 -14 158 -14Q101 -14 66.0 3.0Q31 20 31 48Q31 86 76 86Q112 86 150 55Q189 23 221 23Q273 23 314.5 75.0Q356 127 356 192Q356 288 289 342Q202 412 76 412Q64 412 64 420L65 425L174 662H381Q398 662 407.5 667.0Q417 672 429 688Z"/><path id="gr36" d="M446 684 448 668Q330 649 251.0 572.5Q172 496 152 383Q210 428 279 428Q367 428 417.5 372.0Q468 316 468 219Q468 121 417 59Q358 -14 258 -14Q136 -14 81 87Q34 173 34 279Q34 443 143 555Q205 619 270.5 645.5Q336 672 446 684ZM378 188Q378 382 243 382Q193 382 160.0 355.5Q127 329 127 266Q127 149 163.5 81.5Q200 14 269 14Q322 14 350.0 61.5Q378 109 378 188Z"/></defs><rect x="1" y="1" width="898" height="398" rx="12" fill="#ffffff" stroke="#e5e7eb" stroke-width="1.5"/><text x="20" y="24" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" fill="#6b7280" text-anchor="start" dominant-baseline="middle" font-weight="600" opacity="1">(a) dati (in ampere) e incognita x</text>
+<line x1="71" y1="91" x2="188" y2="91" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="188" y1="91" x2="188" y2="289" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="188" y1="130" x2="308" y2="130" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="68" y1="169" x2="188" y2="169" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="110" y1="169" x2="110" y2="289" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="188" y1="211" x2="428" y2="211" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="308" y1="211" x2="308" y2="289" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="308" y1="289" x2="428" y2="289" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<circle cx="188" cy="91" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<circle cx="188" cy="130" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<circle cx="188" cy="169" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<circle cx="110" cy="169" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<circle cx="188" cy="211" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<circle cx="308" cy="211" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<circle cx="428" cy="289" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<g fill="#1f2937"><use href="#gi41" xlink:href="#gi41" transform="translate(440 294.28) scale(0.01600 -0.01600)"/></g>
+<line x1="158" y1="75" x2="104.4" y2="75" stroke="#c2410c" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="98,75 105.06,71.24 102.4,75 105.06,78.76" stroke="#c2410c" stroke-width="1" fill="#c2410c" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#c2410c"><use href="#gr31" xlink:href="#gr31" transform="translate(124.5 66.62) scale(0.01400 -0.01400)"/></g>
+<line x1="284" y1="114" x2="224.4" y2="114" stroke="#c2410c" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="218,114 225.06,110.24 222.4,114 225.06,117.76" stroke="#c2410c" stroke-width="1" fill="#c2410c" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#c2410c"><use href="#gr32" xlink:href="#gr32" transform="translate(247.5 105.62) scale(0.01400 -0.01400)"/></g>
+<line x1="74" y1="153" x2="97.6" y2="153" stroke="#c2410c" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="104,153 96.94,156.76 99.6,153 96.94,149.24" stroke="#c2410c" stroke-width="1" fill="#c2410c" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#c2410c"><use href="#gr32" xlink:href="#gr32" transform="translate(85.5 144.62) scale(0.01400 -0.01400)"/></g>
+<line x1="98" y1="283" x2="98" y2="232.4" stroke="#c2410c" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="98,226 101.76,233.06 98,230.4 94.24,233.06" stroke="#c2410c" stroke-width="1" fill="#c2410c" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#c2410c"><use href="#gr33" xlink:href="#gr33" transform="translate(83 259.12) scale(0.01400 -0.01400)"/></g>
+<line x1="176" y1="283" x2="176" y2="232.4" stroke="#c2410c" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="176,226 179.76,233.06 176,230.4 172.24,233.06" stroke="#c2410c" stroke-width="1" fill="#c2410c" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#c2410c"><use href="#gr34" xlink:href="#gr34" transform="translate(161 259.12) scale(0.01400 -0.01400)"/></g>
+<line x1="416" y1="195" x2="350.4" y2="195" stroke="#c2410c" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="344,195 351.06,191.24 348.4,195 351.06,198.76" stroke="#c2410c" stroke-width="1" fill="#c2410c" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#c2410c"><use href="#gr32" xlink:href="#gr32" transform="translate(376.5 186.62) scale(0.01400 -0.01400)"/></g>
+<line x1="416" y1="307" x2="350.4" y2="307" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="344,307 351.06,303.24 348.4,307 351.06,310.76" stroke="#7c3aed" stroke-width="1" fill="#7c3aed" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#7c3aed"><use href="#gi78" xlink:href="#gi78" transform="translate(376.89 298.62) scale(0.01400 -0.01400)"/></g>
+<line x1="200" y1="208" x2="200" y2="178.4" stroke="#6b7280" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="200,172 203.76,179.06 200,176.4 196.24,179.06" stroke="#6b7280" stroke-width="1" fill="#6b7280" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#6b7280"><use href="#gi78" xlink:href="#gi78" transform="translate(208 194.62) scale(0.01400 -0.01400)"/><use href="#gr2b" xlink:href="#gr2b" transform="translate(217.72 194.62) scale(0.01400 -0.01400)"/><use href="#gr36" xlink:href="#gr36" transform="translate(230.81 194.62) scale(0.01400 -0.01400)"/></g>
+<line x1="200" y1="166" x2="200" y2="139.4" stroke="#6b7280" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="200,133 203.76,140.06 200,137.4 196.24,140.06" stroke="#6b7280" stroke-width="1" fill="#6b7280" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#6b7280"><use href="#gi78" xlink:href="#gi78" transform="translate(208 154.12) scale(0.01400 -0.01400)"/><use href="#gr2b" xlink:href="#gr2b" transform="translate(217.72 154.12) scale(0.01400 -0.01400)"/><use href="#gr31" xlink:href="#gr31" transform="translate(230.81 154.12) scale(0.01400 -0.01400)"/><use href="#gr31" xlink:href="#gr31" transform="translate(237.81 154.12) scale(0.01400 -0.01400)"/></g>
+<line x1="176" y1="127" x2="176" y2="100.4" stroke="#6b7280" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="176,94 179.76,101.06 176,98.4 172.24,101.06" stroke="#6b7280" stroke-width="1" fill="#6b7280" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#6b7280"><use href="#gi78" xlink:href="#gi78" transform="translate(131.19 115.12) scale(0.01400 -0.01400)"/><use href="#gr2b" xlink:href="#gr2b" transform="translate(140.91 115.12) scale(0.01400 -0.01400)"/><use href="#gr31" xlink:href="#gr31" transform="translate(154 115.12) scale(0.01400 -0.01400)"/><use href="#gr33" xlink:href="#gr33" transform="translate(161 115.12) scale(0.01400 -0.01400)"/></g>
+<line x1="302" y1="229" x2="206.4" y2="229" stroke="#6b7280" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="200,229 207.06,225.24 204.4,229 207.06,232.76" stroke="#6b7280" stroke-width="1" fill="#6b7280" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#6b7280"><use href="#gi78" xlink:href="#gi78" transform="translate(236.1 220.62) scale(0.01400 -0.01400)"/><use href="#gr2b" xlink:href="#gr2b" transform="translate(245.81 220.62) scale(0.01400 -0.01400)"/><use href="#gr32" xlink:href="#gr32" transform="translate(258.9 220.62) scale(0.01400 -0.01400)"/></g>
+<line x1="116" y1="153" x2="175.6" y2="153" stroke="#6b7280" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="182,153 174.94,156.76 177.6,153 174.94,149.24" stroke="#6b7280" stroke-width="1" fill="#6b7280" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#6b7280"><use href="#gr35" xlink:href="#gr35" transform="translate(145.5 144.62) scale(0.01400 -0.01400)"/></g>
+<text x="470" y="24" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="14" fill="#6b7280" text-anchor="start" dominant-baseline="middle" font-weight="600" opacity="1">(b) soluzione: x = −12 A, cioè 12 A uscenti da A</text>
+<line x1="506" y1="91" x2="623" y2="91" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="623" y1="91" x2="623" y2="289" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="623" y1="130" x2="743" y2="130" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="503" y1="169" x2="623" y2="169" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="545" y1="169" x2="545" y2="289" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="623" y1="211" x2="863" y2="211" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="743" y1="211" x2="743" y2="289" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<line x1="743" y1="289" x2="863" y2="289" stroke="#1f2937" stroke-width="2.2" stroke-linecap="round" opacity="1"/>
+<circle cx="623" cy="91" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<circle cx="623" cy="130" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<circle cx="623" cy="169" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<circle cx="545" cy="169" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<circle cx="623" cy="211" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<circle cx="743" cy="211" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<circle cx="863" cy="289" r="3.6" stroke="#1f2937" stroke-width="1" fill="#1f2937" opacity="1"/>
+<g fill="#1f2937"><use href="#gi41" xlink:href="#gi41" transform="translate(875 294.28) scale(0.01600 -0.01600)"/></g>
+<line x1="593" y1="75" x2="539.4" y2="75" stroke="#c2410c" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="533,75 540.06,71.24 537.4,75 540.06,78.76" stroke="#c2410c" stroke-width="1" fill="#c2410c" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#c2410c"><use href="#gr31" xlink:href="#gr31" transform="translate(559.5 66.62) scale(0.01400 -0.01400)"/></g>
+<line x1="719" y1="114" x2="659.4" y2="114" stroke="#c2410c" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="653,114 660.06,110.24 657.4,114 660.06,117.76" stroke="#c2410c" stroke-width="1" fill="#c2410c" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#c2410c"><use href="#gr32" xlink:href="#gr32" transform="translate(682.5 105.62) scale(0.01400 -0.01400)"/></g>
+<line x1="509" y1="153" x2="532.6" y2="153" stroke="#c2410c" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="539,153 531.94,156.76 534.6,153 531.94,149.24" stroke="#c2410c" stroke-width="1" fill="#c2410c" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#c2410c"><use href="#gr32" xlink:href="#gr32" transform="translate(520.5 144.62) scale(0.01400 -0.01400)"/></g>
+<line x1="533" y1="283" x2="533" y2="232.4" stroke="#c2410c" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="533,226 536.76,233.06 533,230.4 529.24,233.06" stroke="#c2410c" stroke-width="1" fill="#c2410c" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#c2410c"><use href="#gr33" xlink:href="#gr33" transform="translate(518 259.12) scale(0.01400 -0.01400)"/></g>
+<line x1="611" y1="283" x2="611" y2="232.4" stroke="#c2410c" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="611,226 614.76,233.06 611,230.4 607.24,233.06" stroke="#c2410c" stroke-width="1" fill="#c2410c" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#c2410c"><use href="#gr34" xlink:href="#gr34" transform="translate(596 259.12) scale(0.01400 -0.01400)"/></g>
+<line x1="851" y1="195" x2="785.4" y2="195" stroke="#c2410c" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="779,195 786.06,191.24 783.4,195 786.06,198.76" stroke="#c2410c" stroke-width="1" fill="#c2410c" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#c2410c"><use href="#gr32" xlink:href="#gr32" transform="translate(811.5 186.62) scale(0.01400 -0.01400)"/></g>
+<line x1="779" y1="307" x2="844.6" y2="307" stroke="#15803d" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="851,307 843.94,310.76 846.6,307 843.94,303.24" stroke="#15803d" stroke-width="1" fill="#15803d" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#15803d"><use href="#gr31" xlink:href="#gr31" transform="translate(808 298.62) scale(0.01400 -0.01400)"/><use href="#gr32" xlink:href="#gr32" transform="translate(815 298.62) scale(0.01400 -0.01400)"/></g>
+<line x1="635" y1="172" x2="635" y2="201.6" stroke="#15803d" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="635,208 631.24,200.94 635,203.6 638.76,200.94" stroke="#15803d" stroke-width="1" fill="#15803d" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#15803d"><use href="#gr36" xlink:href="#gr36" transform="translate(643 194.62) scale(0.01400 -0.01400)"/></g>
+<line x1="635" y1="133" x2="635" y2="159.6" stroke="#15803d" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="635,166 631.24,158.94 635,161.6 638.76,158.94" stroke="#15803d" stroke-width="1" fill="#15803d" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#15803d"><use href="#gr31" xlink:href="#gr31" transform="translate(643 154.12) scale(0.01400 -0.01400)"/></g>
+<line x1="611" y1="127" x2="611" y2="100.4" stroke="#15803d" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="611,94 614.76,101.06 611,98.4 607.24,101.06" stroke="#15803d" stroke-width="1" fill="#15803d" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#15803d"><use href="#gr31" xlink:href="#gr31" transform="translate(596 115.12) scale(0.01400 -0.01400)"/></g>
+<line x1="635" y1="229" x2="730.6" y2="229" stroke="#15803d" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="737,229 729.94,232.76 732.6,229 729.94,225.24" stroke="#15803d" stroke-width="1" fill="#15803d" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#15803d"><use href="#gr31" xlink:href="#gr31" transform="translate(679 220.62) scale(0.01400 -0.01400)"/><use href="#gr30" xlink:href="#gr30" transform="translate(686 220.62) scale(0.01400 -0.01400)"/></g>
+<line x1="755" y1="217" x2="755" y2="276.6" stroke="#15803d" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="755,283 751.24,275.94 755,278.6 758.76,275.94" stroke="#15803d" stroke-width="1" fill="#15803d" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#15803d"><use href="#gr31" xlink:href="#gr31" transform="translate(763 254.62) scale(0.01400 -0.01400)"/><use href="#gr32" xlink:href="#gr32" transform="translate(770 254.62) scale(0.01400 -0.01400)"/></g>
+<line x1="551" y1="153" x2="610.6" y2="153" stroke="#6b7280" stroke-width="2" stroke-linecap="round" opacity="1"/>
+<polygon points="617,153 609.94,156.76 612.6,153 609.94,149.24" stroke="#6b7280" stroke-width="1" fill="#6b7280" stroke-linejoin="round" stroke-linecap="round" opacity="1"/>
+<g fill="#6b7280"><use href="#gr35" xlink:href="#gr35" transform="translate(580.5 144.62) scale(0.01400 -0.01400)"/></g>
+<text x="450" y="362.45" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" dominant-baseline="middle" font-weight="normal" opacity="1">nero/arancio: correnti date; grigio: correnti ricavate con x; verde: valori e versi effettivi</text>
+<text x="450" y="380" font-family="Inter,'Segoe UI',Helvetica,Arial,sans-serif" font-size="13" fill="#6b7280" text-anchor="middle" dominant-baseline="middle" font-weight="normal" opacity="1">a ogni nodo la corrente entrante è uguale a quella uscente: x + 13 = 1</text></svg>
