@@ -99,4 +99,3 @@ Se il sistema non è stabile BIBO se esiste almeno 1 segnale che ha unbounded ou
 $\displaystyle Y(s)=\frac{1}{s(s+1)}\frac{N_U}{D_U}\qquad U(s)=\frac1s\qquad Y(s)=\frac{1}{s^2(s+1)}$
 
 
-$Y(s)=\frac{}$
