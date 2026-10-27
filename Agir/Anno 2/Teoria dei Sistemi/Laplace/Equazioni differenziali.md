@@ -68,3 +68,20 @@ $y(t)=1+Ae^{-t}$
 $y(t)=1-e^{-t}$
 
 $y(1)=1-e^{-1}$
+
+
+
+
+
+# Stabilità BIBO
+$\displaystyle \array{\ddot y+2\dot y+y=\dot u+u& T(s)=\frac{s+1}{(s+1)^2}=\frac{1}{s+1}\\\dot y+y=u& T(s)=\frac{1}{s+1}}$
+
+Bounded Input $\rightarrow$ Bounded Output
+
+$y(t)=K u(t)$
+$Y(s)=\underset{T(s)}{K}\ U(s)$
+
+$\displaystyle T(s)=\frac{N_T(s)}{D_T(s)}$
+$\displaystyle u(t)\rightarrow U(s)=\frac{N_U(s)}{D_U(s)}$
+
+Per bound: $\root(D_u)$
