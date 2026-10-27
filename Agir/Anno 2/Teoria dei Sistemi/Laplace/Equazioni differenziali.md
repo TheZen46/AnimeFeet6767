@@ -84,4 +84,16 @@ $Y(s)=\underset{T(s)}{K}\ U(s)$
 $\displaystyle T(s)=\frac{N_T(s)}{D_T(s)}$
 $\displaystyle u(t)\rightarrow U(s)=\frac{N_U(s)}{D_U(s)}$
 
-Per bound: $\root(D_u)$
+Per bound: $\operatorname{roots}(D_u)=\Re<0\cup \Re=0\ \mu=1$
+
+$\displaystyle Y(s)=\frac{N_T(s)}{D_T(s)}\frac{N_U(s)}{D_U(s)}\to\operatorname{roots}(D_T D_U)=\Re<0\cup\Re=0\ \mu=1$
+$D_T$ non deve avere poli con $\Re=0$
+
+Un sistema che presenta poli che rappresenta una funzione di trasferimento di polinomi è stabile BIBO se tutti i poli della funzione di trasferimento sono $\Re<0$
+
+## Proprietà
+Un sistema con una certa funzione di trasferimento è stabile BIBO $\iff$ nella funzione di trasferimento non ci sono poli $\Re>0$ e $\Re=0$
+
+Se il sistema non è stabile BIBO se esiste almeno 1 segnale che ha unbounded output
+
+$\displaystyle Y(s)=\frac{1}{s(s+1)}\frac{N_U}{D_U}\qquad U(s)=\frac1s\qquad Y(s)=\frac{1}{s^2(s+1)}$
