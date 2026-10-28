@@ -2,7 +2,7 @@
 	Lezione 11
  
 ## Algoritmi
-	
+	Lezione 9
 
 ## Metodi Matematici 
 	Lezione 11
@@ -20,7 +20,7 @@
 
 ## Sistemi Operativi
 	Lezione 10
-	Lezione 10
+	Lezione 11
 
 ## Teoria dei Sistemi
 	Lezione 9
