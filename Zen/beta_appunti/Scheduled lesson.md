@@ -3,6 +3,7 @@
  
 ## Algoritmi
 	Lezione 9
+	Lezione 10
 
 ## Metodi Matematici 
 	Lezione 11
@@ -24,3 +25,4 @@
 
 ## Teoria dei Sistemi
 	Lezione 9
+	Lezione 10
