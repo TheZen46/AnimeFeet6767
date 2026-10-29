@@ -21,4 +21,15 @@ $X(s)=\bigl(sI-A\bigr)^{-1}x(0^-)+\bigl(sI-A\bigr)^{-1}BU(s)$
 
 $\bigl(sI-A\bigr)^{-1}=\lt{e^{At}}$
 
-$Y(s)=c\bigl(sI-A\bigr)^{-1}x(0^-)+\Bigl[C\bigl(sI-A\bigr)\Bigr]$
+$Y(s)=c\bigl(sI-A\bigr)^{-1}x(0^-)+\underbrace{\Bigl[C\bigl(sI-A\bigr)^{-1}B+D\Bigr]}_{M(s)}U(s)$
+$\sqmatrix{Y_1(s)\\Y_2(s)\\\vdots\\Y_q(s)}=\sqmatrix{&\boxed{1,2}&\\\\\\\\}\sqmatrix{U_1(s)\\U_2(s)\\\vdots\\U_m(s)}$
+$Y_q(S)=\ldots+\boxed{1,2}U_2(S)+\ldots$
+
+
+# Esempio
+$A=\sqmatrix{0&1\\-1&0}$
+$sI-A=\sqmatrix{s&-1\\1&s}$
+
+$\displaystyle M^{-1}=\frac{\operatorname{adj}(M)}{\det(M)}$
+
+$\operatorname{c.alg}(sI-A)=\sqmatrix{s&-1\\1&s}\rightarrow\operatorname{adj}=\sqmatrix{s&1\\-1&s}$
