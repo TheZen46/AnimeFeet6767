@@ -33,3 +33,7 @@ $sI-A=\sqmatrix{s&-1\\1&s}$
 $\displaystyle M^{-1}=\frac{\operatorname{adj}(M)}{\det(M)}$
 
 $\operatorname{c.alg}(sI-A)=\sqmatrix{s&-1\\1&s}\rightarrow\operatorname{adj}=\sqmatrix{s&1\\-1&s}$
+$\displaystyle \sqmatrix{s&1\\-1&s}\frac{1}{s^2+1}$
+$\displaystyle \bigl(sI-A\bigr)^{-1}=\sqmatrix{\Large\frac{s}{s^2+1}&\Large\frac{1}{s^2+1}\\\Large\frac{-1}{s^2+1}&\Large\frac{s}{s^2+1}}$
+
+$e^{At}=\sqmatrix{\cos(t)&\sin(t)\\\sin(t)&\cos(t)}$
