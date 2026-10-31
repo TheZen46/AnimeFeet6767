@@ -2,7 +2,7 @@
 
 ## corso: "Metodi Matematici per l'Ingegneria" lezione: 5 data: 2026-10-05 docente: Nicola Pinamonti argomenti: [punti critici, massimi e minimi locali, matrice hessiana, matrici definite e semidefinite, condizioni necessarie e sufficienti, punto di sella, criterio di Sylvester, derivazione sotto il segno di integrale, continuità uniforme] fonti: [trascrizione, appunti manuali, note del docente, dispensa Morro] tags: [metodi-matematici, lezione]
 ---
-# Lezione 5 — Massimi e minimi, matrice hessiana, derivazione sotto il segno di integrale
+b# Lezione 5 — Massimi e minimi, matrice hessiana, derivazione sotto il segno di integrale
 
 Il titolo della lezione è "massimi e minimi". Si vuole capire come trovare i punti in cui una funzione di più variabili ha un massimo o un minimo locale e come riconoscerli. La strategia ricalca quella di Analisi 1: prima si individuano i candidati, i punti in cui il gradiente si annulla, poi se ne studia il carattere con le derivate seconde, raccolte nella **matrice hessiana**. Gli strumenti sono la formula di Taylor della [[Zen/Anno 2/Metodi Matematici/generated/Lezione 4 - CLAUDE|Lezione 4 - CLAUDE]] e alcuni fatti di algebra lineare sulle matrici simmetriche. Nella seconda parte due esempi mostrano i limiti del criterio, e un esercizio completo ne mostra l'uso. Nell'ultimo quarto d'ora si dimostra quando si può derivare sotto il segno di integrale, risultato che richiede la nozione di **continuità uniforme**.
 
