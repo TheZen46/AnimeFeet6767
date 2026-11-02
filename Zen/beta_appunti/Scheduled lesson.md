@@ -1,16 +1,17 @@
-## Fisica
+## Fisica 
 	Lezione 11
 	Lezione 12 (no audio)
  
-## Algoritmi
+## Algoritmi (inFolder)
 	Lezione 9
 	Lezione 10
 
 ## Metodi Matematici 
 	Lezione 11
 	Lezione 12 (no audio)
+	Lezione 13
 
-## Ricerca Operativa
+## Ricerca Operativa (inFolder_complete)
 	Lezione 9
 	Lezione 10
 	Lezione 11
@@ -26,7 +27,8 @@
 ## Sistemi Operativi
 	Lezione 10
 	Lezione 11
+	Lezione 12
 
-## Teoria dei Sistemi
+## Teoria dei Sistemi (inFolder_complete)
 	Lezione 9
 	Lezione 10
