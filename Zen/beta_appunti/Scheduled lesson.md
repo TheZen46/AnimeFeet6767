@@ -29,6 +29,5 @@
 	Lezione 11
 	Lezione 12
 
-## Teoria dei Sistemi (inFolder_complete_scheduled)
-	Lezione 9
-	Lezione 10
+## Teoria dei Sistemi
+	
