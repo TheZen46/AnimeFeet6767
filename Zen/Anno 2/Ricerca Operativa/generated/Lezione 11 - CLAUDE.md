@@ -178,7 +178,7 @@ I costi ridotti sono tutti non negativi: la soluzione è ottima. È $x_1 = 2$, $
 > [!example] Verifica diretta
 > La docente aveva anticipato che dai dati "potremmo già sapere tutto". Infatti, per $x \ge 0$, il secondo vincolo dà $2(x_1 + x_2) \le 2x_1 + 3x_2 \le 4$, cioè $x_1 + x_2 \le 2$, incompatibile con $x_1 + x_2 \ge 6$ (passaggio aggiunto).
 
-## La dualità
+## La duality
 
 Dato un problema di programmazione lineare, che d'ora in poi si chiama **problema primale** perché è il primo, quello che si vuole risolvere, è possibile associargli un altro problema di programmazione lineare, il **problema duale**. È un'idea profonda in ottimizzazione, che non vale solo per i problemi lineari ma anche, per esempio, per quelli convessi. Si affianca al problema di partenza un problema "gemello" che dà informazioni in più e che, nei casi buoni, ha la stessa soluzione. Serve dal punto di vista teorico, perché dà informazioni sul primale, e dal punto di vista algoritmico, perché a volte il duale è più facile da risolvere.
 
