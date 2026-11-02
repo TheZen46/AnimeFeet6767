@@ -1,4 +1,4 @@
-## Fisica (inFolder_complete)
+## Fisica (inFolder_complete_scheduled)
 	Lezione 11
 	Lezione 12 (no audio)
  
