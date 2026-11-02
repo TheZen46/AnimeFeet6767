@@ -2,19 +2,16 @@
 	Lezione 11
 	Lezione 12 (no audio)
  
-## Algoritmi (inFolder_complete_scheduled)
-	Lezione 9
-	Lezione 10
+## Algoritmi 
+	
 
 ## Metodi Matematici 
 	Lezione 11
 	Lezione 12 (no audio)
 	Lezione 13
 
-## Ricerca Operativa (inFolder_complete_scheduled)
-	Lezione 9
-	Lezione 10
-	Lezione 11
+## Ricerca Operativa
+	
 
 ## Robotica 
 ### modulo 1 

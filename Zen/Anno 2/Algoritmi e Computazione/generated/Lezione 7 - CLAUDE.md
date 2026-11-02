@@ -645,7 +645,7 @@ classDiagram
     ConcreteIterator --> ConcreteAggregate : scorre
 ```
 
-L'**Aggregate** è il contenitore e offre un metodo factory, `createIterator()`. Il **ConcreteAggregate** lo implementa restituendo un'istanza del **ConcreteIterator** (nelle slide: `return new ConcreteIterator(this)`). Questo implementa l'interfaccia astratta **Iterator**, che permette di inizializzare la scansione (`first`), avanzare all'elemento successivo (`next`), sapere se la scansione è finita (`isDone`) e accedere all'elemento corrente (`current`). Il ConcreteIterator tiene traccia della posizione raggiunta. Il docente fa notare che qui un pattern creazionale, il Factory Method, viene usato all'interno di un pattern comportamentale. Il secondo esercizio della lezione chiede di realizzare proprio questo schema per una pila, e la soluzione proposta più sotto ne mostra il codice.
+L'**Aggregate** è il contenitore e offre un metodo factory, `createIterator()`. Il **ConcreteAggregate** lo implementa restituendo un'istanza del **ConcreteIterator** (nelle slide: `return new ConcreteIterator(this)`). Questo implementa l'interfaccia astratta **Iterator**, che permette di inizializzare la scansione (`first`), avanzare all'elemento successivo (`next`), sapere se la scansione è finita (`isDone`) e accedere all'elemento corrente (`current`). Il ConcreteIterator tiene traccia della posizione raggiunta. Il docente fa notare che qui un pattern creazionale, il Factory Method, viene usato all'interno di un pattern comportamentale. Il secondo esercizio della lezione chiede di realizzare proprio questo schema per una pila, e la soluzione proposta più sotto ne mostra il codice. Nella [[Lezione 09 - Mappe, oggetti funzione ed eccezioni#Tre modi di scorrere un vettore|lezione 9]] il docente mostra come lo stesso pattern sia incorporato negli iteratori della libreria standard.
 
 ### Visitor e gli altri pattern
 
@@ -1226,7 +1226,7 @@ Le slide scrivono la guardia come `#if !defined(MY_CLASS_H)`; a voce il docente 
 
 ## Esercizi
 
-Il pacchetto si chiude con due esercizi di gruppo che il docente descrive come «un mega ripasso» delle cose viste l'anno scorso e in questo corso, e una messa in pratica dei pattern. Usano in particolare Composite, Interpreter, Iterator e Factory Method. Il docente lascia un paio di settimane, poi pubblicherà le soluzioni; la prossima lezione di pratica sarà dedicata a un esercizio precedente.
+Il pacchetto si chiude con due esercizi di gruppo che il docente descrive come «un mega ripasso» delle cose viste l'anno scorso e in questo corso, e una messa in pratica dei pattern. Usano in particolare Composite, Interpreter, Iterator e Factory Method. Il docente lascia un paio di settimane, poi pubblicherà le soluzioni; la prossima lezione di pratica, la [[Lezione 09 - Mappe, oggetti funzione ed eccezioni|lezione 9]], si apre infatti con la soluzione di un esercizio precedente.
 
 ### Esercizio 1: struttura dati per le espressioni
 
@@ -1239,7 +1239,7 @@ I suggerimenti delle slide: creare una classe astratta `Expression` e due classi
 Poi si **controlla il progetto** delle classi:
 
 1. si immagini che serva una nuova classe `Variable`, sottoclasse di `Expression`, che contiene il nome di un identificatore;
-2. la si aggiunga al programma, con una classe `Context` che associa ai nomi delle variabili i loro valori, usando `std::unordered_map` (da studiare sul manuale, verrà esaminata in seguito);
+2. la si aggiunga al programma, con una classe `Context` che associa ai nomi delle variabili i loro valori, usando `std::unordered_map` (da studiare sul manuale; è presentata nella [[Lezione 09 - Mappe, oggetti funzione ed eccezioni#Le mappe|lezione 9]]);
 3. si osservi quante parti del codice vanno cambiate, oltre all'aggiunta di `Variable` e `Context`.
 
 Per far funzionare il polimorfismo si saranno usati i puntatori. L'ultima domanda è: **c'è un modo per prevenire le perdite di memoria** (*memory leak*) associate ai puntatori? Il docente anticipa che ce n'è uno «vecchio stile» e uno più moderno, e che li vedranno entrambi.

@@ -317,7 +317,7 @@ Le classi viste finora non avrebbero bisogno di un distruttore, perché non c'è
 
 ### Esercizio: stampare un file di lavori
 
-Il pacchetto si chiude con un esercizio, di cui il docente pubblicherà la soluzione e un file di esempio, e che verrà svolto insieme. All'inizio della [[Lezione 07 - Design pattern e classi come tipi|lezione 7]] il docente ha comunicato di aver pubblicato la soluzione, da confrontare con la propria; la discussione in aula è rinviata a una lezione successiva.
+Il pacchetto si chiude con un esercizio, di cui il docente pubblicherà la soluzione e un file di esempio, e che verrà svolto insieme. All'inizio della [[Lezione 07 - Design pattern e classi come tipi|lezione 7]] il docente ha comunicato di aver pubblicato la soluzione, che ha poi discusso nella [[Lezione 09 - Mappe, oggetti funzione ed eccezioni#La soluzione dell'esercizio sulla stampa dei lavori|lezione 9]].
 
 1. Usare le classi `work`, `book`, `periodical` e `movie` per stampare in modo leggibile (*pretty print*) un file di testo con dati su libri, periodici e film.
 2. Il file è in formato **CSV** (*comma separated values*): ogni riga contiene i dati di un lavoro, con i campi separati da un punto e virgola. Il primo campo è `book`, `periodical` o `movie` e identifica il tipo di contenuto. Un file di questo tipo si può produrre anche da un foglio di calcolo, salvandolo in formato CSV.
@@ -337,7 +337,7 @@ L'ultima parte dell'esercizio è il vero test di progettazione. Si supponga che 
 > A lezione si dice che il contenitore sarà «un vector di work». Per far funzionare il polimorfismo, però, il vettore deve contenere **puntatori** (o riferimenti, tramite opportuni involucri) a `work`, non oggetti `work`. Un `std::vector<work>` copierebbe ogni oggetto in un elemento di tipo `work`, con lo slicing visto sopra. Se `print` è virtuale pura, non compilerebbe neppure, perché `work` è astratta. Il tipo corretto è `std::vector<work*>`, con gli oggetti creati dinamicamente tramite `new`.
 
 > [!example]- Una soluzione possibile (da provare prima da soli)
-> La soluzione ufficiale verrà pubblicata dal docente e potrebbe differire. Questa versione assume un formato di file plausibile: `book;id;titolo;autore;anno`, `periodical;id;titolo;volume;numero;data`, `movie;id;titolo;durata`. Usa i puntatori tradizionali, come anticipato per il progetto, ed è stata compilata e provata con un file di esempio.
+> La soluzione ufficiale, discussa nella [[Lezione 09 - Mappe, oggetti funzione ed eccezioni#La soluzione dell'esercizio sulla stampa dei lavori|lezione 9]], è organizzata diversamente: un factory method crea l'oggetto giusto dall'etichetta della riga e ogni classe legge i propri campi con un metodo virtuale `parse`, così che aggiungere una classe richieda di cambiare una sola riga. Questa versione assume un formato di file plausibile: `book;id;titolo;autore;anno`, `periodical;id;titolo;volume;numero;data`, `movie;id;titolo;durata`. Usa i puntatori tradizionali, come anticipato per il progetto, ed è stata compilata e provata con un file di esempio.
 >
 > ```cpp
 > #include <fstream>

@@ -470,7 +470,7 @@ assert all(accepts(w) == bool(re.fullmatch('(0|1)*1(0|1)', w))
 
 ## Verso i limiti dei linguaggi regolari
 
-Ora si sa passare dalle espressioni regolari agli automi e viceversa. Il docente si ferma qui, perché la lezione è stata densa, e anticipa la prossima: si vedrà un risultato «che magari ci aspettavamo», cioè che la potenza delle espressioni regolari nel descrivere linguaggi, e quella degli automi a stati finiti nel riconoscerli, è **limitata**. Esistono linguaggi che non sono regolari, e si imparerà a dimostrarlo. Questo obbligherà a introdurre automi e formalismi descrittivi più potenti. Ci saranno altri due passi: i **linguaggi liberi dal contesto** e poi i linguaggi generali, con le **macchine di Turing**, dove si arriverà a quello che si ritiene essere il modello più generale di calcolo, «con tutti i problemi che questo comporta».
+Ora si sa passare dalle espressioni regolari agli automi e viceversa. Il docente si ferma qui, perché la lezione è stata densa, e anticipa la prossima, svolta nella [[Lezione 10 - Pumping lemma, proprietà di chiusura e minimizzazione|lezione 10]]: si vedrà un risultato «che magari ci aspettavamo», cioè che la potenza delle espressioni regolari nel descrivere linguaggi, e quella degli automi a stati finiti nel riconoscerli, è **limitata**. Esistono linguaggi che non sono regolari, e si imparerà a dimostrarlo. Questo obbligherà a introdurre automi e formalismi descrittivi più potenti. Ci saranno altri due passi: i **linguaggi liberi dal contesto** e poi i linguaggi generali, con le **macchine di Turing**, dove si arriverà a quello che si ritiene essere il modello più generale di calcolo, «con tutti i problemi che questo comporta».
 
 ## In sintesi
 
