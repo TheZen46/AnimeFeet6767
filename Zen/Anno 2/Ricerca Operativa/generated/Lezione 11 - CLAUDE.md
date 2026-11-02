@@ -184,7 +184,7 @@ Dato un problema di programmazione lineare, che d'ora in poi si chiama **problem
 
 Nel corso la trattazione sarà limitata: si costruisce il duale, sperabilmente più facile, lo si risolve e si torna al primale. In pratica, però, la dualità "è un po' come spalancare una porta": esistono metodi **primali-duali** in cui si dà "un colpo alla botte e uno al cerchio", facendo un passo su un problema e uno sull'altro, e risolvere i due problemi insieme è, in alcuni casi, più facile che risolvere quello di partenza. Le interpretazioni economiche e gli esempi sono rimandati; oggi si fa "la parte più noiosa", la costruzione del problema duale.
 
-### L'idea: una stima dal basso del valore ottimo
+### L'idea: una stima dal basso del valore ottimo (by zen)
 
 Per questa costruzione il problema primale si scrive **in forma generale**:
 
