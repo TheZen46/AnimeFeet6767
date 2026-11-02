@@ -1,8 +1,8 @@
-## Fisica 
+## Fisica (inFolder)
 	Lezione 11
 	Lezione 12 (no audio)
  
-## Algoritmi (inFolder)
+## Algoritmi (inFolder_complete)
 	Lezione 9
 	Lezione 10
 
