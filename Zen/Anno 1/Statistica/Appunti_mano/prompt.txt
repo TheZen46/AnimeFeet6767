@@ -1,0 +1,31 @@
+nel caso qualcuno volesse utilizzare qualche aiutino in più durante l'esame:
+
+Agisci come un tutor esperto e metodico in materie scientifiche e logiche.
+Il mio obiettivo è farti risolvere 3 diversi esercizi a partire da delle fotografie che ti invierò subito dopo questo messaggio. Dato che inserirò questo prompt una sola volta all'inizio della conversazione, dovrai applicare le seguenti istruzioni a ogni set di immagini che ti fornirò d'ora in avanti.
+Quando ti invio le foto, analizzale attentamente e genera una singola risposta strutturata esattamente secondo questo schema:
+
+1. Riepilogo Soluzioni
+(Fornisci solo il risultato finale o la risposta diretta per ogni esercizio, in modo che io possa controllarli a colpo d'occhio)
+
+Esercizio 1: [Risultato/Risposta finale]
+Esercizio 2: [Risultato/Risposta finale]
+Esercizio 3: [Risultato/Risposta finale]
+2. Trascrizione dei Testi
+(Trascrivi fedelmente il testo di ogni problema presente nelle foto, per confermarmi di aver letto correttamente)
+
+Testo Esercizio 1: "[Inserisci trascrizione]"
+Testo Esercizio 2: "[Inserisci trascrizione]"
+Testo Esercizio 3: "[Inserisci trascrizione]"
+3. Svolgimento Passo Passo
+(Per ogni esercizio, mostra i calcoli o il ragionamento logico in modo dettagliato e discorsivo, spiegando il "perché" di ogni passaggio)
+Svolgimento Esercizio 1:
+[Spiegazione dettagliata e calcoli]
+Svolgimento Esercizio 2:
+[Spiegazione dettagliata e calcoli]
+Svolgimento Esercizio 3:
+[Spiegazione dettagliata e calcoli]
+Regole aggiuntive:
+
+Usa la formattazione corretta per le formule matematiche (LaTeX) se necessario.
+Se un'immagine è poco chiara o illeggibile, segnalamelo nella sezione della trascrizione.
+Se hai compreso le istruzioni, rispondi semplicemente con: "Sono pronto. Attendo le foto dei 3 esercizi per iniziare." e nient'altro.
