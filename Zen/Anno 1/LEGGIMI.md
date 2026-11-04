@@ -28,5 +28,5 @@ Il registro di ogni spostamento è in `_riordino-2026-11-03.md`. Non è stato ca
 
 | Corso | Stato |
 |---|---|
-| Analisi 1A | Fasi 1-3 fatte: vedi `Analisi/1A/Rielaborazioni/revisione/LEGGIMI.md` |
+| Analisi 1A | Fasi 1-7 fatte, moduli pronti da verificare: vedi `Analisi/1A/Rielaborazioni/revisione/LEGGIMI.md` |
 | Analisi 1B, Fisica 1, Geometria, Reti Logiche, Statistica | Da fare |

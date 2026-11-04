@@ -1,15 +1,18 @@
 # Revisione di Analisi Matematica 1A
 
-Stato al 3 novembre 2026: **fasi 1-3 fatte, in attesa della tua approvazione della struttura.**
+Stato al 3 novembre 2026: **fasi 1-7 fatte. Tocca a te verificare (`04-controllo.md`, § 7); poi si fa la fase 8.**
 
 | File | Cosa contiene |
 |---|---|
-| `trascrizione/` | Trascrizione fedele delle 10 lezioni e del formulario, senza correzioni. È la base di tutto il lavoro: le parti incerte sono segnate `[?]`. Prima di approvare, conviene scorrerla accanto ai PDF |
-| `00-inventario.md` | Lezioni presenti e mancanti, residui, rischi per la vendita, errori da correggere divisi per gravità |
-| `01-copertura.md` | Confronto con il programma ufficiale 2026/27, cosa aggiungere, **domande per te** |
-| `02-struttura.md` | Proposta di 5 moduli, con le scelte da approvare |
-| `notazione.md` | Simboli e convenzioni comuni |
+| `moduli/` | I 5 moduli da vendere, già con front matter, figure e didascalie |
+| `corso-completo.md` | Tutti i moduli uniti, con frontespizio e indice (circa 38 pagine A4) |
+| `figure/` | Le 19 figure ridisegnate (SVG) |
+| `trascrizione/` | Trascrizione fedele delle lezioni e del formulario: il testo di partenza |
+| `00-inventario.md` | Lezioni presenti e mancanti, errori trovati negli appunti |
+| `01-copertura.md` | Confronto con il programma ufficiale, domande per te, stato dopo le aggiunte |
+| `02-struttura.md` | Struttura approvata (5 moduli, strada A) |
+| `03-registro.md` | Correzioni di sostanza (prima/dopo/motivo) e aggiunte, con le fonti |
+| `04-controllo.md` | Controllo finale e cosa verificare prima di esportare |
+| `notazione.md` | Simboli e convenzioni del corso |
 
-Dopo la tua approvazione: fasi 4 e 5 (riorganizzazione, correzioni, aggiunte), un modulo alla volta, in `moduli/`, con il registro delle correzioni in `03-registro.md`.
-
-Gli originali in `Appunti_mano/` non sono stati toccati.
+Per rigenerare il corso completo dopo una modifica ai moduli: `python revisione/corso_completo.py analisi-matematica-1a`.

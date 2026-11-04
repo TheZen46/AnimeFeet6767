@@ -64,3 +64,28 @@ Le aggiunte valgono circa 40 paragrafi, cioè il 25-30% del corso. Sono concentr
 3. **Giovedì.** Il corso aveva lezioni o esercitazioni il giovedì? Se sì, il prodotto avrà pochi esercizi svolti, a meno di aggiungerli.
 4. **Induzione e tecniche dimostrative (AM1A-18).** A lezione c'è stata una parte esplicita su induzione, assurdo e controesempi?
 5. **Libro di riferimento.** Il formulario rimanda a "Landau pag. 184, 190, 235-239": quale testo è? Se è quello usato a lezione, lo cito come fonte nel registro (senza numeri di pagina nel prodotto).
+
+## 5. Aggiornamento dopo le fasi 4 e 5 (3 novembre 2026)
+
+Strada A: le parti mancanti sono state aggiunte dal Canuto-Tabacco, ciascuna in un blocco `[!aggiunta]` (elenco in `03-registro.md`). Le domande del § 4 restano aperte: se arriva il materiale delle lezioni mancanti, le aggiunte corrispondenti si confrontano con quello.
+
+| ID | Stato | Dove |
+|---|---|---|
+| AM1A-01 | completo (con aggiunta) | Modulo 1, 1.1-1.2 |
+| AM1A-02 | completo (con aggiunte) | Modulo 1, 1.5, 1.8 |
+| AM1A-03 | completo (aggiunta) | Modulo 1, 1.9 |
+| AM1A-04 | completo | Modulo 1, 1.7; modulo 2, 2.3 |
+| AM1A-05 | completo | Modulo 1, 1.6, 1.8 |
+| AM1A-06 | completo (con aggiunte) | Modulo 1, 1.8 |
+| AM1A-07 | completo | Modulo 1, 1.3 |
+| AM1A-08 | completo | Modulo 2, 2.2-2.4 |
+| AM1A-09 | completo (con aggiunte) | Modulo 2, 2.5-2.9 |
+| AM1A-10 | completo | Modulo 3, 3.7 |
+| AM1A-11 | completo | Modulo 3, 3.1-3.5 |
+| AM1A-12 | completo | Modulo 4, 4.1, 4.3-4.4 |
+| AM1A-13 | completo | Modulo 4, 4.2-4.3 |
+| AM1A-14 | completo | Modulo 5, 5.1-5.4 |
+| AM1A-15 | completo (con aggiunte) | Modulo 3, 3.6; modulo 5, 5.5 |
+| AM1A-16 | completo | Modulo 4, 4.5-4.8 |
+| AM1A-17 | completo (con aggiunte) | Modulo 5, 5.6-5.8 |
+| AM1A-18 | completo (aggiunta da confermare) | Modulo 1, 1.4: va confermato che a lezione l'induzione sia stata trattata (domanda 4) |

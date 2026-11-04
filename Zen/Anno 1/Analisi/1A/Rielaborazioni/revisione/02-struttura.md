@@ -1,4 +1,6 @@
-# Analisi Matematica 1A · fase 3: struttura in moduli (da approvare)
+# Analisi Matematica 1A · fase 3: struttura in moduli
+
+> Approvata il 3 novembre 2026 così com'è, con la strada A per le aggiunte: il materiale delle lezioni mancanti non era disponibile.
 
 ## Numero di moduli
 
