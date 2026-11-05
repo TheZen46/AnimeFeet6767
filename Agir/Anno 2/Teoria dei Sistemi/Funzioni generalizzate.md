@@ -15,15 +15,7 @@ $\begin{cases}0&t\ne T\\\infty &t=T\end{cases}$
 
 $\delta(t) \quad \text{delta di Dirac} \\[6pt]$
 $\begin{align*}&\int_{-\infty}^{t} \delta(\tau)\,d\tau = 0 \quad \forall t < 0 \\&\int_{0^-}^{0^+} \delta(\tau)\,d\tau = 1\\&\int_{t}^{+\infty} \delta(\tau)\,d\tau = 0 \quad \forall t > 0 \\[6pt]\end{align*}$
-&\text{Approssimazione rettangolare (area unitaria):} \\
-&p_T(t) = \begin{cases} 
-\dfrac{1}{2T} & t \in (-T, T) \\[4pt]
-0 & t \in (-\infty, -T) \cup (T, +\infty) 
-\end{cases} \\[6pt]
-&\lim_{T \to 0} p_T(t) = \delta(t) \quad \text{(nel senso delle distribuzioni)} \\[6pt]
-&\delta(t - T) \implies \text{impulso centrato in } t = T
-
-$
+$&\text{Approssimazione rettangolare (area unitaria):} \\&p_T(t) = \begin{cases} \dfrac{1}{2T} & t \in (-T, T) \\[4pt]0 & t \in (-\infty, -T) \cup (T, +\infty) \end{cases} \\[6pt]&\lim_{T \to 0} p_T(t) = \delta(t) \quad\text{(nel senso delle distribuzioni)} \\[6pt]&\delta(t - T) \implies \text{impulso centrato in } t = T$
 
 $f(t)\in C^{\infty}$
 $\text{Proprietà di campionamento (sifting):}$
