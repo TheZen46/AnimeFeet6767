@@ -1,5 +1,7 @@
 # Domande aperte sul 1° anno (5 novembre 2026)
 
+> **Stato al 5 novembre 2026.** Tutte le risposte sono state applicate: prezzi da CFU, pagine e valore (A2), Fondamenti diviso in due parti nei pacchetti di semestre (A3), anno accademico 2025/26 (A4), Architettura riscritta in forma schematica con 23 schemi e tracce d'esame (A1, B1-B3), esercizi più difficili e prova su Linux per Fondamenti (C1-C4), appunti a mano di Fisica trascritti e confrontati (D1-D2), marcatori tolti da tutti i corsi (E1). Restano per dopo Payhip (A5) e il secondo anno (E3).
+
 Sono le domande rimaste dopo l'ampliamento: quelle di `DOMANDE-ANNO-1.md` hanno già avuto risposta e non si ripetono. Rispondi nell'ordine, anche solo con il numero e due parole (come l'altra volta). Dove non sai, scrivi "non so": vale la scelta indicata come proposta.
 
 ## A. Vendita e catalogo

@@ -175,8 +175,7 @@ coerente con $\det A = 8$ (il pivot $-8$ moltiplicato per $-1$ dello scambio e p
 
 ### Esercizi sul modello delle prove d'esame
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove scritte 2024-2026 e dei fogli "Matrici e sistemi lineari"; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-04)
-> L'esercizio tipico è un sistema con un parametro: per quali valori è risolubile, quando la soluzione è unica, e la soluzione per un valore fissato.
+L'esercizio tipico è un sistema con un parametro: per quali valori è risolubile, quando la soluzione è unica, e la soluzione per un valore fissato.
 
 **Esercizio 4. Un sistema con un parametro.** Discutere al variare di $a \in \mathbb{R}$ e risolvere
 $$\begin{cases} x + y + z = 1 \\ x + ay + z = a \\ x + y + az = a^2 \end{cases}$$
@@ -203,8 +202,7 @@ Riga per colonna: la prima riga di $B^2$ è $(1, 0, 0)$; la seconda è $(2 \cdot
 
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-04)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Rouché-Capelli passo per passo.** Discutere $\begin{cases} x + 2y = 3 \\ 2x + ky = 6 \end{cases}$ al variare di $k$.
 
@@ -242,8 +240,7 @@ Le matrici si sommano coefficiente per coefficiente e si moltiplicano righe per 
 
 ## Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (GEO-04)
-> Operazioni, determinante, rango e sistemi, con i termini per l'orale.
+Operazioni, determinante, rango e sistemi, con i termini per l'orale.
 
 ### Matrici
 

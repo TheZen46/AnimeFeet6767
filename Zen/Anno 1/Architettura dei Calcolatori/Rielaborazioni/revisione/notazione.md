@@ -12,3 +12,10 @@
 | Prestazioni | CPI, IPC, $T_c$, AMAT, miss rate $m$, miss penalty $P$ | uguale |
 
 Nei frammenti di codice i commenti sono in italiano; gli indirizzi dei salti sono sempre etichette.
+
+## Convenzioni degli schemi
+
+- Dati in nero, segnali di controllo in blu tratteggiato, parti aggiunte rispetto allo schema precedente in arancio.
+- Nomi dei segnali del Patterson-Hennessy (ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, ALUOp, PCSrc, ForwardA/B, PCWrite, IF/IDWrite, IF.Flush), come nelle slide del corso.
+- Ingressi dei multiplexer numerati come il valore del segnale di selezione; i multiplexer di propagazione hanno gli ingressi 00 (registro ID/EX), 10 (EX/MEM), 01 (MEM/WB).
+

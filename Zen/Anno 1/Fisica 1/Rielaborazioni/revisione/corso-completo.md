@@ -139,8 +139,7 @@ la velocità rispetto al sistema fisso è quella relativa più la velocità di t
 
 #### Esercizi dalle esercitazioni
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni 1 (24/02/2025) e 5 (20/03/2025) del corso, testi riformulati, con i risultati confrontati con quelli delle esercitazioni e con gli appunti a mano delle esercitazioni; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-01)
-> Il metodo è sempre lo stesso: si fissa un sistema di riferimento con l'origine e il verso positivo, si scrive la legge oraria di ogni corpo, e si traduce la domanda in un'equazione ("si incontrano" vuol dire stessa posizione nello stesso istante).
+Il metodo è sempre lo stesso: si fissa un sistema di riferimento con l'origine e il verso positivo, si scrive la legge oraria di ogni corpo, e si traduce la domanda in un'equazione ("si incontrano" vuol dire stessa posizione nello stesso istante).
 
 **Esercizio 4. Prendere al volo un corpo che cade.** Un corpo B viene lasciato cadere da fermo da 120 m; nello stesso istante un corpo A, a 7 m dalla verticale di B, parte in moto rettilineo uniforme sul piano orizzontale. Con che velocità deve muoversi A per trovarsi sotto B quando B tocca terra?
 
@@ -168,8 +167,6 @@ Conviene mettersi nel riferimento di B, che si muove di moto uniforme ed è quin
 
 #### Esercizi sul modello delle prove d'esame
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove del 03/09/2025 e del 05/02/2026; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-01)
-
 **Esercizio 9. Due leggi orarie.** Due punti su una retta hanno $x_1 = 3t$ e $x_2 = t^2 + 2$ (unità SI, $t \ge 0$). Quando sono nello stesso punto? Quando hanno la stessa velocità? E la stessa accelerazione?
 
 Stesso punto: $t^2 - 3t + 2 = 0$, cioè $t = 1$ s e $t = 2$ s (il secondo punto supera il primo e poi viene superato). Stessa velocità: $3 = 2t$, $t = 1{,}5$ s, proprio a metà fra i due incontri, quando la distanza fra i due è massima. Stessa accelerazione: mai, perché $a_1 = 0$ e $a_2 = 2$ m/s².
@@ -180,8 +177,7 @@ Sono due moti armonici con la stessa ampiezza e la stessa pulsazione, sfasati di
 
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-01)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Un proiettile lanciato da una terrazza.** Una palla è lanciata da 20 m di altezza con velocità 15 m/s a 30° sopra l'orizzontale. Dove cade e con che velocità?
 
@@ -217,8 +213,7 @@ La cinematica descrive il moto con la legge oraria $r(t)$ in un sistema di rifer
 
 ### Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FG1-01)
-> Le formule della cinematica, con i termini per l'orale.
+Le formule della cinematica, con i termini per l'orale.
 
 #### Definizioni
 
@@ -373,8 +368,7 @@ Sommando: $a = \frac{m_2 g - m_1 g\sin\theta - \mu_d m_1 g\cos\theta}{m_1 + m_2}
 
 #### Esercizi dalle esercitazioni
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni 3 (13/03/2025) e 6 (03/04/2025) del corso, testi riformulati, con i risultati confrontati con quelli delle esercitazioni; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-01, FG1-05)
-> Per ogni corpo si disegna il diagramma delle forze, si scelgono gli assi (lungo il piano e perpendicolare, se c'è un piano inclinato) e si scrive $\vec F = m\vec a$ componente per componente. Le reazioni vincolari e le tensioni sono incognite come le accelerazioni.
+Per ogni corpo si disegna il diagramma delle forze, si scelgono gli assi (lungo il piano e perpendicolare, se c'è un piano inclinato) e si scrive $\vec F = m\vec a$ componente per componente. Le reazioni vincolari e le tensioni sono incognite come le accelerazioni.
 
 **Esercizio 4. Fin dove si può inclinare il piano?** Un corpo sta su un piano inclinato scabro con $\mu_s = 0{,}3$ e $\mu_d = 0{,}2$, all'altezza $h = 2$ m. (a) Angolo massimo $\alpha_0$ di equilibrio. (b) Accelerazione e tempo di discesa se il piano è inclinato di $2\alpha_0$.
 
@@ -400,8 +394,6 @@ Il seggiolino fa un moto circolare uniforme di raggio $r = L\sin\theta$. In vert
 
 #### Esercizi sul modello delle prove d'esame
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizio nuovo sul modello della prova del 05/02/2026, con dati diversi; soluzione verificata con `strumenti/verifica_ampliamento.py` (FG1-01, FG1-05, FG1-07)
-
 **Esercizio 8. Una massa che gira attaccata a una molla.** Su un piano orizzontale liscio un punto di 200 g, attaccato a una molla di lunghezza a riposo 10 cm e $k = 50$ N/m fissata al centro, fa un moto circolare uniforme con periodo 0,5 s. (a) Allungamento della molla. (b) Energia meccanica. (c) Momento angolare rispetto al centro.
 
 (a) La forza elastica è la forza centripeta: $k(l - l_0) = m\omega^2 l$, con $\omega = \frac{2\pi}{T} = 12{,}57$ rad/s e $m\omega^2 = 31{,}6$ N/m. Quindi $l = \frac{kl_0}{k - m\omega^2} = \frac{5}{18{,}4} = 0{,}271$ m, allungamento $0{,}171$ m. Se fosse $m\omega^2 \ge k$ non ci sarebbe soluzione: la molla non riuscirebbe a trattenere il punto.
@@ -410,10 +402,19 @@ Il seggiolino fa un moto circolare uniforme di raggio $r = L\sin\theta$. In vert
 
 (c) $L = m l^2\omega = 0{,}185$ kg·m²/s, perpendicolare al piano; per un moto in senso orario visto dall'alto, per la regola della mano destra, è diretto verso il basso.
 
+#### Altri esercizi delle esercitazioni, con le soluzioni degli appunti a mano
+
+**Esercizio 9. Fino a che inclinazione il corpo resta fermo?** Un corpo è in cima a un piano inclinato alto $h$, scabro ($\mu_s$, $\mu_d$). Trovare l'angolo massimo $\alpha_0$ di equilibrio, l'accelerazione con $\alpha = 2\alpha_0$ e il tempo per arrivare a terra.
+
+Finché $\alpha < \alpha_0$ è $a = 0$: lungo il piano $mg\sin\alpha - F_s = 0$, perpendicolarmente $N = mg\cos\alpha$. Il caso limite è $F_s = \mu_sN$, quindi $mg\sin\alpha_0 = \mu_smg\cos\alpha_0$ e $\alpha_0 = \tan^{-1}\mu_s$. Con $\alpha = 2\alpha_0$ l'attrito diventa dinamico: $ma = mg\sin2\alpha_0 - \mu_dmg\cos2\alpha_0$, cioè $a = g(\sin2\alpha_0 - \mu_d\cos2\alpha_0)$. Il moto è uniformemente accelerato lungo l'ipotenusa $\frac{h}{\sin2\alpha_0}$, quindi $\frac{h}{\sin2\alpha_0} = \frac12at^2$ e $t = \sqrt{\frac{2h}{a\sin2\alpha_0}}$.
+
+**Esercizio 10. Due blocchetti sovrapposti trascinati su un piano inclinato.** $m_1 = 1$ kg sopra $m_2 = 2$ kg, piano inclinato di $20°$; fra i blocchetti $\mu_s = 0{,}5$, fra blocchetto inferiore e piano $\mu_d = 0{,}1$. Al blocchetto inferiore si applica $F = 15$ N parallela al piano e i due salgono insieme. Accelerazione, e forza massima senza che quello sopra scivoli indietro.
+
+Muovendosi insieme sono un blocco solo di massa $M = 3$ kg: $F - \mu_dMg\cos\alpha - Mg\sin\alpha = Ma$, da cui $a = \frac FM - \mu_dg\cos\alpha - g\sin\alpha = 0{,}73$ m/s² (0,75 nei risultati dell'esercitazione). Per la forza massima si guarda il blocco di sopra, che sale solo grazie all'attrito statico: $F_s - m_1g\sin\alpha = m_1a$, con $F_s = m_1(g\sin\alpha + a) \le \mu_sm_1g\cos\alpha$, cioè $a \le g(\mu_s\cos\alpha - \sin\alpha)$. Sostituendo l'accelerazione: $\frac FM - \mu_dg\cos\alpha - g\sin\alpha \le \mu_sg\cos\alpha - g\sin\alpha$, e i $g\sin\alpha$ si semplificano: $F \le Mg(\mu_s + \mu_d)\cos\alpha = 16{,}6$ N. Il trucco dell'esercizio è trattare il sistema intero per l'accelerazione e il corpo singolo per la condizione d'attrito.
+
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: il guidato 1 è l'esercizio 3 dell'esercitazione 3 (13/03/2025), testo riformulato; gli altri sono nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-01, FG1-05)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Si muove o no?** Una massa $m_1 = 5$ kg su un piano inclinato di 30° ($\mu_s = 0{,}5$, $\mu_d = 0{,}3$) è legata, con una fune che passa su una carrucola ideale in cima al piano, a una massa $m_2 = 10$ kg appesa. Le masse partono ferme: si muovono? Con che accelerazione?
 
@@ -447,8 +448,7 @@ I principi di Newton dicono che senza forza risultante un corpo mantiene il suo 
 
 ### Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FG1-01, FG1-05)
-> Principi, forze e oscillazioni, con i termini per l'orale.
+Principi, forze e oscillazioni, con i termini per l'orale.
 
 #### Principi e forze
 
@@ -621,8 +621,7 @@ e il termine misto è nullo perché $\sum_i m_i v_i^{rel} = \sum_i m_i v_i - Mv_
 
 #### Esercizi dalle esercitazioni
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni 4 (19/03/2025), 6 (03/04/2025) e 8 (14/04/2025) del corso, testi riformulati; l'esercizio 10 è il problema M1 della prova di luglio 2016 svolto in esercitazione; risultati confrontati con quelli delle esercitazioni e verificati con `strumenti/verifica_ampliamento.py` (FG1-02, FG1-04, FG1-06)
-> Prima di scrivere equazioni conviene chiedersi che cosa si conserva: l'energia meccanica se lavorano solo forze conservative, la quantità di moto se la risultante delle forze esterne è nulla (in un urto, per la sua breve durata, quasi sempre), nessuna delle due se ci sono attriti e forze esterne.
+Prima di scrivere equazioni conviene chiedersi che cosa si conserva: l'energia meccanica se lavorano solo forze conservative, la quantità di moto se la risultante delle forze esterne è nulla (in un urto, per la sua breve durata, quasi sempre), nessuna delle due se ci sono attriti e forze esterne.
 
 **Esercizio 4. Il lavoro dipende dal percorso?** Sulla particella agisce $\vec F = (axy,\ -ax^2)$ con $a = 60$ N/m². Calcolare il lavoro dall'origine a $P = (l, l)$, $l = 0{,}1$ m, lungo il percorso che passa per $A = (l, 0)$ e lungo quello che passa per $B = (0, l)$.
 
@@ -656,18 +655,49 @@ La quantità di moto si conserva come vettore: $m\vec v_0 = m\vec v_A + m\vec v_
 
 #### Esercizi sul modello delle prove d'esame
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizio nuovo sul modello del problema M1 della prova di febbraio 2025 svolto in esercitazione, con dati diversi; soluzione verificata con `strumenti/verifica_ampliamento.py` (FG1-04, FG1-05)
-
 **Esercizio 11. Molla, piano inclinato e attrito.** Un corpo di 0,4 kg è appoggiato alla base di un piano inclinato di 30° contro una molla ($k = 100$ N/m) compressa di 20 cm. Lasciato libero, risale con $\mu_d = 0{,}15$. (a) Velocità quando la molla torna a riposo. (b) Distanza totale percorsa in salita.
 
 (a) Nei primi 20 cm la molla cede $\frac12 kx^2 = 2$ J; il peso assorbe $mg\sin 30° \cdot 0{,}2 = 0{,}392$ J e l'attrito dissipa $\mu_d mg\cos 30° \cdot 0{,}2 = 0{,}102$ J. Restano $1{,}506$ J di energia cinetica: $v = \sqrt{\frac{2 \cdot 1{,}506}{0{,}4}} = 2{,}74$ m/s.
 
 (b) Su tutta la salita, lunga $s$: $2 = (mg\sin 30° + \mu_d mg\cos 30°)\,s = 2{,}47\,s$, quindi $s = 0{,}81$ m dal punto di partenza. Se $\tan 30° = 0{,}577 > \mu_s$ il corpo poi ridiscende: va controllato con l'attrito statico, che il testo dovrebbe dare.
 
+#### Altri esercizi delle esercitazioni, con le soluzioni degli appunti a mano
+
+**Esercizio 12. Un attrito che cambia lungo il piano.** Su un piano inclinato con $\tan\alpha = \frac34$ il coefficiente d'attrito vale $\frac12$ in cima ($s = 0$) e diminuisce come $\mu(s) = \mu_0 - ks^2$ fino a 0 in fondo ($s = L$). Velocità in fondo partendo da fermo.
+
+Dalle condizioni agli estremi $\mu_0 = \frac12$ e $k = \frac{1}{2L^2}$. Lungo il piano $a(s) = g\sin\alpha - \mu(s)g\cos\alpha$. Poiché l'accelerazione dipende dalla posizione si usa $a = \frac{dv}{dt} = \frac{dv}{ds}\frac{ds}{dt} = v\frac{dv}{ds}$ e si separano le variabili: $\int_0^{v}v\,dv = \int_0^L(g\sin\alpha - \mu(s)g\cos\alpha)\,ds$, cioè $\frac{v^2}{2} = gL\sin\alpha - g\cos\alpha\left(\frac L2 - \frac L6\right) = gL\left(\sin\alpha - \frac13\cos\alpha\right)$. Con $\sin\alpha = \frac35$ e $\cos\alpha = \frac45$: $v = \sqrt{\frac23gL}$. Lo stesso risultato si ha dal teorema dell'energia cinetica, con il lavoro dell'attrito $-mg\cos\alpha\int_0^L\mu(s)\,ds$.
+
+**Esercizio 13. Un corpo su un piano inclinato attaccato a una molla.** $m = 5$ kg, $k = 98$ N/m, $\mu_s = 0{,}4$, $\mu_d = 0{,}1$, $\theta = 22°$. Il corpo parte da fermo con la molla a riposo. Di quanto scende? Resta fermo laggiù? Legge oraria.
+
+Un oscillatore si ferma prima di tornare indietro, quindi fra la partenza e il punto più basso $K_i = K_f = 0$ e il teorema lavoro-energia dà $mgd\sin\theta - \frac12kd^2 - \mu_dmgd\cos\theta = 0$: oltre a $d = 0$, $d = \frac{2mg(\sin\theta - \mu_d\cos\theta)}{k} = 0{,}28$ m. Laggiù l'attrito necessario per l'equilibrio è $F = kd - mg\sin\theta = 9{,}3$ N (9,06 N nei risultati, che usano $d$ arrotondato), minore di $\mu_sN = 18{,}2$ N: l'attrito statico basta e il corpo resta fermo. Durante la discesa $m\ddot x = mg\sin\theta - kx - \mu_dmg\cos\theta$, cioè $\ddot x + \omega^2x = A$ con $\omega^2 = \frac km$ e $A = g(\sin\theta - \mu_d\cos\theta)$: la soluzione è la somma di quella dell'omogenea e di quella particolare costante $\frac{A}{\omega^2}$, e con $x(0) = 0$, $\dot x(0) = 0$ si ottiene $x(t) = \frac{A}{\omega^2}(1 - \cos\omega t)$. L'attrito dinamico, finché ha verso costante, sposta soltanto il centro dell'oscillazione.
+
+**Esercizio 14. Blocco, molla, fune e carrucola.** Il blocco $m_A = 1$ kg su un piano liscio è attaccato a una molla ($k = 20$ N/m) e, con una fune su una carrucola ideale, a $m_B = 0{,}5$ kg appeso; si parte da fermi con la molla a riposo. Allungamento massimo, tensione in quel momento, periodo.
+
+All'allungamento massimo tutto è fermo, e l'energia si conserva: $0 = \frac12kx^2 - m_Bgx$, quindi $x = \frac{2m_Bg}{k} = 0{,}49$ m. Per la tensione: $T - kx = m_Aa$ per A e $m_Bg - T = m_Ba$ per B, da cui $a = \frac{m_Bg - kx}{m_A + m_B}$ e $T = m_B(g - a) = m_Bg\frac{m_A + 2m_B}{m_A + m_B} = 6{,}5$ N. Per il periodo si scrive l'accelerazione come $a = -\frac{k}{m_A + m_B}(x - x_0)$, con $x_0 = \frac{m_Bg}{k}$ posizione d'equilibrio: è un moto armonico attorno a $x_0$, con $T = 2\pi\sqrt{\frac{m_A + m_B}{k}} = 1{,}72$ s. Il peso di B sposta il centro dell'oscillazione, non il periodo.
+
+**Esercizio 15. Quando si allenta il filo del pendolo?** Un pendolo di lunghezza $L$ passa per la verticale con $v_0 = \sqrt{3gL}$. Tensione in funzione dell'angolo; il filo resta teso?
+
+Radialmente $T - mg\cos\theta = m\frac{v^2}{L}$, e per l'energia $v^2 = v_0^2 - 2gL(1 - \cos\theta)$: quindi $T = mg(1 + 3\cos\theta)$. Se il filo restasse teso il pendolo si fermerebbe dove $v = 0$, cioè $1 + 2\cos\theta = 0$, $\theta = 120°$; ma la tensione si annulla prima, a $\cos\theta = -\frac13$, $\theta \approx 109{,}5°$. Il filo **non** resta teso: oltre quell'angolo il corpo si stacca e prosegue in moto parabolico.
+
+**Esercizio 16. Il distacco da una cupola.** Un corpo parte da fermo dalla cima di un cilindro liscio di raggio $R$. A che angolo dalla verticale si stacca?
+
+Radialmente $mg\cos\alpha - N = m\frac{v^2}{R}$, e il distacco è a $N = 0$. Dall'energia, con lo zero alla base, $2mgR = \frac12mv^2 + mgR(1 + \cos\alpha)$, cioè $v^2 = 2gR(1 - \cos\alpha)$. Allora $mg\cos\alpha = 2mg(1 - \cos\alpha)$, $\cos\alpha = \frac23$, $\alpha = 48°$, indipendente da massa e raggio.
+
+**Esercizio 17. Quattro molle a croce.** Quattro molle uguali ($k = 50$ N/m, lunghezza a riposo trascurabile) sono fissate in $(\pm L, 0, 0)$ e $(0, \pm L, 0)$, $L = 20$ cm, e legate a un corpo di 50 g lasciato da fermo in $(0, 0, L)$. Velocità nell'origine, periodo, energia potenziale nel piano orizzontale.
+
+Ogni molla è lunga $\sqrt{z^2 + L^2}$, quindi l'energia potenziale totale è $U = 2k(z^2 + L^2)$: da $4kL^2 = 2kL^2 + \frac12mv^2$ si ha $v = \sqrt{\frac{4kL^2}{m}} = 12{,}65$ m/s. La componente $z$ di ogni forza è $-k\sqrt{z^2 + L^2}\frac{z}{\sqrt{z^2 + L^2}} = -kz$: le quattro insieme danno $-4kz$, un moto armonico con $\omega = 2\sqrt{k/m}$ e $T = \pi\sqrt{m/k} = 0{,}1$ s. Nel piano $z = 0$, sommando i quadrati delle quattro lunghezze, $U = 2k(r^2 + L^2)$, che a $r = 2L$ vale $10kL^2 = 20$ J.
+
+**Esercizio 18. Un corpo su una guida libera di muoversi.** Una guida di massa $M = 0{,}8$ kg, libera su un piano liscio, è fatta da due quarti di circonferenza ($R = 20$ cm) uniti da un tratto piano scabro ($\mu = 0{,}2$, $d = 50$ cm). Un corpo di $0{,}2$ kg parte da fermo dal bordo. A che quota risale dall'altra parte, e di quanto si è spostata la guida?
+
+Sul sistema non agiscono forze esterne orizzontali e all'inizio tutto è fermo: la quantità di moto orizzontale resta nulla, quindi $X_{CM}$ non cambia, e quando il corpo si ferma si ferma anche la guida. Il teorema lavoro-energia sul sistema dà $mg(R - h) - \mu mgd = 0$ (il lavoro totale dell'attrito dipende dallo scorrimento relativo, che è $d$), quindi $h = R - \mu d = 10$ cm. Per lo spostamento $s$ della guida: imponendo che $X_{CM}$ sia lo stesso all'inizio e alla fine, $s = \frac{m}{m + M}[d + R(1 + \sin\theta)]$ con $\cos\theta = \frac{R - h}{R} = \frac12$, cioè $s = 17{,}5$ cm.
+
+**Esercizio 19. Su per un cuneo che scivola.** Un corpo di 10 g con $v_0 = 2$ m/s sale su un cuneo liscio di 1 kg, alto 30 cm, libero su un piano liscio. Fin dove sale? Con che velocità minima supererebbe il cuneo?
+
+In orizzontale si conserva la quantità di moto, e alla quota massima corpo e cuneo hanno la stessa velocità: $mv_0 = (m + M)V$. Si conserva anche l'energia: $\frac12mv_0^2 = \frac12(m + M)V^2 + mgy$. Eliminando $V$: $y = \frac{M}{M + m}\frac{v_0^2}{2g} = 20$ cm, poco meno dei $\frac{v_0^2}{2g}$ che si avrebbero con il cuneo fermo, perché una parte dell'energia resta come moto del cuneo. Imponendo $y = h$: $v_0 = \sqrt{2gh\frac{M + m}{M}} = 2{,}4$ m/s.
+
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-02, FG1-04, FG1-06)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Da che altezza per fare il giro della morte?** Una pallina scivola senza attrito su una guida che finisce in un anello verticale di raggio $R$. Altezza minima di partenza.
 
@@ -703,8 +733,7 @@ Il lavoro di una forza è l'integrale $\int F \cdot dl$, e il lavoro della risul
 
 ### Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FG1-02, FG1-04, FG1-06)
-> Lavoro, energia, quantità di moto, urti e sistemi, con i termini per l'orale.
+Lavoro, energia, quantità di moto, urti e sistemi, con i termini per l'orale.
 
 #### Lavoro ed energia
 
@@ -889,8 +918,7 @@ Sono le due equazioni cardinali con le derivate nulle. Se la risultante è nulla
 
 #### Esercizi dalle esercitazioni
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni 10 (08/05/2025) e 11 (15/05/2025) del corso, testi riformulati, con i risultati confrontati con quelli delle esercitazioni; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-03, FG1-07)
-> Per il corpo rigido le equazioni sono due: $\vec F_{ext} = M\vec a_{CM}$ e $\vec\tau_{ext} = I\vec\alpha$ (rispetto a un asse fisso o al centro di massa). In statica si annullano entrambe, e conviene calcolare i momenti rispetto al punto in cui agiscono più forze incognite: i loro momenti sono nulli.
+Per il corpo rigido le equazioni sono due: $\vec F_{ext} = M\vec a_{CM}$ e $\vec\tau_{ext} = I\vec\alpha$ (rispetto a un asse fisso o al centro di massa). In statica si annullano entrambe, e conviene calcolare i momenti rispetto al punto in cui agiscono più forze incognite: i loro momenti sono nulli.
 
 **Esercizio 4. Una trave su due appoggi.** Una trave omogenea di 1 m e 2 kg poggia orizzontale su due appoggi agli estremi $A$ e $B$; una massa di 0,5 kg è appoggiata a $\frac{L}{3}$ da $A$. Reazioni degli appoggi.
 
@@ -922,8 +950,6 @@ Puro rotolamento: $a = \alpha R$. Traslazione: $Ma = Mg\sin\theta - f$; rotazion
 
 #### Esercizi sul modello delle prove d'esame
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove del 03/09/2025 e del 05/02/2026, con dati e geometrie diversi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-03, FG1-06, FG1-07)
-
 **Esercizio 11. La biglia colpita dalla stecca.** Una biglia di 170 g e raggio 2,85 cm, ferma, riceve un colpo centrale con impulso $J = 1{,}5$ N·s. (a) Velocità iniziale. (b) Velocità angolare quando smette di strisciare. (c) Lavoro dell'attrito fino a quel momento.
 
 (a) $v_0 = \frac{J}{m} = 8{,}82$ m/s; il colpo è centrale e non dà rotazione: $\omega_0 = 0$.
@@ -940,10 +966,31 @@ Puro rotolamento: $a = \alpha R$. Traslazione: $Ma = Mg\sin\theta - f$; rotazion
 
 (c) Dopo l'urto si conserva l'energia: $\frac12\left(\frac13 + \frac12\right)\omega'^2 = 1{,}96$ J deve diventare l'energia potenziale del centro dell'asta (che sale di $\frac{L}{2}(1 - \cos\theta)$) e della massa (che sale di $L(1 - \cos\theta)$): $\left(Mg\frac{L}{2} + mgL\right)(1 - \cos\theta) = 9{,}81(1 - \cos\theta)$. Quindi $\cos\theta = 0{,}8$, $\theta = 36{,}9°$.
 
+#### Altri esercizi delle esercitazioni, con le soluzioni degli appunti a mano
+
+**Esercizio 13. Il cono e il disco forato.** (a) Momento d'inerzia di un cono pieno (raggio $R$, massa $M$) rispetto al suo asse. (b) Un disco di raggio $R$ ha un foro circolare di raggio $R/2$ tangente al bordo; massa del disco forato $m$. Centro di massa e momento d'inerzia rispetto all'asse per il CM perpendicolare al disco.
+
+(a) Il cono è una pila di dischi di raggio $r = \frac Rhz$ e spessore $dz$, ognuno con $dI = \frac12dm\,r^2$ e $dm = \rho\pi r^2dz$, $\rho = \frac{M}{\frac13\pi R^2h}$: $I = \int_0^h\frac32\frac{M}{R^2h}\frac{R^4}{h^4}z^4\,dz = \frac3{10}MR^2$. Lo stesso in coordinate cilindriche integrando $r^2\rho\,r\,dr\,d\theta\,dz$. (b) Si tratta il disco forato come disco pieno meno il foro. Con la stessa densità superficiale $M_{foro} = \frac14M_{disco}$, quindi $m = \frac34M_{disco}$. Il CM si calcola trattando i due pezzi come punti nei loro centri, con il foro a massa negativa: $x_{CM} = \frac{M_{foro}\frac R2}{m} = \frac R6$, dalla parte opposta al foro. Rispetto al centro del disco $I_{pieno} = \frac12M_{disco}R^2 = \frac23mR^2$ e, con Steiner, $I_{foro} = \frac12M_{foro}\frac{R^2}{4} + M_{foro}\frac{R^2}{4} = \frac18mR^2$; per differenza $\frac{13}{24}mR^2$, e spostando l'asse nel CM (Steiner al contrario) $I = \frac{13}{24}mR^2 - m\frac{R^2}{36} = \frac{37}{72}mR^2$.
+
+**Esercizio 14. Quando si ribalta il cubo?** Un cubo di lato $L$ e massa $M$ sale su un piano inclinato di $\theta$ tirato da una forza parallela al piano applicata ad altezza $d$, con $\frac L2 < d < L$. Forza massima senza ribaltamento e accelerazione in quel caso.
+
+Una forza applicata sopra la metà del lato tende a far ruotare il cubo in avanti: per compensare, il punto d'applicazione della normale si sposta verso lo spigolo anteriore, a distanza $b$ dal centro della base. Con il polo nel CM e nessuna rotazione: $F - Mg\sin\theta = Ma$, $N = Mg\cos\theta$, $Nb - F\left(d - \frac L2\right) = 0$, quindi $b = \frac{F}{Mg\cos\theta}\left(d - \frac L2\right)$. Il cubo non si ribalta finché la normale cade dentro la base, $b \le \frac L2$: $F \le \frac{MgL\cos\theta}{2d - L}$. Nel caso limite $a = g\cos\theta\frac{L}{2d - L} - g\sin\theta$.
+
+**Esercizio 15. Una sbarra su due ruote che girano in versi opposti** (prova di gennaio 2019). Una sbarra di 10 kg e 1 m poggia su due ruote a distanza $d = 60$ cm che girano in versi opposti, con $\mu_d = 0{,}5$; il centro della sbarra è spostato di $x_0 = 20$ cm a destra. Normali, attriti, accelerazione, moto.
+
+Equilibrio verticale e dei momenti rispetto al CM: $N_D + N_S = Mg$ e $N_S\left(\frac d2 + x_0\right) = N_D\left(\frac d2 - x_0\right)$, da cui $N_D = Mg\frac{d/2 + x_0}{d} = 81{,}75$ N e $N_S = 16{,}35$ N (con $g = 9{,}81$). Gli attriti sono $\mu_dN$, cioè 40,87 N e 8,17 N, e spingono verso il centro, quindi $a_{CM} = \frac{F_D - F_S}{M} = 3{,}27$ m/s² verso sinistra. Per una posizione generica $x$ del centro la stessa formula dà $F_D - F_S = \mu_dMg\frac{2x}{d}$, una forza di richiamo proporzionale a $x$: la sbarra oscilla con $\omega = \sqrt{\frac{2\mu_dg}{d}}$ e $T = 1{,}55$ s.
+
+**Esercizio 16. Macchina di Atwood con una molla** (prova di settembre 2017). $M_1 = 1$ kg è tenuta a terra da una molla ($k = 100$ N/m) e collegata da una fune su una carrucola ($I = 0{,}1$ kg m², $R = 0{,}1$ m) a $M_2 = 5$ kg. Allungamento della molla e accelerazione di $M_2$ appena la molla si sgancia.
+
+All'equilibrio la carrucola è ferma, quindi le due tensioni sono uguali: $T = M_2g$ e $T = M_1g + k\Delta l$, da cui $\Delta l = \frac{(M_2 - M_1)g}{k} = 0{,}39$ m. Dopo lo sgancio: $T_1 - M_1g = M_1a$, $M_2g - T_2 = M_2a$, $(T_2 - T_1)R = I\frac aR$; sommando, $a = \frac{(M_2 - M_1)g}{M_1 + M_2 + I/R^2} = 2{,}45$ m/s² ($a_2 = -2{,}5$ m/s² con l'asse verso l'alto). La carrucola pesa come una massa aggiunta $I/R^2 = 10$ kg.
+
+**Esercizio 17. Un disco, un cuneo che si conficca e un freno** (prova di luglio 2024). Un disco di 10 kg e raggio 50 cm ruota a 3 rad/s; un cuneo di 2 kg cade e si conficca a 40 cm dal centro. Poi un blocchetto premuto sul bordo con $F = 1$ N ($\mu_d = 0{,}8$) lo frena. Velocità dopo l'urto, tempo di arresto, giri.
+
+Il momento angolare rispetto all'asse si conserva: $I_0\omega_0 = (I_0 + mr^2)\omega_1$ con $I_0 = \frac12MR^2 = 1{,}25$ kg m², quindi $\omega_1 = 2{,}39$ rad/s. Il freno dà un momento $\mu_dFR$, decelerazione angolare costante $\frac{\mu_dFR}{I_1}$, e $t = \frac{I_1\omega_1}{\mu_dFR} = 9{,}37$ s. Nel moto uniformemente decelerato $\theta = \frac12\omega_1t = 11{,}2$ rad, cioè 1,78 giri (1,76 nei risultati dell'esercitazione).
+
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-03, FG1-07)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. La sfera che rotola giù.** Una sfera piena parte da ferma e rotola senza strisciare giù da un'altezza di 1 m. Velocità in fondo.
 
@@ -979,8 +1026,7 @@ Un corpo rigido ha 6 gradi di libertà; nella rotazione attorno a un asse fisso 
 
 ### Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FG1-03, FG1-07)
-> Rotazioni, momenti d'inerzia, equazioni cardinali e momento angolare, con i termini per l'orale.
+Rotazioni, momenti d'inerzia, equazioni cardinali e momento angolare, con i termini per l'orale.
 
 #### Rotazioni
 

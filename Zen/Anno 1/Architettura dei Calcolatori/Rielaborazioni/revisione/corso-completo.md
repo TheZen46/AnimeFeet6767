@@ -21,112 +21,158 @@ Appunti personali e non ufficiali, rivisti e confrontati con il programma uffici
 
 ## 1 · Astrazione, prestazioni e l'ISA RISC-V
 
-**In questo modulo.** Servono le reti logiche (porte, registri, rappresentazione dei numeri in complemento a 2). Si parte dall'idea che regge tutta la materia, i livelli di astrazione con le loro interfacce, e dal modello di von Neumann. Poi si impara a misurare le prestazioni di un calcolatore con l'equazione del tempo di CPU e con la legge di Amdahl. La seconda parte presenta l'insieme di istruzioni (ISA) del processore RISC-V: registri, memoria, formati di codifica, istruzioni aritmetiche, di accesso alla memoria e di salto. Alla fine del modulo si sa confrontare due macchine con l'equazione delle prestazioni, e codificare e decodificare a mano un'istruzione RISC-V.
-
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Introduzione, RISC-V Instruction Set Architecture), articolo di Smith e Nair "The Architecture of Virtual Machines" (*IEEE Computer*, 2005), rapporto di von Neumann sull'EDVAC (1945); Patterson e Hennessy, *Struttura e progetto dei calcolatori*, edizione RISC-V (ADC-01, ADC-02)
-> Gli appunti a mano del corso coprono solo il datapath con pipeline (modulo 4): questo modulo è scritto in revisione dal materiale del corso.
+**In questo modulo.** Prerequisiti: porte, registri e complemento a 2 (Reti Logiche). Livelli di astrazione e modello di von Neumann; come si misurano le prestazioni (equazione del tempo di CPU, legge di Amdahl); l'ISA RISC-V: registri, memoria, i sei formati con la disposizione dei campi, le istruzioni principali. Alla fine si confrontano due macchine con l'equazione delle prestazioni e si codifica e decodifica a mano un'istruzione. All'orale si chiede spesso l'ordine dei formati R, I, S, B, U, J e perché i campi sono disposti così (1.5).
 
 ### 1.1 Livelli di astrazione e interfacce
 
-Un calcolatore moderno è troppo complesso per essere pensato tutto insieme. Lo si divide in **livelli**, ognuno dei quali offre a quello sopra un insieme di servizi attraverso un'**interfaccia** ben definita e nasconde i dettagli di come li realizza. Dal basso verso l'alto: i transistori e le porte logiche; le reti (sommatori, registri, memorie); la **microarchitettura**, cioè l'organizzazione dei blocchi che eseguono le istruzioni; l'**insieme di istruzioni** (ISA, *instruction set architecture*), che è il confine fra hardware e software; il sistema operativo; i linguaggi e le applicazioni.
+Ogni livello offre servizi a quello sopra attraverso un'**interfaccia** e nasconde come li realizza. Dal basso:
 
-L'ISA è l'interfaccia più importante. Descrive tutto ciò che un programmatore in linguaggio macchina deve sapere: quali istruzioni esistono, come si codificano, quali registri ci sono, come si accede alla memoria. Non dice come le istruzioni vengono eseguite: due processori con la stessa ISA (per esempio due generazioni della stessa famiglia) eseguono gli stessi programmi anche se dentro sono molto diversi. È il motivo per cui il software sopravvive a molte generazioni di hardware.
+| Livello | Che cosa contiene |
+|---|---|
+| dispositivi e porte | transistor, porte logiche |
+| reti | sommatori, registri, memorie |
+| microarchitettura | organizzazione dei blocchi che eseguono le istruzioni (datapath, pipeline, cache) |
+| **ISA** | istruzioni, codifica, registri, accesso alla memoria: confine hardware/software |
+| sistema operativo | gestione delle risorse, astrazioni (file, processi) |
+| linguaggi e applicazioni | compilatori, programmi |
 
-Il prezzo delle interfacce è la rigidità: un programma compilato per un'ISA funziona solo sull'hardware che la realizza, e un sistema operativo solo sull'ISA per cui è scritto. La **virtualizzazione** supera questo limite inserendo uno strato di software che realizza un'interfaccia su un'altra. Una **macchina virtuale di processo** offre a un singolo programma un ambiente diverso da quello reale: la macchina virtuale Java, o un emulatore che esegue codice per un'altra ISA. Una **macchina virtuale di sistema** offre un'intera macchina, su cui gira un sistema operativo completo: è il caso degli *hypervisor* che fanno girare più sistemi operativi sullo stesso server.
+- L'**ISA** dice *che cosa* fa ogni istruzione, non *come*: processori diversi con la stessa ISA eseguono gli stessi programmi. Per questo il software sopravvive a molte generazioni di hardware.
+- **Virtualizzazione**: uno strato di software che realizza un'interfaccia sopra un'altra.
+  - *macchina virtuale di processo*: un ambiente diverso per un programma (macchina virtuale Java, emulatore di un'altra ISA);
+  - *macchina virtuale di sistema*: un'intera macchina su cui gira un sistema operativo (*hypervisor*).
 
 ### 1.2 Il modello di von Neumann
 
-Quasi tutti i calcolatori seguono lo schema descritto da von Neumann nel 1945: un'**unità centrale** (CPU) con un'unità aritmetico-logica e un'unità di controllo, una **memoria** che contiene sia i dati sia le istruzioni, e i dispositivi di **ingresso e uscita**, collegati da un sistema di interconnessione (i bus). L'idea decisiva è il **programma memorizzato**: le istruzioni sono numeri come i dati, stanno nella stessa memoria, e la macchina si riprogramma cambiando il contenuto della memoria, non i collegamenti.
+- **CPU** (ALU + unità di controllo), **memoria** unica per dati e istruzioni, **ingresso e uscita**, collegati da bus.
+- **Programma memorizzato**: le istruzioni sono numeri in memoria; si riprogramma la macchina cambiando la memoria, non i collegamenti.
 
-La CPU esegue le istruzioni con un ciclo che si ripete sempre uguale:
+**Il ciclo dell'istruzione.**
 
-1. **prelievo** (*fetch*): legge dalla memoria l'istruzione all'indirizzo contenuto nel **program counter** (PC);
-2. **decodifica**: capisce che istruzione è e legge gli operandi dai registri;
-3. **esecuzione**: fa l'operazione nell'ALU, oppure calcola un indirizzo;
-4. **accesso alla memoria**, se l'istruzione legge o scrive un dato;
-5. **scrittura del risultato** in un registro, e aggiornamento del PC (all'istruzione successiva, o a quella di destinazione di un salto).
+| Passo | Che cosa | Stadio della pipeline (modulo 4) |
+|---|---|---|
+| prelievo | legge l'istruzione all'indirizzo nel **PC** | IF |
+| decodifica | capisce l'istruzione, legge i registri | ID |
+| esecuzione | ALU, o calcolo di un indirizzo | EX |
+| memoria | legge o scrive un dato, se serve | MEM |
+| scrittura | risultato nel registro; PC aggiornato | WB |
 
-Il collegamento fra CPU e memoria è anche il limite del modello: ogni istruzione e ogni dato devono passare di lì, e la memoria è molto più lenta della CPU. È il cosiddetto "collo di bottiglia di von Neumann", a cui rispondono le cache del modulo 5.
+**Collo di bottiglia di von Neumann**: tutte le istruzioni e tutti i dati passano dal collegamento CPU-memoria, e la memoria è molto più lenta. Risposta: le cache (modulo 5).
 
 ### 1.3 Le prestazioni
 
-Per confrontare due calcolatori bisogna decidere che cosa misurare. Il **tempo di esecuzione** (o tempo di risposta) di un programma interessa all'utente; il **throughput**, cioè il lavoro svolto per unità di tempo, interessa a chi gestisce un server. Qui si guarda il tempo di CPU di un programma, e una macchina è "$n$ volte più veloce" di un'altra se
-$$\frac{\text{Prestazione}_A}{\text{Prestazione}_B} = \frac{T_B}{T_A} = n.$$
+- **Tempo di esecuzione** (interessa all'utente) e **throughput** (lavoro per unità di tempo, interessa a chi gestisce un server).
+- A è $n$ volte più veloce di B se $\frac{\text{Prestazione}_A}{\text{Prestazione}_B} = \frac{T_B}{T_A} = n$.
 
-Il processore lavora al ritmo di un clock con periodo $T_{clk}$ (e frequenza $f = 1/T_{clk}$). Ogni istruzione richiede un certo numero di cicli; la media su un programma si chiama **CPI** (*cicli per istruzione*). Allora vale l'**equazione delle prestazioni**:
+**Equazione delle prestazioni.**
 $$T_{CPU} = N_{istr} \times CPI \times T_{clk} = \frac{N_{istr} \times CPI}{f}.$$
 
-I tre fattori dipendono da cose diverse. $N_{istr}$ dipende dal programma, dal compilatore e dall'ISA; il $CPI$ dalla microarchitettura (e dal tipo di istruzioni usate); $T_{clk}$ dalla tecnologia e dalla microarchitettura. Migliorare uno solo di essi peggiorando gli altri può non servire: è l'errore di giudicare un processore solo dalla frequenza.
+| Fattore | Da che cosa dipende |
+|---|---|
+| $N_{istr}$ | programma, compilatore, ISA |
+| CPI (cicli per istruzione) | microarchitettura, tipo di istruzioni |
+| $T_{clk}$ | tecnologia, microarchitettura |
 
-Se le istruzioni si dividono in classi con CPI diversi, il CPI medio è la media pesata con le frazioni $\phi_i$ di istruzioni di ogni classe:
-$$CPI = \sum_i \phi_i \, CPI_i.$$
+$$CPI = \sum_i \phi_i \, CPI_i \qquad (\phi_i = \text{frazione di istruzioni della classe } i).$$
 
 > [!esempio] Due compilatori
-> Un programma compilato con il compilatore 1 esegue 2 milioni di istruzioni di classe A (CPI 1), 1 milione di classe B (CPI 2) e 1 milione di classe C (CPI 3); con il compilatore 2, 4 milioni di A, 1 di B e 1 di C. Cicli: $2 + 2 + 3 = 7$ milioni contro $4 + 2 + 3 = 9$ milioni. CPI medio: $\frac{7}{4} = 1{,}75$ contro $\frac{9}{6} = 1{,}5$. Il secondo compilatore ha il CPI migliore ma produce più istruzioni, e il programma è più lento: a parità di clock conta il prodotto $N_{istr} \times CPI$, non uno dei due.
+> Compilatore 1: 2 milioni di istruzioni A (CPI 1), 1 di B (CPI 2), 1 di C (CPI 3). Compilatore 2: 4, 1, 1 milioni. Cicli: 7 milioni contro 9 milioni. CPI: 1,75 contro 1,5. Il secondo ha il CPI migliore ma è più lento: conta il prodotto $N_{istr} \times CPI$.
 
-Per lo stesso motivo il **MIPS** (milioni di istruzioni al secondo) non è una buona misura: dipende dal programma e dall'ISA, e una macchina con istruzioni più semplici ne esegue di più senza essere più veloce.
+- Il **MIPS** (milioni di istruzioni al secondo) non è una buona misura: dipende dal programma e dall'ISA.
+- Giudicare un processore dalla sola frequenza è lo stesso errore.
 
 > [!teorema] Legge di Amdahl
-> Se un miglioramento accelera di un fattore $k$ una parte del programma che occupa la frazione $F$ del tempo di esecuzione, il tempo nuovo è
-> $$T' = T\left((1 - F) + \frac{F}{k}\right), \qquad S = \frac{T}{T'} = \frac{1}{(1 - F) + F/k}.$$
+> Se un miglioramento accelera di $k$ la frazione $F$ del tempo di esecuzione:
+> $$T' = T\left((1 - F) + \frac{F}{k}\right), \qquad S = \frac{1}{(1 - F) + F/k}.$$
 
-La conseguenza è che l'accelerazione complessiva è limitata dalla parte non migliorata: anche con $k \to \infty$, $S \to \frac{1}{1 - F}$. Se le moltiplicazioni occupano l'80% del tempo, nessun moltiplicatore, per quanto veloce, rende il programma più di 5 volte più rapido. La regola pratica è "rendere veloce il caso frequente".
+- Limite: con $k \to \infty$, $S \to \frac{1}{1 - F}$. Con $F = 0{,}8$ al massimo 5 volte più veloce.
+- Regola pratica: rendere veloce il caso frequente.
 
 ### 1.4 L'ISA RISC-V: registri e memoria
 
-RISC-V è un'ISA aperta, progettata a Berkeley a partire dal 2010, di tipo **RISC** (*reduced instruction set computer*): poche istruzioni semplici, tutte della stessa lunghezza (32 bit nella versione base RV32I), con operazioni aritmetiche solo fra registri e accesso alla memoria solo con istruzioni di load e store (architettura **load/store**). Le scelte seguono quattro principi di progetto: la semplicità favorisce la regolarità; più piccolo è più veloce; rendere veloce il caso frequente; un buon progetto richiede buoni compromessi.
+**RISC-V**: ISA aperta (Berkeley, dal 2010), **RISC**: poche istruzioni semplici, tutte di 32 bit in RV32I, operazioni solo fra registri, memoria solo con load e store (**load/store**).
 
-**Registri.** Ci sono 32 registri interi da 32 bit, `x0` … `x31`. `x0` vale sempre 0: scriverci non ha effetto, e serve a ottenere costanti e operazioni utili senza istruzioni apposite. Gli altri hanno un nome "di convenzione" (ABI) che dice a che cosa servono nelle chiamate di procedura (modulo 2):
+**Principi di progetto.** La semplicità favorisce la regolarità; più piccolo è più veloce; rendere veloce il caso frequente; un buon progetto richiede buoni compromessi.
 
-| Registro | Nome | Uso |
-|---|---|---|
-| `x0` | `zero` | costante 0 |
-| `x1` | `ra` | indirizzo di ritorno |
-| `x2` | `sp` | puntatore alla cima dello stack |
-| `x3`, `x4` | `gp`, `tp` | puntatore globale, puntatore al thread |
-| `x5`–`x7`, `x28`–`x31` | `t0`–`t6` | temporanei (non preservati dalle chiamate) |
-| `x8`, `x9`, `x18`–`x27` | `s0`–`s11` | salvati (preservati dalle chiamate); `s0` è anche il frame pointer `fp` |
-| `x10`–`x17` | `a0`–`a7` | argomenti; `a0` e `a1` anche valori di ritorno |
+**Registri** (32 da 32 bit, `x0` … `x31`):
 
-**Memoria.** La memoria è un vettore di byte, ciascuno con il suo indirizzo (memoria **indirizzata al byte**). Una parola (*word*) è di 4 byte, e i dati di 4 byte di solito stanno a indirizzi multipli di 4 (**allineamento**). RISC-V è **little endian**: in una parola il byte meno significativo sta all'indirizzo più basso. La parola `0x12345678` scritta all'indirizzo 100 occupa i byte 100 (`0x78`), 101 (`0x56`), 102 (`0x34`), 103 (`0x12`).
+| Registro | Nome | Uso | Preservato dalle chiamate? |
+|---|---|---|---|
+| `x0` | `zero` | sempre 0 | – |
+| `x1` | `ra` | indirizzo di ritorno | sì |
+| `x2` | `sp` | cima dello stack | sì |
+| `x3`, `x4` | `gp`, `tp` | puntatore globale, al thread | – |
+| `x5`–`x7`, `x28`–`x31` | `t0`–`t6` | temporanei | no |
+| `x8`, `x9`, `x18`–`x27` | `s0`–`s11` | salvati (`s0` = frame pointer `fp`) | sì |
+| `x10`–`x17` | `a0`–`a7` | argomenti; `a0`, `a1` valori di ritorno | no |
+
+Perché `x0`: costanti e operazioni utili senza istruzioni apposite (`mv` = `addi rd, rs, 0`; `nop` = `addi x0, x0, 0`; `j` = `jal x0, …`).
+
+**Memoria.**
+
+- indirizzata al **byte**; parola = 4 byte, di solito a indirizzi multipli di 4 (**allineamento**);
+- **little endian**: il byte meno significativo all'indirizzo più basso. `0x12345678` all'indirizzo 100: byte 100 = `0x78`, 101 = `0x56`, 102 = `0x34`, 103 = `0x12`.
 
 ### 1.5 I formati delle istruzioni
 
-Tutte le istruzioni RV32I sono lunghe 32 bit e ricadono in sei formati. I campi che compaiono in più formati stanno sempre negli stessi bit, così la decodifica è semplice: l'**opcode** (bit 6-0) dice il formato e la famiglia di istruzioni, `rd` (bit 11-7) è il registro di destinazione, `rs1` (19-15) e `rs2` (24-20) sono i registri sorgente, `funct3` (14-12) e `funct7` (31-25) distinguono le istruzioni con lo stesso opcode.
+![Figura 1.1 · I sei formati di RV32I, nell'ordine R, I, S, B, U, J. In grigio i bit dell'immediato.](figure/1-1.svg)
 
-| Formato | 31-25 | 24-20 | 19-15 | 14-12 | 11-7 | 6-0 | Esempi |
-|---|---|---|---|---|---|---|---|
-| R | funct7 | rs2 | rs1 | funct3 | rd | opcode | `add`, `sub`, `and`, `slt`, `sll` |
-| I | imm[11:0] (12 bit) | | rs1 | funct3 | rd | opcode | `addi`, `lw`, `jalr`, `slli` |
-| S | imm[11:5] | rs2 | rs1 | funct3 | imm[4:0] | opcode | `sw`, `sb` |
-| B | imm[12, 10:5] | rs2 | rs1 | funct3 | imm[4:1, 11] | opcode | `beq`, `bne`, `blt`, `bge` |
-| U | imm[31:12] (20 bit) | | | | rd | opcode | `lui`, `auipc` |
-| J | imm[20, 10:1, 11, 19:12] | | | | rd | opcode | `jal` |
+| Formato | Per che cosa | Esempi |
+|---|---|---|
+| **R** | operazioni fra registri | `add`, `sub`, `and`, `slt`, `sll` |
+| **I** | immediato di 12 bit, load, `jalr` | `addi`, `lw`, `jalr`, `slli` |
+| **S** | store | `sw`, `sb` |
+| **B** | salti condizionati | `beq`, `bne`, `blt`, `bge` |
+| **U** | immediato di 20 bit alti | `lui`, `auipc` |
+| **J** | salto incondizionato | `jal` |
 
-Gli **immediati** sono costanti scritte nell'istruzione. Hanno 12 bit nei formati I, S e B, e si estendono con il segno a 32 bit prima dell'uso: un immediato I va da $-2048$ a $2047$. Nel formato S l'immediato è spezzato in due pezzi per lasciare `rs2` al suo posto; nei formati B e J l'immediato è un **offset** rispetto al PC, in multipli di 2 byte (il bit 0 non si scrive perché vale sempre 0), e i suoi bit sono rimescolati per riusare gli stessi fili dell'hardware degli altri formati. Per costanti di 32 bit si combinano `lui` (carica i 20 bit alti) e `addi` (aggiunge i 12 bassi).
+**I campi fissi.**
+
+| Campo | Bit | Che cosa |
+|---|---|---|
+| opcode | 6-0 | formato e famiglia |
+| rd | 11-7 | registro di destinazione (R, I, U, J) |
+| funct3 | 14-12 | distingue le istruzioni con lo stesso opcode |
+| rs1 | 19-15 | primo registro sorgente |
+| rs2 | 24-20 | secondo registro sorgente (R, S, B) |
+| funct7 | 31-25 | distingue ancora (`add`/`sub`: bit 30) |
+
+**Perché i campi sono disposti così.**
+
+- **rs1, rs2, rd sempre negli stessi bit**: il banco dei registri si legge in ID prima di sapere che istruzione è (modulo 4).
+- **S spezza l'immediato** (11:5 e 4:0) per lasciare rs2 al suo posto: una store non ha rd, e i bit 11-7 ospitano un pezzo dell'immediato.
+- **B è S con i bit rimescolati**: l'offset è in multipli di 2 byte (il bit 0 vale sempre 0 e non si scrive), e i bit sono messi in modo che ognuno stia, quando possibile, nella stessa posizione che ha in S e in I: il generatore degli immediati usa meno multiplexer.
+- **U e J** hanno 20 bit di immediato; J rimescola i bit per lo stesso motivo di B.
+- **Il bit 31 è sempre il segno** dell'immediato: l'estensione del segno parte prima di sapere il formato.
+
+**Gli immediati.**
+
+- 12 bit in I, S, B, estesi con il segno: un immediato I va da $-2048$ a $2047$.
+- B e J: **offset** rispetto al PC in mezze parole (salti di ±4 KiB per B, ±1 MiB per J).
+- Costanti di 32 bit: `lui` (20 bit alti) + `addi` (12 bassi). Se il bit 11 della parte bassa è 1, `addi` sottrae: la parte alta va aumentata di 1.
 
 > [!esempio] Codificare `add x9, x20, x21`
-> È di tipo R: opcode `0110011`, funct3 `000`, funct7 `0000000`. I registri sono `rd` = 9 (`01001`), `rs1` = 20 (`10100`), `rs2` = 21 (`10101`). Mettendo i campi in ordine, dal bit 31 al bit 0:
+> Tipo R: opcode `0110011`, funct3 `000`, funct7 `0000000`, rd = 9 (`01001`), rs1 = 20 (`10100`), rs2 = 21 (`10101`). Dal bit 31 al bit 0:
 > $$\underbrace{0000000}_{funct7}\ \underbrace{10101}_{rs2}\ \underbrace{10100}_{rs1}\ \underbrace{000}_{funct3}\ \underbrace{01001}_{rd}\ \underbrace{0110011}_{opcode}$$
-> cioè, a gruppi di quattro bit, `0000 0001 0101 1010 0000 0100 1011 0011` = `0x015A04B3`.
+> cioè `0000 0001 0101 1010 0000 0100 1011 0011` = `0x015A04B3`.
+
+**Decodificare a mano**, in quest'ordine: (1) i 7 bit bassi danno l'opcode e quindi il formato; (2) si leggono rd, funct3, rs1, rs2 dalle posizioni fisse; (3) si ricompone l'immediato secondo il formato; (4) funct3 e funct7 danno l'istruzione.
 
 ### 1.6 Le istruzioni principali
 
-**Aritmetiche e logiche.** `add rd, rs1, rs2` ($rd = rs1 + rs2$), `sub`, `and`, `or`, `xor`; le versioni con immediato `addi`, `andi`, `ori`, `xori` (non esiste `subi`: basta `addi` con un immediato negativo). Gli shift `sll`, `srl` (logico, entra 0) e `sra` (aritmetico, entra il bit di segno), e `slli`, `srli`, `srai`: uno shift a sinistra di $k$ moltiplica per $2^k$. `slt rd, rs1, rs2` mette 1 in `rd` se $rs1 < rs2$ (con segno) e 0 altrimenti; `sltu` fa il confronto senza segno. Non c'è un registro di flag: gli esiti dei confronti finiscono in registri normali.
+| Famiglia | Istruzioni | Note |
+|---|---|---|
+| aritmetiche e logiche | `add`, `sub`, `and`, `or`, `xor`; `addi`, `andi`, `ori`, `xori` | non c'è `subi`: `addi` con immediato negativo |
+| shift | `sll`, `srl` (entra 0), `sra` (entra il segno); `slli`, `srli`, `srai` | shift a sinistra di $k$ = × $2^k$ |
+| confronti | `slt`, `sltu`, `slti` | risultato 0 o 1 in un registro: niente flag |
+| memoria | `lw`, `sw`; `lb`, `lbu`, `sb`; `lh`, `lhu`, `sh` | solo base + spiazzamento; `lb` estende il segno, `lbu` con zeri |
+| salti condizionati | `beq`, `bne`, `blt`, `bge`, `bltu`, `bgeu` | offset relativo al PC |
+| salti incondizionati | `jal rd, etichetta`; `jalr rd, off(rs1)` | salvano PC + 4 in rd; con `ra` sono chiamate, con `x0` salti semplici |
 
-**Accesso alla memoria.** `lw rd, offset(rs1)` carica la parola all'indirizzo $rs1 + offset$; `sw rs2, offset(rs1)` la scrive. Per i byte: `lb` (estende con il segno), `lbu` (estende con zeri), `sb`; per le mezze parole `lh`, `lhu`, `sh`. L'unico modo di indirizzamento della memoria è registro base più spiazzamento.
+**Pseudo-istruzioni** (le traduce l'assemblatore): `li`, `mv`, `nop`, `j`, `ret` (`jalr x0, 0(ra)`), `la`, `call`, `bgt` e `ble` (operandi scambiati), `neg`, `not`.
 
-**Salti condizionati.** `beq rs1, rs2, etichetta` salta se i registri sono uguali, `bne` se diversi, `blt` e `bge` (con segno), `bltu` e `bgeu` (senza segno). L'assemblatore traduce l'etichetta nell'offset rispetto al PC dell'istruzione di salto.
-
-**Salti incondizionati.** `jal rd, etichetta` salva in `rd` l'indirizzo dell'istruzione successiva ($PC + 4$) e salta; `jalr rd, offset(rs1)` salta all'indirizzo $rs1 + offset$, salvando anch'esso $PC + 4$ in `rd`. Con `rd` = `ra` sono le istruzioni di chiamata di procedura; con `rd` = `x0` sono salti semplici.
-
-**Pseudo-istruzioni.** L'assemblatore accetta istruzioni che non esistono in hardware e le traduce: `li rd, c` (carica una costante, con `addi` o `lui` più `addi`), `mv rd, rs` (`addi rd, rs, 0`), `nop` (`addi x0, x0, 0`), `j etichetta` (`jal x0, …`), `ret` (`jalr x0, 0(ra)`), `la rd, simbolo` (carica un indirizzo), `bgt`, `ble` (con gli operandi scambiati), `neg`, `not`.
-
-**Modi di indirizzamento.** Riassumendo: *immediato* (l'operando è nell'istruzione: `addi`), *registro* (`add`), *base più spiazzamento* (`lw`, `sw`), *relativo al PC* (salti, `auipc`).
+**Modi di indirizzamento.** Immediato (`addi`), registro (`add`), base + spiazzamento (`lw`, `sw`), relativo al PC (salti, `auipc`).
 
 ### Esempi ed esercizi svolti
-
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle slide del corso; codifiche controllate con `strumenti/rv.py` e conti con `strumenti/verifica_ampliamento.py` (ADC-01, ADC-02)
 
 **Esercizio 1. Codificare quattro istruzioni.** Scrivere in esadecimale (a) `sub x5, x6, x7`, (b) `addi x5, x6, -12`, (c) `lw x10, 8(x2)`, (d) `sw x10, 12(x2)`.
 
@@ -158,8 +204,7 @@ Con l'unità nuova: $S = \frac{1}{0{,}6 + 0{,}04} = 1{,}5625$. Con l'accelerazio
 
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/rv.py` e `strumenti/verifica_ampliamento.py` (ADC-01, ADC-02)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Codificare un salto condizionato.** Codificare `beq x5, x6, +16` (il salto va 16 byte avanti).
 
@@ -194,8 +239,6 @@ Con l'unità nuova: $S = \frac{1}{0{,}6 + 0{,}04} = 1{,}5625$. Con l'accelerazio
 Un calcolatore si organizza in livelli di astrazione separati da interfacce, la più importante delle quali è l'ISA, il confine fra hardware e software; la virtualizzazione realizza un'interfaccia sopra un'altra. Il modello di von Neumann mette dati e istruzioni nella stessa memoria e le esegue con il ciclo prelievo-decodifica-esecuzione. Il tempo di CPU è il prodotto di numero di istruzioni, CPI e periodo del clock; nessuno dei tre fattori da solo misura le prestazioni, e la legge di Amdahl limita il guadagno di ogni miglioramento parziale. RISC-V è un'ISA load/store con 32 registri (`x0` sempre nullo), memoria indirizzata al byte e little endian, e istruzioni da 32 bit in sei formati (R, I, S, B, U, J) con i campi dei registri sempre negli stessi bit; gli immediati si estendono con il segno, e gli offset dei salti sono relativi al PC.
 
 ### Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (ADC-01, ADC-02)
 
 #### Prestazioni
 
@@ -237,17 +280,25 @@ Opcode più usati: `0110011` R, `0010011` I aritmetiche, `0000011` load, `010001
 - Enunciare la legge di Amdahl e spiegarne le conseguenze.
 - Descrivere i formati delle istruzioni RISC-V; perché i campi dei registri sono sempre negli stessi bit?
 - Perché nei formati B e J l'immediato è "rimescolato" e non contiene il bit 0?
+- Elencare i formati nell'ordine R, I, S, B, U, J e disegnarli con i campi e i bit (figura 1.1).
 
 ## 2 · Programmazione in assembly RISC-V
 
-**In questo modulo.** Si usano i registri, i formati e le istruzioni del modulo 1 (*Astrazione, prestazioni e l'ISA RISC-V*), e un po' di C. Si vede come un compilatore traduce in assembly i costrutti del C: espressioni, condizioni, cicli, accessi ad array, matrici e stringhe. Poi si studia il modello di memoria di un programma (codice, dati statici, heap, stack) e il meccanismo delle procedure: passaggio dei parametri, convenzioni sui registri, stack frame, procedure annidate e ricorsive. Infine si fa il percorso inverso, dall'assembly al C. Alla fine del modulo si sanno scrivere e leggere programmi RISC-V con cicli, array e chiamate di funzione, e provarli nel simulatore.
+**In questo modulo.** Prerequisiti: registri, formati e istruzioni del modulo 1, un po' di C. Come si traducono in assembly espressioni, condizioni, cicli, array, matrici e stringhe; il modello di memoria di un programma; le procedure, lo stack e la ricorsione; il percorso inverso dall'assembly al C. Il paragrafo 2.8 è dedicato alla prova scritta: tradurre un programma C (di solito un ordinamento ricorsivo) e motivare ogni scelta. Tutti i programmi del modulo sono stati eseguiti in un simulatore RISC-V.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Gestione chiamate a funzione, Vettori e matrici, Fibonacci, Merge Sort, Reverse coding, Simulatore QtRvSim), programmi di esempio `Simple.s` e `Strlen.s`; Patterson e Hennessy, *Struttura e progetto dei calcolatori*, cap. 2 (ADC-02)
-> Il modulo è scritto in revisione dal materiale del corso. Tutti i frammenti di codice sono stati eseguiti con il simulatore di `strumenti/verifica_ampliamento.py`. Nelle slide alcuni esempi usano la notazione MIPS (`$t0`, `$s1`); qui si usa sempre quella RISC-V.
+### 2.1 Espressioni, condizioni, cicli
 
-### 2.1 Dal C all'assembly: espressioni e condizioni
+**Le regole di traduzione.**
 
-Un compilatore assegna le variabili a registri e traduce ogni espressione in una sequenza di istruzioni con risultati intermedi nei temporanei. Con `f`, `g`, `h`, `i`, `j` in `s0`…`s4`, l'istruzione C `f = (g + h) - (i + j);` diventa
+| C | Assembly | Nota |
+|---|---|---|
+| variabile | un registro | `s` se deve sopravvivere a una chiamata, `t` altrimenti |
+| espressione | sequenza di istruzioni con risultati intermedi nei `t` | |
+| `if (c)` | salto con la condizione **negata** oltre il ramo vero | |
+| `if … else` | salto all'`else`, `j` oltre l'`else` alla fine del ramo vero | |
+| `while`, `for` | controllo in testa, salto all'indietro in fondo | `for`: inizializzazione prima, incremento in fondo |
+
+`f = (g + h) - (i + j);` con `f`, `g`, `h`, `i`, `j` in `s0`…`s4`:
 
 ```text
 add  t0, s1, s2      # t0 = g + h
@@ -255,7 +306,7 @@ add  t1, s3, s4      # t1 = i + j
 sub  s0, t0, t1      # f = t0 - t1
 ```
 
-Le condizioni diventano salti condizionati, di solito con la **condizione negata**: si salta oltre il ramo "vero" quando la condizione è falsa. Per `if (i == j) f = g + h; else f = g - h;`:
+`if (i == j) f = g + h; else f = g - h;`:
 
 ```text
       bne  s3, s4, Else   # se i != j salta al ramo else
@@ -265,7 +316,7 @@ Else: sub  s0, s1, s2     # f = g - h
 Fine:
 ```
 
-Un ciclo è un salto all'indietro. `while (v[i] == k) i += 1;`, con `i` in `s3`, `k` in `s5` e l'indirizzo di `v` in `s6`:
+`while (v[i] == k) i += 1;` con `i` in `s3`, `k` in `s5`, indirizzo di `v` in `s6`:
 
 ```text
 Ciclo: slli t1, s3, 2     # t1 = 4 * i (ogni intero occupa 4 byte)
@@ -277,15 +328,11 @@ Ciclo: slli t1, s3, 2     # t1 = 4 * i (ogni intero occupa 4 byte)
 Esci:
 ```
 
-Un `for (i = 0; i < n; i++)` si traduce allo stesso modo: inizializzazione prima del ciclo, controllo con `bge` (uscita se $i \ge n$) all'inizio, incremento e salto all'indietro alla fine.
-
 ### 2.2 Array e matrici
 
-L'indirizzo dell'elemento `v[i]` di un array di interi è $\text{base} + 4i$: l'indice va moltiplicato per la dimensione dell'elemento, cioè shiftato a sinistra di 2 (`slli`). Per un array di `char` la dimensione è 1 e lo shift non serve. È la differenza principale fra l'indice del C, che conta elementi, e l'indirizzo, che conta byte.
-
-Una matrice C `int M[R][C]` è memorizzata **per righe** (*row-major*): prima tutta la riga 0, poi la riga 1, e così via. L'elemento `M[i][j]` ha indirizzo
-$$\text{base} + (i \cdot C + j) \cdot 4.$$
-Se $C$ è una potenza di 2 la moltiplicazione $i \cdot C$ è uno shift; altrimenti si usa `mul` (estensione M di RISC-V) o una somma ripetuta. Scorrendo la matrice con un puntatore che avanza di 4 byte si visitano gli elementi nell'ordine della memoria, riga per riga.
+- `v[i]` di interi: indirizzo $\text{base} + 4i$ → `slli t, i, 2` e `add`. Per i `char` niente shift. L'indice del C conta elementi, l'indirizzo conta byte.
+- `int M[R][C]` è memorizzata **per righe**: `M[i][j]` a $\text{base} + (i \cdot C + j) \cdot 4$. Con $C$ potenza di 2, $i \cdot C$ è uno shift; altrimenti `mul`.
+- Scorrere con un **puntatore** che avanza di 4 risparmia il calcolo dell'indirizzo a ogni giro.
 
 > [!esempio] Somma degli elementi di un array
 > La funzione `int somma(int v[], int n)` riceve l'indirizzo di `v` in `a0` e `n` in `a1`, e restituisce il risultato in `a0`.
@@ -306,7 +353,8 @@ Se $C$ è una potenza di 2 la moltiplicazione $i \cdot C$ è uno shift; altrimen
 
 ### 2.3 Byte e stringhe
 
-Una stringa C è un array di byte terminato dal carattere nullo (codice 0). Si legge un carattere alla volta con `lbu` (senza segno: i codici vanno da 0 a 255) e si scrive con `sb`. La lunghezza di una stringa si calcola facendo avanzare un puntatore fino allo 0:
+- Stringa C = array di byte chiuso da 0.
+- Si legge con `lbu` (codici da 0 a 255, niente estensione del segno), si scrive con `sb`.
 
 ```text
 strlen: mv   t0, a0         # t0 = puntatore al carattere corrente
@@ -318,40 +366,57 @@ end:    sub  a0, t0, a0     # lunghezza = puntatore finale - iniziale
         ret
 ```
 
-Qui si usa l'**aritmetica dei puntatori** invece di un indice: invece di calcolare a ogni giro $\text{base} + i$, si incrementa direttamente l'indirizzo, e si risparmiano istruzioni. È la stessa ottimizzazione che fa un compilatore.
+Aritmetica dei puntatori: si incrementa l'indirizzo invece di calcolare $\text{base} + i$ a ogni giro.
 
 ### 2.4 Il modello di memoria di un programma
 
-Lo spazio di indirizzamento di un programma RISC-V è diviso in zone, dal basso verso l'alto:
+![Figura 2.1 · Le zone della memoria di un programma.](figure/2-1.svg)
 
-| Zona | Contenuto |
-|---|---|
-| riservata | indirizzi bassi non usati |
-| testo (*text*) | il codice macchina |
-| dati statici (*data*) | variabili globali e costanti, raggiunte tramite `gp` |
-| heap | memoria allocata dinamicamente (`malloc`, `new`), cresce verso l'alto |
-| stack | variabili locali e dati delle chiamate, cresce verso il basso da `sp` |
+| Zona | Contenuto | Direttiva |
+|---|---|---|
+| testo | codice macchina | `.text` |
+| dati statici | variabili globali e costanti (tramite `gp`) | `.data`, `.word 3, 5, 7`, `.asciz "ciao"`, `.space n` |
+| heap | memoria dinamica (`malloc`, `new`), cresce verso l'alto | – |
+| stack | variabili locali, record delle chiamate, cresce verso il basso da `sp` | – |
 
-Heap e stack crescono uno verso l'altro, così lo spazio libero in mezzo può servire all'uno o all'altro. Nel sorgente assembly le zone si scelgono con le **direttive**: `.text` per il codice, `.data` per i dati; `.word 3, 5, 7` riserva e inizializza parole, `.asciz "ciao"` una stringa con lo 0 finale, `.space n` riserva $n$ byte. Nel simulatore QtRvSim del corso il programma comincia all'etichetta `_start` (dichiarata con `.globl _start`), e si possono seguire passo per passo i registri, la memoria e la pipeline; il programma termina con una chiamata di sistema (`ecall`) o con un ciclo infinito di arresto.
+- Heap e stack crescono uno verso l'altro: lo spazio libero serve a entrambi.
+- Nel simulatore QtRvSim il programma comincia a `_start` (`.globl _start`) e termina con una `ecall` o con un ciclo di arresto; si seguono registri, memoria e pipeline passo per passo.
 
 ### 2.5 Le procedure
 
-Una chiamata di procedura richiede sei passi: (1) il chiamante mette gli argomenti dove la procedura li cerca; (2) trasferisce il controllo; (3) la procedura si procura la memoria che le serve; (4) svolge il suo compito; (5) mette il risultato dove il chiamante lo cerca; (6) restituisce il controllo al punto da cui era stata chiamata.
+**I sei passi di una chiamata.** (1) Argomenti al loro posto; (2) salto alla procedura; (3) la procedura si procura la memoria; (4) lavora; (5) risultato al suo posto; (6) ritorno.
 
-In RISC-V gli argomenti vanno in `a0`…`a7` (gli altri, se ce ne sono di più, sullo stack), il risultato in `a0` (e `a1`). La chiamata è `jal ra, procedura` (scritta anche `call procedura`), che salva in `ra` l'indirizzo di ritorno; il ritorno è `jalr zero, 0(ra)`, cioè `ret`.
+| Che cosa | Dove |
+|---|---|
+| argomenti | `a0`…`a7` (gli altri sullo stack) |
+| risultato | `a0` (e `a1`) |
+| chiamata | `jal ra, proc` (`call proc`): salva PC + 4 in `ra` |
+| ritorno | `jalr zero, 0(ra)` (`ret`) |
 
-Il problema è che chiamante e procedura usano gli stessi 32 registri. La **convenzione di chiamata** divide il lavoro:
+**La convenzione di chiamata.**
 
-- i registri **salvati** `s0`…`s11`, `sp` e `ra` (dal punto di vista del chiamante) devono avere, al ritorno, lo stesso valore che avevano alla chiamata: se la procedura li usa, li salva sullo stack all'inizio e li ripristina alla fine (*callee-saved*);
-- i registri **temporanei** `t0`…`t6` e gli argomenti `a0`…`a7` possono essere modificati dalla procedura: se il chiamante ne ha bisogno dopo la chiamata, è lui a salvarli (*caller-saved*).
+| Registri | Chi li salva | Regola |
+|---|---|---|
+| `s0`…`s11`, `sp`, `ra` (per il chiamante) | la procedura chiamata (*callee-saved*) | al ritorno devono valere come prima: se la procedura li usa, li salva all'inizio e li ripristina alla fine |
+| `t0`…`t6`, `a0`…`a7` | il chiamante (*caller-saved*) | la procedura può cambiarli: se servono dopo la chiamata, il chiamante li tiene altrove |
 
-Lo **stack** si usa così: per riservare $k$ byte si sottrae $k$ a `sp` (`addi sp, sp, -k`), si salvano i registri con `sw` a offset positivi da `sp`, e alla fine si ripristinano e si rilascia lo spazio (`addi sp, sp, k`). La zona di stack di una chiamata si chiama **stack frame** (o record di attivazione). `sp` resta allineato a 16 byte nella convenzione standard; negli esempi del corso, per semplicità, si riservano solo i byte necessari.
+**Lo stack.**
 
-Una procedura che non ne chiama altre (**procedura foglia**) spesso non ha bisogno dello stack: usa i temporanei e non tocca `ra`. Una procedura che ne chiama altre deve salvare almeno `ra`, perché la sua `jal` lo sovrascrive, e i registri che le servono dopo la chiamata.
+1. `addi sp, sp, -k` (riserva $k$ byte);
+2. `sw` dei registri da salvare a offset positivi da `sp`;
+3. corpo della procedura;
+4. `lw` per ripristinarli, `addi sp, sp, k`, `ret`.
+
+La zona di una chiamata è il **record di attivazione** (*stack frame*). La convenzione standard tiene `sp` allineato a 16 byte; negli esempi del corso si riservano solo i byte necessari.
+
+| Procedura | Stack |
+|---|---|
+| **foglia** (non chiama nessuno) | spesso nessuno: usa i `t` e non tocca `ra` |
+| non foglia | salva almeno `ra` (la sua `jal` lo sovrascrive) e gli `s` che usa |
 
 ### 2.6 Procedure ricorsive
 
-Una procedura ricorsiva è una procedura non foglia che chiama sé stessa: ogni chiamata ha il suo stack frame con i suoi valori.
+Ogni chiamata ha il suo record di attivazione con i suoi valori.
 
 > [!esempio] Fattoriale
 > `int fact(int n) { return n < 2 ? 1 : n * fact(n - 1); }`
@@ -374,6 +439,8 @@ Una procedura ricorsiva è una procedura non foglia che chiama sé stessa: ogni 
 > ```
 >
 > Per `fact(3)` lo stack contiene, al momento più profondo, tre frame con $n = 3, 2, 1$ e i rispettivi indirizzi di ritorno; i frame si liberano in ordine inverso mentre si calcolano $1$, $2 \cdot 1$, $3 \cdot 2$.
+
+![Figura 2.2 · Lo stack di `fact(3)` nel punto più profondo: tre record da 8 byte, ciascuno con l'indirizzo di ritorno e il suo $n$.](figure/2-2.svg)
 
 > [!esempio] Fibonacci
 > `int fib(int n) { return n < 2 ? n : fib(n - 1) + fib(n - 2); }`. Dopo la prima chiamata ricorsiva serve ancora sia $n$ sia $fib(n - 1)$: si tengono in due registri salvati, `s0` e `s1`, che vanno quindi salvati sullo stack.
@@ -403,11 +470,26 @@ Una procedura ricorsiva è una procedura non foglia che chiama sé stessa: ogni 
 
 ### 2.7 Dall'assembly al C
 
-Leggere un programma assembly vuol dire ricostruire le variabili (a quali registri corrispondono), i cicli (i salti all'indietro) e le condizioni (i salti in avanti, con la condizione negata). Si procede così: si individuano gli argomenti (`a0`, `a1`…) e il valore di ritorno; si cerca il salto all'indietro, che chiude un ciclo, e il salto di uscita; si traduce il corpo istruzione per istruzione; infine si riscrive il tutto in un C leggibile, con i nomi delle variabili e un `for` dove c'è un contatore.
+1. Argomenti (`a0`, `a1`…) e valore di ritorno.
+2. Salti all'indietro: i cicli; salti in avanti: le condizioni (negate).
+3. Corpo istruzione per istruzione.
+4. Riscrittura in C leggibile, con nomi e `for` dove c'è un contatore.
+
+### 2.8 La prova scritta: tradurre e motivare
+
+Nella prova scritta si traduce un programma C (di solito un ordinamento ricorsivo, a volte la ricerca binaria o un altro programma del libro o delle schede) e si **motiva ogni scelta**. La traccia della risposta è sempre la stessa.
+
+1. **Firma.** Dove arrivano gli argomenti, dove va il risultato.
+2. **Foglia o no.** Se chiama qualcuno serve lo stack, almeno per `ra`.
+3. **Che cosa serve dopo una chiamata.** Ogni valore che si usa dopo una `jal` va in un registro `s` (salvato all'inizio) oppure sullo stack: i `t` e gli `a` possono essere cambiati dalla procedura chiamata.
+4. **Il record.** 4 byte per `ra` e per ogni `s` usato; `sp` torna al valore iniziale su tutti i percorsi di uscita.
+5. **Indirizzi.** `slli` di 2 per gli interi; la base resta in un registro.
+6. **Condizioni.** Negate, con `bge`/`blt` per i confronti con segno.
+7. **Controllo.** Un caso piccolo eseguito a mano (o nel simulatore).
+
+Gli esercizi 5-8 dopo gli esempi sono tracce d'esame svolte con queste motivazioni.
 
 ### Esempi ed esercizi svolti
-
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle slide (Vettori e matrici, Reverse coding, Fibonacci); tutti i programmi eseguiti con il simulatore di `strumenti/verifica_ampliamento.py` (ADC-02)
 
 **Esercizio 1. Il massimo di un array.** Scrivere `int max(int v[], int n)` (con $n \ge 1$).
 
@@ -502,10 +584,315 @@ somma_quadrati:
 
 `b` non può restare in `a1`, perché per la convenzione `quad` potrebbe cambiarlo; e $a^2$ non può restare in `t0` durante la seconda chiamata, per lo stesso motivo. Per questo entrambi passano da `s0`, salvato sullo stack. Con $a = 3$ e $b = 4$ restituisce 25.
 
+#### Tracce della prova scritta
+
+**Esercizio 5. Ordinamento a bolle con una procedura di scambio.**
+
+```c
+void scambia(int *a, int *b) { int t = *a; *a = *b; *b = t; }
+
+void bubble(int v[], int n) {
+    for (int i = n - 1; i > 0; i--)
+        for (int j = 0; j < i; j++)
+            if (v[j] > v[j + 1]) scambia(&v[j], &v[j + 1]);
+}
+```
+
+*Le scelte.*
+
+| Valore | Registro | Perché |
+|---|---|---|
+| `a`, `b` di `scambia` | `a0`, `a1` | argomenti; `scambia` è foglia: usa `t0`, `t1`, niente stack |
+| `v` | `s0` | serve dopo ogni chiamata a `scambia` |
+| `i`, `j` | `s1`, `s2` | idem: in un `t` andrebbero persi alla chiamata |
+| `&v[j]`, `&v[j + 1]` | `a0`, `a1` | sono già gli argomenti di `scambia`: calcolati direttamente lì |
+| record di `bubble` | 16 byte | `ra` + `s0`, `s1`, `s2` |
+
+```text
+scambia:   lw   t0, 0(a0)        # t = *a
+           lw   t1, 0(a1)
+           sw   t1, 0(a0)        # *a = *b
+           sw   t0, 0(a1)        # *b = t
+           ret
+bubble:    addi sp, sp, -16
+           sw   ra, 12(sp)
+           sw   s0, 8(sp)
+           sw   s1, 4(sp)
+           sw   s2, 0(sp)
+           mv   s0, a0           # s0 = v
+           addi s1, a1, -1       # i = n - 1
+bb_est:    bge  zero, s1, bb_fine  # i <= 0: fine
+           li   s2, 0            # j = 0
+bb_int:    bge  s2, s1, bb_dopo  # j >= i: fine del ciclo interno
+           slli t0, s2, 2
+           add  a0, s0, t0       # a0 = &v[j]
+           addi a1, a0, 4        # a1 = &v[j + 1]
+           lw   t1, 0(a0)        # v[j]
+           lw   t2, 0(a1)        # v[j + 1]
+           bge  t2, t1, bb_avanti  # già in ordine: niente scambio
+           jal  ra, scambia
+bb_avanti: addi s2, s2, 1        # j++
+           j    bb_int
+bb_dopo:   addi s1, s1, -1       # i--
+           j    bb_est
+bb_fine:   lw   s2, 0(sp)
+           lw   s1, 4(sp)
+           lw   s0, 8(sp)
+           lw   ra, 12(sp)
+           addi sp, sp, 16
+           ret
+```
+
+Da motivare: la condizione `v[j] > v[j + 1]` diventa "salta oltre lo scambio se `v[j + 1] >= v[j]`"; `i > 0` diventa "esci se `0 >= i`". `&v[j + 1]` è `&v[j] + 4`, non `+ 1`. Con `v` = {5, 1, 4, 2, 8} il risultato è {1, 2, 4, 5, 8}.
+
+**Esercizio 6. Quicksort (partizione di Lomuto).**
+
+```c
+void quicksort(int v[], int lo, int hi) {
+    if (lo >= hi) return;
+    int p = v[hi], i = lo;
+    for (int j = lo; j < hi; j++)
+        if (v[j] < p) { int t = v[i]; v[i] = v[j]; v[j] = t; i++; }
+    int t = v[i]; v[i] = v[hi]; v[hi] = t;
+    quicksort(v, lo, i - 1);
+    quicksort(v, i + 1, hi);
+}
+```
+
+*Le scelte.*
+
+| Valore | Registro | Perché |
+|---|---|---|
+| `v` | `s0` | serve per la seconda chiamata |
+| `hi` | `s1` | serve per la seconda chiamata |
+| `i` | `s2` | serve dopo la prima chiamata (`i + 1`) |
+| `lo` | resta in `a1` | serve solo come argomento della prima chiamata, che avviene prima di qualsiasi altra `jal` |
+| `p`, `j`, `&v[hi]`, temporanei | `t0`…`t6` | usati solo prima delle chiamate |
+| caso base | `ret` subito | prima di toccare lo stack: nessun record da disfare |
+| record | 16 byte | `ra`, `s0`, `s1`, `s2` |
+
+```text
+quicksort: bge  a1, a2, qs_fine  # lo >= hi: niente da fare
+           addi sp, sp, -16
+           sw   ra, 12(sp)
+           sw   s0, 8(sp)
+           sw   s1, 4(sp)
+           sw   s2, 0(sp)
+           mv   s0, a0           # s0 = v
+           mv   s1, a2           # s1 = hi
+           slli t0, a2, 2
+           add  t0, a0, t0       # t0 = &v[hi]
+           lw   t1, 0(t0)        # t1 = p
+           mv   s2, a1           # i = lo
+           mv   t2, a1           # j = lo
+qs_ciclo:  bge  t2, s1, qs_dopo  # j >= hi: fine della partizione
+           slli t3, t2, 2
+           add  t3, s0, t3       # t3 = &v[j]
+           lw   t4, 0(t3)        # t4 = v[j]
+           bge  t4, t1, qs_avanti  # v[j] >= p: resta dov'è
+           slli t5, s2, 2
+           add  t5, s0, t5       # t5 = &v[i]
+           lw   t6, 0(t5)
+           sw   t4, 0(t5)        # v[i] = v[j]
+           sw   t6, 0(t3)        # v[j] = vecchio v[i]
+           addi s2, s2, 1        # i++
+qs_avanti: addi t2, t2, 1        # j++
+           j    qs_ciclo
+qs_dopo:   slli t5, s2, 2
+           add  t5, s0, t5       # t5 = &v[i]
+           lw   t6, 0(t5)
+           sw   t1, 0(t5)        # v[i] = p
+           sw   t6, 0(t0)        # v[hi] = vecchio v[i]
+           addi a2, s2, -1       # quicksort(v, lo, i - 1): a0 = v, a1 = lo
+           jal  ra, quicksort
+           mv   a0, s0
+           addi a1, s2, 1
+           mv   a2, s1           # quicksort(v, i + 1, hi)
+           jal  ra, quicksort
+           lw   s2, 0(sp)
+           lw   s1, 4(sp)
+           lw   s0, 8(sp)
+           lw   ra, 12(sp)
+           addi sp, sp, 16
+qs_fine:   ret
+```
+
+Da motivare: alla prima chiamata `a0` vale ancora `v` e `a1` ancora `lo`, perché non c'è stata nessuna `jal` prima; alla seconda vanno ricaricati da `s0`, `s2`, `s1`. Lo scambio finale usa `t0` = `&v[hi]` calcolato prima del ciclo: il ciclo non lo tocca. Con `v` = {7, 2, 9, 4, 3, 8, 1} il risultato è {1, 2, 3, 4, 7, 8, 9}.
+
+**Esercizio 7. Merge sort.**
+
+```c
+void merge(int v[], int tmp[], int lo, int m, int hi) {
+    int i = lo, j = m + 1, k = lo;
+    while (i <= m && j <= hi)
+        tmp[k++] = (v[j] < v[i]) ? v[j++] : v[i++];
+    while (i <= m) tmp[k++] = v[i++];
+    while (j <= hi) tmp[k++] = v[j++];
+    for (k = lo; k <= hi; k++) v[k] = tmp[k];
+}
+
+void mergesort(int v[], int tmp[], int lo, int hi) {
+    if (lo >= hi) return;
+    int m = (lo + hi) / 2;
+    mergesort(v, tmp, lo, m);
+    mergesort(v, tmp, m + 1, hi);
+    merge(v, tmp, lo, m, hi);
+}
+```
+
+*Le scelte.*
+
+| Valore | Registro | Perché |
+|---|---|---|
+| `v`, `tmp`, `lo`, `hi`, `m` | `s0`…`s4` | tutti servono dopo almeno una chiamata ricorsiva |
+| `(lo + hi) / 2` | `add` + `srai 1` | gli indici non sono negativi: lo shift è la divisione intera |
+| `merge` | foglia, solo `t` | non chiama nessuno: niente stack |
+| il quinto argomento `hi` | `a4` | ci sono 8 registri per gli argomenti |
+| record di `mergesort` | 24 byte | `ra` + 5 registri `s` |
+| `v[j] < v[i]` | prende `v[j]` solo se strettamente minore | a parità prende `v[i]`: l'ordinamento è stabile |
+
+```text
+mergesort: bge  a2, a3, ms_fine  # lo >= hi: un elemento, già ordinato
+           addi sp, sp, -24
+           sw   ra, 20(sp)
+           sw   s0, 16(sp)
+           sw   s1, 12(sp)
+           sw   s2, 8(sp)
+           sw   s3, 4(sp)
+           sw   s4, 0(sp)
+           mv   s0, a0           # v
+           mv   s1, a1           # tmp
+           mv   s2, a2           # lo
+           mv   s3, a3           # hi
+           add  s4, a2, a3
+           srai s4, s4, 1        # m = (lo + hi) / 2
+           mv   a3, s4           # mergesort(v, tmp, lo, m)
+           jal  ra, mergesort
+           mv   a0, s0
+           mv   a1, s1
+           addi a2, s4, 1
+           mv   a3, s3           # mergesort(v, tmp, m + 1, hi)
+           jal  ra, mergesort
+           mv   a0, s0
+           mv   a1, s1
+           mv   a2, s2
+           mv   a3, s4
+           mv   a4, s3           # merge(v, tmp, lo, m, hi)
+           jal  ra, merge
+           lw   s4, 0(sp)
+           lw   s3, 4(sp)
+           lw   s2, 8(sp)
+           lw   s1, 12(sp)
+           lw   s0, 16(sp)
+           lw   ra, 20(sp)
+           addi sp, sp, 24
+ms_fine:   ret
+merge:     mv   t0, a2           # i = lo
+           addi t1, a3, 1        # j = m + 1
+           mv   t2, a2           # k = lo
+mg_ciclo:  blt  a3, t0, mg_resto_j  # i > m: resta la seconda metà
+           blt  a4, t1, mg_resto_i  # j > hi: resta la prima metà
+           slli t3, t0, 2
+           add  t3, a0, t3
+           lw   t3, 0(t3)        # t3 = v[i]
+           slli t4, t1, 2
+           add  t4, a0, t4
+           lw   t4, 0(t4)        # t4 = v[j]
+           slli t5, t2, 2
+           add  t5, a1, t5       # t5 = &tmp[k]
+           addi t2, t2, 1        # k++
+           blt  t4, t3, mg_da_j  # v[j] < v[i]: prende v[j]
+           sw   t3, 0(t5)        # tmp[k] = v[i]
+           addi t0, t0, 1        # i++
+           j    mg_ciclo
+mg_da_j:   sw   t4, 0(t5)        # tmp[k] = v[j]
+           addi t1, t1, 1        # j++
+           j    mg_ciclo
+mg_resto_i: blt a3, t0, mg_copia
+           slli t3, t0, 2
+           add  t3, a0, t3
+           lw   t3, 0(t3)
+           slli t5, t2, 2
+           add  t5, a1, t5
+           sw   t3, 0(t5)        # tmp[k++] = v[i++]
+           addi t0, t0, 1
+           addi t2, t2, 1
+           j    mg_resto_i
+mg_resto_j: blt a4, t1, mg_copia
+           slli t4, t1, 2
+           add  t4, a0, t4
+           lw   t4, 0(t4)
+           slli t5, t2, 2
+           add  t5, a1, t5
+           sw   t4, 0(t5)        # tmp[k++] = v[j++]
+           addi t1, t1, 1
+           addi t2, t2, 1
+           j    mg_resto_j
+mg_copia:  mv   t2, a2           # k = lo
+mg_cc:     blt  a4, t2, mg_fine  # k > hi: finito
+           slli t5, t2, 2
+           add  t3, a1, t5
+           lw   t3, 0(t3)        # tmp[k]
+           add  t4, a0, t5
+           sw   t3, 0(t4)        # v[k] = tmp[k]
+           addi t2, t2, 1
+           j    mg_cc
+mg_fine:   ret
+```
+
+Da motivare: `i <= m` diventa "esci se `m < i`", cioè `blt a3, t0`; `merge` può usare tutti i `t` perché nessuno dei chiamanti ci tiene niente dentro; `m` deve stare in un `s`, perché serve sia alla seconda chiamata sia a `merge`. Con `v` = {38, 27, 43, 3, 9, 82, 10} il risultato è {3, 9, 10, 27, 38, 43, 82}.
+
+**Esercizio 8. Ricerca binaria ricorsiva.**
+
+```c
+int cerca(int v[], int lo, int hi, int x) {
+    if (lo > hi) return -1;
+    int m = (lo + hi) / 2;
+    if (v[m] == x) return m;
+    if (v[m] < x) return cerca(v, m + 1, hi, x);
+    return cerca(v, lo, m - 1, x);
+}
+```
+
+*Le scelte.*
+
+| Valore | Registro | Perché |
+|---|---|---|
+| `v`, `lo`, `hi`, `x` | `a0`…`a3` | dopo la chiamata ricorsiva non servono più: il risultato è quello della chiamata |
+| `m`, `v[m]` | `t0`, `t1` | usati solo prima della chiamata |
+| record | 4 byte, solo `ra` | nessun `s`: non c'è niente da conservare |
+| casi base | `ret` senza stack | lo stack si apre solo sul ramo che chiama |
+
+```text
+cerca:     blt  a2, a1, cr_no    # lo > hi: non c'è
+           add  t0, a1, a2
+           srai t0, t0, 1        # m = (lo + hi) / 2
+           slli t1, t0, 2
+           add  t1, a0, t1
+           lw   t1, 0(t1)        # t1 = v[m]
+           beq  t1, a3, cr_si
+           addi sp, sp, -4
+           sw   ra, 0(sp)
+           blt  t1, a3, cr_destra  # v[m] < x: cerca a destra
+           addi a2, t0, -1       # cerca(v, lo, m - 1, x)
+           jal  ra, cerca
+           j    cr_esci
+cr_destra: addi a1, t0, 1        # cerca(v, m + 1, hi, x)
+           jal  ra, cerca
+cr_esci:   lw   ra, 0(sp)
+           addi sp, sp, 4
+           ret
+cr_si:     mv   a0, t0           # trovato: restituisce m
+           ret
+cr_no:     li   a0, -1
+           ret
+```
+
+Da motivare: è una ricorsione **in coda** (il risultato della chiamata è restituito così com'è). Un compilatore la trasforma in un ciclo: al posto di `jal` + `ret` basta `j cerca`, e lo stack non serve più. In {1, 3, 5, 7, 9, 11, 13} la ricerca di 11 dà 5, quella di 4 dà −1.
+
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; programmi eseguiti con il simulatore di `strumenti/verifica_ampliamento.py` (ADC-02)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Tradurre un ciclo con una condizione.** Tradurre `int s = 0; for (int i = 0; i < n; i++) if (v[i] % 2 == 0) s += v[i];` (somma dei pari), con `v` in `a0`, `n` in `a1`, risultato in `a0`.
 
@@ -569,8 +956,6 @@ Il compilatore assegna le variabili ai registri e traduce condizioni e cicli in 
 
 ### Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (ADC-02)
-
 #### Schemi di traduzione
 
 | C | RISC-V |
@@ -611,31 +996,44 @@ Prologo: `addi sp, sp, -k` · `sw ra, …(sp)` · `sw s…, …(sp)`. Epilogo: `
 - Come si calcola l'indirizzo di un elemento di un array e di una matrice?
 - Descrivere le zone della memoria di un programma.
 - Tradurre in C un frammento assembly assegnato.
+- Prova scritta: tradurre un ordinamento ricorsivo (merge sort, quicksort) o la ricerca binaria e motivare registri, record di attivazione e condizioni (2.8, esercizi 5-8).
 
 ## 3 · L'ALU e l'aritmetica del calcolatore
 
-**In questo modulo.** Si usano il sommatore e il complemento a 2 delle reti logiche e le istruzioni del modulo 1 (*Astrazione, prestazioni e l'ISA RISC-V*). Si costruisce passo per passo l'unità aritmetico-logica che esegue le istruzioni RISC-V: prima un bit, poi 32, con la sottrazione, il confronto `slt`, il test di zero e il rilevamento dell'overflow. Poi si vede come rendere veloce la somma con il calcolo anticipato del riporto, e come si fanno in hardware la moltiplicazione (anche con l'algoritmo di Booth) e la divisione. La terza parte è la virgola mobile IEEE 754, con gli algoritmi di somma e prodotto. Chiudono i codici di Hamming, che proteggono i dati in memoria dagli errori. Alla fine del modulo si sanno eseguire a mano tutti gli algoritmi e spiegare l'hardware che li realizza.
-
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Arithmetic Logic Unit, Codici di Hamming); Patterson e Hennessy, *Struttura e progetto dei calcolatori*, edizione RISC-V, cap. 3 e appendice A (ADC-03)
-> Il modulo è scritto in revisione dal materiale del corso; ogni algoritmo è svolto su un esempio controllato con `strumenti/verifica_ampliamento.py`.
+**In questo modulo.** Prerequisiti: complemento a 2, sommatori e multiplexer (Reti Logiche). Si costruisce l'ALU di RISC-V a partire da un bit, la si rende veloce con l'anticipo del riporto, poi moltiplicazione (somma e scorri, Booth), divisione, virgola mobile e codici di Hamming. All'orale si disegnano l'ALU a un bit e a 32 bit (figure 3.1 e 3.2) spiegando ogni segnale.
 
 ### 3.1 L'ALU a un bit
 
-L'ALU deve eseguire le operazioni dell'ISA sugli interi: `and`, `or`, somma, sottrazione, confronto. Si comincia da un solo bit. Con gli ingressi $a$ e $b$ si calcolano in parallelo $a \cdot b$, $a + b$ (OR) e la somma con un full adder, che ha anche il riporto in ingresso $c_{in}$ e quello in uscita $c_{out}$. Un multiplexer comandato dal segnale **Operation** sceglie quale risultato portare in uscita.
+![Figura 3.1 · L'ALU a un bit: AND, OR e somma calcolati in parallelo, un multiplexer sceglie il risultato. Ainvert e Binvert negano gli ingressi; Less serve per `slt`.](figure/3-1.svg)
 
-La sottrazione non richiede un circuito nuovo: in complemento a 2, $a - b = a + \bar b + 1$. Si aggiunge un multiplexer che sceglie fra $b$ e $\bar b$ (segnale **Binvert**), e per il "+1" si mette a 1 il riporto in ingresso del bit 0. Con un secondo multiplexer su $a$ (**Ainvert**) e le leggi di De Morgan si ottiene anche la NOR: $\overline{a + b} = \bar a \cdot \bar b$.
+| Parte | A che serve |
+|---|---|
+| AND, OR | operazioni logiche |
+| full adder | somma: $s = a \oplus b \oplus c_{in}$, $c_{out} = ab + (a + b)c_{in}$ |
+| multiplexer **Operation** (2 bit) | sceglie AND (0), OR (1), somma (2), Less (3) |
+| **Binvert** | usa $\bar b$: $a - b = a + \bar b + 1$ (il +1 è il CarryIn del bit 0) |
+| **Ainvert** | usa $\bar a$: con Binvert e AND dà la NOR ($\overline{a + b} = \bar a \cdot \bar b$) |
+| **Less** | ingresso per `slt` (3.2) |
+
+**Perché tutto in parallelo.** I tre risultati si calcolano sempre; il multiplexer sceglie alla fine. Il ritardo è quello del percorso più lento (la somma), non della somma dei percorsi.
 
 ### 3.2 L'ALU a 32 bit
 
-Mettendo in fila 32 ALU a un bit, con il $c_{out}$ di ognuna collegato al $c_{in}$ della successiva, si ottiene un sommatore a propagazione del riporto (*ripple carry*) che sa anche fare AND, OR, NOR e sottrazione. Servono tre aggiunte.
+![Figura 3.2 · L'ALU a 32 bit a propagazione del riporto: Bnegate comanda insieme Binvert e il riporto del bit 0; Set del bit 31 torna su Less del bit 0; Zero è la NOR di tutti i risultati.](figure/3-2.svg)
 
-**`slt`.** Il risultato è 1 se $a < b$ e 0 altrimenti, cioè un numero con tutti i bit a 0 tranne forse il bit 0. Si calcola $a - b$: se il risultato è negativo, $a < b$. Ogni ALU a un bit ha un ingresso in più, **Less**, selezionato come quarta scelta del multiplexer: per i bit da 1 a 31 Less vale 0; per il bit 0 Less è collegato al bit di segno della sottrazione calcolato dall'ALU del bit 31 (un'uscita apposita, **Set**). Attenzione: se la sottrazione va in overflow il bit di segno è sbagliato, e il valore giusto è $\text{Set} \oplus \text{Overflow}$.
+**Ripple carry.** 32 ALU da un bit in fila, CarryOut del bit $i$ → CarryIn del bit $i + 1$.
 
-**Zero.** Per i salti `beq` e `bne` serve sapere se $a - b = 0$: è la NOR di tutti i 32 bit del risultato, $\text{Zero} = \overline{r_{31} + \dots + r_0}$.
+**Le tre aggiunte.**
 
-**Overflow.** In complemento a 2 c'è overflow quando il riporto che entra nel bit di segno è diverso da quello che ne esce, $V = c_{31} \oplus c_{32}$: succede solo sommando due numeri dello stesso segno (o sottraendo numeri di segno opposto). RISC-V non segnala l'overflow con un'eccezione: se serve, il programma lo controlla con un confronto.
+| Aggiunta | Come | Perché |
+|---|---|---|
+| `slt` | si calcola $a - b$; il bit di segno (uscita **Set** del bit 31) va su Less del bit 0; Less = 0 negli altri bit | il risultato è 0…01 o 0…00 |
+| **Zero** | $\overline{r_{31} + \dots + r_0}$ | `beq`, `bne`: $a = b \iff a - b = 0$ |
+| **Overflow** | $V = c_{31} \oplus c_{32}$ (riporto entrante ed uscente del bit di segno diversi) | solo sommando numeri dello stesso segno o sottraendo di segno opposto |
 
-Il controllo dell'ALU usa quattro bit: Ainvert, Binvert (che comanda anche il riporto in ingresso del bit 0) e i due bit di Operation.
+**Attenzione a `slt`.** Se $a - b$ va in overflow il segno è sbagliato: il valore giusto è $\text{Set} \oplus \text{Overflow}$.
+
+**Il controllo dell'ALU** (4 bit: Ainvert, Bnegate, Operation):
 
 | Controllo ALU | Funzione |
 |---|---|
@@ -646,63 +1044,119 @@ Il controllo dell'ALU usa quattro bit: Ainvert, Binvert (che comanda anche il ri
 | 0111 | `slt` |
 | 1100 | NOR |
 
-### 3.3 Il calcolo anticipato del riporto
+RISC-V non genera eccezioni per l'overflow: se serve, lo controlla il programma.
 
-Nel sommatore ripple il riporto attraversa tutti gli stadi, e il ritardo cresce con il numero di bit. Per rendere la somma veloce bisogna calcolare i riporti senza aspettare. Dalla tabella del full adder, $c_{i+1} = a_i b_i + (a_i + b_i)c_i$. Si definiscono per ogni bit
+**All'orale.**
 
-$$g_i = a_i b_i \quad \text{(generazione)}, \qquad p_i = a_i + b_i \quad \text{(propagazione)},$$
+- *Perché Bnegate è un solo segnale?* Negare $b$ e mettere 1 nel riporto del bit 0 servono sempre insieme: è la sottrazione in complemento a 2.
+- *Perché Set è un'uscita separata e non Result31?* Per `slt` Result31 vale Less = 0; il segno della sottrazione è l'uscita del sommatore, prima del multiplexer.
+- *Che problema ha il ripple carry?* Il riporto attraversa 32 stadi: il ritardo cresce linearmente con i bit. Soluzione: 3.3.
 
-perché lo stadio $i$ *genera* un riporto se $a_i = b_i = 1$, qualunque sia $c_i$, e *propaga* il riporto in arrivo se almeno uno dei due bit vale 1. Allora $c_{i+1} = g_i + p_i c_i$, e sostituendo all'indietro:
+### 3.3 L'anticipo del riporto (carry lookahead)
+
+Dal full adder $c_{i+1} = a_i b_i + (a_i + b_i)c_i$. Si definiscono
+
+$$g_i = a_i b_i \ \text{(il bit genera un riporto)}, \qquad p_i = a_i + b_i \ \text{(il bit propaga il riporto in arrivo)},$$
+
+quindi $c_{i+1} = g_i + p_i c_i$, e svolgendo:
 $$c_1 = g_0 + p_0 c_0, \qquad c_2 = g_1 + p_1 g_0 + p_1 p_0 c_0,$$
 $$c_3 = g_2 + p_2 g_1 + p_2 p_1 g_0 + p_2 p_1 p_0 c_0, \qquad c_4 = g_3 + p_3 g_2 + p_3 p_2 g_1 + p_3 p_2 p_1 g_0 + p_3 p_2 p_1 p_0 c_0.$$
-Ogni riporto è una rete a due livelli in $g$, $p$ e $c_0$: tutti i riporti sono pronti dopo lo stesso tempo (**carry lookahead**). Il prezzo è che le espressioni crescono rapidamente; per 32 bit si raggruppano i bit a blocchi di 4, ciascuno con il suo $G$ e $P$ di blocco ($P_0 = p_3 p_2 p_1 p_0$, $G_0 = g_3 + p_3 g_2 + p_3 p_2 g_1 + p_3 p_2 p_1 g_0$), e si applica lo stesso schema ai blocchi.
+
+- Ogni riporto è una rete a **due livelli** in $g$, $p$, $c_0$: tutti pronti dopo lo stesso tempo.
+- Le espressioni crescono in fretta → per 32 bit si lavora a **blocchi di 4** con $P$ e $G$ di blocco, e si ripete lo schema sui blocchi.
+
+![Figura 3.3 · Somma a 16 bit con anticipo su due livelli: ogni blocco da 4 bit fornisce $P_i$ e $G_i$; l'unità di anticipo calcola $c_4$, $c_8$, $c_{12}$, $c_{16}$ senza attraversare i blocchi.](figure/3-3.svg)
+
+$$P_0 = p_3 p_2 p_1 p_0, \qquad G_0 = g_3 + p_3 g_2 + p_3 p_2 g_1 + p_3 p_2 p_1 g_0.$$
 
 ### 3.4 La moltiplicazione
 
-Il prodotto di due numeri di $n$ bit ha fino a $2n$ bit. L'algoritmo è quello in colonna: per ogni bit a 1 del moltiplicatore si somma il moltiplicando spostato. L'hardware delle slide del corso (*add and right shift*) usa un registro prodotto di $2n$ bit: all'inizio la metà alta vale 0 e la metà bassa contiene il moltiplicatore. A ogni passo, se il bit meno significativo del registro è 1 si somma il moltiplicando alla metà alta; poi si sposta tutto il registro di un bit a destra. Dopo $n$ passi il registro contiene il prodotto. Serve un solo sommatore di $n$ bit.
+**Somma e scorri** (*add and right shift*, versione delle slide):
 
-Per i numeri con segno si può moltiplicare i valori assoluti e sistemare il segno alla fine, oppure usare l'**algoritmo di Booth**. L'idea è che una sequenza di 1 nel moltiplicatore si può sostituire con una sottrazione e una somma: $0110 = 1000 - 0010$, quindi $m \times 0110 = m \times 1000 - m \times 0010$. Si guarda la coppia formata dal bit corrente del moltiplicatore e dal bit alla sua destra (all'inizio un bit aggiuntivo $q_{-1} = 0$):
+![Figura 3.4 · Il moltiplicatore «somma e scorri»: un solo sommatore da 32 bit e un registro del prodotto da 64 bit che all'inizio contiene il moltiplicatore nella metà bassa.](figure/3-4.svg)
+
+1. Prodotto ← (0, moltiplicatore).
+2. Se il bit 0 del prodotto è 1: metà alta ← metà alta + moltiplicando.
+3. Prodotto scorre a destra di 1 (il riporto della somma entra in cima).
+4. Ripetere $n$ volte.
+
+Perché la metà bassa ospita il moltiplicatore: a ogni passo se ne consuma un bit e si libera un posto per un bit del prodotto. Un registro solo, un sommatore solo.
+
+**Numeri con segno: algoritmo di Booth.** Una sequenza di 1 si sostituisce con una sottrazione e una somma ($0110 = 1000 - 0010$). Si guarda la coppia ($q_0$, $q_{-1}$), con $q_{-1} = 0$ all'inizio:
 
 | $q_0\ q_{-1}$ | Operazione | Significato |
 |---|---|---|
 | 1 0 | $A = A - M$ | inizio di una sequenza di 1 |
-| 1 1 | nessuna | in mezzo alla sequenza |
+| 1 1 | nessuna | dentro la sequenza |
 | 0 1 | $A = A + M$ | fine della sequenza |
-| 0 0 | nessuna | in mezzo a una sequenza di 0 |
+| 0 0 | nessuna | dentro una sequenza di 0 |
 
-e dopo ogni operazione si fa uno shift **aritmetico** a destra (che conserva il segno) di $A$, $Q$ e $q_{-1}$ insieme. Funziona direttamente in complemento a 2.
+Dopo ogni passo: **shift aritmetico** a destra di $A$, $Q$, $q_{-1}$ (conserva il segno). Funziona direttamente in complemento a 2.
 
-In RISC-V la moltiplicazione è nell'estensione M: `mul rd, rs1, rs2` dà i 32 bit bassi del prodotto, `mulh` (con segno) e `mulhu` (senza segno) quelli alti; per sapere se un prodotto sta in 32 bit si guarda la parte alta.
+**In RISC-V** (estensione M): `mul` (32 bit bassi), `mulh` e `mulhu` (32 bit alti, con e senza segno). Il prodotto sta in 32 bit se la parte alta è l'estensione del segno di quella bassa.
 
 ### 3.5 La divisione
 
-La divisione si fa con sottrazioni e shift, come quella in colonna: $\text{dividendo} = \text{quoziente} \times \text{divisore} + \text{resto}$, con $0 \le \text{resto} < \text{divisore}$. A ogni passo si prova a sottrarre il divisore (allineato) dal resto parziale: se il risultato è $\ge 0$ il bit del quoziente è 1 e si tiene la sottrazione; se è negativo il bit è 0 e si ripristina il resto (algoritmo *restoring*). In hardware il divisore sta nella metà alta di un registro di $2n$ bit e scorre a destra di un bit a ogni passo, mentre il quoziente si forma a sinistra. A differenza della moltiplicazione, i passi non si possono fare in parallelo, perché ognuno dipende dal segno del precedente: per questo la divisione è l'operazione intera più lenta. In RISC-V: `div`, `divu`, `rem`, `remu`; la divisione per zero non genera eccezioni ma dà un risultato convenzionale (quoziente con tutti i bit a 1).
+- $\text{dividendo} = \text{quoziente} \times \text{divisore} + \text{resto}$, $0 \le \text{resto} < \text{divisore}$.
+- **Restoring**: a ogni passo si sottrae il divisore allineato; se il resto è $\ge 0$ il bit del quoziente è 1, altrimenti 0 e si ripristina il resto.
+- In hardware: divisore nella metà alta di un registro da $2n$ bit che scorre a destra, quoziente che si forma a sinistra.
+- Perché è lenta: ogni passo dipende dal segno del precedente, non si parallelizza.
+- RISC-V: `div`, `divu`, `rem`, `remu`; la divisione per zero non dà eccezione (quoziente con tutti i bit a 1).
 
 ### 3.6 La virgola mobile
 
-Il formato IEEE 754 è spiegato nel modulo 2 di Reti Logiche; qui si ricorda l'essenziale e si vedono le operazioni. Un numero normalizzato in singola precisione è
-$$(-1)^s \times (1 + F) \times 2^{E - 127},$$
-con 1 bit di segno, 8 di esponente in eccesso 127 e 23 di frazione $F$ (il bit 1 prima della virgola è nascosto). In doppia precisione l'esponente ha 11 bit (eccesso 1023) e la frazione 52. Si ha **overflow** quando l'esponente supera il massimo rappresentabile, **underflow** quando un numero diverso da 0 è più piccolo del minimo normalizzato; i valori con esponente tutto a 0 e tutto a 1 sono riservati a zero, denormalizzati, infiniti e NaN.
+![Figura 3.5 · I formati IEEE 754.](figure/3-5.svg)
 
-**Somma.** (1) Si confrontano gli esponenti e si sposta a destra la mantissa del numero con l'esponente minore, finché gli esponenti sono uguali. (2) Si sommano le mantisse (con il segno). (3) Si normalizza il risultato, spostando la mantissa e correggendo l'esponente, e si controlla overflow o underflow. (4) Si arrotonda ai bit disponibili; se l'arrotondamento denormalizza il risultato, si torna al passo 3.
+| | Segno | Esponente | Frazione | Eccesso |
+|---|---|---|---|---|
+| singola | 1 | 8 | 23 | 127 |
+| doppia | 1 | 11 | 52 | 1023 |
 
-**Prodotto.** (1) Si sommano gli esponenti *veri*: con gli esponenti in eccesso bisogna togliere un 127, perché $(E_1 + 127) + (E_2 + 127) = (E_1 + E_2 + 127) + 127$. (2) Si moltiplicano le mantisse. (3) Si normalizza e si controlla overflow e underflow. (4) Si arrotonda. (5) Il segno è lo XOR dei segni.
+$$x = (-1)^s \times (1 + F) \times 2^{E - 127}.$$
 
-Per arrotondare bene l'hardware tiene, durante i calcoli, due bit in più a destra (**guard** e **round**) e un bit **sticky** che vale 1 se qualcuno dei bit scartati era 1. Il modo di arrotondamento standard è al più vicino, e in caso di pareggio al pari.
+- **1 nascosto**: un numero normalizzato comincia sempre con 1, che non si scrive: un bit di precisione gratis.
+- **Esponente in eccesso**: si confrontano due numeri positivi come interi.
+- Esponente tutto a 0 e tutto a 1: riservati (zero, denormalizzati, infinito, NaN).
+- **Overflow**: esponente oltre il massimo. **Underflow**: numero non nullo sotto il minimo normalizzato.
 
-### 3.7 Rilevare e correggere gli errori: i codici di Hamming
+**Somma.**
 
-Un bit in memoria o su un canale può cambiare per un disturbo. La **distanza di Hamming** fra due sequenze di bit della stessa lunghezza è il numero di posizioni in cui differiscono: $d(1011, 1110) = 2$. La distanza di un codice è la minima distanza fra due parole valide. Con distanza $d$ si possono rilevare fino a $d - 1$ errori, oppure correggerne fino a $\left\lfloor \frac{d - 1}{2} \right\rfloor$: con $d = 2$ (il bit di parità) si rileva un errore singolo, con $d = 3$ lo si corregge, con $d = 4$ si corregge un errore e se ne rilevano due.
+![Figura 3.6 · I passi della somma in virgola mobile e i blocchi che li eseguono.](figure/3-6.svg)
 
-Per correggere un errore su $M$ bit di dati si aggiungono $K$ bit di controllo, che insieme devono indicare se non c'è errore o in quale delle $M + K$ posizioni è avvenuto. Servono quindi
+**Prodotto.** (1) Esponenti sommati togliendo un eccesso: $(E_1 + 127) + (E_2 + 127) - 127$. (2) Mantisse moltiplicate. (3) Normalizzazione, overflow e underflow. (4) Arrotondamento. (5) Segno = XOR dei segni.
+
+**Arrotondamento.** Due bit in più durante i calcoli (**guard**, **round**) e un bit **sticky** (1 se qualche bit scartato era 1). Modo standard: al più vicino, in caso di pareggio al pari.
+
+### 3.7 I codici di Hamming
+
+**Distanza di Hamming**: numero di posizioni diverse, $d(1011, 1110) = 2$. Un codice a distanza $d$ rileva $d - 1$ errori o ne corregge $\lfloor (d - 1)/2 \rfloor$.
+
+| $d$ | Che cosa fa | Esempio |
+|---|---|---|
+| 2 | rileva 1 errore | bit di parità |
+| 3 | corregge 1 errore | Hamming |
+| 4 | corregge 1, rileva 2 | SECDED (memorie ECC) |
+
+**Quanti bit di controllo.** Per correggere un errore su $M$ bit di dati con $K$ bit di controllo:
 $$2^K \ge M + K + 1.$$
-Per $M = 4$ basta $K = 3$ (codice di Hamming (7, 4)); per $M = 8$, $K = 4$; per $M = 16$, $K = 5$; per $M = 32$, $K = 6$; per $M = 64$, $K = 7$. La frazione di bit di controllo diminuisce al crescere di $M$.
 
-**Costruzione.** Si numerano le posizioni da 1: i bit di controllo vanno nelle posizioni potenze di 2 (1, 2, 4, 8, …), i dati nelle altre. Il bit di controllo in posizione $2^j$ è la parità (pari) delle posizioni il cui numero, in binario, ha il bit $j$ a 1: il bit 1 controlla le posizioni 1, 3, 5, 7, …; il bit 2 le posizioni 2, 3, 6, 7, …; il bit 4 le posizioni 4, 5, 6, 7, … Chi riceve ricalcola le tre parità: i risultati, letti come numero binario (la **sindrome**), valgono 0 se non c'è errore, e altrimenti danno proprio la posizione del bit sbagliato, che basta invertire. Aggiungendo un bit di parità su tutta la parola si ottiene il codice **SECDED** (correzione di un errore, rilevazione di due), usato nelle memorie ECC.
+| $M$ | 4 | 8 | 16 | 32 | 64 |
+|---|---|---|---|---|---|
+| $K$ | 3 | 4 | 5 | 6 | 7 |
+
+**Costruzione.**
+
+- posizioni numerate da 1; controlli nelle potenze di 2 (1, 2, 4, 8, …), dati nelle altre;
+- il controllo in $2^j$ è la parità pari delle posizioni con il bit $j$ a 1 nel loro numero (1: posizioni 1, 3, 5, 7…; 2: 2, 3, 6, 7…; 4: 4, 5, 6, 7…);
+- chi riceve ricalcola le parità: la **sindrome** letta in binario vale 0 se non ci sono errori, altrimenti è la posizione del bit sbagliato;
+- un bit di parità in più su tutta la parola → SECDED.
+
+**All'orale.**
+
+- *Perché i bit di controllo nelle potenze di 2?* Ognuno compare in una sola delle parità (la sua): così la sindrome è proprio la posizione dell'errore.
+- *Che errore non vede il codice di Hamming semplice?* Due errori: la sindrome indica una terza posizione, e la "correzione" aggiunge un errore. Per questo SECDED aggiunge la parità globale.
 
 ### Esempi ed esercizi svolti
-
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle slide (ALU, Codici di Hamming); soluzioni controllate con `strumenti/verifica_ampliamento.py` (ADC-03)
 
 **Esercizio 1. I riporti anticipati di una somma a 4 bit.** $a = 1011$, $b = 0110$, $c_0 = 0$.
 
@@ -748,8 +1202,7 @@ I dati vanno nelle posizioni 3, 5, 6, 7: $b_3 = 1$, $b_5 = 0$, $b_6 = 1$, $b_7 =
 
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/verifica_ampliamento.py` (ADC-03)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. L'overflow dell'ALU.** Con 8 bit, l'ALU calcola $100 + 50$ e $(-100) - 50$. In quali casi segnala overflow e che cosa dà `slt` per $a = 100$, $b = -100$?
 
@@ -786,8 +1239,6 @@ I dati vanno nelle posizioni 3, 5, 6, 7: $b_3 = 1$, $b_5 = 0$, $b_6 = 1$, $b_7 =
 L'ALU a un bit sceglie con un multiplexer fra AND, OR e somma; con Binvert e il riporto iniziale a 1 sottrae, con Ainvert fa la NOR. L'ALU a 32 bit aggiunge l'ingresso Less per `slt`, l'uscita Zero per i salti e il rilevamento dell'overflow con $c_{31} \oplus c_{32}$. Il calcolo anticipato del riporto rende i riporti reti a due livelli nei segnali di generazione e propagazione, e si applica a blocchi. La moltiplicazione si fa con somme e shift su un registro di $2n$ bit; l'algoritmo di Booth sostituisce le sequenze di 1 con una sottrazione e una somma e lavora in complemento a 2. La divisione si fa con sottrazioni di prova e ripristini, un passo alla volta. In virgola mobile la somma richiede allineamento, somma, normalizzazione e arrotondamento; il prodotto somma gli esponenti togliendo l'eccesso e moltiplica le mantisse. I codici di Hamming con distanza 3 correggono un errore con $K$ bit di controllo tali che $2^K \ge M + K + 1$, e la sindrome indica la posizione dell'errore.
 
 ### Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (ADC-03)
 
 #### Interi
 
@@ -836,31 +1287,71 @@ $d$ = distanza minima: rileva $d - 1$ errori, ne corregge $\lfloor (d - 1)/2 \rf
 
 ## 4 · Il processore, la pipeline e il parallelismo fra istruzioni
 
-**In questo modulo.** Si usano le istruzioni e i formati del modulo 1, l'ALU del modulo 3 e le reti sequenziali di Reti Logiche (registri, multiplexer, memorie). Si costruisce prima il percorso dei dati (*datapath*) che esegue in un solo ciclo di clock le istruzioni `add`, `sub`, `and`, `or`, `lw`, `sw` e `beq`, con l'unità di controllo che lo comanda. Poi si vede perché il ciclo singolo è lento e come la pipeline a cinque stadi aumenti il numero di istruzioni completate per unità di tempo. La parte più lunga riguarda i conflitti (*hazard*) della pipeline: strutturali, sui dati e sul controllo, con gli stalli, il forwarding, l'unità di rilevamento dei conflitti, la previsione dei salti e le eccezioni. Chiudono le architetture che avviano più istruzioni per ciclo: VLIW, srotolamento dei cicli, superscalari ed esecuzione fuori ordine. Alla fine del modulo si sa disegnare il diagramma temporale di un frammento di codice, contare gli stalli con e senza forwarding, riordinare il codice per eliminarli e calcolare il CPI di un programma.
+**In questo modulo.** Prerequisiti: formati e istruzioni (modulo 1), ALU (modulo 3), registri, multiplexer e memorie (Reti Logiche). Si costruisce il datapath a ciclo singolo con la sua unità di controllo, lo si spezza nella pipeline a cinque stadi e si risolvono i conflitti: propagazione, stallo load-use, salti decisi in ID, previsione statica e dinamica, eccezioni. Chiudono VLIW e superscalari. Ogni schema è accompagnato dalle domande che si fanno all'orale (perché un blocco sta lì, che errore evita, che problemi introduce). In fondo al capitolo, nel paragrafo 4.9, c'è la scaletta per ridisegnare il datapath a mano.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (RISC-V Pipelined Architecture 1 e 2, Control Hazards, Multiple Issue), appunto a mano *Datapath con pipeline* dell'autore; Patterson e Hennessy, *Struttura e progetto dei calcolatori*, edizione RISC-V, cap. 4 (ADC-04, ADC-06, ADC-07)
-> Il modulo è scritto in revisione dal materiale del corso; l'appunto a mano dell'autore (lo schema del datapath con l'unità di forwarding e l'unità di rilevamento dei conflitti) è descritto alla fine di 4.7. Le slide usano in parte la notazione MIPS (i registri con il dollaro, il campo `Rt`): qui si usa quella RISC-V (`x1`, `rs1`, `rs2`, `rd`). I conteggi dei cicli sono controllati con `strumenti/pipe.py`.
+**Convenzioni degli schemi.** In nero i dati, in blu tratteggiato i segnali di controllo, in arancio le parti aggiunte rispetto allo schema precedente. Si usano i nomi dei segnali del Patterson-Hennessy, gli stessi delle slide del corso.
 
 ### 4.1 Il datapath a ciclo singolo
 
-Ogni istruzione RISC-V comincia allo stesso modo: si legge l'istruzione dalla memoria all'indirizzo contenuto nel PC (*program counter*) e si leggono uno o due registri, con i campi `rs1` e `rs2` che stanno sempre nella stessa posizione in tutti i formati. Poi le classi di istruzioni si separano, ma tutte usano l'ALU: le aritmetico-logiche per il calcolo, `lw` e `sw` per l'indirizzo, `beq` per il confronto. Infine `lw` e `sw` accedono alla memoria dati, le aritmetico-logiche e `lw` scrivono un registro, e il PC passa all'istruzione successiva ($PC + 4$) o alla destinazione del salto.
+![Figura 4.1 · Il datapath a ciclo singolo per le istruzioni di tipo R, `lw`, `sw` e `beq`, con l'unità di controllo e il controllo dell'ALU.](figure/4-1.svg)
 
-Gli elementi del datapath sono quindi il PC, la memoria delle istruzioni, il register file (due porte di lettura e una di scrittura), l'unità che estende in segno l'immediato, l'ALU, la memoria dei dati, un sommatore per $PC + 4$ e uno per l'indirizzo del salto ($PC + \text{immediato} \times 2$, perché nei salti l'immediato conta mezze parole). Dove un ingresso può arrivare da due sorgenti ci vuole un multiplexer: il secondo operando dell'ALU (registro o immediato, segnale **ALUSrc**), il dato da scrivere nel registro (uscita dell'ALU o della memoria, **MemtoReg**), il nuovo PC ($PC + 4$ o destinazione del salto, **PCSrc**). Gli elementi di stato (PC, registri, memorie) si aggiornano sul fronte del clock; tutto il resto è logica combinatoria.
+**Che cosa fa ogni istruzione.**
 
-Nel ciclo singolo ogni istruzione dura un ciclo, che deve bastare all'istruzione più lenta. Con i tempi delle slide (memorie e ALU 200 ps, register file 100 ps, il resto trascurabile):
+| Fase | Tipo R | `lw` | `sw` | `beq` |
+|---|---|---|---|---|
+| prelievo | istruzione da Mem[PC] | uguale | uguale | uguale |
+| lettura registri | rs1, rs2 | rs1 | rs1, rs2 | rs1, rs2 |
+| ALU | operazione | rs1 + imm | rs1 + imm | rs1 − rs2 (Zero?) |
+| memoria dati | – | lettura | scrittura | – |
+| scrittura registro | rd ← ALU | rd ← memoria | – | – |
+| nuovo PC | PC + 4 | PC + 4 | PC + 4 | PC + imm·2 se Zero |
 
-| Istruzione | Mem. istr. | Lettura reg. | ALU | Mem. dati | Scrittura reg. | Totale |
+**I blocchi.**
+
+| Blocco | A che serve | Perché è fatto così |
+|---|---|---|
+| PC | indirizzo dell'istruzione corrente | elemento di stato: si aggiorna sul fronte del clock |
+| memoria istruzioni | legge l'istruzione | separata da quella dati: nello stesso ciclo servono entrambe |
+| sommatore PC + 4 | istruzione successiva | le istruzioni sono tutte di 4 byte |
+| banco dei registri | 2 letture e 1 scrittura per ciclo | due porte di lettura perché il tipo R ha due sorgenti |
+| generatore degli immediati | estrae l'immediato e lo estende con il segno | l'immediato è in posizioni diverse in I, S, B |
+| ALU | calcolo, indirizzo, confronto | la stessa per tre usi diversi |
+| `<< 1` e sommatore del salto | destinazione PC + imm·2 | gli offset dei salti sono in mezze parole; serve un sommatore a parte perché l'ALU è occupata dal confronto |
+| memoria dati | `lw` e `sw` | MemRead e MemWrite dicono se e come si usa |
+
+**I tre multiplexer.** Si mette un multiplexer dove un ingresso può arrivare da due sorgenti.
+
+| Multiplexer | Sceglie fra | Segnale | 1 per |
+|---|---|---|---|
+| secondo operando ALU | registro rs2 / immediato | ALUSrc | `lw`, `sw` |
+| dato da scrivere | ALU / memoria | MemtoReg | `lw` |
+| nuovo PC | PC + 4 / destinazione del salto | PCSrc = Branch · Zero | `beq` preso |
+
+**Quanto dura un ciclo.** Il ciclo deve bastare all'istruzione più lenta. Tempi delle slide: memorie e ALU 200 ps, banco dei registri 100 ps.
+
+| Istruzione | Mem. istr. | Lett. reg. | ALU | Mem. dati | Scritt. reg. | Totale |
 |---|---|---|---|---|---|---|
 | tipo R | 200 | 100 | 200 | – | 100 | 600 ps |
-| `lw` | 200 | 100 | 200 | 200 | 100 | 800 ps |
+| `lw` | 200 | 100 | 200 | 200 | 100 | **800 ps** |
 | `sw` | 200 | 100 | 200 | 200 | – | 700 ps |
 | `beq` | 200 | 100 | 200 | – | – | 500 ps |
 
-Il clock deve durare 800 ps, quelli di `lw`, anche quando si esegue una `beq` che ne richiederebbe 500. È semplice da capire, ma usa male il tempo e anche l'area: un'unità funzionale si può usare una sola volta per ciclo, quindi servono due memorie separate e sommatori in più oltre all'ALU.
+Clock da 800 ps per tutte, anche per `beq` che ne userebbe 500. Difetti del ciclo singolo:
+
+- il caso lento detta il ritmo per tutti: un'istruzione lenta in più (una moltiplicazione, una load in virgola mobile) allungherebbe il ciclo di tutte;
+- ogni blocco si usa una volta per ciclo: due memorie e tre sommatori invece di uno;
+- la soluzione è la pipeline (4.3).
+
+**All'orale.**
+
+- *Perché due memorie?* Nello stesso ciclo `lw` legge un'istruzione e un dato: una memoria sola sarebbe una risorsa contesa. Nella realtà sono due cache (istruzioni e dati) davanti a una memoria unica.
+- *Perché il dato da scrivere entra nel banco dei registri dal fondo dello schema?* Arriva dall'ultima fase (MemtoReg): è il filo che "chiude il cerchio". La scrittura avviene sul fronte del clock, quindi non si legge e scrive lo stesso registro "a metà" di un ciclo.
+- *Perché `rs1` e `rs2` si collegano senza logica?* In tutti i formati stanno negli stessi bit (figura 1.1): si leggono i registri prima ancora di sapere che istruzione è. Se un'istruzione non li usa, i valori letti si ignorano.
+- *Come si aggiunge `jal`?* Un terzo ingresso al multiplexer del dato da scrivere (PC + 4, per salvare l'indirizzo di ritorno) e il PC che diventa sempre PC + imm·2. Per `jalr` la destinazione è rs1 + imm, calcolata dall'ALU.
 
 ### 4.2 L'unità di controllo
 
-L'unità di controllo legge il campo `opcode` dell'istruzione e genera i segnali che comandano i multiplexer, le scritture e l'ALU. Il controllo dell'ALU è a due livelli: l'unità principale produce un codice di due bit, **ALUOp**, e una piccola rete combina ALUOp con i campi `funct7` e `funct3` per ottenere i quattro bit di controllo del modulo 3. ALUOp = 00 vuol dire somma (per `lw` e `sw`, che calcolano l'indirizzo), 01 sottrazione (per `beq`, che confronta), 10 "guarda i campi funct" (per le istruzioni di tipo R).
+L'unità di controllo è una rete combinatoria: dall'**opcode** (bit 6-0) genera i segnali in blu della figura 4.1.
 
 | Istruzione | ALUSrc | MemtoReg | RegWrite | MemRead | MemWrite | Branch | ALUOp |
 |---|---|---|---|---|---|---|---|
@@ -869,123 +1360,274 @@ L'unità di controllo legge il campo `opcode` dell'istruzione e genera i segnali
 | `sw` | 1 | X | 0 | 0 | 1 | 0 | 00 |
 | `beq` | 0 | X | 0 | 0 | 0 | 1 | 01 |
 
-La X (indifferenza) di MemtoReg in `sw` e `beq` è possibile perché RegWrite vale 0: qualunque cosa arrivi al register file, non viene scritta. Il segnale PCSrc è l'AND di Branch e dell'uscita Zero dell'ALU: si salta solo se l'istruzione è un salto *e* i due registri sono uguali. Con le tabelle di verità di questi segnali l'unità di controllo è una rete combinatoria, che si sintetizza come nel corso di Reti Logiche; nei processori più complessi la si realizza anche come macchina a stati o con un microprogramma.
+**Controllo dell'ALU a due livelli.** L'unità principale non guarda `funct`: produce ALUOp (2 bit), e una rete piccola lo combina con `funct7` (bit 30) e `funct3`.
+
+| Istruzione | ALUOp | funct7 | funct3 | Operazione | Controllo ALU |
+|---|---|---|---|---|---|
+| `lw`, `sw` | 00 | X | X | somma (indirizzo) | 0010 |
+| `beq` | 01 | X | X | sottrazione (confronto) | 0110 |
+| `add` | 10 | 0000000 | 000 | somma | 0010 |
+| `sub` | 10 | 0100000 | 000 | sottrazione | 0110 |
+| `and` | 10 | 0000000 | 111 | AND | 0000 |
+| `or` | 10 | 0000000 | 110 | OR | 0001 |
+
+Perché due livelli: l'unità principale resta piccola (dipende solo dall'opcode), e la rete dell'ALU, che dipende da più bit, è separata e più veloce da progettare. Lo stesso schema nei processori più grandi si realizza come macchina a stati o con un microprogramma.
+
+**All'orale.**
+
+- *Perché MemtoReg può valere X in `sw` e `beq`?* Perché RegWrite = 0: qualunque cosa arrivi al banco dei registri non viene scritta. La X lascia libertà nella sintesi della rete.
+- *E se in `sw` RegWrite fosse sbagliato a 1?* Si scriverebbe in un registro il valore dei bit 11-7 dell'istruzione (che in S sono un pezzo dell'immediato, non un rd): un registro qualsiasi verrebbe sporcato.
+- *Perché PCSrc non esce direttamente dall'unità di controllo?* Dipende dal risultato del confronto, che si conosce solo dopo l'ALU: è l'AND fra Branch (dall'opcode) e Zero (dall'ALU).
+- *Perché `beq` usa la sottrazione?* $a = b \iff a - b = 0$, e l'ALU ha già l'uscita Zero (NOR di tutti i bit, modulo 3).
 
 ### 4.3 La pipeline
 
-L'idea è quella della catena di montaggio: si comincia a eseguire l'istruzione successiva prima che la precedente sia finita. Si divide l'esecuzione in cinque **stadi**, uno per ogni risorsa principale:
+![Figura 4.2 · Il datapath a pipeline di base. I quattro registri di pipeline separano gli stadi; i segnali di controllo nascono in ID e viaggiano con l'istruzione (EX M WB, poi M WB, poi WB).](figure/4-2.svg)
 
-1. **IF** (*instruction fetch*): lettura dell'istruzione e aggiornamento del PC;
-2. **ID** (*instruction decode*): decodifica e lettura dei registri;
-3. **EX** (*execute*): operazione dell'ALU o calcolo dell'indirizzo;
-4. **MEM**: accesso alla memoria dati;
-5. **WB** (*write back*): scrittura del risultato nel register file.
+**L'idea.** Catena di montaggio: l'istruzione $i + 1$ comincia prima che la $i$ finisca. Cinque stadi, uno per risorsa:
 
-Fra uno stadio e l'altro si mettono i **registri di pipeline** (IF/ID, ID/EX, EX/MEM, MEM/WB), che conservano tutto ciò che serve agli stadi successivi, compresi i segnali di controllo: l'unità di controllo li genera in ID e li fa "viaggiare" con l'istruzione, e ogni stadio usa i suoi. Il ciclo di clock è fissato dallo stadio più lento, 200 ps nell'esempio, invece degli 800 del ciclo singolo.
+| Stadio | Che cosa | Blocchi | Registro dopo |
+|---|---|---|---|
+| IF | preleva l'istruzione, PC + 4 | PC, memoria istruzioni, sommatore | IF/ID: istruzione, PC |
+| ID | decodifica, legge i registri, estende l'immediato | controllo, banco dei registri, gen. immediati | ID/EX: dati letti, imm, PC, rd, funct, controlli EX M WB |
+| EX | ALU, destinazione del salto | ALU, ALUSrc, sommatore del salto | EX/MEM: risultato, Zero, destinazione, dato per `sw`, rd, controlli M WB |
+| MEM | memoria dati, decisione del salto | memoria dati, AND Branch · Zero | MEM/WB: dato letto, risultato, rd, controlli WB |
+| WB | scrittura nel banco | MemtoReg | – |
 
-La pipeline non accorcia la **latenza** di una singola istruzione (anzi, la allunga: 5 × 200 = 1000 ps contro 800), ma aumenta il **throughput**: a regime si completa un'istruzione per ciclo. Con $k$ stadi, ciclo $T_c$ e $n$ istruzioni senza conflitti,
-$$T_{pipeline} = (k + n - 1)\, T_c,$$
-perché la prima istruzione impiega $k$ cicli e le altre ne escono una per ciclo. Per $n$ grande l'accelerazione rispetto al ciclo singolo tende al rapporto fra i due cicli di clock, e se gli stadi fossero perfettamente bilanciati tenderebbe al numero di stadi. Nell'esempio tende a $800/200 = 4$, non a 5, perché gli stadi del register file usano solo 100 dei 200 ps.
+**Regole del datapath a pipeline.**
 
-L'ISA RISC-V è pensata per la pipeline: le istruzioni hanno tutte 32 bit (il fetch è sempre uguale), i campi dei registri stanno sempre nello stesso posto (si leggono i registri mentre si decodifica), gli operandi in memoria compaiono solo in `lw` e `sw` (l'indirizzo si calcola in EX e la memoria si usa in MEM) e gli accessi sono allineati.
+- Ogni stadio usa solo ciò che trova nel registro alla sua sinistra: il registro conserva tutto quello che servirà dopo.
+- I controlli si generano in ID e viaggiano: ogni stadio consuma i suoi (EX: ALUSrc, ALUOp; MEM: MemRead, MemWrite, Branch; WB: MemtoReg, RegWrite).
+- Anche **rd viaggia** fino a MEM/WB: quando l'istruzione arriva in WB, in IF/ID c'è già un'altra istruzione con un altro rd.
+- Il ciclo è quello dello stadio più lento: 200 ps invece di 800.
 
-### 4.4 I conflitti: strutturali e sui dati
+**Latenza e throughput.** Con $k$ stadi, ciclo $T_c$ e $n$ istruzioni senza conflitti:
+$$T_{pipeline} = (k + n - 1)\,T_c, \qquad \text{accelerazione} \xrightarrow{n \to \infty} \frac{T_{\text{ciclo singolo}}}{T_c}.$$
 
-Un **conflitto** (*hazard*) è una situazione in cui l'istruzione successiva non può avanzare nel ciclo previsto. Ce ne sono tre tipi.
+- La latenza di un'istruzione **cresce**: $5 \times 200 = 1000$ ps contro 800.
+- Il throughput cresce: a regime un'istruzione per ciclo.
+- L'accelerazione tende a $800/200 = 4$, non a 5: gli stadi non sono bilanciati (ID e WB usano 100 ps su 200).
 
-**Conflitti strutturali.** Due istruzioni vogliono la stessa risorsa nello stesso ciclo. Con una sola memoria per istruzioni e dati, il fetch di un'istruzione e la `lw` di tre istruzioni prima si scontrerebbero: per questo la pipeline ha due memorie (in pratica due cache, una per le istruzioni e una per i dati). Il register file è usato in ID (lettura) e in WB (scrittura) da due istruzioni diverse nello stesso ciclo: si risolve scrivendo nella prima metà del ciclo e leggendo nella seconda, così un'istruzione in ID legge il valore appena scritto da quella in WB.
+**Perché RISC-V si presta alla pipeline.** Istruzioni tutte di 32 bit (IF sempre uguale); rs1 e rs2 sempre negli stessi bit (registri letti in ID mentre si decodifica); memoria solo con `lw` e `sw` (indirizzo in EX, accesso in MEM, mai un'ALU dopo la memoria); accessi allineati (un solo accesso per dato).
 
-**Conflitti sui dati.** Un'istruzione ha bisogno di un risultato che una precedente non ha ancora scritto (*read after write*). Nel frammento
+**All'orale.**
+
+- *Perché il numero del registro di destinazione viaggia fino a WB?* Se il banco dei registri usasse i bit 11-7 di IF/ID, scriverebbe nel registro dell'istruzione arrivata quattro cicli dopo. È l'errore classico del primo disegno della pipeline.
+- *Che cosa contiene IF/ID, e perché anche il PC?* L'istruzione e il suo PC: il PC serve in EX per la destinazione del salto, e in caso di eccezione per salvarne l'indirizzo.
+- *Perché la pipeline non riduce il tempo di una singola istruzione?* Ogni istruzione attraversa tutti gli stadi, anche quelli che non usa, e i registri aggiungono il loro ritardo; si guadagna solo perché le istruzioni si sovrappongono.
+
+### 4.4 I conflitti
+
+Un **conflitto** (*hazard*) è un caso in cui l'istruzione successiva non può avanzare nel ciclo previsto.
+
+| Conflitto | Causa | Esempio | Soluzione | Costo |
+|---|---|---|---|---|
+| strutturale | due istruzioni vogliono la stessa risorsa | `lw` in MEM e prelievo in IF con una memoria sola | memorie separate; banco dei registri scritto nella prima metà del ciclo e letto nella seconda | hardware in più |
+| sui dati | serve un risultato non ancora scritto (RAW) | `add x1,…` seguita da `sub …, x1, …` | stallo; propagazione (4.5); riordino del codice | 0-2 cicli |
+| sul controllo | non si sa quale istruzione prelevare dopo un salto | `beq` | decisione in ID; previsione (4.6) | 0-3 cicli |
+
+**Dati senza propagazione.** Per l'istruzione che dipende da quella subito prima, 2 stalli; da quella due posti prima, 1; da tre posti prima, nessuno (il banco scrive nella prima metà del ciclo e legge nella seconda).
 
 ```text
-add  x1, x2, x3
-sub  x4, x1, x5
-and  x6, x1, x7
-or   x8, x1, x9
+add  x1, x2, x3      # scrive x1 in WB, ciclo 5
+sub  x4, x1, x5      # leggerebbe x1 in ID al ciclo 3: valore vecchio
+and  x6, x1, x7      # al ciclo 4: valore vecchio
+or   x8, x1, x9      # al ciclo 5, seconda metà: valore giusto
 ```
 
-`add` scrive `x1` in WB, al ciclo 5, ma `sub` lo legge in ID al ciclo 3 e `and` al ciclo 4: leggerebbero il valore vecchio. `or` lo legge al ciclo 5, nella seconda metà, e lo trova giusto. Senza altri accorgimenti la pipeline deve **fermarsi** (*stall*): l'istruzione dipendente resta in ID finché il dato è scritto, e negli stadi successivi passano delle **bolle**, istruzioni nulle che non fanno niente. Un'istruzione che dipende da quella immediatamente precedente aspetta 2 cicli, una che dipende da quella di due posti prima 1 ciclo, da tre posti prima in poi nessuno.
+**Stallo e bolla.** Fermare la pipeline vuol dire tenere ferme le istruzioni dietro (PC e IF/ID non si aggiornano) e far avanzare negli stadi successivi una **bolla**: un'istruzione con tutti i controlli a 0, che non scrive niente.
 
-### 4.5 Il forwarding e lo stallo load-use
+### 4.5 La propagazione e lo stallo load-use
 
-Il risultato di `add` in realtà esiste già alla fine di EX, nel registro EX/MEM: basta portarlo direttamente all'ingresso dell'ALU dell'istruzione successiva, senza aspettare che passi dal register file. È il **forwarding** (o *bypassing*). Due multiplexer davanti agli ingressi dell'ALU scelgono fra il valore letto dal register file (00), quello in EX/MEM (10) e quello in MEM/WB (01), comandati dall'**unità di forwarding** con queste condizioni.
+![Figura 4.3 · La propagazione (*forwarding*) in EX. Due multiplexer a tre ingressi davanti all'ALU prendono l'operando dal registro ID/EX (00), dal risultato in EX/MEM (10) o da quello che sta per essere scritto in WB (01).](figure/4-3.svg)
 
-*Conflitto in EX* (dall'istruzione precedente):
-$$\text{se } \text{EX/MEM.RegWrite} \wedge \text{EX/MEM.rd} \ne 0 \wedge \text{EX/MEM.rd} = \text{ID/EX.rs1} \text{ allora ForwardA} = 10,$$
-e lo stesso con `rs2` per ForwardB.
+**L'idea.** Il risultato di `add` esiste alla fine di EX, nel registro EX/MEM: lo si porta all'ALU dell'istruzione successiva senza aspettare il banco dei registri.
 
-*Conflitto in MEM* (da due istruzioni prima): se MEM/WB.RegWrite, MEM/WB.rd ≠ 0, MEM/WB.rd = ID/EX.rs1 **e non** c'è già il conflitto in EX sullo stesso registro, allora ForwardA = 01 (e analogamente per `rs2`).
+**Le condizioni dell'unità di propagazione** (per rs1 → ForwardA, uguale per rs2 → ForwardB):
 
-La condizione rd ≠ 0 serve perché `x0` vale sempre 0: un'istruzione che "scrive" `x0` non deve propagare il suo risultato. La clausola "non c'è già il conflitto in EX" serve per sequenze come
+| Caso | Condizione | ForwardA |
+|---|---|---|
+| dall'istruzione precedente | EX/MEM.RegWrite ∧ EX/MEM.rd ≠ 0 ∧ EX/MEM.rd = ID/EX.rs1 | 10 |
+| da due istruzioni prima | MEM/WB.RegWrite ∧ MEM/WB.rd ≠ 0 ∧ MEM/WB.rd = ID/EX.rs1 ∧ **non** il caso precedente | 01 |
+| altrimenti | – | 00 |
 
-```text
-add  x1, x1, x2
-add  x1, x1, x3
-add  x1, x1, x4
-```
+Perché ogni pezzo della condizione:
 
-in cui per la terza istruzione sia EX/MEM sia MEM/WB contengono un valore di `x1`: quello giusto è il più recente, in EX/MEM.
+- **RegWrite**: `sw` e `beq` hanno un campo nei bit 11-7 ma non scrivono un registro; senza RegWrite si propagherebbe un valore inventato.
+- **rd ≠ 0**: `x0` vale sempre 0; un'istruzione che "scrive" `x0` non deve passare il suo risultato.
+- **"non il caso precedente"**: in `add x1,x1,x2 / add x1,x1,x3 / add x1,x1,x4` la terza trova `x1` sia in EX/MEM sia in MEM/WB: il valore giusto è il più recente, EX/MEM.
+- Il dato della **`sw`** passa dal multiplexer ForwardB prima di andare in EX/MEM: così anche il dato da scrivere in memoria è quello aggiornato.
 
-**Lo stallo load-use.** Il forwarding non basta quando il dato viene da una `lw`: è pronto solo alla fine di MEM, mentre l'istruzione successiva lo vorrebbe all'inizio di EX nello stesso ciclo. Serve un ciclo di stallo, e poi il dato arriva con il forwarding da MEM/WB. Lo inserisce l'**unità di rilevamento dei conflitti** (*hazard detection unit*), che lavora in ID:
-$$\text{se } \text{ID/EX.MemRead} \wedge (\text{ID/EX.rd} = \text{IF/ID.rs1} \vee \text{ID/EX.rd} = \text{IF/ID.rs2}) \text{ allora stallo}.$$
-Per fermare la pipeline si impedisce la scrittura del PC e di IF/ID (le due istruzioni dietro restano dove sono) e si azzerano i segnali di controllo che entrano in ID/EX, così in EX passa una bolla.
+**Lo stallo load-use.** Il dato di `lw` esce dalla memoria alla fine di MEM; l'istruzione dopo lo vorrebbe all'inizio di EX dello stesso ciclo. Propagare all'indietro nel tempo non si può: serve **1 stallo**, poi il dato arriva da MEM/WB.
 
-**Riordinare il codice.** Il compilatore può spesso evitare lo stallo load-use mettendo fra la `lw` e l'istruzione che usa il dato un'istruzione indipendente. È un esempio di come l'hardware e il compilatore lavorino insieme sulle prestazioni (esercizio 3).
+![Figura 4.4 · Il conflitto load-use: `and` resta un ciclo in ID, in EX passa una bolla, poi il dato arriva da MEM/WB. Per `or` (che legge `x2` al ciclo 5) basta il banco dei registri; `add` prende `x4` da MEM/WB.](figure/4-4.svg)
 
-### 4.6 I conflitti sul controllo e la previsione dei salti
+**L'unità di rilevamento dei conflitti** lavora in ID, un ciclo prima che il danno avvenga (figura 4.5):
+$$\text{ID/EX.MemRead} \wedge \big(\text{ID/EX.rd} = \text{IF/ID.rs1} \vee \text{ID/EX.rd} = \text{IF/ID.rs2}\big) \Rightarrow \text{stallo}.$$
 
-Il terzo tipo di conflitto riguarda il PC. Dopo una `beq` la pipeline deve leggere l'istruzione successiva, ma non sa ancora quale: nella pipeline di base la decisione è presa in MEM (il confronto in EX, la scrittura del PC dopo), e se il salto è preso le tre istruzioni lette nel frattempo vanno buttate. Le soluzioni sono quattro.
+Che cosa fa per fermare la pipeline:
 
-**Stallo.** Si aspetta la decisione: si perdono sempre dei cicli, anche quando il salto non è preso.
+1. **PCWrite = 0**: il PC non cambia, si ripreleva la stessa istruzione;
+2. **IF/IDWrite = 0**: l'istruzione in ID resta lì;
+3. **bolla**: un multiplexer mette a 0 i controlli che entrano in ID/EX, così in EX passa un'istruzione che non scrive niente.
 
-**Anticipare la decisione.** Si spostano in ID il sommatore dell'indirizzo di destinazione e un comparatore di uguaglianza fra i due registri (più veloce dell'ALU: basta lo XOR bit a bit e una NOR). Il salto si decide in ID e si perde al massimo un ciclo. Il prezzo: in ID servono anche il forwarding e gli stalli per gli operandi del confronto. Se la `beq` usa il risultato dell'istruzione aritmetica immediatamente precedente serve 1 ciclo di stallo, se usa quello di una `lw` immediatamente precedente ne servono 2.
+**Riordinare il codice.** Il compilatore mette fra la `lw` e l'istruzione che usa il dato un'istruzione indipendente (esercizio 3).
 
-**Previsione statica.** Si prevede che il salto non sia preso e si continua a leggere in sequenza; se poi il salto è preso, l'istruzione letta si scarta (*flush*: il registro IF/ID viene azzerato). Si perde un ciclo solo quando la previsione è sbagliata. La previsione "non preso" funziona bene per i salti in testa ai cicli, che escono di rado, male per quelli in fondo ai cicli, che sono quasi sempre presi: un'alternativa è prevedere presi i salti all'indietro e non presi quelli in avanti. Nell'architettura MIPS delle slide esiste anche il **salto ritardato** (*delayed branch*): l'istruzione dopo il salto viene eseguita sempre, e il compilatore ci mette un'istruzione utile e indipendente (*delay slot*). RISC-V non ha delay slot.
+**All'orale.**
 
-**Previsione dinamica.** Si usa la storia del salto: una **branch history table** (BHT), indirizzata dai bit bassi del PC e letta in IF, contiene per ogni salto l'esito recente. Con **un bit** si prevede l'ultimo esito, e un ciclo sbaglia due volte a ogni esecuzione completa: all'uscita, e alla prima iterazione della volta successiva. Con **due bit** (un contatore saturato con quattro stati: fortemente preso, debolmente preso, debolmente non preso, fortemente non preso) la previsione cambia solo dopo due errori consecutivi, e il ciclo sbaglia solo all'uscita: per un ciclo di 10 iterazioni si passa dall'80% al 90% di previsioni corrette. La BHT dice *se* saltare ma non *dove*: per non aspettare il calcolo dell'indirizzo, un **branch target buffer** (BTB) memorizza le destinazioni dei salti già incontrati.
+- *Perché la propagazione si controlla in EX e il rilevamento in ID?* La propagazione serve nel ciclo in cui l'ALU usa l'operando. Lo stallo invece va deciso prima: quando la `lw` è in EX e l'istruzione dipendente in ID, bisogna fermare quest'ultima prima che entri in EX.
+- *Perché basta guardare MemRead?* Solo le load producono il dato in MEM invece che in EX; per tutte le altre la propagazione basta.
+- *Che errore si introdurrebbe senza la bolla, fermando solo PC e IF/ID?* L'istruzione in ID verrebbe copiata in ID/EX e anche eseguita: la stessa istruzione passerebbe due volte in EX, scrivendo due volte.
+- *La propagazione elimina tutti gli stalli sui dati?* No: resta il load-use (1 ciclo), e in ID i confronti dei salti (4.6).
 
-Con un salto ogni 5-6 istruzioni, e pipeline sempre più lunghe, la previsione è decisiva per le prestazioni: la penalità di un errore cresce con il numero di stadi che precedono la decisione.
+### 4.6 I salti: decidere prima, prevedere
+
+**Il problema.** Dopo una `beq` non si sa quale istruzione prelevare. Nella pipeline di base (figura 4.2) la decisione è in MEM: se il salto è preso, le 3 istruzioni prelevate nel frattempo vanno scartate (**flush**). Con un salto ogni 5-6 istruzioni, il costo è alto.
+
+![Figura 4.5 · IF e ID con il salto deciso in ID, l'unità di rilevamento dei conflitti e le parti per le eccezioni. Il confronto «=» e il sommatore della destinazione sono spostati in ID; IF.Flush azzera IF/ID quando il salto è preso.](figure/4-5.svg)
+
+**Decidere in ID** (figura 4.5):
+
+- sommatore della destinazione spostato in ID (PC e immediato ci sono già);
+- comparatore di uguaglianza fra i due registri: XOR bit a bit e NOR, molto più veloce di una sottrazione;
+- **IF.Flush**: se il salto è preso, IF/ID viene azzerato (l'istruzione prelevata diventa una `nop`);
+- penalità di un salto preso: **1 ciclo** invece di 3.
+
+Prezzo: il confronto in ID ha bisogno degli operandi un ciclo prima. Serve una propagazione verso ID e nuovi stalli:
+
+| Il salto usa il risultato di | Stalli |
+|---|---|
+| un'istruzione aritmetica subito prima | 1 |
+| una `lw` subito prima | 2 |
+| un'istruzione due posti prima | 0 (propagazione) |
+
+**Previsione statica.** Decisa una volta per tutte, senza storia.
+
+- **"non preso"**: si continua a prelevare in sequenza; se il salto è preso si fa il flush. Hardware: solo IF.Flush. Bene per i salti in testa ai cicli, male per quelli in fondo (quasi sempre presi).
+- **"indietro preso, avanti non preso"**: i salti all'indietro chiudono i cicli e di solito sono presi. Serve conoscere la direzione (il segno dell'offset) e la destinazione presto.
+- **salto ritardato** (MIPS delle slide): l'istruzione dopo il salto si esegue sempre e il compilatore la riempie con qualcosa di utile. RISC-V non lo ha.
+
+**Previsione dinamica.** Usa la storia di ogni salto, letta in IF.
+
+![Figura 4.6 · Il predittore a due bit: la previsione cambia solo dopo due errori di fila.](figure/4-6.svg)
+
+- **Tabella della storia dei salti** (BHT): piccola memoria indirizzata dai bit bassi del PC, con l'esito recente. Più salti possono condividere la stessa riga (l'effetto è solo una previsione peggiore, mai un errore di esecuzione).
+- **1 bit**: prevede l'ultimo esito. Un ciclo sbaglia 2 volte per esecuzione: all'uscita e alla prima iterazione della volta dopo.
+- **2 bit** (contatore saturato, figura 4.6): il ciclo sbaglia solo all'uscita. Ciclo di 10 iterazioni: dall'80% al 90% di previsioni giuste.
+- **Branch target buffer** (BTB, figura 4.7): una cache indirizzata dal PC che contiene, per i salti già visti, la **destinazione** e i bit di previsione. Se il PC è nel BTB e la previsione è "preso", il PC successivo è la destinazione già nel ciclo IF: un salto preso previsto bene costa 0 cicli.
+
+![Figura 4.7 · Il branch target buffer letto in IF: se il PC corrente è un salto già visto (tag uguale) e la storia dice «preso», il prossimo PC è la destinazione memorizzata.](figure/4-7.svg)
+
+**Statica e dinamica a confronto.**
+
+| | Statica ("non preso") | Dinamica (BHT 2 bit + BTB) |
+|---|---|---|
+| chi decide la previsione | regola fissa (o il compilatore) | l'hardware, dalla storia del salto |
+| dove si legge | – | IF, in parallelo con la memoria istruzioni |
+| hardware nel datapath | flush di IF/ID, decisione in ID | in più: BHT/BTB in IF, un ingresso in più al multiplexer del PC, logica che in ID confronta previsione ed esito e aggiorna la tabella |
+| salto non preso | 0 cicli | 0 se previsto bene |
+| salto preso | 1 ciclo (sempre) | 0 se previsto bene e nel BTB |
+| previsione sbagliata | 1 ciclo | 1 ciclo (flush e PC corretto: destinazione o PC + 4 del salto) |
+| quando conviene | pipeline corte, hardware minimo | pipeline lunghe, superscalari: la penalità cresce con gli stadi prima della decisione |
+
+**All'orale.**
+
+- *Perché il comparatore in ID non è una sottrazione?* Per l'uguaglianza basta $\overline{\sum (a_i \oplus b_i)}$: due livelli di porte, senza propagazione del riporto. Ci sta nella seconda metà di ID, dopo la lettura dei registri.
+- *Che errore copre IF.Flush e che rischio introduce?* Impedisce che l'istruzione prelevata per sbaglio scriva qualcosa. Deve azzerare IF/ID (cioè trasformarla in `nop`) e non ID/EX, altrimenti si annullerebbe il salto stesso.
+- *Che cosa succede se due salti condividono una riga della BHT?* Si leggono i bit dell'altro: la previsione può essere sbagliata, ma il programma resta corretto, perché l'esito vero si controlla comunque in ID.
+- *Perché a 2 bit e non a 3 o 4?* Il secondo bit toglie l'errore alla prima iterazione; bit in più servono poco. I processori moderni usano invece predittori che correlano più salti.
 
 ### 4.7 Le eccezioni
 
-Un'**eccezione** è un evento che interrompe il normale flusso del programma; si chiama **interruzione** (*interrupt*) quando viene dall'esterno del processore, come una richiesta di un dispositivo di I/O. Per la pipeline è un conflitto sul controllo: bisogna fermare l'esecuzione, completare le istruzioni precedenti, scartare quella che ha causato l'eccezione e le successive, salvare l'indirizzo dell'istruzione (in RISC-V nel registro **SEPC**) e la causa (nel registro **SCAUSE**), e saltare a un indirizzo fisso dove si trova il gestore del sistema operativo.
+**Definizioni.** **Eccezione**: evento che cambia il flusso del programma, causato dall'istruzione stessa (sincrono). **Interruzione** (*interrupt*): richiesta dall'esterno, per esempio un dispositivo di I/O (asincrona).
 
-| Evento | Stadio | Sincrono? |
+| Evento | Stadio | Tipo |
 |---|---|---|
-| Istruzione non definita | ID | sì |
-| Page fault, errore di accesso alla memoria | IF, MEM | sì |
-| Overflow (nelle ISA che lo segnalano, come MIPS) | EX | sì |
-| Richiesta di un dispositivo di I/O | qualsiasi | no |
-| Malfunzionamento dell'hardware | qualsiasi | no |
+| istruzione non definita | ID | eccezione |
+| errore di accesso alla memoria, page fault | IF, MEM | eccezione |
+| `ecall` (chiamata al sistema operativo) | ID | eccezione |
+| overflow (solo nelle ISA che lo segnalano, come MIPS) | EX | eccezione |
+| richiesta di un dispositivo | qualsiasi | interruzione |
 
-Nello stesso ciclo ci possono essere più eccezioni, in stadi diversi: l'hardware dà la precedenza a quella dell'istruzione più vecchia, cioè più avanti nella pipeline. Le eccezioni gestite in modo che tutte le istruzioni precedenti siano completate e nessuna successiva abbia modificato lo stato si dicono **precise**.
+**Che cosa fa l'hardware** (parti arancio della figura 4.5):
+
+1. lascia completare le istruzioni **precedenti**;
+2. scarta quella che ha causato l'eccezione e le successive: IF.Flush, e azzeramento dei controlli in ID ed EX (ID.Flush, EX.Flush, con multiplexer come quello della bolla);
+3. salva l'indirizzo dell'istruzione in **SEPC** e la causa in **SCAUSE**;
+4. carica nel PC l'indirizzo fisso del gestore del sistema operativo (terzo ingresso del multiplexer del PC);
+5. il gestore, finito, torna all'indirizzo in SEPC (oppure termina il programma).
+
+**Eccezione precisa**: tutte le istruzioni prima sono completate, nessuna dopo ha cambiato lo stato. Con più eccezioni nello stesso ciclo si serve quella dell'istruzione più avanti nella pipeline (la più vecchia).
 
 > [!nota] Lo schema dell'appunto a mano
-> L'appunto a mano disegna il datapath completo della fine del capitolo: i registri IF/ID, ID/EX, EX/MEM, MEM/WB; il comparatore di uguaglianza in ID per decidere i salti, con una sua unità di forwarding; l'unità di forwarding in EX che comanda i multiplexer davanti all'ALU; l'unità di rilevamento dei conflitti in ID; e, in ingresso al multiplexer del PC, l'indirizzo fisso del gestore delle eccezioni (nello schema quello MIPS delle slide, `8000 0180` esadecimale).
+> L'appunto a mano dell'autore disegna il datapath completo di fine capitolo: i quattro registri di pipeline, il comparatore in ID con la sua propagazione, l'unità di propagazione in EX, l'unità di rilevamento in ID e, all'ingresso del multiplexer del PC, l'indirizzo fisso del gestore (nello schema quello MIPS delle slide, `8000 0180` esadecimale). Le figure 4.2, 4.3 e 4.5 insieme sono lo stesso schema, diviso in tre per leggerlo meglio.
+
+**All'orale.**
+
+- *Perché salvare il PC dell'istruzione e non PC + 4?* Dopo un page fault l'istruzione va rieseguita da capo; per una `ecall` il gestore aggiunge 4 lui.
+- *Perché il PC arriva a SEPC da un registro di pipeline?* Quando l'eccezione si scopre (in ID, EX o MEM) il PC ha già prelevato altre istruzioni: serve il PC di quella che ha sbagliato, che viaggia nei registri di pipeline.
+- *Perché precise?* Altrimenti il sistema operativo non saprebbe da dove ripartire, e un'istruzione successiva potrebbe aver già scritto un registro.
 
 ### 4.8 Più istruzioni per ciclo
 
-La pipeline avvicina il CPI a 1. Per scendere sotto 1 bisogna avviare più istruzioni per ciclo (*multiple issue*); in questo caso si usa spesso il suo inverso, l'**IPC** (istruzioni per ciclo). Le strade sono due.
+La pipeline porta il CPI vicino a 1; per scendere sotto si avviano più istruzioni per ciclo (**multiple issue**) e si ragiona in **IPC** = 1/CPI.
 
-**Avvio multiplo statico (VLIW).** È il compilatore a raggruppare le istruzioni in **pacchetti** che partono insieme. Nell'esempio del corso il pacchetto ha due posti: uno per un'istruzione aritmetico-logica o un salto, uno per una `lw` o una `sw`. Servono più porte di lettura e scrittura nel register file e un sommatore in più per gli indirizzi. Il compilatore deve rispettare le dipendenze: in un pacchetto non ci possono essere due istruzioni dipendenti, il risultato di un'istruzione aritmetica si può usare nel pacchetto successivo, quello di una `lw` solo due pacchetti dopo; se non trova un'istruzione per un posto, ci mette una `nop`.
+| | Avvio multiplo statico (VLIW) | Avvio multiplo dinamico (superscalare) |
+|---|---|---|
+| chi sceglie cosa parte insieme | il compilatore, in **pacchetti** | l'hardware, durante l'esecuzione |
+| esempio del corso | 2 posti: aritmetica o salto, `lw` o `sw` | più unità funzionali con stazioni di prenotazione |
+| conflitti | evitati dal compilatore (`nop` se non trova niente) | risolti dall'hardware |
+| ordine | in ordine | esecuzione **fuori ordine**, completamento in ordine |
+| hardware in più | porte del banco dei registri, sommatore per gli indirizzi | stazioni, buffer di riordino, ridenominazione, previsione |
 
-Per riempire i pacchetti si usa lo **srotolamento dei cicli** (*loop unrolling*): si copia più volte il corpo del ciclo, si aggiorna il puntatore una volta sola e si usano registri diversi per le varie copie. Così diminuiscono le istruzioni di controllo del ciclo e ci sono più istruzioni indipendenti da accoppiare (esercizio 7). L'uso di registri diversi elimina le **antidipendenze** fra le copie: è una ridenominazione dei registri fatta dal compilatore.
+**Regole del VLIW a due vie.** Niente istruzioni dipendenti nello stesso pacchetto; un'aritmetica si usa dal pacchetto dopo; una `lw` due pacchetti dopo.
 
-**Avvio multiplo dinamico (superscalare).** È l'hardware a decidere, durante l'esecuzione, quante e quali istruzioni avviare. Le istruzioni vengono lette e decodificate in ordine e messe in una coda; vengono **eseguite fuori ordine** (*out of order*), appena gli operandi sono disponibili, in unità funzionali con le loro stazioni di prenotazione; i risultati vengono scritti nei registri e in memoria di nuovo **in ordine** (*commit*), attraverso un buffer di riordino, così le eccezioni restano precise e le istruzioni eseguite per una previsione sbagliata (esecuzione **speculativa**) si possono annullare.
+**Srotolamento dei cicli** (*loop unrolling*): si copia il corpo del ciclo, si aggiornano i puntatori una volta sola e si usano registri diversi per le copie. Meno istruzioni di controllo, più istruzioni indipendenti da accoppiare (esercizio 7).
 
-Con l'esecuzione fuori ordine non contano più solo le dipendenze vere. Fra due istruzioni $i$ e $j$, con $i$ prima di $j$:
+![Figura 4.8 · Un processore superscalare: prelievo e decodifica in ordine, esecuzione fuori ordine appena gli operandi sono pronti, scrittura dei risultati in ordine attraverso il buffer di riordino.](figure/4-8.svg)
 
-- **dipendenza vera** (*read after write*, RAW): $j$ legge un registro scritto da $i$;
-- **antidipendenza** (*write after read*, WAR): $j$ scrive un registro letto da $i$;
-- **dipendenza di uscita** (*write after write*, WAW): $j$ e $i$ scrivono lo stesso registro.
+**Le dipendenze** fra $i$ e $j$ ($i$ prima di $j$):
 
-Le dipendenze vere vengono dal flusso dei dati dell'algoritmo e non si possono togliere. Le altre due nascono solo perché i registri dell'ISA sono pochi e vengono riusati: sono in realtà conflitti strutturali, e l'hardware li elimina con la **ridenominazione dei registri** (*register renaming*), usando un insieme più grande di registri fisici.
+| Dipendenza | Che cosa | Si può togliere? |
+|---|---|---|
+| vera, RAW (*read after write*) | $j$ legge ciò che $i$ scrive | no: è il flusso dei dati |
+| antidipendenza, WAR (*write after read*) | $j$ scrive ciò che $i$ legge | sì, con un altro registro |
+| di uscita, WAW (*write after write*) | $i$ e $j$ scrivono lo stesso registro | sì, con un altro registro |
 
-I limiti: la tabella dei processori Intel delle slide mostra che dal Pentium 4 (fino a 31 stadi e 3,6 GHz, oltre 100 W) si è tornati a pipeline più corte e a più core per chip. Le pipeline lunghe e l'avvio multiplo sono frenati dal consumo e dal calore (*power wall*), dal parallelismo limitato presente nei programmi e dalla latenza della memoria.
+**Ridenominazione dei registri** (*register renaming*): l'hardware ha più registri fisici che architetturali e assegna a ogni nuova scrittura un registro fisico libero; WAR e WAW spariscono.
+
+**Perché si completa in ordine.** Le eccezioni restano precise e le istruzioni eseguite dopo una previsione sbagliata (esecuzione **speculativa**) si possono annullare prima che scrivano lo stato.
+
+**I limiti.** Dal Pentium 4 (fino a 31 stadi, 3,6 GHz, oltre 100 W) si è tornati a pipeline più corte e a più core: consumo e calore (*power wall*), poco parallelismo nei programmi, latenza della memoria.
+
+### 4.9 All'orale: ridisegnare il datapath
+
+La domanda tipica è "disegnami e spiegami il datapath con …". Conviene costruirlo per strati, spiegando a ogni passo perché si aggiunge il pezzo.
+
+1. **IF**: PC, memoria istruzioni, sommatore + 4, multiplexer del PC. Due righe: "il PC è un registro; tutte le istruzioni sono di 4 byte".
+2. **ID**: bus dell'istruzione con i campi [19:15], [24:20], [11:7], [6:0], [31:0]; banco dei registri con due letture; generatore degli immediati; unità di controllo.
+3. **EX**: ALU con ALUSrc; `<< 1` e sommatore della destinazione; controllo dell'ALU con ALUOp e funct.
+4. **MEM** e **WB**: memoria dati con MemRead e MemWrite; AND Branch · Zero → PCSrc; MemtoReg e il filo che torna al banco.
+5. **Pipeline**: i quattro registri; i controlli che viaggiano (EX M WB → M WB → WB); rd che viaggia fino a WB e torna al banco; il PC che viaggia fino a EX.
+6. **Propagazione**: due multiplexer a tre ingressi davanti all'ALU, l'unità di propagazione con rs1, rs2 da ID/EX e rd, RegWrite da EX/MEM e MEM/WB.
+7. **Rilevamento**: unità in ID con ID/EX.MemRead, ID/EX.rd, IF/ID.rs1, rs2; uscite PCWrite, IF/IDWrite e il multiplexer della bolla.
+8. **Salti**: comparatore e sommatore in ID, IF.Flush; per la previsione dinamica BHT e BTB in IF.
+9. **Eccezioni**: SEPC, SCAUSE, ingresso del gestore sul multiplexer del PC, flush di ID ed EX.
+
+**Le domande "perché" più frequenti**, con la risposta breve:
+
+| Domanda | Risposta |
+|---|---|
+| perché i registri di pipeline? | ogni stadio lavora su un'istruzione diversa: serve conservare dati e controlli di ognuna |
+| perché i controlli si generano in ID? | lì si conosce l'opcode; li si porta avanti invece di ricalcolarli |
+| perché rd viaggia? | in WB l'istruzione in ID è un'altra |
+| perché il banco scrive nella prima metà e legge nella seconda? | così l'istruzione in ID legge il valore scritto da quella in WB nello stesso ciclo: un conflitto in meno |
+| perché due multiplexer prima dell'ALU e non uno? | gli operandi rs1 e rs2 possono arrivare da posti diversi in modo indipendente |
+| perché ForwardB sta prima di ALUSrc? | il dato della `sw` (rs2) deve essere quello aggiornato anche se l'ALU usa l'immediato |
+| che problema introduce spostare i salti in ID? | operandi richiesti un ciclo prima: propagazione verso ID e stalli in più dopo `lw` e aritmetiche |
+| che problema introduce la previsione dinamica? | hardware e tabelle in IF, aggiornamento, e il recupero quando sbaglia |
 
 ### Esempi ed esercizi svolti
-
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle slide (Pipelined Architecture, Control Hazards, Multiple Issue); conteggi controllati con `strumenti/pipe.py` e `strumenti/verifica_ampliamento.py` (ADC-04, ADC-06, ADC-07)
 
 **Esercizio 1. Ciclo singolo o pipeline?** Memorie 250 ps, ALU 150 ps, register file 100 ps. Si confrontino il ciclo singolo e la pipeline a 5 stadi su 1000 istruzioni senza conflitti.
 
@@ -1103,8 +1745,7 @@ Dipendenze vere: 1 → 2 su `t0`, 3 → 4 su `t0`, 2 → 4 su `t3`. Antidipenden
 
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/pipe.py` e `strumenti/verifica_ampliamento.py` (ADC-04, ADC-06)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. I segnali di forwarding.** Per il frammento dell'esercizio 4, dire per ogni istruzione che valori hanno ForwardA e ForwardB quando è in EX.
 
@@ -1146,8 +1787,6 @@ fine: sub  t3, t0, t1
 Il datapath a ciclo singolo esegue ogni istruzione in un ciclo lungo quanto quella più lenta; l'unità di controllo genera dai campi dell'istruzione i segnali dei multiplexer, delle scritture e dell'ALU, con il controllo dell'ALU a due livelli. La pipeline a cinque stadi IF, ID, EX, MEM, WB, con i registri di pipeline, completa a regime un'istruzione per ciclo: aumenta il throughput, non riduce la latenza, e il ciclo è fissato dallo stadio più lento. I conflitti strutturali si evitano con memorie separate e con il register file che scrive e legge nelle due metà del ciclo. I conflitti sui dati si risolvono con il forwarding da EX/MEM e da MEM/WB; resta lo stallo load-use, inserito dall'unità di rilevamento dei conflitti e spesso evitabile riordinando il codice. I conflitti sul controllo si riducono decidendo i salti in ID e con la previsione statica o dinamica (BHT a uno o due bit, BTB). Le eccezioni sono conflitti sul controllo gestiti salvando l'indirizzo e la causa. Per avviare più istruzioni per ciclo ci sono il VLIW, in cui il compilatore forma i pacchetti aiutandosi con lo srotolamento dei cicli, e i processori superscalari, che eseguono fuori ordine, eliminano antidipendenze e dipendenze di uscita con la ridenominazione e scrivono i risultati in ordine.
 
 ### Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (ADC-04, ADC-06, ADC-07)
 
 #### Tempi
 
@@ -1202,135 +1841,210 @@ Forwarding da EX/MEM: RegWrite ∧ rd ≠ 0 ∧ rd = rs1 (rs2) → 10. Da MEM/WB
 - Perché la pipeline aumenta il throughput ma non riduce la latenza? Formula dell'accelerazione.
 - Tipi di conflitti e soluzioni; condizioni del forwarding e dello stallo load-use.
 - Come si riducono i conflitti sul controllo? Predittori a uno e due bit.
+- "Disegnami e spiegami il datapath con la previsione dei salti": statica e dinamica, differenze teoriche e differenze nel datapath (4.6, figure 4.5 e 4.7).
+- Disegnare il datapath a pipeline con propagazione e rilevamento dei conflitti, spiegando ogni segnale (4.9).
 - Come gestisce le eccezioni la pipeline?
 - VLIW e superscalare: differenze; srotolamento dei cicli; dipendenze e ridenominazione.
 
 ## 5 · La gerarchia di memoria, la cache e l'input/output
 
-**In questo modulo.** Si usano le prestazioni e il CPI del modulo 1 e la pipeline del modulo 4. Il processore è molto più veloce della memoria principale, e la distanza cresce da decenni. Si vede come la si colma con una gerarchia di memorie sempre più grandi e lente, che funziona grazie al principio di località. Il cuore del modulo è la cache: come si trova un dato, le funzioni di corrispondenza (diretta, associativa a insiemi, completamente associativa), la dimensione, la sostituzione, le politiche di scrittura, le cause dei miss, l'effetto sulle prestazioni, le cache a più livelli e il collegamento con la DRAM. Dopo un cenno alla memoria virtuale, l'ultima parte tratta l'input/output: bus, polling, interruzioni e DMA. Alla fine del modulo si sa scomporre un indirizzo in tag, indice e offset, simulare a mano una sequenza di accessi, dimensionare una cache e calcolare il tempo medio di accesso e il CPI con gli stalli di memoria.
+**In questo modulo.** Prerequisiti: CPI (modulo 1) e pipeline (modulo 4). Perché serve una gerarchia di memoria e perché funziona (località); la cache a mappatura diretta, associativa a insiemi e completamente associativa; scritture, cause dei miss, prestazioni, cache a più livelli, DRAM; un cenno alla memoria virtuale; l'input/output. Si impara a scomporre un indirizzo in tag, indice e offset, a simulare a mano una sequenza di accessi, a dimensionare una cache e a calcolare AMAT e CPI. All'orale si chiede di disegnare le strutture (figure 5.2, 5.3, 5.5, 5.6) e di spiegare il perché di ogni campo.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Gerarchia di memoria, Input-Output); Patterson e Hennessy, *Struttura e progetto dei calcolatori*, edizione RISC-V, cap. 5 e 6 (ADC-05, ADC-01)
-> Il modulo è scritto in revisione dal materiale del corso. Le sequenze di accessi sono simulate con `strumenti/cache.py`, i conti controllati con `strumenti/verifica_ampliamento.py`.
+### 5.1 Perché una gerarchia
 
-### 5.1 Perché una gerarchia di memoria
+**Il problema.** I processori sono cresciuti per anni di circa il 55% all'anno, la DRAM di circa il 7%: un accesso alla memoria principale costa centinaia di cicli. Una memoria grande, veloce ed economica insieme non esiste.
 
-Le prestazioni dei processori sono cresciute per molti anni di circa il 55% all'anno, quelle della DRAM di circa il 7%: un accesso alla memoria principale costa oggi centinaia di cicli di clock. Una memoria insieme grande, veloce ed economica non esiste. Le tecnologie disponibili sono:
+| Tecnologia | Bit | Accesso | Uso | Nota |
+|---|---|---|---|---|
+| SRAM | 6 transistor | ~1 ns | cache | statica: tiene il dato finché è alimentata |
+| DRAM | 1 transistor + 1 condensatore | decine di ns | memoria principale | dinamica: va rinfrescata ogni pochi ms |
+| flash, disco | – | da µs a ms | memoria di massa | permanente, enorme |
 
-- **SRAM**: 6 transistor per bit, accesso intorno al nanosecondo, costosa e poco densa; è *statica*, conserva il dato finché è alimentata. Si usa per le cache.
-- **DRAM**: 1 transistor e un condensatore per bit, accesso di qualche decina di nanosecondi, densa ed economica; è *dinamica*, il condensatore si scarica e il contenuto va rinfrescato periodicamente (ogni pochi millisecondi). Si usa per la memoria principale.
-- **Memoria secondaria** (dischi magnetici e flash): enorme e permanente, ma con tempi da microsecondi a millisecondi.
+![Figura 5.1 · La gerarchia di memoria: ogni livello è più grande, più lento e meno caro per bit di quello sopra, e contiene un sottoinsieme dei suoi dati.](figure/5-1.svg)
 
-La soluzione è una **gerarchia**: registri, cache di primo livello (L1, separate per istruzioni e dati), cache di secondo e terzo livello, memoria principale, memoria secondaria. Ogni livello è più grande, più lento e meno caro per bit del precedente, e contiene un sottoinsieme dei dati del livello sotto. Se quasi tutti gli accessi trovano il dato nei livelli alti, il sistema appare veloce quasi come il primo livello e grande come l'ultimo.
+**Perché funziona: la località.**
 
-Questo funziona per il **principio di località**. **Località temporale**: un dato appena usato verrà probabilmente usato di nuovo presto (le variabili di un ciclo, le istruzioni del ciclo stesso); conviene tenere vicino al processore i dati usati di recente. **Località spaziale**: dopo un indirizzo verranno probabilmente usati quelli vicini (le istruzioni in sequenza, gli elementi di un array); conviene spostare verso l'alto interi blocchi di dati contigui.
+- **temporale**: un dato usato ora sarà probabilmente usato di nuovo presto (variabili e istruzioni di un ciclo) → tenere vicino al processore i dati recenti;
+- **spaziale**: dopo un indirizzo si useranno probabilmente quelli vicini (istruzioni in sequenza, elementi di un array) → spostare blocchi interi di dati contigui.
 
-Chi gestisce i passaggi fra i livelli: fra registri e memoria il compilatore; fra cache e memoria principale l'hardware (il controllore della cache); fra memoria principale e disco il sistema operativo, con la memoria virtuale (5.8).
+**Chi sposta i dati.** Registri ↔ memoria: il compilatore. Cache ↔ memoria principale: l'hardware. Memoria principale ↔ disco: il sistema operativo (memoria virtuale, 5.8).
 
-### 5.2 Terminologia
+### 5.2 I termini
 
-Il **blocco** (o **linea**) è l'unità di informazione che si trasferisce fra due livelli. Se il dato cercato è nel livello superiore si ha un **hit**, altrimenti un **miss**, e il blocco va preso dal livello inferiore.
+| Termine | Significato |
+|---|---|
+| blocco (linea) | unità trasferita fra due livelli |
+| hit, miss | il dato c'è / non c'è nel livello superiore |
+| hit rate, miss rate | frazione di hit; miss rate = 1 − hit rate |
+| hit time | tempo per accedere al livello superiore, compreso capire se è un hit |
+| miss penalty | tempo per portare il blocco dal livello inferiore e consegnare il dato |
 
-- **Hit rate**: frazione degli accessi che sono hit; **miss rate** $= 1 - \text{hit rate}$.
-- **Hit time**: tempo per accedere al livello superiore, compreso il tempo per capire se è un hit.
-- **Miss penalty**: tempo per portare il blocco dal livello inferiore, sistemarlo e consegnare il dato al processore.
-
-Di solito l'hit time è molto minore della miss penalty, e il **tempo medio di accesso** è
 $$\text{AMAT} = \text{hit time} + \text{miss rate} \times \text{miss penalty}.$$
 
-### 5.3 La cache a corrispondenza diretta
+### 5.3 La cache a mappatura diretta
 
-La cache deve rispondere a due domande: il dato è presente? Se sì, dove? Nella cache **a corrispondenza diretta** (*direct mapped*) ogni blocco della memoria può stare in un solo posto:
-$$\text{posizione} = (\text{indirizzo del blocco}) \bmod (\text{numero di blocchi della cache}).$$
-Se il numero di blocchi è una potenza di 2, il modulo sono semplicemente i bit bassi dell'indirizzo del blocco. Molti blocchi di memoria condividono la stessa posizione: per sapere quale c'è davvero, ogni posizione conserva anche i bit alti dell'indirizzo, il **tag**, e un **bit di validità** che dice se la posizione contiene qualcosa (all'accensione sono tutte vuote).
+Due domande: il dato c'è? Se sì, dove? A mappatura diretta ogni blocco di memoria ha **un solo posto**:
+$$\text{indice} = (\text{indirizzo del blocco}) \bmod (\text{numero di blocchi}).$$
 
-Un indirizzo di memoria si divide così in tre campi:
+![Figura 5.2 · Una cache a mappatura diretta con 1024 blocchi da una parola: l'indice sceglie la riga, il tag memorizzato si confronta con quello dell'indirizzo, l'hit richiede anche V = 1.](figure/5-2.svg)
 
-| tag | indice | offset nel blocco |
+**I campi dell'indirizzo** (blocchi di $2^m$ parole da 4 byte, $2^n$ blocchi, indirizzi di 32 bit):
+
+| Campo | Bit | A che serve |
 |---|---|---|
-| bit alti, confrontati con quelli memorizzati | sceglie la posizione | sceglie la parola e il byte |
+| offset | $m + 2$ | sceglie parola e byte nel blocco |
+| indice | $n$ | sceglie la riga |
+| tag | $32 - n - m - 2$ | dice quale dei blocchi che condividono la riga c'è davvero |
 
-Con blocchi di $2^m$ parole da 4 byte l'offset ha $m + 2$ bit; con $2^n$ blocchi l'indice ha $n$ bit; con indirizzi di 32 bit il tag ha $32 - n - m - 2$ bit. Una lettura usa l'indice per scegliere la posizione, confronta il tag e controlla il bit di validità: se coincidono è un hit e l'offset sceglie la parola.
+**Ogni riga contiene** il bit di validità V (all'accensione la cache è vuota), il tag, i dati.
 
-La dimensione effettiva della cache comprende anche tag e bit di validità:
 $$\text{bit totali} = 2^n \times (\text{bit del blocco} + \text{bit del tag} + 1).$$
-Con 16 KB di dati in blocchi di 4 parole (esempio delle slide): $2^{10}$ blocchi, tag di 18 bit, $2^{10} \times (128 + 18 + 1) = 147$ Kbit, cioè circa 18,4 KB per 16 KB di dati.
 
-**La dimensione del blocco.** Blocchi più grandi sfruttano meglio la località spaziale e riducono il miss rate, ma a parità di capacità diminuisce il numero di blocchi: oltre un certo punto i blocchi si contendono le posizioni e il miss rate risale. In più cresce la miss penalty, perché c'è più da trasferire. Per limitarla si può far ripartire il processore appena arriva la parola richiesta (*early restart*) o farla arrivare per prima (*requested word first*).
+Esempio delle slide: 16 KiB di dati in blocchi di 4 parole → $2^{10}$ blocchi, tag di 18 bit, $2^{10} \times (128 + 18 + 1) = 147$ Kibit ≈ 18,4 KiB.
+
+**La dimensione del blocco.**
+
+- blocco più grande → più località spaziale, miss rate più basso;
+- ma a parità di capacità meno blocchi → più conflitti, il miss rate risale;
+- e la miss penalty cresce (più dati da trasferire). Rimedi: ripartire appena arriva la parola cercata (*early restart*), o farla arrivare per prima (*requested word first*).
+
+**All'orale.**
+
+- *Perché l'indice sono i bit bassi e il tag quelli alti?* Con i bit bassi indirizzi vicini vanno in righe diverse: un array occupa tutta la cache invece di contendersi una riga. Con i bit alti come indice, blocchi vicini andrebbero tutti nella stessa riga.
+- *Perché serve il bit di validità?* All'accensione le righe contengono bit casuali: un tag casuale potrebbe coincidere e dare un falso hit.
+- *Perché non si memorizza anche l'indice?* È implicito nella posizione della riga.
 
 ### 5.4 Le scritture
 
-In una lettura il controllo del tag e la lettura del dato si possono fare insieme. Con le scritture bisogna decidere come tenere coerenti cache e memoria.
+| Politica | Che cosa fa | Pregi | Difetti | Aggiunte |
+|---|---|---|---|---|
+| **write-through** | scrive cache e memoria | memoria sempre aggiornata, semplice | una scrittura in memoria per ogni `sw` | **write buffer**: coda di scritture; il processore si ferma solo se è piena |
+| **write-back** | scrive solo la cache; ricopia il blocco quando viene sostituito | poco traffico se un blocco è scritto più volte | memoria non aggiornata per un po'; sostituzione più lenta | **dirty bit**: solo i blocchi modificati si ricopiano |
 
-**Write-through.** Ogni scrittura aggiorna sia la cache sia la memoria. È semplice e la memoria è sempre aggiornata, ma ogni scrittura costerebbe un accesso alla memoria: si aggiunge un **write buffer**, una coda in cui il processore lascia le scritture e prosegue, mentre la memoria le smaltisce. Il processore si ferma solo se il buffer è pieno.
+**Miss in scrittura.** *Write allocate*: si porta il blocco in cache e lo si scrive (di solito con write-back). *No-write allocate*: si scrive solo nel livello sotto (di solito con write-through).
 
-**Write-back.** Si scrive solo nella cache, e il blocco viene ricopiato in memoria quando viene sostituito. Serve un bit in più per blocco, il **dirty bit**, che dice se il blocco è stato modificato: i blocchi non modificati si possono sostituire senza riscriverli. Riduce molto il traffico verso la memoria quando un blocco viene scritto più volte, ma per un certo tempo la memoria contiene dati vecchi.
+**Miss in lettura.** Si ferma la pipeline; se il blocco da sostituire è sporco lo si ricopia; si legge il blocco nuovo, lo si scrive in cache e si ripete l'accesso. Le cache **non bloccanti** servono altri hit durante un miss (*hit under miss*).
 
-**Scrittura con miss.** Con **write allocate** si porta il blocco in cache e poi lo si scrive (di solito insieme al write-back); con **no-write allocate** si scrive direttamente nel livello inferiore senza caricare il blocco (di solito con il write-through).
+**All'orale.**
 
-**Miss in lettura.** Si ferma la pipeline, si legge il blocco dal livello inferiore (riscrivendo prima, con il write-back, il blocco sostituito se è sporco), lo si scrive in cache e si ripete l'accesso. Le cache più evolute sono **non bloccanti**: continuano a servire gli hit mentre un miss è in corso (*hit under miss*).
+- *Che problema risolve il write buffer, e quale introduce?* Evita di aspettare la memoria a ogni `sw`. Introduce un caso nuovo: una `lw` che cerca un dato ancora nel buffer va servita dal buffer (o aspettare che si svuoti), altrimenti legge il valore vecchio.
+- *Perché il dirty bit?* Senza, con il write-back si dovrebbe ricopiare ogni blocco sostituito, anche quelli solo letti.
 
-### 5.5 Le cause dei miss e le cache associative
+### 5.5 Le cause dei miss e l'associatività
 
-I miss hanno tre cause (le "tre C"):
+**Le tre C.**
 
-- **obbligatori** (*compulsory*): il primo accesso a un blocco; si riducono con blocchi più grandi;
-- **di capacità**: la cache non contiene tutti i blocchi usati dal programma; si riducono con una cache più grande;
-- **di conflitto**: più blocchi usati insieme vanno nella stessa posizione, anche se altrove c'è posto; si riducono aumentando l'associatività.
+| Miss | Causa | Si riduce con |
+|---|---|---|
+| obbligatori (*compulsory*) | primo accesso al blocco | blocchi più grandi |
+| di capacità | la cache non contiene tutti i blocchi usati | cache più grande |
+| di conflitto | blocchi usati insieme nella stessa posizione | più associatività |
 
-Per ridurre i conflitti si rende più flessibile il posizionamento dei blocchi. All'estremo opposto della corrispondenza diretta c'è la cache **completamente associativa**: un blocco può stare in qualsiasi posizione, ma per trovarlo bisogna confrontare il tag con tutti i tag della cache, con un comparatore per ogni blocco. Il compromesso è la cache **associativa a $n$ vie** (*set associative*): la cache è divisa in **insiemi** di $n$ blocchi; un blocco va in un insieme preciso,
-$$\text{insieme} = (\text{indirizzo del blocco}) \bmod (\text{numero di insiemi}),$$
-ma al suo interno in una qualsiasi delle $n$ vie. L'indice sceglie l'insieme, e si confrontano in parallelo gli $n$ tag. A parità di capacità, raddoppiando le vie si dimezza il numero di insiemi: l'indice perde un bit e il tag ne guadagna uno. La corrispondenza diretta è il caso a una via, la completamente associativa quello con un solo insieme.
+![Figura 5.3 · Dove può andare il blocco 12 in una cache da 8 blocchi.](figure/5-3.svg)
 
-Il prezzo dell'associatività: $n$ comparatori, un multiplexer per scegliere la via (più ritardo sull'hit time), e una politica di **sostituzione** quando l'insieme è pieno. La più usata è **LRU** (*least recently used*): si sostituisce il blocco non usato da più tempo. Per due vie basta un bit per insieme; con più vie l'LRU esatto è costoso e si usano approssimazioni (come NRU, *not recently used*) o una scelta casuale.
+| Organizzazione | Dove va un blocco | Confronti | Indice |
+|---|---|---|---|
+| mappatura diretta | una riga: blocco mod N | 1 | $\log_2 N$ bit |
+| associativa a $n$ vie | un insieme: blocco mod (N/n), qualsiasi via | $n$ in parallelo | $\log_2 (N/n)$ bit |
+| completamente associativa | ovunque | N (uno per blocco) | nessuno |
+
+A parità di capacità, raddoppiando le vie l'indice perde un bit e il tag ne guadagna uno.
+
+![Figura 5.4 · Una cache associativa a due vie: l'indice sceglie l'insieme nelle due vie, si confrontano i due tag in parallelo e un multiplexer sceglie il dato della via che ha dato hit.](figure/5-4.svg)
+
+**Il prezzo.** $n$ comparatori, un multiplexer sul percorso del dato (hit time più lungo), e una politica di **sostituzione**:
+
+- **LRU** (*least recently used*): si sostituisce il blocco non usato da più tempo; a 2 vie basta un bit per insieme;
+- con molte vie LRU esatto costa: approssimazioni (NRU, *not recently used*) o scelta casuale.
+
+**All'orale.**
+
+- *Perché nella cache associativa il multiplexer peggiora l'hit time?* Nella mappatura diretta il dato si può usare mentre si controlla il tag (se non è hit lo si scarta); con più vie si sa quale dato usare solo dopo il confronto.
+- *Perché la completamente associativa non si usa per cache grandi?* Un comparatore per blocco: migliaia di comparatori, area e consumo enormi. Si usa per strutture piccole come il TLB.
 
 ### 5.6 Le prestazioni della cache
 
-Gli stalli dovuti alla memoria si aggiungono al CPI della pipeline:
 $$\text{CPI} = \text{CPI}_{base} + \frac{\text{accessi}}{\text{istruzione}} \times \text{miss rate} \times \text{miss penalty},$$
-separando di solito le istruzioni (un accesso per istruzione) dai dati (un accesso per ogni `lw` o `sw`). Due osservazioni importanti. Se il processore diventa più veloce, la miss penalty *in cicli* cresce, perché la memoria non accelera: il peso degli stalli aumenta (guidato 3). E ridurre il CPI di base serve sempre meno, perché la parte dovuta ai miss resta.
+con istruzioni (1 accesso per istruzione) e dati (1 per ogni `lw` o `sw`) calcolati a parte.
 
-**Cache a più livelli.** Una cache di secondo livello (L2), più grande e più lenta della L1 ma molto più veloce della memoria, riduce la miss penalty della L1: un miss in L1 che trova il dato in L2 costa poche decine di cicli invece di centinaia. I due livelli hanno obiettivi diversi: la L1 deve avere un hit time minimo (è piccola, spesso a poche vie), la L2 un miss rate basso (è grande, più associativa, con blocchi più grandi). Si distingue il miss rate **locale** della L2 (miss della L2 diviso accessi alla L2, che sono solo i miss della L1) da quello **globale** (miss della L2 diviso tutti gli accessi): il locale è molto più alto del globale, perché alla L2 arrivano solo gli accessi "difficili". Con due livelli
+- Processore più veloce → la miss penalty in **cicli** cresce (la memoria non accelera): gli stalli pesano di più (guidato 3).
+- Ridurre il CPI di base serve sempre meno: la parte dei miss resta.
+
+**Cache a più livelli.**
+
+| | L1 | L2 |
+|---|---|---|
+| obiettivo | hit time minimo | miss rate basso |
+| com'è | piccola, poche vie, separata istruzioni/dati | grande, più vie, blocchi più grandi |
+
+Miss rate **locale** della L2 = miss L2 / accessi alla L2 (cioè i miss della L1); **globale** = miss L2 / tutti gli accessi. Il locale è molto più alto: alla L2 arrivano solo gli accessi "difficili".
 $$\text{AMAT} = \text{hit time}_{L1} + \text{miss rate}_{L1} \times (\text{hit time}_{L2} + \text{miss rate locale}_{L2} \times \text{miss penalty}_{L2}).$$
 
-**Il software.** Le prestazioni della cache dipendono anche da come il programma accede ai dati: scorrere una matrice per righe (come è memorizzata in C) sfrutta la località spaziale, scorrerla per colonne no. Gli algoritmi possono essere riorganizzati a blocchi (*blocking*) per riusare i dati finché sono in cache.
+**Il software conta.** Una matrice C scorsa per righe sfrutta la località spaziale, per colonne no; gli algoritmi a blocchi (*blocking*) riusano i dati finché sono in cache.
 
-### 5.7 Cache e DRAM
+### 5.7 La DRAM e il collegamento con la cache
 
-La miss penalty dipende da come la cache è collegata alla DRAM. In una DRAM l'indirizzo si dà in due parti: prima la riga (segnale RAS), che viene copiata in un buffer, poi la colonna (CAS); parole successive della stessa riga si leggono molto più in fretta della prima. Le SDRAM sono sincrone con il bus; le DDR trasferiscono un dato su entrambi i fronti del clock, e le generazioni successive (DDR2, DDR3, DDR4) aumentano la velocità di trasferimento e il prefetch interno, abbassando la tensione.
+![Figura 5.5 · Un chip DRAM: con RAS una riga intera passa nel buffer di riga, con CAS si sceglie la colonna. Altre colonne della stessa riga si leggono senza ripetere RAS.](figure/5-5.svg)
 
-Il modello delle slide per un blocco di più parole su un bus largo una parola: 1 ciclo di bus per mandare l'indirizzo, un certo numero di cicli per ogni accesso alla DRAM, 1 ciclo per trasferire una parola (il trasferimento di una parola si sovrappone alla lettura della successiva, tranne l'ultimo). Si confrontano tre organizzazioni:
+- **SDRAM**: sincrona con il bus. **DDR**: un dato su entrambi i fronti del clock; DDR2, DDR3, DDR4 aumentano la velocità di trasferimento e il prefetch interno, abbassando la tensione.
+- **Refresh**: il condensatore si scarica; il controllore rilegge e riscrive ogni riga periodicamente.
 
-- ogni parola richiede un accesso completo alla DRAM;
-- le parole del blocco stanno nella stessa riga, e dopo la prima basta l'accesso di colonna, più breve;
-- la memoria è **interallacciata** (*interleaved*) in banchi: le parole del blocco stanno in banchi diversi, letti in parallelo, e poi trasferite una per ciclo.
+**Modello delle slide per un blocco di più parole** (bus largo una parola): 1 ciclo per l'indirizzo, alcuni cicli per ogni accesso alla DRAM, 1 ciclo per trasferire ogni parola.
 
-La **larghezza di banda** è il numero di byte trasferiti per ciclo di bus durante un miss. L'esercizio 6 fa i conti: lo scopo è scegliere DRAM e bus adatti alla dimensione dei blocchi della cache.
+| Organizzazione | Come si legge il blocco |
+|---|---|
+| un accesso per parola | ogni parola un accesso completo |
+| stessa riga (burst) | dopo la prima parola basta l'accesso di colonna |
+| interallacciata (*interleaved*) | parole in banchi diversi letti in parallelo, poi una per ciclo sul bus |
 
-### 5.8 Un cenno alla memoria virtuale
+**Larghezza di banda** = byte trasferiti per ciclo di bus durante un miss (esercizio 6).
 
-Fra memoria principale e disco la gerarchia è gestita dal sistema operativo con la **memoria virtuale**. Ogni programma usa indirizzi **virtuali**, divisi in pagine (tipicamente di 4 KB); il sistema operativo decide in quale pagina **fisica** della memoria principale sta ogni pagina virtuale, oppure se è sul disco. L'indirizzo virtuale si divide in numero di pagina virtuale e offset nella pagina; la traduzione sostituisce il numero di pagina virtuale con quello fisico, usando la **tabella delle pagine** del processo. Se la pagina non è in memoria si ha un **page fault**, un'eccezione gestita dal sistema operativo, che la carica dal disco: costa milioni di cicli, per questo la corrispondenza è completamente associativa, la sostituzione approssima LRU e la scrittura è sempre write-back. La memoria virtuale serve anche a proteggere i processi uno dall'altro, perché ciascuno vede solo le sue pagine: è la virtualizzazione del modulo 1 applicata alla memoria.
+### 5.8 La memoria virtuale (cenno)
 
-Per non leggere la tabella delle pagine in memoria a ogni accesso, il processore tiene le traduzioni recenti in una piccola cache, il **TLB** (*translation lookaside buffer*), che nella figura della gerarchia delle slide compare accanto alle cache L1 (ITLB e DTLB).
+![Figura 5.6 · La traduzione di un indirizzo virtuale: si cerca nel TLB; se manca, si legge la tabella delle pagine (V = 0 vuol dire page fault); l'offset passa invariato.](figure/5-6.svg)
+
+- Ogni processo usa indirizzi **virtuali**, divisi in pagine (tipicamente 4 KiB); il sistema operativo decide in quale pagina **fisica** sta ogni pagina, o se è sul disco.
+- **Tabella delle pagine** (una per processo, in memoria): numero di pagina virtuale → numero di pagina fisica, con il bit di validità.
+- **Page fault**: pagina non in memoria → eccezione, il sistema operativo la carica dal disco. Costa milioni di cicli, quindi: pagine grandi, posizionamento completamente associativo, sostituzione che approssima LRU, sempre write-back.
+- **TLB**: piccola cache (spesso completamente associativa) delle traduzioni recenti, per non leggere la tabella in memoria a ogni accesso. Nelle slide: ITLB e DTLB accanto alle L1.
+- **Protezione**: ogni processo vede solo le sue pagine. È la virtualizzazione del modulo 1 applicata alla memoria.
+
+**All'orale.**
+
+- *Perché l'offset non si traduce?* La pagina virtuale e quella fisica hanno la stessa dimensione: cambia solo dove comincia la pagina.
+- *Perché write-back e non write-through?* Una scrittura sul disco costa milioni di cicli: impensabile per ogni `sw`.
 
 ### 5.9 L'input/output
 
-I dispositivi di I/O sono molto diversi per comportamento (ingresso, uscita, memorizzazione), per interlocutore (una persona o una macchina) e per velocità: fra una tastiera e una scheda di rete ci sono circa otto ordini di grandezza. Le misure di prestazione sono il **throughput** (quanti dati o quante operazioni per unità di tempo) e il **tempo di risposta** (la latenza di una singola operazione, decisiva nei sistemi in tempo reale).
+**Misure.** Throughput (dati o operazioni per unità di tempo) e tempo di risposta (latenza di un'operazione, decisivo in tempo reale). Fra una tastiera e una scheda di rete ci sono circa otto ordini di grandezza di velocità.
 
-**I bus.** Un bus è un collegamento condiviso fra più sottosistemi. È versatile ed economico, ma è un collo di bottiglia, e la sua velocità è limitata dalla lunghezza e dal numero di dispositivi. Si distinguono il bus processore-memoria (corto, veloce, proprietario), i bus di I/O (lunghi, più lenti, standard, come USB e SATA) e i bus di collegamento (*backplane*, come PCI Express). Un bus **sincrono** ha un clock fra le linee di controllo e un protocollo fisso rispetto al clock: poca logica e alta velocità, ma tutti i dispositivi devono seguire lo stesso clock e il bus deve essere corto per evitare lo sfasamento del clock (*clock skew*). Un bus **asincrono** non ha clock e usa un protocollo di **handshaking** con linee di controllo apposite (richiesta, conferma, dato pronto): si adatta a dispositivi di velocità diverse ed è più lento. La tendenza è passare da bus paralleli e larghi a collegamenti seriali punto a punto molto veloci (SATA al posto di ATA parallelo, PCIe al posto di PCI).
+**I bus.**
 
-**Comandare i dispositivi.** Il processore comunica con un dispositivo attraverso i suoi registri (di stato, di controllo, dei dati), con istruzioni speciali di I/O oppure, come in RISC-V, con l'**I/O mappato in memoria**: a ogni dispositivo è assegnata una zona dello spazio degli indirizzi, e `lw` e `sw` su quegli indirizzi diventano letture e comandi per il dispositivo. Il sistema operativo fa da intermediario, perché i dispositivi sono condivisi fra i programmi e vanno protetti.
+| Tipo | Come | Pro | Contro |
+|---|---|---|---|
+| sincrono | clock fra le linee, protocollo fisso | poca logica, veloce | tutti allo stesso clock; corto (*clock skew*) |
+| asincrono | *handshaking*: richiesta, conferma, dato pronto | dispositivi di velocità diverse | più lento |
 
-**Sapere quando il dispositivo è pronto.** Ci sono tre modi.
+Bus processore-memoria (corto, veloce), di I/O (USB, SATA), di collegamento (PCI Express). Tendenza: da bus paralleli a collegamenti seriali punto a punto.
 
-- **Polling**: il processore legge periodicamente il registro di stato del dispositivo. È semplice e il processore ha tutto sotto controllo, ma spreca cicli quando il dispositivo è lento o inattivo.
-- **Interruzioni**: è il dispositivo a segnalare con un'interruzione che ha bisogno di attenzione. L'interruzione è asincrona rispetto alle istruzioni; il processore la serve fra un'istruzione e l'altra, come un'eccezione (4.7). Servono un modo per identificare il dispositivo e dei livelli di priorità: il gestore maschera le interruzioni di priorità uguale o minore, salva lo stato, riabilita quelle più urgenti e alla fine ripristina tutto.
-- **DMA** (*direct memory access*): per i dispositivi veloci, come i dischi, anche un'interruzione per ogni parola costerebbe troppo. Il processore programma il controllore DMA (indirizzo del dispositivo, operazione, indirizzo in memoria, numero di byte), il controllore trasferisce da solo l'intero blocco contendendosi il bus con il processore, e alla fine manda una sola interruzione.
+**Comandare i dispositivi.** Registri di stato, controllo e dati del dispositivo; in RISC-V **I/O mappato in memoria**: `lw` e `sw` su indirizzi riservati. Il sistema operativo fa da intermediario (protezione, condivisione).
 
-Con la DMA nascono due problemi. **Dati vecchi**: se un blocco di memoria è anche in cache, un ingresso DMA aggiorna la memoria ma non la cache, e con una cache write-back un'uscita DMA può leggere dalla memoria dati non ancora riscritti. Si risolve facendo passare l'I/O dalla cache (costoso), facendo invalidare o riscrivere dal sistema operativo i blocchi interessati (*cache flush*), o con hardware che invalida selettivamente i blocchi (*snooping*). **Memoria virtuale**: se la DMA usa indirizzi fisici, un trasferimento non deve attraversare il confine di una pagina, perché pagine virtuali consecutive possono non essere consecutive in memoria fisica; se usa indirizzi virtuali, il controllore deve tradurli. In entrambi i casi il sistema operativo non deve spostare le pagine coinvolte durante il trasferimento.
+**Sapere quando il dispositivo è pronto.**
+
+| Metodo | Come | Pro | Contro |
+|---|---|---|---|
+| polling | il processore legge il registro di stato a intervalli | semplice | cicli sprecati con dispositivi lenti |
+| interruzioni | il dispositivo segnala; servita fra due istruzioni come un'eccezione (4.7) | niente attese | servono identificazione e priorità |
+| DMA | il controllore trasferisce un blocco intero da solo, poi una sola interruzione | adatto ai dispositivi veloci | si contende il bus; problemi di coerenza |
+
+**Priorità delle interruzioni.** Il gestore maschera quelle di priorità uguale o minore, salva lo stato, riabilita le più urgenti, alla fine ripristina tutto.
+
+**I problemi della DMA.**
+
+- **Dati vecchi**: un ingresso DMA aggiorna la memoria ma non la cache; con write-back un'uscita DMA legge dalla memoria dati non ancora ricopiati. Rimedi: I/O attraverso la cache, invalidazione o ricopiatura da parte del sistema operativo (*cache flush*), invalidazione selettiva in hardware (*snooping*).
+- **Memoria virtuale**: con indirizzi fisici un trasferimento non deve attraversare il confine di una pagina; con indirizzi virtuali il controllore deve tradurli. Il sistema operativo non deve spostare le pagine coinvolte durante il trasferimento.
 
 ### Esempi ed esercizi svolti
-
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle slide (Gerarchia di memoria, Input-Output); sequenze simulate con `strumenti/cache.py`, conti controllati con `strumenti/verifica_ampliamento.py` (ADC-05)
 
 **Esercizio 1. Dimensionare una cache.** Indirizzi di 32 bit, 64 KB di dati, blocchi di 32 byte. Campi dell'indirizzo e bit totali, a corrispondenza diretta e a 4 vie.
 
@@ -1388,8 +2102,7 @@ Offset: $4\,\text{KB} = 2^{12}$, 12 bit. Numero di pagina virtuale: 20 bit, cio�
 
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/cache.py` e `strumenti/verifica_ampliamento.py` (ADC-05)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Da un indirizzo ai campi.** Nella cache diretta dell'esercizio 1, dove va l'indirizzo `0x1234ABCD`?
 
@@ -1424,8 +2137,6 @@ Offset: $4\,\text{KB} = 2^{12}$, 12 bit. Numero di pagina virtuale: 20 bit, cio�
 La gerarchia di memoria sfrutta la località temporale e spaziale per dare l'illusione di una memoria grande come l'ultimo livello e veloce quasi come il primo: SRAM per le cache, DRAM per la memoria principale, dischi per la memoria secondaria. La cache a corrispondenza diretta mette ogni blocco in una sola posizione, data dall'indice; tag e bit di validità dicono se il blocco è presente. Le scritture si gestiscono con write-through e write buffer, o con write-back e dirty bit; nei miss in scrittura si sceglie fra write allocate e no-write allocate. I miss sono obbligatori, di capacità o di conflitto; i conflitti si riducono con le cache associative a $n$ vie, che richiedono più comparatori e una politica di sostituzione come LRU. Le prestazioni si misurano con il tempo medio di accesso e con gli stalli aggiunti al CPI; le cache a più livelli riducono la miss penalty, e l'organizzazione della DRAM e del bus (stessa riga, interallacciamento) la banda. La memoria virtuale traduce gli indirizzi a pagine con la tabella delle pagine e il TLB. L'I/O usa bus sincroni o asincroni, I/O mappato in memoria, polling, interruzioni e DMA, con i problemi di coerenza fra DMA e cache.
 
 ### Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (ADC-05)
 
 #### Indirizzi e dimensioni
 
@@ -1472,7 +2183,8 @@ Miss penalty con bus da una parola e blocchi di $k$ parole: $1 + k \cdot t_{DRAM
 #### Domande che tornano spesso
 
 - Perché serve una gerarchia di memoria e perché funziona? SRAM e DRAM.
-- Come si trova un dato in una cache diretta, associativa a insiemi e completamente associativa? Calcolo di tag, indice e offset.
+- Come si trova un dato in una cache diretta, associativa a insiemi e completamente associativa? Calcolo di tag, indice e offset. Disegnare la struttura (figure 5.2 e 5.4).
+- Disegnare un chip DRAM e la traduzione di un indirizzo virtuale con il TLB (figure 5.5 e 5.6).
 - Politiche di scrittura e di sostituzione; le tre cause dei miss.
 - Formula dell'AMAT e del CPI con gli stalli; perché le cache a più livelli?
 - Come si riduce la miss penalty con l'organizzazione della DRAM?

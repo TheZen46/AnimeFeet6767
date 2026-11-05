@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 535" width="900" height="535"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f2328"/></marker><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f5fbf"/></marker><marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#c0561b"/></marker></defs><rect width="100%" height="100%" fill="#fff"/><rect x="30" y="270" width="40" height="60" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="50.0" y="304.32" font-size="12" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">PC</text>
+<polyline points="70,300 120,300" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<circle cx="90" cy="300" r="2.6" fill="#1f2328"/>
+<polygon points="115.0,50.0 155.0,71.0 155.0,99.0 115.0,120.0 115.0,90.6 126.2,85.0 115.0,79.4" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="139.8" y="90.6" font-size="16" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">+</text>
+<polyline points="90,300 90,65 115,64.7" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="96" y="109" font-size="12" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f2328">4</text>
+<polyline points="100,105.30000000000001 115,105.30000000000001" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<rect x="120" y="250" width="105" height="110" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="172.5" y="302.24" font-size="11.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">Memoria</text>
+<text x="172.5" y="316.04" font-size="11.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">istruzioni</text>
+<text x="124" y="296" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">ind.</text>
+<text x="221" y="296" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f2328">istr.</text>
+<polyline points="225,300 255,300" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<polyline points="255,120 255,500" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<circle cx="255" cy="120" r="2.6" fill="#1f2328"/>
+<text x="260" y="116" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">[6:0]</text>
+<circle cx="255" cy="270" r="2.6" fill="#1f2328"/>
+<text x="260" y="266" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">[19:15]</text>
+<circle cx="255" cy="310" r="2.6" fill="#1f2328"/>
+<text x="260" y="306" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">[24:20]</text>
+<circle cx="255" cy="350" r="2.6" fill="#1f2328"/>
+<text x="260" y="346" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">[11:7]</text>
+<circle cx="255" cy="460" r="2.6" fill="#1f2328"/>
+<text x="260" y="456" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">[31:0]</text>
+<circle cx="255" cy="500" r="2.6" fill="#1f2328"/>
+<text x="260" y="496" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">[30,14:12]</text>
+<ellipse cx="345" cy="120" rx="42" ry="34" fill="#fff" stroke="#1f5fbf" stroke-width="1.4"/>
+<text x="345" y="117.36" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f5fbf">Unità di</text>
+<text x="345" y="130.56" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f5fbf">controllo</text>
+<polyline points="255,120 303,120" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="387,120 410,120" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="414" y="100" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">Branch, MemRead,</text>
+<text x="414" y="113" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">MemtoReg, ALUOp,</text>
+<text x="414" y="126" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">MemWrite, ALUSrc,</text>
+<text x="414" y="139" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">RegWrite</text>
+<rect x="320" y="250" width="125" height="150" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="382" y="325" font-size="11.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">Banco dei</text>
+<text x="382" y="340" font-size="11.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">registri</text>
+<text x="325" y="274" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">rs1</text>
+<text x="325" y="314" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">rs2</text>
+<text x="325" y="354" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">rd</text>
+<text x="325" y="389" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">dato da scrivere</text>
+<text x="440" y="284" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f2328">dato 1</text>
+<text x="440" y="354" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f2328">dato 2</text>
+<polyline points="255,270 320,270" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="255,310 320,310" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="255,350 320,350" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="382,228 382,250" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="385" y="225" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">RegWrite</text>
+<ellipse cx="385" cy="460" rx="38" ry="22" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="385" y="457.6" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">Gener.</text>
+<text x="385" y="469.6" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">immediati</text>
+<polyline points="255,460 347,460" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polygon points="490,325 510,335 510,400 490,410" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="494" y="353.5" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">0</text>
+<text x="494" y="388.5" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">1</text>
+<polyline points="445,350 490,350" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<circle cx="468" cy="350" r="2.6" fill="#1f2328"/>
+<polyline points="423,460 475,460 475,385 490,385" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<circle cx="475" cy="385" r="2.6" fill="#1f2328"/>
+<polyline points="500,422 500,404" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="503" y="432" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">ALUSrc</text>
+<polygon points="540.0,240.0 615.0,288.0 615.0,352.0 540.0,400.0 540.0,332.8 561.0,320.0 540.0,307.2" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="586.5" y="324.2" font-size="12" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">ALU</text>
+<polyline points="445,280 540,280" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="510,367.5 530,367.5 530,366.4 540,366.4" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="612" y="296" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f2328">Zero</text>
+<text x="612" y="336" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f2328">risultato</text>
+<ellipse cx="578" cy="470" rx="38" ry="20" fill="#fff" stroke="#1f5fbf" stroke-width="1.4"/>
+<text x="578" y="467.72" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f5fbf">Controllo</text>
+<text x="578" y="479.12" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f5fbf">ALU</text>
+<polyline points="255,500 560,500 560,489" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<polyline points="578,450 578,388" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="582" y="430" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">op. ALU (4 bit)</text>
+<polyline points="605,504 605,482" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="605" y="514" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">ALUOp</text>
+<ellipse cx="475" cy="195" rx="26" ry="15" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="475" y="198.6" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">&lt;&lt; 1</text>
+<polyline points="475,385 475,210" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polygon points="555.0,110.0 595.0,134.0 595.0,166.0 555.0,190.0 555.0,156.4 566.2,150.0 555.0,143.6" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="579.8" y="155.6" font-size="16" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">+</text>
+<polyline points="501,195 540,195 540,173.2 555,173.2" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="90,65 90,30 535,30 535,126.8 555,126.8" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<circle cx="90" cy="65" r="2.6" fill="#1f2328"/>
+<polygon points="680,45 700,55 700,120 680,130" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="684" y="76.83333333333333" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">0</text>
+<text x="684" y="105.16666666666666" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">1</text>
+<polyline points="155,85.0 170,85 170,15 660,15 660,73.33333333333333 680,73.33333333333333" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="595,150.0 640,150.0 640,101.66666666666666 680,101.66666666666666" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<path d="M650,200 h14.0 a10.0,10.0 0 0 1 0,20 h-14.0 z" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<polyline points="615,286 632,286 632,214.4 650,214.4" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="615,286 632,286" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<polyline points="622,205.6 650,205.6" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="588" y="209.6" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">Branch</text>
+<polyline points="674,210.0 690,210.0 690,122" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="694" y="170" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">PCSrc</text>
+<polyline points="700,87.5 715,87.5 715,5 15,5 15,300 30,300" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<rect x="700" y="270" width="105" height="130" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="752.5" y="332.24" font-size="11.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">Memoria</text>
+<text x="752.5" y="346.04" font-size="11.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">dati</text>
+<text x="704" y="316" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">ind.</text>
+<text x="704" y="381" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">dato da</text>
+<text x="704" y="391" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">scrivere</text>
+<text x="801" y="326" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f2328">letto</text>
+<polyline points="615,320.0 700,320.0" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<circle cx="660" cy="320.0" r="2.6" fill="#1f2328"/>
+<polyline points="468,350 468,420 680,420 680,385 700,385" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="752,248 752,270" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="755" y="245" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">MemWrite</text>
+<polyline points="752,420 752,400" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="755" y="430" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">MemRead</text>
+<polygon points="840,295 860,305 860,360 840,370" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="844" y="323.5" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">1</text>
+<text x="844" y="348.5" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">0</text>
+<polyline points="805,320 840,320.0" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="660,320.0 660,440 825,440 825,345.0 840,345.0" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="850,259 850,295" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="847" y="256" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f5fbf" font-style="italic">MemtoReg</text>
+<polyline points="860,332.5 880,332.5 880,520 300,520 300,385 320,385" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/></svg>

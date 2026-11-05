@@ -1,13 +1,13 @@
 # Revisione di Fisica Generale 1
 
-Stato al 4 novembre 2026: **fasi 1-7 fatte, senza fermate intermedie come richiesto. Le domande sono in `01-copertura.md` § 2; nessuna blocca la vendita.**
+Stato al 5 novembre 2026: **fasi 1-8 fatte. I marcatori di revisione sono tolti (fase 8): i moduli sono pronti per l'esportazione in PDF.** Le note di revisione restano in `03-registro.md` e `04-controllo.md`.
 
 | File | Cosa contiene |
 |---|---|
 | `moduli/` | I 4 moduli da vendere |
 | `corso-completo.md` | Tutti i moduli uniti, con frontespizio e indice |
 | `figure/` | Le 2 figure ridisegnate (SVG) |
-| `trascrizione/` | Indice delle 18 lezioni a mano |
+| `trascrizione/` | Indice delle 18 lezioni a mano e trascrizione degli appunti a mano delle esercitazioni 2025 |
 | `00-inventario.md` | File, lezioni mancanti, problemi ed errori trovati |
 | `01-copertura.md` | Confronto con gli argomenti del corso e domande |
 | `02-struttura.md` | Struttura in 4 moduli |

@@ -10,112 +10,158 @@ versione: 2026-11-05
 
 # 1 · Astrazione, prestazioni e l'ISA RISC-V
 
-**In questo modulo.** Servono le reti logiche (porte, registri, rappresentazione dei numeri in complemento a 2). Si parte dall'idea che regge tutta la materia, i livelli di astrazione con le loro interfacce, e dal modello di von Neumann. Poi si impara a misurare le prestazioni di un calcolatore con l'equazione del tempo di CPU e con la legge di Amdahl. La seconda parte presenta l'insieme di istruzioni (ISA) del processore RISC-V: registri, memoria, formati di codifica, istruzioni aritmetiche, di accesso alla memoria e di salto. Alla fine del modulo si sa confrontare due macchine con l'equazione delle prestazioni, e codificare e decodificare a mano un'istruzione RISC-V.
-
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Introduzione, RISC-V Instruction Set Architecture), articolo di Smith e Nair "The Architecture of Virtual Machines" (*IEEE Computer*, 2005), rapporto di von Neumann sull'EDVAC (1945); Patterson e Hennessy, *Struttura e progetto dei calcolatori*, edizione RISC-V (ADC-01, ADC-02)
-> Gli appunti a mano del corso coprono solo il datapath con pipeline (modulo 4): questo modulo è scritto in revisione dal materiale del corso.
+**In questo modulo.** Prerequisiti: porte, registri e complemento a 2 (Reti Logiche). Livelli di astrazione e modello di von Neumann; come si misurano le prestazioni (equazione del tempo di CPU, legge di Amdahl); l'ISA RISC-V: registri, memoria, i sei formati con la disposizione dei campi, le istruzioni principali. Alla fine si confrontano due macchine con l'equazione delle prestazioni e si codifica e decodifica a mano un'istruzione. All'orale si chiede spesso l'ordine dei formati R, I, S, B, U, J e perché i campi sono disposti così (1.5).
 
 ## 1.1 Livelli di astrazione e interfacce
 
-Un calcolatore moderno è troppo complesso per essere pensato tutto insieme. Lo si divide in **livelli**, ognuno dei quali offre a quello sopra un insieme di servizi attraverso un'**interfaccia** ben definita e nasconde i dettagli di come li realizza. Dal basso verso l'alto: i transistori e le porte logiche; le reti (sommatori, registri, memorie); la **microarchitettura**, cioè l'organizzazione dei blocchi che eseguono le istruzioni; l'**insieme di istruzioni** (ISA, *instruction set architecture*), che è il confine fra hardware e software; il sistema operativo; i linguaggi e le applicazioni.
+Ogni livello offre servizi a quello sopra attraverso un'**interfaccia** e nasconde come li realizza. Dal basso:
 
-L'ISA è l'interfaccia più importante. Descrive tutto ciò che un programmatore in linguaggio macchina deve sapere: quali istruzioni esistono, come si codificano, quali registri ci sono, come si accede alla memoria. Non dice come le istruzioni vengono eseguite: due processori con la stessa ISA (per esempio due generazioni della stessa famiglia) eseguono gli stessi programmi anche se dentro sono molto diversi. È il motivo per cui il software sopravvive a molte generazioni di hardware.
+| Livello | Che cosa contiene |
+|---|---|
+| dispositivi e porte | transistor, porte logiche |
+| reti | sommatori, registri, memorie |
+| microarchitettura | organizzazione dei blocchi che eseguono le istruzioni (datapath, pipeline, cache) |
+| **ISA** | istruzioni, codifica, registri, accesso alla memoria: confine hardware/software |
+| sistema operativo | gestione delle risorse, astrazioni (file, processi) |
+| linguaggi e applicazioni | compilatori, programmi |
 
-Il prezzo delle interfacce è la rigidità: un programma compilato per un'ISA funziona solo sull'hardware che la realizza, e un sistema operativo solo sull'ISA per cui è scritto. La **virtualizzazione** supera questo limite inserendo uno strato di software che realizza un'interfaccia su un'altra. Una **macchina virtuale di processo** offre a un singolo programma un ambiente diverso da quello reale: la macchina virtuale Java, o un emulatore che esegue codice per un'altra ISA. Una **macchina virtuale di sistema** offre un'intera macchina, su cui gira un sistema operativo completo: è il caso degli *hypervisor* che fanno girare più sistemi operativi sullo stesso server.
+- L'**ISA** dice *che cosa* fa ogni istruzione, non *come*: processori diversi con la stessa ISA eseguono gli stessi programmi. Per questo il software sopravvive a molte generazioni di hardware.
+- **Virtualizzazione**: uno strato di software che realizza un'interfaccia sopra un'altra.
+  - *macchina virtuale di processo*: un ambiente diverso per un programma (macchina virtuale Java, emulatore di un'altra ISA);
+  - *macchina virtuale di sistema*: un'intera macchina su cui gira un sistema operativo (*hypervisor*).
 
 ## 1.2 Il modello di von Neumann
 
-Quasi tutti i calcolatori seguono lo schema descritto da von Neumann nel 1945: un'**unità centrale** (CPU) con un'unità aritmetico-logica e un'unità di controllo, una **memoria** che contiene sia i dati sia le istruzioni, e i dispositivi di **ingresso e uscita**, collegati da un sistema di interconnessione (i bus). L'idea decisiva è il **programma memorizzato**: le istruzioni sono numeri come i dati, stanno nella stessa memoria, e la macchina si riprogramma cambiando il contenuto della memoria, non i collegamenti.
+- **CPU** (ALU + unità di controllo), **memoria** unica per dati e istruzioni, **ingresso e uscita**, collegati da bus.
+- **Programma memorizzato**: le istruzioni sono numeri in memoria; si riprogramma la macchina cambiando la memoria, non i collegamenti.
 
-La CPU esegue le istruzioni con un ciclo che si ripete sempre uguale:
+**Il ciclo dell'istruzione.**
 
-1. **prelievo** (*fetch*): legge dalla memoria l'istruzione all'indirizzo contenuto nel **program counter** (PC);
-2. **decodifica**: capisce che istruzione è e legge gli operandi dai registri;
-3. **esecuzione**: fa l'operazione nell'ALU, oppure calcola un indirizzo;
-4. **accesso alla memoria**, se l'istruzione legge o scrive un dato;
-5. **scrittura del risultato** in un registro, e aggiornamento del PC (all'istruzione successiva, o a quella di destinazione di un salto).
+| Passo | Che cosa | Stadio della pipeline (modulo 4) |
+|---|---|---|
+| prelievo | legge l'istruzione all'indirizzo nel **PC** | IF |
+| decodifica | capisce l'istruzione, legge i registri | ID |
+| esecuzione | ALU, o calcolo di un indirizzo | EX |
+| memoria | legge o scrive un dato, se serve | MEM |
+| scrittura | risultato nel registro; PC aggiornato | WB |
 
-Il collegamento fra CPU e memoria è anche il limite del modello: ogni istruzione e ogni dato devono passare di lì, e la memoria è molto più lenta della CPU. È il cosiddetto "collo di bottiglia di von Neumann", a cui rispondono le cache del modulo 5.
+**Collo di bottiglia di von Neumann**: tutte le istruzioni e tutti i dati passano dal collegamento CPU-memoria, e la memoria è molto più lenta. Risposta: le cache (modulo 5).
 
 ## 1.3 Le prestazioni
 
-Per confrontare due calcolatori bisogna decidere che cosa misurare. Il **tempo di esecuzione** (o tempo di risposta) di un programma interessa all'utente; il **throughput**, cioè il lavoro svolto per unità di tempo, interessa a chi gestisce un server. Qui si guarda il tempo di CPU di un programma, e una macchina è "$n$ volte più veloce" di un'altra se
-$$\frac{\text{Prestazione}_A}{\text{Prestazione}_B} = \frac{T_B}{T_A} = n.$$
+- **Tempo di esecuzione** (interessa all'utente) e **throughput** (lavoro per unità di tempo, interessa a chi gestisce un server).
+- A è $n$ volte più veloce di B se $\frac{\text{Prestazione}_A}{\text{Prestazione}_B} = \frac{T_B}{T_A} = n$.
 
-Il processore lavora al ritmo di un clock con periodo $T_{clk}$ (e frequenza $f = 1/T_{clk}$). Ogni istruzione richiede un certo numero di cicli; la media su un programma si chiama **CPI** (*cicli per istruzione*). Allora vale l'**equazione delle prestazioni**:
+**Equazione delle prestazioni.**
 $$T_{CPU} = N_{istr} \times CPI \times T_{clk} = \frac{N_{istr} \times CPI}{f}.$$
 
-I tre fattori dipendono da cose diverse. $N_{istr}$ dipende dal programma, dal compilatore e dall'ISA; il $CPI$ dalla microarchitettura (e dal tipo di istruzioni usate); $T_{clk}$ dalla tecnologia e dalla microarchitettura. Migliorare uno solo di essi peggiorando gli altri può non servire: è l'errore di giudicare un processore solo dalla frequenza.
+| Fattore | Da che cosa dipende |
+|---|---|
+| $N_{istr}$ | programma, compilatore, ISA |
+| CPI (cicli per istruzione) | microarchitettura, tipo di istruzioni |
+| $T_{clk}$ | tecnologia, microarchitettura |
 
-Se le istruzioni si dividono in classi con CPI diversi, il CPI medio è la media pesata con le frazioni $\phi_i$ di istruzioni di ogni classe:
-$$CPI = \sum_i \phi_i \, CPI_i.$$
+$$CPI = \sum_i \phi_i \, CPI_i \qquad (\phi_i = \text{frazione di istruzioni della classe } i).$$
 
 > [!esempio] Due compilatori
-> Un programma compilato con il compilatore 1 esegue 2 milioni di istruzioni di classe A (CPI 1), 1 milione di classe B (CPI 2) e 1 milione di classe C (CPI 3); con il compilatore 2, 4 milioni di A, 1 di B e 1 di C. Cicli: $2 + 2 + 3 = 7$ milioni contro $4 + 2 + 3 = 9$ milioni. CPI medio: $\frac{7}{4} = 1{,}75$ contro $\frac{9}{6} = 1{,}5$. Il secondo compilatore ha il CPI migliore ma produce più istruzioni, e il programma è più lento: a parità di clock conta il prodotto $N_{istr} \times CPI$, non uno dei due.
+> Compilatore 1: 2 milioni di istruzioni A (CPI 1), 1 di B (CPI 2), 1 di C (CPI 3). Compilatore 2: 4, 1, 1 milioni. Cicli: 7 milioni contro 9 milioni. CPI: 1,75 contro 1,5. Il secondo ha il CPI migliore ma è più lento: conta il prodotto $N_{istr} \times CPI$.
 
-Per lo stesso motivo il **MIPS** (milioni di istruzioni al secondo) non è una buona misura: dipende dal programma e dall'ISA, e una macchina con istruzioni più semplici ne esegue di più senza essere più veloce.
+- Il **MIPS** (milioni di istruzioni al secondo) non è una buona misura: dipende dal programma e dall'ISA.
+- Giudicare un processore dalla sola frequenza è lo stesso errore.
 
 > [!teorema] Legge di Amdahl
-> Se un miglioramento accelera di un fattore $k$ una parte del programma che occupa la frazione $F$ del tempo di esecuzione, il tempo nuovo è
-> $$T' = T\left((1 - F) + \frac{F}{k}\right), \qquad S = \frac{T}{T'} = \frac{1}{(1 - F) + F/k}.$$
+> Se un miglioramento accelera di $k$ la frazione $F$ del tempo di esecuzione:
+> $$T' = T\left((1 - F) + \frac{F}{k}\right), \qquad S = \frac{1}{(1 - F) + F/k}.$$
 
-La conseguenza è che l'accelerazione complessiva è limitata dalla parte non migliorata: anche con $k \to \infty$, $S \to \frac{1}{1 - F}$. Se le moltiplicazioni occupano l'80% del tempo, nessun moltiplicatore, per quanto veloce, rende il programma più di 5 volte più rapido. La regola pratica è "rendere veloce il caso frequente".
+- Limite: con $k \to \infty$, $S \to \frac{1}{1 - F}$. Con $F = 0{,}8$ al massimo 5 volte più veloce.
+- Regola pratica: rendere veloce il caso frequente.
 
 ## 1.4 L'ISA RISC-V: registri e memoria
 
-RISC-V è un'ISA aperta, progettata a Berkeley a partire dal 2010, di tipo **RISC** (*reduced instruction set computer*): poche istruzioni semplici, tutte della stessa lunghezza (32 bit nella versione base RV32I), con operazioni aritmetiche solo fra registri e accesso alla memoria solo con istruzioni di load e store (architettura **load/store**). Le scelte seguono quattro principi di progetto: la semplicità favorisce la regolarità; più piccolo è più veloce; rendere veloce il caso frequente; un buon progetto richiede buoni compromessi.
+**RISC-V**: ISA aperta (Berkeley, dal 2010), **RISC**: poche istruzioni semplici, tutte di 32 bit in RV32I, operazioni solo fra registri, memoria solo con load e store (**load/store**).
 
-**Registri.** Ci sono 32 registri interi da 32 bit, `x0` … `x31`. `x0` vale sempre 0: scriverci non ha effetto, e serve a ottenere costanti e operazioni utili senza istruzioni apposite. Gli altri hanno un nome "di convenzione" (ABI) che dice a che cosa servono nelle chiamate di procedura (modulo 2):
+**Principi di progetto.** La semplicità favorisce la regolarità; più piccolo è più veloce; rendere veloce il caso frequente; un buon progetto richiede buoni compromessi.
 
-| Registro | Nome | Uso |
-|---|---|---|
-| `x0` | `zero` | costante 0 |
-| `x1` | `ra` | indirizzo di ritorno |
-| `x2` | `sp` | puntatore alla cima dello stack |
-| `x3`, `x4` | `gp`, `tp` | puntatore globale, puntatore al thread |
-| `x5`–`x7`, `x28`–`x31` | `t0`–`t6` | temporanei (non preservati dalle chiamate) |
-| `x8`, `x9`, `x18`–`x27` | `s0`–`s11` | salvati (preservati dalle chiamate); `s0` è anche il frame pointer `fp` |
-| `x10`–`x17` | `a0`–`a7` | argomenti; `a0` e `a1` anche valori di ritorno |
+**Registri** (32 da 32 bit, `x0` … `x31`):
 
-**Memoria.** La memoria è un vettore di byte, ciascuno con il suo indirizzo (memoria **indirizzata al byte**). Una parola (*word*) è di 4 byte, e i dati di 4 byte di solito stanno a indirizzi multipli di 4 (**allineamento**). RISC-V è **little endian**: in una parola il byte meno significativo sta all'indirizzo più basso. La parola `0x12345678` scritta all'indirizzo 100 occupa i byte 100 (`0x78`), 101 (`0x56`), 102 (`0x34`), 103 (`0x12`).
+| Registro | Nome | Uso | Preservato dalle chiamate? |
+|---|---|---|---|
+| `x0` | `zero` | sempre 0 | – |
+| `x1` | `ra` | indirizzo di ritorno | sì |
+| `x2` | `sp` | cima dello stack | sì |
+| `x3`, `x4` | `gp`, `tp` | puntatore globale, al thread | – |
+| `x5`–`x7`, `x28`–`x31` | `t0`–`t6` | temporanei | no |
+| `x8`, `x9`, `x18`–`x27` | `s0`–`s11` | salvati (`s0` = frame pointer `fp`) | sì |
+| `x10`–`x17` | `a0`–`a7` | argomenti; `a0`, `a1` valori di ritorno | no |
+
+Perché `x0`: costanti e operazioni utili senza istruzioni apposite (`mv` = `addi rd, rs, 0`; `nop` = `addi x0, x0, 0`; `j` = `jal x0, …`).
+
+**Memoria.**
+
+- indirizzata al **byte**; parola = 4 byte, di solito a indirizzi multipli di 4 (**allineamento**);
+- **little endian**: il byte meno significativo all'indirizzo più basso. `0x12345678` all'indirizzo 100: byte 100 = `0x78`, 101 = `0x56`, 102 = `0x34`, 103 = `0x12`.
 
 ## 1.5 I formati delle istruzioni
 
-Tutte le istruzioni RV32I sono lunghe 32 bit e ricadono in sei formati. I campi che compaiono in più formati stanno sempre negli stessi bit, così la decodifica è semplice: l'**opcode** (bit 6-0) dice il formato e la famiglia di istruzioni, `rd` (bit 11-7) è il registro di destinazione, `rs1` (19-15) e `rs2` (24-20) sono i registri sorgente, `funct3` (14-12) e `funct7` (31-25) distinguono le istruzioni con lo stesso opcode.
+![Figura 1.1 · I sei formati di RV32I, nell'ordine R, I, S, B, U, J. In grigio i bit dell'immediato.](../figure/1-1.svg)
 
-| Formato | 31-25 | 24-20 | 19-15 | 14-12 | 11-7 | 6-0 | Esempi |
-|---|---|---|---|---|---|---|---|
-| R | funct7 | rs2 | rs1 | funct3 | rd | opcode | `add`, `sub`, `and`, `slt`, `sll` |
-| I | imm[11:0] (12 bit) | | rs1 | funct3 | rd | opcode | `addi`, `lw`, `jalr`, `slli` |
-| S | imm[11:5] | rs2 | rs1 | funct3 | imm[4:0] | opcode | `sw`, `sb` |
-| B | imm[12, 10:5] | rs2 | rs1 | funct3 | imm[4:1, 11] | opcode | `beq`, `bne`, `blt`, `bge` |
-| U | imm[31:12] (20 bit) | | | | rd | opcode | `lui`, `auipc` |
-| J | imm[20, 10:1, 11, 19:12] | | | | rd | opcode | `jal` |
+| Formato | Per che cosa | Esempi |
+|---|---|---|
+| **R** | operazioni fra registri | `add`, `sub`, `and`, `slt`, `sll` |
+| **I** | immediato di 12 bit, load, `jalr` | `addi`, `lw`, `jalr`, `slli` |
+| **S** | store | `sw`, `sb` |
+| **B** | salti condizionati | `beq`, `bne`, `blt`, `bge` |
+| **U** | immediato di 20 bit alti | `lui`, `auipc` |
+| **J** | salto incondizionato | `jal` |
 
-Gli **immediati** sono costanti scritte nell'istruzione. Hanno 12 bit nei formati I, S e B, e si estendono con il segno a 32 bit prima dell'uso: un immediato I va da $-2048$ a $2047$. Nel formato S l'immediato è spezzato in due pezzi per lasciare `rs2` al suo posto; nei formati B e J l'immediato è un **offset** rispetto al PC, in multipli di 2 byte (il bit 0 non si scrive perché vale sempre 0), e i suoi bit sono rimescolati per riusare gli stessi fili dell'hardware degli altri formati. Per costanti di 32 bit si combinano `lui` (carica i 20 bit alti) e `addi` (aggiunge i 12 bassi).
+**I campi fissi.**
+
+| Campo | Bit | Che cosa |
+|---|---|---|
+| opcode | 6-0 | formato e famiglia |
+| rd | 11-7 | registro di destinazione (R, I, U, J) |
+| funct3 | 14-12 | distingue le istruzioni con lo stesso opcode |
+| rs1 | 19-15 | primo registro sorgente |
+| rs2 | 24-20 | secondo registro sorgente (R, S, B) |
+| funct7 | 31-25 | distingue ancora (`add`/`sub`: bit 30) |
+
+**Perché i campi sono disposti così.**
+
+- **rs1, rs2, rd sempre negli stessi bit**: il banco dei registri si legge in ID prima di sapere che istruzione è (modulo 4).
+- **S spezza l'immediato** (11:5 e 4:0) per lasciare rs2 al suo posto: una store non ha rd, e i bit 11-7 ospitano un pezzo dell'immediato.
+- **B è S con i bit rimescolati**: l'offset è in multipli di 2 byte (il bit 0 vale sempre 0 e non si scrive), e i bit sono messi in modo che ognuno stia, quando possibile, nella stessa posizione che ha in S e in I: il generatore degli immediati usa meno multiplexer.
+- **U e J** hanno 20 bit di immediato; J rimescola i bit per lo stesso motivo di B.
+- **Il bit 31 è sempre il segno** dell'immediato: l'estensione del segno parte prima di sapere il formato.
+
+**Gli immediati.**
+
+- 12 bit in I, S, B, estesi con il segno: un immediato I va da $-2048$ a $2047$.
+- B e J: **offset** rispetto al PC in mezze parole (salti di ±4 KiB per B, ±1 MiB per J).
+- Costanti di 32 bit: `lui` (20 bit alti) + `addi` (12 bassi). Se il bit 11 della parte bassa è 1, `addi` sottrae: la parte alta va aumentata di 1.
 
 > [!esempio] Codificare `add x9, x20, x21`
-> È di tipo R: opcode `0110011`, funct3 `000`, funct7 `0000000`. I registri sono `rd` = 9 (`01001`), `rs1` = 20 (`10100`), `rs2` = 21 (`10101`). Mettendo i campi in ordine, dal bit 31 al bit 0:
+> Tipo R: opcode `0110011`, funct3 `000`, funct7 `0000000`, rd = 9 (`01001`), rs1 = 20 (`10100`), rs2 = 21 (`10101`). Dal bit 31 al bit 0:
 > $$\underbrace{0000000}_{funct7}\ \underbrace{10101}_{rs2}\ \underbrace{10100}_{rs1}\ \underbrace{000}_{funct3}\ \underbrace{01001}_{rd}\ \underbrace{0110011}_{opcode}$$
-> cioè, a gruppi di quattro bit, `0000 0001 0101 1010 0000 0100 1011 0011` = `0x015A04B3`.
+> cioè `0000 0001 0101 1010 0000 0100 1011 0011` = `0x015A04B3`.
+
+**Decodificare a mano**, in quest'ordine: (1) i 7 bit bassi danno l'opcode e quindi il formato; (2) si leggono rd, funct3, rs1, rs2 dalle posizioni fisse; (3) si ricompone l'immediato secondo il formato; (4) funct3 e funct7 danno l'istruzione.
 
 ## 1.6 Le istruzioni principali
 
-**Aritmetiche e logiche.** `add rd, rs1, rs2` ($rd = rs1 + rs2$), `sub`, `and`, `or`, `xor`; le versioni con immediato `addi`, `andi`, `ori`, `xori` (non esiste `subi`: basta `addi` con un immediato negativo). Gli shift `sll`, `srl` (logico, entra 0) e `sra` (aritmetico, entra il bit di segno), e `slli`, `srli`, `srai`: uno shift a sinistra di $k$ moltiplica per $2^k$. `slt rd, rs1, rs2` mette 1 in `rd` se $rs1 < rs2$ (con segno) e 0 altrimenti; `sltu` fa il confronto senza segno. Non c'è un registro di flag: gli esiti dei confronti finiscono in registri normali.
+| Famiglia | Istruzioni | Note |
+|---|---|---|
+| aritmetiche e logiche | `add`, `sub`, `and`, `or`, `xor`; `addi`, `andi`, `ori`, `xori` | non c'è `subi`: `addi` con immediato negativo |
+| shift | `sll`, `srl` (entra 0), `sra` (entra il segno); `slli`, `srli`, `srai` | shift a sinistra di $k$ = × $2^k$ |
+| confronti | `slt`, `sltu`, `slti` | risultato 0 o 1 in un registro: niente flag |
+| memoria | `lw`, `sw`; `lb`, `lbu`, `sb`; `lh`, `lhu`, `sh` | solo base + spiazzamento; `lb` estende il segno, `lbu` con zeri |
+| salti condizionati | `beq`, `bne`, `blt`, `bge`, `bltu`, `bgeu` | offset relativo al PC |
+| salti incondizionati | `jal rd, etichetta`; `jalr rd, off(rs1)` | salvano PC + 4 in rd; con `ra` sono chiamate, con `x0` salti semplici |
 
-**Accesso alla memoria.** `lw rd, offset(rs1)` carica la parola all'indirizzo $rs1 + offset$; `sw rs2, offset(rs1)` la scrive. Per i byte: `lb` (estende con il segno), `lbu` (estende con zeri), `sb`; per le mezze parole `lh`, `lhu`, `sh`. L'unico modo di indirizzamento della memoria è registro base più spiazzamento.
+**Pseudo-istruzioni** (le traduce l'assemblatore): `li`, `mv`, `nop`, `j`, `ret` (`jalr x0, 0(ra)`), `la`, `call`, `bgt` e `ble` (operandi scambiati), `neg`, `not`.
 
-**Salti condizionati.** `beq rs1, rs2, etichetta` salta se i registri sono uguali, `bne` se diversi, `blt` e `bge` (con segno), `bltu` e `bgeu` (senza segno). L'assemblatore traduce l'etichetta nell'offset rispetto al PC dell'istruzione di salto.
-
-**Salti incondizionati.** `jal rd, etichetta` salva in `rd` l'indirizzo dell'istruzione successiva ($PC + 4$) e salta; `jalr rd, offset(rs1)` salta all'indirizzo $rs1 + offset$, salvando anch'esso $PC + 4$ in `rd`. Con `rd` = `ra` sono le istruzioni di chiamata di procedura; con `rd` = `x0` sono salti semplici.
-
-**Pseudo-istruzioni.** L'assemblatore accetta istruzioni che non esistono in hardware e le traduce: `li rd, c` (carica una costante, con `addi` o `lui` più `addi`), `mv rd, rs` (`addi rd, rs, 0`), `nop` (`addi x0, x0, 0`), `j etichetta` (`jal x0, …`), `ret` (`jalr x0, 0(ra)`), `la rd, simbolo` (carica un indirizzo), `bgt`, `ble` (con gli operandi scambiati), `neg`, `not`.
-
-**Modi di indirizzamento.** Riassumendo: *immediato* (l'operando è nell'istruzione: `addi`), *registro* (`add`), *base più spiazzamento* (`lw`, `sw`), *relativo al PC* (salti, `auipc`).
+**Modi di indirizzamento.** Immediato (`addi`), registro (`add`), base + spiazzamento (`lw`, `sw`), relativo al PC (salti, `auipc`).
 
 ## Esempi ed esercizi svolti
-
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle slide del corso; codifiche controllate con `strumenti/rv.py` e conti con `strumenti/verifica_ampliamento.py` (ADC-01, ADC-02)
 
 **Esercizio 1. Codificare quattro istruzioni.** Scrivere in esadecimale (a) `sub x5, x6, x7`, (b) `addi x5, x6, -12`, (c) `lw x10, 8(x2)`, (d) `sw x10, 12(x2)`.
 
@@ -147,8 +193,7 @@ Con l'unità nuova: $S = \frac{1}{0{,}6 + 0{,}04} = 1{,}5625$. Con l'accelerazio
 
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/rv.py` e `strumenti/verifica_ampliamento.py` (ADC-01, ADC-02)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Codificare un salto condizionato.** Codificare `beq x5, x6, +16` (il salto va 16 byte avanti).
 
@@ -183,8 +228,6 @@ Con l'unità nuova: $S = \frac{1}{0{,}6 + 0{,}04} = 1{,}5625$. Con l'accelerazio
 Un calcolatore si organizza in livelli di astrazione separati da interfacce, la più importante delle quali è l'ISA, il confine fra hardware e software; la virtualizzazione realizza un'interfaccia sopra un'altra. Il modello di von Neumann mette dati e istruzioni nella stessa memoria e le esegue con il ciclo prelievo-decodifica-esecuzione. Il tempo di CPU è il prodotto di numero di istruzioni, CPI e periodo del clock; nessuno dei tre fattori da solo misura le prestazioni, e la legge di Amdahl limita il guadagno di ogni miglioramento parziale. RISC-V è un'ISA load/store con 32 registri (`x0` sempre nullo), memoria indirizzata al byte e little endian, e istruzioni da 32 bit in sei formati (R, I, S, B, U, J) con i campi dei registri sempre negli stessi bit; gli immediati si estendono con il segno, e gli offset dei salti sono relativi al PC.
 
 ## Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (ADC-01, ADC-02)
 
 ### Prestazioni
 
@@ -226,3 +269,4 @@ Opcode più usati: `0110011` R, `0010011` I aritmetiche, `0000011` load, `010001
 - Enunciare la legge di Amdahl e spiegarne le conseguenze.
 - Descrivere i formati delle istruzioni RISC-V; perché i campi dei registri sono sempre negli stessi bit?
 - Perché nei formati B e J l'immediato è "rimescolato" e non contiene il bit 0?
+- Elencare i formati nell'ordine R, I, S, B, U, J e disegnarli con i campi e i bit (figura 1.1).

@@ -138,8 +138,7 @@ e il termine misto è nullo perché $\sum_i m_i v_i^{rel} = \sum_i m_i v_i - Mv_
 
 ### Esercizi dalle esercitazioni
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni 4 (19/03/2025), 6 (03/04/2025) e 8 (14/04/2025) del corso, testi riformulati; l'esercizio 10 è il problema M1 della prova di luglio 2016 svolto in esercitazione; risultati confrontati con quelli delle esercitazioni e verificati con `strumenti/verifica_ampliamento.py` (FG1-02, FG1-04, FG1-06)
-> Prima di scrivere equazioni conviene chiedersi che cosa si conserva: l'energia meccanica se lavorano solo forze conservative, la quantità di moto se la risultante delle forze esterne è nulla (in un urto, per la sua breve durata, quasi sempre), nessuna delle due se ci sono attriti e forze esterne.
+Prima di scrivere equazioni conviene chiedersi che cosa si conserva: l'energia meccanica se lavorano solo forze conservative, la quantità di moto se la risultante delle forze esterne è nulla (in un urto, per la sua breve durata, quasi sempre), nessuna delle due se ci sono attriti e forze esterne.
 
 **Esercizio 4. Il lavoro dipende dal percorso?** Sulla particella agisce $\vec F = (axy,\ -ax^2)$ con $a = 60$ N/m². Calcolare il lavoro dall'origine a $P = (l, l)$, $l = 0{,}1$ m, lungo il percorso che passa per $A = (l, 0)$ e lungo quello che passa per $B = (0, l)$.
 
@@ -173,18 +172,49 @@ La quantità di moto si conserva come vettore: $m\vec v_0 = m\vec v_A + m\vec v_
 
 ### Esercizi sul modello delle prove d'esame
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizio nuovo sul modello del problema M1 della prova di febbraio 2025 svolto in esercitazione, con dati diversi; soluzione verificata con `strumenti/verifica_ampliamento.py` (FG1-04, FG1-05)
-
 **Esercizio 11. Molla, piano inclinato e attrito.** Un corpo di 0,4 kg è appoggiato alla base di un piano inclinato di 30° contro una molla ($k = 100$ N/m) compressa di 20 cm. Lasciato libero, risale con $\mu_d = 0{,}15$. (a) Velocità quando la molla torna a riposo. (b) Distanza totale percorsa in salita.
 
 (a) Nei primi 20 cm la molla cede $\frac12 kx^2 = 2$ J; il peso assorbe $mg\sin 30° \cdot 0{,}2 = 0{,}392$ J e l'attrito dissipa $\mu_d mg\cos 30° \cdot 0{,}2 = 0{,}102$ J. Restano $1{,}506$ J di energia cinetica: $v = \sqrt{\frac{2 \cdot 1{,}506}{0{,}4}} = 2{,}74$ m/s.
 
 (b) Su tutta la salita, lunga $s$: $2 = (mg\sin 30° + \mu_d mg\cos 30°)\,s = 2{,}47\,s$, quindi $s = 0{,}81$ m dal punto di partenza. Se $\tan 30° = 0{,}577 > \mu_s$ il corpo poi ridiscende: va controllato con l'attrito statico, che il testo dovrebbe dare.
 
+### Altri esercizi delle esercitazioni, con le soluzioni degli appunti a mano
+
+**Esercizio 12. Un attrito che cambia lungo il piano.** Su un piano inclinato con $\tan\alpha = \frac34$ il coefficiente d'attrito vale $\frac12$ in cima ($s = 0$) e diminuisce come $\mu(s) = \mu_0 - ks^2$ fino a 0 in fondo ($s = L$). Velocità in fondo partendo da fermo.
+
+Dalle condizioni agli estremi $\mu_0 = \frac12$ e $k = \frac{1}{2L^2}$. Lungo il piano $a(s) = g\sin\alpha - \mu(s)g\cos\alpha$. Poiché l'accelerazione dipende dalla posizione si usa $a = \frac{dv}{dt} = \frac{dv}{ds}\frac{ds}{dt} = v\frac{dv}{ds}$ e si separano le variabili: $\int_0^{v}v\,dv = \int_0^L(g\sin\alpha - \mu(s)g\cos\alpha)\,ds$, cioè $\frac{v^2}{2} = gL\sin\alpha - g\cos\alpha\left(\frac L2 - \frac L6\right) = gL\left(\sin\alpha - \frac13\cos\alpha\right)$. Con $\sin\alpha = \frac35$ e $\cos\alpha = \frac45$: $v = \sqrt{\frac23gL}$. Lo stesso risultato si ha dal teorema dell'energia cinetica, con il lavoro dell'attrito $-mg\cos\alpha\int_0^L\mu(s)\,ds$.
+
+**Esercizio 13. Un corpo su un piano inclinato attaccato a una molla.** $m = 5$ kg, $k = 98$ N/m, $\mu_s = 0{,}4$, $\mu_d = 0{,}1$, $\theta = 22°$. Il corpo parte da fermo con la molla a riposo. Di quanto scende? Resta fermo laggiù? Legge oraria.
+
+Un oscillatore si ferma prima di tornare indietro, quindi fra la partenza e il punto più basso $K_i = K_f = 0$ e il teorema lavoro-energia dà $mgd\sin\theta - \frac12kd^2 - \mu_dmgd\cos\theta = 0$: oltre a $d = 0$, $d = \frac{2mg(\sin\theta - \mu_d\cos\theta)}{k} = 0{,}28$ m. Laggiù l'attrito necessario per l'equilibrio è $F = kd - mg\sin\theta = 9{,}3$ N (9,06 N nei risultati, che usano $d$ arrotondato), minore di $\mu_sN = 18{,}2$ N: l'attrito statico basta e il corpo resta fermo. Durante la discesa $m\ddot x = mg\sin\theta - kx - \mu_dmg\cos\theta$, cioè $\ddot x + \omega^2x = A$ con $\omega^2 = \frac km$ e $A = g(\sin\theta - \mu_d\cos\theta)$: la soluzione è la somma di quella dell'omogenea e di quella particolare costante $\frac{A}{\omega^2}$, e con $x(0) = 0$, $\dot x(0) = 0$ si ottiene $x(t) = \frac{A}{\omega^2}(1 - \cos\omega t)$. L'attrito dinamico, finché ha verso costante, sposta soltanto il centro dell'oscillazione.
+
+**Esercizio 14. Blocco, molla, fune e carrucola.** Il blocco $m_A = 1$ kg su un piano liscio è attaccato a una molla ($k = 20$ N/m) e, con una fune su una carrucola ideale, a $m_B = 0{,}5$ kg appeso; si parte da fermi con la molla a riposo. Allungamento massimo, tensione in quel momento, periodo.
+
+All'allungamento massimo tutto è fermo, e l'energia si conserva: $0 = \frac12kx^2 - m_Bgx$, quindi $x = \frac{2m_Bg}{k} = 0{,}49$ m. Per la tensione: $T - kx = m_Aa$ per A e $m_Bg - T = m_Ba$ per B, da cui $a = \frac{m_Bg - kx}{m_A + m_B}$ e $T = m_B(g - a) = m_Bg\frac{m_A + 2m_B}{m_A + m_B} = 6{,}5$ N. Per il periodo si scrive l'accelerazione come $a = -\frac{k}{m_A + m_B}(x - x_0)$, con $x_0 = \frac{m_Bg}{k}$ posizione d'equilibrio: è un moto armonico attorno a $x_0$, con $T = 2\pi\sqrt{\frac{m_A + m_B}{k}} = 1{,}72$ s. Il peso di B sposta il centro dell'oscillazione, non il periodo.
+
+**Esercizio 15. Quando si allenta il filo del pendolo?** Un pendolo di lunghezza $L$ passa per la verticale con $v_0 = \sqrt{3gL}$. Tensione in funzione dell'angolo; il filo resta teso?
+
+Radialmente $T - mg\cos\theta = m\frac{v^2}{L}$, e per l'energia $v^2 = v_0^2 - 2gL(1 - \cos\theta)$: quindi $T = mg(1 + 3\cos\theta)$. Se il filo restasse teso il pendolo si fermerebbe dove $v = 0$, cioè $1 + 2\cos\theta = 0$, $\theta = 120°$; ma la tensione si annulla prima, a $\cos\theta = -\frac13$, $\theta \approx 109{,}5°$. Il filo **non** resta teso: oltre quell'angolo il corpo si stacca e prosegue in moto parabolico.
+
+**Esercizio 16. Il distacco da una cupola.** Un corpo parte da fermo dalla cima di un cilindro liscio di raggio $R$. A che angolo dalla verticale si stacca?
+
+Radialmente $mg\cos\alpha - N = m\frac{v^2}{R}$, e il distacco è a $N = 0$. Dall'energia, con lo zero alla base, $2mgR = \frac12mv^2 + mgR(1 + \cos\alpha)$, cioè $v^2 = 2gR(1 - \cos\alpha)$. Allora $mg\cos\alpha = 2mg(1 - \cos\alpha)$, $\cos\alpha = \frac23$, $\alpha = 48°$, indipendente da massa e raggio.
+
+**Esercizio 17. Quattro molle a croce.** Quattro molle uguali ($k = 50$ N/m, lunghezza a riposo trascurabile) sono fissate in $(\pm L, 0, 0)$ e $(0, \pm L, 0)$, $L = 20$ cm, e legate a un corpo di 50 g lasciato da fermo in $(0, 0, L)$. Velocità nell'origine, periodo, energia potenziale nel piano orizzontale.
+
+Ogni molla è lunga $\sqrt{z^2 + L^2}$, quindi l'energia potenziale totale è $U = 2k(z^2 + L^2)$: da $4kL^2 = 2kL^2 + \frac12mv^2$ si ha $v = \sqrt{\frac{4kL^2}{m}} = 12{,}65$ m/s. La componente $z$ di ogni forza è $-k\sqrt{z^2 + L^2}\frac{z}{\sqrt{z^2 + L^2}} = -kz$: le quattro insieme danno $-4kz$, un moto armonico con $\omega = 2\sqrt{k/m}$ e $T = \pi\sqrt{m/k} = 0{,}1$ s. Nel piano $z = 0$, sommando i quadrati delle quattro lunghezze, $U = 2k(r^2 + L^2)$, che a $r = 2L$ vale $10kL^2 = 20$ J.
+
+**Esercizio 18. Un corpo su una guida libera di muoversi.** Una guida di massa $M = 0{,}8$ kg, libera su un piano liscio, è fatta da due quarti di circonferenza ($R = 20$ cm) uniti da un tratto piano scabro ($\mu = 0{,}2$, $d = 50$ cm). Un corpo di $0{,}2$ kg parte da fermo dal bordo. A che quota risale dall'altra parte, e di quanto si è spostata la guida?
+
+Sul sistema non agiscono forze esterne orizzontali e all'inizio tutto è fermo: la quantità di moto orizzontale resta nulla, quindi $X_{CM}$ non cambia, e quando il corpo si ferma si ferma anche la guida. Il teorema lavoro-energia sul sistema dà $mg(R - h) - \mu mgd = 0$ (il lavoro totale dell'attrito dipende dallo scorrimento relativo, che è $d$), quindi $h = R - \mu d = 10$ cm. Per lo spostamento $s$ della guida: imponendo che $X_{CM}$ sia lo stesso all'inizio e alla fine, $s = \frac{m}{m + M}[d + R(1 + \sin\theta)]$ con $\cos\theta = \frac{R - h}{R} = \frac12$, cioè $s = 17{,}5$ cm.
+
+**Esercizio 19. Su per un cuneo che scivola.** Un corpo di 10 g con $v_0 = 2$ m/s sale su un cuneo liscio di 1 kg, alto 30 cm, libero su un piano liscio. Fin dove sale? Con che velocità minima supererebbe il cuneo?
+
+In orizzontale si conserva la quantità di moto, e alla quota massima corpo e cuneo hanno la stessa velocità: $mv_0 = (m + M)V$. Si conserva anche l'energia: $\frac12mv_0^2 = \frac12(m + M)V^2 + mgy$. Eliminando $V$: $y = \frac{M}{M + m}\frac{v_0^2}{2g} = 20$ cm, poco meno dei $\frac{v_0^2}{2g}$ che si avrebbero con il cuneo fermo, perché una parte dell'energia resta come moto del cuneo. Imponendo $y = h$: $v_0 = \sqrt{2gh\frac{M + m}{M}} = 2{,}4$ m/s.
+
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-02, FG1-04, FG1-06)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Da che altezza per fare il giro della morte?** Una pallina scivola senza attrito su una guida che finisce in un anello verticale di raggio $R$. Altezza minima di partenza.
 
@@ -220,8 +250,7 @@ Il lavoro di una forza è l'integrale $\int F \cdot dl$, e il lavoro della risul
 
 ## Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FG1-02, FG1-04, FG1-06)
-> Lavoro, energia, quantità di moto, urti e sistemi, con i termini per l'orale.
+Lavoro, energia, quantità di moto, urti e sistemi, con i termini per l'orale.
 
 ### Lavoro ed energia
 

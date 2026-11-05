@@ -104,8 +104,7 @@ Il caso $L = 1$ si presenta con tutte le serie del tipo $\frac{1}{n^\alpha}$, ch
 > [!teorema] Convergenza assoluta
 > Se la serie dei moduli $\sum \lvert a_n\rvert$ converge, converge anche $\sum a_n$, e $\left\lvert\sum a_n\right\rvert \le \sum \lvert a_n\rvert$. Si dice che la serie **converge assolutamente**.
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 1* (AM1B-02)
-> *Dimostrazione.* Si ha $0 \le a_n + \lvert a_n\rvert \le 2\lvert a_n\rvert$. Per il confronto la serie $\sum (a_n + \lvert a_n\rvert)$ converge, e $\sum a_n$ è la differenza di due serie convergenti, $\sum (a_n + \lvert a_n\rvert) - \sum \lvert a_n\rvert$. La disuguaglianza vale per le somme parziali e passa al limite. $\square$
+*Dimostrazione.* Si ha $0 \le a_n + \lvert a_n\rvert \le 2\lvert a_n\rvert$. Per il confronto la serie $\sum (a_n + \lvert a_n\rvert)$ converge, e $\sum a_n$ è la differenza di due serie convergenti, $\sum (a_n + \lvert a_n\rvert) - \sum \lvert a_n\rvert$. La disuguaglianza vale per le somme parziali e passa al limite. $\square$
 
 Una serie che converge ma non assolutamente si dice **semplicemente convergente**: converge grazie alle cancellazioni fra termini di segno opposto.
 
@@ -117,10 +116,9 @@ Per le serie **a segno alterno** $\sum (-1)^n b_n$, con $b_n \ge 0$, c'è un cri
 > [!teorema] Criterio di Leibniz
 > Se $b_n \ge 0$, $(b_n)$ è decrescente (anche solo definitivamente) e $b_n \to 0$, la serie $\sum (-1)^n b_n$ converge. Inoltre il resto è maggiorato dal primo termine trascurato: $\lvert R_N\rvert \le b_{N+1}$.
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 1* (AM1B-02)
-> *Idea della dimostrazione.* Le somme parziali di indice pari formano una successione decrescente, quelle di indice dispari una crescente, perché a ogni passo si aggiunge e si toglie una quantità sempre più piccola; e ogni somma pari supera ogni somma dispari. Le due successioni monotone hanno limite, e i limiti coincidono perché $S_{2k+1} - S_{2k} = -b_{2k+1} \to 0$. Il limite comune sta sempre fra due somme parziali consecutive, da cui la stima del resto.
->
-> **L'esempio tipico.** $\sum_{n \ge 1} \frac{(-1)^n}{n}$ converge per Leibniz, perché $\frac{1}{n}$ decresce e tende a 0, ma non converge assolutamente, perché la serie dei moduli è la serie armonica. La sua somma è $-\ln 2$.
+*Idea della dimostrazione.* Le somme parziali di indice pari formano una successione decrescente, quelle di indice dispari una crescente, perché a ogni passo si aggiunge e si toglie una quantità sempre più piccola; e ogni somma pari supera ogni somma dispari. Le due successioni monotone hanno limite, e i limiti coincidono perché $S_{2k+1} - S_{2k} = -b_{2k+1} \to 0$. Il limite comune sta sempre fra due somme parziali consecutive, da cui la stima del resto.
+
+**L'esempio tipico.** $\sum_{n \ge 1} \frac{(-1)^n}{n}$ converge per Leibniz, perché $\frac{1}{n}$ decresce e tende a 0, ma non converge assolutamente, perché la serie dei moduli è la serie armonica. La sua somma è $-\ln 2$.
 
 ## Esempi ed esercizi svolti
 
@@ -138,8 +136,7 @@ La serie converge.
 
 ### Altri esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello del foglio "Serie numeriche" e delle prove scritte 2025-2026; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-02)
-> In ogni prova ci sono due serie: una a termini positivi da studiare con gli asintotici o con il rapporto, e una a segni alterni di cui si chiede convergenza e convergenza assoluta. Il primo controllo è sempre lo stesso: il termine generale tende a 0?
+In ogni prova ci sono due serie: una a termini positivi da studiare con gli asintotici o con il rapporto, e una a segni alterni di cui si chiede convergenza e convergenza assoluta. Il primo controllo è sempre lo stesso: il termine generale tende a 0?
 
 **Esercizio 6.** $\sum_{n \ge 1} \sqrt{n + 2}\left(1 - \cos\frac{1}{n}\right)$. Termini positivi. $1 - \cos\frac{1}{n} \sim \frac{1}{2n^2}$ e $\sqrt{n + 2} \sim \sqrt{n}$, quindi $a_n \sim \frac{1}{2n^{3/2}}$. Per il confronto asintotico con la serie armonica generalizzata di esponente $\frac{3}{2} > 1$, la serie converge.
 
@@ -165,8 +162,7 @@ Razionalizzando, $b_n = \sqrt{n + 2} - \sqrt{n} = \frac{2}{\sqrt{n + 2} + \sqrt{
 
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-02)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Una serie con un parametro.** Per quali $\alpha \in \mathbb{R}$ converge $\sum_{n \ge 1} n^\alpha\left(1 - \cos\frac{1}{n}\right)$?
 
@@ -204,8 +200,7 @@ Una serie è il limite delle sue somme parziali, e può convergere, divergere o 
 
 ## Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1B-02)
-> Serie di riferimento, criteri e procedura, con i termini per l'orale.
+Serie di riferimento, criteri e procedura, con i termini per l'orale.
 
 ### Serie di riferimento
 

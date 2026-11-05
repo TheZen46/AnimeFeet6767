@@ -40,4 +40,27 @@ Dopo le risposte alle domande (`revisione/AMPLIAMENTO-ANNO-1.md`): FG1-1 nessun 
 
 FG1-3 (programma del docente) è rimasta senza risposta: gli ID del programma restano quelli ricavati dalle lezioni.
 
-Gli appunti a mano delle esercitazioni (`Appunti Esercitazioni_compressed`, 70 pagine) non sono ancora stati trascritti: gli esercizi seguono i testi delle esercitazioni corrispondenti, con soluzioni scritte per esteso e controllate sui risultati ufficiali. La trascrizione degli appunti, per riprenderne i passaggi e le figure, è il prossimo passo per questo corso. Controlli: `strumenti/verifica_ampliamento.py`, 83 controlli.
+Gli appunti a mano delle esercitazioni (`Appunti Esercitazioni_compressed`, 70 pagine, esercitazioni 1 e 3-12) sono trascritti in `trascrizione/E - esercitazioni 2025 (appunti a mano).md`, con le note di revisione fra parentesi quadre. Le soluzioni degli appunti sono state confrontate con quelle dei moduli e con i risultati ufficiali delle esercitazioni.
+
+| Dove | Che cosa | ID |
+|---|---|---|
+| Modulo 2, "Altri esercizi delle esercitazioni" | Esercizi 9-10: angolo limite su un piano scabro; blocchetti sovrapposti su un piano inclinato | FG1-01 |
+| Modulo 3, "Altri esercizi delle esercitazioni" | Esercizi 12-19: attrito variabile lungo il piano; molla su piano inclinato con legge oraria; blocco, molla e carrucola; tensione del pendolo e distacco del filo; distacco da una cupola; quattro molle a croce; guida mobile; cuneo mobile | FG1-02, FG1-04 … FG1-06 |
+| Modulo 4, "Altri esercizi delle esercitazioni" | Esercizi 13-17: cono e disco forato; ribaltamento di un cubo; sbarra su due ruote (gennaio 2019); Atwood con molla (settembre 2017); disco, cuneo e freno (luglio 2024) | FG1-03 |
+
+### Confronto fra appunti a mano, ricalcolo e risultati ufficiali
+
+| Esercizio | Appunti | Ricalcolo | Risultato ufficiale | Scelta |
+|---|---|---|---|---|
+| ES3-4, accelerazione dei blocchetti | 0,73 m/s² | 0,73 m/s² | 0,75 m/s² | 0,73, con il valore ufficiale fra parentesi (differenza di arrotondamento di $g$ e degli angoli) |
+| ES6-2, attrito nel punto più basso | 9,06 N | 9,3 N con $d$ non arrotondato | 9,06 N | 9,3 N, con il valore ufficiale fra parentesi |
+| ES7-2, inversione del coseno | $\cos^{-1}(1/3)$ | $\cos^{-1}(-1/3) = 109{,}5°$ | 109,5° | segno corretto |
+| ES8-2, velocità iniziale | $v_0 = v_A\sin\theta_A$ | $v_0 = v_A\cos\theta_A$ | — | componente orizzontale corretta |
+| ES9-2, coefficiente statico | 0,57 | 0,577 ($\tan30°$) | 0,58 | arrotondamento |
+| ES9-3, spostamento | −58 mm | −58 mm | "(- 8 mm, 1.7 mm)" nel testo estratto | probabile cifra persa nell'estrazione del testo ufficiale; esercizio non usato |
+| ES9-2, velocità in C | 2,55 m/s | 2,55 m/s | 2,6 m/s | arrotondamento |
+| ES12-14, posizione minima sulla sbarra | $\frac{M}{2ML}$ in un passaggio | $\frac{M}{2m_1}$ | — | refuso degli appunti, risultato 0,55 m giusto; esercizio non usato |
+| ES12-1, momento angolare | $33\cdot10^{-3}$ kg m²/s | — | $3{,}3\cdot10^{-4}$ kg m²/s | lettura incerta degli appunti; esercizio non usato |
+| ES12-18, giri prima dell'arresto | 1,76 | 1,78 | 1,76 | 1,78, con il valore ufficiale fra parentesi |
+
+Le letture incerte (ES9-5 $\mu_D = 0{,}8$, ES11-3 $\mu_s = 0{,}5$, parti di ES12-2 e ES12-4) sono segnate nella trascrizione; gli esercizi che le contengono non sono stati usati se non confermati dal testo ufficiale. Controlli: `strumenti/verifica_ampliamento.py`, 119 controlli.

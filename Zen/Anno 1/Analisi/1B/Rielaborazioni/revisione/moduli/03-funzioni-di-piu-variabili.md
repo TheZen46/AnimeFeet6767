@@ -101,8 +101,7 @@ $$D_v f(0, 1) = \lim_{h \to 0} \frac{h^2 + (1 + h)^3 - 1}{h} = \lim_{h \to 0} (3
 
 In più variabili la derivabilità **non** implica la continuità, perché le derivate parziali guardano solo lungo gli assi.
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 2* (AM1B-03)
-> **Derivabile ma non continua.** Sia $f(x, y) = \frac{xy}{x^2 + y^2}$ per $(x, y) \neq (0, 0)$ e $f(0, 0) = 0$. Sugli assi $f$ è nulla, quindi $\frac{\partial f}{\partial x}(0, 0) = \frac{\partial f}{\partial y}(0, 0) = 0$: la funzione è derivabile nell'origine. Ma lungo la retta $y = x$ vale $\frac{1}{2}$, quindi non ha limite 0 e non è continua nell'origine.
+**Derivabile ma non continua.** Sia $f(x, y) = \frac{xy}{x^2 + y^2}$ per $(x, y) \neq (0, 0)$ e $f(0, 0) = 0$. Sugli assi $f$ è nulla, quindi $\frac{\partial f}{\partial x}(0, 0) = \frac{\partial f}{\partial y}(0, 0) = 0$: la funzione è derivabile nell'origine. Ma lungo la retta $y = x$ vale $\frac{1}{2}$, quindi non ha limite 0 e non è continua nell'origine.
 
 ## 3.6 Differenziabilità e piano tangente
 
@@ -118,8 +117,7 @@ Serve una nozione più forte della derivabilità, che controlli tutte le direzio
 
 Per l'esempio del paragrafo 3.5, $\nabla f(0, 1) = (0, 3)$ e $\nabla f(0, 1) \cdot (1, 1) = 3$, come trovato con la definizione.
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 2* (AM1B-04, AM1B-05)
-> **Significato del gradiente.** Dalla formula del gradiente e da Cauchy-Schwarz, fra le direzioni unitarie $v$ la derivata direzionale $\nabla f(x_0) \cdot v$ è massima per $v = \frac{\nabla f(x_0)}{\lVert\nabla f(x_0)\rVert}$ e nulla per $v$ ortogonale al gradiente. Il gradiente indica quindi la direzione di massima crescita di $f$, ed è ortogonale all'insieme di livello che passa per $x_0$, lungo il quale $f$ non cambia.
+**Significato del gradiente.** Dalla formula del gradiente e da Cauchy-Schwarz, fra le direzioni unitarie $v$ la derivata direzionale $\nabla f(x_0) \cdot v$ è massima per $v = \frac{\nabla f(x_0)}{\lVert\nabla f(x_0)\rVert}$ e nulla per $v$ ortogonale al gradiente. Il gradiente indica quindi la direzione di massima crescita di $f$, ed è ortogonale all'insieme di livello che passa per $x_0$, lungo il quale $f$ non cambia.
 
 Per $n = 2$ la differenziabilità vuol dire che il grafico ha nel punto $(x_0, y_0, f(x_0, y_0))$ un **piano tangente**, di equazione
 $$z = f(x_0, y_0) + \frac{\partial f}{\partial x}(x_0, y_0)(x - x_0) + \frac{\partial f}{\partial y}(x_0, y_0)(y - y_0).$$
@@ -200,8 +198,7 @@ In $(0, 1, 1)$ l'argomento del coseno è 0, e $\nabla f(0, 1, 1) = \left(\frac{1
 
 ### Altri esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello dei fogli "Funzioni di più variabili", "Derivate parziali", "Ottimizzazione" e delle prove scritte 2025-2026; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-03 … AM1B-06)
-> Nelle prove si chiede quasi sempre di disegnare un dominio, di calcolare un limite nell'origine, e di trovare e classificare i punti stazionari; a volte una derivata direzionale o la differenziabilità.
+Nelle prove si chiede quasi sempre di disegnare un dominio, di calcolare un limite nell'origine, e di trovare e classificare i punti stazionari; a volte una derivata direzionale o la differenziabilità.
 
 **Esercizio 4. Un dominio da disegnare.** Dominio di $f(x, y) = \sqrt{4 - x^2 - y^2} + \ln(y - x^2)$.
 
@@ -245,8 +242,7 @@ Lontano dall'origine $\sqrt{x^2 + y^2}$ ha derivate parziali $\frac{x}{\sqrt{x^2
 
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-03 … AM1B-06)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Le rette non bastano.** Studiare $\lim_{(x, y) \to (0, 0)} \frac{xy^2}{x^2 + y^4}$.
 
@@ -284,8 +280,7 @@ $\mathbb{R}^n$ è uno spazio vettoriale con prodotto scalare, norma e distanza, 
 
 ## Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1B-03 … AM1B-07)
-> Definizioni, teoremi e procedure del calcolo differenziale in più variabili, con i termini per l'orale.
+Definizioni, teoremi e procedure del calcolo differenziale in più variabili, con i termini per l'orale.
 
 ### Limiti in due variabili
 

@@ -1,6 +1,6 @@
 # Revisione di Analisi Matematica 1A
 
-Stato al 3 novembre 2026: **fasi 1-7 fatte. Tocca a te verificare (`04-controllo.md`, § 7); poi si fa la fase 8.**
+Stato al 5 novembre 2026: **fasi 1-8 fatte. I marcatori di revisione sono tolti (fase 8): i moduli sono pronti per l'esportazione in PDF.** Le note di revisione restano in `03-registro.md` e `04-controllo.md`.
 
 | File | Cosa contiene |
 |---|---|

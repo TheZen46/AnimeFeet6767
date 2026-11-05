@@ -10,130 +10,203 @@ versione: 2026-11-05
 
 # 5 · La gerarchia di memoria, la cache e l'input/output
 
-**In questo modulo.** Si usano le prestazioni e il CPI del modulo 1 e la pipeline del modulo 4. Il processore è molto più veloce della memoria principale, e la distanza cresce da decenni. Si vede come la si colma con una gerarchia di memorie sempre più grandi e lente, che funziona grazie al principio di località. Il cuore del modulo è la cache: come si trova un dato, le funzioni di corrispondenza (diretta, associativa a insiemi, completamente associativa), la dimensione, la sostituzione, le politiche di scrittura, le cause dei miss, l'effetto sulle prestazioni, le cache a più livelli e il collegamento con la DRAM. Dopo un cenno alla memoria virtuale, l'ultima parte tratta l'input/output: bus, polling, interruzioni e DMA. Alla fine del modulo si sa scomporre un indirizzo in tag, indice e offset, simulare a mano una sequenza di accessi, dimensionare una cache e calcolare il tempo medio di accesso e il CPI con gli stalli di memoria.
+**In questo modulo.** Prerequisiti: CPI (modulo 1) e pipeline (modulo 4). Perché serve una gerarchia di memoria e perché funziona (località); la cache a mappatura diretta, associativa a insiemi e completamente associativa; scritture, cause dei miss, prestazioni, cache a più livelli, DRAM; un cenno alla memoria virtuale; l'input/output. Si impara a scomporre un indirizzo in tag, indice e offset, a simulare a mano una sequenza di accessi, a dimensionare una cache e a calcolare AMAT e CPI. All'orale si chiede di disegnare le strutture (figure 5.2, 5.3, 5.5, 5.6) e di spiegare il perché di ogni campo.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Gerarchia di memoria, Input-Output); Patterson e Hennessy, *Struttura e progetto dei calcolatori*, edizione RISC-V, cap. 5 e 6 (ADC-05, ADC-01)
-> Il modulo è scritto in revisione dal materiale del corso. Le sequenze di accessi sono simulate con `strumenti/cache.py`, i conti controllati con `strumenti/verifica_ampliamento.py`.
+## 5.1 Perché una gerarchia
 
-## 5.1 Perché una gerarchia di memoria
+**Il problema.** I processori sono cresciuti per anni di circa il 55% all'anno, la DRAM di circa il 7%: un accesso alla memoria principale costa centinaia di cicli. Una memoria grande, veloce ed economica insieme non esiste.
 
-Le prestazioni dei processori sono cresciute per molti anni di circa il 55% all'anno, quelle della DRAM di circa il 7%: un accesso alla memoria principale costa oggi centinaia di cicli di clock. Una memoria insieme grande, veloce ed economica non esiste. Le tecnologie disponibili sono:
+| Tecnologia | Bit | Accesso | Uso | Nota |
+|---|---|---|---|---|
+| SRAM | 6 transistor | ~1 ns | cache | statica: tiene il dato finché è alimentata |
+| DRAM | 1 transistor + 1 condensatore | decine di ns | memoria principale | dinamica: va rinfrescata ogni pochi ms |
+| flash, disco | – | da µs a ms | memoria di massa | permanente, enorme |
 
-- **SRAM**: 6 transistor per bit, accesso intorno al nanosecondo, costosa e poco densa; è *statica*, conserva il dato finché è alimentata. Si usa per le cache.
-- **DRAM**: 1 transistor e un condensatore per bit, accesso di qualche decina di nanosecondi, densa ed economica; è *dinamica*, il condensatore si scarica e il contenuto va rinfrescato periodicamente (ogni pochi millisecondi). Si usa per la memoria principale.
-- **Memoria secondaria** (dischi magnetici e flash): enorme e permanente, ma con tempi da microsecondi a millisecondi.
+![Figura 5.1 · La gerarchia di memoria: ogni livello è più grande, più lento e meno caro per bit di quello sopra, e contiene un sottoinsieme dei suoi dati.](../figure/5-1.svg)
 
-La soluzione è una **gerarchia**: registri, cache di primo livello (L1, separate per istruzioni e dati), cache di secondo e terzo livello, memoria principale, memoria secondaria. Ogni livello è più grande, più lento e meno caro per bit del precedente, e contiene un sottoinsieme dei dati del livello sotto. Se quasi tutti gli accessi trovano il dato nei livelli alti, il sistema appare veloce quasi come il primo livello e grande come l'ultimo.
+**Perché funziona: la località.**
 
-Questo funziona per il **principio di località**. **Località temporale**: un dato appena usato verrà probabilmente usato di nuovo presto (le variabili di un ciclo, le istruzioni del ciclo stesso); conviene tenere vicino al processore i dati usati di recente. **Località spaziale**: dopo un indirizzo verranno probabilmente usati quelli vicini (le istruzioni in sequenza, gli elementi di un array); conviene spostare verso l'alto interi blocchi di dati contigui.
+- **temporale**: un dato usato ora sarà probabilmente usato di nuovo presto (variabili e istruzioni di un ciclo) → tenere vicino al processore i dati recenti;
+- **spaziale**: dopo un indirizzo si useranno probabilmente quelli vicini (istruzioni in sequenza, elementi di un array) → spostare blocchi interi di dati contigui.
 
-Chi gestisce i passaggi fra i livelli: fra registri e memoria il compilatore; fra cache e memoria principale l'hardware (il controllore della cache); fra memoria principale e disco il sistema operativo, con la memoria virtuale (5.8).
+**Chi sposta i dati.** Registri ↔ memoria: il compilatore. Cache ↔ memoria principale: l'hardware. Memoria principale ↔ disco: il sistema operativo (memoria virtuale, 5.8).
 
-## 5.2 Terminologia
+## 5.2 I termini
 
-Il **blocco** (o **linea**) è l'unità di informazione che si trasferisce fra due livelli. Se il dato cercato è nel livello superiore si ha un **hit**, altrimenti un **miss**, e il blocco va preso dal livello inferiore.
+| Termine | Significato |
+|---|---|
+| blocco (linea) | unità trasferita fra due livelli |
+| hit, miss | il dato c'è / non c'è nel livello superiore |
+| hit rate, miss rate | frazione di hit; miss rate = 1 − hit rate |
+| hit time | tempo per accedere al livello superiore, compreso capire se è un hit |
+| miss penalty | tempo per portare il blocco dal livello inferiore e consegnare il dato |
 
-- **Hit rate**: frazione degli accessi che sono hit; **miss rate** $= 1 - \text{hit rate}$.
-- **Hit time**: tempo per accedere al livello superiore, compreso il tempo per capire se è un hit.
-- **Miss penalty**: tempo per portare il blocco dal livello inferiore, sistemarlo e consegnare il dato al processore.
-
-Di solito l'hit time è molto minore della miss penalty, e il **tempo medio di accesso** è
 $$\text{AMAT} = \text{hit time} + \text{miss rate} \times \text{miss penalty}.$$
 
-## 5.3 La cache a corrispondenza diretta
+## 5.3 La cache a mappatura diretta
 
-La cache deve rispondere a due domande: il dato è presente? Se sì, dove? Nella cache **a corrispondenza diretta** (*direct mapped*) ogni blocco della memoria può stare in un solo posto:
-$$\text{posizione} = (\text{indirizzo del blocco}) \bmod (\text{numero di blocchi della cache}).$$
-Se il numero di blocchi è una potenza di 2, il modulo sono semplicemente i bit bassi dell'indirizzo del blocco. Molti blocchi di memoria condividono la stessa posizione: per sapere quale c'è davvero, ogni posizione conserva anche i bit alti dell'indirizzo, il **tag**, e un **bit di validità** che dice se la posizione contiene qualcosa (all'accensione sono tutte vuote).
+Due domande: il dato c'è? Se sì, dove? A mappatura diretta ogni blocco di memoria ha **un solo posto**:
+$$\text{indice} = (\text{indirizzo del blocco}) \bmod (\text{numero di blocchi}).$$
 
-Un indirizzo di memoria si divide così in tre campi:
+![Figura 5.2 · Una cache a mappatura diretta con 1024 blocchi da una parola: l'indice sceglie la riga, il tag memorizzato si confronta con quello dell'indirizzo, l'hit richiede anche V = 1.](../figure/5-2.svg)
 
-| tag | indice | offset nel blocco |
+**I campi dell'indirizzo** (blocchi di $2^m$ parole da 4 byte, $2^n$ blocchi, indirizzi di 32 bit):
+
+| Campo | Bit | A che serve |
 |---|---|---|
-| bit alti, confrontati con quelli memorizzati | sceglie la posizione | sceglie la parola e il byte |
+| offset | $m + 2$ | sceglie parola e byte nel blocco |
+| indice | $n$ | sceglie la riga |
+| tag | $32 - n - m - 2$ | dice quale dei blocchi che condividono la riga c'è davvero |
 
-Con blocchi di $2^m$ parole da 4 byte l'offset ha $m + 2$ bit; con $2^n$ blocchi l'indice ha $n$ bit; con indirizzi di 32 bit il tag ha $32 - n - m - 2$ bit. Una lettura usa l'indice per scegliere la posizione, confronta il tag e controlla il bit di validità: se coincidono è un hit e l'offset sceglie la parola.
+**Ogni riga contiene** il bit di validità V (all'accensione la cache è vuota), il tag, i dati.
 
-La dimensione effettiva della cache comprende anche tag e bit di validità:
 $$\text{bit totali} = 2^n \times (\text{bit del blocco} + \text{bit del tag} + 1).$$
-Con 16 KB di dati in blocchi di 4 parole (esempio delle slide): $2^{10}$ blocchi, tag di 18 bit, $2^{10} \times (128 + 18 + 1) = 147$ Kbit, cioè circa 18,4 KB per 16 KB di dati.
 
-**La dimensione del blocco.** Blocchi più grandi sfruttano meglio la località spaziale e riducono il miss rate, ma a parità di capacità diminuisce il numero di blocchi: oltre un certo punto i blocchi si contendono le posizioni e il miss rate risale. In più cresce la miss penalty, perché c'è più da trasferire. Per limitarla si può far ripartire il processore appena arriva la parola richiesta (*early restart*) o farla arrivare per prima (*requested word first*).
+Esempio delle slide: 16 KiB di dati in blocchi di 4 parole → $2^{10}$ blocchi, tag di 18 bit, $2^{10} \times (128 + 18 + 1) = 147$ Kibit ≈ 18,4 KiB.
+
+**La dimensione del blocco.**
+
+- blocco più grande → più località spaziale, miss rate più basso;
+- ma a parità di capacità meno blocchi → più conflitti, il miss rate risale;
+- e la miss penalty cresce (più dati da trasferire). Rimedi: ripartire appena arriva la parola cercata (*early restart*), o farla arrivare per prima (*requested word first*).
+
+**All'orale.**
+
+- *Perché l'indice sono i bit bassi e il tag quelli alti?* Con i bit bassi indirizzi vicini vanno in righe diverse: un array occupa tutta la cache invece di contendersi una riga. Con i bit alti come indice, blocchi vicini andrebbero tutti nella stessa riga.
+- *Perché serve il bit di validità?* All'accensione le righe contengono bit casuali: un tag casuale potrebbe coincidere e dare un falso hit.
+- *Perché non si memorizza anche l'indice?* È implicito nella posizione della riga.
 
 ## 5.4 Le scritture
 
-In una lettura il controllo del tag e la lettura del dato si possono fare insieme. Con le scritture bisogna decidere come tenere coerenti cache e memoria.
+| Politica | Che cosa fa | Pregi | Difetti | Aggiunte |
+|---|---|---|---|---|
+| **write-through** | scrive cache e memoria | memoria sempre aggiornata, semplice | una scrittura in memoria per ogni `sw` | **write buffer**: coda di scritture; il processore si ferma solo se è piena |
+| **write-back** | scrive solo la cache; ricopia il blocco quando viene sostituito | poco traffico se un blocco è scritto più volte | memoria non aggiornata per un po'; sostituzione più lenta | **dirty bit**: solo i blocchi modificati si ricopiano |
 
-**Write-through.** Ogni scrittura aggiorna sia la cache sia la memoria. È semplice e la memoria è sempre aggiornata, ma ogni scrittura costerebbe un accesso alla memoria: si aggiunge un **write buffer**, una coda in cui il processore lascia le scritture e prosegue, mentre la memoria le smaltisce. Il processore si ferma solo se il buffer è pieno.
+**Miss in scrittura.** *Write allocate*: si porta il blocco in cache e lo si scrive (di solito con write-back). *No-write allocate*: si scrive solo nel livello sotto (di solito con write-through).
 
-**Write-back.** Si scrive solo nella cache, e il blocco viene ricopiato in memoria quando viene sostituito. Serve un bit in più per blocco, il **dirty bit**, che dice se il blocco è stato modificato: i blocchi non modificati si possono sostituire senza riscriverli. Riduce molto il traffico verso la memoria quando un blocco viene scritto più volte, ma per un certo tempo la memoria contiene dati vecchi.
+**Miss in lettura.** Si ferma la pipeline; se il blocco da sostituire è sporco lo si ricopia; si legge il blocco nuovo, lo si scrive in cache e si ripete l'accesso. Le cache **non bloccanti** servono altri hit durante un miss (*hit under miss*).
 
-**Scrittura con miss.** Con **write allocate** si porta il blocco in cache e poi lo si scrive (di solito insieme al write-back); con **no-write allocate** si scrive direttamente nel livello inferiore senza caricare il blocco (di solito con il write-through).
+**All'orale.**
 
-**Miss in lettura.** Si ferma la pipeline, si legge il blocco dal livello inferiore (riscrivendo prima, con il write-back, il blocco sostituito se è sporco), lo si scrive in cache e si ripete l'accesso. Le cache più evolute sono **non bloccanti**: continuano a servire gli hit mentre un miss è in corso (*hit under miss*).
+- *Che problema risolve il write buffer, e quale introduce?* Evita di aspettare la memoria a ogni `sw`. Introduce un caso nuovo: una `lw` che cerca un dato ancora nel buffer va servita dal buffer (o aspettare che si svuoti), altrimenti legge il valore vecchio.
+- *Perché il dirty bit?* Senza, con il write-back si dovrebbe ricopiare ogni blocco sostituito, anche quelli solo letti.
 
-## 5.5 Le cause dei miss e le cache associative
+## 5.5 Le cause dei miss e l'associatività
 
-I miss hanno tre cause (le "tre C"):
+**Le tre C.**
 
-- **obbligatori** (*compulsory*): il primo accesso a un blocco; si riducono con blocchi più grandi;
-- **di capacità**: la cache non contiene tutti i blocchi usati dal programma; si riducono con una cache più grande;
-- **di conflitto**: più blocchi usati insieme vanno nella stessa posizione, anche se altrove c'è posto; si riducono aumentando l'associatività.
+| Miss | Causa | Si riduce con |
+|---|---|---|
+| obbligatori (*compulsory*) | primo accesso al blocco | blocchi più grandi |
+| di capacità | la cache non contiene tutti i blocchi usati | cache più grande |
+| di conflitto | blocchi usati insieme nella stessa posizione | più associatività |
 
-Per ridurre i conflitti si rende più flessibile il posizionamento dei blocchi. All'estremo opposto della corrispondenza diretta c'è la cache **completamente associativa**: un blocco può stare in qualsiasi posizione, ma per trovarlo bisogna confrontare il tag con tutti i tag della cache, con un comparatore per ogni blocco. Il compromesso è la cache **associativa a $n$ vie** (*set associative*): la cache è divisa in **insiemi** di $n$ blocchi; un blocco va in un insieme preciso,
-$$\text{insieme} = (\text{indirizzo del blocco}) \bmod (\text{numero di insiemi}),$$
-ma al suo interno in una qualsiasi delle $n$ vie. L'indice sceglie l'insieme, e si confrontano in parallelo gli $n$ tag. A parità di capacità, raddoppiando le vie si dimezza il numero di insiemi: l'indice perde un bit e il tag ne guadagna uno. La corrispondenza diretta è il caso a una via, la completamente associativa quello con un solo insieme.
+![Figura 5.3 · Dove può andare il blocco 12 in una cache da 8 blocchi.](../figure/5-3.svg)
 
-Il prezzo dell'associatività: $n$ comparatori, un multiplexer per scegliere la via (più ritardo sull'hit time), e una politica di **sostituzione** quando l'insieme è pieno. La più usata è **LRU** (*least recently used*): si sostituisce il blocco non usato da più tempo. Per due vie basta un bit per insieme; con più vie l'LRU esatto è costoso e si usano approssimazioni (come NRU, *not recently used*) o una scelta casuale.
+| Organizzazione | Dove va un blocco | Confronti | Indice |
+|---|---|---|---|
+| mappatura diretta | una riga: blocco mod N | 1 | $\log_2 N$ bit |
+| associativa a $n$ vie | un insieme: blocco mod (N/n), qualsiasi via | $n$ in parallelo | $\log_2 (N/n)$ bit |
+| completamente associativa | ovunque | N (uno per blocco) | nessuno |
+
+A parità di capacità, raddoppiando le vie l'indice perde un bit e il tag ne guadagna uno.
+
+![Figura 5.4 · Una cache associativa a due vie: l'indice sceglie l'insieme nelle due vie, si confrontano i due tag in parallelo e un multiplexer sceglie il dato della via che ha dato hit.](../figure/5-4.svg)
+
+**Il prezzo.** $n$ comparatori, un multiplexer sul percorso del dato (hit time più lungo), e una politica di **sostituzione**:
+
+- **LRU** (*least recently used*): si sostituisce il blocco non usato da più tempo; a 2 vie basta un bit per insieme;
+- con molte vie LRU esatto costa: approssimazioni (NRU, *not recently used*) o scelta casuale.
+
+**All'orale.**
+
+- *Perché nella cache associativa il multiplexer peggiora l'hit time?* Nella mappatura diretta il dato si può usare mentre si controlla il tag (se non è hit lo si scarta); con più vie si sa quale dato usare solo dopo il confronto.
+- *Perché la completamente associativa non si usa per cache grandi?* Un comparatore per blocco: migliaia di comparatori, area e consumo enormi. Si usa per strutture piccole come il TLB.
 
 ## 5.6 Le prestazioni della cache
 
-Gli stalli dovuti alla memoria si aggiungono al CPI della pipeline:
 $$\text{CPI} = \text{CPI}_{base} + \frac{\text{accessi}}{\text{istruzione}} \times \text{miss rate} \times \text{miss penalty},$$
-separando di solito le istruzioni (un accesso per istruzione) dai dati (un accesso per ogni `lw` o `sw`). Due osservazioni importanti. Se il processore diventa più veloce, la miss penalty *in cicli* cresce, perché la memoria non accelera: il peso degli stalli aumenta (guidato 3). E ridurre il CPI di base serve sempre meno, perché la parte dovuta ai miss resta.
+con istruzioni (1 accesso per istruzione) e dati (1 per ogni `lw` o `sw`) calcolati a parte.
 
-**Cache a più livelli.** Una cache di secondo livello (L2), più grande e più lenta della L1 ma molto più veloce della memoria, riduce la miss penalty della L1: un miss in L1 che trova il dato in L2 costa poche decine di cicli invece di centinaia. I due livelli hanno obiettivi diversi: la L1 deve avere un hit time minimo (è piccola, spesso a poche vie), la L2 un miss rate basso (è grande, più associativa, con blocchi più grandi). Si distingue il miss rate **locale** della L2 (miss della L2 diviso accessi alla L2, che sono solo i miss della L1) da quello **globale** (miss della L2 diviso tutti gli accessi): il locale è molto più alto del globale, perché alla L2 arrivano solo gli accessi "difficili". Con due livelli
+- Processore più veloce → la miss penalty in **cicli** cresce (la memoria non accelera): gli stalli pesano di più (guidato 3).
+- Ridurre il CPI di base serve sempre meno: la parte dei miss resta.
+
+**Cache a più livelli.**
+
+| | L1 | L2 |
+|---|---|---|
+| obiettivo | hit time minimo | miss rate basso |
+| com'è | piccola, poche vie, separata istruzioni/dati | grande, più vie, blocchi più grandi |
+
+Miss rate **locale** della L2 = miss L2 / accessi alla L2 (cioè i miss della L1); **globale** = miss L2 / tutti gli accessi. Il locale è molto più alto: alla L2 arrivano solo gli accessi "difficili".
 $$\text{AMAT} = \text{hit time}_{L1} + \text{miss rate}_{L1} \times (\text{hit time}_{L2} + \text{miss rate locale}_{L2} \times \text{miss penalty}_{L2}).$$
 
-**Il software.** Le prestazioni della cache dipendono anche da come il programma accede ai dati: scorrere una matrice per righe (come è memorizzata in C) sfrutta la località spaziale, scorrerla per colonne no. Gli algoritmi possono essere riorganizzati a blocchi (*blocking*) per riusare i dati finché sono in cache.
+**Il software conta.** Una matrice C scorsa per righe sfrutta la località spaziale, per colonne no; gli algoritmi a blocchi (*blocking*) riusano i dati finché sono in cache.
 
-## 5.7 Cache e DRAM
+## 5.7 La DRAM e il collegamento con la cache
 
-La miss penalty dipende da come la cache è collegata alla DRAM. In una DRAM l'indirizzo si dà in due parti: prima la riga (segnale RAS), che viene copiata in un buffer, poi la colonna (CAS); parole successive della stessa riga si leggono molto più in fretta della prima. Le SDRAM sono sincrone con il bus; le DDR trasferiscono un dato su entrambi i fronti del clock, e le generazioni successive (DDR2, DDR3, DDR4) aumentano la velocità di trasferimento e il prefetch interno, abbassando la tensione.
+![Figura 5.5 · Un chip DRAM: con RAS una riga intera passa nel buffer di riga, con CAS si sceglie la colonna. Altre colonne della stessa riga si leggono senza ripetere RAS.](../figure/5-5.svg)
 
-Il modello delle slide per un blocco di più parole su un bus largo una parola: 1 ciclo di bus per mandare l'indirizzo, un certo numero di cicli per ogni accesso alla DRAM, 1 ciclo per trasferire una parola (il trasferimento di una parola si sovrappone alla lettura della successiva, tranne l'ultimo). Si confrontano tre organizzazioni:
+- **SDRAM**: sincrona con il bus. **DDR**: un dato su entrambi i fronti del clock; DDR2, DDR3, DDR4 aumentano la velocità di trasferimento e il prefetch interno, abbassando la tensione.
+- **Refresh**: il condensatore si scarica; il controllore rilegge e riscrive ogni riga periodicamente.
 
-- ogni parola richiede un accesso completo alla DRAM;
-- le parole del blocco stanno nella stessa riga, e dopo la prima basta l'accesso di colonna, più breve;
-- la memoria è **interallacciata** (*interleaved*) in banchi: le parole del blocco stanno in banchi diversi, letti in parallelo, e poi trasferite una per ciclo.
+**Modello delle slide per un blocco di più parole** (bus largo una parola): 1 ciclo per l'indirizzo, alcuni cicli per ogni accesso alla DRAM, 1 ciclo per trasferire ogni parola.
 
-La **larghezza di banda** è il numero di byte trasferiti per ciclo di bus durante un miss. L'esercizio 6 fa i conti: lo scopo è scegliere DRAM e bus adatti alla dimensione dei blocchi della cache.
+| Organizzazione | Come si legge il blocco |
+|---|---|
+| un accesso per parola | ogni parola un accesso completo |
+| stessa riga (burst) | dopo la prima parola basta l'accesso di colonna |
+| interallacciata (*interleaved*) | parole in banchi diversi letti in parallelo, poi una per ciclo sul bus |
 
-## 5.8 Un cenno alla memoria virtuale
+**Larghezza di banda** = byte trasferiti per ciclo di bus durante un miss (esercizio 6).
 
-Fra memoria principale e disco la gerarchia è gestita dal sistema operativo con la **memoria virtuale**. Ogni programma usa indirizzi **virtuali**, divisi in pagine (tipicamente di 4 KB); il sistema operativo decide in quale pagina **fisica** della memoria principale sta ogni pagina virtuale, oppure se è sul disco. L'indirizzo virtuale si divide in numero di pagina virtuale e offset nella pagina; la traduzione sostituisce il numero di pagina virtuale con quello fisico, usando la **tabella delle pagine** del processo. Se la pagina non è in memoria si ha un **page fault**, un'eccezione gestita dal sistema operativo, che la carica dal disco: costa milioni di cicli, per questo la corrispondenza è completamente associativa, la sostituzione approssima LRU e la scrittura è sempre write-back. La memoria virtuale serve anche a proteggere i processi uno dall'altro, perché ciascuno vede solo le sue pagine: è la virtualizzazione del modulo 1 applicata alla memoria.
+## 5.8 La memoria virtuale (cenno)
 
-Per non leggere la tabella delle pagine in memoria a ogni accesso, il processore tiene le traduzioni recenti in una piccola cache, il **TLB** (*translation lookaside buffer*), che nella figura della gerarchia delle slide compare accanto alle cache L1 (ITLB e DTLB).
+![Figura 5.6 · La traduzione di un indirizzo virtuale: si cerca nel TLB; se manca, si legge la tabella delle pagine (V = 0 vuol dire page fault); l'offset passa invariato.](../figure/5-6.svg)
+
+- Ogni processo usa indirizzi **virtuali**, divisi in pagine (tipicamente 4 KiB); il sistema operativo decide in quale pagina **fisica** sta ogni pagina, o se è sul disco.
+- **Tabella delle pagine** (una per processo, in memoria): numero di pagina virtuale → numero di pagina fisica, con il bit di validità.
+- **Page fault**: pagina non in memoria → eccezione, il sistema operativo la carica dal disco. Costa milioni di cicli, quindi: pagine grandi, posizionamento completamente associativo, sostituzione che approssima LRU, sempre write-back.
+- **TLB**: piccola cache (spesso completamente associativa) delle traduzioni recenti, per non leggere la tabella in memoria a ogni accesso. Nelle slide: ITLB e DTLB accanto alle L1.
+- **Protezione**: ogni processo vede solo le sue pagine. È la virtualizzazione del modulo 1 applicata alla memoria.
+
+**All'orale.**
+
+- *Perché l'offset non si traduce?* La pagina virtuale e quella fisica hanno la stessa dimensione: cambia solo dove comincia la pagina.
+- *Perché write-back e non write-through?* Una scrittura sul disco costa milioni di cicli: impensabile per ogni `sw`.
 
 ## 5.9 L'input/output
 
-I dispositivi di I/O sono molto diversi per comportamento (ingresso, uscita, memorizzazione), per interlocutore (una persona o una macchina) e per velocità: fra una tastiera e una scheda di rete ci sono circa otto ordini di grandezza. Le misure di prestazione sono il **throughput** (quanti dati o quante operazioni per unità di tempo) e il **tempo di risposta** (la latenza di una singola operazione, decisiva nei sistemi in tempo reale).
+**Misure.** Throughput (dati o operazioni per unità di tempo) e tempo di risposta (latenza di un'operazione, decisivo in tempo reale). Fra una tastiera e una scheda di rete ci sono circa otto ordini di grandezza di velocità.
 
-**I bus.** Un bus è un collegamento condiviso fra più sottosistemi. È versatile ed economico, ma è un collo di bottiglia, e la sua velocità è limitata dalla lunghezza e dal numero di dispositivi. Si distinguono il bus processore-memoria (corto, veloce, proprietario), i bus di I/O (lunghi, più lenti, standard, come USB e SATA) e i bus di collegamento (*backplane*, come PCI Express). Un bus **sincrono** ha un clock fra le linee di controllo e un protocollo fisso rispetto al clock: poca logica e alta velocità, ma tutti i dispositivi devono seguire lo stesso clock e il bus deve essere corto per evitare lo sfasamento del clock (*clock skew*). Un bus **asincrono** non ha clock e usa un protocollo di **handshaking** con linee di controllo apposite (richiesta, conferma, dato pronto): si adatta a dispositivi di velocità diverse ed è più lento. La tendenza è passare da bus paralleli e larghi a collegamenti seriali punto a punto molto veloci (SATA al posto di ATA parallelo, PCIe al posto di PCI).
+**I bus.**
 
-**Comandare i dispositivi.** Il processore comunica con un dispositivo attraverso i suoi registri (di stato, di controllo, dei dati), con istruzioni speciali di I/O oppure, come in RISC-V, con l'**I/O mappato in memoria**: a ogni dispositivo è assegnata una zona dello spazio degli indirizzi, e `lw` e `sw` su quegli indirizzi diventano letture e comandi per il dispositivo. Il sistema operativo fa da intermediario, perché i dispositivi sono condivisi fra i programmi e vanno protetti.
+| Tipo | Come | Pro | Contro |
+|---|---|---|---|
+| sincrono | clock fra le linee, protocollo fisso | poca logica, veloce | tutti allo stesso clock; corto (*clock skew*) |
+| asincrono | *handshaking*: richiesta, conferma, dato pronto | dispositivi di velocità diverse | più lento |
 
-**Sapere quando il dispositivo è pronto.** Ci sono tre modi.
+Bus processore-memoria (corto, veloce), di I/O (USB, SATA), di collegamento (PCI Express). Tendenza: da bus paralleli a collegamenti seriali punto a punto.
 
-- **Polling**: il processore legge periodicamente il registro di stato del dispositivo. È semplice e il processore ha tutto sotto controllo, ma spreca cicli quando il dispositivo è lento o inattivo.
-- **Interruzioni**: è il dispositivo a segnalare con un'interruzione che ha bisogno di attenzione. L'interruzione è asincrona rispetto alle istruzioni; il processore la serve fra un'istruzione e l'altra, come un'eccezione (4.7). Servono un modo per identificare il dispositivo e dei livelli di priorità: il gestore maschera le interruzioni di priorità uguale o minore, salva lo stato, riabilita quelle più urgenti e alla fine ripristina tutto.
-- **DMA** (*direct memory access*): per i dispositivi veloci, come i dischi, anche un'interruzione per ogni parola costerebbe troppo. Il processore programma il controllore DMA (indirizzo del dispositivo, operazione, indirizzo in memoria, numero di byte), il controllore trasferisce da solo l'intero blocco contendendosi il bus con il processore, e alla fine manda una sola interruzione.
+**Comandare i dispositivi.** Registri di stato, controllo e dati del dispositivo; in RISC-V **I/O mappato in memoria**: `lw` e `sw` su indirizzi riservati. Il sistema operativo fa da intermediario (protezione, condivisione).
 
-Con la DMA nascono due problemi. **Dati vecchi**: se un blocco di memoria è anche in cache, un ingresso DMA aggiorna la memoria ma non la cache, e con una cache write-back un'uscita DMA può leggere dalla memoria dati non ancora riscritti. Si risolve facendo passare l'I/O dalla cache (costoso), facendo invalidare o riscrivere dal sistema operativo i blocchi interessati (*cache flush*), o con hardware che invalida selettivamente i blocchi (*snooping*). **Memoria virtuale**: se la DMA usa indirizzi fisici, un trasferimento non deve attraversare il confine di una pagina, perché pagine virtuali consecutive possono non essere consecutive in memoria fisica; se usa indirizzi virtuali, il controllore deve tradurli. In entrambi i casi il sistema operativo non deve spostare le pagine coinvolte durante il trasferimento.
+**Sapere quando il dispositivo è pronto.**
+
+| Metodo | Come | Pro | Contro |
+|---|---|---|---|
+| polling | il processore legge il registro di stato a intervalli | semplice | cicli sprecati con dispositivi lenti |
+| interruzioni | il dispositivo segnala; servita fra due istruzioni come un'eccezione (4.7) | niente attese | servono identificazione e priorità |
+| DMA | il controllore trasferisce un blocco intero da solo, poi una sola interruzione | adatto ai dispositivi veloci | si contende il bus; problemi di coerenza |
+
+**Priorità delle interruzioni.** Il gestore maschera quelle di priorità uguale o minore, salva lo stato, riabilita le più urgenti, alla fine ripristina tutto.
+
+**I problemi della DMA.**
+
+- **Dati vecchi**: un ingresso DMA aggiorna la memoria ma non la cache; con write-back un'uscita DMA legge dalla memoria dati non ancora ricopiati. Rimedi: I/O attraverso la cache, invalidazione o ricopiatura da parte del sistema operativo (*cache flush*), invalidazione selettiva in hardware (*snooping*).
+- **Memoria virtuale**: con indirizzi fisici un trasferimento non deve attraversare il confine di una pagina; con indirizzi virtuali il controllore deve tradurli. Il sistema operativo non deve spostare le pagine coinvolte durante il trasferimento.
 
 ## Esempi ed esercizi svolti
-
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle slide (Gerarchia di memoria, Input-Output); sequenze simulate con `strumenti/cache.py`, conti controllati con `strumenti/verifica_ampliamento.py` (ADC-05)
 
 **Esercizio 1. Dimensionare una cache.** Indirizzi di 32 bit, 64 KB di dati, blocchi di 32 byte. Campi dell'indirizzo e bit totali, a corrispondenza diretta e a 4 vie.
 
@@ -191,8 +264,7 @@ Offset: $4\,\text{KB} = 2^{12}$, 12 bit. Numero di pagina virtuale: 20 bit, cio�
 
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/cache.py` e `strumenti/verifica_ampliamento.py` (ADC-05)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Da un indirizzo ai campi.** Nella cache diretta dell'esercizio 1, dove va l'indirizzo `0x1234ABCD`?
 
@@ -227,8 +299,6 @@ Offset: $4\,\text{KB} = 2^{12}$, 12 bit. Numero di pagina virtuale: 20 bit, cio�
 La gerarchia di memoria sfrutta la località temporale e spaziale per dare l'illusione di una memoria grande come l'ultimo livello e veloce quasi come il primo: SRAM per le cache, DRAM per la memoria principale, dischi per la memoria secondaria. La cache a corrispondenza diretta mette ogni blocco in una sola posizione, data dall'indice; tag e bit di validità dicono se il blocco è presente. Le scritture si gestiscono con write-through e write buffer, o con write-back e dirty bit; nei miss in scrittura si sceglie fra write allocate e no-write allocate. I miss sono obbligatori, di capacità o di conflitto; i conflitti si riducono con le cache associative a $n$ vie, che richiedono più comparatori e una politica di sostituzione come LRU. Le prestazioni si misurano con il tempo medio di accesso e con gli stalli aggiunti al CPI; le cache a più livelli riducono la miss penalty, e l'organizzazione della DRAM e del bus (stessa riga, interallacciamento) la banda. La memoria virtuale traduce gli indirizzi a pagine con la tabella delle pagine e il TLB. L'I/O usa bus sincroni o asincroni, I/O mappato in memoria, polling, interruzioni e DMA, con i problemi di coerenza fra DMA e cache.
 
 ## Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (ADC-05)
 
 ### Indirizzi e dimensioni
 
@@ -275,7 +345,8 @@ Miss penalty con bus da una parola e blocchi di $k$ parole: $1 + k \cdot t_{DRAM
 ### Domande che tornano spesso
 
 - Perché serve una gerarchia di memoria e perché funziona? SRAM e DRAM.
-- Come si trova un dato in una cache diretta, associativa a insiemi e completamente associativa? Calcolo di tag, indice e offset.
+- Come si trova un dato in una cache diretta, associativa a insiemi e completamente associativa? Calcolo di tag, indice e offset. Disegnare la struttura (figure 5.2 e 5.4).
+- Disegnare un chip DRAM e la traduzione di un indirizzo virtuale con il TLB (figure 5.5 e 5.6).
 - Politiche di scrittura e di sostituzione; le tre cause dei miss.
 - Formula dell'AMAT e del CPI con gli stalli; perché le cache a più livelli?
 - Come si riduce la miss penalty con l'organizzazione della DRAM?

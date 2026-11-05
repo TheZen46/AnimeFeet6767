@@ -24,16 +24,14 @@ Per esempio $F(x) = \frac{x^2}{2}$ è una primitiva di $f(x) = x$ su $\mathbb{R}
 
 *Dimostrazione.* Sia $H = G - F$. Allora $H'(x) = f(x) - f(x) = 0$ per ogni $x \in I$, e una funzione con derivata nulla su un intervallo è costante, per il teorema di Lagrange: per ogni $x_1 < x_2$ in $I$ esiste $\xi$ con $H(x_2) - H(x_1) = H'(\xi)(x_2 - x_1) = 0$. $\square$
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 1* (AM1B-01)
-> Su un insieme che non è un intervallo la conclusione cade: $\ln\lvert x\rvert$ e $\ln\lvert x\rvert + \operatorname{sgn}(x)$ hanno la stessa derivata $\frac{1}{x}$ su $\mathbb{R} \setminus \{0\}$, ma non differiscono per una costante.
+Su un insieme che non è un intervallo la conclusione cade: $\ln\lvert x\rvert$ e $\ln\lvert x\rvert + \operatorname{sgn}(x)$ hanno la stessa derivata $\frac{1}{x}$ su $\mathbb{R} \setminus \{0\}$, ma non differiscono per una costante.
 
 > [!definizione] Integrale indefinito
 > L'insieme di tutte le primitive di $f$ su $I$ si chiama **integrale indefinito** di $f$ e si indica con $\int f(x)\, dx$. Se $F$ è una primitiva, si scrive $\int f(x)\, dx = F(x) + c$.
 
 Non tutte le funzioni hanno una primitiva; si vedrà nel paragrafo 1.6 che la continuità basta a garantirne l'esistenza.
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 1* (AM1B-01)
-> Un esempio: la funzione che vale 0 per $x < 0$ e 1 per $x \ge 0$ non ha primitive su $\mathbb{R}$. Una primitiva dovrebbe valere $c_1$ per $x < 0$ e $x + c_2$ per $x \ge 0$, con $c_1 = c_2$ per la continuità, ma allora in 0 avrebbe derivata sinistra 0 e destra 1, e non sarebbe derivabile.
+Un esempio: la funzione che vale 0 per $x < 0$ e 1 per $x \ge 0$ non ha primitive su $\mathbb{R}$. Una primitiva dovrebbe valere $c_1$ per $x < 0$ e $x + c_2$ per $x \ge 0$, con $c_1 = c_2$ per la continuità, ma allora in 0 avrebbe derivata sinistra 0 e destra 1, e non sarebbe derivabile.
 
 Le primitive delle funzioni elementari si ottengono leggendo al contrario la tabella delle derivate:
 
@@ -216,8 +214,7 @@ $$\int_1^0 \frac{(1 - y^2)^2}{y}(-2y)\, dy = 2\int_0^1 (1 - 2y^2 + y^4)\, dy = 2
 
 ### Altri esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello dei fogli di esercizi e delle prove scritte 2025-2026; l'esercizio 11 è quello della lezione 6, ricontrollato; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-01)
-> Nelle prove il primo punto è quasi sempre un integrale definito da calcolare con una sostituzione, per parti o con i fratti semplici; spesso segue un integrale improprio con un parametro o lo studio di una funzione integrale.
+Nelle prove il primo punto è quasi sempre un integrale definito da calcolare con una sostituzione, per parti o con i fratti semplici; spesso segue un integrale improprio con un parametro o lo studio di una funzione integrale.
 
 **Esercizio 5. Sostituzione con una radice.** Calcolare $\int_{\sqrt{3}}^{2} x^3\sqrt{x^2 - 3}\,dx$.
 
@@ -268,8 +265,7 @@ $$\int_1^2 \frac{2t}{(t^2 + 1)\,t}\,dt = 2\big[\arctan t\big]_1^2 = 2\arctan 2 -
 
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-01)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. L'integrazione per parti "circolare".** Calcolare $\int e^x \sin x\,dx$.
 
@@ -307,8 +303,7 @@ Una primitiva di $f$ su un intervallo è una funzione con derivata $f$; due prim
 
 ## Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1B-01)
-> Primitive, metodi, teoremi e criteri del modulo, con i termini per l'orale.
+Primitive, metodi, teoremi e criteri del modulo, con i termini per l'orale.
 
 ### Primitive fondamentali
 

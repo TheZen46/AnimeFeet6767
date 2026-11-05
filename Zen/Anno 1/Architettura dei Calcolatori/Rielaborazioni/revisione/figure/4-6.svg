@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" width="720" height="230"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f2328"/></marker><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f5fbf"/></marker><marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#c0561b"/></marker></defs><rect width="100%" height="100%" fill="#fff"/><circle cx="90" cy="115" r="42" fill="#eef3fb" stroke="#1f2328" stroke-width="1.5"/>
+<text x="90" y="106" font-size="13" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#1f2328" font-weight="bold">11</text>
+<text x="90" y="122" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">forte</text>
+<text x="90" y="134" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">preso</text>
+<circle cx="270" cy="115" r="42" fill="#eef3fb" stroke="#1f2328" stroke-width="1.5"/>
+<text x="270" y="106" font-size="13" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#1f2328" font-weight="bold">10</text>
+<text x="270" y="122" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">debole</text>
+<text x="270" y="134" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">preso</text>
+<circle cx="450" cy="115" r="42" fill="#fff" stroke="#57606a" stroke-width="1.5"/>
+<text x="450" y="106" font-size="13" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#1f2328" font-weight="bold">01</text>
+<text x="450" y="122" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">debole</text>
+<text x="450" y="134" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">non preso</text>
+<circle cx="630" cy="115" r="42" fill="#fff" stroke="#57606a" stroke-width="1.5"/>
+<text x="630" y="106" font-size="13" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#1f2328" font-weight="bold">00</text>
+<text x="630" y="122" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">forte</text>
+<text x="630" y="134" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">non preso</text>
+<path d="M120,85 Q180.0,40 240,85" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="180.0" y="55" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">N</text>
+<path d="M240,145 Q180.0,190 120,145" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="180.0" y="185" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">P</text>
+<path d="M300,85 Q360.0,40 420,85" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="360.0" y="55" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">N</text>
+<path d="M420,145 Q360.0,190 300,145" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="360.0" y="185" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">P</text>
+<path d="M480,85 Q540.0,40 600,85" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="540.0" y="55" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">N</text>
+<path d="M600,145 Q540.0,190 480,145" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="540.0" y="185" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">P</text>
+<path d="M60,85 C20,40 0,120 48,118" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="16" y="70" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">P</text>
+<path d="M660,85 C700,40 720,120 672,118" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="704" y="70" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">N</text>
+<text x="360" y="222" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#57606a">P = salto preso, N = non preso. Nei due stati a sinistra si prevede «preso».</text></svg>

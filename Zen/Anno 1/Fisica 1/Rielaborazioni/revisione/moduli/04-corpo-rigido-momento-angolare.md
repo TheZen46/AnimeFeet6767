@@ -143,8 +143,7 @@ Sono le due equazioni cardinali con le derivate nulle. Se la risultante è nulla
 
 ### Esercizi dalle esercitazioni
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni 10 (08/05/2025) e 11 (15/05/2025) del corso, testi riformulati, con i risultati confrontati con quelli delle esercitazioni; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-03, FG1-07)
-> Per il corpo rigido le equazioni sono due: $\vec F_{ext} = M\vec a_{CM}$ e $\vec\tau_{ext} = I\vec\alpha$ (rispetto a un asse fisso o al centro di massa). In statica si annullano entrambe, e conviene calcolare i momenti rispetto al punto in cui agiscono più forze incognite: i loro momenti sono nulli.
+Per il corpo rigido le equazioni sono due: $\vec F_{ext} = M\vec a_{CM}$ e $\vec\tau_{ext} = I\vec\alpha$ (rispetto a un asse fisso o al centro di massa). In statica si annullano entrambe, e conviene calcolare i momenti rispetto al punto in cui agiscono più forze incognite: i loro momenti sono nulli.
 
 **Esercizio 4. Una trave su due appoggi.** Una trave omogenea di 1 m e 2 kg poggia orizzontale su due appoggi agli estremi $A$ e $B$; una massa di 0,5 kg è appoggiata a $\frac{L}{3}$ da $A$. Reazioni degli appoggi.
 
@@ -176,8 +175,6 @@ Puro rotolamento: $a = \alpha R$. Traslazione: $Ma = Mg\sin\theta - f$; rotazion
 
 ### Esercizi sul modello delle prove d'esame
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove del 03/09/2025 e del 05/02/2026, con dati e geometrie diversi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-03, FG1-06, FG1-07)
-
 **Esercizio 11. La biglia colpita dalla stecca.** Una biglia di 170 g e raggio 2,85 cm, ferma, riceve un colpo centrale con impulso $J = 1{,}5$ N·s. (a) Velocità iniziale. (b) Velocità angolare quando smette di strisciare. (c) Lavoro dell'attrito fino a quel momento.
 
 (a) $v_0 = \frac{J}{m} = 8{,}82$ m/s; il colpo è centrale e non dà rotazione: $\omega_0 = 0$.
@@ -194,10 +191,31 @@ Puro rotolamento: $a = \alpha R$. Traslazione: $Ma = Mg\sin\theta - f$; rotazion
 
 (c) Dopo l'urto si conserva l'energia: $\frac12\left(\frac13 + \frac12\right)\omega'^2 = 1{,}96$ J deve diventare l'energia potenziale del centro dell'asta (che sale di $\frac{L}{2}(1 - \cos\theta)$) e della massa (che sale di $L(1 - \cos\theta)$): $\left(Mg\frac{L}{2} + mgL\right)(1 - \cos\theta) = 9{,}81(1 - \cos\theta)$. Quindi $\cos\theta = 0{,}8$, $\theta = 36{,}9°$.
 
+### Altri esercizi delle esercitazioni, con le soluzioni degli appunti a mano
+
+**Esercizio 13. Il cono e il disco forato.** (a) Momento d'inerzia di un cono pieno (raggio $R$, massa $M$) rispetto al suo asse. (b) Un disco di raggio $R$ ha un foro circolare di raggio $R/2$ tangente al bordo; massa del disco forato $m$. Centro di massa e momento d'inerzia rispetto all'asse per il CM perpendicolare al disco.
+
+(a) Il cono è una pila di dischi di raggio $r = \frac Rhz$ e spessore $dz$, ognuno con $dI = \frac12dm\,r^2$ e $dm = \rho\pi r^2dz$, $\rho = \frac{M}{\frac13\pi R^2h}$: $I = \int_0^h\frac32\frac{M}{R^2h}\frac{R^4}{h^4}z^4\,dz = \frac3{10}MR^2$. Lo stesso in coordinate cilindriche integrando $r^2\rho\,r\,dr\,d\theta\,dz$. (b) Si tratta il disco forato come disco pieno meno il foro. Con la stessa densità superficiale $M_{foro} = \frac14M_{disco}$, quindi $m = \frac34M_{disco}$. Il CM si calcola trattando i due pezzi come punti nei loro centri, con il foro a massa negativa: $x_{CM} = \frac{M_{foro}\frac R2}{m} = \frac R6$, dalla parte opposta al foro. Rispetto al centro del disco $I_{pieno} = \frac12M_{disco}R^2 = \frac23mR^2$ e, con Steiner, $I_{foro} = \frac12M_{foro}\frac{R^2}{4} + M_{foro}\frac{R^2}{4} = \frac18mR^2$; per differenza $\frac{13}{24}mR^2$, e spostando l'asse nel CM (Steiner al contrario) $I = \frac{13}{24}mR^2 - m\frac{R^2}{36} = \frac{37}{72}mR^2$.
+
+**Esercizio 14. Quando si ribalta il cubo?** Un cubo di lato $L$ e massa $M$ sale su un piano inclinato di $\theta$ tirato da una forza parallela al piano applicata ad altezza $d$, con $\frac L2 < d < L$. Forza massima senza ribaltamento e accelerazione in quel caso.
+
+Una forza applicata sopra la metà del lato tende a far ruotare il cubo in avanti: per compensare, il punto d'applicazione della normale si sposta verso lo spigolo anteriore, a distanza $b$ dal centro della base. Con il polo nel CM e nessuna rotazione: $F - Mg\sin\theta = Ma$, $N = Mg\cos\theta$, $Nb - F\left(d - \frac L2\right) = 0$, quindi $b = \frac{F}{Mg\cos\theta}\left(d - \frac L2\right)$. Il cubo non si ribalta finché la normale cade dentro la base, $b \le \frac L2$: $F \le \frac{MgL\cos\theta}{2d - L}$. Nel caso limite $a = g\cos\theta\frac{L}{2d - L} - g\sin\theta$.
+
+**Esercizio 15. Una sbarra su due ruote che girano in versi opposti** (prova di gennaio 2019). Una sbarra di 10 kg e 1 m poggia su due ruote a distanza $d = 60$ cm che girano in versi opposti, con $\mu_d = 0{,}5$; il centro della sbarra è spostato di $x_0 = 20$ cm a destra. Normali, attriti, accelerazione, moto.
+
+Equilibrio verticale e dei momenti rispetto al CM: $N_D + N_S = Mg$ e $N_S\left(\frac d2 + x_0\right) = N_D\left(\frac d2 - x_0\right)$, da cui $N_D = Mg\frac{d/2 + x_0}{d} = 81{,}75$ N e $N_S = 16{,}35$ N (con $g = 9{,}81$). Gli attriti sono $\mu_dN$, cioè 40,87 N e 8,17 N, e spingono verso il centro, quindi $a_{CM} = \frac{F_D - F_S}{M} = 3{,}27$ m/s² verso sinistra. Per una posizione generica $x$ del centro la stessa formula dà $F_D - F_S = \mu_dMg\frac{2x}{d}$, una forza di richiamo proporzionale a $x$: la sbarra oscilla con $\omega = \sqrt{\frac{2\mu_dg}{d}}$ e $T = 1{,}55$ s.
+
+**Esercizio 16. Macchina di Atwood con una molla** (prova di settembre 2017). $M_1 = 1$ kg è tenuta a terra da una molla ($k = 100$ N/m) e collegata da una fune su una carrucola ($I = 0{,}1$ kg m², $R = 0{,}1$ m) a $M_2 = 5$ kg. Allungamento della molla e accelerazione di $M_2$ appena la molla si sgancia.
+
+All'equilibrio la carrucola è ferma, quindi le due tensioni sono uguali: $T = M_2g$ e $T = M_1g + k\Delta l$, da cui $\Delta l = \frac{(M_2 - M_1)g}{k} = 0{,}39$ m. Dopo lo sgancio: $T_1 - M_1g = M_1a$, $M_2g - T_2 = M_2a$, $(T_2 - T_1)R = I\frac aR$; sommando, $a = \frac{(M_2 - M_1)g}{M_1 + M_2 + I/R^2} = 2{,}45$ m/s² ($a_2 = -2{,}5$ m/s² con l'asse verso l'alto). La carrucola pesa come una massa aggiunta $I/R^2 = 10$ kg.
+
+**Esercizio 17. Un disco, un cuneo che si conficca e un freno** (prova di luglio 2024). Un disco di 10 kg e raggio 50 cm ruota a 3 rad/s; un cuneo di 2 kg cade e si conficca a 40 cm dal centro. Poi un blocchetto premuto sul bordo con $F = 1$ N ($\mu_d = 0{,}8$) lo frena. Velocità dopo l'urto, tempo di arresto, giri.
+
+Il momento angolare rispetto all'asse si conserva: $I_0\omega_0 = (I_0 + mr^2)\omega_1$ con $I_0 = \frac12MR^2 = 1{,}25$ kg m², quindi $\omega_1 = 2{,}39$ rad/s. Il freno dà un momento $\mu_dFR$, decelerazione angolare costante $\frac{\mu_dFR}{I_1}$, e $t = \frac{I_1\omega_1}{\mu_dFR} = 9{,}37$ s. Nel moto uniformemente decelerato $\theta = \frac12\omega_1t = 11{,}2$ rad, cioè 1,78 giri (1,76 nei risultati dell'esercitazione).
+
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-03, FG1-07)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. La sfera che rotola giù.** Una sfera piena parte da ferma e rotola senza strisciare giù da un'altezza di 1 m. Velocità in fondo.
 
@@ -233,8 +251,7 @@ Un corpo rigido ha 6 gradi di libertà; nella rotazione attorno a un asse fisso 
 
 ## Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FG1-03, FG1-07)
-> Rotazioni, momenti d'inerzia, equazioni cardinali e momento angolare, con i termini per l'orale.
+Rotazioni, momenti d'inerzia, equazioni cardinali e momento angolare, con i termini per l'orale.
 
 ### Rotazioni
 

@@ -51,7 +51,21 @@ def controlla():
     assert {f[n] for n in (1, 4, 6)} == {0, 1} and [n for n in f if f[n] == 0] == [3, 6]
     assert [n for n in f if f[n] in (1, 2)] == [1, 2, 4, 5]
     assert all(abs(2 * x + 1) == abs(2 * x + 1) for x in range(3)) and abs(2 * 0 + 1) == abs(2 * -1 + 1)
-    ok += 14
+    # esercizi più impegnativi
+    coppie = [(a, b) for a in range(-4, 5) for b in range(-4, 5) if b != 0]
+    eqv = {(p, q) for p in coppie for q in coppie if p[0] * q[1] == p[1] * q[0]}
+    assert proprieta(coppie, eqv)[:2] == (True, True) and proprieta(coppie, eqv)[3]
+    def partizioni(s):
+        if not s:
+            yield []
+            return
+        primo, resto = s[0], s[1:]
+        for p in partizioni(resto):
+            for i in range(len(p)):
+                yield p[:i] + [[primo] + p[i]] + p[i + 1:]
+            yield [[primo]] + p
+    assert sum(1 for _ in partizioni([1, 2, 3, 4])) == 15
+    ok += 14 + 2
     # ---- modulo 2
     Zr = range(-20, 21)
     st = lambda a, b: a + b + 1  # noqa: E731
@@ -77,5 +91,9 @@ def controlla():
     assert (comb(9, 5), perm(9, 5), 9 * comb(8, 4)) == (126, 15120, 630) and 630 == 5 * 126
     assert comb(40, 4) == 91390 and 4 * comb(10, 4) == 840
     assert all(comb(n, k) == comb(n - 1, k - 1) + comb(n - 1, k) for n in range(1, 15) for k in range(1, n))
-    ok += 17
+    assert sum(1 for f in product(range(3), repeat=5) if set(f) == {0, 1, 2}) == 150 == 3**5 - 3 * 2**5 + 3
+    assert [x for x in range(7) if 3 * x % 7 == 4] == [6] and [x for x in range(12) if 5 * x % 12 == 7] == [11]
+    assert [x for x in range(12) if 4 * x % 12 == 6] == []
+    assert factorial(10) // 2 == 1814400 and 2 * (factorial(10) // 2) + factorial(10) // 4 == 4536000
+    ok += 17 + 4
     return ok

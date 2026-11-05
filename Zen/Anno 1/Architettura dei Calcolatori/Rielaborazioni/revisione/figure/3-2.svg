@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 430" width="600" height="430"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f2328"/></marker><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f5fbf"/></marker><marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#c0561b"/></marker></defs><rect width="100%" height="100%" fill="#fff"/><rect x="150" y="40" width="90" height="56" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="195.0" y="71.96" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">ALU 0</text>
+<text x="140" y="56" font-size="9.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="end" fill="#1f2328">a0</text>
+<polyline points="142,52 150,52" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="140" y="76" font-size="9.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="end" fill="#1f2328">b0</text>
+<polyline points="142,72 150,72" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="140" y="92" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f2328" font-style="italic">Less</text>
+<polyline points="142,88 150,88" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="240,62 420,62" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<text x="300" y="58" font-size="9.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">Result0</text>
+<polyline points="420,62 440,62" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<rect x="150" y="120" width="90" height="56" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="195.0" y="151.96" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">ALU 1</text>
+<text x="140" y="136" font-size="9.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="end" fill="#1f2328">a1</text>
+<polyline points="142,132 150,132" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="140" y="156" font-size="9.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="end" fill="#1f2328">b1</text>
+<polyline points="142,152 150,152" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="140" y="172" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f2328" font-style="italic">Less</text>
+<polyline points="142,168 150,168" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="240,142 420,142" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<text x="300" y="138" font-size="9.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">Result1</text>
+<polyline points="420,142 440,142" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<rect x="150" y="200" width="90" height="56" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="195.0" y="231.96" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">ALU 2</text>
+<text x="140" y="216" font-size="9.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="end" fill="#1f2328">a2</text>
+<polyline points="142,212 150,212" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="140" y="236" font-size="9.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="end" fill="#1f2328">b2</text>
+<polyline points="142,232 150,232" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="140" y="252" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f2328" font-style="italic">Less</text>
+<polyline points="142,248 150,248" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="240,222 420,222" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<text x="300" y="218" font-size="9.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">Result2</text>
+<polyline points="420,222 440,222" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<rect x="150" y="320" width="90" height="56" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="195.0" y="351.96" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">ALU 31</text>
+<text x="140" y="336" font-size="9.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="end" fill="#1f2328">a31</text>
+<polyline points="142,332 150,332" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="140" y="356" font-size="9.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="end" fill="#1f2328">b31</text>
+<polyline points="142,352 150,352" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="140" y="372" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f2328" font-style="italic">Less</text>
+<polyline points="142,368 150,368" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="240,342 420,342" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<text x="300" y="338" font-size="9.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">Result31</text>
+<polyline points="420,342 440,342" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<polyline points="195,96 195,120" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="195,176 195,200" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="195,256 195,270" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<text x="195" y="296" font-size="14" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">⋮</text>
+<polyline points="195,300 195,320" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="201" y="110" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328" font-style="italic">CarryOut → CarryIn</text>
+<polyline points="60,20 195,20 195,40" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="64" y="16" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">Bnegate (= Binvert e CarryIn del bit 0)</text>
+<polyline points="240,366 265,366 265,395 40,395 40,88 142,88" fill="none" stroke="#c0561b" stroke-width="1.3" marker-end="url(#c)"/>
+<text x="246" y="362" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#c0561b" font-style="italic">Set</text>
+<text x="48" y="412" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#c0561b">il bit di segno di a − b torna su Less del bit 0 (slt); Less = 0 negli altri bit</text>
+<polyline points="240,352 520,352" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="525" y="356" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328" font-style="italic">Overflow</text>
+<path d="M480,165 Q496.5,165 510,195.0 Q496.5,225 480,225 Q489.0,195.0 480,165 z" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<circle cx="513.5" cy="195.0" r="3.5" fill="#fff" stroke="#1f2328" stroke-width="1.3"/>
+<polyline points="440,62 460,62 460,172 484,172" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="440,142 460,142 460,186 484,186" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="440,222 460,222 460,204 484,204" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="440,342 460,342 460,218 484,218" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="517,195.0 580,195.0" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="580" y="188" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f2328" font-style="italic">Zero</text></svg>

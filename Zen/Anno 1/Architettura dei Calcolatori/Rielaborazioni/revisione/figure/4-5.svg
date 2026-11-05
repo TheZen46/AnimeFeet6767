@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 590" width="920" height="590"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f2328"/></marker><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f5fbf"/></marker><marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#c0561b"/></marker></defs><rect width="100%" height="100%" fill="#fff"/><g transform="translate(40,0)">
+<rect x="280" y="60" width="14" height="440" rx="1" fill="#e6e8eb" stroke="#1f2328" stroke-width="1.4"/>
+<text x="287.0" y="54" font-size="10.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">IF/ID</text>
+<rect x="660" y="60" width="14" height="440" rx="1" fill="#e6e8eb" stroke="#1f2328" stroke-width="1.4"/>
+<text x="667.0" y="54" font-size="10.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">ID/EX</text>
+<text x="150" y="580" font-size="12" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#57606a" font-weight="bold">IF</text>
+<text x="470" y="580" font-size="12" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#57606a" font-weight="bold">ID</text>
+<polygon points="40,210 60,220 60,300 40,310" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="44" y="233.5" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">0</text>
+<text x="44" y="263.5" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">1</text>
+<text x="44" y="293.5" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">2</text>
+<rect x="80" y="230" width="38" height="60" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="99.0" y="264.32" font-size="12" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">PC</text>
+<polyline points="60,260.0 80,260" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<rect x="145" y="215" width="100" height="90" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="195.0" y="257.47999999999996" font-size="10.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">Memoria</text>
+<text x="195.0" y="270.08" font-size="10.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">istruzioni</text>
+<polyline points="118,260 145,260" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<circle cx="130" cy="260" r="2.6" fill="#1f2328"/>
+<polygon points="150.0,80.0 190.0,101.0 190.0,129.0 150.0,150.0 150.0,120.6 161.2,115.0 150.0,109.4" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="174.8" y="120.25" font-size="15" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">+</text>
+<polyline points="130,260 130,94.7 150,94.7" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="141" y="131.3" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">4</text>
+<polyline points="137,135.3 150,135.3" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<circle cx="130" cy="180" r="2.6" fill="#1f2328"/>
+<polyline points="130,180 280,180" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="245,260 280,260" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="190,115.0 210,115.0 210,45 20,45 20,230 40,230" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="4" y="280" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#c0561b">gestore</text>
+<text x="4" y="291" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#c0561b">delle</text>
+<text x="4" y="302" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#c0561b">eccezioni</text>
+<polyline points="8,290 40,290" fill="none" stroke="#c0561b" stroke-width="1.3" marker-end="url(#c)"/>
+<polyline points="294,260 305,260" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<polyline points="305,140 305,470" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<rect x="380" y="200" width="105" height="120" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="432" y="262" font-size="10.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">Banco dei</text>
+<text x="432" y="276" font-size="10.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">registri</text>
+<circle cx="305" cy="220" r="2.6" fill="#1f2328"/>
+<polyline points="305,220 380,220" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="384" y="224" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">rs1</text>
+<circle cx="305" cy="250" r="2.6" fill="#1f2328"/>
+<polyline points="305,250 380,250" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="384" y="254" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">rs2</text>
+<polyline points="485,225 550,225 550,245 560,245" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="485,300 550,300 550,275 560,275" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<circle cx="520" cy="225" r="2.6" fill="#1f2328"/>
+<circle cx="520" cy="300" r="2.6" fill="#1f2328"/>
+<polyline points="520,225 520,230 660,230" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<polyline points="520,300 520,310 660,310" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="520,225 520,230" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<rect x="560" y="235" width="40" height="50" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="580.0" y="266.48" font-size="18" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">=</text>
+<ellipse cx="410" cy="420" rx="34" ry="18" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="410" y="417.84000000000003" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">Gener.</text>
+<text x="410" y="428.64000000000004" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">immediati</text>
+<circle cx="305" cy="420" r="2.6" fill="#1f2328"/>
+<polyline points="305,420 376,420" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="444,420 660,420" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<circle cx="470" cy="420" r="2.6" fill="#1f2328"/>
+<ellipse cx="470" cy="360" rx="22" ry="12" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="470" y="363.24" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">&lt;&lt; 1</text>
+<polyline points="470,420 470,373" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polygon points="560.0,90.0 600.0,111.0 600.0,139.0 560.0,160.0 560.0,130.6 571.2,125.0 560.0,119.4" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="584.8" y="130.25" font-size="15" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">+</text>
+<polyline points="294,180 330,180 330,104.7 560,104.7" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<circle cx="330" cy="180" r="2.6" fill="#1f2328"/>
+<polyline points="330,180 660,180" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="492,360 520,360 520,345 535,345 535,145.3 560,145.3" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="600,125.0 620,125.0 620,30 28,30 28,260 40,260" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<path d="M610,330 h14.0 a10.0,10.0 0 0 1 0,20 h-14.0 z" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<polyline points="600,260 612,260 612,300 600,300 600,335.6 610,335.6" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="604" y="258" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">uguali</text>
+<polyline points="588,344.4 610,344.4" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="585" y="348.4" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#1f5fbf" font-style="italic">Branch</text>
+<polyline points="634,340.0 645,340.0 645,20 50,20 50,212" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="648" y="330" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">PCSrc</text>
+<circle cx="645" cy="40" r="2.6" fill="#1f5fbf"/>
+<polyline points="645,40 305,40 305,72 296,72" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="310" y="54" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">IF.Flush (azzera IF/ID)</text>
+<ellipse cx="400" cy="460" rx="34" ry="18" fill="#fff" stroke="#1f5fbf" stroke-width="1.4"/>
+<text x="400" y="463.42" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f5fbf">Controllo</text>
+<circle cx="305" cy="460" r="2.6" fill="#1f2328"/>
+<polyline points="305,460 366,460" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<polygon points="560,440 580,450 580,490 560,500" fill="#fff" stroke="#c0561b" stroke-width="1.4"/>
+<text x="564" y="458.5" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#c0561b">0</text>
+<text x="564" y="488.5" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#c0561b">1</text>
+<polyline points="434,460 520,460 520,485 560,485" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="545" y="459" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="end" fill="#c0561b">0</text>
+<polyline points="548,455 560,455" fill="none" stroke="#c0561b" stroke-width="1.3" marker-end="url(#c)"/>
+<polyline points="580,470.0 660,470.0" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<rect x="380" y="505" width="140" height="42" rx="3" fill="#fff" stroke="#c0561b" stroke-width="1.4"/>
+<text x="450.0" y="523.6" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#c0561b">Rilevamento</text>
+<text x="450.0" y="535.6" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#c0561b">dei conflitti</text>
+<polyline points="305,470 305,520 380,520" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="312" y="516" font-size="8.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">rs1, rs2</text>
+<polyline points="674,530 700,530" fill="none" stroke="#1f2328" stroke-width="1.3"/>
+<polyline points="700,530 700,535 520,535" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="704" y="527" font-size="8.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">ID/EX.rd</text>
+<text x="704" y="538" font-size="8.5" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="start" fill="#1f2328">ID/EX.MemRead</text>
+<polyline points="380,540 99,540 99,290" fill="none" stroke="#c0561b" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#c)"/>
+<text x="104" y="554" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#c0561b" font-style="italic">PCWrite</text>
+<polyline points="380,512 360,512 360,525 287,525 287,502" fill="none" stroke="#c0561b" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#c)"/>
+<text x="225" y="520" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#c0561b" font-style="italic">IF/IDWrite</text>
+<polyline points="520,512 570,512 570,497" fill="none" stroke="#c0561b" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#c)"/>
+<text x="574" y="520" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#c0561b" font-style="italic">bolla</text>
+<rect x="720" y="380" width="80" height="34" rx="3" fill="#fff" stroke="#c0561b" stroke-width="1.4"/>
+<text x="760.0" y="400.78" font-size="10.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#c0561b">SEPC</text>
+<rect x="720" y="440" width="80" height="34" rx="3" fill="#fff" stroke="#c0561b" stroke-width="1.4"/>
+<text x="760.0" y="460.78" font-size="10.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#c0561b">SCAUSE</text>
+<polyline points="674,180 760,180 760,380" fill="none" stroke="#c0561b" stroke-width="1.3" marker-end="url(#c)"/>
+<text x="764" y="300" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#c0561b">PC dell'istruzione</text>
+<text x="764" y="311" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#c0561b">che ha causato</text>
+<text x="764" y="322" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#c0561b">l'eccezione</text>
+<text x="805" y="461" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#c0561b">causa</text>
+</g></svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 300" width="700" height="300"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f2328"/></marker><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f5fbf"/></marker><marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#c0561b"/></marker></defs><rect width="100%" height="100%" fill="#fff"/><polygon points="287,20 373,20 400,66 260,66" fill="#eef3fb" stroke="#1f2328" stroke-width="1.3"/>
+<text x="330" y="47" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">registri</text>
+<text x="408" y="42" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">&lt; 1 ns</text>
+<text x="408" y="55" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#57606a">centinaia di byte</text>
+<polygon points="232,72 428,72 455,118 205,118" fill="#eef3fb" stroke="#1f2328" stroke-width="1.3"/>
+<text x="330" y="99" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">cache L1</text>
+<text x="463" y="94" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">~1 ns</text>
+<text x="463" y="107" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#57606a">decine di KiB</text>
+<polygon points="177,124 483,124 510,170 150,170" fill="#eef3fb" stroke="#1f2328" stroke-width="1.3"/>
+<text x="330" y="151" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">cache L2 e L3</text>
+<text x="518" y="146" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">3-20 ns</text>
+<text x="518" y="159" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#57606a">MiB</text>
+<polygon points="122,176 538,176 565,222 95,222" fill="#fff" stroke="#1f2328" stroke-width="1.3"/>
+<text x="330" y="203" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">memoria principale (DRAM)</text>
+<text x="573" y="198" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">50-100 ns</text>
+<text x="573" y="211" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#57606a">GiB</text>
+<polygon points="67,228 593,228 620,274 40,274" fill="#fff" stroke="#1f2328" stroke-width="1.3"/>
+<text x="330" y="255" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">memoria di massa (SSD, disco)</text>
+<text x="628" y="250" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f2328">0,1-10 ms</text>
+<text x="628" y="263" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#57606a">TB</text>
+<polyline points="18,270 18,25" fill="none" stroke="#57606a" stroke-width="1.3" marker-end="url(#a)"/>
+<text x="26" y="30" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#57606a">più veloce, più cara per bit</text>
+<text x="26" y="272" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#57606a">più grande</text></svg>

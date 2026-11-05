@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" width="600" height="300"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f2328"/></marker><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f5fbf"/></marker><marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#c0561b"/></marker></defs><rect width="100%" height="100%" fill="#fff"/><rect x="150" y="20" width="200" height="36" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="250.0" y="41.78" font-size="10.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">Moltiplicando (32 bit)</text>
+<polygon points="150.0,80.0 240.0,113.0 240.0,157.0 150.0,190.0 150.0,143.8 175.2,135.0 150.0,126.2" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<text x="205.8" y="138.85" font-size="11" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">ALU</text>
+<text x="205" y="162" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">32 bit</text>
+<polyline points="200,56 200,64 130,64 130,166.9 150,166.9" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<rect x="150" y="220" width="400" height="40" rx="3" fill="#fff" stroke="#1f2328" stroke-width="1.4"/>
+<line x1="350" y1="220" x2="350" y2="260" stroke="#1f2328" stroke-width="1.2"/>
+<text x="250" y="245" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">prodotto, metà alta</text>
+<text x="450" y="245" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328">metà bassa (all'inizio: moltiplicatore)</text>
+<text x="350" y="282" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#57606a">Prodotto (64 bit): scorre a destra di 1 bit a ogni passo</text>
+<polyline points="190,220 190,206 115,206 115,103.1 150,103.1" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<polyline points="240,135.0 300,135.0 300,220" fill="none" stroke="#1f2328" stroke-width="1.3" marker-end="url(#a)"/>
+<rect x="420" y="90" width="110" height="50" rx="3" fill="#fff" stroke="#1f5fbf" stroke-width="1.4"/>
+<text x="475.0" y="112.72" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f5fbf">Controllo</text>
+<text x="475.0" y="124.12" font-size="9.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f5fbf">(guarda il bit 0)</text>
+<polyline points="540,220 540,115 530,115" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="545" y="200" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">bit 0</text>
+<polyline points="420,105 330,105 330,120 218,120" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="335" y="100" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">somma sì/no</text>
+<polyline points="475,140 475,218" fill="none" stroke="#1f5fbf" stroke-width="1.3" stroke-dasharray="4 3" marker-end="url(#b)"/>
+<text x="480" y="180" font-size="9" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="start" fill="#1f5fbf" font-style="italic">scorri, scrivi</text></svg>

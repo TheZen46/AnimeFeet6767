@@ -4,6 +4,7 @@ FILE_DATI = {
     "voti.txt": "Anna 27\nBruno 15\nCarla 30\nDario 17\nElena 18\n",
     "misure.txt": "T1 20 22 21\nT2 25 24 29\nP1 10 11 15\n",
     "temperature.txt": "12.5\n14\n9.5\n16\n13\n",
+    "esami.txt": "Geometria 27 6\nAnalisi1A 24 6\nFondamenti 27 9\nRetiLogiche 30 6\n",
     "presenze.txt": "104 5\n1 1 0 1 1 0\n1 1 1 1 1 0\n0 1 0 0 1 0\n1 1 1 1 0 0\n",
 }
 SOLO_COMPILAZIONE = {"prototipi.cpp"}
@@ -30,6 +31,11 @@ PROVE = {
                   ("3 8 -1 8 0\n", "3 positivi, 1 negativi\nmassimo 8\n"),
                   ("0\n", "0 positivi, 0 negativi\n")],
     "serie.cpp": [("1000\n", "1.64393 0.0009995\n")],
+    "perfetti.cpp": [("10000\n", "6 28 496 8128 \n")],
+    "complemento.cpp": [("-45\n", "11010011\n"), ("127\n", "01111111\n"), ("-128\n", "10000000\n"),
+                        ("200\n", "fuori dall'intervallo\n")],
+    "esponenziale.cpp": [("1\n", "2.71828182846 2.71828182846 15\n"),
+                         ("-20\n", "6.14764462906e-09 2.06115362244e-09 76\n")],
     # ---- modulo 4
     "potenza.cpp": [("", "1024 0.125\n")],
     "riferimenti.cpp": [("", "8 3 3 2\n")],
@@ -47,6 +53,11 @@ PROVE = {
     "passaggi.cpp": [("", "14 12 27\n")],
     "fusione.cpp": [("", "1 2 3 4 9 10 12 \n")],
     "temperature.cpp": [("", "5 13 2\n")],
+    "comprimi.cpp": [("aaabccdddd\n", "a3b1c2d4\n")],
+    "esami.cpp": [("", "RetiLogiche 30\nFondamenti 27\nGeometria 27\nAnalisi1A 24\nmedia 27\n")],
+    "spirale.cpp": [("4\n", "  1  2  3  4\n 12 13 14  5\n 11 16 15  6\n 10  9  8  7\n"),
+                    ("5\n", "  1  2  3  4  5\n 16 17 18 19  6\n 15 24 25 20  7\n 14 23 22 21  8\n"
+                             " 13 12 11 10  9\n")],
     # ---- modulo 5
     "puntatori.cpp": [("", "7 17 1\nr e' nullo\n")],
     "aritmetica.cpp": [("", "15 16 23 5\n108 23\n9\n")],
@@ -61,6 +72,9 @@ PROVE = {
     "traccia_ricorsione.cpp": [("", "\n2:2 3:3 2:2 4:5 5\n")],
     "conta_template.cpp": [("", "3 2\n")],
     "tartaglia.cpp": [("7\n", "1 6 15 20 15 6 1 \n")],
+    "mergesort.cpp": [("8  5 2 9 1 5 6 3 7\n", "1 2 3 5 5 6 7 9 \n"), ("1 42\n", "42 \n")],
+    "permutazioni.cpp": [("abc\n", "abc acb bac bca cba cab \n6\n")],
+    "potenza_veloce.cpp": [("", "3486784401 6\n4611686018427387904 10\n")],
     # ---- modulo 6
     "data.cpp": [("", "29/2/2028\n1/3/2028\n1/1/2000\n1 1/1/2027\n")],
     "frazione.cpp": [("", "1/6 3/4 -1/2\n11/12 1/8 1 9/4\n3/4\n")],
@@ -68,6 +82,8 @@ PROVE = {
     "presenze.cpp": [("", "corso 104, piu' assiduo: 1\n1 sotto il 70%, presenti alla lezione 2: 2, "
                           "getP(9, 0) = -1\n4\n")],
     "contatore.cpp": [("", "3 2 4 1\n")],
+    "polinomio.cpp": [("", "2x^3 - 3x + 1 | x - 1 | 0\n2x^3 - 2x | 2x^4 - 2x^3 - 3x^2 + 4x - 1\n"
+                           "-3x + 6 (grado 1)\n121 121\n")],
     # ---- modulo 7
     "lista.cpp": [("", "3 8 6 5 \n3 6 \n3 8 6 5 \n2 2 4 7 9 \n5 1\n")],
     "pila.cpp": [("", "1 0 0\n14 7\n0 3 2\n")],
@@ -75,4 +91,7 @@ PROVE = {
     "pila_lista.cpp": [("", "9 25 25 16 9 4 1 \n")],
     "lista_rovescia.cpp": [("", "50 40 30 20 10 \n10 20 30 40 50 \n150\n")],
     "coda_circolare.cpp": [("", "11110\n2: 3 4 6 7\n")],
+    "fondi_liste.cpp": [("", "1 2 3 4 9 10 12 \n")],
+    "coda_due_pile.cpp": [("", "1 2 3 4 (2 travasi)\n")],
+    "lista_palindroma.cpp": [("", "radar:1 abba:1 lista:0 x:1 \n")],
 }

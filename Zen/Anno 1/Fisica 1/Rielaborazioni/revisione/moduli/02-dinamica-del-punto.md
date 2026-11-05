@@ -123,8 +123,7 @@ Sommando: $a = \frac{m_2 g - m_1 g\sin\theta - \mu_d m_1 g\cos\theta}{m_1 + m_2}
 
 ### Esercizi dalle esercitazioni
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni 3 (13/03/2025) e 6 (03/04/2025) del corso, testi riformulati, con i risultati confrontati con quelli delle esercitazioni; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-01, FG1-05)
-> Per ogni corpo si disegna il diagramma delle forze, si scelgono gli assi (lungo il piano e perpendicolare, se c'è un piano inclinato) e si scrive $\vec F = m\vec a$ componente per componente. Le reazioni vincolari e le tensioni sono incognite come le accelerazioni.
+Per ogni corpo si disegna il diagramma delle forze, si scelgono gli assi (lungo il piano e perpendicolare, se c'è un piano inclinato) e si scrive $\vec F = m\vec a$ componente per componente. Le reazioni vincolari e le tensioni sono incognite come le accelerazioni.
 
 **Esercizio 4. Fin dove si può inclinare il piano?** Un corpo sta su un piano inclinato scabro con $\mu_s = 0{,}3$ e $\mu_d = 0{,}2$, all'altezza $h = 2$ m. (a) Angolo massimo $\alpha_0$ di equilibrio. (b) Accelerazione e tempo di discesa se il piano è inclinato di $2\alpha_0$.
 
@@ -150,8 +149,6 @@ Il seggiolino fa un moto circolare uniforme di raggio $r = L\sin\theta$. In vert
 
 ### Esercizi sul modello delle prove d'esame
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizio nuovo sul modello della prova del 05/02/2026, con dati diversi; soluzione verificata con `strumenti/verifica_ampliamento.py` (FG1-01, FG1-05, FG1-07)
-
 **Esercizio 8. Una massa che gira attaccata a una molla.** Su un piano orizzontale liscio un punto di 200 g, attaccato a una molla di lunghezza a riposo 10 cm e $k = 50$ N/m fissata al centro, fa un moto circolare uniforme con periodo 0,5 s. (a) Allungamento della molla. (b) Energia meccanica. (c) Momento angolare rispetto al centro.
 
 (a) La forza elastica è la forza centripeta: $k(l - l_0) = m\omega^2 l$, con $\omega = \frac{2\pi}{T} = 12{,}57$ rad/s e $m\omega^2 = 31{,}6$ N/m. Quindi $l = \frac{kl_0}{k - m\omega^2} = \frac{5}{18{,}4} = 0{,}271$ m, allungamento $0{,}171$ m. Se fosse $m\omega^2 \ge k$ non ci sarebbe soluzione: la molla non riuscirebbe a trattenere il punto.
@@ -160,10 +157,19 @@ Il seggiolino fa un moto circolare uniforme di raggio $r = L\sin\theta$. In vert
 
 (c) $L = m l^2\omega = 0{,}185$ kg·m²/s, perpendicolare al piano; per un moto in senso orario visto dall'alto, per la regola della mano destra, è diretto verso il basso.
 
+### Altri esercizi delle esercitazioni, con le soluzioni degli appunti a mano
+
+**Esercizio 9. Fino a che inclinazione il corpo resta fermo?** Un corpo è in cima a un piano inclinato alto $h$, scabro ($\mu_s$, $\mu_d$). Trovare l'angolo massimo $\alpha_0$ di equilibrio, l'accelerazione con $\alpha = 2\alpha_0$ e il tempo per arrivare a terra.
+
+Finché $\alpha < \alpha_0$ è $a = 0$: lungo il piano $mg\sin\alpha - F_s = 0$, perpendicolarmente $N = mg\cos\alpha$. Il caso limite è $F_s = \mu_sN$, quindi $mg\sin\alpha_0 = \mu_smg\cos\alpha_0$ e $\alpha_0 = \tan^{-1}\mu_s$. Con $\alpha = 2\alpha_0$ l'attrito diventa dinamico: $ma = mg\sin2\alpha_0 - \mu_dmg\cos2\alpha_0$, cioè $a = g(\sin2\alpha_0 - \mu_d\cos2\alpha_0)$. Il moto è uniformemente accelerato lungo l'ipotenusa $\frac{h}{\sin2\alpha_0}$, quindi $\frac{h}{\sin2\alpha_0} = \frac12at^2$ e $t = \sqrt{\frac{2h}{a\sin2\alpha_0}}$.
+
+**Esercizio 10. Due blocchetti sovrapposti trascinati su un piano inclinato.** $m_1 = 1$ kg sopra $m_2 = 2$ kg, piano inclinato di $20°$; fra i blocchetti $\mu_s = 0{,}5$, fra blocchetto inferiore e piano $\mu_d = 0{,}1$. Al blocchetto inferiore si applica $F = 15$ N parallela al piano e i due salgono insieme. Accelerazione, e forza massima senza che quello sopra scivoli indietro.
+
+Muovendosi insieme sono un blocco solo di massa $M = 3$ kg: $F - \mu_dMg\cos\alpha - Mg\sin\alpha = Ma$, da cui $a = \frac FM - \mu_dg\cos\alpha - g\sin\alpha = 0{,}73$ m/s² (0,75 nei risultati dell'esercitazione). Per la forza massima si guarda il blocco di sopra, che sale solo grazie all'attrito statico: $F_s - m_1g\sin\alpha = m_1a$, con $F_s = m_1(g\sin\alpha + a) \le \mu_sm_1g\cos\alpha$, cioè $a \le g(\mu_s\cos\alpha - \sin\alpha)$. Sostituendo l'accelerazione: $\frac FM - \mu_dg\cos\alpha - g\sin\alpha \le \mu_sg\cos\alpha - g\sin\alpha$, e i $g\sin\alpha$ si semplificano: $F \le Mg(\mu_s + \mu_d)\cos\alpha = 16{,}6$ N. Il trucco dell'esercizio è trattare il sistema intero per l'accelerazione e il corpo singolo per la condizione d'attrito.
+
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: il guidato 1 è l'esercizio 3 dell'esercitazione 3 (13/03/2025), testo riformulato; gli altri sono nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-01, FG1-05)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Si muove o no?** Una massa $m_1 = 5$ kg su un piano inclinato di 30° ($\mu_s = 0{,}5$, $\mu_d = 0{,}3$) è legata, con una fune che passa su una carrucola ideale in cima al piano, a una massa $m_2 = 10$ kg appesa. Le masse partono ferme: si muovono? Con che accelerazione?
 
@@ -197,8 +203,7 @@ I principi di Newton dicono che senza forza risultante un corpo mantiene il suo 
 
 ## Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FG1-01, FG1-05)
-> Principi, forze e oscillazioni, con i termini per l'orale.
+Principi, forze e oscillazioni, con i termini per l'orale.
 
 ### Principi e forze
 

@@ -12,8 +12,7 @@ versione: 2026-11-05
 
 **In questo modulo.** Si usano le funzioni, gli array e le strutture del modulo 4. È la parte di "C++ avanzato" con cui comincia il secondo semestre. Si vede che cos'è un indirizzo di memoria e come lo si manipola con i **puntatori**, il legame fra puntatori e array, l'aritmetica dei puntatori, e la differenza fra puntatori e riferimenti. Poi l'**allocazione dinamica**: creare variabili, array e matrici di dimensione decisa durante l'esecuzione, e liberarli. Poi la **ricorsione**, cioè le funzioni che chiamano sé stesse, e infine i **template di funzione**, che scrivono una funzione una volta sola per tutti i tipi. Alla fine del modulo si sa seguire a mano un programma con puntatori, gestire array dinamici senza perdite di memoria, scrivere e tracciare funzioni ricorsive e scrivere template di funzione.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Fondamenti, secondo semestre: 3. Programmazione avanzata in C++), esercitazioni del 25 febbraio, 4 e 11 marzo; H.M. Deitel e P.J. Deitel, *C++. Fondamenti di programmazione*, Apogeo (FI-08)
-> Il modulo è scritto in revisione dal materiale del corso. I programmi sono compilati con `g++ -std=c++17 -Wall -Wextra` ed eseguiti da `strumenti/verifica.py`. Gli indirizzi stampati da un programma cambiano da un'esecuzione all'altra: negli esempi si stampano solo valori.
+I programmi sono stati compilati con `g++ -std=c++17 -Wall -Wextra` ed eseguiti. Gli indirizzi stampati da un programma cambiano da un'esecuzione all'altra: negli esempi si stampano solo valori.
 
 ## 5.1 Indirizzi e puntatori
 
@@ -276,8 +275,6 @@ Il compilatore **istanzia** il template, cioè genera la funzione per il tipo us
 
 ## Esempi ed esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove 2016-2020 e delle esercitazioni del secondo semestre; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-08)
-
 **Esercizio 1. Trovare e correggere gli errori** (sul modello della prova di teoria).
 
 ```text
@@ -419,10 +416,116 @@ int main() {
 
 Stampa `6765 6765 21891`: quasi ventiduemila chiamate contro 20 giri di ciclo. Il numero di chiamate $C(n) = C(n - 1) + C(n - 2) + 1$ cresce come i numeri di Fibonacci stessi.
 
+### Esercizi più impegnativi
+
+**Esercizio 6. Merge sort.** Ordinare un array con l'algoritmo per fusione: si divide l'array a metà, si ordinano ricorsivamente le due metà, si fondono (guidato 2 del modulo 4). Il buffer per la fusione si alloca dinamicamente.
+
+```cpp
+// file: mergesort.cpp
+#include <iostream>
+using namespace std;
+
+// fonde a[sx..c] e a[c+1..dx], gia' ordinati
+void fondi(int a[], int sx, int c, int dx, int buf[]) {
+    int i = sx, j = c + 1, k = 0;
+    while (i <= c && j <= dx) buf[k++] = a[i] <= a[j] ? a[i++] : a[j++];
+    while (i <= c) buf[k++] = a[i++];
+    while (j <= dx) buf[k++] = a[j++];
+    for (int t = 0; t < k; t++) a[sx + t] = buf[t];      // ricopia
+}
+
+void mergeSort(int a[], int sx, int dx, int buf[]) {
+    if (sx >= dx) return;                 // 0 o 1 elementi: gia' ordinato
+    int c = (sx + dx) / 2;
+    mergeSort(a, sx, c, buf);
+    mergeSort(a, c + 1, dx, buf);
+    fondi(a, sx, c, dx, buf);
+}
+
+int main() {
+    int n;
+    cin >> n;
+    int* a = new int[n];
+    int* buf = new int[n];                // un solo buffer per tutte le fusioni
+    for (int i = 0; i < n; i++) cin >> a[i];
+    mergeSort(a, 0, n - 1, buf);
+    for (int i = 0; i < n; i++) cout << a[i] << " ";
+    cout << endl;
+    delete[] a;
+    delete[] buf;
+    return 0;
+}
+```
+
+Con `8  5 2 9 1 5 6 3 7` stampa `1 2 3 5 5 6 7 9`. Le chiamate formano un albero di profondità circa $\log_2 n$, e a ogni livello le fusioni toccano in tutto $n$ elementi: il merge sort fa circa $n \log_2 n$ confronti, contro gli $n^2/2$ dell'ordinamento per selezione (per $n = 1000$, circa 10 000 contro 500 000). È anche l'esempio di ricorsione più chiesto all'orale di Architettura, dove va tradotto in assembly.
+
+**Esercizio 7. Tutte le permutazioni di una stringa.** Stampare le permutazioni dei caratteri di una stringa con una funzione ricorsiva: si fissa a turno ogni carattere in prima posizione e si permutano gli altri.
+
+```cpp
+// file: permutazioni.cpp
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int conta = 0;
+
+void permuta(char s[], int k, int n) {    // permuta le posizioni k..n-1
+    if (k == n - 1) {
+        cout << s << " ";
+        conta++;
+        return;
+    }
+    for (int i = k; i < n; i++) {
+        swap(s[k], s[i]);                 // s[i] in posizione k
+        permuta(s, k + 1, n);
+        swap(s[k], s[i]);                 // si rimette a posto
+    }
+}
+
+int main() {
+    char s[12];
+    cin >> s;
+    permuta(s, 0, strlen(s));
+    cout << endl << conta << endl;
+    return 0;
+}
+```
+
+Con `abc` stampa `abc acb bac bca cba cab` e 6; con quattro lettere diverse 24 righe, cioè $4!$ come nel modulo 2. Il secondo `swap` è il passo indietro (*backtracking*): senza, la stringa resterebbe modificata e le permutazioni successive sarebbero sbagliate. `swap` è nella libreria standard (`<utility>`, incluso da `<iostream>`).
+
+**Esercizio 8. Potenza veloce.** Calcolare $x^n$ con la ricorsione $x^n = (x^{n/2})^2$ se $n$ è pari e $x \cdot x^{n-1}$ se è dispari, contando le moltiplicazioni.
+
+```cpp
+// file: potenza_veloce.cpp
+#include <iostream>
+using namespace std;
+
+int molt = 0;
+
+long long potenza(long long x, int n) {
+    if (n == 0) return 1;
+    if (n % 2 == 0) {
+        long long m = potenza(x, n / 2);     // una sola chiamata, non due
+        molt++;
+        return m * m;
+    }
+    molt++;
+    return x * potenza(x, n - 1);
+}
+
+int main() {
+    cout << potenza(3, 20) << " " << molt << endl;
+    molt = 0;
+    cout << potenza(2, 62) << " " << molt << endl;
+    return 0;
+}
+```
+
+Stampa `3486784401 6` e `4611686018427387904 10`: per $3^{20}$ servono 6 moltiplicazioni invece di 19, in generale circa $2 \log_2 n$. Il punto delicato è salvare $x^{n/2}$ in `m`: scrivendo `potenza(x, n / 2) * potenza(x, n / 2)` le chiamate raddoppierebbero a ogni livello e si tornerebbe a un costo proporzionale a $n$.
+
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-08)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Tracciare una ricorsione.** Che cosa stampa `f(4)`?
 
@@ -516,8 +619,6 @@ int main() {
 Un puntatore contiene un indirizzo: `&` dà l'indirizzo di una variabile, `*` la variabile puntata, `nullptr` indica nessun oggetto. Il nome di un array è l'indirizzo del primo elemento e `a[i]` equivale a `*(a + i)`; l'aritmetica dei puntatori conta in elementi. Un riferimento è un alias fisso; un puntatore è una variabile che può cambiare oggetto ed essere nullo. Con `new` e `delete` (o `new[]` e `delete[]`) si gestiscono oggetti nello heap, che vivono finché non vengono liberati: bisogna evitare perdite di memoria, puntatori pendenti e doppi `delete`; le matrici dinamiche sono array di puntatori a righe. Una funzione ricorsiva ha un caso base e un passo che riduce il problema; ogni chiamata ha il suo record sullo stack. I template di funzione scrivono una funzione per tutti i tipi che offrono le operazioni usate, e il compilatore li istanzia per i tipi effettivi.
 
 ## Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-08)
 
 ### Schemi
 

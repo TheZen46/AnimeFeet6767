@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 170" width="720" height="170"><defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f2328"/></marker><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#1f5fbf"/></marker><marker id="c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#c0561b"/></marker></defs><rect width="100%" height="100%" fill="#fff"/><text x="115" y="22" font-size="10.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">mappatura diretta</text>
+<rect x="15" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="27.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">0</text>
+<rect x="40" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="52.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">1</text>
+<rect x="65" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="77.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">2</text>
+<rect x="90" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="102.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">3</text>
+<rect x="115" y="40" width="25" height="50" rx="0" fill="#c9d6ee" stroke="#1f2328" stroke-width="1"/>
+<text x="127.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">4</text>
+<rect x="140" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="152.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">5</text>
+<rect x="165" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="177.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">6</text>
+<rect x="190" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="202.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">7</text>
+<text x="115" y="148" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-style="italic">riga 12 mod 8 = 4</text>
+<text x="355" y="22" font-size="10.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">associativa a 2 vie</text>
+<rect x="255" y="40" width="25" height="50" rx="0" fill="#c9d6ee" stroke="#1f2328" stroke-width="1"/>
+<text x="267.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">0</text>
+<rect x="280" y="40" width="25" height="50" rx="0" fill="#c9d6ee" stroke="#1f2328" stroke-width="1"/>
+<text x="292.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">1</text>
+<rect x="305" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="317.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">2</text>
+<rect x="330" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="342.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">3</text>
+<rect x="355" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="367.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">4</text>
+<rect x="380" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="392.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">5</text>
+<rect x="405" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="417.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">6</text>
+<rect x="430" y="40" width="25" height="50" rx="0" fill="#fff" stroke="#1f2328" stroke-width="1"/>
+<text x="442.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">7</text>
+<rect x="255" y="38" width="50" height="54" fill="none" stroke="#1f2328" stroke-width="2"/>
+<text x="280" y="120" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#57606a">ins. 0</text>
+<rect x="305" y="38" width="50" height="54" fill="none" stroke="#1f2328" stroke-width="2"/>
+<text x="330" y="120" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#57606a">ins. 1</text>
+<rect x="355" y="38" width="50" height="54" fill="none" stroke="#1f2328" stroke-width="2"/>
+<text x="380" y="120" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#57606a">ins. 2</text>
+<rect x="405" y="38" width="50" height="54" fill="none" stroke="#1f2328" stroke-width="2"/>
+<text x="430" y="120" font-size="8.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#57606a">ins. 3</text>
+<text x="355" y="148" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-style="italic">insieme 12 mod 4 = 0</text>
+<text x="595" y="22" font-size="10.5" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-weight="bold">completamente associativa</text>
+<rect x="495" y="40" width="25" height="50" rx="0" fill="#c9d6ee" stroke="#1f2328" stroke-width="1"/>
+<text x="507.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">0</text>
+<rect x="520" y="40" width="25" height="50" rx="0" fill="#c9d6ee" stroke="#1f2328" stroke-width="1"/>
+<text x="532.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">1</text>
+<rect x="545" y="40" width="25" height="50" rx="0" fill="#c9d6ee" stroke="#1f2328" stroke-width="1"/>
+<text x="557.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">2</text>
+<rect x="570" y="40" width="25" height="50" rx="0" fill="#c9d6ee" stroke="#1f2328" stroke-width="1"/>
+<text x="582.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">3</text>
+<rect x="595" y="40" width="25" height="50" rx="0" fill="#c9d6ee" stroke="#1f2328" stroke-width="1"/>
+<text x="607.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">4</text>
+<rect x="620" y="40" width="25" height="50" rx="0" fill="#c9d6ee" stroke="#1f2328" stroke-width="1"/>
+<text x="632.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">5</text>
+<rect x="645" y="40" width="25" height="50" rx="0" fill="#c9d6ee" stroke="#1f2328" stroke-width="1"/>
+<text x="657.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">6</text>
+<rect x="670" y="40" width="25" height="50" rx="0" fill="#c9d6ee" stroke="#1f2328" stroke-width="1"/>
+<text x="682.5" y="105" font-size="9" font-family="DejaVu Sans Mono, Consolas, monospace" text-anchor="middle" fill="#57606a">7</text>
+<text x="595" y="148" font-size="10" font-family="DejaVu Sans, Arial, Helvetica, sans-serif" text-anchor="middle" fill="#1f2328" font-style="italic">ovunque</text></svg>

@@ -78,6 +78,45 @@ mr.lab["_s"] = 0
 assert mr.esegui("_s") == 3
 ok += 11
 
+
+# tracce della prova scritta (esercizi 5-8): risultato, sp ripristinato, registri s preservati
+def traccia(etichetta, args, mem):
+    import re as _re
+    blocco = [b for b in blocchi(md) if _re.search(r"(?m)^\s*" + etichetta + r":", b)][0]
+    m = RV(blocco)
+    for ind, val in mem.items():
+        m.sw(ind, val)
+    for k, a in enumerate(args):
+        m.x[10 + k] = a
+    sent = {r: 1000 + r for r in [8, 9] + list(range(18, 28))}
+    for r, val in sent.items():
+        m.x[r] = val
+    r = m.esegui(etichetta)
+    assert m.x[2] == 0x8000 and all(m.x[k] == val for k, val in sent.items()), etichetta
+    return r, m
+
+
+def leggi(m, base, n):
+    return [m.lw(base + 4 * k) for k in range(n)]
+
+
+import random as _rnd
+_rnd.seed(7)
+casi = [[5, 1, 4, 2, 8], [7, 2, 9, 4, 3, 8, 1], [38, 27, 43, 3, 9, 82, 10], [1], [2, 2, 1, -3, 0, 2]]
+casi += [[_rnd.randint(-50, 50) for _ in range(_rnd.randint(2, 12))] for _ in range(20)]
+for c in casi:
+    n = len(c)
+    _, m = traccia("bubble", [0x100, n], vettore(0x100, c)); assert leggi(m, 0x100, n) == sorted(c)
+    _, m = traccia("quicksort", [0x100, 0, n - 1], vettore(0x100, c)); assert leggi(m, 0x100, n) == sorted(c)
+    _, m = traccia("mergesort", [0x100, 0x400, 0, n - 1], vettore(0x100, c)); assert leggi(m, 0x100, n) == sorted(c)
+    ok += 3
+w = [1, 3, 5, 7, 9, 11, 13]
+assert traccia("cerca", [0x100, 0, 6, 11], vettore(0x100, w))[0] == 5
+assert traccia("cerca", [0x100, 0, 6, 4], vettore(0x100, w))[0] == -1
+for x in range(0, 15):
+    assert traccia("cerca", [0x100, 0, 6, x], vettore(0x100, w))[0] == (w.index(x) if x in w else -1)
+ok += 17
+
 # ---- modulo 3: ALU e aritmetica
 def bits(x, n=4):
     return [(x >> i) & 1 for i in range(n)]

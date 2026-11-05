@@ -10,14 +10,21 @@ versione: 2026-11-05
 
 # 2 · Programmazione in assembly RISC-V
 
-**In questo modulo.** Si usano i registri, i formati e le istruzioni del modulo 1 (*Astrazione, prestazioni e l'ISA RISC-V*), e un po' di C. Si vede come un compilatore traduce in assembly i costrutti del C: espressioni, condizioni, cicli, accessi ad array, matrici e stringhe. Poi si studia il modello di memoria di un programma (codice, dati statici, heap, stack) e il meccanismo delle procedure: passaggio dei parametri, convenzioni sui registri, stack frame, procedure annidate e ricorsive. Infine si fa il percorso inverso, dall'assembly al C. Alla fine del modulo si sanno scrivere e leggere programmi RISC-V con cicli, array e chiamate di funzione, e provarli nel simulatore.
+**In questo modulo.** Prerequisiti: registri, formati e istruzioni del modulo 1, un po' di C. Come si traducono in assembly espressioni, condizioni, cicli, array, matrici e stringhe; il modello di memoria di un programma; le procedure, lo stack e la ricorsione; il percorso inverso dall'assembly al C. Il paragrafo 2.8 è dedicato alla prova scritta: tradurre un programma C (di solito un ordinamento ricorsivo) e motivare ogni scelta. Tutti i programmi del modulo sono stati eseguiti in un simulatore RISC-V.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Gestione chiamate a funzione, Vettori e matrici, Fibonacci, Merge Sort, Reverse coding, Simulatore QtRvSim), programmi di esempio `Simple.s` e `Strlen.s`; Patterson e Hennessy, *Struttura e progetto dei calcolatori*, cap. 2 (ADC-02)
-> Il modulo è scritto in revisione dal materiale del corso. Tutti i frammenti di codice sono stati eseguiti con il simulatore di `strumenti/verifica_ampliamento.py`. Nelle slide alcuni esempi usano la notazione MIPS (`$t0`, `$s1`); qui si usa sempre quella RISC-V.
+## 2.1 Espressioni, condizioni, cicli
 
-## 2.1 Dal C all'assembly: espressioni e condizioni
+**Le regole di traduzione.**
 
-Un compilatore assegna le variabili a registri e traduce ogni espressione in una sequenza di istruzioni con risultati intermedi nei temporanei. Con `f`, `g`, `h`, `i`, `j` in `s0`…`s4`, l'istruzione C `f = (g + h) - (i + j);` diventa
+| C | Assembly | Nota |
+|---|---|---|
+| variabile | un registro | `s` se deve sopravvivere a una chiamata, `t` altrimenti |
+| espressione | sequenza di istruzioni con risultati intermedi nei `t` | |
+| `if (c)` | salto con la condizione **negata** oltre il ramo vero | |
+| `if … else` | salto all'`else`, `j` oltre l'`else` alla fine del ramo vero | |
+| `while`, `for` | controllo in testa, salto all'indietro in fondo | `for`: inizializzazione prima, incremento in fondo |
+
+`f = (g + h) - (i + j);` con `f`, `g`, `h`, `i`, `j` in `s0`…`s4`:
 
 ```text
 add  t0, s1, s2      # t0 = g + h
@@ -25,7 +32,7 @@ add  t1, s3, s4      # t1 = i + j
 sub  s0, t0, t1      # f = t0 - t1
 ```
 
-Le condizioni diventano salti condizionati, di solito con la **condizione negata**: si salta oltre il ramo "vero" quando la condizione è falsa. Per `if (i == j) f = g + h; else f = g - h;`:
+`if (i == j) f = g + h; else f = g - h;`:
 
 ```text
       bne  s3, s4, Else   # se i != j salta al ramo else
@@ -35,7 +42,7 @@ Else: sub  s0, s1, s2     # f = g - h
 Fine:
 ```
 
-Un ciclo è un salto all'indietro. `while (v[i] == k) i += 1;`, con `i` in `s3`, `k` in `s5` e l'indirizzo di `v` in `s6`:
+`while (v[i] == k) i += 1;` con `i` in `s3`, `k` in `s5`, indirizzo di `v` in `s6`:
 
 ```text
 Ciclo: slli t1, s3, 2     # t1 = 4 * i (ogni intero occupa 4 byte)
@@ -47,15 +54,11 @@ Ciclo: slli t1, s3, 2     # t1 = 4 * i (ogni intero occupa 4 byte)
 Esci:
 ```
 
-Un `for (i = 0; i < n; i++)` si traduce allo stesso modo: inizializzazione prima del ciclo, controllo con `bge` (uscita se $i \ge n$) all'inizio, incremento e salto all'indietro alla fine.
-
 ## 2.2 Array e matrici
 
-L'indirizzo dell'elemento `v[i]` di un array di interi è $\text{base} + 4i$: l'indice va moltiplicato per la dimensione dell'elemento, cioè shiftato a sinistra di 2 (`slli`). Per un array di `char` la dimensione è 1 e lo shift non serve. È la differenza principale fra l'indice del C, che conta elementi, e l'indirizzo, che conta byte.
-
-Una matrice C `int M[R][C]` è memorizzata **per righe** (*row-major*): prima tutta la riga 0, poi la riga 1, e così via. L'elemento `M[i][j]` ha indirizzo
-$$\text{base} + (i \cdot C + j) \cdot 4.$$
-Se $C$ è una potenza di 2 la moltiplicazione $i \cdot C$ è uno shift; altrimenti si usa `mul` (estensione M di RISC-V) o una somma ripetuta. Scorrendo la matrice con un puntatore che avanza di 4 byte si visitano gli elementi nell'ordine della memoria, riga per riga.
+- `v[i]` di interi: indirizzo $\text{base} + 4i$ → `slli t, i, 2` e `add`. Per i `char` niente shift. L'indice del C conta elementi, l'indirizzo conta byte.
+- `int M[R][C]` è memorizzata **per righe**: `M[i][j]` a $\text{base} + (i \cdot C + j) \cdot 4$. Con $C$ potenza di 2, $i \cdot C$ è uno shift; altrimenti `mul`.
+- Scorrere con un **puntatore** che avanza di 4 risparmia il calcolo dell'indirizzo a ogni giro.
 
 > [!esempio] Somma degli elementi di un array
 > La funzione `int somma(int v[], int n)` riceve l'indirizzo di `v` in `a0` e `n` in `a1`, e restituisce il risultato in `a0`.
@@ -76,7 +79,8 @@ Se $C$ è una potenza di 2 la moltiplicazione $i \cdot C$ è uno shift; altrimen
 
 ## 2.3 Byte e stringhe
 
-Una stringa C è un array di byte terminato dal carattere nullo (codice 0). Si legge un carattere alla volta con `lbu` (senza segno: i codici vanno da 0 a 255) e si scrive con `sb`. La lunghezza di una stringa si calcola facendo avanzare un puntatore fino allo 0:
+- Stringa C = array di byte chiuso da 0.
+- Si legge con `lbu` (codici da 0 a 255, niente estensione del segno), si scrive con `sb`.
 
 ```text
 strlen: mv   t0, a0         # t0 = puntatore al carattere corrente
@@ -88,40 +92,57 @@ end:    sub  a0, t0, a0     # lunghezza = puntatore finale - iniziale
         ret
 ```
 
-Qui si usa l'**aritmetica dei puntatori** invece di un indice: invece di calcolare a ogni giro $\text{base} + i$, si incrementa direttamente l'indirizzo, e si risparmiano istruzioni. È la stessa ottimizzazione che fa un compilatore.
+Aritmetica dei puntatori: si incrementa l'indirizzo invece di calcolare $\text{base} + i$ a ogni giro.
 
 ## 2.4 Il modello di memoria di un programma
 
-Lo spazio di indirizzamento di un programma RISC-V è diviso in zone, dal basso verso l'alto:
+![Figura 2.1 · Le zone della memoria di un programma.](../figure/2-1.svg)
 
-| Zona | Contenuto |
-|---|---|
-| riservata | indirizzi bassi non usati |
-| testo (*text*) | il codice macchina |
-| dati statici (*data*) | variabili globali e costanti, raggiunte tramite `gp` |
-| heap | memoria allocata dinamicamente (`malloc`, `new`), cresce verso l'alto |
-| stack | variabili locali e dati delle chiamate, cresce verso il basso da `sp` |
+| Zona | Contenuto | Direttiva |
+|---|---|---|
+| testo | codice macchina | `.text` |
+| dati statici | variabili globali e costanti (tramite `gp`) | `.data`, `.word 3, 5, 7`, `.asciz "ciao"`, `.space n` |
+| heap | memoria dinamica (`malloc`, `new`), cresce verso l'alto | – |
+| stack | variabili locali, record delle chiamate, cresce verso il basso da `sp` | – |
 
-Heap e stack crescono uno verso l'altro, così lo spazio libero in mezzo può servire all'uno o all'altro. Nel sorgente assembly le zone si scelgono con le **direttive**: `.text` per il codice, `.data` per i dati; `.word 3, 5, 7` riserva e inizializza parole, `.asciz "ciao"` una stringa con lo 0 finale, `.space n` riserva $n$ byte. Nel simulatore QtRvSim del corso il programma comincia all'etichetta `_start` (dichiarata con `.globl _start`), e si possono seguire passo per passo i registri, la memoria e la pipeline; il programma termina con una chiamata di sistema (`ecall`) o con un ciclo infinito di arresto.
+- Heap e stack crescono uno verso l'altro: lo spazio libero serve a entrambi.
+- Nel simulatore QtRvSim il programma comincia a `_start` (`.globl _start`) e termina con una `ecall` o con un ciclo di arresto; si seguono registri, memoria e pipeline passo per passo.
 
 ## 2.5 Le procedure
 
-Una chiamata di procedura richiede sei passi: (1) il chiamante mette gli argomenti dove la procedura li cerca; (2) trasferisce il controllo; (3) la procedura si procura la memoria che le serve; (4) svolge il suo compito; (5) mette il risultato dove il chiamante lo cerca; (6) restituisce il controllo al punto da cui era stata chiamata.
+**I sei passi di una chiamata.** (1) Argomenti al loro posto; (2) salto alla procedura; (3) la procedura si procura la memoria; (4) lavora; (5) risultato al suo posto; (6) ritorno.
 
-In RISC-V gli argomenti vanno in `a0`…`a7` (gli altri, se ce ne sono di più, sullo stack), il risultato in `a0` (e `a1`). La chiamata è `jal ra, procedura` (scritta anche `call procedura`), che salva in `ra` l'indirizzo di ritorno; il ritorno è `jalr zero, 0(ra)`, cioè `ret`.
+| Che cosa | Dove |
+|---|---|
+| argomenti | `a0`…`a7` (gli altri sullo stack) |
+| risultato | `a0` (e `a1`) |
+| chiamata | `jal ra, proc` (`call proc`): salva PC + 4 in `ra` |
+| ritorno | `jalr zero, 0(ra)` (`ret`) |
 
-Il problema è che chiamante e procedura usano gli stessi 32 registri. La **convenzione di chiamata** divide il lavoro:
+**La convenzione di chiamata.**
 
-- i registri **salvati** `s0`…`s11`, `sp` e `ra` (dal punto di vista del chiamante) devono avere, al ritorno, lo stesso valore che avevano alla chiamata: se la procedura li usa, li salva sullo stack all'inizio e li ripristina alla fine (*callee-saved*);
-- i registri **temporanei** `t0`…`t6` e gli argomenti `a0`…`a7` possono essere modificati dalla procedura: se il chiamante ne ha bisogno dopo la chiamata, è lui a salvarli (*caller-saved*).
+| Registri | Chi li salva | Regola |
+|---|---|---|
+| `s0`…`s11`, `sp`, `ra` (per il chiamante) | la procedura chiamata (*callee-saved*) | al ritorno devono valere come prima: se la procedura li usa, li salva all'inizio e li ripristina alla fine |
+| `t0`…`t6`, `a0`…`a7` | il chiamante (*caller-saved*) | la procedura può cambiarli: se servono dopo la chiamata, il chiamante li tiene altrove |
 
-Lo **stack** si usa così: per riservare $k$ byte si sottrae $k$ a `sp` (`addi sp, sp, -k`), si salvano i registri con `sw` a offset positivi da `sp`, e alla fine si ripristinano e si rilascia lo spazio (`addi sp, sp, k`). La zona di stack di una chiamata si chiama **stack frame** (o record di attivazione). `sp` resta allineato a 16 byte nella convenzione standard; negli esempi del corso, per semplicità, si riservano solo i byte necessari.
+**Lo stack.**
 
-Una procedura che non ne chiama altre (**procedura foglia**) spesso non ha bisogno dello stack: usa i temporanei e non tocca `ra`. Una procedura che ne chiama altre deve salvare almeno `ra`, perché la sua `jal` lo sovrascrive, e i registri che le servono dopo la chiamata.
+1. `addi sp, sp, -k` (riserva $k$ byte);
+2. `sw` dei registri da salvare a offset positivi da `sp`;
+3. corpo della procedura;
+4. `lw` per ripristinarli, `addi sp, sp, k`, `ret`.
+
+La zona di una chiamata è il **record di attivazione** (*stack frame*). La convenzione standard tiene `sp` allineato a 16 byte; negli esempi del corso si riservano solo i byte necessari.
+
+| Procedura | Stack |
+|---|---|
+| **foglia** (non chiama nessuno) | spesso nessuno: usa i `t` e non tocca `ra` |
+| non foglia | salva almeno `ra` (la sua `jal` lo sovrascrive) e gli `s` che usa |
 
 ## 2.6 Procedure ricorsive
 
-Una procedura ricorsiva è una procedura non foglia che chiama sé stessa: ogni chiamata ha il suo stack frame con i suoi valori.
+Ogni chiamata ha il suo record di attivazione con i suoi valori.
 
 > [!esempio] Fattoriale
 > `int fact(int n) { return n < 2 ? 1 : n * fact(n - 1); }`
@@ -144,6 +165,8 @@ Una procedura ricorsiva è una procedura non foglia che chiama sé stessa: ogni 
 > ```
 >
 > Per `fact(3)` lo stack contiene, al momento più profondo, tre frame con $n = 3, 2, 1$ e i rispettivi indirizzi di ritorno; i frame si liberano in ordine inverso mentre si calcolano $1$, $2 \cdot 1$, $3 \cdot 2$.
+
+![Figura 2.2 · Lo stack di `fact(3)` nel punto più profondo: tre record da 8 byte, ciascuno con l'indirizzo di ritorno e il suo $n$.](../figure/2-2.svg)
 
 > [!esempio] Fibonacci
 > `int fib(int n) { return n < 2 ? n : fib(n - 1) + fib(n - 2); }`. Dopo la prima chiamata ricorsiva serve ancora sia $n$ sia $fib(n - 1)$: si tengono in due registri salvati, `s0` e `s1`, che vanno quindi salvati sullo stack.
@@ -173,11 +196,26 @@ Una procedura ricorsiva è una procedura non foglia che chiama sé stessa: ogni 
 
 ## 2.7 Dall'assembly al C
 
-Leggere un programma assembly vuol dire ricostruire le variabili (a quali registri corrispondono), i cicli (i salti all'indietro) e le condizioni (i salti in avanti, con la condizione negata). Si procede così: si individuano gli argomenti (`a0`, `a1`…) e il valore di ritorno; si cerca il salto all'indietro, che chiude un ciclo, e il salto di uscita; si traduce il corpo istruzione per istruzione; infine si riscrive il tutto in un C leggibile, con i nomi delle variabili e un `for` dove c'è un contatore.
+1. Argomenti (`a0`, `a1`…) e valore di ritorno.
+2. Salti all'indietro: i cicli; salti in avanti: le condizioni (negate).
+3. Corpo istruzione per istruzione.
+4. Riscrittura in C leggibile, con nomi e `for` dove c'è un contatore.
+
+## 2.8 La prova scritta: tradurre e motivare
+
+Nella prova scritta si traduce un programma C (di solito un ordinamento ricorsivo, a volte la ricerca binaria o un altro programma del libro o delle schede) e si **motiva ogni scelta**. La traccia della risposta è sempre la stessa.
+
+1. **Firma.** Dove arrivano gli argomenti, dove va il risultato.
+2. **Foglia o no.** Se chiama qualcuno serve lo stack, almeno per `ra`.
+3. **Che cosa serve dopo una chiamata.** Ogni valore che si usa dopo una `jal` va in un registro `s` (salvato all'inizio) oppure sullo stack: i `t` e gli `a` possono essere cambiati dalla procedura chiamata.
+4. **Il record.** 4 byte per `ra` e per ogni `s` usato; `sp` torna al valore iniziale su tutti i percorsi di uscita.
+5. **Indirizzi.** `slli` di 2 per gli interi; la base resta in un registro.
+6. **Condizioni.** Negate, con `bge`/`blt` per i confronti con segno.
+7. **Controllo.** Un caso piccolo eseguito a mano (o nel simulatore).
+
+Gli esercizi 5-8 dopo gli esempi sono tracce d'esame svolte con queste motivazioni.
 
 ## Esempi ed esercizi svolti
-
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle slide (Vettori e matrici, Reverse coding, Fibonacci); tutti i programmi eseguiti con il simulatore di `strumenti/verifica_ampliamento.py` (ADC-02)
 
 **Esercizio 1. Il massimo di un array.** Scrivere `int max(int v[], int n)` (con $n \ge 1$).
 
@@ -272,10 +310,315 @@ somma_quadrati:
 
 `b` non può restare in `a1`, perché per la convenzione `quad` potrebbe cambiarlo; e $a^2$ non può restare in `t0` durante la seconda chiamata, per lo stesso motivo. Per questo entrambi passano da `s0`, salvato sullo stack. Con $a = 3$ e $b = 4$ restituisce 25.
 
+### Tracce della prova scritta
+
+**Esercizio 5. Ordinamento a bolle con una procedura di scambio.**
+
+```c
+void scambia(int *a, int *b) { int t = *a; *a = *b; *b = t; }
+
+void bubble(int v[], int n) {
+    for (int i = n - 1; i > 0; i--)
+        for (int j = 0; j < i; j++)
+            if (v[j] > v[j + 1]) scambia(&v[j], &v[j + 1]);
+}
+```
+
+*Le scelte.*
+
+| Valore | Registro | Perché |
+|---|---|---|
+| `a`, `b` di `scambia` | `a0`, `a1` | argomenti; `scambia` è foglia: usa `t0`, `t1`, niente stack |
+| `v` | `s0` | serve dopo ogni chiamata a `scambia` |
+| `i`, `j` | `s1`, `s2` | idem: in un `t` andrebbero persi alla chiamata |
+| `&v[j]`, `&v[j + 1]` | `a0`, `a1` | sono già gli argomenti di `scambia`: calcolati direttamente lì |
+| record di `bubble` | 16 byte | `ra` + `s0`, `s1`, `s2` |
+
+```text
+scambia:   lw   t0, 0(a0)        # t = *a
+           lw   t1, 0(a1)
+           sw   t1, 0(a0)        # *a = *b
+           sw   t0, 0(a1)        # *b = t
+           ret
+bubble:    addi sp, sp, -16
+           sw   ra, 12(sp)
+           sw   s0, 8(sp)
+           sw   s1, 4(sp)
+           sw   s2, 0(sp)
+           mv   s0, a0           # s0 = v
+           addi s1, a1, -1       # i = n - 1
+bb_est:    bge  zero, s1, bb_fine  # i <= 0: fine
+           li   s2, 0            # j = 0
+bb_int:    bge  s2, s1, bb_dopo  # j >= i: fine del ciclo interno
+           slli t0, s2, 2
+           add  a0, s0, t0       # a0 = &v[j]
+           addi a1, a0, 4        # a1 = &v[j + 1]
+           lw   t1, 0(a0)        # v[j]
+           lw   t2, 0(a1)        # v[j + 1]
+           bge  t2, t1, bb_avanti  # già in ordine: niente scambio
+           jal  ra, scambia
+bb_avanti: addi s2, s2, 1        # j++
+           j    bb_int
+bb_dopo:   addi s1, s1, -1       # i--
+           j    bb_est
+bb_fine:   lw   s2, 0(sp)
+           lw   s1, 4(sp)
+           lw   s0, 8(sp)
+           lw   ra, 12(sp)
+           addi sp, sp, 16
+           ret
+```
+
+Da motivare: la condizione `v[j] > v[j + 1]` diventa "salta oltre lo scambio se `v[j + 1] >= v[j]`"; `i > 0` diventa "esci se `0 >= i`". `&v[j + 1]` è `&v[j] + 4`, non `+ 1`. Con `v` = {5, 1, 4, 2, 8} il risultato è {1, 2, 4, 5, 8}.
+
+**Esercizio 6. Quicksort (partizione di Lomuto).**
+
+```c
+void quicksort(int v[], int lo, int hi) {
+    if (lo >= hi) return;
+    int p = v[hi], i = lo;
+    for (int j = lo; j < hi; j++)
+        if (v[j] < p) { int t = v[i]; v[i] = v[j]; v[j] = t; i++; }
+    int t = v[i]; v[i] = v[hi]; v[hi] = t;
+    quicksort(v, lo, i - 1);
+    quicksort(v, i + 1, hi);
+}
+```
+
+*Le scelte.*
+
+| Valore | Registro | Perché |
+|---|---|---|
+| `v` | `s0` | serve per la seconda chiamata |
+| `hi` | `s1` | serve per la seconda chiamata |
+| `i` | `s2` | serve dopo la prima chiamata (`i + 1`) |
+| `lo` | resta in `a1` | serve solo come argomento della prima chiamata, che avviene prima di qualsiasi altra `jal` |
+| `p`, `j`, `&v[hi]`, temporanei | `t0`…`t6` | usati solo prima delle chiamate |
+| caso base | `ret` subito | prima di toccare lo stack: nessun record da disfare |
+| record | 16 byte | `ra`, `s0`, `s1`, `s2` |
+
+```text
+quicksort: bge  a1, a2, qs_fine  # lo >= hi: niente da fare
+           addi sp, sp, -16
+           sw   ra, 12(sp)
+           sw   s0, 8(sp)
+           sw   s1, 4(sp)
+           sw   s2, 0(sp)
+           mv   s0, a0           # s0 = v
+           mv   s1, a2           # s1 = hi
+           slli t0, a2, 2
+           add  t0, a0, t0       # t0 = &v[hi]
+           lw   t1, 0(t0)        # t1 = p
+           mv   s2, a1           # i = lo
+           mv   t2, a1           # j = lo
+qs_ciclo:  bge  t2, s1, qs_dopo  # j >= hi: fine della partizione
+           slli t3, t2, 2
+           add  t3, s0, t3       # t3 = &v[j]
+           lw   t4, 0(t3)        # t4 = v[j]
+           bge  t4, t1, qs_avanti  # v[j] >= p: resta dov'è
+           slli t5, s2, 2
+           add  t5, s0, t5       # t5 = &v[i]
+           lw   t6, 0(t5)
+           sw   t4, 0(t5)        # v[i] = v[j]
+           sw   t6, 0(t3)        # v[j] = vecchio v[i]
+           addi s2, s2, 1        # i++
+qs_avanti: addi t2, t2, 1        # j++
+           j    qs_ciclo
+qs_dopo:   slli t5, s2, 2
+           add  t5, s0, t5       # t5 = &v[i]
+           lw   t6, 0(t5)
+           sw   t1, 0(t5)        # v[i] = p
+           sw   t6, 0(t0)        # v[hi] = vecchio v[i]
+           addi a2, s2, -1       # quicksort(v, lo, i - 1): a0 = v, a1 = lo
+           jal  ra, quicksort
+           mv   a0, s0
+           addi a1, s2, 1
+           mv   a2, s1           # quicksort(v, i + 1, hi)
+           jal  ra, quicksort
+           lw   s2, 0(sp)
+           lw   s1, 4(sp)
+           lw   s0, 8(sp)
+           lw   ra, 12(sp)
+           addi sp, sp, 16
+qs_fine:   ret
+```
+
+Da motivare: alla prima chiamata `a0` vale ancora `v` e `a1` ancora `lo`, perché non c'è stata nessuna `jal` prima; alla seconda vanno ricaricati da `s0`, `s2`, `s1`. Lo scambio finale usa `t0` = `&v[hi]` calcolato prima del ciclo: il ciclo non lo tocca. Con `v` = {7, 2, 9, 4, 3, 8, 1} il risultato è {1, 2, 3, 4, 7, 8, 9}.
+
+**Esercizio 7. Merge sort.**
+
+```c
+void merge(int v[], int tmp[], int lo, int m, int hi) {
+    int i = lo, j = m + 1, k = lo;
+    while (i <= m && j <= hi)
+        tmp[k++] = (v[j] < v[i]) ? v[j++] : v[i++];
+    while (i <= m) tmp[k++] = v[i++];
+    while (j <= hi) tmp[k++] = v[j++];
+    for (k = lo; k <= hi; k++) v[k] = tmp[k];
+}
+
+void mergesort(int v[], int tmp[], int lo, int hi) {
+    if (lo >= hi) return;
+    int m = (lo + hi) / 2;
+    mergesort(v, tmp, lo, m);
+    mergesort(v, tmp, m + 1, hi);
+    merge(v, tmp, lo, m, hi);
+}
+```
+
+*Le scelte.*
+
+| Valore | Registro | Perché |
+|---|---|---|
+| `v`, `tmp`, `lo`, `hi`, `m` | `s0`…`s4` | tutti servono dopo almeno una chiamata ricorsiva |
+| `(lo + hi) / 2` | `add` + `srai 1` | gli indici non sono negativi: lo shift è la divisione intera |
+| `merge` | foglia, solo `t` | non chiama nessuno: niente stack |
+| il quinto argomento `hi` | `a4` | ci sono 8 registri per gli argomenti |
+| record di `mergesort` | 24 byte | `ra` + 5 registri `s` |
+| `v[j] < v[i]` | prende `v[j]` solo se strettamente minore | a parità prende `v[i]`: l'ordinamento è stabile |
+
+```text
+mergesort: bge  a2, a3, ms_fine  # lo >= hi: un elemento, già ordinato
+           addi sp, sp, -24
+           sw   ra, 20(sp)
+           sw   s0, 16(sp)
+           sw   s1, 12(sp)
+           sw   s2, 8(sp)
+           sw   s3, 4(sp)
+           sw   s4, 0(sp)
+           mv   s0, a0           # v
+           mv   s1, a1           # tmp
+           mv   s2, a2           # lo
+           mv   s3, a3           # hi
+           add  s4, a2, a3
+           srai s4, s4, 1        # m = (lo + hi) / 2
+           mv   a3, s4           # mergesort(v, tmp, lo, m)
+           jal  ra, mergesort
+           mv   a0, s0
+           mv   a1, s1
+           addi a2, s4, 1
+           mv   a3, s3           # mergesort(v, tmp, m + 1, hi)
+           jal  ra, mergesort
+           mv   a0, s0
+           mv   a1, s1
+           mv   a2, s2
+           mv   a3, s4
+           mv   a4, s3           # merge(v, tmp, lo, m, hi)
+           jal  ra, merge
+           lw   s4, 0(sp)
+           lw   s3, 4(sp)
+           lw   s2, 8(sp)
+           lw   s1, 12(sp)
+           lw   s0, 16(sp)
+           lw   ra, 20(sp)
+           addi sp, sp, 24
+ms_fine:   ret
+merge:     mv   t0, a2           # i = lo
+           addi t1, a3, 1        # j = m + 1
+           mv   t2, a2           # k = lo
+mg_ciclo:  blt  a3, t0, mg_resto_j  # i > m: resta la seconda metà
+           blt  a4, t1, mg_resto_i  # j > hi: resta la prima metà
+           slli t3, t0, 2
+           add  t3, a0, t3
+           lw   t3, 0(t3)        # t3 = v[i]
+           slli t4, t1, 2
+           add  t4, a0, t4
+           lw   t4, 0(t4)        # t4 = v[j]
+           slli t5, t2, 2
+           add  t5, a1, t5       # t5 = &tmp[k]
+           addi t2, t2, 1        # k++
+           blt  t4, t3, mg_da_j  # v[j] < v[i]: prende v[j]
+           sw   t3, 0(t5)        # tmp[k] = v[i]
+           addi t0, t0, 1        # i++
+           j    mg_ciclo
+mg_da_j:   sw   t4, 0(t5)        # tmp[k] = v[j]
+           addi t1, t1, 1        # j++
+           j    mg_ciclo
+mg_resto_i: blt a3, t0, mg_copia
+           slli t3, t0, 2
+           add  t3, a0, t3
+           lw   t3, 0(t3)
+           slli t5, t2, 2
+           add  t5, a1, t5
+           sw   t3, 0(t5)        # tmp[k++] = v[i++]
+           addi t0, t0, 1
+           addi t2, t2, 1
+           j    mg_resto_i
+mg_resto_j: blt a4, t1, mg_copia
+           slli t4, t1, 2
+           add  t4, a0, t4
+           lw   t4, 0(t4)
+           slli t5, t2, 2
+           add  t5, a1, t5
+           sw   t4, 0(t5)        # tmp[k++] = v[j++]
+           addi t1, t1, 1
+           addi t2, t2, 1
+           j    mg_resto_j
+mg_copia:  mv   t2, a2           # k = lo
+mg_cc:     blt  a4, t2, mg_fine  # k > hi: finito
+           slli t5, t2, 2
+           add  t3, a1, t5
+           lw   t3, 0(t3)        # tmp[k]
+           add  t4, a0, t5
+           sw   t3, 0(t4)        # v[k] = tmp[k]
+           addi t2, t2, 1
+           j    mg_cc
+mg_fine:   ret
+```
+
+Da motivare: `i <= m` diventa "esci se `m < i`", cioè `blt a3, t0`; `merge` può usare tutti i `t` perché nessuno dei chiamanti ci tiene niente dentro; `m` deve stare in un `s`, perché serve sia alla seconda chiamata sia a `merge`. Con `v` = {38, 27, 43, 3, 9, 82, 10} il risultato è {3, 9, 10, 27, 38, 43, 82}.
+
+**Esercizio 8. Ricerca binaria ricorsiva.**
+
+```c
+int cerca(int v[], int lo, int hi, int x) {
+    if (lo > hi) return -1;
+    int m = (lo + hi) / 2;
+    if (v[m] == x) return m;
+    if (v[m] < x) return cerca(v, m + 1, hi, x);
+    return cerca(v, lo, m - 1, x);
+}
+```
+
+*Le scelte.*
+
+| Valore | Registro | Perché |
+|---|---|---|
+| `v`, `lo`, `hi`, `x` | `a0`…`a3` | dopo la chiamata ricorsiva non servono più: il risultato è quello della chiamata |
+| `m`, `v[m]` | `t0`, `t1` | usati solo prima della chiamata |
+| record | 4 byte, solo `ra` | nessun `s`: non c'è niente da conservare |
+| casi base | `ret` senza stack | lo stack si apre solo sul ramo che chiama |
+
+```text
+cerca:     blt  a2, a1, cr_no    # lo > hi: non c'è
+           add  t0, a1, a2
+           srai t0, t0, 1        # m = (lo + hi) / 2
+           slli t1, t0, 2
+           add  t1, a0, t1
+           lw   t1, 0(t1)        # t1 = v[m]
+           beq  t1, a3, cr_si
+           addi sp, sp, -4
+           sw   ra, 0(sp)
+           blt  t1, a3, cr_destra  # v[m] < x: cerca a destra
+           addi a2, t0, -1       # cerca(v, lo, m - 1, x)
+           jal  ra, cerca
+           j    cr_esci
+cr_destra: addi a1, t0, 1        # cerca(v, m + 1, hi, x)
+           jal  ra, cerca
+cr_esci:   lw   ra, 0(sp)
+           addi sp, sp, 4
+           ret
+cr_si:     mv   a0, t0           # trovato: restituisce m
+           ret
+cr_no:     li   a0, -1
+           ret
+```
+
+Da motivare: è una ricorsione **in coda** (il risultato della chiamata è restituito così com'è). Un compilatore la trasforma in un ciclo: al posto di `jal` + `ret` basta `j cerca`, e lo stack non serve più. In {1, 3, 5, 7, 9, 11, 13} la ricerca di 11 dà 5, quella di 4 dà −1.
+
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; programmi eseguiti con il simulatore di `strumenti/verifica_ampliamento.py` (ADC-02)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Tradurre un ciclo con una condizione.** Tradurre `int s = 0; for (int i = 0; i < n; i++) if (v[i] % 2 == 0) s += v[i];` (somma dei pari), con `v` in `a0`, `n` in `a1`, risultato in `a0`.
 
@@ -339,8 +682,6 @@ Il compilatore assegna le variabili ai registri e traduce condizioni e cicli in 
 
 ## Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (ADC-02)
-
 ### Schemi di traduzione
 
 | C | RISC-V |
@@ -381,3 +722,4 @@ Prologo: `addi sp, sp, -k` · `sw ra, …(sp)` · `sw s…, …(sp)`. Epilogo: `
 - Come si calcola l'indirizzo di un elemento di un array e di una matrice?
 - Descrivere le zone della memoria di un programma.
 - Tradurre in C un frammento assembly assegnato.
+- Prova scritta: tradurre un ordinamento ricorsivo (merge sort, quicksort) o la ricerca binaria e motivare registri, record di attivazione e condizioni (2.8, esercizi 5-8).

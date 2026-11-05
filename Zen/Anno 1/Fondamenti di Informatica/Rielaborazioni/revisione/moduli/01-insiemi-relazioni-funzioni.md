@@ -12,8 +12,7 @@ versione: 2026-11-05
 
 **In questo modulo.** Non servono prerequisiti oltre all'aritmetica delle superiori. È la prima parte di matematica discreta del corso: il linguaggio degli insiemi, che poi torna nella programmazione (un tipo di dato è un insieme di valori, una funzione C++ realizza una funzione matematica, una relazione d'ordine è quella che usa un algoritmo di ordinamento). Si vedono gli insiemi e le loro operazioni, il prodotto cartesiano, le relazioni con le loro proprietà, le relazioni di equivalenza con le classi e le partizioni, le relazioni d'ordine con massimi, minimi, maggioranti ed estremi, e le funzioni con immagine, controimmagine, iniettività e suriettività. Alla fine del modulo si sanno risolvere gli esercizi "sì o no" della prova di teoria su un insieme, un ordine o una funzione dati, e contare relazioni e funzioni fra insiemi finiti.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Elementi di matematica discreta, 1.1 Teoria degli insiemi, 1.2 Relazioni e funzioni), foglio `esercizi_matematica`; C. Delizia e altri, *Matematica discreta*, McGraw-Hill, capp. 1-2 (FI-01, FI-02)
-> Non ci sono appunti delle lezioni di questo corso: il modulo è scritto in revisione dal materiale del corso, nello stile degli altri. Gli esercizi sono nuovi, sul modello delle prove 2016-2020; le soluzioni sono controllate con `strumenti/verifica.py`.
+Gli esercizi seguono il modello delle prove d'esame 2016-2020.
 
 ## 1.1 Insiemi e sottoinsiemi
 
@@ -146,8 +145,6 @@ Fra insiemi infiniti si confrontano le cardinalità con le biiezioni: due insiem
 
 ## Esempi ed esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove intermedie 2016-2019 e del foglio `esercizi_matematica`; risposte controllate con `strumenti/verifica.py` (FI-01, FI-02)
-
 **Esercizio 1. Sì o no sull'insieme delle parti.** $A = \{2, x, \#\}$, $\mathcal P(A)$ con $X \,R\, Y \iff X \subseteq Y$.
 
 | Affermazione | Risposta | Perché |
@@ -204,10 +201,31 @@ $|C \cup P| = 25 + 18 - 10 = 33$, quindi $40 - 33 = 7$ studenti non hanno usato 
 
 $(g \circ f)(x) = |2x + 1|$. Non è iniettiva: $(g \circ f)(0) = 1 = (g \circ f)(-1)$. La composizione di una funzione iniettiva con una non iniettiva può perdere l'iniettività; la composizione di due funzioni iniettive è sempre iniettiva.
 
+### Esercizi più impegnativi
+
+**Esercizio 9. Le frazioni come classi di equivalenza.** Su $\mathbb Z \times (\mathbb Z \setminus \{0\})$ si pone $(a, b) \sim (c, d) \iff ad = bc$. Dimostrare che è un'equivalenza e descrivere le classi.
+
+Riflessiva: $ab = ba$. Simmetrica: da $ad = bc$ segue $cb = da$. Transitiva, la parte delicata: se $(a, b) \sim (c, d)$ e $(c, d) \sim (e, f)$, cioè $ad = bc$ e $cf = de$, moltiplicando la prima per $f$ e usando la seconda si ha $adf = bcf = bde$, quindi $d(af - be) = 0$; poiché $d \ne 0$ (è un secondo elemento), $af = be$, cioè $(a, b) \sim (e, f)$. Qui serve proprio che i secondi elementi non siano nulli: con $d = 0$ si avrebbe $(1, 1) \sim (0, 0) \sim (2, 1)$ senza che $(1, 1) \sim (2, 1)$. Le classi sono i numeri razionali: $[(1, 2)] = \{(1, 2), (2, 4), (-3, -6), \dots\}$ è $\frac12$. È il modo in cui la matematica costruisce $\mathbb Q$ a partire da $\mathbb Z$.
+
+**Esercizio 10. Quante equivalenze su un insieme di quattro elementi?** Le equivalenze su $A$ sono tante quante le partizioni di $A$ (teorema di 1.3). Per $A = \{1, 2, 3, 4\}$ si contano le partizioni per forma dei blocchi:
+
+| Blocchi | Esempio | Quante |
+|---|---|---|
+| un blocco di 4 | $\{1234\}$ | 1 |
+| 3 + 1 | $\{123\}\{4\}$ | $\binom{4}{3} = 4$ |
+| 2 + 2 | $\{12\}\{34\}$ | $\binom{4}{2} / 2 = 3$ |
+| 2 + 1 + 1 | $\{12\}\{3\}\{4\}$ | $\binom{4}{2} = 6$ |
+| 1 + 1 + 1 + 1 | $\{1\}\{2\}\{3\}\{4\}$ | 1 |
+
+In tutto 15. Nella riga 2 + 2 si divide per 2 perché scegliere $\{12\}$ o $\{34\}$ come "primo" blocco dà la stessa partizione: è l'errore tipico di questo conteggio.
+
+**Esercizio 11. Composizione e iniettività.** Dimostrare che se $f : A \to B$ e $g : B \to C$ sono iniettive allora $g \circ f$ è iniettiva, e che se $g \circ f$ è iniettiva allora $f$ lo è, mentre $g$ può non esserlo.
+
+(1) Se $g(f(a_1)) = g(f(a_2))$, per l'iniettività di $g$ si ha $f(a_1) = f(a_2)$, e per quella di $f$, $a_1 = a_2$. (2) Se $f(a_1) = f(a_2)$, applicando $g$ si ha $(g \circ f)(a_1) = (g \circ f)(a_2)$, e quindi $a_1 = a_2$. (3) Controesempio per $g$: $A = \{1\}$, $B = \{1, 2\}$, $C = \{1\}$, $f(1) = 1$, $g$ costante. $g \circ f$ ha dominio con un solo elemento, quindi è iniettiva, ma $g(1) = g(2)$. Il controesempio più piccolo possibile è spesso il più convincente all'orale.
+
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; risposte controllate con `strumenti/verifica.py` (FI-01, FI-02)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. È un ordine? Disegnare il diagramma.** Su $A = \{a, b, c, d\}$: $R = \{(a,a), (b,b), (c,c), (d,d), (a,b), (a,c), (a,d), (b,d), (c,d)\}$.
 
@@ -244,8 +262,6 @@ $(g \circ f)(x) = |2x + 1|$. Non è iniettiva: $(g \circ f)(0) = 1 = (g \circ f)
 Un insieme è determinato dai suoi elementi; l'inclusione si controlla elemento per elemento e l'uguaglianza con la doppia inclusione; l'insieme delle parti di un insieme con $n$ elementi ne ha $2^n$. Unione, intersezione, differenza, complemento e differenza simmetrica seguono le leggi della logica, comprese le leggi di De Morgan; il principio di inclusione-esclusione conta gli elementi di un'unione. Il prodotto cartesiano è fatto di coppie ordinate e ha $|A| \cdot |B|$ elementi. Una relazione è un sottoinsieme del prodotto cartesiano: fra $A$ e $B$ ce ne sono $2^{|A||B|}$. Le relazioni riflessive, simmetriche e transitive sono equivalenze, e le loro classi formano una partizione; le riflessive, antisimmetriche e transitive sono ordini, totali o parziali, con massimi, minimi, massimali, minimali, maggioranti, minoranti ed estremi. Una funzione associa a ogni elemento del dominio una sola immagine; può essere iniettiva, suriettiva o biiettiva, e solo nell'ultimo caso è invertibile; fra insiemi finiti le funzioni sono $n^k$.
 
 ## Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-01, FI-02)
 
 ### Conteggi
 

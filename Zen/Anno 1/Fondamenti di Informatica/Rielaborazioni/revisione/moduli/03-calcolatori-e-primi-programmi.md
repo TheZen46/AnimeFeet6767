@@ -10,10 +10,9 @@ versione: 2026-11-05
 
 # 3 · Calcolatori, algoritmi e primi programmi in C++
 
-**In questo modulo.** Si usano le funzioni e la logica del modulo 1. Si parte da com'è fatto un calcolatore e da come rappresenta numeri e caratteri con i bit. Poi si vede che cos'è un algoritmo e come un programma scritto in un linguaggio ad alto livello diventa un eseguibile. Il resto del modulo è il primo pezzo di C++: struttura di un programma, ingresso e uscita, variabili e tipi, operatori ed espressioni, istruzioni condizionali e iterative. Alla fine del modulo si sa scrivere, compilare e provare un programma con letture da tastiera, condizioni e cicli, valutare a mano un'espressione C++ e scrivere la condizione che corrisponde a un intervallo, come negli esercizi della prova di teoria.
+**In questo modulo.** Si usano le funzioni e la logica del modulo 1. Si parte da com'è fatto un calcolatore e da come rappresenta numeri e caratteri con i bit. Poi si vede che cos'è un algoritmo e come un programma scritto in un linguaggio ad alto livello diventa un eseguibile. Il resto del modulo è il primo pezzo di C++: struttura di un programma, ingresso e uscita, variabili e tipi, operatori ed espressioni, istruzioni condizionali e iterative. Chiude il modulo una sezione pratica su come compilare ed eseguire da terminale Linux, come si fa all'esame. Alla fine del modulo si sa scrivere, compilare e provare un programma con letture da tastiera, condizioni e cicli, valutare a mano un'espressione C++ e scrivere la condizione che corrisponde a un intervallo, come negli esercizi della prova di teoria.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (2.1 Introduzione ai calcolatori, 2.2 Introduzione alla programmazione), esercitazioni E00-E03; H.M. Deitel e P.J. Deitel, *C++. Fondamenti di programmazione*, Apogeo (FI-05, FI-06)
-> Il modulo è scritto in revisione dal materiale del corso. Tutti i programmi sono stati compilati con `g++ -std=c++17 -Wall -Wextra` ed eseguiti con gli ingressi indicati da `strumenti/verifica.py`; la prima riga di ogni programma (`// file: …`) è il nome del file.
+Tutti i programmi sono stati compilati con `g++ -std=c++17 -Wall -Wextra` ed eseguiti con gli ingressi indicati; la prima riga di ogni programma (`// file: …`) è il nome del file.
 
 ## 3.1 Il calcolatore
 
@@ -187,9 +186,60 @@ int main() {
 
 Una variabile dichiarata nell'intestazione del `for`, come `i`, esiste solo dentro il ciclo. Per scrivere un ciclo corretto conviene chiedersi tre cose: da dove parte (inizializzazione), quando si ferma (condizione, che prima o poi deve diventare falsa, altrimenti il ciclo è **infinito**), che cosa cambia a ogni giro.
 
-## Esempi ed esercizi svolti
+## 3.8 Compilare ed eseguire da terminale, come all'esame
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove 2016-2020 e delle esercitazioni E01-E03; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-05, FI-06)
+La prova pratica si svolge su macchine Linux. C'è Visual Studio Code, ma la compilazione automatica è disattivata e non si può attivare: il programma va compilato **a mano**, scrivendo ogni volta il comando nel terminale. Si può anche consegnare senza aver mai compilato, ma un programma che non compila vale poco: conviene arrivare all'esame sapendo fare questi passi senza pensarci.
+
+**Il terminale in cinque comandi.** Si apre il terminale (in VS Code dal menu *Terminal › New Terminal*; la scorciatoia da tastiera cambia con la tastiera italiana o inglese) e si lavora sempre in una cartella nota.
+
+| Comando | Che cosa fa |
+|---|---|
+| `pwd` | mostra la cartella in cui si è |
+| `ls` | elenca i file della cartella (`ls -l` con i dettagli) |
+| `mkdir esame` | crea la cartella `esame` |
+| `cd esame`, `cd ..`, `cd ~` | entra nella cartella, risale di un livello, torna alla cartella personale |
+| `code .` | apre in VS Code la cartella corrente |
+
+Due tasti fanno risparmiare tempo: <kbd>Tab</kbd> completa i nomi di file e cartelle (scrivere `cd es` e premere <kbd>Tab</kbd>), la **freccia su** richiama i comandi già dati, così il comando di compilazione si scrive una volta sola. <kbd>Ctrl</kbd>+<kbd>C</kbd> interrompe un programma bloccato (per esempio in un ciclo infinito).
+
+**Una cartella per la prova.** All'inizio si crea una cartella facile da raggiungere e ci si mette dentro:
+
+```bash
+cd ~
+mkdir esame
+cd esame
+code .
+```
+
+Tutti i file (sorgenti e file di dati del testo) vanno lì. Un programma che apre `dati.txt` lo cerca **nella cartella da cui viene eseguito**, non in quella del sorgente: se il file "non si trova", il primo controllo è `ls` nel terminale.
+
+**Compilare ed eseguire.**
+
+```bash
+g++ -std=c++17 -Wall -Wextra -o es5 es5.cpp     # compila es5.cpp in es5
+./es5                                           # esegue
+./es5 < ingresso.txt                            # legge da file invece che da tastiera
+g++ -std=c++17 -Wall -Wextra -o es5 es5.cpp && ./es5   # esegue solo se compila
+g++ -std=c++17 -Wall -o prog main.cpp Classe.cpp       # programma su piu' file
+```
+
+`-o es5` dà il nome all'eseguibile (senza, si chiama `a.out`); `./` vuol dire "nella cartella corrente". I file `.h` non si mettono nel comando: li include il preprocessore. Prima di compilare si **salva** (<kbd>Ctrl</kbd>+<kbd>S</kbd>): il compilatore legge il file su disco, non quello aperto nell'editor, e un errore "già corretto" che non sparisce di solito è una modifica non salvata.
+
+**Leggere gli errori.** Un messaggio ha la forma `es5.cpp:12:9: error: …`: file, riga, colonna, descrizione. Si corregge **il primo** errore e si ricompila, perché spesso gli altri sono conseguenze del primo (un `;` mancante ne genera decine). Gli avvisi (`warning`) con `-Wall -Wextra` vanno letti: segnalano `=` al posto di `==` in un `if`, variabili usate senza valore, confronti fra interi con e senza segno.
+
+| Messaggio | Causa tipica |
+|---|---|
+| `'cout' was not declared in this scope` | manca `#include <iostream>` o `using namespace std;` |
+| `expected ';' before …` | manca il `;` alla riga **precedente** |
+| `undefined reference to 'f(int)'` | la funzione è dichiarata ma non definita, o il suo `.cpp` non è nel comando |
+| `no matching function for call to …` | tipi o numero dei parametri sbagliati |
+| `Segmentation fault` (in esecuzione) | indice fuori dall'array, puntatore nullo o non inizializzato |
+| il programma "non fa nulla" | sta aspettando un dato da tastiera |
+| `No such file or directory` su `./es5` | il programma non è stato compilato, o si è in un'altra cartella |
+
+**Il metodo.** Si compila spesso, dopo ogni funzione, non alla fine: un errore trovato subito si corregge in un minuto, venti errori insieme no. Si prova ogni funzione con un `main` minimo e valori di cui si conosce il risultato, poi si costruisce il programma richiesto. Per capire dove sbaglia un programma si stampano i valori intermedi con `cerr << "i = " << i << endl;`, da togliere prima di consegnare. Se il testo chiede di consegnare uno `.zip` con i sorgenti, si può fare dal file manager oppure con `zip consegna.zip *.cpp *.h`. Gli ultimi cinque minuti servono a ricompilare tutto da capo e a rileggere il testo: nomi delle funzioni e dei parametri devono essere quelli richiesti.
+
+## Esempi ed esercizi svolti
 
 **Esercizio 1. Conversioni.** Scrivere 45 in binario e in esadecimale; scrivere $-45$ in complemento a 2 su 8 bit; che carattere ha codice 100?
 
@@ -361,10 +411,93 @@ int main() {
 
 La riga $i$ ha $h - i$ spazi e $2i - 1$ asterischi: prima si scrive la formula di una riga, poi il ciclo esterno sulle righe.
 
+### Esercizi più impegnativi
+
+**Esercizio 9. Numeri perfetti.** Un numero è perfetto se è uguale alla somma dei suoi divisori propri ($6 = 1 + 2 + 3$). Stampare i numeri perfetti fino a $N$.
+
+```cpp
+// file: perfetti.cpp
+#include <iostream>
+using namespace std;
+
+int sommaDivisori(int n) {          // divisori propri, a coppie fino a sqrt(n)
+    if (n < 2) return 0;
+    int s = 1;
+    for (int d = 2; d * d <= n; d++)
+        if (n % d == 0) {
+            s += d;
+            if (d != n / d) s += n / d;   // il "compagno" del divisore
+        }
+    return s;
+}
+
+int main() {
+    int N;
+    cin >> N;
+    for (int n = 2; n <= N; n++)
+        if (sommaDivisori(n) == n) cout << n << " ";
+    cout << endl;
+    return 0;
+}
+```
+
+Con $N = 10\,000$ stampa `6 28 496 8128`. Cercare i divisori fino a $\sqrt n$ e aggiungere anche $n / d$ porta il costo da $n$ a $\sqrt n$ passi per numero; la condizione `d != n / d` evita di contare due volte la radice dei quadrati perfetti (per 16 il 4 va contato una volta sola).
+
+**Esercizio 10. Il complemento a 2 su 8 bit.** Leggere un intero fra $-128$ e $127$ e stamparne la rappresentazione in complemento a 2 su 8 bit.
+
+```cpp
+// file: complemento.cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    if (n < -128 || n > 127) {
+        cout << "fuori dall'intervallo" << endl;
+        return 0;
+    }
+    int u = (n + 256) % 256;      // i negativi diventano 256 + n
+    for (int p = 128; p >= 1; p /= 2) {
+        cout << (u >= p ? 1 : 0);
+        if (u >= p) u -= p;
+    }
+    cout << endl;
+    return 0;
+}
+```
+
+Con $-45$ stampa `11010011`, con 127 `01111111`, con $-128$ `10000000`. Il trucco è che su $k$ bit il complemento a 2 di un negativo $n$ è il naturale $2^k + n$: qui $256 - 45 = 211$. Attenzione: in C++ `%` con un operando negativo dà un resto negativo (`-45 % 256` vale $-45$), per questo prima si somma 256.
+
+**Esercizio 11. $e^x$ con la serie, fino alla precisione voluta.** Calcolare $e^x = \sum_k x^k / k!$ sommando termini finché il termine è minore di $10^{-12}$ in valore assoluto, e confrontare con `exp`.
+
+```cpp
+// file: esponenziale.cpp
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+int main() {
+    double x;
+    cin >> x;
+    double termine = 1, somma = 1;
+    int k = 0;
+    while (fabs(termine) >= 1e-12) {
+        k++;
+        termine *= x / k;           // x^k / k! dal termine precedente
+        somma += termine;
+    }
+    cout << setprecision(12) << somma << " " << exp(x) << " " << k << endl;
+    return 0;
+}
+```
+
+Con $x = 1$ stampa `2.71828182846 2.71828182846 15`: bastano 15 termini. Ogni termine si ottiene dal precedente moltiplicando per $x / k$: calcolare a parte $x^k$ e $k!$ sarebbe più lento e farebbe traboccare il fattoriale (già $13!$ non sta in un `int`). Con $x = -20$ il ciclo termina ma il risultato è sbagliato (`6.14764462906e-09` contro `2.06115362244e-09`): i termini arrivano a $10^7$ con segni alterni e la cancellazione distrugge le cifre (modulo 3 di Architettura). Si rimedia calcolando $1 / e^{20}$.
+
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-05, FI-06)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Che cosa stampa?** Seguire a mano il programma con l'ingresso `5`.
 
@@ -455,11 +588,9 @@ int main() {
 
 ## Riepilogo
 
-Il calcolatore di von Neumann ha CPU (unità di controllo e ALU), memoria centrale, memorie di massa, periferiche e bus; tutto è rappresentato con bit: naturali in base 2 (e 16), interi in complemento a 2, reali in virgola mobile con approssimazioni, caratteri con il codice ASCII. Un algoritmo è una sequenza finita di passi non ambigui; il programma in C++ passa per preprocessore, compilatore e linker, e gli errori possono essere di compilazione, di esecuzione o logici. Un programma C++ comincia da `main`, legge con `cin` e scrive con `cout`; le variabili hanno nome, tipo e valore. La divisione fra interi è intera, gli operatori logici sono in cortocircuito, `=` assegna e `==` confronta. Le condizioni si scrivono con `if`-`else` e `switch` (con `break`), le ripetizioni con `while`, `do`-`while` (almeno una volta, per validare) e `for` (con contatore); `break` e `continue` modificano il flusso dei cicli.
+Il calcolatore di von Neumann ha CPU (unità di controllo e ALU), memoria centrale, memorie di massa, periferiche e bus; tutto è rappresentato con bit: naturali in base 2 (e 16), interi in complemento a 2, reali in virgola mobile con approssimazioni, caratteri con il codice ASCII. Un algoritmo è una sequenza finita di passi non ambigui; il programma in C++ passa per preprocessore, compilatore e linker, e gli errori possono essere di compilazione, di esecuzione o logici. Un programma C++ comincia da `main`, legge con `cin` e scrive con `cout`; le variabili hanno nome, tipo e valore. La divisione fra interi è intera, gli operatori logici sono in cortocircuito, `=` assegna e `==` confronta. Le condizioni si scrivono con `if`-`else` e `switch` (con `break`), le ripetizioni con `while`, `do`-`while` (almeno una volta, per validare) e `for` (con contatore); `break` e `continue` modificano il flusso dei cicli. All'esame si compila da terminale con `g++ -std=c++17 -Wall -Wextra -o prog prog.cpp`, si esegue con `./prog` e si corregge sempre il primo errore.
 
 ## Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-05, FI-06)
 
 ### Rappresentazioni
 
@@ -485,6 +616,16 @@ for (int i = 0; i < n; i++) { ... }
 | `x++` e `++x` | vecchio valore e poi incremento; incremento e nuovo valore |
 | `switch` senza `break` | ogni `case` finisce con `break` |
 
+### Comandi per la prova al calcolatore
+
+```text
+cd ~ ; mkdir esame ; cd esame ; code .     cartella della prova
+g++ -std=c++17 -Wall -Wextra -o es es.cpp  compila (prima salvare!)
+./es    ./es < dati.txt                    esegue, con ingresso da file
+g++ ... -o es es.cpp && ./es               esegue solo se compila
+Tab completa, freccia su ripete, Ctrl+C interrompe, ls controlla i file
+```
+
 ### Termini per l'orale
 
 | Termine | In una riga |
@@ -505,3 +646,4 @@ for (int i = 0; i < n; i++) { ... }
 - Fasi della compilazione e tipi di errore.
 - Differenza fra `while`, `do`-`while` e `for`; a che cosa servono `break` e `continue`.
 - Che cosa succede con la divisione fra interi; precedenza e cortocircuito.
+- Come si compila un programma da terminale e come si legge un messaggio d'errore?

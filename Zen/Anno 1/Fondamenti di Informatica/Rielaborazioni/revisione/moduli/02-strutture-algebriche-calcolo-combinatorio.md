@@ -12,8 +12,7 @@ versione: 2026-11-05
 
 **In questo modulo.** Si usano gli insiemi, il prodotto cartesiano e le funzioni del modulo 1. La prima parte studia le operazioni su un insieme e le strutture che ne nascono: semigruppi, monoidi, gruppi, anelli, corpi e campi. Sono le "regole del gioco" dei tipi di dato: gli interi del C++ con la somma, le stringhe con la concatenazione, i resti modulo $n$ dell'aritmetica dei calcolatori. La seconda parte è il calcolo combinatorio, cioè l'arte di contare senza elencare: principi della somma e del prodotto, disposizioni, permutazioni e combinazioni, semplici e con ripetizione, coefficienti binomiali. Alla fine del modulo si sa riconoscere la struttura di un insieme con le sue operazioni e scegliere la formula giusta per un problema di conteggio, come nell'esercizio di combinatoria delle prove scritte.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (1.3 Introduzione alle strutture algebriche, 1.4 Elementi di calcolo combinatorio), foglio `esercizi_matematica`; C. Delizia e altri, *Matematica discreta*, McGraw-Hill (FI-03, FI-04)
-> Il modulo è scritto in revisione dal materiale del corso; gli esercizi sono nuovi, sul modello delle prove 2016-2020, e controllati con `strumenti/verifica.py`.
+Gli esercizi seguono il modello delle prove d'esame 2016-2020.
 
 ## 2.1 Operazioni
 
@@ -109,8 +108,6 @@ Sviluppando il prodotto di $n$ fattori $(a + b)$, il termine $a^k b^{n-k}$ compa
 
 ## Esempi ed esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove 2016-2020 e del foglio `esercizi_matematica`; risultati controllati con `strumenti/verifica.py` (FI-03, FI-04)
-
 **Esercizio 1. Che struttura è?**
 
 | Struttura | Risposta | Perché |
@@ -163,10 +160,25 @@ Si scelgono le 3 posizioni dei bit a 1 fra 8: $\binom{8}{3} = 56$. Nel binomio, 
 
 Divisibili per 2: 50; per 3: 33; per 5: 20; per 6: 16; per 10: 10; per 15: 6; per 30: 3. Totale $50 + 33 + 20 - 16 - 10 - 6 + 3 = 74$.
 
+### Esercizi più impegnativi
+
+**Esercizio 10. Funzioni suriettive con inclusione-esclusione.** Quante sono le funzioni suriettive da un insieme di 5 elementi a uno di 3?
+
+Le funzioni sono $3^5 = 243$. Tolgo quelle che "mancano" almeno un elemento del codominio: se manca un elemento fissato le funzioni sono $2^5$, e gli elementi da far mancare sono 3; ma così quelle che ne mancano due (le costanti, $1^5$ ciascuna, $\binom{3}{2} = 3$ coppie) le ho tolte due volte. Per inclusione-esclusione
+$$3^5 - \binom{3}{1} 2^5 + \binom{3}{2} 1^5 = 243 - 96 + 3 = 150.$$
+Contare direttamente "per casi" (quale elemento ha due o tre controimmagini) è possibile ma molto più facile sbagliare.
+
+**Esercizio 11. Equazioni in $\mathbb Z_n$.** Risolvere $3x \equiv 4 \pmod 7$, $5x \equiv 7 \pmod{12}$ e $4x \equiv 6 \pmod{12}$.
+
+In $\mathbb Z_7$ l'inverso di 3 è 5 ($3 \cdot 5 = 15 \equiv 1$): moltiplicando per 5, $x \equiv 20 \equiv 6$. Controllo: $3 \cdot 6 = 18 \equiv 4$. In $\mathbb Z_{12}$ il 5 è invertibile perché primo con 12, e $5 \cdot 5 = 25 \equiv 1$: $x \equiv 35 \equiv 11$. L'ultima non ha soluzione: $4x$ modulo 12 può valere solo 0, 4 o 8, perché 4 e 12 hanno in comune il fattore 4, che non divide 6. Regola: $ax \equiv b \pmod n$ ha soluzione se e solo se $\text{MCD}(a, n)$ divide $b$.
+
+**Esercizio 12. Anagrammi con vincoli.** Quanti anagrammi di INFORMATICA hanno le due A vicine? E quanti cominciano con una vocale?
+
+*A vicine*: si incollano le due A in un blocco unico; restano 10 oggetti con la I ripetuta, $\frac{10!}{2!} = 1\,814\,400$. *Iniziale vocale*: le vocali sono I, O, A, I, A. Se comincia con I restano 10 lettere con le A ripetute due volte: $\frac{10!}{2!}$; con A, restano 10 lettere con le I ripetute: $\frac{10!}{2!}$; con O restano 10 lettere con I e A doppie: $\frac{10!}{2!\,2!}$. In tutto $1\,814\,400 + 1\,814\,400 + 907\,200 = 4\,536\,000$, che è $\frac{5}{11}$ di tutti i $9\,979\,200$ anagrammi, come deve essere: 5 lettere su 11 sono vocali.
+
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; risultati controllati con `strumenti/verifica.py` (FI-03, FI-04)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Scegliere la formula.** Una squadra di calcetto: fra 9 giocatori se ne scelgono 5.
 
@@ -203,8 +215,6 @@ Divisibili per 2: 50; per 3: 33; per 5: 20; per 6: 16; per 10: 10; per 15: 6; pe
 Un'operazione interna associa a due elementi di un insieme un elemento dello stesso insieme; le proprietà associativa, commutativa, l'esistenza del neutro e dei simmetrici definiscono semigruppi, monoidi, gruppi e gruppi abeliani. Con due operazioni si hanno anelli (gruppo abeliano più un'operazione associativa e distributiva), corpi e campi; $\mathbb Z_n$ è un campo solo per $n$ primo, altrimenti ha divisori dello zero. Per contare si usano i principi della somma e del prodotto; la formula si sceglie chiedendosi se conta l'ordine e se sono ammesse ripetizioni: disposizioni semplici e con ripetizione, permutazioni (anche con oggetti ripetuti), combinazioni semplici e con ripetizione. I coefficienti binomiali sono simmetrici, seguono il triangolo di Tartaglia e danno lo sviluppo del binomio di Newton.
 
 ## Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-03, FI-04)
 
 ### Strutture
 

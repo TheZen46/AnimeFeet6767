@@ -67,9 +67,11 @@ class RV:
                 u, v = self.r(a[1]), self.r(a[2])
                 self.w(a[0], {"add": u + v, "sub": u - v, "mul": u * v, "and": u & v, "or": u | v,
                               "xor": u ^ v, "slt": int(u < v)}[op])
-            elif op in ("addi", "andi", "slli"):
+            elif op in ("addi", "andi", "slli", "srai", "srli"):
                 u, k = self.r(a[1]), int(a[2], 0)
-                self.w(a[0], u + k if op == "addi" else (u & k if op == "andi" else u << k))
+                f = {"addi": lambda: u + k, "andi": lambda: u & k, "slli": lambda: u << k,
+                     "srai": lambda: u >> k, "srli": lambda: (u & M32) >> k}[op]
+                self.w(a[0], f())
             elif op == "li":
                 self.w(a[0], int(a[1], 0))
             elif op == "mv":

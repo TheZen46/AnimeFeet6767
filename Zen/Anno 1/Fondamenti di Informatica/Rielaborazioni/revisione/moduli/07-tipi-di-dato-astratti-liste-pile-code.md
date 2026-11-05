@@ -12,8 +12,7 @@ versione: 2026-11-05
 
 **In questo modulo.** Si usano le classi, i template e la regola dei tre del modulo 6, e i puntatori e la memoria dinamica del modulo 5. È la parte di programmazione modulare con cui si chiude il corso. Si comincia dall'idea di **tipo di dato astratto**: un tipo definito da ciò che si può fare con i suoi valori, non da come è fatto dentro. Poi si studiano tre strutture dati fondamentali come tipi astratti: la **lista concatenata**, con inserimenti, rimozioni e ricerca; la **pila**, in cui l'ultimo elemento entrato è il primo a uscire; la **coda**, in cui esce per primo il primo entrato. Di pile e code si vedono due realizzazioni, con un array e con una lista, e un paio di applicazioni classiche. Alla fine del modulo si sanno scrivere e usare queste classi, disegnare che cosa succede ai puntatori durante un inserimento o una rimozione, e scegliere la realizzazione adatta.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Fondamenti, secondo semestre: 4. Programmazione modulare e tipi di dato astratti, liste semplici, pile e code), `Esercitazioni++_stutture_dinamiche`, esercitazioni del 22 e 29 aprile (FI-10, FI-11)
-> Il modulo è scritto in revisione dal materiale del corso, con le convenzioni delle slide (classe `Node` con `_data` e `_next`, lista con `_head`). I programmi sono compilati ed eseguiti da `strumenti/verifica.py`, con AddressSanitizer per controllare che tutta la memoria venga liberata.
+Si seguono le convenzioni delle slide (classe `Node` con `_data` e `_next`, lista con `_head`). I programmi sono stati compilati ed eseguiti con AddressSanitizer, per controllare che tutta la memoria venga liberata.
 
 ## 7.1 L'astrazione sui dati
 
@@ -382,8 +381,6 @@ Il programma simula la politica **round robin** di un sistema operativo: ogni la
 
 ## Esempi ed esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove 2016-2020 e delle esercitazioni sulle strutture dinamiche; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-10, FI-11)
-
 **Esercizio 1. Completare le affermazioni** (sul modello della prova di teoria, su tutto il corso).
 
 | Affermazione | Completamento |
@@ -508,10 +505,155 @@ Stampa `50 40 30 20 10`, poi `10 20 30 40 50` e `150`. Qui la lista è scritta "
 
 `q` parte dalla testa (3); `q->getNext()` è 8, diverso da 6: `q` avanza a 8. Ora `q->getNext()` è 6: ci si ferma. `r` = nodo 6; `q->setNext(r->getNext())` fa puntare 8 a 5; `delete r`. Lista: `3 8 5`. Se si facesse `delete r` prima di leggere `r->getNext()`, si leggerebbe memoria già liberata.
 
+### Esercizi più impegnativi
+
+**Esercizio 5. Fondere due liste ordinate senza creare nodi.** Date due liste ordinate (nodi "alla C" come nell'esercizio 3), costruire la lista ordinata che le contiene tutte e due **riusando i nodi**, solo spostando i puntatori.
+
+```cpp
+// file: fondi_liste.cpp
+#include <iostream>
+using namespace std;
+
+struct Nodo { int dato; Nodo* next; };
+
+Nodo* daArray(const int v[], int n) {          // costruisce nello stesso ordine
+    Nodo* testa = nullptr;
+    for (int i = n - 1; i >= 0; i--) testa = new Nodo{v[i], testa};
+    return testa;
+}
+
+Nodo* fondi(Nodo* a, Nodo* b) {
+    Nodo finto{0, nullptr};                    // nodo sentinella sullo stack
+    Nodo* coda = &finto;
+    while (a != nullptr && b != nullptr) {
+        if (a->dato <= b->dato) { coda->next = a; a = a->next; }
+        else { coda->next = b; b = b->next; }
+        coda = coda->next;
+    }
+    coda->next = (a != nullptr) ? a : b;       // il resto, gia' ordinato
+    return finto.next;
+}
+
+int main() {
+    int x[] = {1, 4, 9, 12}, y[] = {2, 3, 10};
+    Nodo* l = fondi(daArray(x, 4), daArray(y, 3));
+    for (Nodo* p = l; p != nullptr; p = p->next) cout << p->dato << " ";
+    cout << endl;
+    while (l != nullptr) { Nodo* q = l; l = l->next; delete q; }
+    return 0;
+}
+```
+
+Stampa `1 2 3 4 9 10 12`, come la fusione di array del modulo 4 ma senza memoria in più. Il **nodo sentinella** `finto` evita di trattare a parte il primo nodo della lista risultato: si aggancia sempre a `coda->next`, e alla fine la vera testa è `finto.next`. Il resto della lista che non è finita si attacca in un colpo solo.
+
+**Esercizio 6. Una coda fatta con due pile.** Realizzare la coda con due pile `dentro` e `fuori`: `enqueue` fa `push` su `dentro`; `dequeue` toglie da `fuori` e, se è vuota, prima ci travasa tutta `dentro`.
+
+```cpp
+// file: coda_due_pile.cpp
+#include <iostream>
+using namespace std;
+
+template <typename T>
+class Pila {                                    // pila minima su lista
+    struct Nodo { T dato; Nodo* next; };
+    Nodo* _cima = nullptr;
+public:
+    Pila() = default;
+    Pila(const Pila&) = delete;                 // copia vietata: non serve
+    Pila& operator=(const Pila&) = delete;
+    ~Pila() { while (pop()) {} }
+    bool empty() const { return _cima == nullptr; }
+    void push(const T& x) { _cima = new Nodo{x, _cima}; }
+    T top() const { return _cima->dato; }
+    bool pop() {
+        if (empty()) return false;
+        Nodo* q = _cima; _cima = q->next; delete q;
+        return true;
+    }
+};
+
+template <typename T>
+class CodaP {
+    Pila<T> dentro, fuori;
+    int travasi = 0;
+    void travasa() {
+        if (!fuori.empty()) return;
+        while (!dentro.empty()) { fuori.push(dentro.top()); dentro.pop(); }
+        travasi++;
+    }
+public:
+    void enqueue(const T& x) { dentro.push(x); }
+    bool empty() const { return dentro.empty() && fuori.empty(); }
+    T front() { travasa(); return fuori.top(); }
+    bool dequeue() { travasa(); return fuori.pop(); }
+    int getTravasi() const { return travasi; }
+};
+
+int main() {
+    CodaP<int> c;
+    for (int i = 1; i <= 3; i++) c.enqueue(i);
+    cout << c.front() << " ";
+    c.dequeue();
+    c.enqueue(4);
+    while (!c.empty()) { cout << c.front() << " "; c.dequeue(); }
+    cout << "(" << c.getTravasi() << " travasi)" << endl;
+    return 0;
+}
+```
+
+Stampa `1 2 3 4 (2 travasi)`: l'ordine FIFO è giusto anche se 4 entra mentre 2 e 3 sono già in `fuori`. Il travaso rovescia la pila, quindi rimette in testa il primo entrato; ogni elemento viene travasato una sola volta, perciò in media ogni operazione costa poco anche se un singolo `dequeue` può spostare molti elementi. `= delete` vieta copia e assegnamento: è il modo esplicito di dire che la classe non li supporta, invece di lasciare quelli superficiali generati dal compilatore.
+
+**Esercizio 7. Una lista è palindroma?** Usare una pila per dire se la sequenza di una lista si legge uguale nei due versi.
+
+```cpp
+// file: lista_palindroma.cpp
+#include <iostream>
+using namespace std;
+
+struct Nodo { char dato; Nodo* next; };
+
+bool palindroma(const Nodo* l) {
+    const int MAX = 100;
+    char pila[MAX];
+    int top = 0;
+    for (const Nodo* p = l; p != nullptr && top < MAX; p = p->next)
+        pila[top++] = p->dato;                  // prima passata: impila
+    for (const Nodo* p = l; p != nullptr; p = p->next)
+        if (p->dato != pila[--top]) return false;   // la pila esce al contrario
+    return true;
+}
+
+Nodo* daStringa(const char s[]) {
+    Nodo* testa = nullptr;
+    Nodo** fine = &testa;                       // dove attaccare il prossimo
+    for (int i = 0; s[i] != '\0'; i++) {
+        *fine = new Nodo{s[i], nullptr};
+        fine = &(*fine)->next;
+    }
+    return testa;
+}
+
+void distruggi(Nodo* l) {
+    while (l != nullptr) { Nodo* q = l; l = l->next; delete q; }
+}
+
+int main() {
+    const char* prove[] = {"radar", "abba", "lista", "x"};
+    for (const char* s : prove) {
+        Nodo* l = daStringa(s);
+        cout << s << ":" << palindroma(l) << " ";
+        distruggi(l);
+    }
+    cout << endl;
+    return 0;
+}
+```
+
+Stampa `radar:1 abba:1 lista:0 x:1`. La pila rovescia la sequenza: confrontando la lista dall'inizio con gli elementi tolti dalla pila si confronta il primo con l'ultimo, il secondo con il penultimo, e così via. In `daStringa` il puntatore a puntatore `fine` indica il campo da riempire (prima `testa`, poi il `next` dell'ultimo nodo): si costruisce la lista nell'ordine giusto senza casi particolari per il primo nodo.
+
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-10, FI-11)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Pila e coda a confronto.** Si inseriscono nell'ordine 1, 2, 3, 4 in una pila e in una coda, poi si tolgono due elementi, si inserisce 5 e si tolgono tutti. In che ordine escono?
 
@@ -585,8 +727,6 @@ int main() {
 Un tipo di dato astratto è definito dalle sue operazioni; in C++ è una classe con interfaccia pubblica e rappresentazione privata (information hiding), che si può cambiare senza toccare il codice che la usa. Una lista concatenata semplice è una catena di nodi con dato e puntatore al successivo, a partire dal puntatore di testa: inserimenti e rimozioni spostano puntatori, nell'ordine giusto, e la rimozione richiede il nodo precedente; la scansione segue i puntatori fino a quello nullo; il distruttore libera tutti i nodi, e servono copia e assegnamento profondi. La pila (LIFO) inserisce e toglie dalla cima, con un array o in testa a una lista, e serve per le chiamate, le parentesi e la notazione postfissa. La coda (FIFO) accoda in fondo e toglie dalla testa, con una lista con due puntatori o un array circolare, e serve per servire in ordine di arrivo.
 
 ## Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-10, FI-11)
 
 ### Schemi sulle liste
 

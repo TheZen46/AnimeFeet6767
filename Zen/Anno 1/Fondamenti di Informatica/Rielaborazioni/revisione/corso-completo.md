@@ -25,8 +25,7 @@ Appunti personali e non ufficiali, rivisti e confrontati con il programma uffici
 
 **In questo modulo.** Non servono prerequisiti oltre all'aritmetica delle superiori. È la prima parte di matematica discreta del corso: il linguaggio degli insiemi, che poi torna nella programmazione (un tipo di dato è un insieme di valori, una funzione C++ realizza una funzione matematica, una relazione d'ordine è quella che usa un algoritmo di ordinamento). Si vedono gli insiemi e le loro operazioni, il prodotto cartesiano, le relazioni con le loro proprietà, le relazioni di equivalenza con le classi e le partizioni, le relazioni d'ordine con massimi, minimi, maggioranti ed estremi, e le funzioni con immagine, controimmagine, iniettività e suriettività. Alla fine del modulo si sanno risolvere gli esercizi "sì o no" della prova di teoria su un insieme, un ordine o una funzione dati, e contare relazioni e funzioni fra insiemi finiti.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Elementi di matematica discreta, 1.1 Teoria degli insiemi, 1.2 Relazioni e funzioni), foglio `esercizi_matematica`; C. Delizia e altri, *Matematica discreta*, McGraw-Hill, capp. 1-2 (FI-01, FI-02)
-> Non ci sono appunti delle lezioni di questo corso: il modulo è scritto in revisione dal materiale del corso, nello stile degli altri. Gli esercizi sono nuovi, sul modello delle prove 2016-2020; le soluzioni sono controllate con `strumenti/verifica.py`.
+Gli esercizi seguono il modello delle prove d'esame 2016-2020.
 
 ### 1.1 Insiemi e sottoinsiemi
 
@@ -159,8 +158,6 @@ Fra insiemi infiniti si confrontano le cardinalità con le biiezioni: due insiem
 
 ### Esempi ed esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove intermedie 2016-2019 e del foglio `esercizi_matematica`; risposte controllate con `strumenti/verifica.py` (FI-01, FI-02)
-
 **Esercizio 1. Sì o no sull'insieme delle parti.** $A = \{2, x, \#\}$, $\mathcal P(A)$ con $X \,R\, Y \iff X \subseteq Y$.
 
 | Affermazione | Risposta | Perché |
@@ -217,10 +214,31 @@ $|C \cup P| = 25 + 18 - 10 = 33$, quindi $40 - 33 = 7$ studenti non hanno usato 
 
 $(g \circ f)(x) = |2x + 1|$. Non è iniettiva: $(g \circ f)(0) = 1 = (g \circ f)(-1)$. La composizione di una funzione iniettiva con una non iniettiva può perdere l'iniettività; la composizione di due funzioni iniettive è sempre iniettiva.
 
+#### Esercizi più impegnativi
+
+**Esercizio 9. Le frazioni come classi di equivalenza.** Su $\mathbb Z \times (\mathbb Z \setminus \{0\})$ si pone $(a, b) \sim (c, d) \iff ad = bc$. Dimostrare che è un'equivalenza e descrivere le classi.
+
+Riflessiva: $ab = ba$. Simmetrica: da $ad = bc$ segue $cb = da$. Transitiva, la parte delicata: se $(a, b) \sim (c, d)$ e $(c, d) \sim (e, f)$, cioè $ad = bc$ e $cf = de$, moltiplicando la prima per $f$ e usando la seconda si ha $adf = bcf = bde$, quindi $d(af - be) = 0$; poiché $d \ne 0$ (è un secondo elemento), $af = be$, cioè $(a, b) \sim (e, f)$. Qui serve proprio che i secondi elementi non siano nulli: con $d = 0$ si avrebbe $(1, 1) \sim (0, 0) \sim (2, 1)$ senza che $(1, 1) \sim (2, 1)$. Le classi sono i numeri razionali: $[(1, 2)] = \{(1, 2), (2, 4), (-3, -6), \dots\}$ è $\frac12$. È il modo in cui la matematica costruisce $\mathbb Q$ a partire da $\mathbb Z$.
+
+**Esercizio 10. Quante equivalenze su un insieme di quattro elementi?** Le equivalenze su $A$ sono tante quante le partizioni di $A$ (teorema di 1.3). Per $A = \{1, 2, 3, 4\}$ si contano le partizioni per forma dei blocchi:
+
+| Blocchi | Esempio | Quante |
+|---|---|---|
+| un blocco di 4 | $\{1234\}$ | 1 |
+| 3 + 1 | $\{123\}\{4\}$ | $\binom{4}{3} = 4$ |
+| 2 + 2 | $\{12\}\{34\}$ | $\binom{4}{2} / 2 = 3$ |
+| 2 + 1 + 1 | $\{12\}\{3\}\{4\}$ | $\binom{4}{2} = 6$ |
+| 1 + 1 + 1 + 1 | $\{1\}\{2\}\{3\}\{4\}$ | 1 |
+
+In tutto 15. Nella riga 2 + 2 si divide per 2 perché scegliere $\{12\}$ o $\{34\}$ come "primo" blocco dà la stessa partizione: è l'errore tipico di questo conteggio.
+
+**Esercizio 11. Composizione e iniettività.** Dimostrare che se $f : A \to B$ e $g : B \to C$ sono iniettive allora $g \circ f$ è iniettiva, e che se $g \circ f$ è iniettiva allora $f$ lo è, mentre $g$ può non esserlo.
+
+(1) Se $g(f(a_1)) = g(f(a_2))$, per l'iniettività di $g$ si ha $f(a_1) = f(a_2)$, e per quella di $f$, $a_1 = a_2$. (2) Se $f(a_1) = f(a_2)$, applicando $g$ si ha $(g \circ f)(a_1) = (g \circ f)(a_2)$, e quindi $a_1 = a_2$. (3) Controesempio per $g$: $A = \{1\}$, $B = \{1, 2\}$, $C = \{1\}$, $f(1) = 1$, $g$ costante. $g \circ f$ ha dominio con un solo elemento, quindi è iniettiva, ma $g(1) = g(2)$. Il controesempio più piccolo possibile è spesso il più convincente all'orale.
+
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; risposte controllate con `strumenti/verifica.py` (FI-01, FI-02)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. È un ordine? Disegnare il diagramma.** Su $A = \{a, b, c, d\}$: $R = \{(a,a), (b,b), (c,c), (d,d), (a,b), (a,c), (a,d), (b,d), (c,d)\}$.
 
@@ -257,8 +275,6 @@ $(g \circ f)(x) = |2x + 1|$. Non è iniettiva: $(g \circ f)(0) = 1 = (g \circ f)
 Un insieme è determinato dai suoi elementi; l'inclusione si controlla elemento per elemento e l'uguaglianza con la doppia inclusione; l'insieme delle parti di un insieme con $n$ elementi ne ha $2^n$. Unione, intersezione, differenza, complemento e differenza simmetrica seguono le leggi della logica, comprese le leggi di De Morgan; il principio di inclusione-esclusione conta gli elementi di un'unione. Il prodotto cartesiano è fatto di coppie ordinate e ha $|A| \cdot |B|$ elementi. Una relazione è un sottoinsieme del prodotto cartesiano: fra $A$ e $B$ ce ne sono $2^{|A||B|}$. Le relazioni riflessive, simmetriche e transitive sono equivalenze, e le loro classi formano una partizione; le riflessive, antisimmetriche e transitive sono ordini, totali o parziali, con massimi, minimi, massimali, minimali, maggioranti, minoranti ed estremi. Una funzione associa a ogni elemento del dominio una sola immagine; può essere iniettiva, suriettiva o biiettiva, e solo nell'ultimo caso è invertibile; fra insiemi finiti le funzioni sono $n^k$.
 
 ### Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-01, FI-02)
 
 #### Conteggi
 
@@ -304,8 +320,7 @@ $$\overline{A \cup B} = \overline A \cap \overline B, \quad \overline{A \cap B} 
 
 **In questo modulo.** Si usano gli insiemi, il prodotto cartesiano e le funzioni del modulo 1. La prima parte studia le operazioni su un insieme e le strutture che ne nascono: semigruppi, monoidi, gruppi, anelli, corpi e campi. Sono le "regole del gioco" dei tipi di dato: gli interi del C++ con la somma, le stringhe con la concatenazione, i resti modulo $n$ dell'aritmetica dei calcolatori. La seconda parte è il calcolo combinatorio, cioè l'arte di contare senza elencare: principi della somma e del prodotto, disposizioni, permutazioni e combinazioni, semplici e con ripetizione, coefficienti binomiali. Alla fine del modulo si sa riconoscere la struttura di un insieme con le sue operazioni e scegliere la formula giusta per un problema di conteggio, come nell'esercizio di combinatoria delle prove scritte.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (1.3 Introduzione alle strutture algebriche, 1.4 Elementi di calcolo combinatorio), foglio `esercizi_matematica`; C. Delizia e altri, *Matematica discreta*, McGraw-Hill (FI-03, FI-04)
-> Il modulo è scritto in revisione dal materiale del corso; gli esercizi sono nuovi, sul modello delle prove 2016-2020, e controllati con `strumenti/verifica.py`.
+Gli esercizi seguono il modello delle prove d'esame 2016-2020.
 
 ### 2.1 Operazioni
 
@@ -401,8 +416,6 @@ Sviluppando il prodotto di $n$ fattori $(a + b)$, il termine $a^k b^{n-k}$ compa
 
 ### Esempi ed esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove 2016-2020 e del foglio `esercizi_matematica`; risultati controllati con `strumenti/verifica.py` (FI-03, FI-04)
-
 **Esercizio 1. Che struttura è?**
 
 | Struttura | Risposta | Perché |
@@ -455,10 +468,25 @@ Si scelgono le 3 posizioni dei bit a 1 fra 8: $\binom{8}{3} = 56$. Nel binomio, 
 
 Divisibili per 2: 50; per 3: 33; per 5: 20; per 6: 16; per 10: 10; per 15: 6; per 30: 3. Totale $50 + 33 + 20 - 16 - 10 - 6 + 3 = 74$.
 
+#### Esercizi più impegnativi
+
+**Esercizio 10. Funzioni suriettive con inclusione-esclusione.** Quante sono le funzioni suriettive da un insieme di 5 elementi a uno di 3?
+
+Le funzioni sono $3^5 = 243$. Tolgo quelle che "mancano" almeno un elemento del codominio: se manca un elemento fissato le funzioni sono $2^5$, e gli elementi da far mancare sono 3; ma così quelle che ne mancano due (le costanti, $1^5$ ciascuna, $\binom{3}{2} = 3$ coppie) le ho tolte due volte. Per inclusione-esclusione
+$$3^5 - \binom{3}{1} 2^5 + \binom{3}{2} 1^5 = 243 - 96 + 3 = 150.$$
+Contare direttamente "per casi" (quale elemento ha due o tre controimmagini) è possibile ma molto più facile sbagliare.
+
+**Esercizio 11. Equazioni in $\mathbb Z_n$.** Risolvere $3x \equiv 4 \pmod 7$, $5x \equiv 7 \pmod{12}$ e $4x \equiv 6 \pmod{12}$.
+
+In $\mathbb Z_7$ l'inverso di 3 è 5 ($3 \cdot 5 = 15 \equiv 1$): moltiplicando per 5, $x \equiv 20 \equiv 6$. Controllo: $3 \cdot 6 = 18 \equiv 4$. In $\mathbb Z_{12}$ il 5 è invertibile perché primo con 12, e $5 \cdot 5 = 25 \equiv 1$: $x \equiv 35 \equiv 11$. L'ultima non ha soluzione: $4x$ modulo 12 può valere solo 0, 4 o 8, perché 4 e 12 hanno in comune il fattore 4, che non divide 6. Regola: $ax \equiv b \pmod n$ ha soluzione se e solo se $\text{MCD}(a, n)$ divide $b$.
+
+**Esercizio 12. Anagrammi con vincoli.** Quanti anagrammi di INFORMATICA hanno le due A vicine? E quanti cominciano con una vocale?
+
+*A vicine*: si incollano le due A in un blocco unico; restano 10 oggetti con la I ripetuta, $\frac{10!}{2!} = 1\,814\,400$. *Iniziale vocale*: le vocali sono I, O, A, I, A. Se comincia con I restano 10 lettere con le A ripetute due volte: $\frac{10!}{2!}$; con A, restano 10 lettere con le I ripetute: $\frac{10!}{2!}$; con O restano 10 lettere con I e A doppie: $\frac{10!}{2!\,2!}$. In tutto $1\,814\,400 + 1\,814\,400 + 907\,200 = 4\,536\,000$, che è $\frac{5}{11}$ di tutti i $9\,979\,200$ anagrammi, come deve essere: 5 lettere su 11 sono vocali.
+
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; risultati controllati con `strumenti/verifica.py` (FI-03, FI-04)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Scegliere la formula.** Una squadra di calcetto: fra 9 giocatori se ne scelgono 5.
 
@@ -495,8 +523,6 @@ Divisibili per 2: 50; per 3: 33; per 5: 20; per 6: 16; per 10: 10; per 15: 6; pe
 Un'operazione interna associa a due elementi di un insieme un elemento dello stesso insieme; le proprietà associativa, commutativa, l'esistenza del neutro e dei simmetrici definiscono semigruppi, monoidi, gruppi e gruppi abeliani. Con due operazioni si hanno anelli (gruppo abeliano più un'operazione associativa e distributiva), corpi e campi; $\mathbb Z_n$ è un campo solo per $n$ primo, altrimenti ha divisori dello zero. Per contare si usano i principi della somma e del prodotto; la formula si sceglie chiedendosi se conta l'ordine e se sono ammesse ripetizioni: disposizioni semplici e con ripetizione, permutazioni (anche con oggetti ripetuti), combinazioni semplici e con ripetizione. I coefficienti binomiali sono simmetrici, seguono il triangolo di Tartaglia e danno lo sviluppo del binomio di Newton.
 
 ### Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-03, FI-04)
 
 #### Strutture
 
@@ -536,10 +562,9 @@ $$\binom{n}{k} = \binom{n}{n-k}, \qquad \binom{n}{k} = \binom{n-1}{k-1} + \binom
 
 ## 3 · Calcolatori, algoritmi e primi programmi in C++
 
-**In questo modulo.** Si usano le funzioni e la logica del modulo 1. Si parte da com'è fatto un calcolatore e da come rappresenta numeri e caratteri con i bit. Poi si vede che cos'è un algoritmo e come un programma scritto in un linguaggio ad alto livello diventa un eseguibile. Il resto del modulo è il primo pezzo di C++: struttura di un programma, ingresso e uscita, variabili e tipi, operatori ed espressioni, istruzioni condizionali e iterative. Alla fine del modulo si sa scrivere, compilare e provare un programma con letture da tastiera, condizioni e cicli, valutare a mano un'espressione C++ e scrivere la condizione che corrisponde a un intervallo, come negli esercizi della prova di teoria.
+**In questo modulo.** Si usano le funzioni e la logica del modulo 1. Si parte da com'è fatto un calcolatore e da come rappresenta numeri e caratteri con i bit. Poi si vede che cos'è un algoritmo e come un programma scritto in un linguaggio ad alto livello diventa un eseguibile. Il resto del modulo è il primo pezzo di C++: struttura di un programma, ingresso e uscita, variabili e tipi, operatori ed espressioni, istruzioni condizionali e iterative. Chiude il modulo una sezione pratica su come compilare ed eseguire da terminale Linux, come si fa all'esame. Alla fine del modulo si sa scrivere, compilare e provare un programma con letture da tastiera, condizioni e cicli, valutare a mano un'espressione C++ e scrivere la condizione che corrisponde a un intervallo, come negli esercizi della prova di teoria.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (2.1 Introduzione ai calcolatori, 2.2 Introduzione alla programmazione), esercitazioni E00-E03; H.M. Deitel e P.J. Deitel, *C++. Fondamenti di programmazione*, Apogeo (FI-05, FI-06)
-> Il modulo è scritto in revisione dal materiale del corso. Tutti i programmi sono stati compilati con `g++ -std=c++17 -Wall -Wextra` ed eseguiti con gli ingressi indicati da `strumenti/verifica.py`; la prima riga di ogni programma (`// file: …`) è il nome del file.
+Tutti i programmi sono stati compilati con `g++ -std=c++17 -Wall -Wextra` ed eseguiti con gli ingressi indicati; la prima riga di ogni programma (`// file: …`) è il nome del file.
 
 ### 3.1 Il calcolatore
 
@@ -713,9 +738,60 @@ int main() {
 
 Una variabile dichiarata nell'intestazione del `for`, come `i`, esiste solo dentro il ciclo. Per scrivere un ciclo corretto conviene chiedersi tre cose: da dove parte (inizializzazione), quando si ferma (condizione, che prima o poi deve diventare falsa, altrimenti il ciclo è **infinito**), che cosa cambia a ogni giro.
 
-### Esempi ed esercizi svolti
+### 3.8 Compilare ed eseguire da terminale, come all'esame
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove 2016-2020 e delle esercitazioni E01-E03; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-05, FI-06)
+La prova pratica si svolge su macchine Linux. C'è Visual Studio Code, ma la compilazione automatica è disattivata e non si può attivare: il programma va compilato **a mano**, scrivendo ogni volta il comando nel terminale. Si può anche consegnare senza aver mai compilato, ma un programma che non compila vale poco: conviene arrivare all'esame sapendo fare questi passi senza pensarci.
+
+**Il terminale in cinque comandi.** Si apre il terminale (in VS Code dal menu *Terminal › New Terminal*; la scorciatoia da tastiera cambia con la tastiera italiana o inglese) e si lavora sempre in una cartella nota.
+
+| Comando | Che cosa fa |
+|---|---|
+| `pwd` | mostra la cartella in cui si è |
+| `ls` | elenca i file della cartella (`ls -l` con i dettagli) |
+| `mkdir esame` | crea la cartella `esame` |
+| `cd esame`, `cd ..`, `cd ~` | entra nella cartella, risale di un livello, torna alla cartella personale |
+| `code .` | apre in VS Code la cartella corrente |
+
+Due tasti fanno risparmiare tempo: <kbd>Tab</kbd> completa i nomi di file e cartelle (scrivere `cd es` e premere <kbd>Tab</kbd>), la **freccia su** richiama i comandi già dati, così il comando di compilazione si scrive una volta sola. <kbd>Ctrl</kbd>+<kbd>C</kbd> interrompe un programma bloccato (per esempio in un ciclo infinito).
+
+**Una cartella per la prova.** All'inizio si crea una cartella facile da raggiungere e ci si mette dentro:
+
+```bash
+cd ~
+mkdir esame
+cd esame
+code .
+```
+
+Tutti i file (sorgenti e file di dati del testo) vanno lì. Un programma che apre `dati.txt` lo cerca **nella cartella da cui viene eseguito**, non in quella del sorgente: se il file "non si trova", il primo controllo è `ls` nel terminale.
+
+**Compilare ed eseguire.**
+
+```bash
+g++ -std=c++17 -Wall -Wextra -o es5 es5.cpp     # compila es5.cpp in es5
+./es5                                           # esegue
+./es5 < ingresso.txt                            # legge da file invece che da tastiera
+g++ -std=c++17 -Wall -Wextra -o es5 es5.cpp && ./es5   # esegue solo se compila
+g++ -std=c++17 -Wall -o prog main.cpp Classe.cpp       # programma su piu' file
+```
+
+`-o es5` dà il nome all'eseguibile (senza, si chiama `a.out`); `./` vuol dire "nella cartella corrente". I file `.h` non si mettono nel comando: li include il preprocessore. Prima di compilare si **salva** (<kbd>Ctrl</kbd>+<kbd>S</kbd>): il compilatore legge il file su disco, non quello aperto nell'editor, e un errore "già corretto" che non sparisce di solito è una modifica non salvata.
+
+**Leggere gli errori.** Un messaggio ha la forma `es5.cpp:12:9: error: …`: file, riga, colonna, descrizione. Si corregge **il primo** errore e si ricompila, perché spesso gli altri sono conseguenze del primo (un `;` mancante ne genera decine). Gli avvisi (`warning`) con `-Wall -Wextra` vanno letti: segnalano `=` al posto di `==` in un `if`, variabili usate senza valore, confronti fra interi con e senza segno.
+
+| Messaggio | Causa tipica |
+|---|---|
+| `'cout' was not declared in this scope` | manca `#include <iostream>` o `using namespace std;` |
+| `expected ';' before …` | manca il `;` alla riga **precedente** |
+| `undefined reference to 'f(int)'` | la funzione è dichiarata ma non definita, o il suo `.cpp` non è nel comando |
+| `no matching function for call to …` | tipi o numero dei parametri sbagliati |
+| `Segmentation fault` (in esecuzione) | indice fuori dall'array, puntatore nullo o non inizializzato |
+| il programma "non fa nulla" | sta aspettando un dato da tastiera |
+| `No such file or directory` su `./es5` | il programma non è stato compilato, o si è in un'altra cartella |
+
+**Il metodo.** Si compila spesso, dopo ogni funzione, non alla fine: un errore trovato subito si corregge in un minuto, venti errori insieme no. Si prova ogni funzione con un `main` minimo e valori di cui si conosce il risultato, poi si costruisce il programma richiesto. Per capire dove sbaglia un programma si stampano i valori intermedi con `cerr << "i = " << i << endl;`, da togliere prima di consegnare. Se il testo chiede di consegnare uno `.zip` con i sorgenti, si può fare dal file manager oppure con `zip consegna.zip *.cpp *.h`. Gli ultimi cinque minuti servono a ricompilare tutto da capo e a rileggere il testo: nomi delle funzioni e dei parametri devono essere quelli richiesti.
+
+### Esempi ed esercizi svolti
 
 **Esercizio 1. Conversioni.** Scrivere 45 in binario e in esadecimale; scrivere $-45$ in complemento a 2 su 8 bit; che carattere ha codice 100?
 
@@ -887,10 +963,93 @@ int main() {
 
 La riga $i$ ha $h - i$ spazi e $2i - 1$ asterischi: prima si scrive la formula di una riga, poi il ciclo esterno sulle righe.
 
+#### Esercizi più impegnativi
+
+**Esercizio 9. Numeri perfetti.** Un numero è perfetto se è uguale alla somma dei suoi divisori propri ($6 = 1 + 2 + 3$). Stampare i numeri perfetti fino a $N$.
+
+```cpp
+// file: perfetti.cpp
+#include <iostream>
+using namespace std;
+
+int sommaDivisori(int n) {          // divisori propri, a coppie fino a sqrt(n)
+    if (n < 2) return 0;
+    int s = 1;
+    for (int d = 2; d * d <= n; d++)
+        if (n % d == 0) {
+            s += d;
+            if (d != n / d) s += n / d;   // il "compagno" del divisore
+        }
+    return s;
+}
+
+int main() {
+    int N;
+    cin >> N;
+    for (int n = 2; n <= N; n++)
+        if (sommaDivisori(n) == n) cout << n << " ";
+    cout << endl;
+    return 0;
+}
+```
+
+Con $N = 10\,000$ stampa `6 28 496 8128`. Cercare i divisori fino a $\sqrt n$ e aggiungere anche $n / d$ porta il costo da $n$ a $\sqrt n$ passi per numero; la condizione `d != n / d` evita di contare due volte la radice dei quadrati perfetti (per 16 il 4 va contato una volta sola).
+
+**Esercizio 10. Il complemento a 2 su 8 bit.** Leggere un intero fra $-128$ e $127$ e stamparne la rappresentazione in complemento a 2 su 8 bit.
+
+```cpp
+// file: complemento.cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    if (n < -128 || n > 127) {
+        cout << "fuori dall'intervallo" << endl;
+        return 0;
+    }
+    int u = (n + 256) % 256;      // i negativi diventano 256 + n
+    for (int p = 128; p >= 1; p /= 2) {
+        cout << (u >= p ? 1 : 0);
+        if (u >= p) u -= p;
+    }
+    cout << endl;
+    return 0;
+}
+```
+
+Con $-45$ stampa `11010011`, con 127 `01111111`, con $-128$ `10000000`. Il trucco è che su $k$ bit il complemento a 2 di un negativo $n$ è il naturale $2^k + n$: qui $256 - 45 = 211$. Attenzione: in C++ `%` con un operando negativo dà un resto negativo (`-45 % 256` vale $-45$), per questo prima si somma 256.
+
+**Esercizio 11. $e^x$ con la serie, fino alla precisione voluta.** Calcolare $e^x = \sum_k x^k / k!$ sommando termini finché il termine è minore di $10^{-12}$ in valore assoluto, e confrontare con `exp`.
+
+```cpp
+// file: esponenziale.cpp
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+int main() {
+    double x;
+    cin >> x;
+    double termine = 1, somma = 1;
+    int k = 0;
+    while (fabs(termine) >= 1e-12) {
+        k++;
+        termine *= x / k;           // x^k / k! dal termine precedente
+        somma += termine;
+    }
+    cout << setprecision(12) << somma << " " << exp(x) << " " << k << endl;
+    return 0;
+}
+```
+
+Con $x = 1$ stampa `2.71828182846 2.71828182846 15`: bastano 15 termini. Ogni termine si ottiene dal precedente moltiplicando per $x / k$: calcolare a parte $x^k$ e $k!$ sarebbe più lento e farebbe traboccare il fattoriale (già $13!$ non sta in un `int`). Con $x = -20$ il ciclo termina ma il risultato è sbagliato (`6.14764462906e-09` contro `2.06115362244e-09`): i termini arrivano a $10^7$ con segni alterni e la cancellazione distrugge le cifre (modulo 3 di Architettura). Si rimedia calcolando $1 / e^{20}$.
+
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-05, FI-06)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Che cosa stampa?** Seguire a mano il programma con l'ingresso `5`.
 
@@ -981,11 +1140,9 @@ int main() {
 
 ### Riepilogo
 
-Il calcolatore di von Neumann ha CPU (unità di controllo e ALU), memoria centrale, memorie di massa, periferiche e bus; tutto è rappresentato con bit: naturali in base 2 (e 16), interi in complemento a 2, reali in virgola mobile con approssimazioni, caratteri con il codice ASCII. Un algoritmo è una sequenza finita di passi non ambigui; il programma in C++ passa per preprocessore, compilatore e linker, e gli errori possono essere di compilazione, di esecuzione o logici. Un programma C++ comincia da `main`, legge con `cin` e scrive con `cout`; le variabili hanno nome, tipo e valore. La divisione fra interi è intera, gli operatori logici sono in cortocircuito, `=` assegna e `==` confronta. Le condizioni si scrivono con `if`-`else` e `switch` (con `break`), le ripetizioni con `while`, `do`-`while` (almeno una volta, per validare) e `for` (con contatore); `break` e `continue` modificano il flusso dei cicli.
+Il calcolatore di von Neumann ha CPU (unità di controllo e ALU), memoria centrale, memorie di massa, periferiche e bus; tutto è rappresentato con bit: naturali in base 2 (e 16), interi in complemento a 2, reali in virgola mobile con approssimazioni, caratteri con il codice ASCII. Un algoritmo è una sequenza finita di passi non ambigui; il programma in C++ passa per preprocessore, compilatore e linker, e gli errori possono essere di compilazione, di esecuzione o logici. Un programma C++ comincia da `main`, legge con `cin` e scrive con `cout`; le variabili hanno nome, tipo e valore. La divisione fra interi è intera, gli operatori logici sono in cortocircuito, `=` assegna e `==` confronta. Le condizioni si scrivono con `if`-`else` e `switch` (con `break`), le ripetizioni con `while`, `do`-`while` (almeno una volta, per validare) e `for` (con contatore); `break` e `continue` modificano il flusso dei cicli. All'esame si compila da terminale con `g++ -std=c++17 -Wall -Wextra -o prog prog.cpp`, si esegue con `./prog` e si corregge sempre il primo errore.
 
 ### Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-05, FI-06)
 
 #### Rappresentazioni
 
@@ -1011,6 +1168,16 @@ for (int i = 0; i < n; i++) { ... }
 | `x++` e `++x` | vecchio valore e poi incremento; incremento e nuovo valore |
 | `switch` senza `break` | ogni `case` finisce con `break` |
 
+#### Comandi per la prova al calcolatore
+
+```text
+cd ~ ; mkdir esame ; cd esame ; code .     cartella della prova
+g++ -std=c++17 -Wall -Wextra -o es es.cpp  compila (prima salvare!)
+./es    ./es < dati.txt                    esegue, con ingresso da file
+g++ ... -o es es.cpp && ./es               esegue solo se compila
+Tab completa, freccia su ripete, Ctrl+C interrompe, ls controlla i file
+```
+
 #### Termini per l'orale
 
 | Termine | In una riga |
@@ -1031,13 +1198,13 @@ for (int i = 0; i < n; i++) { ... }
 - Fasi della compilazione e tipi di errore.
 - Differenza fra `while`, `do`-`while` e `for`; a che cosa servono `break` e `continue`.
 - Che cosa succede con la divisione fra interi; precedenza e cortocircuito.
+- Come si compila un programma da terminale e come si legge un messaggio d'errore?
 
 ## 4 · Funzioni, array, stringhe, file e strutture
 
 **In questo modulo.** Si usano i tipi, le espressioni e i cicli del modulo 3. Si impara a dividere un programma in **funzioni**, con il passaggio dei parametri per valore e per riferimento, e a gestire collezioni di dati: gli **array** a una e due dimensioni, con gli algoritmi di base (somma, massimo, ricerca, ordinamento), le **stringhe** come array di caratteri, i **file** di testo in lettura e in scrittura e le **strutture**, che raggruppano dati di tipo diverso. È il materiale della prova pratica del primo semestre. Alla fine del modulo si sa scrivere il prototipo di una funzione da una descrizione a parole, come nella prova di teoria, e un programma che legge dati da un file, li mette in array di strutture e li elabora con funzioni.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (programmazione in C++, primo semestre), esercitazioni E04-E07; H.M. Deitel e P.J. Deitel, *C++. Fondamenti di programmazione*, Apogeo (FI-06, FI-07)
-> Il modulo è scritto in revisione dal materiale del corso. I programmi sono compilati con `g++ -std=c++17 -Wall -Wextra` ed eseguiti da `strumenti/verifica.py`. Come nel corso si usano gli array e le stringhe "alla C" (`char[]` e `<cstring>`), non `vector` e `string` della libreria standard.
+I programmi sono stati compilati con `g++ -std=c++17 -Wall -Wextra` ed eseguiti. Come nel corso si usano gli array e le stringhe "alla C" (`char[]` e `<cstring>`), non `vector` e `string` della libreria standard.
 
 ### 4.1 Le funzioni
 
@@ -1384,8 +1551,6 @@ Si accede ai campi con il punto: `s.media`, `s.nascita.a`. A differenza degli ar
 
 ### Esempi ed esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove 2016-2020 e delle esercitazioni E04-E07; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-06, FI-07)
-
 **Esercizio 1. Prototipi** (sul modello della prova di teoria). Scrivere il prototipo di: (1) `f1`, che riceve per valore un carattere e due reali e restituisce un intero; (2) `f2`, che riceve una matrice di reali di 50 righe e 20 colonne, una stringa e, per riferimento, un reale, e non restituisce nulla; (3) `f3`, che riceve un array di strutture `Studente`, la sua dimensione e un intero per riferimento, e restituisce una struttura `Studente`; (4) `f4`, che riceve una stringa costante e restituisce un booleano.
 
 ```cpp
@@ -1546,10 +1711,129 @@ int main() {
 
 Con `  il compilatore   segnala un errore ` stampa `5 compilatore`. Dimenticare `p[k] = '\0'` è l'errore tipico: la parola continuerebbe con quello che c'è in memoria.
 
+#### Esercizi più impegnativi
+
+**Esercizio 6. Compressione di una stringa.** Scrivere `comprimi(const char s[], char d[])`, che sostituisce ogni sequenza di caratteri uguali con il carattere e la lunghezza: `aaabccdddd` diventa `a3b1c2d4`. Le sequenze sono lunghe al più 9.
+
+```cpp
+// file: comprimi.cpp
+#include <iostream>
+using namespace std;
+
+void comprimi(const char s[], char d[]) {
+    int i = 0, k = 0;
+    while (s[i] != '\0') {
+        int j = i;
+        while (s[j] == s[i]) j++;       // j: primo carattere diverso
+        d[k++] = s[i];
+        d[k++] = '0' + (j - i);         // lunghezza come cifra
+        i = j;
+    }
+    d[k] = '\0';
+}
+
+int main() {
+    char s[100], d[200];
+    cin >> s;
+    comprimi(s, d);
+    cout << d << endl;
+    return 0;
+}
+```
+
+Con `aaabccdddd` stampa `a3b1c2d4`. Il ciclo interno si ferma da solo anche alla fine della stringa, perché `'\0'` è diverso da ogni carattere della sequenza. La destinazione deve essere grande fino al doppio della sorgente (caso peggiore: tutti caratteri diversi).
+
+**Esercizio 7. Ordinare su due chiavi** (sul modello delle prove con file e strutture). Il file `esami.txt` contiene per riga il nome di un esame, il voto e i CFU. Leggerlo in un array di strutture, calcolare la media pesata sui CFU e stampare gli esami ordinati per voto decrescente e, a parità di voto, per nome in ordine alfabetico, con l'ordinamento per inserimento.
+
+```cpp
+// file: esami.cpp
+#include <iostream>
+#include <fstream>
+#include <cstring>
+using namespace std;
+
+struct Esame { char nome[30]; int voto, cfu; };
+
+bool prima(const Esame& a, const Esame& b) {       // a va prima di b?
+    if (a.voto != b.voto) return a.voto > b.voto;
+    return strcmp(a.nome, b.nome) < 0;
+}
+
+void ordina(Esame v[], int n) {                    // per inserimento
+    for (int i = 1; i < n; i++) {
+        Esame x = v[i];
+        int j = i - 1;
+        while (j >= 0 && prima(x, v[j])) {          // sposta a destra
+            v[j + 1] = v[j];
+            j--;
+        }
+        v[j + 1] = x;
+    }
+}
+
+int main() {
+    ifstream in("esami.txt");
+    Esame v[40];
+    int n = 0, sommaCfu = 0, sommaPesi = 0;
+    while (n < 40 && in >> v[n].nome >> v[n].voto >> v[n].cfu) {
+        sommaPesi += v[n].voto * v[n].cfu;
+        sommaCfu += v[n].cfu;
+        n++;
+    }
+    ordina(v, n);
+    for (int i = 0; i < n; i++) cout << v[i].nome << " " << v[i].voto << endl;
+    if (sommaCfu > 0) cout << "media " << (double)sommaPesi / sommaCfu << endl;
+    return 0;
+}
+```
+
+Con il file `Geometria 27 6`, `Analisi1A 24 6`, `Fondamenti 27 9`, `RetiLogiche 30 6` stampa RetiLogiche, Fondamenti, Geometria (i due 27 in ordine alfabetico), Analisi1A, e la media pesata $\frac{27 \cdot 6 + 24 \cdot 6 + 27 \cdot 9 + 30 \cdot 6}{27} = 27$. Mettere il confronto in una funzione `prima` separa il "come si ordina" dal "che cosa si ordina": per cambiare criterio si cambia solo quella. L'ordinamento per inserimento è **stabile** e veloce su dati quasi ordinati.
+
+**Esercizio 8. Matrice a spirale.** Riempire una matrice $n \times n$ ($n \le 10$) con i numeri da 1 a $n^2$ seguendo una spirale in senso orario dall'angolo in alto a sinistra.
+
+```cpp
+// file: spirale.cpp
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+const int MAX = 10;
+
+void spirale(int m[][MAX], int n) {
+    int alto = 0, basso = n - 1, sx = 0, dx = n - 1, k = 1;
+    while (alto <= basso && sx <= dx) {
+        for (int j = sx; j <= dx; j++) m[alto][j] = k++;  // in alto
+        alto++;
+        for (int i = alto; i <= basso; i++) m[i][dx] = k++;    // a destra
+        dx--;
+        if (alto <= basso) {
+            for (int j = dx; j >= sx; j--) m[basso][j] = k++;  // in basso
+            basso--;
+        }
+        if (sx <= dx) {
+            for (int i = basso; i >= alto; i--) m[i][sx] = k++;  // a sinistra
+            sx++;
+        }
+    }
+}
+
+int main() {
+    int n, m[MAX][MAX];
+    cin >> n;
+    spirale(m, n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) cout << setw(3) << m[i][j];
+        cout << endl;
+    }
+    return 0;
+}
+```
+
+Con $n = 4$ la prima riga è `1 2 3 4`, l'ultima `10 9 8 7`, e al centro ci sono `13 14` e `16 15`. Il metodo dei quattro bordi (`alto`, `basso`, `sx`, `dx`) che si restringono evita di dover controllare a ogni passo se una casella è già piena; i due `if` servono per le matrici di lato dispari, dove l'ultimo giro è una riga sola. `setw(3)` di `<iomanip>` allinea le colonne.
+
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-06, FI-07)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Valore o riferimento?** Che cosa stampa il programma?
 
@@ -1645,8 +1929,6 @@ Una funzione ha prototipo e definizione; i parametri passano per valore (copia) 
 
 ### Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-06, FI-07)
-
 #### Schemi
 
 ```text
@@ -1691,8 +1973,7 @@ struct T { tipo campo; ... };  T v[N];  v[i].campo
 
 **In questo modulo.** Si usano le funzioni, gli array e le strutture del modulo 4. È la parte di "C++ avanzato" con cui comincia il secondo semestre. Si vede che cos'è un indirizzo di memoria e come lo si manipola con i **puntatori**, il legame fra puntatori e array, l'aritmetica dei puntatori, e la differenza fra puntatori e riferimenti. Poi l'**allocazione dinamica**: creare variabili, array e matrici di dimensione decisa durante l'esecuzione, e liberarli. Poi la **ricorsione**, cioè le funzioni che chiamano sé stesse, e infine i **template di funzione**, che scrivono una funzione una volta sola per tutti i tipi. Alla fine del modulo si sa seguire a mano un programma con puntatori, gestire array dinamici senza perdite di memoria, scrivere e tracciare funzioni ricorsive e scrivere template di funzione.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Fondamenti, secondo semestre: 3. Programmazione avanzata in C++), esercitazioni del 25 febbraio, 4 e 11 marzo; H.M. Deitel e P.J. Deitel, *C++. Fondamenti di programmazione*, Apogeo (FI-08)
-> Il modulo è scritto in revisione dal materiale del corso. I programmi sono compilati con `g++ -std=c++17 -Wall -Wextra` ed eseguiti da `strumenti/verifica.py`. Gli indirizzi stampati da un programma cambiano da un'esecuzione all'altra: negli esempi si stampano solo valori.
+I programmi sono stati compilati con `g++ -std=c++17 -Wall -Wextra` ed eseguiti. Gli indirizzi stampati da un programma cambiano da un'esecuzione all'altra: negli esempi si stampano solo valori.
 
 ### 5.1 Indirizzi e puntatori
 
@@ -1955,8 +2236,6 @@ Il compilatore **istanzia** il template, cioè genera la funzione per il tipo us
 
 ### Esempi ed esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove 2016-2020 e delle esercitazioni del secondo semestre; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-08)
-
 **Esercizio 1. Trovare e correggere gli errori** (sul modello della prova di teoria).
 
 ```text
@@ -2098,10 +2377,116 @@ int main() {
 
 Stampa `6765 6765 21891`: quasi ventiduemila chiamate contro 20 giri di ciclo. Il numero di chiamate $C(n) = C(n - 1) + C(n - 2) + 1$ cresce come i numeri di Fibonacci stessi.
 
+#### Esercizi più impegnativi
+
+**Esercizio 6. Merge sort.** Ordinare un array con l'algoritmo per fusione: si divide l'array a metà, si ordinano ricorsivamente le due metà, si fondono (guidato 2 del modulo 4). Il buffer per la fusione si alloca dinamicamente.
+
+```cpp
+// file: mergesort.cpp
+#include <iostream>
+using namespace std;
+
+// fonde a[sx..c] e a[c+1..dx], gia' ordinati
+void fondi(int a[], int sx, int c, int dx, int buf[]) {
+    int i = sx, j = c + 1, k = 0;
+    while (i <= c && j <= dx) buf[k++] = a[i] <= a[j] ? a[i++] : a[j++];
+    while (i <= c) buf[k++] = a[i++];
+    while (j <= dx) buf[k++] = a[j++];
+    for (int t = 0; t < k; t++) a[sx + t] = buf[t];      // ricopia
+}
+
+void mergeSort(int a[], int sx, int dx, int buf[]) {
+    if (sx >= dx) return;                 // 0 o 1 elementi: gia' ordinato
+    int c = (sx + dx) / 2;
+    mergeSort(a, sx, c, buf);
+    mergeSort(a, c + 1, dx, buf);
+    fondi(a, sx, c, dx, buf);
+}
+
+int main() {
+    int n;
+    cin >> n;
+    int* a = new int[n];
+    int* buf = new int[n];                // un solo buffer per tutte le fusioni
+    for (int i = 0; i < n; i++) cin >> a[i];
+    mergeSort(a, 0, n - 1, buf);
+    for (int i = 0; i < n; i++) cout << a[i] << " ";
+    cout << endl;
+    delete[] a;
+    delete[] buf;
+    return 0;
+}
+```
+
+Con `8  5 2 9 1 5 6 3 7` stampa `1 2 3 5 5 6 7 9`. Le chiamate formano un albero di profondità circa $\log_2 n$, e a ogni livello le fusioni toccano in tutto $n$ elementi: il merge sort fa circa $n \log_2 n$ confronti, contro gli $n^2/2$ dell'ordinamento per selezione (per $n = 1000$, circa 10 000 contro 500 000). È anche l'esempio di ricorsione più chiesto all'orale di Architettura, dove va tradotto in assembly.
+
+**Esercizio 7. Tutte le permutazioni di una stringa.** Stampare le permutazioni dei caratteri di una stringa con una funzione ricorsiva: si fissa a turno ogni carattere in prima posizione e si permutano gli altri.
+
+```cpp
+// file: permutazioni.cpp
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+int conta = 0;
+
+void permuta(char s[], int k, int n) {    // permuta le posizioni k..n-1
+    if (k == n - 1) {
+        cout << s << " ";
+        conta++;
+        return;
+    }
+    for (int i = k; i < n; i++) {
+        swap(s[k], s[i]);                 // s[i] in posizione k
+        permuta(s, k + 1, n);
+        swap(s[k], s[i]);                 // si rimette a posto
+    }
+}
+
+int main() {
+    char s[12];
+    cin >> s;
+    permuta(s, 0, strlen(s));
+    cout << endl << conta << endl;
+    return 0;
+}
+```
+
+Con `abc` stampa `abc acb bac bca cba cab` e 6; con quattro lettere diverse 24 righe, cioè $4!$ come nel modulo 2. Il secondo `swap` è il passo indietro (*backtracking*): senza, la stringa resterebbe modificata e le permutazioni successive sarebbero sbagliate. `swap` è nella libreria standard (`<utility>`, incluso da `<iostream>`).
+
+**Esercizio 8. Potenza veloce.** Calcolare $x^n$ con la ricorsione $x^n = (x^{n/2})^2$ se $n$ è pari e $x \cdot x^{n-1}$ se è dispari, contando le moltiplicazioni.
+
+```cpp
+// file: potenza_veloce.cpp
+#include <iostream>
+using namespace std;
+
+int molt = 0;
+
+long long potenza(long long x, int n) {
+    if (n == 0) return 1;
+    if (n % 2 == 0) {
+        long long m = potenza(x, n / 2);     // una sola chiamata, non due
+        molt++;
+        return m * m;
+    }
+    molt++;
+    return x * potenza(x, n - 1);
+}
+
+int main() {
+    cout << potenza(3, 20) << " " << molt << endl;
+    molt = 0;
+    cout << potenza(2, 62) << " " << molt << endl;
+    return 0;
+}
+```
+
+Stampa `3486784401 6` e `4611686018427387904 10`: per $3^{20}$ servono 6 moltiplicazioni invece di 19, in generale circa $2 \log_2 n$. Il punto delicato è salvare $x^{n/2}$ in `m`: scrivendo `potenza(x, n / 2) * potenza(x, n / 2)` le chiamate raddoppierebbero a ogni livello e si tornerebbe a un costo proporzionale a $n$.
+
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-08)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Tracciare una ricorsione.** Che cosa stampa `f(4)`?
 
@@ -2196,8 +2581,6 @@ Un puntatore contiene un indirizzo: `&` dà l'indirizzo di una variabile, `*` la
 
 ### Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-08)
-
 #### Schemi
 
 ```text
@@ -2243,8 +2626,7 @@ $$\text{Hanoi: } M(n) = 2M(n - 1) + 1 = 2^n - 1; \qquad \text{Fibonacci ricorsiv
 
 **In questo modulo.** Si usano le strutture e le funzioni del modulo 4 e i puntatori, la memoria dinamica e i template del modulo 5. Si passa dalla struttura, che raggruppa solo dati, alla **classe**, che mette insieme dati e operazioni e decide che cosa è visibile da fuori. Si vedono attributi e metodi, il controllo di accesso, i costruttori (di default, con parametri, di copia) e il distruttore, i selettori e i modificatori, i metodi costanti e il puntatore `this`, il sovraccarico degli operatori, le classi che gestiscono memoria dinamica con la "regola dei tre", e i template di classe. È la base della prova pratica del secondo semestre, che chiede sempre di scrivere una classe con costruttori, selettori, modificatori, operatore di assegnamento e alcuni metodi di calcolo. Alla fine del modulo si sa scrivere una classe completa da una specifica a parole e usarla in un programma con oggetti allocati dinamicamente.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Fondamenti, secondo semestre: classi, template delle classi), esercitazioni del 18 e 25 marzo, del 1° aprile, `Esercitazioni_15_classi_allocazione_dinamica`; prove 2016-2020 (FI-09)
-> Il modulo è scritto in revisione dal materiale del corso. Si seguono le convenzioni delle slide: attributi privati con il trattino basso (`_dim`), selettori `get…`, modificatori `set…`, operatore di assegnamento che restituisce un riferimento costante. I programmi sono compilati ed eseguiti da `strumenti/verifica.py`, con AddressSanitizer per le perdite di memoria.
+Si seguono le convenzioni delle slide: attributi privati con il trattino basso (`_dim`), selettori `get…`, modificatori `set…`, operatore di assegnamento che restituisce un riferimento costante. I programmi sono stati compilati ed eseguiti con AddressSanitizer, che segnala le perdite di memoria.
 
 ### 6.1 Dalla struttura alla classe
 
@@ -2509,8 +2891,6 @@ Ogni metodo definito fuori dalla classe ricomincia con `template <typename T>` e
 
 ### Esempi ed esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove 2016-2020 (esercizi "identificare e correggere gli errori" e prova al calcolatore con una classe); programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-09)
-
 **Esercizio 1. Identificare e correggere gli errori** nella dichiarazione del template di classe.
 
 ```text
@@ -2680,10 +3060,118 @@ stampa `corso 104, piu' assiduo: 1`, poi `1 sotto il 70%, presenti alla lezione 
 
 Sì: `Vettore<T>` usa `new T[dim]`, che richiede il costruttore di default (c'è, grazie agli argomenti di default), l'assegnamento `=` (quello generato dal compilatore va bene, perché `Frazione` non ha memoria dinamica) e, per `operator+`, la somma di due `T` (c'è). Per stamparlo con `stampa` serve `<<` (c'è). È il senso dei template: il codice si adatta a ogni tipo che offre le operazioni usate.
 
+#### Esercizio più impegnativo
+
+**Esercizio 5. La classe `Polinomio`.** Un polinomio a coefficienti interi di grado $n$ si rappresenta con un array dinamico di $n + 1$ coefficienti, `_c[i]` coefficiente di $x^i$. Scrivere la classe con costruttore di default (il polinomio nullo), costruttore con grado e array dei coefficienti, regola dei tre, selettore del grado, `operator()` per valutare in un punto, somma e prodotto fra polinomi e stampa.
+
+```cpp
+// file: polinomio.cpp
+#include <iostream>
+using namespace std;
+
+class Polinomio {
+    int _n;            // grado
+    int* _c;           // _n + 1 coefficienti
+    void normalizza(); // toglie gli zeri in testa: il grado e' quello vero
+public:
+    Polinomio() : _n(0), _c(new int[1]{0}) {}
+    Polinomio(int n, const int c[]);
+    Polinomio(const Polinomio& p);
+    ~Polinomio() { delete[] _c; }
+    const Polinomio& operator=(const Polinomio& p);
+    int getGrado() const { return _n; }
+    long long operator()(long long x) const;         // valore in x
+    Polinomio operator+(const Polinomio& p) const;
+    Polinomio operator*(const Polinomio& p) const;
+    friend ostream& operator<<(ostream& os, const Polinomio& p);
+};
+
+Polinomio::Polinomio(int n, const int c[]) : _n(n), _c(new int[n + 1]) {
+    for (int i = 0; i <= n; i++) _c[i] = c[i];
+    normalizza();
+}
+
+Polinomio::Polinomio(const Polinomio& p) : _n(p._n), _c(new int[p._n + 1]) {
+    for (int i = 0; i <= _n; i++) _c[i] = p._c[i];
+}
+
+const Polinomio& Polinomio::operator=(const Polinomio& p) {
+    if (this != &p) {
+        delete[] _c;
+        _n = p._n;
+        _c = new int[_n + 1];
+        for (int i = 0; i <= _n; i++) _c[i] = p._c[i];
+    }
+    return *this;
+}
+
+void Polinomio::normalizza() {
+    while (_n > 0 && _c[_n] == 0) _n--;   // l'array resta, si usa meno
+}
+```
+
+```cpp
+// segue: polinomio.cpp
+long long Polinomio::operator()(long long x) const {   // schema di Horner
+    long long v = 0;
+    for (int i = _n; i >= 0; i--) v = v * x + _c[i];
+    return v;
+}
+
+Polinomio Polinomio::operator+(const Polinomio& p) const {
+    int n = _n > p._n ? _n : p._n;
+    int* c = new int[n + 1];
+    for (int i = 0; i <= n; i++)
+        c[i] = (i <= _n ? _c[i] : 0) + (i <= p._n ? p._c[i] : 0);
+    Polinomio r(n, c);
+    delete[] c;
+    return r;
+}
+
+Polinomio Polinomio::operator*(const Polinomio& p) const {
+    int n = _n + p._n;
+    int* c = new int[n + 1]();               // () azzera gli elementi
+    for (int i = 0; i <= _n; i++)
+        for (int j = 0; j <= p._n; j++) c[i + j] += _c[i] * p._c[j];
+    Polinomio r(n, c);
+    delete[] c;
+    return r;
+}
+
+ostream& operator<<(ostream& os, const Polinomio& p) {
+    bool primo = true;
+    for (int i = p._n; i >= 0; i--) {
+        int a = p._c[i];
+        if (a == 0 && !(i == 0 && primo)) continue;
+        if (!primo) os << (a < 0 ? " - " : " + ");
+        else if (a < 0) os << "-";
+        int m = a < 0 ? -a : a;
+        if (m != 1 || i == 0) os << m;
+        if (i >= 1) os << "x";
+        if (i >= 2) os << "^" << i;
+        primo = false;
+    }
+    return os;
+}
+
+int main() {
+    int a[] = {1, -3, 0, 2}, b[] = {-1, 1}, c[] = {5, 0, 0, -2};
+    Polinomio p(3, a), q(1, b), z;
+    cout << p << " | " << q << " | " << z << endl;
+    cout << p + q << " | " << p * q << endl;
+    Polinomio r(3, c);
+    cout << p + r << " (grado " << (p + r).getGrado() << ")" << endl;
+    z = p * p;
+    cout << z(2) << " " << p(2) * p(2) << endl;
+    return 0;
+}
+```
+
+Stampa `2x^3 - 3x + 1 | x - 1 | 0`, poi la somma `2x^3 - 2x` e il prodotto `2x^4 - 2x^3 - 3x^2 + 4x - 1`; poi `-3x + 6 (grado 1)`, perché i termini di grado 3 si cancellano e `normalizza` abbassa il grado; infine `121 121`, cioè $p(2)^2 = 11^2$ calcolato in due modi. È l'esercizio "classe con memoria dinamica" al completo. Il prodotto passa tutte le coppie di termini ($x^i \cdot x^j$ va nel coefficiente $i + j$). La stampa è la parte più lunga, perché tratta i casi particolari: segni, coefficienti uguali a 1, esponenti 0 e 1, polinomio nullo. Un `operator+` che restituisce un oggetto per valore usa il costruttore di copia: senza regola dei tre il programma libererebbe due volte la stessa memoria.
+
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-09)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Rifare i conti di `Presenze`.** Con il file dell'esercizio 3, calcolare a mano le uscite.
 
@@ -2754,8 +3242,6 @@ Una classe riunisce attributi e metodi; il controllo di accesso (`private`, `pub
 
 ### Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-09)
-
 #### Lo scheletro di una classe d'esame
 
 ```text
@@ -2812,8 +3298,7 @@ template <typename T> T Classe<T>::metodo(...) const { ... }
 
 **In questo modulo.** Si usano le classi, i template e la regola dei tre del modulo 6, e i puntatori e la memoria dinamica del modulo 5. È la parte di programmazione modulare con cui si chiude il corso. Si comincia dall'idea di **tipo di dato astratto**: un tipo definito da ciò che si può fare con i suoi valori, non da come è fatto dentro. Poi si studiano tre strutture dati fondamentali come tipi astratti: la **lista concatenata**, con inserimenti, rimozioni e ricerca; la **pila**, in cui l'ultimo elemento entrato è il primo a uscire; la **coda**, in cui esce per primo il primo entrato. Di pile e code si vedono due realizzazioni, con un array e con una lista, e un paio di applicazioni classiche. Alla fine del modulo si sanno scrivere e usare queste classi, disegnare che cosa succede ai puntatori durante un inserimento o una rimozione, e scegliere la realizzazione adatta.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Fondamenti, secondo semestre: 4. Programmazione modulare e tipi di dato astratti, liste semplici, pile e code), `Esercitazioni++_stutture_dinamiche`, esercitazioni del 22 e 29 aprile (FI-10, FI-11)
-> Il modulo è scritto in revisione dal materiale del corso, con le convenzioni delle slide (classe `Node` con `_data` e `_next`, lista con `_head`). I programmi sono compilati ed eseguiti da `strumenti/verifica.py`, con AddressSanitizer per controllare che tutta la memoria venga liberata.
+Si seguono le convenzioni delle slide (classe `Node` con `_data` e `_next`, lista con `_head`). I programmi sono stati compilati ed eseguiti con AddressSanitizer, per controllare che tutta la memoria venga liberata.
 
 ### 7.1 L'astrazione sui dati
 
@@ -3182,8 +3667,6 @@ Il programma simula la politica **round robin** di un sistema operativo: ogni la
 
 ### Esempi ed esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove 2016-2020 e delle esercitazioni sulle strutture dinamiche; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-10, FI-11)
-
 **Esercizio 1. Completare le affermazioni** (sul modello della prova di teoria, su tutto il corso).
 
 | Affermazione | Completamento |
@@ -3308,10 +3791,155 @@ Stampa `50 40 30 20 10`, poi `10 20 30 40 50` e `150`. Qui la lista è scritta "
 
 `q` parte dalla testa (3); `q->getNext()` è 8, diverso da 6: `q` avanza a 8. Ora `q->getNext()` è 6: ci si ferma. `r` = nodo 6; `q->setNext(r->getNext())` fa puntare 8 a 5; `delete r`. Lista: `3 8 5`. Se si facesse `delete r` prima di leggere `r->getNext()`, si leggerebbe memoria già liberata.
 
+#### Esercizi più impegnativi
+
+**Esercizio 5. Fondere due liste ordinate senza creare nodi.** Date due liste ordinate (nodi "alla C" come nell'esercizio 3), costruire la lista ordinata che le contiene tutte e due **riusando i nodi**, solo spostando i puntatori.
+
+```cpp
+// file: fondi_liste.cpp
+#include <iostream>
+using namespace std;
+
+struct Nodo { int dato; Nodo* next; };
+
+Nodo* daArray(const int v[], int n) {          // costruisce nello stesso ordine
+    Nodo* testa = nullptr;
+    for (int i = n - 1; i >= 0; i--) testa = new Nodo{v[i], testa};
+    return testa;
+}
+
+Nodo* fondi(Nodo* a, Nodo* b) {
+    Nodo finto{0, nullptr};                    // nodo sentinella sullo stack
+    Nodo* coda = &finto;
+    while (a != nullptr && b != nullptr) {
+        if (a->dato <= b->dato) { coda->next = a; a = a->next; }
+        else { coda->next = b; b = b->next; }
+        coda = coda->next;
+    }
+    coda->next = (a != nullptr) ? a : b;       // il resto, gia' ordinato
+    return finto.next;
+}
+
+int main() {
+    int x[] = {1, 4, 9, 12}, y[] = {2, 3, 10};
+    Nodo* l = fondi(daArray(x, 4), daArray(y, 3));
+    for (Nodo* p = l; p != nullptr; p = p->next) cout << p->dato << " ";
+    cout << endl;
+    while (l != nullptr) { Nodo* q = l; l = l->next; delete q; }
+    return 0;
+}
+```
+
+Stampa `1 2 3 4 9 10 12`, come la fusione di array del modulo 4 ma senza memoria in più. Il **nodo sentinella** `finto` evita di trattare a parte il primo nodo della lista risultato: si aggancia sempre a `coda->next`, e alla fine la vera testa è `finto.next`. Il resto della lista che non è finita si attacca in un colpo solo.
+
+**Esercizio 6. Una coda fatta con due pile.** Realizzare la coda con due pile `dentro` e `fuori`: `enqueue` fa `push` su `dentro`; `dequeue` toglie da `fuori` e, se è vuota, prima ci travasa tutta `dentro`.
+
+```cpp
+// file: coda_due_pile.cpp
+#include <iostream>
+using namespace std;
+
+template <typename T>
+class Pila {                                    // pila minima su lista
+    struct Nodo { T dato; Nodo* next; };
+    Nodo* _cima = nullptr;
+public:
+    Pila() = default;
+    Pila(const Pila&) = delete;                 // copia vietata: non serve
+    Pila& operator=(const Pila&) = delete;
+    ~Pila() { while (pop()) {} }
+    bool empty() const { return _cima == nullptr; }
+    void push(const T& x) { _cima = new Nodo{x, _cima}; }
+    T top() const { return _cima->dato; }
+    bool pop() {
+        if (empty()) return false;
+        Nodo* q = _cima; _cima = q->next; delete q;
+        return true;
+    }
+};
+
+template <typename T>
+class CodaP {
+    Pila<T> dentro, fuori;
+    int travasi = 0;
+    void travasa() {
+        if (!fuori.empty()) return;
+        while (!dentro.empty()) { fuori.push(dentro.top()); dentro.pop(); }
+        travasi++;
+    }
+public:
+    void enqueue(const T& x) { dentro.push(x); }
+    bool empty() const { return dentro.empty() && fuori.empty(); }
+    T front() { travasa(); return fuori.top(); }
+    bool dequeue() { travasa(); return fuori.pop(); }
+    int getTravasi() const { return travasi; }
+};
+
+int main() {
+    CodaP<int> c;
+    for (int i = 1; i <= 3; i++) c.enqueue(i);
+    cout << c.front() << " ";
+    c.dequeue();
+    c.enqueue(4);
+    while (!c.empty()) { cout << c.front() << " "; c.dequeue(); }
+    cout << "(" << c.getTravasi() << " travasi)" << endl;
+    return 0;
+}
+```
+
+Stampa `1 2 3 4 (2 travasi)`: l'ordine FIFO è giusto anche se 4 entra mentre 2 e 3 sono già in `fuori`. Il travaso rovescia la pila, quindi rimette in testa il primo entrato; ogni elemento viene travasato una sola volta, perciò in media ogni operazione costa poco anche se un singolo `dequeue` può spostare molti elementi. `= delete` vieta copia e assegnamento: è il modo esplicito di dire che la classe non li supporta, invece di lasciare quelli superficiali generati dal compilatore.
+
+**Esercizio 7. Una lista è palindroma?** Usare una pila per dire se la sequenza di una lista si legge uguale nei due versi.
+
+```cpp
+// file: lista_palindroma.cpp
+#include <iostream>
+using namespace std;
+
+struct Nodo { char dato; Nodo* next; };
+
+bool palindroma(const Nodo* l) {
+    const int MAX = 100;
+    char pila[MAX];
+    int top = 0;
+    for (const Nodo* p = l; p != nullptr && top < MAX; p = p->next)
+        pila[top++] = p->dato;                  // prima passata: impila
+    for (const Nodo* p = l; p != nullptr; p = p->next)
+        if (p->dato != pila[--top]) return false;   // la pila esce al contrario
+    return true;
+}
+
+Nodo* daStringa(const char s[]) {
+    Nodo* testa = nullptr;
+    Nodo** fine = &testa;                       // dove attaccare il prossimo
+    for (int i = 0; s[i] != '\0'; i++) {
+        *fine = new Nodo{s[i], nullptr};
+        fine = &(*fine)->next;
+    }
+    return testa;
+}
+
+void distruggi(Nodo* l) {
+    while (l != nullptr) { Nodo* q = l; l = l->next; delete q; }
+}
+
+int main() {
+    const char* prove[] = {"radar", "abba", "lista", "x"};
+    for (const char* s : prove) {
+        Nodo* l = daStringa(s);
+        cout << s << ":" << palindroma(l) << " ";
+        distruggi(l);
+    }
+    cout << endl;
+    return 0;
+}
+```
+
+Stampa `radar:1 abba:1 lista:0 x:1`. La pila rovescia la sequenza: confrontando la lista dall'inizio con gli elementi tolti dalla pila si confronta il primo con l'ultimo, il secondo con il penultimo, e così via. In `daStringa` il puntatore a puntatore `fine` indica il campo da riempire (prima `testa`, poi il `next` dell'ultimo nodo): si costruisce la lista nell'ordine giusto senza casi particolari per il primo nodo.
+
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-10, FI-11)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Pila e coda a confronto.** Si inseriscono nell'ordine 1, 2, 3, 4 in una pila e in una coda, poi si tolgono due elementi, si inserisce 5 e si tolgono tutti. In che ordine escono?
 
@@ -3385,8 +4013,6 @@ int main() {
 Un tipo di dato astratto è definito dalle sue operazioni; in C++ è una classe con interfaccia pubblica e rappresentazione privata (information hiding), che si può cambiare senza toccare il codice che la usa. Una lista concatenata semplice è una catena di nodi con dato e puntatore al successivo, a partire dal puntatore di testa: inserimenti e rimozioni spostano puntatori, nell'ordine giusto, e la rimozione richiede il nodo precedente; la scansione segue i puntatori fino a quello nullo; il distruttore libera tutti i nodi, e servono copia e assegnamento profondi. La pila (LIFO) inserisce e toglie dalla cima, con un array o in testa a una lista, e serve per le chiamate, le parentesi e la notazione postfissa. La coda (FIFO) accoda in fondo e toglie dalla testa, con una lista con due puntatori o un array circolare, e serve per servire in ordine di arrivo.
 
 ### Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-10, FI-11)
 
 #### Schemi sulle liste
 

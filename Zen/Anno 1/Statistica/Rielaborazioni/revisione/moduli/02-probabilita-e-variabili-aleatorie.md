@@ -36,8 +36,7 @@ Nel lancio di un dado, con $E$ = "esce un numero pari" $= \{2, 4, 6\}$ e $F$ = "
 
 Conviene pensare a $P[E]$ come all'area di $E$ dentro un quadrato $\Omega$ di area 1: le proprietà che seguono diventano evidenti disegnando gli insiemi.
 
-> [!aggiunta] Aggiunta in revisione · fonte: Ross, *Introduzione alla statistica* (STA-01)
-> Il programma distingue tre modi di assegnare le probabilità. La definizione **classica** vale per esiti equiprobabili: casi favorevoli su casi possibili (paragrafo 2.2). La definizione **a posteriori** (frequentista) prende come probabilità di un evento il limite della sua frequenza relativa quando l'esperimento si ripete molte volte; la legge dei grandi numeri del modulo 3 ne è la giustificazione. La definizione **assiomatica** è quella sopra, che comprende le altre due come casi particolari.
+Il programma distingue tre modi di assegnare le probabilità. La definizione **classica** vale per esiti equiprobabili: casi favorevoli su casi possibili (paragrafo 2.2). La definizione **a posteriori** (frequentista) prende come probabilità di un evento il limite della sua frequenza relativa quando l'esperimento si ripete molte volte; la legge dei grandi numeri del modulo 3 ne è la giustificazione. La definizione **assiomatica** è quella sopra, che comprende le altre due come casi particolari.
 
 > [!teorema] Proprietà della probabilità
 >
@@ -271,8 +270,6 @@ $$\frac{10!\, 2^{10}}{20!} = \frac{1}{19 \cdot 17 \cdot 15 \cdots 3 \cdot 1} \ap
 
 ### Altri esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle esercitazioni del corso e della raccolta di esercizi di probabilità; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-01 … STA-04)
-
 **Esercizio 4. Il test diagnostico.** Una malattia colpisce il 2% della popolazione. Un test la rileva nel 95% dei malati (sensibilità) e dà esito negativo nel 90% dei sani (specificità). Una persona risulta positiva: qual è la probabilità che sia malata?
 
 Con $M$ = "malato" e $+$ = "test positivo": $P(+ \mid M) = 0{,}95$, $P(+ \mid \bar M) = 0{,}10$. Per le probabilità totali $P(+) = 0{,}95 \cdot 0{,}02 + 0{,}10 \cdot 0{,}98 = 0{,}019 + 0{,}098 = 0{,}117$, e per Bayes
@@ -297,8 +294,7 @@ $Y \in [0, 1]$. Per $0 \le y \le 1$: $F_Y(y) = P(|2X - 1| \le \sqrt y) = P\left(
 
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-02 … STA-04)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Bayes con tre macchine.** Tre macchine producono il 50%, il 30% e il 20% dei pezzi, con difettosità dell'1%, del 2% e del 3%. Un pezzo è difettoso: da quale macchina viene più probabilmente?
 
@@ -336,8 +332,7 @@ Un esperimento aleatorio si modella con uno spazio campionario $\Omega$, i cui s
 
 ## Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (STA-01 … STA-04)
-> Regole del calcolo delle probabilità, combinatoria e variabili aleatorie, con i termini per l'orale.
+Regole del calcolo delle probabilità, combinatoria e variabili aleatorie, con i termini per l'orale.
 
 ### Regole
 

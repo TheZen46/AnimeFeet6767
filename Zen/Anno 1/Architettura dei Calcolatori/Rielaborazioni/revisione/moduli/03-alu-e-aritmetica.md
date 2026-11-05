@@ -10,28 +10,40 @@ versione: 2026-11-05
 
 # 3 · L'ALU e l'aritmetica del calcolatore
 
-**In questo modulo.** Si usano il sommatore e il complemento a 2 delle reti logiche e le istruzioni del modulo 1 (*Astrazione, prestazioni e l'ISA RISC-V*). Si costruisce passo per passo l'unità aritmetico-logica che esegue le istruzioni RISC-V: prima un bit, poi 32, con la sottrazione, il confronto `slt`, il test di zero e il rilevamento dell'overflow. Poi si vede come rendere veloce la somma con il calcolo anticipato del riporto, e come si fanno in hardware la moltiplicazione (anche con l'algoritmo di Booth) e la divisione. La terza parte è la virgola mobile IEEE 754, con gli algoritmi di somma e prodotto. Chiudono i codici di Hamming, che proteggono i dati in memoria dagli errori. Alla fine del modulo si sanno eseguire a mano tutti gli algoritmi e spiegare l'hardware che li realizza.
-
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Arithmetic Logic Unit, Codici di Hamming); Patterson e Hennessy, *Struttura e progetto dei calcolatori*, edizione RISC-V, cap. 3 e appendice A (ADC-03)
-> Il modulo è scritto in revisione dal materiale del corso; ogni algoritmo è svolto su un esempio controllato con `strumenti/verifica_ampliamento.py`.
+**In questo modulo.** Prerequisiti: complemento a 2, sommatori e multiplexer (Reti Logiche). Si costruisce l'ALU di RISC-V a partire da un bit, la si rende veloce con l'anticipo del riporto, poi moltiplicazione (somma e scorri, Booth), divisione, virgola mobile e codici di Hamming. All'orale si disegnano l'ALU a un bit e a 32 bit (figure 3.1 e 3.2) spiegando ogni segnale.
 
 ## 3.1 L'ALU a un bit
 
-L'ALU deve eseguire le operazioni dell'ISA sugli interi: `and`, `or`, somma, sottrazione, confronto. Si comincia da un solo bit. Con gli ingressi $a$ e $b$ si calcolano in parallelo $a \cdot b$, $a + b$ (OR) e la somma con un full adder, che ha anche il riporto in ingresso $c_{in}$ e quello in uscita $c_{out}$. Un multiplexer comandato dal segnale **Operation** sceglie quale risultato portare in uscita.
+![Figura 3.1 · L'ALU a un bit: AND, OR e somma calcolati in parallelo, un multiplexer sceglie il risultato. Ainvert e Binvert negano gli ingressi; Less serve per `slt`.](../figure/3-1.svg)
 
-La sottrazione non richiede un circuito nuovo: in complemento a 2, $a - b = a + \bar b + 1$. Si aggiunge un multiplexer che sceglie fra $b$ e $\bar b$ (segnale **Binvert**), e per il "+1" si mette a 1 il riporto in ingresso del bit 0. Con un secondo multiplexer su $a$ (**Ainvert**) e le leggi di De Morgan si ottiene anche la NOR: $\overline{a + b} = \bar a \cdot \bar b$.
+| Parte | A che serve |
+|---|---|
+| AND, OR | operazioni logiche |
+| full adder | somma: $s = a \oplus b \oplus c_{in}$, $c_{out} = ab + (a + b)c_{in}$ |
+| multiplexer **Operation** (2 bit) | sceglie AND (0), OR (1), somma (2), Less (3) |
+| **Binvert** | usa $\bar b$: $a - b = a + \bar b + 1$ (il +1 è il CarryIn del bit 0) |
+| **Ainvert** | usa $\bar a$: con Binvert e AND dà la NOR ($\overline{a + b} = \bar a \cdot \bar b$) |
+| **Less** | ingresso per `slt` (3.2) |
+
+**Perché tutto in parallelo.** I tre risultati si calcolano sempre; il multiplexer sceglie alla fine. Il ritardo è quello del percorso più lento (la somma), non della somma dei percorsi.
 
 ## 3.2 L'ALU a 32 bit
 
-Mettendo in fila 32 ALU a un bit, con il $c_{out}$ di ognuna collegato al $c_{in}$ della successiva, si ottiene un sommatore a propagazione del riporto (*ripple carry*) che sa anche fare AND, OR, NOR e sottrazione. Servono tre aggiunte.
+![Figura 3.2 · L'ALU a 32 bit a propagazione del riporto: Bnegate comanda insieme Binvert e il riporto del bit 0; Set del bit 31 torna su Less del bit 0; Zero è la NOR di tutti i risultati.](../figure/3-2.svg)
 
-**`slt`.** Il risultato è 1 se $a < b$ e 0 altrimenti, cioè un numero con tutti i bit a 0 tranne forse il bit 0. Si calcola $a - b$: se il risultato è negativo, $a < b$. Ogni ALU a un bit ha un ingresso in più, **Less**, selezionato come quarta scelta del multiplexer: per i bit da 1 a 31 Less vale 0; per il bit 0 Less è collegato al bit di segno della sottrazione calcolato dall'ALU del bit 31 (un'uscita apposita, **Set**). Attenzione: se la sottrazione va in overflow il bit di segno è sbagliato, e il valore giusto è $\text{Set} \oplus \text{Overflow}$.
+**Ripple carry.** 32 ALU da un bit in fila, CarryOut del bit $i$ → CarryIn del bit $i + 1$.
 
-**Zero.** Per i salti `beq` e `bne` serve sapere se $a - b = 0$: è la NOR di tutti i 32 bit del risultato, $\text{Zero} = \overline{r_{31} + \dots + r_0}$.
+**Le tre aggiunte.**
 
-**Overflow.** In complemento a 2 c'è overflow quando il riporto che entra nel bit di segno è diverso da quello che ne esce, $V = c_{31} \oplus c_{32}$: succede solo sommando due numeri dello stesso segno (o sottraendo numeri di segno opposto). RISC-V non segnala l'overflow con un'eccezione: se serve, il programma lo controlla con un confronto.
+| Aggiunta | Come | Perché |
+|---|---|---|
+| `slt` | si calcola $a - b$; il bit di segno (uscita **Set** del bit 31) va su Less del bit 0; Less = 0 negli altri bit | il risultato è 0…01 o 0…00 |
+| **Zero** | $\overline{r_{31} + \dots + r_0}$ | `beq`, `bne`: $a = b \iff a - b = 0$ |
+| **Overflow** | $V = c_{31} \oplus c_{32}$ (riporto entrante ed uscente del bit di segno diversi) | solo sommando numeri dello stesso segno o sottraendo di segno opposto |
 
-Il controllo dell'ALU usa quattro bit: Ainvert, Binvert (che comanda anche il riporto in ingresso del bit 0) e i due bit di Operation.
+**Attenzione a `slt`.** Se $a - b$ va in overflow il segno è sbagliato: il valore giusto è $\text{Set} \oplus \text{Overflow}$.
+
+**Il controllo dell'ALU** (4 bit: Ainvert, Bnegate, Operation):
 
 | Controllo ALU | Funzione |
 |---|---|
@@ -42,63 +54,119 @@ Il controllo dell'ALU usa quattro bit: Ainvert, Binvert (che comanda anche il ri
 | 0111 | `slt` |
 | 1100 | NOR |
 
-## 3.3 Il calcolo anticipato del riporto
+RISC-V non genera eccezioni per l'overflow: se serve, lo controlla il programma.
 
-Nel sommatore ripple il riporto attraversa tutti gli stadi, e il ritardo cresce con il numero di bit. Per rendere la somma veloce bisogna calcolare i riporti senza aspettare. Dalla tabella del full adder, $c_{i+1} = a_i b_i + (a_i + b_i)c_i$. Si definiscono per ogni bit
+**All'orale.**
 
-$$g_i = a_i b_i \quad \text{(generazione)}, \qquad p_i = a_i + b_i \quad \text{(propagazione)},$$
+- *Perché Bnegate è un solo segnale?* Negare $b$ e mettere 1 nel riporto del bit 0 servono sempre insieme: è la sottrazione in complemento a 2.
+- *Perché Set è un'uscita separata e non Result31?* Per `slt` Result31 vale Less = 0; il segno della sottrazione è l'uscita del sommatore, prima del multiplexer.
+- *Che problema ha il ripple carry?* Il riporto attraversa 32 stadi: il ritardo cresce linearmente con i bit. Soluzione: 3.3.
 
-perché lo stadio $i$ *genera* un riporto se $a_i = b_i = 1$, qualunque sia $c_i$, e *propaga* il riporto in arrivo se almeno uno dei due bit vale 1. Allora $c_{i+1} = g_i + p_i c_i$, e sostituendo all'indietro:
+## 3.3 L'anticipo del riporto (carry lookahead)
+
+Dal full adder $c_{i+1} = a_i b_i + (a_i + b_i)c_i$. Si definiscono
+
+$$g_i = a_i b_i \ \text{(il bit genera un riporto)}, \qquad p_i = a_i + b_i \ \text{(il bit propaga il riporto in arrivo)},$$
+
+quindi $c_{i+1} = g_i + p_i c_i$, e svolgendo:
 $$c_1 = g_0 + p_0 c_0, \qquad c_2 = g_1 + p_1 g_0 + p_1 p_0 c_0,$$
 $$c_3 = g_2 + p_2 g_1 + p_2 p_1 g_0 + p_2 p_1 p_0 c_0, \qquad c_4 = g_3 + p_3 g_2 + p_3 p_2 g_1 + p_3 p_2 p_1 g_0 + p_3 p_2 p_1 p_0 c_0.$$
-Ogni riporto è una rete a due livelli in $g$, $p$ e $c_0$: tutti i riporti sono pronti dopo lo stesso tempo (**carry lookahead**). Il prezzo è che le espressioni crescono rapidamente; per 32 bit si raggruppano i bit a blocchi di 4, ciascuno con il suo $G$ e $P$ di blocco ($P_0 = p_3 p_2 p_1 p_0$, $G_0 = g_3 + p_3 g_2 + p_3 p_2 g_1 + p_3 p_2 p_1 g_0$), e si applica lo stesso schema ai blocchi.
+
+- Ogni riporto è una rete a **due livelli** in $g$, $p$, $c_0$: tutti pronti dopo lo stesso tempo.
+- Le espressioni crescono in fretta → per 32 bit si lavora a **blocchi di 4** con $P$ e $G$ di blocco, e si ripete lo schema sui blocchi.
+
+![Figura 3.3 · Somma a 16 bit con anticipo su due livelli: ogni blocco da 4 bit fornisce $P_i$ e $G_i$; l'unità di anticipo calcola $c_4$, $c_8$, $c_{12}$, $c_{16}$ senza attraversare i blocchi.](../figure/3-3.svg)
+
+$$P_0 = p_3 p_2 p_1 p_0, \qquad G_0 = g_3 + p_3 g_2 + p_3 p_2 g_1 + p_3 p_2 p_1 g_0.$$
 
 ## 3.4 La moltiplicazione
 
-Il prodotto di due numeri di $n$ bit ha fino a $2n$ bit. L'algoritmo è quello in colonna: per ogni bit a 1 del moltiplicatore si somma il moltiplicando spostato. L'hardware delle slide del corso (*add and right shift*) usa un registro prodotto di $2n$ bit: all'inizio la metà alta vale 0 e la metà bassa contiene il moltiplicatore. A ogni passo, se il bit meno significativo del registro è 1 si somma il moltiplicando alla metà alta; poi si sposta tutto il registro di un bit a destra. Dopo $n$ passi il registro contiene il prodotto. Serve un solo sommatore di $n$ bit.
+**Somma e scorri** (*add and right shift*, versione delle slide):
 
-Per i numeri con segno si può moltiplicare i valori assoluti e sistemare il segno alla fine, oppure usare l'**algoritmo di Booth**. L'idea è che una sequenza di 1 nel moltiplicatore si può sostituire con una sottrazione e una somma: $0110 = 1000 - 0010$, quindi $m \times 0110 = m \times 1000 - m \times 0010$. Si guarda la coppia formata dal bit corrente del moltiplicatore e dal bit alla sua destra (all'inizio un bit aggiuntivo $q_{-1} = 0$):
+![Figura 3.4 · Il moltiplicatore «somma e scorri»: un solo sommatore da 32 bit e un registro del prodotto da 64 bit che all'inizio contiene il moltiplicatore nella metà bassa.](../figure/3-4.svg)
+
+1. Prodotto ← (0, moltiplicatore).
+2. Se il bit 0 del prodotto è 1: metà alta ← metà alta + moltiplicando.
+3. Prodotto scorre a destra di 1 (il riporto della somma entra in cima).
+4. Ripetere $n$ volte.
+
+Perché la metà bassa ospita il moltiplicatore: a ogni passo se ne consuma un bit e si libera un posto per un bit del prodotto. Un registro solo, un sommatore solo.
+
+**Numeri con segno: algoritmo di Booth.** Una sequenza di 1 si sostituisce con una sottrazione e una somma ($0110 = 1000 - 0010$). Si guarda la coppia ($q_0$, $q_{-1}$), con $q_{-1} = 0$ all'inizio:
 
 | $q_0\ q_{-1}$ | Operazione | Significato |
 |---|---|---|
 | 1 0 | $A = A - M$ | inizio di una sequenza di 1 |
-| 1 1 | nessuna | in mezzo alla sequenza |
+| 1 1 | nessuna | dentro la sequenza |
 | 0 1 | $A = A + M$ | fine della sequenza |
-| 0 0 | nessuna | in mezzo a una sequenza di 0 |
+| 0 0 | nessuna | dentro una sequenza di 0 |
 
-e dopo ogni operazione si fa uno shift **aritmetico** a destra (che conserva il segno) di $A$, $Q$ e $q_{-1}$ insieme. Funziona direttamente in complemento a 2.
+Dopo ogni passo: **shift aritmetico** a destra di $A$, $Q$, $q_{-1}$ (conserva il segno). Funziona direttamente in complemento a 2.
 
-In RISC-V la moltiplicazione è nell'estensione M: `mul rd, rs1, rs2` dà i 32 bit bassi del prodotto, `mulh` (con segno) e `mulhu` (senza segno) quelli alti; per sapere se un prodotto sta in 32 bit si guarda la parte alta.
+**In RISC-V** (estensione M): `mul` (32 bit bassi), `mulh` e `mulhu` (32 bit alti, con e senza segno). Il prodotto sta in 32 bit se la parte alta è l'estensione del segno di quella bassa.
 
 ## 3.5 La divisione
 
-La divisione si fa con sottrazioni e shift, come quella in colonna: $\text{dividendo} = \text{quoziente} \times \text{divisore} + \text{resto}$, con $0 \le \text{resto} < \text{divisore}$. A ogni passo si prova a sottrarre il divisore (allineato) dal resto parziale: se il risultato è $\ge 0$ il bit del quoziente è 1 e si tiene la sottrazione; se è negativo il bit è 0 e si ripristina il resto (algoritmo *restoring*). In hardware il divisore sta nella metà alta di un registro di $2n$ bit e scorre a destra di un bit a ogni passo, mentre il quoziente si forma a sinistra. A differenza della moltiplicazione, i passi non si possono fare in parallelo, perché ognuno dipende dal segno del precedente: per questo la divisione è l'operazione intera più lenta. In RISC-V: `div`, `divu`, `rem`, `remu`; la divisione per zero non genera eccezioni ma dà un risultato convenzionale (quoziente con tutti i bit a 1).
+- $\text{dividendo} = \text{quoziente} \times \text{divisore} + \text{resto}$, $0 \le \text{resto} < \text{divisore}$.
+- **Restoring**: a ogni passo si sottrae il divisore allineato; se il resto è $\ge 0$ il bit del quoziente è 1, altrimenti 0 e si ripristina il resto.
+- In hardware: divisore nella metà alta di un registro da $2n$ bit che scorre a destra, quoziente che si forma a sinistra.
+- Perché è lenta: ogni passo dipende dal segno del precedente, non si parallelizza.
+- RISC-V: `div`, `divu`, `rem`, `remu`; la divisione per zero non dà eccezione (quoziente con tutti i bit a 1).
 
 ## 3.6 La virgola mobile
 
-Il formato IEEE 754 è spiegato nel modulo 2 di Reti Logiche; qui si ricorda l'essenziale e si vedono le operazioni. Un numero normalizzato in singola precisione è
-$$(-1)^s \times (1 + F) \times 2^{E - 127},$$
-con 1 bit di segno, 8 di esponente in eccesso 127 e 23 di frazione $F$ (il bit 1 prima della virgola è nascosto). In doppia precisione l'esponente ha 11 bit (eccesso 1023) e la frazione 52. Si ha **overflow** quando l'esponente supera il massimo rappresentabile, **underflow** quando un numero diverso da 0 è più piccolo del minimo normalizzato; i valori con esponente tutto a 0 e tutto a 1 sono riservati a zero, denormalizzati, infiniti e NaN.
+![Figura 3.5 · I formati IEEE 754.](../figure/3-5.svg)
 
-**Somma.** (1) Si confrontano gli esponenti e si sposta a destra la mantissa del numero con l'esponente minore, finché gli esponenti sono uguali. (2) Si sommano le mantisse (con il segno). (3) Si normalizza il risultato, spostando la mantissa e correggendo l'esponente, e si controlla overflow o underflow. (4) Si arrotonda ai bit disponibili; se l'arrotondamento denormalizza il risultato, si torna al passo 3.
+| | Segno | Esponente | Frazione | Eccesso |
+|---|---|---|---|---|
+| singola | 1 | 8 | 23 | 127 |
+| doppia | 1 | 11 | 52 | 1023 |
 
-**Prodotto.** (1) Si sommano gli esponenti *veri*: con gli esponenti in eccesso bisogna togliere un 127, perché $(E_1 + 127) + (E_2 + 127) = (E_1 + E_2 + 127) + 127$. (2) Si moltiplicano le mantisse. (3) Si normalizza e si controlla overflow e underflow. (4) Si arrotonda. (5) Il segno è lo XOR dei segni.
+$$x = (-1)^s \times (1 + F) \times 2^{E - 127}.$$
 
-Per arrotondare bene l'hardware tiene, durante i calcoli, due bit in più a destra (**guard** e **round**) e un bit **sticky** che vale 1 se qualcuno dei bit scartati era 1. Il modo di arrotondamento standard è al più vicino, e in caso di pareggio al pari.
+- **1 nascosto**: un numero normalizzato comincia sempre con 1, che non si scrive: un bit di precisione gratis.
+- **Esponente in eccesso**: si confrontano due numeri positivi come interi.
+- Esponente tutto a 0 e tutto a 1: riservati (zero, denormalizzati, infinito, NaN).
+- **Overflow**: esponente oltre il massimo. **Underflow**: numero non nullo sotto il minimo normalizzato.
 
-## 3.7 Rilevare e correggere gli errori: i codici di Hamming
+**Somma.**
 
-Un bit in memoria o su un canale può cambiare per un disturbo. La **distanza di Hamming** fra due sequenze di bit della stessa lunghezza è il numero di posizioni in cui differiscono: $d(1011, 1110) = 2$. La distanza di un codice è la minima distanza fra due parole valide. Con distanza $d$ si possono rilevare fino a $d - 1$ errori, oppure correggerne fino a $\left\lfloor \frac{d - 1}{2} \right\rfloor$: con $d = 2$ (il bit di parità) si rileva un errore singolo, con $d = 3$ lo si corregge, con $d = 4$ si corregge un errore e se ne rilevano due.
+![Figura 3.6 · I passi della somma in virgola mobile e i blocchi che li eseguono.](../figure/3-6.svg)
 
-Per correggere un errore su $M$ bit di dati si aggiungono $K$ bit di controllo, che insieme devono indicare se non c'è errore o in quale delle $M + K$ posizioni è avvenuto. Servono quindi
+**Prodotto.** (1) Esponenti sommati togliendo un eccesso: $(E_1 + 127) + (E_2 + 127) - 127$. (2) Mantisse moltiplicate. (3) Normalizzazione, overflow e underflow. (4) Arrotondamento. (5) Segno = XOR dei segni.
+
+**Arrotondamento.** Due bit in più durante i calcoli (**guard**, **round**) e un bit **sticky** (1 se qualche bit scartato era 1). Modo standard: al più vicino, in caso di pareggio al pari.
+
+## 3.7 I codici di Hamming
+
+**Distanza di Hamming**: numero di posizioni diverse, $d(1011, 1110) = 2$. Un codice a distanza $d$ rileva $d - 1$ errori o ne corregge $\lfloor (d - 1)/2 \rfloor$.
+
+| $d$ | Che cosa fa | Esempio |
+|---|---|---|
+| 2 | rileva 1 errore | bit di parità |
+| 3 | corregge 1 errore | Hamming |
+| 4 | corregge 1, rileva 2 | SECDED (memorie ECC) |
+
+**Quanti bit di controllo.** Per correggere un errore su $M$ bit di dati con $K$ bit di controllo:
 $$2^K \ge M + K + 1.$$
-Per $M = 4$ basta $K = 3$ (codice di Hamming (7, 4)); per $M = 8$, $K = 4$; per $M = 16$, $K = 5$; per $M = 32$, $K = 6$; per $M = 64$, $K = 7$. La frazione di bit di controllo diminuisce al crescere di $M$.
 
-**Costruzione.** Si numerano le posizioni da 1: i bit di controllo vanno nelle posizioni potenze di 2 (1, 2, 4, 8, …), i dati nelle altre. Il bit di controllo in posizione $2^j$ è la parità (pari) delle posizioni il cui numero, in binario, ha il bit $j$ a 1: il bit 1 controlla le posizioni 1, 3, 5, 7, …; il bit 2 le posizioni 2, 3, 6, 7, …; il bit 4 le posizioni 4, 5, 6, 7, … Chi riceve ricalcola le tre parità: i risultati, letti come numero binario (la **sindrome**), valgono 0 se non c'è errore, e altrimenti danno proprio la posizione del bit sbagliato, che basta invertire. Aggiungendo un bit di parità su tutta la parola si ottiene il codice **SECDED** (correzione di un errore, rilevazione di due), usato nelle memorie ECC.
+| $M$ | 4 | 8 | 16 | 32 | 64 |
+|---|---|---|---|---|---|
+| $K$ | 3 | 4 | 5 | 6 | 7 |
+
+**Costruzione.**
+
+- posizioni numerate da 1; controlli nelle potenze di 2 (1, 2, 4, 8, …), dati nelle altre;
+- il controllo in $2^j$ è la parità pari delle posizioni con il bit $j$ a 1 nel loro numero (1: posizioni 1, 3, 5, 7…; 2: 2, 3, 6, 7…; 4: 4, 5, 6, 7…);
+- chi riceve ricalcola le parità: la **sindrome** letta in binario vale 0 se non ci sono errori, altrimenti è la posizione del bit sbagliato;
+- un bit di parità in più su tutta la parola → SECDED.
+
+**All'orale.**
+
+- *Perché i bit di controllo nelle potenze di 2?* Ognuno compare in una sola delle parità (la sua): così la sindrome è proprio la posizione dell'errore.
+- *Che errore non vede il codice di Hamming semplice?* Due errori: la sindrome indica una terza posizione, e la "correzione" aggiunge un errore. Per questo SECDED aggiunge la parità globale.
 
 ## Esempi ed esercizi svolti
-
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle slide (ALU, Codici di Hamming); soluzioni controllate con `strumenti/verifica_ampliamento.py` (ADC-03)
 
 **Esercizio 1. I riporti anticipati di una somma a 4 bit.** $a = 1011$, $b = 0110$, $c_0 = 0$.
 
@@ -144,8 +212,7 @@ I dati vanno nelle posizioni 3, 5, 6, 7: $b_3 = 1$, $b_5 = 0$, $b_6 = 1$, $b_7 =
 
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/verifica_ampliamento.py` (ADC-03)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. L'overflow dell'ALU.** Con 8 bit, l'ALU calcola $100 + 50$ e $(-100) - 50$. In quali casi segnala overflow e che cosa dà `slt` per $a = 100$, $b = -100$?
 
@@ -182,8 +249,6 @@ I dati vanno nelle posizioni 3, 5, 6, 7: $b_3 = 1$, $b_5 = 0$, $b_6 = 1$, $b_7 =
 L'ALU a un bit sceglie con un multiplexer fra AND, OR e somma; con Binvert e il riporto iniziale a 1 sottrae, con Ainvert fa la NOR. L'ALU a 32 bit aggiunge l'ingresso Less per `slt`, l'uscita Zero per i salti e il rilevamento dell'overflow con $c_{31} \oplus c_{32}$. Il calcolo anticipato del riporto rende i riporti reti a due livelli nei segnali di generazione e propagazione, e si applica a blocchi. La moltiplicazione si fa con somme e shift su un registro di $2n$ bit; l'algoritmo di Booth sostituisce le sequenze di 1 con una sottrazione e una somma e lavora in complemento a 2. La divisione si fa con sottrazioni di prova e ripristini, un passo alla volta. In virgola mobile la somma richiede allineamento, somma, normalizzazione e arrotondamento; il prodotto somma gli esponenti togliendo l'eccesso e moltiplica le mantisse. I codici di Hamming con distanza 3 correggono un errore con $K$ bit di controllo tali che $2^K \ge M + K + 1$, e la sindrome indica la posizione dell'errore.
 
 ## Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (ADC-03)
 
 ### Interi
 

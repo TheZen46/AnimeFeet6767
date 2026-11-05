@@ -12,8 +12,7 @@ versione: 2026-11-05
 
 **In questo modulo.** Si usano i tipi, le espressioni e i cicli del modulo 3. Si impara a dividere un programma in **funzioni**, con il passaggio dei parametri per valore e per riferimento, e a gestire collezioni di dati: gli **array** a una e due dimensioni, con gli algoritmi di base (somma, massimo, ricerca, ordinamento), le **stringhe** come array di caratteri, i **file** di testo in lettura e in scrittura e le **strutture**, che raggruppano dati di tipo diverso. È il materiale della prova pratica del primo semestre. Alla fine del modulo si sa scrivere il prototipo di una funzione da una descrizione a parole, come nella prova di teoria, e un programma che legge dati da un file, li mette in array di strutture e li elabora con funzioni.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (programmazione in C++, primo semestre), esercitazioni E04-E07; H.M. Deitel e P.J. Deitel, *C++. Fondamenti di programmazione*, Apogeo (FI-06, FI-07)
-> Il modulo è scritto in revisione dal materiale del corso. I programmi sono compilati con `g++ -std=c++17 -Wall -Wextra` ed eseguiti da `strumenti/verifica.py`. Come nel corso si usano gli array e le stringhe "alla C" (`char[]` e `<cstring>`), non `vector` e `string` della libreria standard.
+I programmi sono stati compilati con `g++ -std=c++17 -Wall -Wextra` ed eseguiti. Come nel corso si usano gli array e le stringhe "alla C" (`char[]` e `<cstring>`), non `vector` e `string` della libreria standard.
 
 ## 4.1 Le funzioni
 
@@ -360,8 +359,6 @@ Si accede ai campi con il punto: `s.media`, `s.nascita.a`. A differenza degli ar
 
 ## Esempi ed esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove 2016-2020 e delle esercitazioni E04-E07; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-06, FI-07)
-
 **Esercizio 1. Prototipi** (sul modello della prova di teoria). Scrivere il prototipo di: (1) `f1`, che riceve per valore un carattere e due reali e restituisce un intero; (2) `f2`, che riceve una matrice di reali di 50 righe e 20 colonne, una stringa e, per riferimento, un reale, e non restituisce nulla; (3) `f3`, che riceve un array di strutture `Studente`, la sua dimensione e un intero per riferimento, e restituisce una struttura `Studente`; (4) `f4`, che riceve una stringa costante e restituisce un booleano.
 
 ```cpp
@@ -522,10 +519,129 @@ int main() {
 
 Con `  il compilatore   segnala un errore ` stampa `5 compilatore`. Dimenticare `p[k] = '\0'` è l'errore tipico: la parola continuerebbe con quello che c'è in memoria.
 
+### Esercizi più impegnativi
+
+**Esercizio 6. Compressione di una stringa.** Scrivere `comprimi(const char s[], char d[])`, che sostituisce ogni sequenza di caratteri uguali con il carattere e la lunghezza: `aaabccdddd` diventa `a3b1c2d4`. Le sequenze sono lunghe al più 9.
+
+```cpp
+// file: comprimi.cpp
+#include <iostream>
+using namespace std;
+
+void comprimi(const char s[], char d[]) {
+    int i = 0, k = 0;
+    while (s[i] != '\0') {
+        int j = i;
+        while (s[j] == s[i]) j++;       // j: primo carattere diverso
+        d[k++] = s[i];
+        d[k++] = '0' + (j - i);         // lunghezza come cifra
+        i = j;
+    }
+    d[k] = '\0';
+}
+
+int main() {
+    char s[100], d[200];
+    cin >> s;
+    comprimi(s, d);
+    cout << d << endl;
+    return 0;
+}
+```
+
+Con `aaabccdddd` stampa `a3b1c2d4`. Il ciclo interno si ferma da solo anche alla fine della stringa, perché `'\0'` è diverso da ogni carattere della sequenza. La destinazione deve essere grande fino al doppio della sorgente (caso peggiore: tutti caratteri diversi).
+
+**Esercizio 7. Ordinare su due chiavi** (sul modello delle prove con file e strutture). Il file `esami.txt` contiene per riga il nome di un esame, il voto e i CFU. Leggerlo in un array di strutture, calcolare la media pesata sui CFU e stampare gli esami ordinati per voto decrescente e, a parità di voto, per nome in ordine alfabetico, con l'ordinamento per inserimento.
+
+```cpp
+// file: esami.cpp
+#include <iostream>
+#include <fstream>
+#include <cstring>
+using namespace std;
+
+struct Esame { char nome[30]; int voto, cfu; };
+
+bool prima(const Esame& a, const Esame& b) {       // a va prima di b?
+    if (a.voto != b.voto) return a.voto > b.voto;
+    return strcmp(a.nome, b.nome) < 0;
+}
+
+void ordina(Esame v[], int n) {                    // per inserimento
+    for (int i = 1; i < n; i++) {
+        Esame x = v[i];
+        int j = i - 1;
+        while (j >= 0 && prima(x, v[j])) {          // sposta a destra
+            v[j + 1] = v[j];
+            j--;
+        }
+        v[j + 1] = x;
+    }
+}
+
+int main() {
+    ifstream in("esami.txt");
+    Esame v[40];
+    int n = 0, sommaCfu = 0, sommaPesi = 0;
+    while (n < 40 && in >> v[n].nome >> v[n].voto >> v[n].cfu) {
+        sommaPesi += v[n].voto * v[n].cfu;
+        sommaCfu += v[n].cfu;
+        n++;
+    }
+    ordina(v, n);
+    for (int i = 0; i < n; i++) cout << v[i].nome << " " << v[i].voto << endl;
+    if (sommaCfu > 0) cout << "media " << (double)sommaPesi / sommaCfu << endl;
+    return 0;
+}
+```
+
+Con il file `Geometria 27 6`, `Analisi1A 24 6`, `Fondamenti 27 9`, `RetiLogiche 30 6` stampa RetiLogiche, Fondamenti, Geometria (i due 27 in ordine alfabetico), Analisi1A, e la media pesata $\frac{27 \cdot 6 + 24 \cdot 6 + 27 \cdot 9 + 30 \cdot 6}{27} = 27$. Mettere il confronto in una funzione `prima` separa il "come si ordina" dal "che cosa si ordina": per cambiare criterio si cambia solo quella. L'ordinamento per inserimento è **stabile** e veloce su dati quasi ordinati.
+
+**Esercizio 8. Matrice a spirale.** Riempire una matrice $n \times n$ ($n \le 10$) con i numeri da 1 a $n^2$ seguendo una spirale in senso orario dall'angolo in alto a sinistra.
+
+```cpp
+// file: spirale.cpp
+#include <iostream>
+#include <iomanip>
+using namespace std;
+
+const int MAX = 10;
+
+void spirale(int m[][MAX], int n) {
+    int alto = 0, basso = n - 1, sx = 0, dx = n - 1, k = 1;
+    while (alto <= basso && sx <= dx) {
+        for (int j = sx; j <= dx; j++) m[alto][j] = k++;  // in alto
+        alto++;
+        for (int i = alto; i <= basso; i++) m[i][dx] = k++;    // a destra
+        dx--;
+        if (alto <= basso) {
+            for (int j = dx; j >= sx; j--) m[basso][j] = k++;  // in basso
+            basso--;
+        }
+        if (sx <= dx) {
+            for (int i = basso; i >= alto; i--) m[i][sx] = k++;  // a sinistra
+            sx++;
+        }
+    }
+}
+
+int main() {
+    int n, m[MAX][MAX];
+    cin >> n;
+    spirale(m, n);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) cout << setw(3) << m[i][j];
+        cout << endl;
+    }
+    return 0;
+}
+```
+
+Con $n = 4$ la prima riga è `1 2 3 4`, l'ultima `10 9 8 7`, e al centro ci sono `13 14` e `16 15`. Il metodo dei quattro bordi (`alto`, `basso`, `sx`, `dx`) che si restringono evita di dover controllare a ogni passo se una casella è già piena; i due `if` servono per le matrici di lato dispari, dove l'ultimo giro è una riga sola. `setw(3)` di `<iomanip>` allinea le colonne.
+
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-06, FI-07)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Valore o riferimento?** Che cosa stampa il programma?
 
@@ -620,8 +736,6 @@ int main() {
 Una funzione ha prototipo e definizione; i parametri passano per valore (copia) o per riferimento (`&`, le modifiche si vedono fuori, per i parametri di uscita); le variabili locali vivono solo nel loro blocco; più funzioni possono avere lo stesso nome con parametri diversi. Gli array hanno dimensione costante, indici da 0 a $n - 1$ non controllati, non si assegnano né si confrontano in blocco e si passano alle funzioni senza copia, con la dimensione a parte; gli algoritmi base sono massimo, ricerca lineare e binaria, ordinamento per selezione e a bolle, fusione. Le matrici sono array di righe e nei parametri richiedono il numero di colonne. Le stringhe sono array di `char` terminati da `'\0'` e si gestiscono con `<cstring>`. I file di testo si leggono con `ifstream` controllando la lettura nella condizione del ciclo e si scrivono con `ofstream`. Le strutture raggruppano campi di tipi diversi, si assegnano e si passano come un tutto, e negli array rappresentano tabelle.
 
 ## Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-06, FI-07)
 
 ### Schemi
 

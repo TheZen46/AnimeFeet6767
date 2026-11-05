@@ -34,16 +34,14 @@ Per esempio $F(x) = \frac{x^2}{2}$ è una primitiva di $f(x) = x$ su $\mathbb{R}
 
 *Dimostrazione.* Sia $H = G - F$. Allora $H'(x) = f(x) - f(x) = 0$ per ogni $x \in I$, e una funzione con derivata nulla su un intervallo è costante, per il teorema di Lagrange: per ogni $x_1 < x_2$ in $I$ esiste $\xi$ con $H(x_2) - H(x_1) = H'(\xi)(x_2 - x_1) = 0$. $\square$
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 1* (AM1B-01)
-> Su un insieme che non è un intervallo la conclusione cade: $\ln\lvert x\rvert$ e $\ln\lvert x\rvert + \operatorname{sgn}(x)$ hanno la stessa derivata $\frac{1}{x}$ su $\mathbb{R} \setminus \{0\}$, ma non differiscono per una costante.
+Su un insieme che non è un intervallo la conclusione cade: $\ln\lvert x\rvert$ e $\ln\lvert x\rvert + \operatorname{sgn}(x)$ hanno la stessa derivata $\frac{1}{x}$ su $\mathbb{R} \setminus \{0\}$, ma non differiscono per una costante.
 
 > [!definizione] Integrale indefinito
 > L'insieme di tutte le primitive di $f$ su $I$ si chiama **integrale indefinito** di $f$ e si indica con $\int f(x)\, dx$. Se $F$ è una primitiva, si scrive $\int f(x)\, dx = F(x) + c$.
 
 Non tutte le funzioni hanno una primitiva; si vedrà nel paragrafo 1.6 che la continuità basta a garantirne l'esistenza.
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 1* (AM1B-01)
-> Un esempio: la funzione che vale 0 per $x < 0$ e 1 per $x \ge 0$ non ha primitive su $\mathbb{R}$. Una primitiva dovrebbe valere $c_1$ per $x < 0$ e $x + c_2$ per $x \ge 0$, con $c_1 = c_2$ per la continuità, ma allora in 0 avrebbe derivata sinistra 0 e destra 1, e non sarebbe derivabile.
+Un esempio: la funzione che vale 0 per $x < 0$ e 1 per $x \ge 0$ non ha primitive su $\mathbb{R}$. Una primitiva dovrebbe valere $c_1$ per $x < 0$ e $x + c_2$ per $x \ge 0$, con $c_1 = c_2$ per la continuità, ma allora in 0 avrebbe derivata sinistra 0 e destra 1, e non sarebbe derivabile.
 
 Le primitive delle funzioni elementari si ottengono leggendo al contrario la tabella delle derivate:
 
@@ -226,8 +224,7 @@ $$\int_1^0 \frac{(1 - y^2)^2}{y}(-2y)\, dy = 2\int_0^1 (1 - 2y^2 + y^4)\, dy = 2
 
 #### Altri esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello dei fogli di esercizi e delle prove scritte 2025-2026; l'esercizio 11 è quello della lezione 6, ricontrollato; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-01)
-> Nelle prove il primo punto è quasi sempre un integrale definito da calcolare con una sostituzione, per parti o con i fratti semplici; spesso segue un integrale improprio con un parametro o lo studio di una funzione integrale.
+Nelle prove il primo punto è quasi sempre un integrale definito da calcolare con una sostituzione, per parti o con i fratti semplici; spesso segue un integrale improprio con un parametro o lo studio di una funzione integrale.
 
 **Esercizio 5. Sostituzione con una radice.** Calcolare $\int_{\sqrt{3}}^{2} x^3\sqrt{x^2 - 3}\,dx$.
 
@@ -278,8 +275,7 @@ $$\int_1^2 \frac{2t}{(t^2 + 1)\,t}\,dt = 2\big[\arctan t\big]_1^2 = 2\arctan 2 -
 
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-01)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. L'integrazione per parti "circolare".** Calcolare $\int e^x \sin x\,dx$.
 
@@ -317,8 +313,7 @@ Una primitiva di $f$ su un intervallo è una funzione con derivata $f$; due prim
 
 ### Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1B-01)
-> Primitive, metodi, teoremi e criteri del modulo, con i termini per l'orale.
+Primitive, metodi, teoremi e criteri del modulo, con i termini per l'orale.
 
 #### Primitive fondamentali
 
@@ -469,8 +464,7 @@ Il caso $L = 1$ si presenta con tutte le serie del tipo $\frac{1}{n^\alpha}$, ch
 > [!teorema] Convergenza assoluta
 > Se la serie dei moduli $\sum \lvert a_n\rvert$ converge, converge anche $\sum a_n$, e $\left\lvert\sum a_n\right\rvert \le \sum \lvert a_n\rvert$. Si dice che la serie **converge assolutamente**.
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 1* (AM1B-02)
-> *Dimostrazione.* Si ha $0 \le a_n + \lvert a_n\rvert \le 2\lvert a_n\rvert$. Per il confronto la serie $\sum (a_n + \lvert a_n\rvert)$ converge, e $\sum a_n$ è la differenza di due serie convergenti, $\sum (a_n + \lvert a_n\rvert) - \sum \lvert a_n\rvert$. La disuguaglianza vale per le somme parziali e passa al limite. $\square$
+*Dimostrazione.* Si ha $0 \le a_n + \lvert a_n\rvert \le 2\lvert a_n\rvert$. Per il confronto la serie $\sum (a_n + \lvert a_n\rvert)$ converge, e $\sum a_n$ è la differenza di due serie convergenti, $\sum (a_n + \lvert a_n\rvert) - \sum \lvert a_n\rvert$. La disuguaglianza vale per le somme parziali e passa al limite. $\square$
 
 Una serie che converge ma non assolutamente si dice **semplicemente convergente**: converge grazie alle cancellazioni fra termini di segno opposto.
 
@@ -482,10 +476,9 @@ Per le serie **a segno alterno** $\sum (-1)^n b_n$, con $b_n \ge 0$, c'è un cri
 > [!teorema] Criterio di Leibniz
 > Se $b_n \ge 0$, $(b_n)$ è decrescente (anche solo definitivamente) e $b_n \to 0$, la serie $\sum (-1)^n b_n$ converge. Inoltre il resto è maggiorato dal primo termine trascurato: $\lvert R_N\rvert \le b_{N+1}$.
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 1* (AM1B-02)
-> *Idea della dimostrazione.* Le somme parziali di indice pari formano una successione decrescente, quelle di indice dispari una crescente, perché a ogni passo si aggiunge e si toglie una quantità sempre più piccola; e ogni somma pari supera ogni somma dispari. Le due successioni monotone hanno limite, e i limiti coincidono perché $S_{2k+1} - S_{2k} = -b_{2k+1} \to 0$. Il limite comune sta sempre fra due somme parziali consecutive, da cui la stima del resto.
->
-> **L'esempio tipico.** $\sum_{n \ge 1} \frac{(-1)^n}{n}$ converge per Leibniz, perché $\frac{1}{n}$ decresce e tende a 0, ma non converge assolutamente, perché la serie dei moduli è la serie armonica. La sua somma è $-\ln 2$.
+*Idea della dimostrazione.* Le somme parziali di indice pari formano una successione decrescente, quelle di indice dispari una crescente, perché a ogni passo si aggiunge e si toglie una quantità sempre più piccola; e ogni somma pari supera ogni somma dispari. Le due successioni monotone hanno limite, e i limiti coincidono perché $S_{2k+1} - S_{2k} = -b_{2k+1} \to 0$. Il limite comune sta sempre fra due somme parziali consecutive, da cui la stima del resto.
+
+**L'esempio tipico.** $\sum_{n \ge 1} \frac{(-1)^n}{n}$ converge per Leibniz, perché $\frac{1}{n}$ decresce e tende a 0, ma non converge assolutamente, perché la serie dei moduli è la serie armonica. La sua somma è $-\ln 2$.
 
 ### Esempi ed esercizi svolti
 
@@ -503,8 +496,7 @@ La serie converge.
 
 #### Altri esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello del foglio "Serie numeriche" e delle prove scritte 2025-2026; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-02)
-> In ogni prova ci sono due serie: una a termini positivi da studiare con gli asintotici o con il rapporto, e una a segni alterni di cui si chiede convergenza e convergenza assoluta. Il primo controllo è sempre lo stesso: il termine generale tende a 0?
+In ogni prova ci sono due serie: una a termini positivi da studiare con gli asintotici o con il rapporto, e una a segni alterni di cui si chiede convergenza e convergenza assoluta. Il primo controllo è sempre lo stesso: il termine generale tende a 0?
 
 **Esercizio 6.** $\sum_{n \ge 1} \sqrt{n + 2}\left(1 - \cos\frac{1}{n}\right)$. Termini positivi. $1 - \cos\frac{1}{n} \sim \frac{1}{2n^2}$ e $\sqrt{n + 2} \sim \sqrt{n}$, quindi $a_n \sim \frac{1}{2n^{3/2}}$. Per il confronto asintotico con la serie armonica generalizzata di esponente $\frac{3}{2} > 1$, la serie converge.
 
@@ -530,8 +522,7 @@ Razionalizzando, $b_n = \sqrt{n + 2} - \sqrt{n} = \frac{2}{\sqrt{n + 2} + \sqrt{
 
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-02)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Una serie con un parametro.** Per quali $\alpha \in \mathbb{R}$ converge $\sum_{n \ge 1} n^\alpha\left(1 - \cos\frac{1}{n}\right)$?
 
@@ -569,8 +560,7 @@ Una serie è il limite delle sue somme parziali, e può convergere, divergere o 
 
 ### Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1B-02)
-> Serie di riferimento, criteri e procedura, con i termini per l'orale.
+Serie di riferimento, criteri e procedura, con i termini per l'orale.
 
 #### Serie di riferimento
 
@@ -705,8 +695,7 @@ $$D_v f(0, 1) = \lim_{h \to 0} \frac{h^2 + (1 + h)^3 - 1}{h} = \lim_{h \to 0} (3
 
 In più variabili la derivabilità **non** implica la continuità, perché le derivate parziali guardano solo lungo gli assi.
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 2* (AM1B-03)
-> **Derivabile ma non continua.** Sia $f(x, y) = \frac{xy}{x^2 + y^2}$ per $(x, y) \neq (0, 0)$ e $f(0, 0) = 0$. Sugli assi $f$ è nulla, quindi $\frac{\partial f}{\partial x}(0, 0) = \frac{\partial f}{\partial y}(0, 0) = 0$: la funzione è derivabile nell'origine. Ma lungo la retta $y = x$ vale $\frac{1}{2}$, quindi non ha limite 0 e non è continua nell'origine.
+**Derivabile ma non continua.** Sia $f(x, y) = \frac{xy}{x^2 + y^2}$ per $(x, y) \neq (0, 0)$ e $f(0, 0) = 0$. Sugli assi $f$ è nulla, quindi $\frac{\partial f}{\partial x}(0, 0) = \frac{\partial f}{\partial y}(0, 0) = 0$: la funzione è derivabile nell'origine. Ma lungo la retta $y = x$ vale $\frac{1}{2}$, quindi non ha limite 0 e non è continua nell'origine.
 
 ### 3.6 Differenziabilità e piano tangente
 
@@ -722,8 +711,7 @@ Serve una nozione più forte della derivabilità, che controlli tutte le direzio
 
 Per l'esempio del paragrafo 3.5, $\nabla f(0, 1) = (0, 3)$ e $\nabla f(0, 1) \cdot (1, 1) = 3$, come trovato con la definizione.
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 2* (AM1B-04, AM1B-05)
-> **Significato del gradiente.** Dalla formula del gradiente e da Cauchy-Schwarz, fra le direzioni unitarie $v$ la derivata direzionale $\nabla f(x_0) \cdot v$ è massima per $v = \frac{\nabla f(x_0)}{\lVert\nabla f(x_0)\rVert}$ e nulla per $v$ ortogonale al gradiente. Il gradiente indica quindi la direzione di massima crescita di $f$, ed è ortogonale all'insieme di livello che passa per $x_0$, lungo il quale $f$ non cambia.
+**Significato del gradiente.** Dalla formula del gradiente e da Cauchy-Schwarz, fra le direzioni unitarie $v$ la derivata direzionale $\nabla f(x_0) \cdot v$ è massima per $v = \frac{\nabla f(x_0)}{\lVert\nabla f(x_0)\rVert}$ e nulla per $v$ ortogonale al gradiente. Il gradiente indica quindi la direzione di massima crescita di $f$, ed è ortogonale all'insieme di livello che passa per $x_0$, lungo il quale $f$ non cambia.
 
 Per $n = 2$ la differenziabilità vuol dire che il grafico ha nel punto $(x_0, y_0, f(x_0, y_0))$ un **piano tangente**, di equazione
 $$z = f(x_0, y_0) + \frac{\partial f}{\partial x}(x_0, y_0)(x - x_0) + \frac{\partial f}{\partial y}(x_0, y_0)(y - y_0).$$
@@ -804,8 +792,7 @@ In $(0, 1, 1)$ l'argomento del coseno è 0, e $\nabla f(0, 1, 1) = \left(\frac{1
 
 #### Altri esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello dei fogli "Funzioni di più variabili", "Derivate parziali", "Ottimizzazione" e delle prove scritte 2025-2026; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-03 … AM1B-06)
-> Nelle prove si chiede quasi sempre di disegnare un dominio, di calcolare un limite nell'origine, e di trovare e classificare i punti stazionari; a volte una derivata direzionale o la differenziabilità.
+Nelle prove si chiede quasi sempre di disegnare un dominio, di calcolare un limite nell'origine, e di trovare e classificare i punti stazionari; a volte una derivata direzionale o la differenziabilità.
 
 **Esercizio 4. Un dominio da disegnare.** Dominio di $f(x, y) = \sqrt{4 - x^2 - y^2} + \ln(y - x^2)$.
 
@@ -849,8 +836,7 @@ Lontano dall'origine $\sqrt{x^2 + y^2}$ ha derivate parziali $\frac{x}{\sqrt{x^2
 
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-03 … AM1B-06)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Le rette non bastano.** Studiare $\lim_{(x, y) \to (0, 0)} \frac{xy^2}{x^2 + y^4}$.
 
@@ -888,8 +874,7 @@ $\mathbb{R}^n$ è uno spazio vettoriale con prodotto scalare, norma e distanza, 
 
 ### Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1B-03 … AM1B-07)
-> Definizioni, teoremi e procedure del calcolo differenziale in più variabili, con i termini per l'orale.
+Definizioni, teoremi e procedure del calcolo differenziale in più variabili, con i termini per l'orale.
 
 #### Limiti in due variabili
 
@@ -1058,8 +1043,7 @@ Un **sistema del primo ordine** in forma normale è $y' = f(t, y)$, con $y(t) \i
 > - $y' = t^2\sin y + e^t y$: $f$ è di classe $C^1$ e $\lvert f\rvert \le t^2 + e^t\lvert y\rvert$. Ogni problema di Cauchy ha un'unica soluzione definita su tutto $\mathbb{R}$.
 > - $y' = y^2$, $y(0) = 1$: $f$ è $C^1$, quindi la soluzione è unica, ma $y^2$ cresce più che linearmente. Separando si trova $y(t) = \frac{1}{1 - t}$, che "esplode" per $t \to 1^-$: la soluzione è definita solo su $(-\infty, 1)$.
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 2* (AM1B-09)
-> **Un'equazione di ordine $n$ è un sistema.** Ponendo $y_1 = y$, $y_2 = y'$, …, $y_n = y^{(n-1)}$, l'equazione $y^{(n)} = f(t, y, \dots, y^{(n-1)})$ diventa il sistema del primo ordine $y_1' = y_2$, …, $y_{n-1}' = y_n$, $y_n' = f(t, y_1, \dots, y_n)$. Per questo i teoremi sui sistemi valgono anche per le equazioni di ordine $n$, e il problema di Cauchy richiede $n$ condizioni iniziali.
+**Un'equazione di ordine $n$ è un sistema.** Ponendo $y_1 = y$, $y_2 = y'$, …, $y_n = y^{(n-1)}$, l'equazione $y^{(n)} = f(t, y, \dots, y^{(n-1)})$ diventa il sistema del primo ordine $y_1' = y_2$, …, $y_{n-1}' = y_n$, $y_n' = f(t, y_1, \dots, y_n)$. Per questo i teoremi sui sistemi valgono anche per le equazioni di ordine $n$, e il problema di Cauchy richiede $n$ condizioni iniziali.
 
 ### 4.7 Sistemi lineari
 
@@ -1089,10 +1073,9 @@ Per ogni autovalore la **molteplicità algebrica** $m_a$ è la molteplicità com
 > $A = \begin{pmatrix} 0 & 1 & -1 \\ 2 & 1 & 6 \\ 0 & 1 & -1 \end{pmatrix}$ ha $P(\lambda) = -\lambda(\lambda - 3)(\lambda + 3)$. Gli autovettori sono $(7, -2, -2)$ per $\lambda = 0$, $(1, 4, 1)$ per $\lambda = 3$ e $(1, -2, 1)$ per $\lambda = -3$, e
 > $$y(t) = c_1\begin{pmatrix} 7 \\ -2 \\ -2 \end{pmatrix} + c_2 e^{3t}\begin{pmatrix} 1 \\ 4 \\ 1 \end{pmatrix} + c_3 e^{-3t}\begin{pmatrix} 1 \\ -2 \\ 1 \end{pmatrix}.$$
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 2* (AM1B-11)
-> **Autovalori complessi.** Se $A$ è reale e ha l'autovalore $\lambda = \alpha + i\beta$, $\beta \neq 0$, con autovettore $v = u + iw$, la soluzione complessa $v\, e^{\lambda t}$ dà due soluzioni reali indipendenti, la sua parte reale e la sua parte immaginaria:
-> $$e^{\alpha t}\big(u\cos(\beta t) - w\sin(\beta t)\big), \qquad e^{\alpha t}\big(u\sin(\beta t) + w\cos(\beta t)\big).$$
-> Per esempio $A = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$ ha autovalori $\pm i$, con autovettore $(1, i)$ per $i$: le soluzioni reali sono $(\cos t, -\sin t)$ e $(\sin t, \cos t)$.
+**Autovalori complessi.** Se $A$ è reale e ha l'autovalore $\lambda = \alpha + i\beta$, $\beta \neq 0$, con autovettore $v = u + iw$, la soluzione complessa $v\, e^{\lambda t}$ dà due soluzioni reali indipendenti, la sua parte reale e la sua parte immaginaria:
+$$e^{\alpha t}\big(u\cos(\beta t) - w\sin(\beta t)\big), \qquad e^{\alpha t}\big(u\sin(\beta t) + w\cos(\beta t)\big).$$
+Per esempio $A = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}$ ha autovalori $\pm i$, con autovettore $(1, i)$ per $i$: le soluzioni reali sono $(\cos t, -\sin t)$ e $(\sin t, \cos t)$.
 
 **Autovalori non regolari.** Se $m_g < m_a$ mancano autovettori, e si usano gli **autovettori generalizzati**: partendo da un autovettore $v^{(0)}$ si risolvono a catena $(A - \lambda I)v^{(1)} = v^{(0)}$, $(A - \lambda I)v^{(2)} = v^{(1)}$, …, e alla catena corrispondono le soluzioni
 $$v^{(0)} e^{\lambda t}, \qquad \big(v^{(1)} + t\, v^{(0)}\big) e^{\lambda t}, \qquad \left(v^{(2)} + t\, v^{(1)} + \frac{t^2}{2} v^{(0)}\right) e^{\lambda t}, \quad \dots$$
@@ -1125,49 +1108,46 @@ Il motivo sta nella forma delle soluzioni: per un autovalore $\alpha + i\beta$ c
 
 ### 4.10 Il piano delle fasi dei sistemi lineari $2 \times 2$
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 2*; dispense del corso, § stabilità; ricostruzione della lezione 22 (19/05/2026), di cui mancano gli appunti, fra la lezione 21 sui sistemi lineari e la 23 (AM1B-09, AM1B-11)
-> Per un sistema $y' = Ay$ con $A$ matrice reale $2 \times 2$ e $\det A \ne 0$, l'unico equilibrio è l'origine. Disegnando nel piano $(y_1, y_2)$ le traiettorie, cioè le curve $t \mapsto (y_1(t), y_2(t))$, si ottiene il **ritratto di fase**, che ha poche forme possibili decise dagli autovalori $\lambda_1, \lambda_2$.
->
-> | Autovalori | Nome | Stabilità dell'origine |
-> |---|---|---|
-> | reali, entrambi negativi | nodo stabile: le traiettorie entrano nell'origine | asintoticamente stabile |
-> | reali, entrambi positivi | nodo instabile: le traiettorie escono | instabile |
-> | reali, di segno opposto | sella: si entra lungo un autovettore e si esce lungo l'altro | instabile |
-> | $\alpha \pm i\beta$ con $\alpha < 0$ | fuoco stabile: spirali verso l'origine | asintoticamente stabile |
-> | $\alpha \pm i\beta$ con $\alpha > 0$ | fuoco instabile: spirali verso l'esterno | instabile |
-> | $\pm i\beta$ | centro: curve chiuse (ellissi) intorno all'origine | stabile, non asintoticamente |
->
-> Gli autovalori sono le radici di $\lambda^2 - (\operatorname{tr} A)\,\lambda + \det A = 0$, quindi la classificazione si legge anche da **traccia** e **determinante**: se $\det A < 0$ è una sella; se $\det A > 0$ e $\operatorname{tr} A < 0$ l'origine è asintoticamente stabile (nodo se $(\operatorname{tr} A)^2 \ge 4\det A$, fuoco altrimenti); se $\det A > 0$ e $\operatorname{tr} A > 0$ è instabile; se $\det A > 0$ e $\operatorname{tr} A = 0$ è un centro.
->
-> **Esempi.** $A = \begin{pmatrix} -2 & 1 \\ 0 & -3 \end{pmatrix}$: autovalori $-2$, $-3$, nodo stabile. $A = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$: sella, con soluzioni $y_1 = c_1 e^t$, $y_2 = c_2 e^{-t}$, e traiettorie sulle iperboli $y_1 y_2 = c_1 c_2$. $A = \begin{pmatrix} 1 & 2 \\ -2 & 1 \end{pmatrix}$: $\operatorname{tr} A = 2$, $\det A = 5$, autovalori $1 \pm 2i$, fuoco instabile. $A = \begin{pmatrix} 0 & 1 \\ -4 & 0 \end{pmatrix}$, cioè $y'' + 4y = 0$ scritto come sistema: autovalori $\pm 2i$, centro; le traiettorie sono le ellissi $4y_1^2 + y_2^2 = \text{cost}$, che sono la conservazione dell'energia dell'oscillatore armonico.
->
-> **Linearizzazione.** Per un sistema non lineare autonomo $y' = F(y)$ con $F$ di classe $C^1$ e un equilibrio $\tilde{y}$ ($F(\tilde{y}) = 0$), vicino a $\tilde{y}$ il sistema si comporta come quello lineare con la matrice jacobiana $J = DF(\tilde{y})$. Vale il **teorema di linearizzazione**: se tutti gli autovalori di $J$ hanno parte reale negativa, $\tilde{y}$ è asintoticamente stabile; se almeno uno ha parte reale positiva, è instabile. Se ci sono autovalori con parte reale nulla (centri, per esempio) il teorema non conclude.
->
-> Per una sola equazione autonoma $y' = f(y)$ il criterio diventa: un equilibrio $\tilde{y}$ è asintoticamente stabile se $f'(\tilde{y}) < 0$ e instabile se $f'(\tilde{y}) > 0$. Per l'equazione logistica $y' = y(1 - y)$, con $f'(y) = 1 - 2y$: $f'(0) = 1 > 0$, l'equilibrio 0 è instabile; $f'(1) = -1 < 0$, l'equilibrio 1 è asintoticamente stabile. Lo si vede anche dal segno di $f$: fra 0 e 1 le soluzioni crescono verso 1, sopra 1 decrescono verso 1.
+Per un sistema $y' = Ay$ con $A$ matrice reale $2 \times 2$ e $\det A \ne 0$, l'unico equilibrio è l'origine. Disegnando nel piano $(y_1, y_2)$ le traiettorie, cioè le curve $t \mapsto (y_1(t), y_2(t))$, si ottiene il **ritratto di fase**, che ha poche forme possibili decise dagli autovalori $\lambda_1, \lambda_2$.
+
+| Autovalori | Nome | Stabilità dell'origine |
+|---|---|---|
+| reali, entrambi negativi | nodo stabile: le traiettorie entrano nell'origine | asintoticamente stabile |
+| reali, entrambi positivi | nodo instabile: le traiettorie escono | instabile |
+| reali, di segno opposto | sella: si entra lungo un autovettore e si esce lungo l'altro | instabile |
+| $\alpha \pm i\beta$ con $\alpha < 0$ | fuoco stabile: spirali verso l'origine | asintoticamente stabile |
+| $\alpha \pm i\beta$ con $\alpha > 0$ | fuoco instabile: spirali verso l'esterno | instabile |
+| $\pm i\beta$ | centro: curve chiuse (ellissi) intorno all'origine | stabile, non asintoticamente |
+
+Gli autovalori sono le radici di $\lambda^2 - (\operatorname{tr} A)\,\lambda + \det A = 0$, quindi la classificazione si legge anche da **traccia** e **determinante**: se $\det A < 0$ è una sella; se $\det A > 0$ e $\operatorname{tr} A < 0$ l'origine è asintoticamente stabile (nodo se $(\operatorname{tr} A)^2 \ge 4\det A$, fuoco altrimenti); se $\det A > 0$ e $\operatorname{tr} A > 0$ è instabile; se $\det A > 0$ e $\operatorname{tr} A = 0$ è un centro.
+
+**Esempi.** $A = \begin{pmatrix} -2 & 1 \\ 0 & -3 \end{pmatrix}$: autovalori $-2$, $-3$, nodo stabile. $A = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$: sella, con soluzioni $y_1 = c_1 e^t$, $y_2 = c_2 e^{-t}$, e traiettorie sulle iperboli $y_1 y_2 = c_1 c_2$. $A = \begin{pmatrix} 1 & 2 \\ -2 & 1 \end{pmatrix}$: $\operatorname{tr} A = 2$, $\det A = 5$, autovalori $1 \pm 2i$, fuoco instabile. $A = \begin{pmatrix} 0 & 1 \\ -4 & 0 \end{pmatrix}$, cioè $y'' + 4y = 0$ scritto come sistema: autovalori $\pm 2i$, centro; le traiettorie sono le ellissi $4y_1^2 + y_2^2 = \text{cost}$, che sono la conservazione dell'energia dell'oscillatore armonico.
+
+**Linearizzazione.** Per un sistema non lineare autonomo $y' = F(y)$ con $F$ di classe $C^1$ e un equilibrio $\tilde{y}$ ($F(\tilde{y}) = 0$), vicino a $\tilde{y}$ il sistema si comporta come quello lineare con la matrice jacobiana $J = DF(\tilde{y})$. Vale il **teorema di linearizzazione**: se tutti gli autovalori di $J$ hanno parte reale negativa, $\tilde{y}$ è asintoticamente stabile; se almeno uno ha parte reale positiva, è instabile. Se ci sono autovalori con parte reale nulla (centri, per esempio) il teorema non conclude.
+
+Per una sola equazione autonoma $y' = f(y)$ il criterio diventa: un equilibrio $\tilde{y}$ è asintoticamente stabile se $f'(\tilde{y}) < 0$ e instabile se $f'(\tilde{y}) > 0$. Per l'equazione logistica $y' = y(1 - y)$, con $f'(y) = 1 - 2y$: $f'(0) = 1 > 0$, l'equilibrio 0 è instabile; $f'(1) = -1 < 0$, l'equilibrio 1 è asintoticamente stabile. Lo si vede anche dal segno di $f$: fra 0 e 1 le soluzioni crescono verso 1, sopra 1 decrescono verso 1.
 
 ### 4.11 Studio qualitativo senza risolvere
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 2*; prove scritte 2025-2026 (AM1B-08, AM1B-10)
-> Molte domande d'esame chiedono informazioni sulla soluzione di un problema di Cauchy $y' = f(t, y)$, $y(t_0) = y_0$, *senza risolverlo*. Gli strumenti sono quattro.
->
-> **1. Esistenza e unicità locale.** Se $f$ e $\frac{\partial f}{\partial y}$ sono continue in un intorno di $(t_0, y_0)$, il teorema di Cauchy garantisce una e una sola soluzione in un intorno di $t_0$. Basta controllare queste due continuità nel punto: per $y' = t e^{-y}$, $f$ e $f_y = -t e^{-y}$ sono continue ovunque, e il problema ha soluzione unica per ogni dato iniziale. Per $y' = \sqrt{|y|}$ con $y(0) = 0$, invece, $f_y$ non esiste in $y = 0$, e infatti le soluzioni sono infinite ($y \equiv 0$ e $y = \frac{t^2}{4}$ per $t \ge 0$, per esempio).
->
-> **2. Derivate nel punto iniziale.** L'equazione dà subito $y'(t_0) = f(t_0, y_0)$. Derivando l'equazione rispetto a $t$, con la regola della catena ($y$ è funzione di $t$), si ottiene $y''(t) = f_t(t, y) + f_y(t, y)\,y'(t)$, e quindi $y''(t_0)$. Così si scrive il **polinomio di Taylor** della soluzione,
-> $$y(t) = y_0 + y'(t_0)(t - t_0) + \frac{y''(t_0)}{2}(t - t_0)^2 + o\big((t - t_0)^2\big),$$
-> e si calcolano limiti come $\lim_{t \to t_0} \frac{y(t) - y_0}{t - t_0} = y'(t_0)$.
->
-> **3. Grafico locale.** Il segno di $y'(t_0)$ dice se la soluzione cresce o decresce vicino a $t_0$, quello di $y''(t_0)$ se è convessa o concava; insieme danno il disegno della soluzione vicino al punto iniziale, con la tangente $y = y_0 + y'(t_0)(t - t_0)$.
->
-> **4. Soluzioni costanti.** Se $f(t, \tilde{y}) = 0$ per ogni $t$, la costante $y \equiv \tilde{y}$ è una soluzione (un equilibrio). Per l'unicità, nessun'altra soluzione può attraversarla: per $y' = (y - 1)t$ la retta $y = 1$ separa le soluzioni che restano sopra da quelle che restano sotto, e con $y(0) = 1$ la soluzione è proprio $y \equiv 1$.
+Molte domande d'esame chiedono informazioni sulla soluzione di un problema di Cauchy $y' = f(t, y)$, $y(t_0) = y_0$, *senza risolverlo*. Gli strumenti sono quattro.
+
+**1. Esistenza e unicità locale.** Se $f$ e $\frac{\partial f}{\partial y}$ sono continue in un intorno di $(t_0, y_0)$, il teorema di Cauchy garantisce una e una sola soluzione in un intorno di $t_0$. Basta controllare queste due continuità nel punto: per $y' = t e^{-y}$, $f$ e $f_y = -t e^{-y}$ sono continue ovunque, e il problema ha soluzione unica per ogni dato iniziale. Per $y' = \sqrt{|y|}$ con $y(0) = 0$, invece, $f_y$ non esiste in $y = 0$, e infatti le soluzioni sono infinite ($y \equiv 0$ e $y = \frac{t^2}{4}$ per $t \ge 0$, per esempio).
+
+**2. Derivate nel punto iniziale.** L'equazione dà subito $y'(t_0) = f(t_0, y_0)$. Derivando l'equazione rispetto a $t$, con la regola della catena ($y$ è funzione di $t$), si ottiene $y''(t) = f_t(t, y) + f_y(t, y)\,y'(t)$, e quindi $y''(t_0)$. Così si scrive il **polinomio di Taylor** della soluzione,
+$$y(t) = y_0 + y'(t_0)(t - t_0) + \frac{y''(t_0)}{2}(t - t_0)^2 + o\big((t - t_0)^2\big),$$
+e si calcolano limiti come $\lim_{t \to t_0} \frac{y(t) - y_0}{t - t_0} = y'(t_0)$.
+
+**3. Grafico locale.** Il segno di $y'(t_0)$ dice se la soluzione cresce o decresce vicino a $t_0$, quello di $y''(t_0)$ se è convessa o concava; insieme danno il disegno della soluzione vicino al punto iniziale, con la tangente $y = y_0 + y'(t_0)(t - t_0)$.
+
+**4. Soluzioni costanti.** Se $f(t, \tilde{y}) = 0$ per ogni $t$, la costante $y \equiv \tilde{y}$ è una soluzione (un equilibrio). Per l'unicità, nessun'altra soluzione può attraversarla: per $y' = (y - 1)t$ la retta $y = 1$ separa le soluzioni che restano sopra da quelle che restano sotto, e con $y(0) = 1$ la soluzione è proprio $y \equiv 1$.
 
 ### 4.12 Equazioni di Bernoulli
 
-> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 2*; prova scritta del 17/06/2025 (AM1B-08)
-> Un'equazione della forma
-> $$y' = a(t)\,y + b(t)\,y^\alpha, \qquad \alpha \ne 0, 1,$$
-> si chiama **di Bernoulli**. Non è lineare per il termine $y^\alpha$, ma lo diventa con il cambio di variabile $z = y^{1 - \alpha}$. Infatti, dove $y \ne 0$, $z' = (1 - \alpha)y^{-\alpha}y'$, e moltiplicando l'equazione per $(1 - \alpha)y^{-\alpha}$:
-> $$z' = (1 - \alpha)a(t)\,z + (1 - \alpha)b(t),$$
-> che è lineare del primo ordine e si risolve con la formula del paragrafo 4.4. Se $\alpha > 0$ anche $y \equiv 0$ è una soluzione, che il cambio di variabile perde e va aggiunta a parte. Il caso più frequente è $\alpha = 2$, con $z = \frac{1}{y}$.
+Un'equazione della forma
+$$y' = a(t)\,y + b(t)\,y^\alpha, \qquad \alpha \ne 0, 1,$$
+si chiama **di Bernoulli**. Non è lineare per il termine $y^\alpha$, ma lo diventa con il cambio di variabile $z = y^{1 - \alpha}$. Infatti, dove $y \ne 0$, $z' = (1 - \alpha)y^{-\alpha}y'$, e moltiplicando l'equazione per $(1 - \alpha)y^{-\alpha}$:
+$$z' = (1 - \alpha)a(t)\,z + (1 - \alpha)b(t),$$
+che è lineare del primo ordine e si risolve con la formula del paragrafo 4.4. Se $\alpha > 0$ anche $y \equiv 0$ è una soluzione, che il cambio di variabile perde e va aggiunta a parte. Il caso più frequente è $\alpha = 2$, con $z = \frac{1}{y}$.
 
 ### Esempi ed esercizi svolti
 
@@ -1181,8 +1161,7 @@ Il motivo sta nella forma delle soluzioni: per un autovalore $\alpha + i\beta$ c
 
 #### Altri esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello dei fogli "Equazioni differenziali", "… lineari", "Sistemi …", "Esistenza e unicità" e delle prove scritte 2025-2026; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-08 … AM1B-11)
-> La seconda parte di ogni prova è un problema di Cauchy: esistenza e unicità, polinomio di Taylor o grafico locale senza risolvere, poi la soluzione esplicita con il suo intervallo di definizione.
+La seconda parte di ogni prova è un problema di Cauchy: esistenza e unicità, polinomio di Taylor o grafico locale senza risolvere, poi la soluzione esplicita con il suo intervallo di definizione.
 
 **Esercizio 5. Separabile, con l'intervallo massimale.** Risolvere $y' = x e^{y}$, $y(0) = 0$, e scrivere senza risolverla il polinomio di Taylor di grado 2 della soluzione.
 
@@ -1225,8 +1204,7 @@ $\operatorname{tr} A = -2$, $\det A = -3 + 5 = 2 > 0$: l'origine è asintoticame
 
 ### Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-08 … AM1B-11)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Il polinomio di Taylor della soluzione.** Sia $y' = y^2 e^x$, $y(0) = 1$. Scrivere il polinomio di Taylor di ordine 2 della soluzione e poi risolvere.
 
@@ -1266,8 +1244,7 @@ Le equazioni differenziali nascono dalla modellizzazione: la legge di Newton per
 
 ### Formulario
 
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1B-08 … AM1B-12)
-> Metodi risolutivi, teoremi e criteri di stabilità, con i termini per l'orale.
+Metodi risolutivi, teoremi e criteri di stabilità, con i termini per l'orale.
 
 #### Equazioni del primo ordine
 

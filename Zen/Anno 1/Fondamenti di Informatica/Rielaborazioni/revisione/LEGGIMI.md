@@ -1,6 +1,6 @@
 # Revisione di Fondamenti di Informatica
 
-Stato al 5 novembre 2026: **fasi 1-7 fatte; corso scritto in revisione** (non ci sono appunti delle lezioni). Le domande sono in `01-copertura.md`.
+Stato al 5 novembre 2026: **fasi 1-8 fatte. I marcatori di revisione sono tolti (fase 8): i moduli sono pronti per l'esportazione in PDF.** Le note di revisione restano in `03-registro.md` e `04-controllo.md`.
 
 | File | Cosa contiene |
 |---|---|

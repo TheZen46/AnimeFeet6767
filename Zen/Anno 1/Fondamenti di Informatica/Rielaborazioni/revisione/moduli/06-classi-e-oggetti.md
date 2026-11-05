@@ -12,8 +12,7 @@ versione: 2026-11-05
 
 **In questo modulo.** Si usano le strutture e le funzioni del modulo 4 e i puntatori, la memoria dinamica e i template del modulo 5. Si passa dalla struttura, che raggruppa solo dati, alla **classe**, che mette insieme dati e operazioni e decide che cosa è visibile da fuori. Si vedono attributi e metodi, il controllo di accesso, i costruttori (di default, con parametri, di copia) e il distruttore, i selettori e i modificatori, i metodi costanti e il puntatore `this`, il sovraccarico degli operatori, le classi che gestiscono memoria dinamica con la "regola dei tre", e i template di classe. È la base della prova pratica del secondo semestre, che chiede sempre di scrivere una classe con costruttori, selettori, modificatori, operatore di assegnamento e alcuni metodi di calcolo. Alla fine del modulo si sa scrivere una classe completa da una specifica a parole e usarla in un programma con oggetti allocati dinamicamente.
 
-> [!aggiunta] Aggiunta in revisione · fonte: slide del corso (Fondamenti, secondo semestre: classi, template delle classi), esercitazioni del 18 e 25 marzo, del 1° aprile, `Esercitazioni_15_classi_allocazione_dinamica`; prove 2016-2020 (FI-09)
-> Il modulo è scritto in revisione dal materiale del corso. Si seguono le convenzioni delle slide: attributi privati con il trattino basso (`_dim`), selettori `get…`, modificatori `set…`, operatore di assegnamento che restituisce un riferimento costante. I programmi sono compilati ed eseguiti da `strumenti/verifica.py`, con AddressSanitizer per le perdite di memoria.
+Si seguono le convenzioni delle slide: attributi privati con il trattino basso (`_dim`), selettori `get…`, modificatori `set…`, operatore di assegnamento che restituisce un riferimento costante. I programmi sono stati compilati ed eseguiti con AddressSanitizer, che segnala le perdite di memoria.
 
 ## 6.1 Dalla struttura alla classe
 
@@ -278,8 +277,6 @@ Ogni metodo definito fuori dalla classe ricomincia con `template <typename T>` e
 
 ## Esempi ed esercizi svolti
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove 2016-2020 (esercizi "identificare e correggere gli errori" e prova al calcolatore con una classe); programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-09)
-
 **Esercizio 1. Identificare e correggere gli errori** nella dichiarazione del template di classe.
 
 ```text
@@ -449,10 +446,118 @@ stampa `corso 104, piu' assiduo: 1`, poi `1 sotto il 70%, presenti alla lezione 
 
 Sì: `Vettore<T>` usa `new T[dim]`, che richiede il costruttore di default (c'è, grazie agli argomenti di default), l'assegnamento `=` (quello generato dal compilatore va bene, perché `Frazione` non ha memoria dinamica) e, per `operator+`, la somma di due `T` (c'è). Per stamparlo con `stampa` serve `<<` (c'è). È il senso dei template: il codice si adatta a ogni tipo che offre le operazioni usate.
 
+### Esercizio più impegnativo
+
+**Esercizio 5. La classe `Polinomio`.** Un polinomio a coefficienti interi di grado $n$ si rappresenta con un array dinamico di $n + 1$ coefficienti, `_c[i]` coefficiente di $x^i$. Scrivere la classe con costruttore di default (il polinomio nullo), costruttore con grado e array dei coefficienti, regola dei tre, selettore del grado, `operator()` per valutare in un punto, somma e prodotto fra polinomi e stampa.
+
+```cpp
+// file: polinomio.cpp
+#include <iostream>
+using namespace std;
+
+class Polinomio {
+    int _n;            // grado
+    int* _c;           // _n + 1 coefficienti
+    void normalizza(); // toglie gli zeri in testa: il grado e' quello vero
+public:
+    Polinomio() : _n(0), _c(new int[1]{0}) {}
+    Polinomio(int n, const int c[]);
+    Polinomio(const Polinomio& p);
+    ~Polinomio() { delete[] _c; }
+    const Polinomio& operator=(const Polinomio& p);
+    int getGrado() const { return _n; }
+    long long operator()(long long x) const;         // valore in x
+    Polinomio operator+(const Polinomio& p) const;
+    Polinomio operator*(const Polinomio& p) const;
+    friend ostream& operator<<(ostream& os, const Polinomio& p);
+};
+
+Polinomio::Polinomio(int n, const int c[]) : _n(n), _c(new int[n + 1]) {
+    for (int i = 0; i <= n; i++) _c[i] = c[i];
+    normalizza();
+}
+
+Polinomio::Polinomio(const Polinomio& p) : _n(p._n), _c(new int[p._n + 1]) {
+    for (int i = 0; i <= _n; i++) _c[i] = p._c[i];
+}
+
+const Polinomio& Polinomio::operator=(const Polinomio& p) {
+    if (this != &p) {
+        delete[] _c;
+        _n = p._n;
+        _c = new int[_n + 1];
+        for (int i = 0; i <= _n; i++) _c[i] = p._c[i];
+    }
+    return *this;
+}
+
+void Polinomio::normalizza() {
+    while (_n > 0 && _c[_n] == 0) _n--;   // l'array resta, si usa meno
+}
+```
+
+```cpp
+// segue: polinomio.cpp
+long long Polinomio::operator()(long long x) const {   // schema di Horner
+    long long v = 0;
+    for (int i = _n; i >= 0; i--) v = v * x + _c[i];
+    return v;
+}
+
+Polinomio Polinomio::operator+(const Polinomio& p) const {
+    int n = _n > p._n ? _n : p._n;
+    int* c = new int[n + 1];
+    for (int i = 0; i <= n; i++)
+        c[i] = (i <= _n ? _c[i] : 0) + (i <= p._n ? p._c[i] : 0);
+    Polinomio r(n, c);
+    delete[] c;
+    return r;
+}
+
+Polinomio Polinomio::operator*(const Polinomio& p) const {
+    int n = _n + p._n;
+    int* c = new int[n + 1]();               // () azzera gli elementi
+    for (int i = 0; i <= _n; i++)
+        for (int j = 0; j <= p._n; j++) c[i + j] += _c[i] * p._c[j];
+    Polinomio r(n, c);
+    delete[] c;
+    return r;
+}
+
+ostream& operator<<(ostream& os, const Polinomio& p) {
+    bool primo = true;
+    for (int i = p._n; i >= 0; i--) {
+        int a = p._c[i];
+        if (a == 0 && !(i == 0 && primo)) continue;
+        if (!primo) os << (a < 0 ? " - " : " + ");
+        else if (a < 0) os << "-";
+        int m = a < 0 ? -a : a;
+        if (m != 1 || i == 0) os << m;
+        if (i >= 1) os << "x";
+        if (i >= 2) os << "^" << i;
+        primo = false;
+    }
+    return os;
+}
+
+int main() {
+    int a[] = {1, -3, 0, 2}, b[] = {-1, 1}, c[] = {5, 0, 0, -2};
+    Polinomio p(3, a), q(1, b), z;
+    cout << p << " | " << q << " | " << z << endl;
+    cout << p + q << " | " << p * q << endl;
+    Polinomio r(3, c);
+    cout << p + r << " (grado " << (p + r).getGrado() << ")" << endl;
+    z = p * p;
+    cout << z(2) << " " << p(2) * p(2) << endl;
+    return 0;
+}
+```
+
+Stampa `2x^3 - 3x + 1 | x - 1 | 0`, poi la somma `2x^3 - 2x` e il prodotto `2x^4 - 2x^3 - 3x^2 + 4x - 1`; poi `-3x + 6 (grado 1)`, perché i termini di grado 3 si cancellano e `normalizza` abbassa il grado; infine `121 121`, cioè $p(2)^2 = 11^2$ calcolato in due modi. È l'esercizio "classe con memoria dinamica" al completo. Il prodotto passa tutte le coppie di termini ($x^i \cdot x^j$ va nel coefficiente $i + j$). La stampa è la parte più lunga, perché tratta i casi particolari: segni, coefficienti uguali a 1, esponenti 0 e 1, polinomio nullo. Un `operator+` che restituisce un oggetto per valore usa il costruttore di copia: senza regola dei tre il programma libererebbe due volte la stessa memoria.
+
 ## Esercizi guidati
 
-> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; programmi compilati ed eseguiti con `strumenti/verifica.py` (FI-09)
-> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
 
 **Guidato 1. Rifare i conti di `Presenze`.** Con il file dell'esercizio 3, calcolare a mano le uscite.
 
@@ -522,8 +627,6 @@ int main() {
 Una classe riunisce attributi e metodi; il controllo di accesso (`private`, `public`) realizza l'incapsulamento, e i metodi si definiscono fuori dalla classe con `Classe::`. I costruttori inizializzano gli oggetti (di default, con parametri, di copia con parametro `const T&`), preferibilmente con la lista di inizializzazione; il distruttore li chiude ed è chiamato all'uscita dal blocco o con `delete`. I selettori sono metodi `const`, i modificatori controllano i valori; `this` punta all'oggetto corrente. Gli operatori si ridefiniscono come metodi o come funzioni esterne (`friend` se servono gli attributi privati), e `<<` restituisce il flusso. Una classe con memoria dinamica deve avere distruttore, costruttore di copia e assegnamento con copia profonda e controllo dell'autoassegnamento. I template di classe parametrizzano il tipo degli elementi; ogni metodo esterno ripete `template <typename T>` e `Classe<T>::`.
 
 ## Formulario
-
-> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FI-09)
 
 ### Lo scheletro di una classe d'esame
 
