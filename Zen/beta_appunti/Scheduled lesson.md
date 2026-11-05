@@ -1,5 +1,6 @@
 ## Fisica
 	Lezione 13
+	Lezione 14
  
 ## Algoritmi 
 	Lezione 11
@@ -9,9 +10,11 @@
 	Lezione 11
 	Lezione 12 (no audio)
 	Lezione 13
+	Lezione 14
 
 ## Ricerca Operativa
 	Lezione 12
+	Lezione 13
 
 ## Robotica 
 ### modulo 1 
