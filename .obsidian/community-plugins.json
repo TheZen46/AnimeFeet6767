@@ -3,5 +3,6 @@
   "obsidian-charts",
   "obsidian-excalidraw-plugin",
   "obsidian-git",
-  "obsidian-linter"
+  "obsidian-linter",
+  "obsidian-tikzjax"
 ]
