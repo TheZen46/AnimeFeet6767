@@ -5,7 +5,7 @@ titolo: Autovalori, diagonalizzazione e teorema spettrale
 programma: [GEO-05, GEO-06, GEO-07]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 4 · Autovalori, diagonalizzazione e teorema spettrale
@@ -132,6 +132,34 @@ L'esempio tipico è la **rotazione** di un angolo $\theta$ nel piano,
 $$R_\theta = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}, \qquad p(t) = t^2 - 2\cos\theta\, t + 1,$$
 con radici $\cos\theta \pm i\sin\theta = e^{\pm i\theta}$. Per $\theta \neq 0, \pi$ non sono reali: nessuna direzione del piano resta fissa sotto una rotazione, come ci si aspetta. Su $\mathbb{C}$ invece gli autovalori sono distinti e $R_\theta$ è diagonalizzabile, con autovettori $(1, \mp i)$. È anche il motivo geometrico della moltiplicazione per $e^{i\theta}$ del modulo 1: in coordinate reali è proprio $R_\theta$.
 
+## 4.8 Forme quadratiche e classificazione delle coniche
+
+> [!aggiunta] Aggiunta in revisione · fonte: programma del corso 2025/26 ("Forme quadratiche. Applicazione alla classificazione affine delle coniche"); foglio "Matrici simmetriche e coniche" (GEO-05, GEO-06)
+> **Forme quadratiche.** Una **forma quadratica** su $\mathbb{R}^n$ è un polinomio omogeneo di secondo grado, $q(x) = x^T A x$ con $A$ simmetrica: per esempio $q(x, y) = 5x^2 + 4xy + 2y^2$ ha $A = \begin{pmatrix} 5 & 2 \\ 2 & 2 \end{pmatrix}$ (il coefficiente del termine misto si divide a metà fra i due posti fuori diagonale). Per il teorema spettrale esiste una matrice ortogonale $P$ con $P^T A P = D = \operatorname{diag}(\lambda_1, \dots, \lambda_n)$; con il cambio di coordinate $x = PX$, che è una rotazione (eventualmente con una simmetria), la forma diventa
+> $$q = \lambda_1 X_1^2 + \dots + \lambda_n X_n^2,$$
+> senza termini misti. La forma è **definita positiva** se tutti gli autovalori sono positivi ($q > 0$ per $x \ne 0$), **definita negativa** se sono tutti negativi, **indefinita** se ce ne sono di segni opposti, **semidefinita** se qualcuno è nullo e gli altri hanno lo stesso segno. In due variabili basta il determinante: $\det A > 0$ dice che gli autovalori hanno lo stesso segno (quello di $a_{11}$), $\det A < 0$ che hanno segni opposti. È lo stesso criterio dell'Hessiana per i massimi e i minimi in Analisi 1B.
+>
+> **Coniche.** Una **conica** è il luogo dei punti del piano che soddisfano un'equazione di secondo grado
+> $$a_{11}x^2 + 2a_{12}xy + a_{22}y^2 + 2a_{13}x + 2a_{23}y + a_{33} = 0,$$
+> che si scrive con la matrice simmetrica $3 \times 3$
+> $$\bar A = \begin{pmatrix} a_{11} & a_{12} & a_{13} \\ a_{12} & a_{22} & a_{23} \\ a_{13} & a_{23} & a_{33} \end{pmatrix}$$
+> e con il suo blocco $2 \times 2$ in alto a sinistra $A$, la matrice della parte quadratica. Il tipo della conica non cambia con le rotazioni e le traslazioni, e si legge da $\det\bar A$ e da $\det A$:
+>
+> | $\det\bar A$ | $\det A$ | Conica |
+> |---|---|---|
+> | $\ne 0$ | $> 0$ | ellisse (reale se $(a_{11} + a_{22})\det\bar A < 0$, altrimenti senza punti reali) |
+> | $\ne 0$ | $< 0$ | iperbole |
+> | $\ne 0$ | $= 0$ | parabola |
+> | $= 0$ | $> 0$ | un solo punto (due rette complesse coniugate) |
+> | $= 0$ | $< 0$ | due rette incidenti |
+> | $= 0$ | $= 0$ | due rette parallele o coincidenti (o nessun punto reale) |
+>
+> Se $\det\bar A \ne 0$ la conica è **non degenere**; se $\det\bar A = 0$ è **degenere**, e si spezza in rette. Gli autovalori di $A$ danno anche le direzioni degli assi (gli autovettori) e, per le coniche a centro, le lunghezze dei semiassi.
+>
+> **Esempio: riduzione a forma canonica.** $5x^2 + 4xy + 2y^2 = 6$. La parte quadratica ha autovalori 1 e 6, con autovettori $(-1, 2)$ e $(2, 1)$, ortogonali. Nelle coordinate $X, Y$ lungo questi due assi (normalizzati, $P = \frac{1}{\sqrt5}\begin{pmatrix} -1 & 2 \\ 2 & 1 \end{pmatrix}$) l'equazione diventa $X^2 + 6Y^2 = 6$, cioè
+> $$\frac{X^2}{6} + Y^2 = 1:$$
+> un'ellisse di semiassi $\sqrt6$ e 1, con l'asse maggiore lungo $(-1, 2)$. Con la tabella: $\det A = 6 > 0$, $\det\bar A = -36 \ne 0$ e $(5 + 2)(-36) < 0$, ellisse reale.
+
 ## Esempi ed esercizi svolti
 
 **Esercizio 1 (Gram-Schmidt).** Ortonormalizzare $v_1 = (1, 1, 0)$, $v_2 = (1, 0, 1)$, $v_3 = (0, 1, 1)$ in $\mathbb{R}^3$. Si ha $u_1 = \frac{1}{\sqrt2}(1, 1, 0)$. Poi $\langle u_1, v_2\rangle = \frac{1}{\sqrt2}$, $w_2 = v_2 - \frac12(1, 1, 0) = \left(\frac12, -\frac12, 1\right)$, di norma $\sqrt{\frac32}$, quindi $u_2 = \frac{1}{\sqrt6}(1, -1, 2)$. Infine $\langle u_1, v_3\rangle = \frac{1}{\sqrt2}$, $\langle u_2, v_3\rangle = \frac{1}{\sqrt6}$, e
@@ -146,6 +174,99 @@ che per $n = 10$ dà $F_{10} = 55$. La diagonalizzazione serve proprio a calcola
 
 **Esercizio 3 (diagonalizzabilità con un parametro).** Per quali $k \in \mathbb{R}$ la matrice $A_k = \begin{pmatrix} 1 & k \\ 0 & 1 \end{pmatrix}$ è diagonalizzabile? L'unico autovalore è 1, con $m_a(1) = 2$, e $A_k - I = \begin{pmatrix} 0 & k \\ 0 & 0 \end{pmatrix}$ ha rango 1 se $k \neq 0$: allora $m_g(1) = 1$ e $A_k$ non è diagonalizzabile. Per $k = 0$ è già l'identità.
 
+### Esercizi sul modello delle prove d'esame
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove scritte 2024-2026 e dei fogli "Diagonalizzazione" e "Matrici simmetriche e coniche"; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-05 … GEO-07)
+> L'ultimo esercizio di ogni prova è quasi sempre una diagonalizzazione: dire se una matrice è diagonalizzabile su $\mathbb{R}$ (e su $\mathbb{C}$) e trovare $D$ e $P$.
+
+**Esercizio 4. Diagonalizzazione ortogonale di una matrice simmetrica $3 \times 3$.** $A = \begin{pmatrix} 3 & 1 & 1 \\ 1 & 3 & 1 \\ 1 & 1 & 3 \end{pmatrix}$.
+
+$A = 2I + J$, con $J$ la matrice di tutti 1, che ha autovalori 3 (autovettore $(1, 1, 1)$) e 0 (doppio, sul piano $x + y + z = 0$). Quindi $A$ ha autovalori $5$ e $2$ (doppio). $V_5 = \langle (1, 1, 1) \rangle$; $V_2 = \{x + y + z = 0\} = \langle (-1, 1, 0), (-1, 0, 1) \rangle$, di dimensione 2 = molteplicità algebrica: $A$ è diagonalizzabile, come garantisce il teorema spettrale. Per avere $P$ ortogonale si ortonormalizza $V_2$ con Gram-Schmidt: $u_1 = \frac{1}{\sqrt2}(-1, 1, 0)$; $(-1, 0, 1) - \frac12(-1, 1, 0) = \left(-\frac12, -\frac12, 1\right)$, cioè $u_2 = \frac{1}{\sqrt6}(-1, -1, 2)$; infine $u_3 = \frac{1}{\sqrt3}(1, 1, 1)$, già ortogonale agli altri perché autospazi di autovalori diversi di una matrice simmetrica sono ortogonali. Con $P = (u_1 \mid u_2 \mid u_3)$, $P^T A P = \operatorname{diag}(2, 2, 5)$.
+
+**Esercizio 5. Diagonalizzabile su $\mathbb{C}$ ma non su $\mathbb{R}$.** $B = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 2 \end{pmatrix}$.
+
+Il polinomio caratteristico è $(\lambda^2 + 1)(2 - \lambda)$ a meno del segno: in $\mathbb{R}$ c'è solo la radice 2, e la somma delle molteplicità (1) è minore di 3, quindi $B$ non è diagonalizzabile su $\mathbb{R}$. In $\mathbb{C}$ le radici $i$, $-i$, $2$ sono distinte: diagonalizzabile. Un autovettore reale esiste: $(0, 0, 1)$, di autovalore 2. Il blocco in alto è la rotazione di $90°$ del piano $xy$, che non manda nessuna retta in sé.
+
+**Esercizio 6. Un parametro che decide.** Per quali $k$ è diagonalizzabile $C_k = \begin{pmatrix} 1 & k & 1 \\ 0 & 1 & 0 \\ 0 & 0 & 2 \end{pmatrix}$?
+
+Triangolare: autovalori 1 (doppio) e 2. L'autovalore 2 è semplice e non dà problemi. Per 1: $C_k - I = \begin{pmatrix} 0 & k & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix}$ ha rango 2 se $k \ne 0$ e rango 1 se $k = 0$. La molteplicità geometrica è $3 - \operatorname{rk}$: vale 2 = molteplicità algebrica solo per $k = 0$. $C_k$ è diagonalizzabile se e solo se $k = 0$.
+
+**Esercizio 7. Classificare una conica.** Che conica è $x^2 - 4xy + y^2 + 2x + 2y = 0$?
+
+$\bar A = \begin{pmatrix} 1 & -2 & 1 \\ -2 & 1 & 1 \\ 1 & 1 & 0 \end{pmatrix}$ (i coefficienti dei termini $xy$, $x$, $y$ si dividono a metà). $\det A = 1 - 4 = -3 < 0$ e $\det\bar A = -6 \ne 0$: iperbole non degenere. Passa per l'origine, che soddisfa l'equazione.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-05 … GEO-07)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Diagonalizzare e controllare.** $A = \begin{pmatrix} 4 & 1 \\ 2 & 3 \end{pmatrix}$.
+
+*Passo 1: polinomio caratteristico.* $\det(A - \lambda I) = (4 - \lambda)(3 - \lambda) - 2 = \lambda^2 - 7\lambda + 10 = (\lambda - 2)(\lambda - 5)$.
+
+*Passo 2: autovettori.* Per 2: $(A - 2I)v = 0$ con $A - 2I = \begin{pmatrix} 2 & 1 \\ 2 & 1 \end{pmatrix}$, $v = (1, -2)$. Per 5: $A - 5I = \begin{pmatrix} -1 & 1 \\ 2 & -2 \end{pmatrix}$, $v = (1, 1)$.
+
+*Passo 3: $P$ e $D$.* $P = \begin{pmatrix} 1 & 1 \\ -2 & 1 \end{pmatrix}$, $D = \begin{pmatrix} 2 & 0 \\ 0 & 5 \end{pmatrix}$, nello stesso ordine.
+
+*Passo 4: controllo senza invertire.* Basta verificare $AP = PD$: $AP = \begin{pmatrix} 2 & 5 \\ -4 & 5 \end{pmatrix}$ e $PD = \begin{pmatrix} 2 & 5 \\ -4 & 5 \end{pmatrix}$. La traccia ($7 = 2 + 5$) e il determinante ($10 = 2 \cdot 5$) tornano.
+
+**Guidato 2. Una famiglia di coniche.** Classificare $x^2 + 2txy + y^2 = 1$ al variare di $t \in \mathbb{R}$.
+
+*Passo 1: le matrici.* $A = \begin{pmatrix} 1 & t \\ t & 1 \end{pmatrix}$, $\bar A = \operatorname{diag}$ a blocchi con $A$ e $-1$: $\det\bar A = -\det A = -(1 - t^2)$.
+
+*Passo 2: $|t| < 1$.* $\det A > 0$ e $\det\bar A \ne 0$; $(1 + 1)\det\bar A < 0$: ellisse reale (per $t = 0$ la circonferenza unitaria).
+
+*Passo 3: $|t| > 1$.* $\det A < 0$: iperbole.
+
+*Passo 4: $t = \pm 1$.* $\det\bar A = 0$ e $\det A = 0$: degenere. Infatti $x^2 \pm 2xy + y^2 = (x \pm y)^2 = 1$ dà le due rette parallele $x \pm y = 1$ e $x \pm y = -1$.
+
+*Passo 5: gli assi.* Gli autovalori di $A$ sono $1 + t$ e $1 - t$, con autovettori $(1, 1)$ e $(1, -1)$ per ogni $t$: gli assi sono sempre le bisettrici, e la forma canonica è $(1 + t)X^2 + (1 - t)Y^2 = 1$.
+
 ## Riepilogo
 
 Un autovettore di $f$ è un vettore non nullo mandato in un suo multiplo $\lambda v$; gli autovalori sono le radici del polinomio caratteristico $\det(A - tI)$, che è lo stesso per matrici simili, e gli autospazi sono i nuclei di $A - \lambda I$. Autovettori di autovalori distinti sono indipendenti, e per ogni autovalore $1 \le m_g \le m_a$. Un endomorfismo è diagonalizzabile, cioè ha una base di autovettori in cui la matrice è diagonale ($P^{-1}AP = D$), se e solo se il polinomio caratteristico si spezza nel campo e ogni molteplicità geometrica è uguale a quella algebrica; $n$ autovalori distinti bastano. Un prodotto scalare (o hermitiano, nel caso complesso) definito positivo dà norme e ortogonalità; ogni spazio ha basi ortonormali, costruite con Gram-Schmidt, in cui le coordinate sono prodotti scalari, e le matrici di cambiamento di base fra basi ortonormali sono ortogonali (o unitarie). Ogni sottospazio ha un complemento ortogonale supplementare. Per il teorema spettrale un operatore autoaggiunto, cioè una matrice simmetrica reale o hermitiana, ha autovalori reali e una base ortonormale di autovettori: $Q^TAQ = D$ con $Q$ ortogonale. Una matrice reale può avere autovalori complessi coniugati, come le rotazioni, ed essere diagonalizzabile solo su $\mathbb{C}$.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (GEO-05 … GEO-07)
+> Autovalori, diagonalizzazione, prodotti scalari, teorema spettrale e coniche, con i termini per l'orale.
+
+### Autovalori e diagonalizzazione
+
+$$Av = \lambda v,\ v \ne 0 \qquad p_A(\lambda) = \det(A - \lambda I), \qquad \operatorname{tr} A = \sum \lambda_i, \qquad \det A = \prod \lambda_i.$$
+
+$1 \le m_g(\lambda) = n - \operatorname{rk}(A - \lambda I) \le m_a(\lambda)$. **Criterio:** $A$ è diagonalizzabile su $\mathbb{K}$ se e solo se $p_A$ ha tutte le radici in $\mathbb{K}$ e $m_g = m_a$ per ognuna. Autovalori distinti bastano. Se $P^{-1}AP = D$, le colonne di $P$ sono autovettori nello stesso ordine degli autovalori in $D$, e $A^n = PD^nP^{-1}$.
+
+### Prodotti scalari e ortogonalità
+
+$$\text{Gram-Schmidt: } w_k = v_k - \sum_{j < k} \langle v_k, u_j\rangle u_j, \quad u_k = \frac{w_k}{\|w_k\|}; \qquad P \text{ ortogonale} \iff P^T P = I \iff P^{-1} = P^T.$$
+
+### Teorema spettrale
+
+Una matrice reale simmetrica ha autovalori reali, autospazi ortogonali fra loro, ed è diagonalizzabile con una matrice ortogonale: $P^T A P = D$. (Per le hermitiane vale lo stesso con le unitarie.)
+
+### Coniche e forme quadratiche
+
+Forma $q = x^T A x$: definita positiva se tutti gli autovalori sono $> 0$; in due variabili, $\det A > 0$ e $a_{11} > 0$. Conica con matrice $\bar A$ e parte quadratica $A$: non degenere se $\det\bar A \ne 0$, e allora ellisse, iperbole o parabola secondo che $\det A$ sia positivo, negativo o nullo (tabella del paragrafo 4.8).
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Autovalore, autovettore, autospazio | $\lambda$ con $Av = \lambda v$ per qualche $v \ne 0$; il $v$; l'insieme dei $v$ con lo 0 |
+| Molteplicità algebrica, geometrica | come radice di $p_A$; $\dim V_\lambda$ |
+| Matrice diagonalizzabile | simile a una diagonale; esiste una base di autovettori |
+| Prodotto scalare definito positivo | bilineare simmetrico con $\langle v, v\rangle > 0$ per $v \ne 0$ |
+| Base ortonormale | vettori di norma 1 a due a due ortogonali |
+| Matrice ortogonale | colonne ortonormali; rappresenta rotazioni e simmetrie |
+| Forma quadratica | polinomio omogeneo di grado 2, $x^T A x$ |
+| Conica degenere | si spezza in rette (o in un punto) |
+
+### Domande che tornano spesso
+
+- Autovettori di autovalori distinti sono indipendenti: dimostrarlo.
+- Perché il polinomio caratteristico è invariante per similitudine?
+- Enunciare il criterio di diagonalizzabilità; un esempio non diagonalizzabile ($\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$).
+- Descrivere il procedimento di Gram-Schmidt.
+- Enunciare il teorema spettrale; perché gli autovalori di una matrice simmetrica reale sono reali?
+- Come si classifica una conica con gli invarianti, e come si trovano gli assi?

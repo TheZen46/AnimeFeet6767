@@ -5,7 +5,7 @@ titolo: Reti combinatorie standard, ritardi e aritmetica
 programma: [RL-02, RL-03]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 2 · Reti combinatorie standard, ritardi e aritmetica
@@ -227,7 +227,40 @@ L'**unità aritmetico-logica** (ALU, *arithmetic logic unit*) mette insieme più
 ![Figura 2.8](../figure/2-8.svg)
 
 > [!nota] Virgola fissa e virgola mobile
-> I numeri non interi si rappresentano in **virgola fissa** decidendo quanti bit stanno dopo la virgola: con tre bit frazionari $0{,}375 = 0{,}011_2$, perché $0{,}375 = 2^{-2} + 2^{-3}$. La precisione assoluta è la stessa per tutti i numeri. In **virgola mobile** il numero si scrive come in notazione scientifica, $7{,}3 \cdot 10^2$, con un bit di segno, un esponente e una mantissa: la precisione relativa è la stessa per numeri grandi e piccoli, mentre quella assoluta cambia con l'esponente. I formati standard non fanno parte di questo corso.
+> I numeri non interi si rappresentano in **virgola fissa** decidendo quanti bit stanno dopo la virgola: con tre bit frazionari $0{,}375 = 0{,}011_2$, perché $0{,}375 = 2^{-2} + 2^{-3}$. La precisione assoluta è la stessa per tutti i numeri. In **virgola mobile** il numero si scrive come in notazione scientifica, $7{,}3 \cdot 10^2$, con un bit di segno, un esponente e una mantissa: la precisione relativa è la stessa per numeri grandi e piccoli, mentre quella assoluta cambia con l'esponente. All'esame del corso la virgola mobile non viene chiesta, ma il formato standard si usa ovunque (è quello dei `float` e dei `double` del C) ed è spiegato nel paragrafo 2.8.
+
+## 2.8 Numeri in virgola mobile: lo standard IEEE 754
+
+> [!aggiunta] Aggiunta in revisione · fonte: Patterson e Hennessy, *Struttura e progetto dei calcolatori*; standard IEEE 754 (RL-03)
+> **Parte frazionaria in binario.** Le cifre dopo la virgola pesano $2^{-1}, 2^{-2}, 2^{-3}, \dots$, cioè $0{,}5$, $0{,}25$, $0{,}125$, … Per convertire una frazione decimale si moltiplica ripetutamente per 2 e si prende ogni volta la parte intera come bit, dal primo dopo la virgola in poi. Per $0{,}375$: $0{,}375 \cdot 2 = 0{,}75$ (bit 0), $0{,}75 \cdot 2 = 1{,}5$ (bit 1, si tiene $0{,}5$), $0{,}5 \cdot 2 = 1{,}0$ (bit 1, si tiene 0 e ci si ferma): $0{,}375 = 0{,}011_2$. Non tutte le frazioni finiscono: $0{,}1$ dà $0{,}000110011001100\dots_2$ con il gruppo $0011$ che si ripete per sempre, quindi $0{,}1$ in binario non si scrive esattamente con un numero finito di bit.
+>
+> **L'idea della virgola mobile.** Ogni numero diverso da zero si può scrivere in binario nella forma **normalizzata** $\pm 1{,}m \times 2^E$, con una sola cifra 1 prima della virgola: per esempio $6{,}75 = 110{,}11_2 = 1{,}1011_2 \times 2^2$. Si memorizzano tre campi: il **segno** $s$ (0 positivo, 1 negativo), l'**esponente** $E$ e la **mantissa** $m$, cioè le cifre dopo la virgola. L'1 prima della virgola c'è sempre e non si memorizza (**bit nascosto**), così si guadagna un bit di precisione.
+>
+> **Il formato a 32 bit (singola precisione).** Il primo bit è il segno, poi 8 bit di esponente, poi 23 bit di mantissa. L'esponente non si scrive in complemento a 2 ma **polarizzato** (*biased*): nel campo si scrive $e = E + 127$, così il campo è un naturale fra 0 e 255 e i numeri si confrontano come interi. Il valore di un numero normalizzato è
+> $$N = (-1)^s \times 1{,}m \times 2^{\,e - 127}, \qquad 1 \le e \le 254.$$
+> Il formato a 64 bit (doppia precisione) ha lo stesso schema con 11 bit di esponente, polarizzazione 1023, e 52 bit di mantissa.
+>
+> **Esempio: $-6{,}75$ in singola precisione.** Segno: negativo, $s = 1$. Modulo in binario: $6 = 110_2$ e $0{,}75 = 0{,}11_2$, quindi $110{,}11_2$. Normalizzazione: si sposta la virgola di due posti a sinistra, $1{,}1011_2 \times 2^2$. Esponente: $e = 2 + 127 = 129 = 1000\,0001_2$. Mantissa: le cifre dopo la virgola, $1011$, seguite da 19 zeri. Il numero è
+> $$1\;\,10000001\;\,10110000000000000000000 = \texttt{C0D80000}_{16}.$$
+>
+> **Esempio inverso: $\texttt{41200000}_{16}$.** In binario $0\;10000010\;01000\dots0$: segno positivo, $e = 130$, quindi $E = 3$, mantissa $01$. Il valore è $1{,}01_2 \times 2^3 = 1010_2 = 10$.
+>
+> **Valori speciali.** I due valori estremi del campo esponente sono riservati.
+>
+> | Campo $e$ | Mantissa | Significato |
+> |---|---|---|
+> | 0 | 0 | $\pm 0$ (lo zero ha due rappresentazioni, con i due segni) |
+> | 0 | $\ne 0$ | numero **denormalizzato** $(-1)^s \times 0{,}m \times 2^{-126}$, per i valori piccolissimi |
+> | da 1 a 254 | qualsiasi | numero normalizzato |
+> | 255 | 0 | $\pm\infty$, per esempio il risultato di $1/0$ |
+> | 255 | $\ne 0$ | NaN (*not a number*), per esempio $0/0$ o $\sqrt{-1}$ |
+>
+> **Intervallo e precisione.** Il più grande numero a 32 bit è $(2 - 2^{-23}) \times 2^{127} \approx 3{,}4 \times 10^{38}$, il più piccolo normalizzato positivo è $2^{-126} \approx 1{,}18 \times 10^{-38}$. La mantissa con il bit nascosto ha 24 bit significativi, circa 7 cifre decimali: la distanza fra 1 e il numero rappresentabile successivo è $2^{-23} \approx 1{,}19 \times 10^{-7}$ (l'*epsilon di macchina*). La precisione è relativa: fra $2^{20}$ e $2^{21}$ due numeri consecutivi distano $2^{20-23} = 0{,}125$, fra 1 e 2 distano $2^{-23}$.
+>
+> **Somma di due numeri in virgola mobile.** (1) Si porta il numero con l'esponente minore allo stesso esponente dell'altro, spostando la sua mantissa a destra; (2) si sommano le mantisse; (3) si normalizza il risultato; (4) si arrotonda ai bit disponibili. Per $1{,}5 + 0{,}375$: $1{,}1_2 \times 2^0 + 1{,}1_2 \times 2^{-2} = 1{,}1_2 \times 2^0 + 0{,}011_2 \times 2^0 = 1{,}111_2 \times 2^0 = 1{,}875$. Lo spostamento del passo (1) fa perdere i bit meno significativi del numero piccolo: in singola precisione $2^{24} + 1$ dà di nuovo $2^{24}$, perché l'1 finisce oltre il ventiquattresimo bit. Per questo con i numeri in virgola mobile la somma non è associativa: $(2^{24} + 1) - 2^{24} = 0$, mentre $(2^{24} - 2^{24}) + 1 = 1$.
+
+> [!attenzione]
+> Nell'esponente polarizzato il campo $e$ non è l'esponente: $E = e - 127$. Un errore frequente è dimenticare il bit nascosto quando si ricostruisce il valore, e leggere $0{,}m$ invece di $1{,}m$.
 
 ## Esempi ed esercizi svolti
 
@@ -241,6 +274,211 @@ Con righe $A$ e colonne $BC$, la riga $A = 0$ è tutta a 0, la riga $A = 1$ vale
 
 **Esercizio 4.** Generatore di parità per 4 bit $B_3 B_2 B_1 B_0$. Il bit di parità pari è $P = B_3 \oplus B_2 \oplus B_1 \oplus B_0$, che si realizza con tre porte XOR a due ingressi, in fila oppure ad albero ($(B_3 \oplus B_2) \oplus (B_1 \oplus B_0)$, più veloce perché i livelli sono due invece di tre). Con la mappa sarebbe una scacchiera, senza nessun raggruppamento possibile.
 
+### Esercizi del laboratorio con il simulatore
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni con il simulatore Deeds (testi riscritti, dati e soluzioni nuovi) (RL-02, RL-03, RL-08)
+> Come nel modulo 1, gli esercizi seguono quelli del laboratorio: si completa lo schema, si ricava la tabella e si controlla con il diagramma temporale.
+
+**Esercizio 5. Il MUX 2→1 nel tempo, e un'alea nascosta.** Un MUX 2→1 ha ingressi dati $I_0$, $I_1$, selezione $SEL$ e uscita $U = \overline{SEL}\,I_0 + SEL\,I_1$. Nella simulazione $I_0$ è un'onda quadra veloce, $I_1$ un'onda quadra lenta, e $SEL$ cambia ogni tanto. Che cosa si vede su $U$? Che cosa succede se $SEL$ scende da 1 a 0 mentre $I_0 = I_1 = 1$?
+
+Finché $SEL = 0$ l'uscita ricopia l'onda veloce, finché $SEL = 1$ quella lenta: guardando $U$ si capisce a colpo d'occhio quale ingresso è selezionato, ed è il motivo per cui i due ingressi si fanno a frequenze diverse. Il secondo caso è più interessante. Con $I_0 = I_1 = 1$ l'uscita deve restare a 1, ma prima della commutazione la tiene alta la AND di $SEL\,I_1$, dopo la AND di $\overline{SEL}\,I_0$, e $\overline{SEL}$ arriva in ritardo perché passa per il NOT: per un istante entrambe le AND sono spente e $U$ fa un impulso a 0. È l'alea statica del paragrafo 2.3: sulla mappa del MUX (paragrafo 2.1) le celle $111$ e $011$ sono coperte da gruppi diversi. Si elimina aggiungendo il consenso $I_0 I_1$:
+$$U = \overline{SEL}\,I_0 + SEL\,I_1 + I_0 I_1.$$
+
+**Esercizio 6. DEMUX 1→2.** Ingresso dati $IN$, selezione $S$, uscite $O_0$ e $O_1$. Scrivere tabella ed equazioni e spiegare che cosa si vede in simulazione se $IN$ è un'onda quadra.
+
+L'ingresso va sull'uscita scelta, l'altra resta a 0: $O_0 = \bar{S}\,IN$ e $O_1 = S\,IN$. In tabella: per $S = 0$ si ha $O_0 = IN$, $O_1 = 0$; per $S = 1$ si ha $O_0 = 0$, $O_1 = IN$. Nel diagramma temporale l'onda quadra "salta" da un'uscita all'altra ogni volta che cambia $S$, e l'uscita non selezionata è piatta a 0. Il circuito è fatto di due AND e un NOT: è lo stesso schema del MUX senza la OR finale.
+
+**Esercizio 7. Un canale di comunicazione condiviso.** Quattro sorgenti $A$, $B$, $C$, $D$ devono spedire dati a due destinatari $O_0$ e $O_1$ usando un solo filo, il canale $CH$. Il trasmettitore ha un MUX 4→1 con selezione $S_1 S_0$, il ricevitore un DEMUX 1→2 con selezione $S_{OUT}$. (a) Come si impostano le selezioni per mandare $C$ a $O_1$? (b) Si può mandare nello stesso momento $A$ a $O_0$ e $B$ a $O_1$? (c) Come si condivide il canale fra tutte le sorgenti?
+
+(a) Il MUX mette sul canale l'ingresso il cui indice è $S_1 S_0$: per $C$, che è l'ingresso 2, serve $S_1 S_0 = 10$. Il DEMUX porta il canale su $O_1$ con $S_{OUT} = 1$. Quindi $CH = C$, $O_1 = C$ e $O_0 = 0$.
+
+(b) No: sul filo c'è un solo segnale alla volta. Il canale è una risorsa condivisa, e due trasmissioni contemporanee si possono fare solo con due fili.
+
+(c) Si divide il tempo in intervalli e in ciascuno si dà il canale a una sorgente: per esempio si fa contare $S_1 S_0$ da 00 a 11 e si ricomincia, e si sceglie $S_{OUT}$ secondo il destinatario di quell'intervallo. È la **multiplazione a divisione di tempo**, e il contatore che genera le selezioni è proprio quello del modulo 3. Trasmettitore e ricevitore devono essere d'accordo su chi trasmette in ogni intervallo: in pratica le selezioni sono generate dallo stesso clock.
+
+**Esercizio 8. Che cosa fa questa rete a MUX?** Un MUX 8→1 ha sulle selezioni $C B A$ ($C$ più significativo) e sugli ingressi dati, da $I_0$ a $I_7$, le costanti $0, 0, 0, 1, 0, 1, 1, 1$. (a) Che funzione realizza? Si potrebbe usare per controllare la parità? (b) Modificare gli ingressi dati per realizzare $U = C\bar{A} + B\bar{C}A + \bar{B}\bar{A}\bar{C}$.
+
+(a) L'uscita vale 1 per gli indici 3, 5, 6, 7, cioè $CBA = 011, 101, 110, 111$: le combinazioni con almeno due 1. È la funzione **maggioranza**, $U = AB + AC + BC$, la stessa del riporto del full adder. Per la parità servirebbero gli 1 sugli indici con un numero dispari di 1, cioè 1, 2, 4, 7, quindi ingressi $0, 1, 1, 0, 1, 0, 0, 1$: con questi ingressi no.
+
+(b) Si calcola $U$ riga per riga. Per $CBA = 000$ vale 1 il terzo termine; per $011$ il secondo; per $100$ e $110$ il primo ($C = 1$, $A = 0$); per tutte le altre righe nessun termine. Gli ingressi dati sono quindi $I_0 \dots I_7 = 1, 0, 0, 1, 1, 0, 1, 0$. La stessa funzione si fa con un MUX 4→1, mettendo $C$ e $B$ sulle selezioni e $A$ come variabile riportata: le coppie di righe danno $\bar{A}$ per $CB = 00$, $A$ per $01$, $\bar{A}$ per $10$ e $\bar{A}$ per $11$.
+
+**Esercizio 9. Comparatore di due numeri a 2 bit.** Ingressi $A = A_1 A_0$ e $B = B_1 B_0$, naturali da 0 a 3; uscite $G$ ($A > B$), $E$ ($A = B$), $L$ ($A < B$). Trovare le sintesi minime.
+
+Mappa di $G$ con righe $A_1 A_0$ e colonne $B_1 B_0$, tutte in ordine di Gray; ogni cella vale 1 se il numero della riga è maggiore di quello della colonna:
+
+| $A_1 A_0 \backslash B_1 B_0$ | 00 | 01 | 11 | 10 |
+|---|---|---|---|---|
+| 00 | 0 | 0 | 0 | 0 |
+| 01 | 1 | 0 | 0 | 0 |
+| 11 | 1 | 1 | 0 | 1 |
+| 10 | 1 | 1 | 0 | 0 |
+
+La quaterna in basso a sinistra (righe 11 e 10, colonne 00 e 01) dà $A_1\bar{B}_1$: se il bit alto di $A$ è 1 e quello di $B$ è 0, $A$ è maggiore qualunque siano gli altri bit. La coppia nella riga 11, colonne 00 e 10, dà $A_1 A_0\bar{B}_0$; la coppia nella colonna 00, righe 01 e 11, dà $A_0\bar{B}_1\bar{B}_0$. Quindi
+$$G = A_1\bar{B}_1 + A_1 A_0\bar{B}_0 + A_0\bar{B}_1\bar{B}_0.$$
+$L$ si ottiene scambiando i ruoli di $A$ e $B$: $L = \bar{A}_1 B_1 + B_1 B_0\bar{A}_0 + B_0\bar{A}_1\bar{A}_0$. La mappa di $E$ ha gli 1 solo sulla diagonale ($A = B$), quattro celle non adiacenti: la SOP minima è la forma canonica con quattro mintermini, mentre su più livelli la stessa funzione è $E = \overline{A_1 \oplus B_1} \cdot \overline{A_0 \oplus B_0}$, come nel paragrafo 2.7. In ogni caso le tre uscite non sono indipendenti: per ogni coppia ne vale 1 una sola, e $E = \overline{G + L}$.
+
+**Esercizio 10. Moltiplicatore di due numeri a 2 bit.** Ingressi $A_1 A_0$ e $B_1 B_0$; uscita $P = P_3 P_2 P_1 P_0 = A \times B$, da 0 a 9.
+
+Il prodotto massimo è $3 \times 3 = 9 = 1001_2$, quindi bastano 4 bit. Dalle sedici righe della tabella e dalle mappe si ottiene:
+$$P_0 = A_0 B_0, \qquad P_3 = A_1 A_0 B_1 B_0, \qquad P_2 = A_1 B_1\bar{A}_0 + A_1 B_1\bar{B}_0 = A_1 B_1\,\overline{A_0 B_0},$$
+$$P_1 = A_0 B_1\bar{A}_1 + A_0 B_1\bar{B}_0 + A_1 B_0\bar{A}_0 + A_1 B_0\bar{B}_1.$$
+$P_0$ è 1 solo se entrambi i fattori sono dispari; $P_3$ è 1 solo per $3 \times 3$. La forma a più livelli è quella della moltiplicazione in colonna del paragrafo 2.7: i prodotti parziali sono $A_0 B_0$, $A_1 B_0$, $A_0 B_1$, $A_1 B_1$, e
+$$P_1 = A_1 B_0 \oplus A_0 B_1, \quad c = A_1 B_0 \cdot A_0 B_1, \quad P_2 = A_1 B_1 \oplus c, \quad P_3 = A_1 B_1 \cdot c,$$
+cioè quattro AND per i prodotti parziali e due semisommatori. Prova: $A = 11$, $B = 10$ dà prodotti parziali $A_0 B_0 = 0$, $A_1 B_0 = 0$, $A_0 B_1 = 1$, $A_1 B_1 = 1$; quindi $P_1 = 1$, $c = 0$, $P_2 = 1$, $P_3 = 0$: $P = 0110 = 6$.
+
+**Esercizio 11. Valore assoluto di un numero a 3 bit.** L'ingresso $I_2 I_1 I_0$ è un numero in complemento a 2, da $-4$ a $+3$. L'uscita $Y_1 Y_0$ deve dare il suo valore assoluto; se l'ingresso è $-4$, il cui valore assoluto non sta in 2 bit, l'uscita di errore $ERR$ va a 1 e $Y_1 Y_0$ non interessano.
+
+| $I_2 I_1 I_0$ | valore | $\lvert\cdot\rvert$ | $Y_1 Y_0$ | $ERR$ |
+|---|---|---|---|---|
+| 000 | 0 | 0 | 00 | 0 |
+| 001 | 1 | 1 | 01 | 0 |
+| 010 | 2 | 2 | 10 | 0 |
+| 011 | 3 | 3 | 11 | 0 |
+| 100 | −4 | – | – – | 1 |
+| 101 | −3 | 3 | 11 | 0 |
+| 110 | −2 | 2 | 10 | 0 |
+| 111 | −1 | 1 | 01 | 0 |
+
+Per i negativi il valore assoluto si ottiene con la regola del paragrafo 2.6, negando i bit e sommando 1: per $101$ si ha $010 + 1 = 011 = 3$. Dalla tabella: $Y_0 = I_0$ (cambiare segno non cambia il bit meno significativo), $ERR = I_2\bar{I}_1\bar{I}_0$ e, con l'indifferenza in $100$,
+$$Y_1 = I_1\bar{I}_0 + \bar{I}_2 I_1 + I_2\bar{I}_1 = I_1 \oplus I_2 I_0.$$
+L'ultima forma si legge così: il bit $Y_1$ è $I_1$ per i positivi, e per i negativi è $I_1$ invertito quando $I_0 = 1$ (il "+1" della regola genera un riporto solo se $I_0 = 0$).
+
+**Esercizio 12. Sommatore a 2 bit: a cascata o a due livelli?** Un sommatore a 2 bit è fatto con un semisommatore sul bit 0 e un full adder sul bit 1: $S_0 = A_0 \oplus B_0$, $c_1 = A_0 B_0$, $S_1 = A_1 \oplus B_1 \oplus c_1$, $S_2 = A_1 B_1 + c_1(A_1 + B_1)$. Ricavare la versione a due livelli e confrontarle.
+
+La tabella ha sedici righe; si sintetizzano le tre uscite con le mappe.
+$$S_0 = A_0\bar{B}_0 + \bar{A}_0 B_0, \qquad S_2 = A_1 B_1 + A_1 A_0 B_0 + A_0 B_1 B_0,$$
+$$S_1 = A_1\bar{B}_1\bar{A}_0 + A_1\bar{B}_1\bar{B}_0 + \bar{A}_1 B_1\bar{A}_0 + \bar{A}_1 B_1\bar{B}_0 + \bar{A}_1\bar{B}_1 A_0 B_0 + A_1 B_1 A_0 B_0.$$
+$S_2$ è il riporto: c'è se i due bit alti sono 1, oppure se c'è il riporto dal bit 0 e almeno un bit alto è 1. $S_1$ è uno XOR di tre variabili "mascherato" e non si semplifica: sei prodotti. Nella versione a cascata il segnale più lento attraversa l'AND di $c_1$ e poi le porte del full adder; nella versione a due livelli ogni uscita attraversa due porte. Si guadagna velocità e si paga in porte: è lo stesso compromesso del sommatore a $n$ bit, dove la rete a due livelli diventerebbe enorme e si usano soluzioni intermedie come il calcolo anticipato del riporto (*carry look-ahead*).
+
+**Esercizio 13. Riconoscere una rete e rifarla con un MUX.** Una rete ha ingressi $A$, $B$: una NOR riceve $A$ e $B$, una AND riceve $A$ e $B$, e una seconda NOR riceve le uscite delle prime due. (a) Che funzione è? (b) Rifarla con un MUX 2→1.
+
+(a) La seconda NOR dà $\overline{\overline{A + B} + AB} = (A + B)\,\overline{AB}$, che vale 1 quando almeno un ingresso è 1 ma non entrambi: è lo XOR. (b) Con $A$ sulla selezione: per $A = 0$ l'uscita deve essere $B$, per $A = 1$ deve essere $\bar{B}$. Quindi $I_0 = B$ e $I_1 = \bar{B}$, con la variabile riportata del paragrafo 1.6. Con un MUX 4→1 servirebbero entrambe le variabili sulle selezioni e le costanti $0, 1, 1, 0$, come nella figura 2.3.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi, soluzioni verificate con `strumenti/verifica_ampliamento.py` (RL-02, RL-03)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Funzione con un MUX 4→1 e una variabile riportata.** Realizzare $F(A, B, C) = \sum m(1, 2, 6, 7)$ con un MUX 4→1, con $A$ e $B$ sulle selezioni.
+
+*Passo 1.* Si scrivono le righe a coppie, con la stessa coppia $AB$: per $AB = 00$ le righe sono $m_0 = 0$ e $m_1 = 1$; per $01$, $m_2 = 1$ e $m_3 = 0$; per $10$, $m_4 = 0$ e $m_5 = 0$; per $11$, $m_6 = 1$ e $m_7 = 1$.
+
+*Passo 2.* In ogni coppia la prima riga ha $C = 0$ e la seconda $C = 1$; l'uscita si scrive in funzione di $C$: $(0, 1)$ è $C$, $(1, 0)$ è $\bar{C}$, $(0, 0)$ è 0, $(1, 1)$ è 1.
+
+*Passo 3.* Gli ingressi dati sono $I_0 = C$, $I_1 = \bar{C}$, $I_2 = 0$, $I_3 = 1$.
+
+*Passo 4: controllo.* Per $ABC = 011$ il MUX sceglie $I_1 = \bar{C} = 0$, e infatti $m_3$ non è nella lista. Per $ABC = 110$ sceglie $I_3 = 1$, e $m_6$ è nella lista.
+
+**Guidato 2. Somme in complemento a 2 su 8 bit, con l'overflow.** Calcolare $100 + 50$, $100 - 50$ e $-100 - 50$ su 8 bit e dire quando c'è overflow.
+
+*Passo 1: gli operandi.* $100 = 0110\,0100$ e $50 = 0011\,0010$. Per $-50$: si negano i bit di $50$ ($1100\,1101$) e si somma 1: $1100\,1110$. Per $-100$: $1001\,1011 + 1 = 1001\,1100$.
+
+*Passo 2: $100 + 50$.* $0110\,0100 + 0011\,0010 = 1001\,0110$. Due positivi danno un risultato con il primo bit a 1, cioè negativo ($-106$): è overflow, e infatti $150 > 127$.
+
+*Passo 3: $100 - 50 = 100 + (-50)$.* $0110\,0100 + 1100\,1110 = 1\;0011\,0010$. Si scarta il nono bit: $0011\,0010 = 50$. Operandi di segno diverso: l'overflow non è possibile, e il riporto finale a 1 non significa niente.
+
+*Passo 4: $-100 - 50$.* $1001\,1100 + 1100\,1110 = 1\;0110\,1010$. Scartato il nono bit resta $0110\,1010 = 106$, positivo: due negativi hanno dato un positivo, è overflow ($-150 < -128$).
+
+*Passo 5: la regola dei riporti.* Nel passo 2 entra un riporto nel bit 7 ($c_7 = 1$) e non ne esce ($c_8 = 0$): $V = c_8 \oplus c_7 = 1$. Nel passo 3 entra e esce ($c_7 = c_8 = 1$): $V = 0$. Nel passo 4 non entra ma esce ($c_7 = 0$, $c_8 = 1$): $V = 1$.
+
+**Guidato 3. Trovare ed eliminare un'alea statica.** Sia $U = A\bar{C} + BC$. (a) Trovare la transizione che può dare un'alea. (b) Eliminarla.
+
+*Passo 1: la mappa.* Righe $A$, colonne $BC$: il gruppo $BC$ copre le celle $011$ e $111$, il gruppo $A\bar{C}$ le celle $100$ e $110$. Quindi $U = 1$ per $011, 100, 110, 111$.
+
+*Passo 2: coppie di 1 adiacenti coperte da gruppi diversi.* Le celle $110$ (coperta da $A\bar{C}$) e $111$ (coperta da $BC$) sono adiacenti e differiscono per $C$. Con $A = B = 1$ e $C$ che cambia, l'uscita deve restare a 1, ma passa da una AND all'altra: se $C$ scende da 1 a 0, la AND di $BC$ si spegne subito, mentre quella di $A\bar{C}$ si accende solo dopo il ritardo del NOT su $C$. In quell'intervallo $U = 0$.
+
+*Passo 3: il consenso.* Da $A\bar{C}$ e $BC$, togliendo $C$, il consenso è $AB$: copre entrambe le celle. $U = A\bar{C} + BC + AB$ è la stessa funzione senza l'alea.
+
+*Passo 4: controllo.* Durante la transizione, con $A = B = 1$, la AND di $AB$ resta accesa qualunque cosa facciano $C$ e $\bar{C}$.
+
+**Guidato 4. Da decimale a IEEE 754.** Scrivere $-13{,}625$ in singola precisione.
+
+*Passo 1: segno.* Negativo, $s = 1$.
+
+*Passo 2: modulo in binario.* $13 = 1101_2$; $0{,}625 \cdot 2 = 1{,}25$ (1), $0{,}25 \cdot 2 = 0{,}5$ (0), $0{,}5 \cdot 2 = 1$ (1): $0{,}625 = 0{,}101_2$. Quindi $13{,}625 = 1101{,}101_2$.
+
+*Passo 3: normalizzazione.* $1101{,}101_2 = 1{,}101101_2 \times 2^3$.
+
+*Passo 4: esponente.* $e = 3 + 127 = 130 = 1000\,0010_2$.
+
+*Passo 5: mantissa.* Le cifre dopo la virgola, $101101$, seguite da 17 zeri.
+
+*Passo 6: il numero.* $1\;10000010\;10110100000000000000000$, cioè a gruppi di 4 bit $1100\,0001\,0101\,1010\,0000\dots = \texttt{C15A0000}_{16}$.
+
 ## Riepilogo
 
 I blocchi standard delle reti combinatorie sono il multiplexer, che sceglie un ingresso dati secondo la selezione, il demultiplexer, che porta un ingresso su un'uscita scelta, il decoder, che accende una sola uscita per ogni combinazione e quindi produce tutti i mintermini, e l'encoder, che fa l'inverso. Il MUX è universale: con le variabili sulle selezioni e la tabella di verità sugli ingressi dati realizza qualsiasi funzione. Nel circuito reale ogni porta ha un ritardo di propagazione, e percorsi di lunghezza diversa producono alee: un'alea statica si vede sulla mappa come una transizione fra celle a 1 coperte da gruppi diversi, e si elimina con il termine di consenso. I numeri si scrivono in notazione posizionale; ottale ed esadecimale raggruppano i bit a 3 e a 4, il BCD codifica le cifre decimali e il codice Gray cambia un bit alla volta. La somma si fa con half e full adder in cascata; i numeri negativi si rappresentano in complemento a 2, che si ottiene negando i bit e sommando 1, e con cui la somma si fa con lo stesso sommatore. L'overflow in complemento a 2 si riconosce dal segno del risultato. Sottrattore, comparatore e moltiplicatore si costruiscono con il sommatore, e l'ALU li riunisce con un MUX che sceglie l'operazione.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (RL-02, RL-03)
+> Formule, schemi e termini del modulo, con il paragrafo in cui sono spiegati.
+
+### Blocchi standard
+
+| Blocco | Equazioni | Par. |
+|---|---|---|
+| MUX 2→1 | $U = \overline{SEL}\,I_0 + SEL\,I_1$ | 2.1 |
+| MUX 4→1 | $U = \bar{S}_1\bar{S}_0 I_0 + \bar{S}_1 S_0 I_1 + S_1\bar{S}_0 I_2 + S_1 S_0 I_3$ | 2.1 |
+| DEMUX 1→4 | $U_k = (\text{mintermine } k \text{ di } S_1 S_0) \cdot IN$ | 2.2 |
+| Decoder $n \to 2^n$ | $U_k = 1$ solo se gli ingressi formano $k$: ogni uscita è un mintermine | 2.2 |
+| Encoder con priorità a 4 ingressi | $Y_1 = I_3 + I_2$, $Y_0 = I_3 + \bar{I}_2 I_1$, $V = I_3 + I_2 + I_1 + I_0$ | 2.2 |
+| Funzione con MUX $2^n \to 1$ | variabili sulle selezioni, tabella sugli ingressi dati | 2.1 |
+| Funzione con MUX $2^{n-1} \to 1$ | $n - 1$ variabili sulle selezioni, ingressi $0$, $1$, $x$ o $\bar{x}$ | 2.1 |
+
+### Ritardi e alee
+
+- Alea statica di 1 in una SOP: due celle a 1 adiacenti coperte da gruppi diversi.
+- Si elimina con il termine di consenso: da $AB$ e $\bar{A}C$ si aggiunge $BC$.
+- Una rete sincrona campiona le uscite combinatorie solo quando sono a regime.
+
+### Numeri
+
+| Che cosa | Formula | Par. |
+|---|---|---|
+| Valore posizionale | $N = \sum_k a_k B^k$ | 2.4 |
+| Naturali su $n$ bit | da $0$ a $2^n - 1$ | 2.4 |
+| Complemento a 2 su $n$ bit | $N = -a_{n-1} 2^{n-1} + \sum_{k < n-1} a_k 2^k$, da $-2^{n-1}$ a $2^{n-1} - 1$ | 2.6 |
+| Cambio di segno | si negano tutti i bit e si somma 1 | 2.6 |
+| Estensione del segno | si ripete il bit di segno a sinistra | 2.6 |
+| Overflow in complemento a 2 | operandi dello stesso segno e risultato di segno opposto; $V = c_n \oplus c_{n-1}$ | 2.6 |
+| Sottrazione | $A - B = A + \bar{B} + 1$ | 2.6 |
+| IEEE 754 a 32 bit | $(-1)^s \times 1{,}m \times 2^{e - 127}$; campi 1, 8, 23 bit | 2.8 |
+| IEEE 754 a 64 bit | $(-1)^s \times 1{,}m \times 2^{e - 1023}$; campi 1, 11, 52 bit | 2.8 |
+
+### Aritmetica
+
+$$\text{half adder: } S = A \oplus B,\ C = AB \qquad \text{full adder: } S = A \oplus B \oplus C_{in},\ C_{out} = AB + AC_{in} + BC_{in}$$
+
+Il sommatore a cascata a $n$ bit ha un ritardo che cresce con $n$ (il riporto attraversa tutti gli stadi). Comparatore di un bit: $A > B$ è $A\bar{B}$, $A = B$ è $\overline{A \oplus B}$, $A < B$ è $\bar{A}B$; per $n$ bit l'uguaglianza è l'AND delle XNOR. Il prodotto di due numeri di $n$ bit ha fino a $2n$ bit, e i prodotti parziali sono AND.
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Multiplexer | selettore: copia sull'uscita l'ingresso dati scelto dalla selezione |
+| Rete universale | blocco con cui si realizza qualsiasi funzione (il MUX lo è) |
+| Demultiplexer | porta un ingresso sull'uscita scelta, le altre restano a 0 |
+| Decoder | accende una sola uscita per ogni combinazione: genera tutti i mintermini |
+| Encoder con priorità | dà il numero dell'ingresso attivo di indice più alto |
+| Ritardo di propagazione | tempo fra la variazione di un ingresso e quella dell'uscita |
+| Alea statica / dinamica | impulso indesiderato su un'uscita che deve restare costante / che deve cambiare una volta |
+| MSB, LSB | bit di peso massimo e di peso minimo |
+| BCD | ogni cifra decimale scritta con 4 bit |
+| Codice Gray | sequenza in cui due valori consecutivi differiscono per un bit |
+| Bit di parità | bit che rende pari (o dispari) il numero di 1; rivela un errore singolo |
+| Overflow | risultato che non sta nei bit disponibili |
+| Complemento a 2 | rappresentazione dei negativi con il bit alto di peso $-2^{n-1}$ |
+| Bit nascosto | l'1 prima della virgola della mantissa normalizzata, non memorizzato |
+| Esponente polarizzato | campo $e = E + 127$ (o $+1023$) invece dell'esponente in complemento a 2 |
+| ALU | rete che esegue più operazioni sugli stessi operandi e ne sceglie una con un MUX |
+
+### Domande che tornano spesso
+
+- Perché il MUX è una rete universale? Come si realizza una funzione di 3 variabili con un MUX 4→1?
+- Che differenza c'è fra DEMUX e decoder?
+- Che cos'è un'alea statica, perché nasce e come si elimina? Disegnare il diagramma temporale di $IN + \overline{IN}$.
+- Perché il complemento a 2 è preferito a modulo e segno? Come si riconosce l'overflow?
+- Come si passa da un sommatore a un sottrattore con una sola rete?
+- Perché il sommatore a cascata è lento?
+- Come si scrive un numero in IEEE 754? Che cosa sono il bit nascosto, i denormalizzati, infinito e NaN?

@@ -75,3 +75,22 @@ Le aggiunte pesano l'11% del modulo 1, il 13% del 2, il 15% del 3 e il 14% del 4
 Sono stati scritti anche esempi ed esercizi svolti nuovi, fuori dai blocchi di aggiunta perché applicano solo ciò che è già nel testo: la mappa a quattro variabili di 1.5, il generatore di parità, la frequenza massima del contatore, il registro universale, il FF T da un FF D, il comportamento della macchina delle luci dagli stati non usati, il rilevatore di fronti di Mealy.
 
 > Il testo di Donzellini e altri non era tra i file forniti: le aggiunte seguono gli argomenti del programma con nozioni standard, e le fonti sono citate senza numero di capitolo. Conviene controllarle sulla propria copia del libro (domanda nell'elenco finale).
+
+## Ampliamento del 5 novembre 2026
+
+Dopo le risposte alle domande (`revisione/AMPLIAMENTO-ANNO-1.md`).
+
+| Dove | Che cosa | Motivo |
+|---|---|---|
+| 2.8 (nuovo) | Virgola mobile e IEEE 754: formato a 32 e 64 bit, esponente polarizzato, bit nascosto, valori speciali, somma | RL-4: non chiesto all'esame, da spiegare |
+| 3.3 | FF D con abilitazione (E-PET) | usato negli esercizi del simulatore |
+| 3.7 | Il dubbio sul JK di L07-L08 diventa una nota: un JK con $K = \overline{IN}$ è un FF D | dubbio non risolvibile dagli appunti |
+| 4.5 | Rilevatore di fronti: 4 stati come nel diagramma (Moore), 2 nella versione Mealy | RL-8 |
+| 4.8 | Lavatrice: lo stato stop resta fermo fino al reset | RL-7 |
+| Esercizi dei moduli 1-4 | 27 esercizi del laboratorio sul modello delle esercitazioni Deeds, con testi, dati e soluzioni nuovi | RL-1, RL-3, RL-11 |
+| 4, esercizio 7 | Ricevitore seriale del pacchetto $1\,1\,B\,0\,0$, specifica ricostruita | RL-12: specifica non trovata nei file |
+| Tutti i moduli | Sezione "Esercizi guidati" (12 esercizi passo per passo) e "Formulario" con termini e domande per l'orale | richiesta del 5/11 |
+
+RL-9: la semplificazione dell'esercizio 1 del modulo 1 è stata ricontrollata ($F = AD + \bar{C}D + AB\bar{C}$, verificata su tutte le combinazioni in `strumenti/verifica_modulo1.py`). RL-5: il contatore della lezione 9 è quello modulo 16 a 4 FF, ora svolto anche con i FF D (esercizio 12 del modulo 3). RL-2, RL-6: senza risposta, il testo resta com'era.
+
+Tutti gli esercizi nuovi sono controllati da `strumenti/verifica_ampliamento.py` (induzione perfetta sulle espressioni, simulazione fronte per fronte delle sequenze, conversioni IEEE 754 con la libreria standard).

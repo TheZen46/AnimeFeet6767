@@ -2,7 +2,7 @@
 corso: Geometria
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # Geometria
@@ -207,9 +207,136 @@ L'area è la metà della norma: $\frac12\sqrt{(t - 2)^2 + (6 - 2t)^2 + 1} = 10$,
 
 **Esercizio 3 (radici dell'unità).** Le radici cubiche di 1 sono $e^{2k\pi i/3}$, cioè $1$ e $-\frac12 \pm i\frac{\sqrt3}{2}$: si verifica che $\left(-\frac12 + i\frac{\sqrt3}{2}\right)^3 = e^{2\pi i} = 1$. Sono le radici di $x^3 - 1 = (x - 1)(x^2 + x + 1)$; le due non reali sono coniugate, come deve essere per un polinomio reale.
 
+#### Esercizi sul modello delle prove d'esame
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle 13 prove scritte dal gennaio 2024 al giugno 2026 e dei fogli di esercizi del corso; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-02, GEO-03)
+> In ogni prova c'è un esercizio sui numeri complessi o sui polinomi e uno di geometria analitica nello spazio: piano per una retta e un punto, proiezioni e simmetrici, sfera e circonferenza.
+
+**Esercizio 3. Forma esponenziale, potenze e radici.** Sia $w = 1 - \sqrt{3}\,i$. (a) Forma esponenziale. (b) $w^6$ in forma algebrica. (c) Soluzioni di $z^3 = w$.
+
+(a) $|w| = \sqrt{1 + 3} = 2$; il punto $(1, -\sqrt3)$ sta nel quarto quadrante con $\tan\vartheta = -\sqrt3$, quindi $\vartheta = -\frac{\pi}{3}$: $w = 2e^{-i\pi/3}$.
+
+(b) Per De Moivre $w^6 = 2^6 e^{-2\pi i} = 64$. Il risultato è reale perché $6 \cdot \frac{\pi}{3}$ è un multiplo di $2\pi$.
+
+(c) Le radici cubiche hanno modulo $\sqrt[3]{2}$ e argomenti $\frac{-\pi/3 + 2k\pi}{3}$, $k = 0, 1, 2$:
+$$z_k = \sqrt[3]{2}\,e^{i\left(-\frac{\pi}{9} + \frac{2k\pi}{3}\right)}, \qquad \text{argomenti } -\frac{\pi}{9},\ \frac{5\pi}{9},\ \frac{11\pi}{9}.$$
+Nel piano complesso sono i vertici di un triangolo equilatero inscritto nella circonferenza di raggio $\sqrt[3]{2}$.
+
+**Esercizio 4. Un'equazione di secondo grado a coefficienti complessi.** Risolvere $z^2 - 2iz - 2 = 0$.
+
+La formula risolutiva vale anche in $\mathbb{C}$: $\Delta = (-2i)^2 - 4 \cdot (-2) = -4 + 8 = 4$, con radici quadrate $\pm 2$. Quindi $z = \frac{2i \pm 2}{2} = i \pm 1$. Controllo: $(1 + i)^2 - 2i(1 + i) - 2 = 2i - 2i + 2 - 2 = 0$. Le soluzioni non sono coniugate: lo sono solo quando i coefficienti sono reali.
+
+**Esercizio 5. Fattorizzare in $\mathbb{R}$ e in $\mathbb{C}$.** Fattorizzare $p(x) = x^4 + 4$.
+
+Le radici sono le radici quarte di $-4 = 4e^{i\pi}$: modulo $\sqrt2$ e argomenti $\frac{\pi}{4} + \frac{k\pi}{2}$, cioè $\pm 1 \pm i$. In $\mathbb{C}$, $p = (x - 1 - i)(x - 1 + i)(x + 1 - i)(x + 1 + i)$. In $\mathbb{R}$ si moltiplicano le coppie coniugate: $(x - 1 - i)(x - 1 + i) = (x - 1)^2 + 1$, e
+$$x^4 + 4 = (x^2 - 2x + 2)(x^2 + 2x + 2).$$
+Un polinomio reale senza radici reali si può comunque fattorizzare in fattori di secondo grado: è la conseguenza del teorema fondamentale dell'algebra per i polinomi reali.
+
+**Esercizio 6. Piano per una retta e un punto, proiezione e simmetrico.** Siano $r: (x, y, z) = (0, 1, 2) + t(1, -1, 2)$, il punto $P = (1, 2, 0)$ e il piano $\pi: x - y + 2z - 1 = 0$. (a) Piano $\sigma$ che contiene $r$ e $P$. (b) Proiezione ortogonale di $Q = (1, 2, 3)$ su $\pi$ e simmetrico di $Q$ rispetto a $\pi$.
+
+(a) $\sigma$ contiene il punto $R_0 = (0, 1, 2)$ di $r$, la direzione $d = (1, -1, 2)$ e il vettore $P - R_0 = (1, 1, -2)$. Un vettore normale è $d \times (P - R_0) = (0, 4, 2)$, cioè $(0, 2, 1)$. Il piano è $2y + z = c$, e passando per $P$: $c = 4$. Quindi $\sigma: 2y + z - 4 = 0$. Controllo: $R_0$ dà $2 + 2 = 4$ e la direzione dà $2 \cdot (-1) + 2 = 0$.
+
+(b) La retta per $Q$ perpendicolare a $\pi$ è $Q + s(1, -1, 2)$. Sostituendo nel piano: $(1 + s) - (2 - s) + 2(3 + 2s) - 1 = 0$, cioè $4 + 6s = 0$, $s = -\frac23$. La proiezione è $H = \left(\frac13, \frac83, \frac53\right)$, e il simmetrico è $Q' = 2H - Q = \left(-\frac13, \frac{10}{3}, \frac13\right)$: $H$ è il punto medio fra $Q$ e $Q'$.
+
+**Esercizio 7. Sfera tagliata da un piano.** $S: x^2 + y^2 + z^2 - 4x + 2y - 4 = 0$ e $\pi: x + 2y + 2z - 3 = 0$. Centro e raggio di $S$; mostrare che $S \cap \pi$ è una circonferenza e trovarne centro e raggio.
+
+Completando i quadrati, $(x - 2)^2 + (y + 1)^2 + z^2 = 4 + 1 + 4 = 9$: centro $C = (2, -1, 0)$, raggio 3. La distanza di $C$ da $\pi$ è $\frac{|2 - 2 + 0 - 3|}{\sqrt{1 + 4 + 4}} = 1 < 3$: il piano taglia la sfera in una circonferenza di raggio $\sqrt{9 - 1} = 2\sqrt2$ (Pitagora sul triangolo centro della sfera, centro della circonferenza, punto della circonferenza). Il centro è la proiezione di $C$ su $\pi$: $C + s(1, 2, 2)$ con $9s - 3 = 0$, $s = \frac13$, quindi $\left(\frac73, -\frac13, \frac23\right)$.
+
+**Esercizio 8. Rette sghembe e loro distanza.** $r: (1, 0, 0) + t(1, 1, 0)$ e $s: (0, 0, 2) + u(0, 1, 1)$.
+
+Le direzioni non sono parallele. $d_r \times d_s = (1, -1, 1)$; il vettore fra due punti è $(0, 0, 2) - (1, 0, 0) = (-1, 0, 2)$. La distanza è
+$$\frac{|(-1, 0, 2) \cdot (1, -1, 1)|}{\|(1, -1, 1)\|} = \frac{1}{\sqrt3} > 0,$$
+quindi le rette non si incontrano: sono sghembe. Se il prodotto misto fosse stato 0 le rette sarebbero state complanari e, non essendo parallele, incidenti.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-02, GEO-03)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Le radici quarte di $-16$.**
+
+*Passo 1: forma esponenziale.* $-16 = 16e^{i\pi}$.
+
+*Passo 2: modulo delle radici.* $\sqrt[4]{16} = 2$.
+
+*Passo 3: argomenti.* $\frac{\pi + 2k\pi}{4}$ per $k = 0, 1, 2, 3$: $\frac{\pi}{4}, \frac{3\pi}{4}, \frac{5\pi}{4}, \frac{7\pi}{4}$.
+
+*Passo 4: forma algebrica.* $2e^{i\pi/4} = \sqrt2 + i\sqrt2$, e le altre si ottengono cambiando i segni: $\pm\sqrt2 \pm i\sqrt2$, i vertici di un quadrato.
+
+**Guidato 2. Il piano per tre punti e l'area del triangolo.** $A = (1, 0, 1)$, $B = (2, 1, 1)$, $C = (1, 2, 3)$.
+
+*Passo 1: due vettori del piano.* $B - A = (1, 1, 0)$, $C - A = (0, 2, 2)$.
+
+*Passo 2: il normale.* $(1, 1, 0) \times (0, 2, 2) = (2, -2, 2)$, cioè $(1, -1, 1)$.
+
+*Passo 3: l'equazione.* $x - y + z = c$, con $A$: $c = 2$. Il piano è $x - y + z - 2 = 0$; si controlla con $B$ ($2 - 1 + 1 = 2$) e con $C$ ($1 - 2 + 3 = 2$).
+
+*Passo 4: l'area.* È metà della norma del prodotto vettoriale: $\frac12\|(2, -2, 2)\| = \frac12 \cdot 2\sqrt3 = \sqrt3$.
+
+**Guidato 3. Retta come intersezione di due piani.** Scrivere in forma parametrica $r: x + y + z = 0,\ x - y = 0$.
+
+*Passo 1: la direzione.* È perpendicolare a entrambi i normali: $(1, 1, 1) \times (1, -1, 0) = (1, 1, -2)$.
+
+*Passo 2: un punto.* L'origine soddisfa entrambe le equazioni.
+
+*Passo 3: la parametrica.* $r: (x, y, z) = t(1, 1, -2)$.
+
+*Passo 4: il controllo.* $t + t - 2t = 0$ e $t - t = 0$ per ogni $t$.
+
 ### Riepilogo
 
 Gli insiemi numerici si estendono fino a $\mathbb{C}$, dove ogni equazione polinomiale ha soluzione. Un complesso si scrive in forma algebrica $a + ib$, in cui si sommano e si moltiplicano con $i^2 = -1$ e si divide moltiplicando per il coniugato ($z\bar z = \lvert z\rvert^2$), oppure in forma trigonometrica ed esponenziale $re^{i\theta}$, in cui i moduli si moltiplicano e gli argomenti si sommano. De Moivre dà le potenze, e ogni numero non nullo ha $n$ radici $n$-esime sui vertici di un poligono regolare. Per i polinomi valgono la divisione con resto, il teorema di Ruffini e il teorema fondamentale dell'algebra; le radici complesse di un polinomio reale sono a coppie coniugate. Nello spazio, il prodotto scalare misura lunghezze e angoli, il prodotto vettoriale dà un vettore ortogonale ai due fattori con norma uguale all'area del parallelogramma, il prodotto misto dà il volume e decide la complanarità. Un piano ha equazione $ax + by + cz + d = 0$ con normale $(a, b, c)$; una retta si dà in forma parametrica o come intersezione di due piani; le posizioni reciproche si decidono con prodotti scalari e vettoriali, le distanze con le formule di proiezione, e le sfere completando i quadrati.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (GEO-01 … GEO-03)
+> Formule dei numeri complessi e della geometria analitica, con i termini per l'orale.
+
+#### Numeri complessi
+
+$$z = a + ib = \rho(\cos\vartheta + i\sin\vartheta) = \rho e^{i\vartheta}, \quad \rho = |z| = \sqrt{a^2 + b^2}, \quad \bar z = a - ib, \quad z\bar z = |z|^2, \quad \frac{1}{z} = \frac{\bar z}{|z|^2}.$$
+
+$$z_1 z_2 = \rho_1\rho_2 e^{i(\vartheta_1 + \vartheta_2)}, \qquad z^n = \rho^n e^{in\vartheta} \ \text{(De Moivre)}, \qquad \sqrt[n]{z} = \sqrt[n]{\rho}\,e^{i\frac{\vartheta + 2k\pi}{n}},\ k = 0, \dots, n - 1.$$
+
+Eulero: $e^{i\vartheta} = \cos\vartheta + i\sin\vartheta$. Teorema fondamentale dell'algebra: un polinomio di grado $n$ ha $n$ radici in $\mathbb{C}$ contate con molteplicità; se i coefficienti sono reali le radici non reali vengono a coppie coniugate. Ruffini: $p(a) = 0 \iff (x - a) \mid p(x)$.
+
+#### Vettori
+
+$$u \cdot v = \sum u_i v_i = \|u\|\|v\|\cos\vartheta, \qquad \|u \times v\| = \|u\|\|v\|\sin\vartheta = \text{area del parallelogramma}, \qquad |u \cdot (v \times w)| = \text{volume}.$$
+
+Allineati: $u \times v = 0$. Complanari: $u \cdot (v \times w) = 0$. Proiezione di $v$ su $u$: $\frac{u \cdot v}{u \cdot u}u$.
+
+#### Rette, piani, distanze, sfere
+
+| Oggetto | Equazioni |
+|---|---|
+| Piano | $ax + by + cz + d = 0$, normale $(a, b, c)$; parametrico $P_0 + su + tv$ |
+| Retta | $P_0 + td$; oppure intersezione di due piani, con direzione $n_1 \times n_2$ |
+| Distanza punto-piano | $\frac{\lvert ax_0 + by_0 + cz_0 + d\rvert }{\sqrt{a^2 + b^2 + c^2}}$ |
+| Distanza fra rette sghembe | $\frac{|(Q - P) \cdot (d_r \times d_s)|}{\|d_r \times d_s\|}$ |
+| Sfera | $(x - x_C)^2 + (y - y_C)^2 + (z - z_C)^2 = R^2$ |
+| Circonferenza $S \cap \pi$ | raggio $\sqrt{R^2 - d(C, \pi)^2}$, centro la proiezione di $C$ su $\pi$ |
+
+Parallelismo e perpendicolarità: retta e piano paralleli se $d \cdot n = 0$; perpendicolari se $d \parallel n$; due piani paralleli se i normali sono paralleli. Simmetrico di $Q$ rispetto a un piano: $2H - Q$, con $H$ proiezione.
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Campo | insieme con somma e prodotto con le proprietà dei razionali |
+| Modulo, argomento | distanza dall'origine e angolo nel piano di Gauss |
+| Radice di molteplicità $m$ | $(x - a)^m$ divide il polinomio, $(x - a)^{m+1}$ no |
+| Prodotto scalare, vettoriale, misto | numero; vettore perpendicolare; numero (volume con segno) |
+| Rette sghembe | non parallele e non incidenti |
+| Proiezione ortogonale | piede della perpendicolare da un punto |
+
+#### Domande che tornano spesso
+
+- Definire $\mathbb{C}$ e le sue operazioni; perché non è ordinato?
+- Ricavare le formule di De Moivre e quelle delle radici $n$-esime; dove stanno le radici nel piano?
+- Enunciare il teorema fondamentale dell'algebra e la fattorizzazione dei polinomi reali.
+- Proprietà del prodotto vettoriale e suo significato geometrico.
+- Posizioni reciproche di due rette nello spazio; distanza fra rette sghembe.
 
 ## 2 · Matrici, sistemi lineari e determinanti
 
@@ -376,9 +503,114 @@ coerente con $\det A = 8$ (il pivot $-8$ moltiplicato per $-1$ dello scambio e p
 
 **Esercizio 3 (prodotto e trasposta).** Se $A$ è una qualsiasi matrice $m \times n$, le matrici $AA^T$ (di ordine $m$) e $A^TA$ (di ordine $n$) sono simmetriche: $(AA^T)^T = (A^T)^T A^T = AA^T$. Ogni matrice quadrata si scrive come somma di una simmetrica e di una antisimmetrica: $A = \frac{A + A^T}{2} + \frac{A - A^T}{2}$.
 
+#### Esercizi sul modello delle prove d'esame
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove scritte 2024-2026 e dei fogli "Matrici e sistemi lineari"; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-04)
+> L'esercizio tipico è un sistema con un parametro: per quali valori è risolubile, quando la soluzione è unica, e la soluzione per un valore fissato.
+
+**Esercizio 4. Un sistema con un parametro.** Discutere al variare di $a \in \mathbb{R}$ e risolvere
+$$\begin{cases} x + y + z = 1 \\ x + ay + z = a \\ x + y + az = a^2 \end{cases}$$
+
+*Determinante.* Sottraendo la prima riga dalle altre, la matrice dei coefficienti diventa triangolare con diagonale $1, a - 1, a - 1$: $\det A = (a - 1)^2$.
+
+*$a \ne 1$.* $\det A \ne 0$: per Cramer (o Rouché-Capelli) la soluzione esiste ed è unica. Sottraendo la prima equazione dalla seconda, $(a - 1)y = a - 1$, cioè $y = 1$; dalla terza, $(a - 1)z = a^2 - 1$, cioè $z = a + 1$; infine $x = 1 - y - z = -a - 1$. Controllo nella terza: $-a - 1 + 1 + a(a + 1) = a^2$.
+
+*$a = 1$.* Le tre equazioni diventano tutte $x + y + z = 1$: rango della matrice e della completa uguale a 1, il sistema è risolubile con $3 - 1 = 2$ parametri liberi: $(x, y, z) = (1 - s - t, s, t)$.
+
+**Esercizio 5. Invertibilità con un parametro.** Per quali $h$ è invertibile $A_h = \begin{pmatrix} 1 & h & 0 \\ 0 & 1 & h \\ h & 0 & 1 \end{pmatrix}$? Calcolare l'inversa per $h = 1$.
+
+Con Laplace sulla prima colonna: $\det A_h = 1 \cdot (1 - 0) + h \cdot (h^2 - 0) = 1 + h^3$. È nullo solo per $h = -1$ (unica radice reale di $h^3 = -1$). Per $h = 1$, $\det = 2$, e con Gauss-Jordan su $(A \mid I)$ o con la matrice dei complementi algebrici:
+$$A_1^{-1} = \frac12\begin{pmatrix} 1 & -1 & 1 \\ 1 & 1 & -1 \\ -1 & 1 & 1 \end{pmatrix}.$$
+Controllo della prima riga di $A_1 A_1^{-1}$: $(1, 1, 0) \cdot$ colonne $= \frac12(1 + 1,\ -1 + 1,\ 1 - 1) = (1, 0, 0)$.
+
+**Esercizio 6. Rango con un parametro.** Rango di $C_k = \begin{pmatrix} 1 & 2 & k \\ 2 & 4 & 2 \\ k & 2 & 1 \end{pmatrix}$ al variare di $k$.
+
+$\det C_k = 1(4 - 4) - 2(2 - 2k) + k(4 - 4k) = -4 + 4k + 4k - 4k^2 = -4(k - 1)^2$. Per $k \ne 1$ il rango è 3. Per $k = 1$ tutte le righe sono multiple di $(1, 2, 1)$: rango 1. Non c'è nessun valore con rango 2: lo si vede anche dal minore $\begin{vmatrix} 2 & k \\ 4 & 2 \end{vmatrix} = 4 - 4k$, nullo proprio per $k = 1$.
+
+**Esercizio 7. Una matrice che è la propria inversa.** Sia $B = \begin{pmatrix} 1 & 0 & 0 \\ 2 & -1 & 0 \\ 3 & 0 & -1 \end{pmatrix}$. Mostrare che $B^2 = I$ e dedurre $B^{-1}$.
+
+Riga per colonna: la prima riga di $B^2$ è $(1, 0, 0)$; la seconda è $(2 \cdot 1 + (-1) \cdot 2,\ (-1)^2,\ 0) = (0, 1, 0)$; la terza è $(3 \cdot 1 + (-1) \cdot 3,\ 0,\ (-1)^2) = (0, 0, 1)$. Quindi $B^2 = I$ e $B^{-1} = B$. Come applicazione, $f(x) = Bx$ soddisfa $f(f(x)) = x$: è un'**involuzione**. Il determinante deve valere $\pm 1$, perché $\det(B)^2 = \det(B^2) = 1$ (Binet); qui è triangolare e vale $1 \cdot (-1) \cdot (-1) = 1$.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-04)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Rouché-Capelli passo per passo.** Discutere $\begin{cases} x + 2y = 3 \\ 2x + ky = 6 \end{cases}$ al variare di $k$.
+
+*Passo 1: il determinante.* $\det A = k - 4$.
+
+*Passo 2: $k \ne 4$.* Soluzione unica: dalla seconda meno due volte la prima, $(k - 4)y = 0$, quindi $y = 0$ e $x = 3$.
+
+*Passo 3: $k = 4$, i ranghi.* $A = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$ ha rango 1; la completa $\begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{pmatrix}$ ha rango 1 (la seconda riga è il doppio della prima).
+
+*Passo 4: conclusione per $k = 4$.* Ranghi uguali: risolubile, con $2 - 1 = 1$ parametro: $(3 - 2t, t)$. Se il termine noto della seconda equazione fosse stato diverso da 6, la completa avrebbe avuto rango 2 e il sistema sarebbe stato impossibile.
+
+**Guidato 2. L'inversa con Gauss-Jordan.** Invertire $A = \begin{pmatrix} 2 & 1 \\ 5 & 3 \end{pmatrix}$.
+
+*Passo 1.* Si scrive $(A \mid I) = \left(\begin{smallmatrix} 2 & 1 & | & 1 & 0 \\ 5 & 3 & | & 0 & 1 \end{smallmatrix}\right)$.
+
+*Passo 2.* $R_2 \to 2R_2 - 5R_1$: $\left(\begin{smallmatrix} 2 & 1 & | & 1 & 0 \\ 0 & 1 & | & -5 & 2 \end{smallmatrix}\right)$.
+
+*Passo 3.* $R_1 \to R_1 - R_2$, poi $R_1 \to \frac12 R_1$: $\left(\begin{smallmatrix} 1 & 0 & | & 3 & -1 \\ 0 & 1 & | & -5 & 2 \end{smallmatrix}\right)$.
+
+*Passo 4.* $A^{-1} = \begin{pmatrix} 3 & -1 \\ -5 & 2 \end{pmatrix}$. Con la formula delle $2 \times 2$, $\frac{1}{\det A}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$ con $\det A = 1$, si ritrova lo stesso risultato.
+
+**Guidato 3. Un determinante $4 \times 4$ con le proprietà.** Calcolare $\det\begin{pmatrix} 1 & 2 & 0 & 1 \\ 2 & 4 & 1 & 3 \\ 0 & 1 & 1 & 0 \\ 1 & 2 & 0 & 2 \end{pmatrix}$.
+
+*Passo 1: fare zeri.* $R_2 \to R_2 - 2R_1$ dà $(0, 0, 1, 1)$; $R_4 \to R_4 - R_1$ dà $(0, 0, 0, 1)$. Il determinante non cambia.
+
+*Passo 2: Laplace sulla prima colonna.* Resta un solo elemento non nullo, l'1 in alto a sinistra: il determinante è quello della $3 \times 3$ con righe $(0, 1, 1)$, $(1, 1, 0)$, $(0, 0, 1)$.
+
+*Passo 3: Laplace sull'ultima riga.* $1 \cdot \begin{vmatrix} 0 & 1 \\ 1 & 1 \end{vmatrix} = -1$.
+
+*Passo 4: risultato.* $\det = -1$. Senza le operazioni di riga lo sviluppo di Laplace avrebbe richiesto quattro determinanti $3 \times 3$.
+
 ### Riepilogo
 
 Le matrici si sommano coefficiente per coefficiente e si moltiplicano righe per colonne; il prodotto è associativo e distributivo ma non commutativo, e ammette divisori dello zero. La trasposta rovescia l'ordine dei prodotti; una matrice quadrata è invertibile se ha un'inversa da entrambi i lati, e le invertibili formano $\mathrm{GL}_n$. Le operazioni elementari sulle righe corrispondono al prodotto per matrici elementari, e con l'algoritmo di Gauss portano ogni matrice a scala e poi in forma totalmente ridotta: riducendo $(A \mid I)$ si trova l'inversa, riducendo $(A \mid B)$ si risolve il sistema, che è compatibile se non c'è un pivot nell'ultima colonna e ha $n - p$ parametri liberi. Il determinante si calcola con Laplace lungo una riga o una colonna, con Sarrus per $n = 3$, o riducendo a scala; cambia segno con gli scambi, è multiplicativo (Binet) e non nullo esattamente per le matrici invertibili, la cui inversa è l'aggiunta divisa per il determinante. Ne seguono la regola di Cramer e il rango come ordine massimo di un minore non nullo (orlati di Kronecker); per Rouché-Capelli un sistema è compatibile se e solo se $A$ e $(A \mid B)$ hanno lo stesso rango $r$, e allora le soluzioni dipendono da $n - r$ parametri.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (GEO-04)
+> Operazioni, determinante, rango e sistemi, con i termini per l'orale.
+
+#### Matrici
+
+$$(AB)^T = B^T A^T, \quad (AB)^{-1} = B^{-1}A^{-1}, \quad \begin{pmatrix} a & b \\ c & d \end{pmatrix}^{-1} = \frac{1}{ad - bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}, \quad A^{-1} = \frac{1}{\det A}\operatorname{adj}(A).$$
+
+Il prodotto non è commutativo; $AB = 0$ non implica $A = 0$ o $B = 0$.
+
+#### Determinante
+
+- Laplace lungo la riga $i$: $\det A = \sum_j (-1)^{i+j}a_{ij}\det A_{ij}$.
+- Scambiare due righe cambia il segno; moltiplicare una riga per $c$ moltiplica per $c$; sommare a una riga un multiplo di un'altra non cambia nulla.
+- $\det(AB) = \det A \det B$ (Binet), $\det A^T = \det A$, $\det A^{-1} = \frac{1}{\det A}$, $\det(cA) = c^n\det A$.
+- Triangolare: prodotto della diagonale. $\det A \ne 0 \iff A$ invertibile $\iff$ righe indipendenti.
+
+#### Rango e sistemi
+
+Il rango è il numero di pivot dopo la riduzione, cioè il massimo ordine di un minore non nullo. **Rouché-Capelli**: $AX = B$ è risolubile se e solo se $\operatorname{rk} A = \operatorname{rk}(A \mid B)$; allora le soluzioni dipendono da $n - \operatorname{rk} A$ parametri. **Cramer**: se $A$ è quadrata e invertibile, $x_i = \frac{\det A_i}{\det A}$, con $A_i$ ottenuta mettendo $B$ al posto della colonna $i$.
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Matrice ridotta per righe | il primo elemento non nullo di ogni riga sta a destra di quello sopra |
+| Matrice totalmente ridotta | ridotta, con pivot 1 e zeri sopra e sotto ogni pivot |
+| Matrice elementare | ottenuta dall'identità con una sola operazione elementare |
+| Matrice invertibile | esiste $A^{-1}$ con $AA^{-1} = A^{-1}A = I$ |
+| Rango | dimensione dello spazio delle righe (o delle colonne) |
+| Sistema omogeneo | termini noti nulli: ha sempre la soluzione nulla |
+| Complemento algebrico | $(-1)^{i+j}\det A_{ij}$ |
+
+#### Domande che tornano spesso
+
+- Che cosa sono le operazioni elementari e perché non cambiano le soluzioni di un sistema?
+- Caratterizzazioni delle matrici invertibili.
+- Proprietà del determinante; enunciare Binet e Laplace.
+- Enunciare e dimostrare Rouché-Capelli; struttura delle soluzioni (soluzione particolare più omogeneo).
+- Enunciare Cramer.
 
 ## 3 · Spazi vettoriali e applicazioni lineari
 
@@ -545,9 +777,123 @@ Fra spazi della stessa dimensione, suriettiva vuol dire invertibile, cioè $\det
 
 **Esercizio 3 (equazioni di uno span).** Trovare un'equazione cartesiana di $W = \langle (1, 0, 1), (0, 1, 1)\rangle \subseteq \mathbb{R}^3$. Un vettore $(x, y, z)$ sta in $W$ se la matrice con colonne $(1, 0, 1)$, $(0, 1, 1)$, $(x, y, z)$ ha rango 2, cioè determinante nullo: $\begin{vmatrix} 1 & 0 & x \\ 0 & 1 & y \\ 1 & 1 & z \end{vmatrix} = z - x - y = 0$. Quindi $W$ è il piano $x + y - z = 0$.
 
+#### Esercizi sul modello delle prove d'esame
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove scritte 2024-2026 e dei fogli "Spazi vettoriali", "Applicazioni lineari", "Matrici associate"; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-05)
+> Due esercizi su cinque, in ogni prova, sono di questo modulo: sottospazi di $\mathbb{R}^4$ (basi, intersezione, somma, equazioni) e un'applicazione lineare (matrice associata, nucleo, immagine, spesso con un parametro).
+
+**Esercizio 4. Intersezione e somma in $\mathbb{R}^4$.** $V = \{(x, y, z, t) : x + y - z = 0,\ y + t = 0\}$ e $W = \langle (1, 0, 1, 0), (1, 1, 0, 0) \rangle$. (a) Basi e dimensioni di $V$ e $W$. (b) $V \cap W$ e $V + W$, con un'equazione cartesiana di $V + W$. (c) $(1, 0, 1, 3) \in V + W$?
+
+(a) $V$ è dato da due equazioni indipendenti in 4 incognite: $\dim V = 2$. Con $y = s$ e $x = u$ liberi, $t = -s$ e $z = u + s$: $V = \langle (1, 0, 1, 0), (0, 1, 1, -1) \rangle$. I due generatori di $W$ non sono proporzionali: $\dim W = 2$.
+
+(b) Un vettore di $W$ è $a(1, 0, 1, 0) + b(1, 1, 0, 0) = (a + b, b, a, 0)$; sta in $V$ se $(a + b) + b - a = 2b = 0$ e $b + 0 = 0$: quindi $b = 0$, e $V \cap W = \langle (1, 0, 1, 0) \rangle$, di dimensione 1. Per Grassmann $\dim(V + W) = 2 + 2 - 1 = 3$, con base $(1, 0, 1, 0)$, $(0, 1, 1, -1)$, $(1, 1, 0, 0)$. Un iperpiano di $\mathbb{R}^4$ ha una sola equazione $ax + by + cz + dt = 0$; imponendo il passaggio per i tre vettori: $a + c = 0$, $b + c - d = 0$, $a + b = 0$. Con $b = 1$: $a = -1$, $c = 1$, $d = 2$, e
+$$V + W:\ -x + y + z + 2t = 0.$$
+(c) $-1 + 0 + 1 + 6 = 6 \ne 0$: no.
+
+**Esercizio 5. Matrice associata in due basi.** Sia $f(x, y, z) = (x + y,\ y - z,\ x + z)$ e $\mathcal{F} = ((1, 1, 0), (1, 0, 1), (0, 1, 1))$. (a) $M^{\mathcal{E}}_{\mathcal{F}}(f)$, con $\mathcal{E}$ base canonica in partenza. (b) Nucleo e immagine.
+
+(a) Nella colonna $j$ vanno le coordinate di $f(e_j)$ rispetto a $\mathcal{F}$. $f(e_1) = (1, 0, 1) = f_2$: coordinate $(0, 1, 0)$. $f(e_2) = (1, 1, 0) = f_1$: $(1, 0, 0)$. $f(e_3) = (0, -1, 1)$: si risolve $af_1 + bf_2 + cf_3 = (0, -1, 1)$, cioè $a + b = 0$, $a + c = -1$, $b + c = 1$, con soluzione $a = -1$, $b = 1$, $c = 0$. Quindi
+$$M^{\mathcal{E}}_{\mathcal{F}}(f) = \begin{pmatrix} 0 & 1 & -1 \\ 1 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}.$$
+In alternativa, con $P$ la matrice che ha per colonne i vettori di $\mathcal{F}$, si calcola $P^{-1}A$, dove $A$ è la matrice di $f$ nella base canonica.
+
+(b) La matrice ha rango 2, quindi $\dim\operatorname{Im} f = 2$ e, per il teorema della dimensione, $\dim\ker f = 1$. Il nucleo: $x + y = 0$, $y - z = 0$, $x + z = 0$ danno $\ker f = \langle (-1, 1, 1) \rangle$. L'immagine è generata da $f_1$ e $f_2$, cioè $\operatorname{Im} f = \langle (1, 1, 0), (1, 0, 1) \rangle$, il piano $x - y - z = 0$.
+
+**Esercizio 6. Un'applicazione definita su una base.** $f : \mathbb{R}^3 \to \mathbb{R}^3$ è lineare con $f(1, 1, 0) = (2, 1, 1)$, $f(1, 0, 1) = (1, 1, 0)$, $f(0, 0, 1) = (1, 0, 1)$. Trovare $f(x, y, z)$ e il nucleo.
+
+Si scrivono i vettori della base canonica come combinazioni dei tre dati: $e_3 = (0, 0, 1)$, $e_1 = (1, 0, 1) - e_3$, $e_2 = (1, 1, 0) - e_1$. Per linearità $f(e_3) = (1, 0, 1)$, $f(e_1) = (1, 1, 0) - (1, 0, 1) = (0, 1, -1)$, $f(e_2) = (2, 1, 1) - (0, 1, -1) = (2, 0, 2)$. Quindi
+$$f(x, y, z) = x(0, 1, -1) + y(2, 0, 2) + z(1, 0, 1) = (2y + z,\ x,\ -x + 2y + z).$$
+La seconda e la terza colonna sono proporzionali: rango 2, $\ker f = \langle (0, 1, -2) \rangle$ (infatti $f(e_2) - 2f(e_3) = 0$).
+
+**Esercizio 7. Nucleo con un parametro.** $f_a$ ha matrice $\begin{pmatrix} 1 & 2 & 1 \\ 0 & a & 1 \\ 1 & 2 & a \end{pmatrix}$ nella base canonica. Per quali $a$ è $\ker f_a \ne \{0\}$? Basi di nucleo e immagine per $a = 0$.
+
+$\det = 1(a^2 - 2) - 2(0 - 1) + 1(0 - a) = a^2 - a = a(a - 1)$: il nucleo non è banale per $a = 0$ e $a = 1$. Per $a = 0$ il sistema $x + 2y + z = 0$, $z = 0$, $x + 2y = 0$ dà $\ker f_0 = \langle (-2, 1, 0) \rangle$. L'immagine ha dimensione $3 - 1 = 2$ ed è generata da due colonne indipendenti, per esempio la prima e la terza: $\operatorname{Im} f_0 = \langle (1, 0, 1), (1, 1, 0) \rangle$.
+
+**Esercizio 8. Un complemento diretto.** Sia $W = \{x_4 = 0\} \subset \mathbb{R}^4$. Trovare $S$ con $S \oplus W = \mathbb{R}^4$. È unico?
+
+$\dim W = 3$, quindi $S$ deve avere dimensione 1 e intersecare $W$ solo nello 0: basta un vettore fuori da $W$, per esempio $S = \langle e_4 \rangle$. Non è unico: va bene $\langle (1, 2, 3, 1) \rangle$, o qualsiasi vettore con $x_4 \ne 0$. Il complemento diretto di un sottospazio esiste sempre ma non è unico (lo è il complemento ortogonale, del modulo 4).
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-05)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Da un sottospazio generato alle equazioni cartesiane.** Trovare le equazioni di $U = \langle (1, 1, 0, 1), (0, 1, 1, 0) \rangle$ in $\mathbb{R}^4$.
+
+*Passo 1: quante equazioni.* $\dim U = 2$ in $\mathbb{R}^4$: servono $4 - 2 = 2$ equazioni indipendenti.
+
+*Passo 2: la condizione.* $(x, y, z, t) \in U$ se la matrice con righe i due generatori e il vettore ha rango 2.
+
+*Passo 3: ridurre.* Un vettore di $U$ è $a(1, 1, 0, 1) + b(0, 1, 1, 0) = (a, a + b, b, a)$: quindi $x = a$, $z = b$, e le altre coordinate devono essere $y = x + z$ e $t = x$.
+
+*Passo 4: le equazioni.* $U: x - y + z = 0,\ x - t = 0$. Controllo sui generatori: $(1, 1, 0, 1)$ dà $0$ e $0$; $(0, 1, 1, 0)$ dà $0$ e $0$.
+
+**Guidato 2. Cambiamento di base per un endomorfismo.** $f$ ha matrice $A = \begin{pmatrix} 2 & 1 \\ 0 & 3 \end{pmatrix}$ nella base canonica di $\mathbb{R}^2$. Trovare la matrice rispetto a $\mathcal{B}' = ((1, 0), (1, 1))$.
+
+*Passo 1: la matrice di passaggio.* $P$ ha per colonne i vettori di $\mathcal{B}'$: $P = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$, $P^{-1} = \begin{pmatrix} 1 & -1 \\ 0 & 1 \end{pmatrix}$.
+
+*Passo 2: $AP$.* $\begin{pmatrix} 2 & 3 \\ 0 & 3 \end{pmatrix}$.
+
+*Passo 3: $P^{-1}AP$.* $\begin{pmatrix} 2 & 0 \\ 0 & 3 \end{pmatrix}$.
+
+*Passo 4: la lettura.* Nella nuova base la matrice è diagonale: $(1, 0)$ e $(1, 1)$ sono autovettori di autovalori 2 e 3. È esattamente il problema del modulo 4.
+
+**Guidato 3. Il teorema della dimensione come controllo.** $f : \mathbb{R}^4 \to \mathbb{R}^3$ ha matrice $\begin{pmatrix} 1 & 0 & 1 & 2 \\ 0 & 1 & 1 & 1 \\ 1 & 1 & 2 & 3 \end{pmatrix}$. Dimensioni di nucleo e immagine; $f$ è suriettiva?
+
+*Passo 1: il rango.* La terza riga è la somma delle prime due: rango 2.
+
+*Passo 2: l'immagine.* $\dim\operatorname{Im} f = 2 < 3$: non è suriettiva.
+
+*Passo 3: il nucleo.* $\dim\ker f = 4 - 2 = 2$. Dalle prime due righe: $x = -z - 2t$, $y = -z - t$, quindi $\ker f = \langle (-1, -1, 1, 0), (-2, -1, 0, 1) \rangle$.
+
+*Passo 4: controllo.* $2 + 2 = 4$, la dimensione del dominio.
+
 ### Riepilogo
 
 Uno spazio vettoriale è un insieme con somma e prodotto per scalari che verificano gli assiomi; esempi sono $\mathbb{K}^n$, le matrici, i polinomi. Un sottospazio contiene lo zero ed è chiuso per le operazioni; le soluzioni di un sistema omogeneo ne sono un esempio, quelle di un sistema non omogeneo un sottospazio traslato. Lo span di alcuni vettori è l'insieme delle loro combinazioni lineari; i vettori sono indipendenti se l'unica combinazione nulla è quella banale, cosa che in $\mathbb{K}^n$ si controlla con il rango o il determinante. Una base è un sistema di generatori indipendente, tutte le basi hanno lo stesso numero di elementi, la dimensione, e ogni vettore ha coordinate uniche rispetto a una base. Intersezione e somma di sottospazi sono sottospazi, legati dalla formula di Grassmann. Un'applicazione lineare è determinata dai valori su una base e corrisponde a una matrice (le cui colonne sono le immagini dei vettori della base); il nucleo è un sottospazio che decide l'iniettività, l'immagine ha dimensione uguale al rango, e $\dim V = \dim\ker f + \dim\mathrm{Im} f$. Cambiando base la matrice di un endomorfismo diventa $P^{-1}AP$: matrici simili hanno rango e determinante uguali.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (GEO-05)
+> Definizioni, teoremi e procedure su spazi vettoriali e applicazioni lineari, con i termini per l'orale.
+
+#### Sottospazi
+
+- $U \subseteq V$ è un sottospazio se contiene 0 ed è chiuso per somma e prodotto per scalari. Le soluzioni di un sistema omogeneo formano un sottospazio; quelle di un sistema non omogeneo no.
+- In $\mathbb{R}^n$: $\dim U$ = numero di generatori indipendenti = $n$ − numero di equazioni cartesiane indipendenti.
+- **Grassmann:** $\dim(U + W) = \dim U + \dim W - \dim(U \cap W)$. Somma diretta $U \oplus W$: $U \cap W = \{0\}$.
+- Per $U \cap W$: si mettono a sistema le equazioni, o si impone a una combinazione dei generatori di uno di soddisfare le equazioni dell'altro. Per $U + W$: si uniscono i generatori e si tolgono quelli dipendenti.
+
+#### Applicazioni lineari
+
+$$f(\lambda u + \mu v) = \lambda f(u) + \mu f(v), \qquad \dim V = \dim\ker f + \dim\operatorname{Im} f, \qquad \operatorname{Im} f = \langle f(v_1), \dots, f(v_n) \rangle.$$
+
+$f$ è iniettiva $\iff \ker f = \{0\}$; suriettiva $\iff \operatorname{rk} = \dim W$; un endomorfismo è iniettivo se e solo se è suriettivo. Un'applicazione lineare è determinata dai valori su una base.
+
+#### Matrici associate
+
+Colonna $j$ di $M^{\mathcal{B}}_{\mathcal{C}}(f)$ = coordinate di $f(v_j)$ rispetto a $\mathcal{C}$. $M^{\mathcal{B}}_{\mathcal{D}}(g \circ f) = M^{\mathcal{C}}_{\mathcal{D}}(g)\,M^{\mathcal{B}}_{\mathcal{C}}(f)$. Cambiamento di base: $A' = P^{-1}AP$, con $P$ che ha per colonne i vettori della nuova base scritti nella vecchia.
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Spazio vettoriale | insieme con somma e prodotto per scalari che rispettano gli assiomi |
+| Combinazione lineare, span | somma di multipli; insieme di tutte le combinazioni |
+| Linearmente indipendenti | nessuno è combinazione degli altri; l'unica combinazione nulla è quella banale |
+| Base, dimensione | generatori indipendenti; numero di vettori di una base (lo stesso per tutte) |
+| Coordinate | coefficienti di un vettore rispetto a una base |
+| Somma diretta | somma con intersezione nulla: ogni vettore si scrive in un solo modo |
+| Nucleo, immagine | vettori mandati in 0; vettori raggiunti |
+| Isomorfismo | applicazione lineare biiettiva |
+| Matrici simili | $B = P^{-1}AP$: stesso endomorfismo in basi diverse |
+
+#### Domande che tornano spesso
+
+- Definire base e dimensione; perché tutte le basi hanno lo stesso numero di vettori?
+- Enunciare e dimostrare la formula di Grassmann.
+- Nucleo e immagine sono sottospazi: dimostrarlo. Enunciare e dimostrare il teorema della dimensione.
+- Come si costruisce la matrice associata, e come cambia cambiando base?
+- Proprietà invarianti per similitudine.
 
 ## 4 · Autovalori, diagonalizzazione e teorema spettrale
 
@@ -673,6 +1019,34 @@ L'esempio tipico è la **rotazione** di un angolo $\theta$ nel piano,
 $$R_\theta = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}, \qquad p(t) = t^2 - 2\cos\theta\, t + 1,$$
 con radici $\cos\theta \pm i\sin\theta = e^{\pm i\theta}$. Per $\theta \neq 0, \pi$ non sono reali: nessuna direzione del piano resta fissa sotto una rotazione, come ci si aspetta. Su $\mathbb{C}$ invece gli autovalori sono distinti e $R_\theta$ è diagonalizzabile, con autovettori $(1, \mp i)$. È anche il motivo geometrico della moltiplicazione per $e^{i\theta}$ del modulo 1: in coordinate reali è proprio $R_\theta$.
 
+### 4.8 Forme quadratiche e classificazione delle coniche
+
+> [!aggiunta] Aggiunta in revisione · fonte: programma del corso 2025/26 ("Forme quadratiche. Applicazione alla classificazione affine delle coniche"); foglio "Matrici simmetriche e coniche" (GEO-05, GEO-06)
+> **Forme quadratiche.** Una **forma quadratica** su $\mathbb{R}^n$ è un polinomio omogeneo di secondo grado, $q(x) = x^T A x$ con $A$ simmetrica: per esempio $q(x, y) = 5x^2 + 4xy + 2y^2$ ha $A = \begin{pmatrix} 5 & 2 \\ 2 & 2 \end{pmatrix}$ (il coefficiente del termine misto si divide a metà fra i due posti fuori diagonale). Per il teorema spettrale esiste una matrice ortogonale $P$ con $P^T A P = D = \operatorname{diag}(\lambda_1, \dots, \lambda_n)$; con il cambio di coordinate $x = PX$, che è una rotazione (eventualmente con una simmetria), la forma diventa
+> $$q = \lambda_1 X_1^2 + \dots + \lambda_n X_n^2,$$
+> senza termini misti. La forma è **definita positiva** se tutti gli autovalori sono positivi ($q > 0$ per $x \ne 0$), **definita negativa** se sono tutti negativi, **indefinita** se ce ne sono di segni opposti, **semidefinita** se qualcuno è nullo e gli altri hanno lo stesso segno. In due variabili basta il determinante: $\det A > 0$ dice che gli autovalori hanno lo stesso segno (quello di $a_{11}$), $\det A < 0$ che hanno segni opposti. È lo stesso criterio dell'Hessiana per i massimi e i minimi in Analisi 1B.
+>
+> **Coniche.** Una **conica** è il luogo dei punti del piano che soddisfano un'equazione di secondo grado
+> $$a_{11}x^2 + 2a_{12}xy + a_{22}y^2 + 2a_{13}x + 2a_{23}y + a_{33} = 0,$$
+> che si scrive con la matrice simmetrica $3 \times 3$
+> $$\bar A = \begin{pmatrix} a_{11} & a_{12} & a_{13} \\ a_{12} & a_{22} & a_{23} \\ a_{13} & a_{23} & a_{33} \end{pmatrix}$$
+> e con il suo blocco $2 \times 2$ in alto a sinistra $A$, la matrice della parte quadratica. Il tipo della conica non cambia con le rotazioni e le traslazioni, e si legge da $\det\bar A$ e da $\det A$:
+>
+> | $\det\bar A$ | $\det A$ | Conica |
+> |---|---|---|
+> | $\ne 0$ | $> 0$ | ellisse (reale se $(a_{11} + a_{22})\det\bar A < 0$, altrimenti senza punti reali) |
+> | $\ne 0$ | $< 0$ | iperbole |
+> | $\ne 0$ | $= 0$ | parabola |
+> | $= 0$ | $> 0$ | un solo punto (due rette complesse coniugate) |
+> | $= 0$ | $< 0$ | due rette incidenti |
+> | $= 0$ | $= 0$ | due rette parallele o coincidenti (o nessun punto reale) |
+>
+> Se $\det\bar A \ne 0$ la conica è **non degenere**; se $\det\bar A = 0$ è **degenere**, e si spezza in rette. Gli autovalori di $A$ danno anche le direzioni degli assi (gli autovettori) e, per le coniche a centro, le lunghezze dei semiassi.
+>
+> **Esempio: riduzione a forma canonica.** $5x^2 + 4xy + 2y^2 = 6$. La parte quadratica ha autovalori 1 e 6, con autovettori $(-1, 2)$ e $(2, 1)$, ortogonali. Nelle coordinate $X, Y$ lungo questi due assi (normalizzati, $P = \frac{1}{\sqrt5}\begin{pmatrix} -1 & 2 \\ 2 & 1 \end{pmatrix}$) l'equazione diventa $X^2 + 6Y^2 = 6$, cioè
+> $$\frac{X^2}{6} + Y^2 = 1:$$
+> un'ellisse di semiassi $\sqrt6$ e 1, con l'asse maggiore lungo $(-1, 2)$. Con la tabella: $\det A = 6 > 0$, $\det\bar A = -36 \ne 0$ e $(5 + 2)(-36) < 0$, ellisse reale.
+
 ### Esempi ed esercizi svolti
 
 **Esercizio 1 (Gram-Schmidt).** Ortonormalizzare $v_1 = (1, 1, 0)$, $v_2 = (1, 0, 1)$, $v_3 = (0, 1, 1)$ in $\mathbb{R}^3$. Si ha $u_1 = \frac{1}{\sqrt2}(1, 1, 0)$. Poi $\langle u_1, v_2\rangle = \frac{1}{\sqrt2}$, $w_2 = v_2 - \frac12(1, 1, 0) = \left(\frac12, -\frac12, 1\right)$, di norma $\sqrt{\frac32}$, quindi $u_2 = \frac{1}{\sqrt6}(1, -1, 2)$. Infine $\langle u_1, v_3\rangle = \frac{1}{\sqrt2}$, $\langle u_2, v_3\rangle = \frac{1}{\sqrt6}$, e
@@ -687,6 +1061,99 @@ che per $n = 10$ dà $F_{10} = 55$. La diagonalizzazione serve proprio a calcola
 
 **Esercizio 3 (diagonalizzabilità con un parametro).** Per quali $k \in \mathbb{R}$ la matrice $A_k = \begin{pmatrix} 1 & k \\ 0 & 1 \end{pmatrix}$ è diagonalizzabile? L'unico autovalore è 1, con $m_a(1) = 2$, e $A_k - I = \begin{pmatrix} 0 & k \\ 0 & 0 \end{pmatrix}$ ha rango 1 se $k \neq 0$: allora $m_g(1) = 1$ e $A_k$ non è diagonalizzabile. Per $k = 0$ è già l'identità.
 
+#### Esercizi sul modello delle prove d'esame
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove scritte 2024-2026 e dei fogli "Diagonalizzazione" e "Matrici simmetriche e coniche"; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-05 … GEO-07)
+> L'ultimo esercizio di ogni prova è quasi sempre una diagonalizzazione: dire se una matrice è diagonalizzabile su $\mathbb{R}$ (e su $\mathbb{C}$) e trovare $D$ e $P$.
+
+**Esercizio 4. Diagonalizzazione ortogonale di una matrice simmetrica $3 \times 3$.** $A = \begin{pmatrix} 3 & 1 & 1 \\ 1 & 3 & 1 \\ 1 & 1 & 3 \end{pmatrix}$.
+
+$A = 2I + J$, con $J$ la matrice di tutti 1, che ha autovalori 3 (autovettore $(1, 1, 1)$) e 0 (doppio, sul piano $x + y + z = 0$). Quindi $A$ ha autovalori $5$ e $2$ (doppio). $V_5 = \langle (1, 1, 1) \rangle$; $V_2 = \{x + y + z = 0\} = \langle (-1, 1, 0), (-1, 0, 1) \rangle$, di dimensione 2 = molteplicità algebrica: $A$ è diagonalizzabile, come garantisce il teorema spettrale. Per avere $P$ ortogonale si ortonormalizza $V_2$ con Gram-Schmidt: $u_1 = \frac{1}{\sqrt2}(-1, 1, 0)$; $(-1, 0, 1) - \frac12(-1, 1, 0) = \left(-\frac12, -\frac12, 1\right)$, cioè $u_2 = \frac{1}{\sqrt6}(-1, -1, 2)$; infine $u_3 = \frac{1}{\sqrt3}(1, 1, 1)$, già ortogonale agli altri perché autospazi di autovalori diversi di una matrice simmetrica sono ortogonali. Con $P = (u_1 \mid u_2 \mid u_3)$, $P^T A P = \operatorname{diag}(2, 2, 5)$.
+
+**Esercizio 5. Diagonalizzabile su $\mathbb{C}$ ma non su $\mathbb{R}$.** $B = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 2 \end{pmatrix}$.
+
+Il polinomio caratteristico è $(\lambda^2 + 1)(2 - \lambda)$ a meno del segno: in $\mathbb{R}$ c'è solo la radice 2, e la somma delle molteplicità (1) è minore di 3, quindi $B$ non è diagonalizzabile su $\mathbb{R}$. In $\mathbb{C}$ le radici $i$, $-i$, $2$ sono distinte: diagonalizzabile. Un autovettore reale esiste: $(0, 0, 1)$, di autovalore 2. Il blocco in alto è la rotazione di $90°$ del piano $xy$, che non manda nessuna retta in sé.
+
+**Esercizio 6. Un parametro che decide.** Per quali $k$ è diagonalizzabile $C_k = \begin{pmatrix} 1 & k & 1 \\ 0 & 1 & 0 \\ 0 & 0 & 2 \end{pmatrix}$?
+
+Triangolare: autovalori 1 (doppio) e 2. L'autovalore 2 è semplice e non dà problemi. Per 1: $C_k - I = \begin{pmatrix} 0 & k & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix}$ ha rango 2 se $k \ne 0$ e rango 1 se $k = 0$. La molteplicità geometrica è $3 - \operatorname{rk}$: vale 2 = molteplicità algebrica solo per $k = 0$. $C_k$ è diagonalizzabile se e solo se $k = 0$.
+
+**Esercizio 7. Classificare una conica.** Che conica è $x^2 - 4xy + y^2 + 2x + 2y = 0$?
+
+$\bar A = \begin{pmatrix} 1 & -2 & 1 \\ -2 & 1 & 1 \\ 1 & 1 & 0 \end{pmatrix}$ (i coefficienti dei termini $xy$, $x$, $y$ si dividono a metà). $\det A = 1 - 4 = -3 < 0$ e $\det\bar A = -6 \ne 0$: iperbole non degenere. Passa per l'origine, che soddisfa l'equazione.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-05 … GEO-07)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Diagonalizzare e controllare.** $A = \begin{pmatrix} 4 & 1 \\ 2 & 3 \end{pmatrix}$.
+
+*Passo 1: polinomio caratteristico.* $\det(A - \lambda I) = (4 - \lambda)(3 - \lambda) - 2 = \lambda^2 - 7\lambda + 10 = (\lambda - 2)(\lambda - 5)$.
+
+*Passo 2: autovettori.* Per 2: $(A - 2I)v = 0$ con $A - 2I = \begin{pmatrix} 2 & 1 \\ 2 & 1 \end{pmatrix}$, $v = (1, -2)$. Per 5: $A - 5I = \begin{pmatrix} -1 & 1 \\ 2 & -2 \end{pmatrix}$, $v = (1, 1)$.
+
+*Passo 3: $P$ e $D$.* $P = \begin{pmatrix} 1 & 1 \\ -2 & 1 \end{pmatrix}$, $D = \begin{pmatrix} 2 & 0 \\ 0 & 5 \end{pmatrix}$, nello stesso ordine.
+
+*Passo 4: controllo senza invertire.* Basta verificare $AP = PD$: $AP = \begin{pmatrix} 2 & 5 \\ -4 & 5 \end{pmatrix}$ e $PD = \begin{pmatrix} 2 & 5 \\ -4 & 5 \end{pmatrix}$. La traccia ($7 = 2 + 5$) e il determinante ($10 = 2 \cdot 5$) tornano.
+
+**Guidato 2. Una famiglia di coniche.** Classificare $x^2 + 2txy + y^2 = 1$ al variare di $t \in \mathbb{R}$.
+
+*Passo 1: le matrici.* $A = \begin{pmatrix} 1 & t \\ t & 1 \end{pmatrix}$, $\bar A = \operatorname{diag}$ a blocchi con $A$ e $-1$: $\det\bar A = -\det A = -(1 - t^2)$.
+
+*Passo 2: $|t| < 1$.* $\det A > 0$ e $\det\bar A \ne 0$; $(1 + 1)\det\bar A < 0$: ellisse reale (per $t = 0$ la circonferenza unitaria).
+
+*Passo 3: $|t| > 1$.* $\det A < 0$: iperbole.
+
+*Passo 4: $t = \pm 1$.* $\det\bar A = 0$ e $\det A = 0$: degenere. Infatti $x^2 \pm 2xy + y^2 = (x \pm y)^2 = 1$ dà le due rette parallele $x \pm y = 1$ e $x \pm y = -1$.
+
+*Passo 5: gli assi.* Gli autovalori di $A$ sono $1 + t$ e $1 - t$, con autovettori $(1, 1)$ e $(1, -1)$ per ogni $t$: gli assi sono sempre le bisettrici, e la forma canonica è $(1 + t)X^2 + (1 - t)Y^2 = 1$.
+
 ### Riepilogo
 
 Un autovettore di $f$ è un vettore non nullo mandato in un suo multiplo $\lambda v$; gli autovalori sono le radici del polinomio caratteristico $\det(A - tI)$, che è lo stesso per matrici simili, e gli autospazi sono i nuclei di $A - \lambda I$. Autovettori di autovalori distinti sono indipendenti, e per ogni autovalore $1 \le m_g \le m_a$. Un endomorfismo è diagonalizzabile, cioè ha una base di autovettori in cui la matrice è diagonale ($P^{-1}AP = D$), se e solo se il polinomio caratteristico si spezza nel campo e ogni molteplicità geometrica è uguale a quella algebrica; $n$ autovalori distinti bastano. Un prodotto scalare (o hermitiano, nel caso complesso) definito positivo dà norme e ortogonalità; ogni spazio ha basi ortonormali, costruite con Gram-Schmidt, in cui le coordinate sono prodotti scalari, e le matrici di cambiamento di base fra basi ortonormali sono ortogonali (o unitarie). Ogni sottospazio ha un complemento ortogonale supplementare. Per il teorema spettrale un operatore autoaggiunto, cioè una matrice simmetrica reale o hermitiana, ha autovalori reali e una base ortonormale di autovettori: $Q^TAQ = D$ con $Q$ ortogonale. Una matrice reale può avere autovalori complessi coniugati, come le rotazioni, ed essere diagonalizzabile solo su $\mathbb{C}$.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (GEO-05 … GEO-07)
+> Autovalori, diagonalizzazione, prodotti scalari, teorema spettrale e coniche, con i termini per l'orale.
+
+#### Autovalori e diagonalizzazione
+
+$$Av = \lambda v,\ v \ne 0 \qquad p_A(\lambda) = \det(A - \lambda I), \qquad \operatorname{tr} A = \sum \lambda_i, \qquad \det A = \prod \lambda_i.$$
+
+$1 \le m_g(\lambda) = n - \operatorname{rk}(A - \lambda I) \le m_a(\lambda)$. **Criterio:** $A$ è diagonalizzabile su $\mathbb{K}$ se e solo se $p_A$ ha tutte le radici in $\mathbb{K}$ e $m_g = m_a$ per ognuna. Autovalori distinti bastano. Se $P^{-1}AP = D$, le colonne di $P$ sono autovettori nello stesso ordine degli autovalori in $D$, e $A^n = PD^nP^{-1}$.
+
+#### Prodotti scalari e ortogonalità
+
+$$\text{Gram-Schmidt: } w_k = v_k - \sum_{j < k} \langle v_k, u_j\rangle u_j, \quad u_k = \frac{w_k}{\|w_k\|}; \qquad P \text{ ortogonale} \iff P^T P = I \iff P^{-1} = P^T.$$
+
+#### Teorema spettrale
+
+Una matrice reale simmetrica ha autovalori reali, autospazi ortogonali fra loro, ed è diagonalizzabile con una matrice ortogonale: $P^T A P = D$. (Per le hermitiane vale lo stesso con le unitarie.)
+
+#### Coniche e forme quadratiche
+
+Forma $q = x^T A x$: definita positiva se tutti gli autovalori sono $> 0$; in due variabili, $\det A > 0$ e $a_{11} > 0$. Conica con matrice $\bar A$ e parte quadratica $A$: non degenere se $\det\bar A \ne 0$, e allora ellisse, iperbole o parabola secondo che $\det A$ sia positivo, negativo o nullo (tabella del paragrafo 4.8).
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Autovalore, autovettore, autospazio | $\lambda$ con $Av = \lambda v$ per qualche $v \ne 0$; il $v$; l'insieme dei $v$ con lo 0 |
+| Molteplicità algebrica, geometrica | come radice di $p_A$; $\dim V_\lambda$ |
+| Matrice diagonalizzabile | simile a una diagonale; esiste una base di autovettori |
+| Prodotto scalare definito positivo | bilineare simmetrico con $\langle v, v\rangle > 0$ per $v \ne 0$ |
+| Base ortonormale | vettori di norma 1 a due a due ortogonali |
+| Matrice ortogonale | colonne ortonormali; rappresenta rotazioni e simmetrie |
+| Forma quadratica | polinomio omogeneo di grado 2, $x^T A x$ |
+| Conica degenere | si spezza in rette (o in un punto) |
+
+#### Domande che tornano spesso
+
+- Autovettori di autovalori distinti sono indipendenti: dimostrarlo.
+- Perché il polinomio caratteristico è invariante per similitudine?
+- Enunciare il criterio di diagonalizzabilità; un esempio non diagonalizzabile ($\begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$).
+- Descrivere il procedimento di Gram-Schmidt.
+- Enunciare il teorema spettrale; perché gli autovalori di una matrice simmetrica reale sono reali?
+- Come si classifica una conica con gli invarianti, e come si trovano gli assi?

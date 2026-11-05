@@ -5,7 +5,7 @@ titolo: Flip-flop, registri e contatori
 programma: [RL-04, RL-05]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 3 · Flip-flop, registri e contatori
@@ -82,6 +82,11 @@ I tre FF che servono sono il D, il JK e il T, tutti con la stessa idea: la tabel
 | T | $T = 0$ / $T = 1$ | $Q$ / $\bar{Q}$ | $Q^+ = T \oplus Q$ |
 
 Nel FF JK la combinazione $J = K = 1$ non fa più oscillare: lo stato si inverte una volta per fronte. Il FF **T** (*toggle*) si ottiene da un JK con $J = K = T$, oppure da un D con $D = T \oplus Q$.
+
+> [!aggiunta] Aggiunta in revisione · fonte: Donzellini e altri, *Introduzione al progetto di sistemi digitali*; esercitazioni con il simulatore (RL-04)
+> **Flip-flop D con abilitazione (E-PET).** Nei registri serve spesso un FF che al fronte carichi $D$ solo quando un segnale lo autorizza, e altrimenti conservi lo stato. È il FF **E-PET** (*enabled positive edge triggered*), che ha un ingresso $E$ in più:
+> $$Q^+ = E\,D + \bar{E}\,Q.$$
+> Dentro c'è un FF D con davanti un MUX 2→1: con $E = 1$ il MUX porta $D$ all'ingresso del FF, con $E = 0$ gli riporta la sua stessa uscita. L'abilitazione non agisce sul clock: il clock arriva a tutti i FF, e quello che cambia è il valore che il FF carica. Fermare il clock con una porta (*clock gating*) sarebbe una cattiva idea, perché la porta ritarda il clock di quel FF rispetto agli altri e può creare fronti spuri.
 
 I FF hanno spesso due ingressi **asincroni**, attivi bassi, che agiscono subito senza aspettare il clock: $\overline{PR}$ (*preset*) forza lo stato a 1 quando vale 0, $\overline{CL}$ (*clear*) lo forza a 0. Si usano per l'inizializzazione: il segnale $\overline{RES}$ di una rete va sui $\overline{CL}$ di tutti i FF, e quando non servono si collegano a 1.
 
@@ -178,8 +183,8 @@ Analizzare una rete sincrona vuol dire ricavarne il comportamento dal circuito. 
 > [!esempio] Due flip-flop in cascata
 > L'ingresso $IN$ va a un primo FF, la cui uscita $U_0$ va all'ingresso $D$ di un secondo FF con uscita $U_1$; i due FF hanno lo stesso clock e lo stesso $\overline{RES}$. Finché $\overline{RES} = 0$ le uscite sono a 0. Poi, a ogni fronte, $U_0$ prende il valore che $IN$ aveva appena prima del fronte, e $U_1$ quello che $U_0$ aveva appena prima: $U_1$ è $U_0$ ritardato di un periodo di clock. Un impulso di $IN$ che comincia e finisce fra due fronti non viene visto affatto.
 
-> [!dubbio]
-> Negli appunti (L08 e L07) il primo FF è un JK con $IN$ su $J$, ma non si legge dove sia collegato $K$. Se $K = \overline{IN}$, il JK si comporta come un FF D e il diagramma è quello descritto sopra. Va confermato sul circuito.
+> [!nota]
+> Il primo FF si può fare anche con un JK, mettendo $IN$ su $J$ e $\overline{IN}$ su $K$. Con $J = IN$ e $K = \overline{IN}$ il JK riceve solo i comandi di set ($JK = 10$) e di reset ($JK = 01$), quindi $Q^+ = IN$: si comporta esattamente come un FF D, e il diagramma è quello descritto sopra. È il modo di ottenere un FF D da un JK.
 
 > [!esempio] Un registro a scorrimento con retroazione
 > Quattro FF D sono in fila con uscite $D$, $C$, $B$, $A$ (il primo è $D$). L'ingresso del primo FF è $IN \oplus B \oplus A$, l'uscita di ogni FF è l'ingresso del successivo; il reset porta tutto a $0000$ (figura 3.8).
@@ -206,6 +211,234 @@ Analizzare una rete sincrona vuol dire ricavarne il comportamento dal circuito. 
 
 **Esercizio 4.** Un registro universale a 4 bit contiene $Q_3 Q_2 Q_1 Q_0 = 1011$, con ingresso seriale a destra 0 e a sinistra 0. Dopo un fronte con $S_0 S_1 = 01$ (scorrimento a destra, ogni bit prende il valore del vicino di sinistra) contiene $0101$; dopo un fronte con $S_0 S_1 = 10$ (a sinistra) partendo da $1011$ contiene $0110$.
 
+### Esercizi del laboratorio con il simulatore
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni con il simulatore Deeds (testi riscritti, sequenze e soluzioni nuove) (RL-04, RL-05, RL-08)
+> Negli esercizi sui flip-flop la tabella di verità non basta: si lavora sul diagramma temporale. Le sequenze sono scritte come tabelle, un intervallo o un fronte per riga, ed è il modo più comodo di risolverle anche a mano.
+
+**Esercizio 5. Latch SR a NAND, e il rilascio contemporaneo.** Il latch ha ingressi attivi bassi $\bar{S}$ e $\bar{R}$. (a) Completare la sequenza. (b) Che cosa mostra il simulatore se, dopo $\bar{S} = \bar{R} = 0$, i due ingressi tornano a 1 nello stesso istante? (c) Perché in un circuito reale l'oscillazione non dura?
+
+| Intervallo | $\bar{S}$ | $\bar{R}$ | $Q$ | $\bar{Q}$ | Comando |
+|---|---|---|---|---|---|
+| 1 | 1 | 0 | 0 | 1 | reset |
+| 2 | 1 | 1 | 0 | 1 | memoria |
+| 3 | 0 | 1 | 1 | 0 | set |
+| 4 | 1 | 1 | 1 | 0 | memoria |
+| 5 | 0 | 0 | 1 | 1 | vietato: le uscite non sono complementari |
+| 6 | 1 | 1 | ? | ? | rilascio contemporaneo |
+
+(a) Le prime cinque righe seguono la tabella dell'esercizio 1: il comando è attivo quando l'ingresso vale 0, e nell'intervallo 5 entrambe le NAND hanno un ingresso a 0, quindi entrambe le uscite valgono 1. (b) Nell'intervallo 6 le due NAND vedono gli ingressi esterni a 1 e l'altra uscita a 1, quindi entrambe passano a 0 dopo lo stesso ritardo; a quel punto vedono l'altra uscita a 0 e tornano entrambe a 1, e così via. Nel simulatore le porte hanno ritardi identici e le uscite oscillano insieme con periodo pari a due ritardi. (c) In un circuito reale le due porte non sono mai identiche: una è un po' più veloce, la sua uscita cambia per prima e blocca l'altra, e il latch si ferma in uno dei due stati. Quale, non si può prevedere. È la ragione per cui la combinazione è vietata, e lo stesso fenomeno, con tempi più lunghi, è la metastabilità del paragrafo 3.2.
+
+**Esercizio 6. Latch D con preset e clear.** Il latch D ha anche gli ingressi asincroni attivi bassi $\overline{PR}$ e $\overline{CL}$, che hanno la precedenza su tutto. Completare la colonna $Q$.
+
+| Intervallo | $\overline{PR}$ | $\overline{CL}$ | $EN$ | $D$ | $Q$ |
+|---|---|---|---|---|---|
+| 1 | 1 | 0 | – | – | 0 |
+| 2 | 1 | 1 | 0 | 1 | 0 |
+| 3 | 1 | 1 | 1 | 1 | 1 |
+| 4 | 1 | 1 | 1 | 0 | 0 |
+| 5 | 1 | 1 | 0 | 1 | 0 |
+| 6 | 0 | 1 | 0 | 0 | 1 |
+| 7 | 1 | 1 | 0 | 0 | 1 |
+| 8 | 1 | 1 | 1 | 0 | 0 |
+
+Nell'intervallo 1 il clear porta $Q$ a 0: è l'inizializzazione. Nel 2 il latch è chiuso e conserva 0 anche se $D = 1$. Nel 3 e nel 4 è aperto e trasparente, e $Q$ segue $D$ (prima 1, poi 0). Nel 5 si chiude sul valore che aveva, 0. Nel 6 il preset forza 1 senza guardare $EN$, e nel 7 il latch chiuso conserva quell'1. Nell'8 si riapre e copia $D = 0$.
+
+**Esercizio 7. JK a comando diretto, e lo stato sconosciuto.** Un latch JK senza clock (il JK del paragrafo 3.2 sempre abilitato) ha anche $\overline{PR}$ e $\overline{CL}$. (a) Che cosa mostra il simulatore se la rete non viene inizializzata? (b) Che cosa succede con $J = K = 1$?
+
+(a) All'accensione lo stato di una rete con retroazione non è determinato dalla rete stessa: dipende da come si sono assestate le porte. Il simulatore non ha nessun modo di saperlo e mostra $Q$ come sconosciuto (in Deeds con una riga a metà fra 0 e 1, in altri simulatori con il simbolo X) finché un comando non lo fissa. Anche con $J = K = 0$ lo stato resta sconosciuto, perché "memoria" vuol dire conservare un valore che non si conosce. Il primo set, reset o clear lo rende definito. È il motivo per cui ogni rete sequenziale ha un reset (paragrafo 3.1). (b) Con $J = K = 1$ il comando è "commuta", ma senza clock la commutazione non si ferma: l'uscita cambia, la retroazione cambia gli ingressi delle porte e l'uscita cambia di nuovo, con un periodo legato ai ritardi delle porte. È l'oscillazione che il FF JK sul fronte elimina.
+
+**Esercizio 8. FF D sul fronte con preset e clear.** Il FF D-PET parte con un impulso di $\overline{CL}$. La tabella dà il valore di $D$ appena prima di ogni fronte di salita e gli eventi asincroni fra un fronte e il successivo. Completare $Q$.
+
+| Fronte | $D$ prima del fronte | $Q$ dopo il fronte | Fra questo fronte e il successivo |
+|---|---|---|---|
+| – | – | 0 | impulso di $\overline{CL}$ |
+| 1 | 1 | 1 | |
+| 2 | 1 | 1 | |
+| 3 | 0 | 0 | impulso di $\overline{PR}$: $Q$ va subito a 1 |
+| 4 | 1 | 1 | |
+| 5 | 0 | 0 | |
+| 6 | 0 | 0 | |
+
+La regola è quella del paragrafo 3.7: si legge $D$ appena prima del fronte, $Q$ cambia appena dopo. Il preset fra il terzo e il quarto fronte agisce subito, senza aspettare il clock; al quarto fronte il FF carica di nuovo $D = 1$, quindi $Q$ resta a 1. Gli ingressi asincroni servono soprattutto all'inizializzazione, ma possono intervenire in qualsiasi momento: per questo in simulazione si provano anche nel mezzo del funzionamento.
+
+**Esercizio 9. FF D con abilitazione (E-PET).** Il FF parte da $Q = 0$. Completare la tabella con $Q^+ = E\,D + \bar{E}\,Q$.
+
+| Fronte | $E$ | $D$ | $Q$ dopo il fronte |
+|---|---|---|---|
+| 1 | 0 | 1 | 0 |
+| 2 | 1 | 1 | 1 |
+| 3 | 0 | 0 | 1 |
+| 4 | 1 | 0 | 0 |
+| 5 | 0 | 1 | 0 |
+| 6 | 1 | 1 | 1 |
+
+Con $E = 0$ il fronte non cambia niente, anche se $D$ è diverso da $Q$ (fronti 1, 3 e 5); con $E = 1$ il FF si comporta come un D normale.
+
+**Esercizio 10. FF JK sul fronte.** Il FF parte da $Q = 0$ dopo il clear. Completare la tabella con l'equazione $Q^+ = J\bar{Q} + \bar{K}Q$.
+
+| Fronte | $J$ | $K$ | $Q$ prima | $Q$ dopo | Comando |
+|---|---|---|---|---|---|
+| 1 | 1 | 0 | 0 | 1 | set |
+| 2 | 0 | 0 | 1 | 1 | memoria |
+| 3 | 1 | 1 | 1 | 0 | commutazione |
+| 4 | 1 | 1 | 0 | 1 | commutazione |
+| 5 | 0 | 1 | 1 | 0 | reset |
+| 6 | 0 | 1 | 0 | 0 | reset (già a 0) |
+| 7 | 1 | 0 | 0 | 1 | set |
+| 8 | 1 | 1 | 1 | 0 | commutazione |
+
+Con $J = K = 1$ tenuti fissi per più fronti, $Q$ cambia una volta per fronte: è un divisore di frequenza per 2, ed è il FF T del paragrafo 3.3.
+
+**Esercizio 11. Un registro a scorrimento letto in complemento a 2.** Un registro a scorrimento a 3 bit fatto con FF E-PET ha ingresso $DATA$, abilitazione $E$ sempre a 1 e reset iniziale. A ogni fronte $Q_a$ prende $DATA$, $Q_b$ prende $Q_a$ e $Q_c$ prende $Q_b$. Le uscite $Q_a Q_b Q_c$ si leggono come un numero in complemento a 2 con $Q_a$ bit di segno. Quale sequenza di $DATA$ fa assumere alle uscite i valori $0, -4, +2, -3, -2, +3, +1$?
+
+*Ragionamento.* Dopo ogni fronte il nuovo $Q_a$ è il bit entrato, e $Q_b Q_c$ sono i vecchi $Q_a Q_b$. Quindi il valore di $DATA$ si legge sul bit $Q_a$ del valore successivo, e i bit $Q_b Q_c$ di ogni valore devono coincidere con i bit $Q_a Q_b$ del precedente (altrimenti la sequenza è impossibile).
+
+| Fronte | $DATA$ | $Q_a Q_b Q_c$ | Valore |
+|---|---|---|---|
+| reset | – | 000 | 0 |
+| 1 | 1 | 100 | −4 |
+| 2 | 0 | 010 | +2 |
+| 3 | 1 | 101 | −3 |
+| 4 | 1 | 110 | −2 |
+| 5 | 0 | 011 | +3 |
+| 6 | 0 | 001 | +1 |
+
+La sequenza è $DATA = 1, 0, 1, 1, 0, 0$. Controllo della coerenza: per esempio $-3 = 101$ ha $Q_b Q_c = 01$, uguale ai primi due bit di $+2 = 010$.
+
+**Esercizio 12. Contatore modulo 16 con FF D.** Progettare il contatore sincrono a 4 bit con FF D (negli appunti della lezione 9 è il contatore modulo 16 a 4 FF) e confrontarlo con quello a FF T.
+
+Ogni bit si inverte quando tutti i bit più bassi valgono 1, cioè $Q_i^+ = Q_i \oplus (Q_{i-1} \cdots Q_0)$. Con i FF D l'ingresso è lo stato successivo:
+$$D_0 = \bar{Q}_0, \quad D_1 = Q_1 \oplus Q_0, \quad D_2 = Q_2 \oplus Q_1 Q_0, \quad D_3 = Q_3 \oplus Q_2 Q_1 Q_0.$$
+Con i FF T bastava $T_i = Q_{i-1} \cdots Q_0$: la XOR è già dentro il FF T. Prova da $0111$: $D_0 = 0$, $D_1 = 1 \oplus 1 = 0$, $D_2 = 1 \oplus 1 = 0$, $D_3 = 0 \oplus 1 = 1$, quindi $1000$, cioè da 7 a 8. Da $1111$ tutte le XOR danno 0 e il contatore torna a $0000$: il terminal count è $TC = Q_3 Q_2 Q_1 Q_0$.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi, soluzioni verificate con `strumenti/verifica_ampliamento.py` (RL-04, RL-05)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Contatore modulo 6 con FF T.** Progettare un contatore che conti $0, 1, 2, 3, 4, 5, 0, \dots$ con tre FF T, e controllare che cosa fa se parte da uno stato non usato.
+
+*Passo 1: la tabella degli stati.* Gli stati $Q_2 Q_1 Q_0$ vanno da $000$ a $101$; i codici $110$ e $111$ non si usano e sono indifferenze.
+
+*Passo 2: gli ingressi T.* Per un FF T, $T_i = 1$ se il bit deve cambiare: $T_i = Q_i \oplus Q_i^+$.
+
+| $Q_2 Q_1 Q_0$ | $Q_2^+ Q_1^+ Q_0^+$ | $T_2 T_1 T_0$ |
+|---|---|---|
+| 000 | 001 | 001 |
+| 001 | 010 | 011 |
+| 010 | 011 | 001 |
+| 011 | 100 | 111 |
+| 100 | 101 | 001 |
+| 101 | 000 | 101 |
+
+*Passo 3: le sintesi.* $T_0 = 1$ sempre. $T_1$ vale 1 per $001$ e $011$, 0 per $101$: serve $Q_0 = 1$ e $Q_2 = 0$, $T_1 = \bar{Q}_2 Q_0$. $T_2$ vale 1 per $011$ e $101$ e, con le indifferenze in $111$, $T_2 = Q_1 Q_0 + Q_2 Q_0$.
+
+*Passo 4: gli stati non usati.* Da $110$: $T_2 = 0$, $T_1 = 0$, $T_0 = 1$, quindi va in $111$. Da $111$: $T_2 = 1$, $T_1 = 0$, $T_0 = 1$, quindi va in $010$, che è nella sequenza. Il contatore rientra da solo in due fronti.
+
+*Passo 5: il terminal count.* L'ultimo stato è $101$; fra gli stati usati è l'unico con $Q_2 = 1$ e $Q_0 = 1$, quindi $TC = Q_2 Q_0$.
+
+**Guidato 2. Frequenza massima di un contatore.** Un contatore sincrono a 3 bit con FF JK ha $J_0 = K_0 = 1$, $J_1 = K_1 = Q_0$, $J_2 = K_2 = Q_1 Q_0$ (una AND a due ingressi). I FF hanno $t_p = 12$ ns, $t_s = 6$ ns, $t_h = 2$ ns; la AND ha ritardo fra 3 e 7 ns. Trovare la frequenza massima e controllare il tempo di hold.
+
+*Passo 1: il percorso più lungo.* Da un fronte, le uscite dei FF cambiano entro 12 ns; il segnale più lento è quello che attraversa la AND, che aggiunge al massimo 7 ns; deve arrivare a $J_2$, $K_2$ almeno 6 ns prima del fronte successivo.
+
+*Passo 2.* $T_{min} = 12 + 7 + 6 = 25$ ns, quindi $f_{max} = 1/(25\ \text{ns}) = 40$ MHz.
+
+*Passo 3: hold.* Il percorso più veloce è quello senza porte, da $Q_0$ a $J_1$: ci mette almeno il $t_p$ minimo del FF. Se il costruttore garantisce un $t_p$ minimo di almeno 2 ns, la condizione $t_{p,min} + t_{comb,min} \ge t_h$ è rispettata anche nel caso peggiore, con $t_{comb,min} = 0$.
+
+*Passo 4: il controllo delle unità.* 25 ns sono $25 \cdot 10^{-9}$ s; l'inverso è $4 \cdot 10^{7}$ Hz, cioè 40 MHz.
+
+**Guidato 3. Diagramma temporale di una rete con due FF.** Due FF D hanno uscite $A$ e $B$ e reset iniziale a $00$; gli ingressi sono $D_A = IN \oplus B$ e $D_B = A$. Calcolare gli stati per $IN = 1, 1, 0, 0, 1, 0$ (valori appena prima dei fronti 1-6).
+
+*Passo 1: le equazioni dello stato successivo.* $A^+ = IN \oplus B$, $B^+ = A$.
+
+*Passo 2: fronte per fronte.* Si usa sempre lo stato *prima* del fronte.
+
+| Fronte | $IN$ | $A B$ prima | $A^+ = IN \oplus B$ | $B^+ = A$ | $A B$ dopo |
+|---|---|---|---|---|---|
+| 1 | 1 | 00 | 1 | 0 | 10 |
+| 2 | 1 | 10 | 1 | 1 | 11 |
+| 3 | 0 | 11 | 1 | 1 | 11 |
+| 4 | 0 | 11 | 1 | 1 | 11 |
+| 5 | 1 | 11 | 0 | 1 | 01 |
+| 6 | 0 | 01 | 1 | 0 | 10 |
+
+*Passo 3: l'errore da evitare.* Al fronte 2 è sbagliato calcolare $B^+$ con il nuovo valore di $A$: i due FF campionano insieme, e $B$ prende il valore che $A$ aveva *prima* del fronte. Qui il valore è lo stesso (1), ma al fronte 5 si vede la differenza: $A$ passa a 0 mentre $B$ prende il vecchio $A = 1$.
+
 ## Riepilogo
 
 Una retroazione trasforma una rete combinatoria in un elemento di memoria: il latch SR, con due NOR o due NAND incrociate, conserva lo stato e risponde ai comandi di set e reset, con una combinazione vietata. Con l'abilitazione si ottengono il latch D, senza combinazioni vietate, e il latch JK, che però oscilla con $J = K = 1$ perché è trasparente. I flip-flop cambiano solo sul fronte del clock e risolvono il problema; i tipi D, JK e T hanno equazioni caratteristiche $Q^+ = D$, $Q^+ = J\bar{Q} + \bar{K}Q$, $Q^+ = T \oplus Q$, e per il progetto si usa la tabella di eccitazione. I tempi di setup, hold, propagazione e durata minima vanno rispettati, e il periodo minimo di una rete sincrona è $t_p + t_{comb} + t_s$. I registri memorizzano parole di bit e possono caricare in parallelo o scorrere, e il registro universale sceglie l'operazione con un MUX per bit. I contatori sincroni si fanno con FF T ($T_i$ uguale al prodotto dei bit più bassi) o con FF D, segnalano l'ultimo stato con il terminal count e si collegano in cascata con l'abilitazione. Per analizzare una rete sincrona si scrivono le equazioni dei FF e si calcola lo stato fronte per fronte.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (RL-04, RL-05)
+> Tabelle ed equazioni dei flip-flop, tempi e strutture del modulo, con i termini da saper spiegare all'orale.
+
+### Elementi di memoria
+
+| Elemento | Comportamento | Equazione o tabella | Par. |
+|---|---|---|---|
+| Latch SR a NOR | $SR = 00$ memoria, $01$ reset, $10$ set, $11$ vietato | $Q^+ = S + \bar{R}Q$ (con $SR \ne 11$) | 3.2 |
+| Latch SR a NAND | ingressi attivi bassi, vietato $\bar{S}\bar{R} = 00$ | | 3.2 |
+| Latch D | trasparente con $EN = 1$, memoria con $EN = 0$ | $Q^+ = EN\,D + \overline{EN}\,Q$ | 3.2 |
+| FF D (PET) | carica $D$ sul fronte di salita | $Q^+ = D$ | 3.3 |
+| FF JK | $00$ memoria, $01$ reset, $10$ set, $11$ commuta | $Q^+ = J\bar{Q} + \bar{K}Q$ | 3.3 |
+| FF T | $T = 1$ commuta | $Q^+ = T \oplus Q$ | 3.3 |
+| FF E-PET | carica $D$ solo se $E = 1$ | $Q^+ = E\,D + \bar{E}\,Q$ | 3.3 |
+
+### Tabella di eccitazione
+
+| $Q \to Q^+$ | $D$ | $J$ | $K$ | $T$ |
+|---|---|---|---|---|
+| 0 → 0 | 0 | 0 | – | 0 |
+| 0 → 1 | 1 | 1 | – | 1 |
+| 1 → 0 | 0 | – | 1 | 1 |
+| 1 → 1 | 1 | – | 0 | 0 |
+
+Conversioni: un FF T da un D con $D = T \oplus Q$; un FF T da un JK con $J = K = T$; un FF D da un JK con $J = D$, $K = \bar{D}$.
+
+### Tempi
+
+$$T_{CK} \ge t_p + t_{comb,max} + t_s, \qquad f_{max} = \frac{1}{T_{min}}, \qquad t_{p,min} + t_{comb,min} \ge t_h.$$
+
+### Registri e contatori
+
+- Registro universale, bit $i$: $S_0 S_1 = 00$ tiene $Q_i$, $01$ carica $Q_{i+1}$ (destra), $10$ carica $Q_{i-1}$ (sinistra), $11$ carica $P_i$.
+- Contatore binario con FF T: $T_0 = 1$, $T_i = Q_{i-1} \cdots Q_0$. Con FF D: $D_i = Q_i \oplus (Q_{i-1} \cdots Q_0)$.
+- Terminal count in avanti: $TC = Q_{k-1} \cdots Q_0$; modulo $N$: si riconosce lo stato $N - 1$ e si azzera in modo sincrono.
+- Cascata: il $TC$ di un contatore va sull'$EN$ del successivo.
+
+### Analisi di una rete sincrona
+
+I valori si leggono appena prima del fronte, le uscite cambiano appena dopo; tutti i FF campionano nello stesso istante, quindi ogni FF usa i valori *vecchi* degli altri. Gli ingressi asincroni agiscono subito e hanno la precedenza sul clock.
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Rete sequenziale | rete le cui uscite dipendono anche dalla storia passata degli ingressi |
+| Stato | valore memorizzato nei FF; $Q^+$ è lo stato dopo il prossimo comando o fronte |
+| Retroazione | collegamento di un'uscita a un ingresso della stessa rete |
+| Latch | elemento di memoria sensibile al livello; trasparente quando è abilitato |
+| Flip-flop | elemento di memoria che cambia solo sul fronte del clock |
+| PET / NET | fronte di salita / di discesa |
+| Master-slave | due latch in serie abilitati da livelli opposti del clock |
+| Ingressi asincroni | preset e clear, agiscono subito senza il clock |
+| Tabella caratteristica | dagli ingressi allo stato successivo |
+| Tabella di eccitazione | dalla transizione voluta agli ingressi da dare |
+| Setup, hold | tempi prima e dopo il fronte in cui l'ingresso deve restare fermo |
+| Metastabilità | uscita a un livello intermedio per un tempo imprevedibile, se i tempi non sono rispettati |
+| Registro PIPO, SISO, SIPO, PISO | modi di caricare e leggere i bit, in parallelo o in serie |
+| Contatore sincrono | tutti i FF hanno lo stesso clock e cambiano insieme |
+| Terminal count | uscita che segnala l'ultimo stato del conteggio |
+| LFSR | registro a scorrimento con retroazione XOR, genera sequenze lunghe |
+
+### Domande che tornano spesso
+
+- Come nasce la memoria da una retroazione? Perché serve il reset?
+- Perché la combinazione $S = R = 1$ è vietata nel latch SR? Che cosa succede al rilascio contemporaneo?
+- Differenza fra latch e flip-flop; perché nelle reti sincrone si usano i FF sul fronte?
+- Tabella caratteristica ed equazione del JK; perché il latch JK oscilla e il FF JK no?
+- Ricavare la tabella di eccitazione del JK. Perché con i JK le reti vengono spesso più semplici?
+- Definire setup e hold e ricavare il periodo minimo di una rete sincrona.
+- Progettare un contatore modulo $N$ e collegare due contatori in cascata.

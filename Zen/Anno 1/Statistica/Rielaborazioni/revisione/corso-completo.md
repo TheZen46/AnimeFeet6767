@@ -2,7 +2,7 @@
 corso: Statistica
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # Statistica
@@ -231,9 +231,117 @@ quando $x$ cresce, $y$ tende a diminuire. La retta dei minimi quadrati ha penden
 
 ![Figura 1.2 · Dati dell'esercizio 4 (l'area dei cerchi è proporzionale alla frequenza) e retta dei minimi quadrati.](figure/1-2.svg)
 
+#### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; la lezione sulla regressione manca negli appunti, e gli esercizi completano il paragrafo 1.7; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-07 … STA-11)
+
+**Esercizio 4. Una regressione completa.** Si misurano cinque coppie $(x, y)$: $(1;\ 2{,}1)$, $(2;\ 3{,}9)$, $(3;\ 6{,}2)$, $(4;\ 7{,}8)$, $(5;\ 10{,}0)$. Trovare la retta dei minimi quadrati, $R^2$ e i residui.
+
+*Medie.* $\bar x = 3$, $\bar y = \frac{30}{5} = 6$.
+
+*Somme degli scarti.* Gli scarti di $x$ sono $-2, -1, 0, 1, 2$, quelli di $y$ sono $-3{,}9;\ -2{,}1;\ 0{,}2;\ 1{,}8;\ 4{,}0$. Quindi $\sum (x - \bar x)(y - \bar y) = 7{,}8 + 2{,}1 + 0 + 1{,}8 + 8{,}0 = 19{,}7$ e $\sum (x - \bar x)^2 = 10$.
+
+*Retta.* $m = \frac{19{,}7}{10} = 1{,}97$, $q = \bar y - m\bar x = 6 - 5{,}91 = 0{,}09$: $\hat y = 1{,}97x + 0{,}09$.
+
+*Residui.* $r = y - \hat y$: $0{,}04;\ -0{,}13;\ 0{,}20;\ -0{,}17;\ 0{,}06$. Hanno somma nulla, come deve essere, e non mostrano un andamento (né una curva né una dispersione che cresce con $x$): la retta è un buon modello.
+
+*$R^2$.* $\sum r^2 = 0{,}091$ e $\sum (y - \bar y)^2 = 38{,}9$, quindi $R^2 = 1 - \frac{0{,}091}{38{,}9} = 0{,}998$. La retta spiega il 99,8% della variabilità di $y$. Coerentemente, $r_{xy} = 0{,}999$ e $r_{xy}^2 = R^2$.
+
+**Esercizio 5. Il paradosso di Simpson con i numeri.** Due trattamenti per i calcoli renali, separati per dimensione dei calcoli:
+
+| | Piccoli | Grandi | Totale |
+|---|---|---|---|
+| Trattamento A | 45 su 50 (90%) | 175 su 250 (70%) | 220 su 300 (73,3%) |
+| Trattamento B | 212 su 250 (84,8%) | 30 su 50 (60%) | 242 su 300 (80,7%) |
+
+A è migliore sia sui calcoli piccoli sia su quelli grandi, ma nel totale sembra peggiore. Il motivo è la **variabile confondente**: A è stato usato soprattutto sui calcoli grandi, che guariscono meno con qualsiasi trattamento, B soprattutto sui piccoli. Il totale mescola gruppi con pesi diversi. La conclusione corretta si trae dai dati separati: A è migliore.
+
+**Esercizio 6. Quale macchina è più regolare?** La macchina 1 produce pezzi di media 50 mm e deviazione standard 0,5 mm; la macchina 2 pezzi di media 5 mm e deviazione standard 0,1 mm.
+
+In assoluto la macchina 2 ha la dispersione minore, ma i pezzi hanno dimensioni molto diverse, e il confronto si fa con il **coefficiente di variazione** $CV = \frac{s}{\bar x}$: $\frac{0{,}5}{50} = 1\%$ per la prima, $\frac{0{,}1}{5} = 2\%$ per la seconda. In proporzione alla misura, la macchina 1 è la più regolare.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-07 … STA-11)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Retta dei minimi quadrati e previsione.** Le ore di studio $x$ e i voti $y$ di quattro studenti sono $(2, 18)$, $(4, 22)$, $(6, 25)$, $(8, 27)$. Trovare la retta e prevedere il voto con 5 ore.
+
+*Passo 1: le medie.* $\bar x = 5$, $\bar y = 23$.
+
+*Passo 2: gli scarti.* $x - \bar x = -3, -1, 1, 3$; $y - \bar y = -5, -1, 2, 4$.
+
+*Passo 3: le somme.* $\sum (x - \bar x)(y - \bar y) = 15 + 1 + 2 + 12 = 30$; $\sum (x - \bar x)^2 = 20$.
+
+*Passo 4: la retta.* $m = 1{,}5$, $q = 23 - 7{,}5 = 15{,}5$: $\hat y = 1{,}5x + 15{,}5$.
+
+*Passo 5: la previsione.* Per $x = 5$, $\hat y = 23$. Prevedere fuori dall'intervallo dei dati (per esempio con 20 ore, $\hat y = 45{,}5$, oltre il massimo dei voti) non ha senso: la retta vale solo dove ci sono dati.
+
+**Guidato 2. Profili e indipendenza in una tabella a due vie.** In 200 dipendenti, 80 donne e 120 uomini, lavorano a tempo parziale 24 donne e 36 uomini.
+
+*Passo 1: i profili riga.* Fra le donne il 30% lavora a tempo parziale ($\frac{24}{80}$), fra gli uomini il 30% ($\frac{36}{120}$).
+
+*Passo 2: il profilo marginale.* In tutto $\frac{60}{200} = 30\%$.
+
+*Passo 3: la conclusione.* I profili riga coincidono con il profilo marginale: nei dati, tempo parziale e genere sono indipendenti. Equivale a dire che ogni frequenza congiunta è il prodotto delle marginali: $\frac{24}{200} = 0{,}12 = 0{,}40 \cdot 0{,}30$.
+
+**Guidato 3. Media e varianza da una tabella di frequenze.** In 20 famiglie il numero di figli è 0 per 4 famiglie, 1 per 8, 2 per 6, 3 per 2.
+
+*Passo 1: la media pesata.* $\bar x = \frac{0 \cdot 4 + 1 \cdot 8 + 2 \cdot 6 + 3 \cdot 2}{20} = \frac{26}{20} = 1{,}3$.
+
+*Passo 2: il momento secondo.* $\frac{0 + 8 + 24 + 18}{20} = \frac{50}{20} = 2{,}5$.
+
+*Passo 3: la varianza.* Come media dei quadrati meno il quadrato della media, $2{,}5 - 1{,}69 = 0{,}81$; la varianza campionaria con $n - 1$ è $0{,}81 \cdot \frac{20}{19} = 0{,}853$.
+
+*Passo 4: moda e mediana.* La moda è 1. La mediana è fra il decimo e l'undicesimo valore ordinato, entrambi 1: mediana 1.
+
 ### Riepilogo
 
 I dati si organizzano per unità sperimentali e variabili, quantitative o qualitative. Una variabile si riassume con la tabella delle frequenze assolute e relative e con un diagramma a barre, a torta o di Pareto; due variabili qualitative con la tabella a due vie, le marginali e i profili riga e colonna, legati alla frequenza congiunta dalla regola del prodotto. Per una variabile quantitativa la media è la somma dei valori pesati con le frequenze ed è sensibile ai valori estremi; la mediana e gli altri quantili si leggono sulla cumulata empirica e sono robusti. Il boxplot mostra quartili, scarto interquartile e valori anomali (fuori da $Q_1 - \frac32 \mathrm{IQR}$, $Q_3 + \frac32 \mathrm{IQR}$). La dispersione si misura con varianza e deviazione standard ($\sigma^2$ con $\frac1n$, $s^2$ con $\frac{1}{n-1}$), che si calcolano come media dei quadrati meno quadrato della media e non cambiano spostando i dati; il coefficiente di variazione le rende confrontabili. Covarianza e correlazione misurano la relazione lineare fra due variabili, con $\lvert\rho\rvert \le 1$; la retta dei minimi quadrati passa per $(\bar x, \bar y)$ con pendenza $\sigma_{xy}/\sigma_x^2$, la sua bontà si misura con $R^2 = \rho^2$ e si controlla con i residui. Le tabelle aggregate possono ingannare (paradosso di Simpson).
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (STA-07 … STA-11)
+> Indici, formule della regressione e termini per l'orale.
+
+#### Indici
+
+$$\bar x = \frac{1}{n}\sum x_\ell, \qquad s^2 = \frac{1}{n - 1}\sum (x_\ell - \bar x)^2 = \frac{n}{n - 1}\left(\overline{x^2} - \bar x^2\right), \qquad CV = \frac{s}{\bar x}.$$
+
+Mediana: valore centrale dei dati ordinati (media dei due centrali se $n$ è pari). Quartili $Q_1$, $Q_3$; $IQR = Q_3 - Q_1$; nel boxplot sono anomali i dati fuori da $[Q_1 - 1{,}5\,IQR,\ Q_3 + 1{,}5\,IQR]$.
+
+#### Due variabili
+
+$$\operatorname{cov}_{xy} = \frac{1}{n - 1}\sum (x_\ell - \bar x)(y_\ell - \bar y), \qquad r_{xy} = \frac{\operatorname{cov}_{xy}}{s_x s_y} \in [-1, 1],$$
+
+$$m = \frac{\sum (x - \bar x)(y - \bar y)}{\sum (x - \bar x)^2} = r_{xy}\frac{s_y}{s_x}, \qquad q = \bar y - m\bar x, \qquad R^2 = 1 - \frac{\sum r_\ell^2}{\sum (y_\ell - \bar y)^2} = r_{xy}^2.$$
+
+Tabelle a due vie: frequenza congiunta = profilo riga × frequenza marginale della riga; indipendenza nei dati se i profili riga coincidono con il profilo marginale.
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Unità, variabile, modalità | chi si osserva, che cosa si misura, i valori possibili |
+| Variabile qualitativa (nominale, ordinale), quantitativa | categorie (con o senza ordine) o numeri |
+| Frequenza assoluta, relativa, cumulata | conteggio, proporzione, somma fino a un valore |
+| Diagramma di Pareto | barre ordinate per frequenza decrescente, con la cumulata |
+| Moda, mediana, media | valore più frequente, centrale, baricentro |
+| Quantile, percentile, quartile | valori che dividono i dati ordinati in parti date |
+| Boxplot | scatola da $Q_1$ a $Q_3$ con la mediana e i baffi |
+| Robustezza | un indice è robusto se i valori anomali lo spostano poco (la mediana sì, la media no) |
+| Correlazione | misura della dipendenza lineare; non implica causalità |
+| Residuo | $y_\ell - \hat y_\ell$, distanza verticale dalla retta |
+| Variabile confondente | variabile che, se ignorata, crea o inverte una relazione (Simpson) |
+
+#### Domande che tornano spesso
+
+- Differenza fra media e mediana; perché la mediana è robusta?
+- Come si costruisce un boxplot e come si riconoscono i dati anomali?
+- Perché la varianza campionaria si divide per $n - 1$?
+- Ricavare la retta dei minimi quadrati e il significato di $R^2$.
+- Correlazione nulla vuol dire assenza di relazione? Un esempio con $y = x^2$.
+- Spiegare il paradosso di Simpson con un esempio.
 
 ## 2 · Probabilità e variabili aleatorie
 
@@ -496,9 +604,120 @@ $$\frac{10!\, 2^{10}}{20!} = \frac{1}{19 \cdot 17 \cdot 15 \cdots 3 \cdot 1} \ap
 
 **Esercizio 4 (una densità a due parametri).** Nella densità $f = a$ su $[-1, 0]$, $f = b$ su $[1, \frac32]$ del paragrafo 2.8, con $a = \frac12$ si ha $b = 1$; allora $P[X > 0] = \frac{b}{2} = \frac12$ e $F_X(x) = \frac{x + 1}{2}$ su $[-1, 0]$, costante $\frac12$ su $[0, 1]$, $\frac12 + (x - 1)$ su $[1, \frac32]$. La funzione di ripartizione è continua, con un tratto piatto dove la densità è nulla.
 
+#### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle esercitazioni del corso e della raccolta di esercizi di probabilità; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-01 … STA-04)
+
+**Esercizio 4. Il test diagnostico.** Una malattia colpisce il 2% della popolazione. Un test la rileva nel 95% dei malati (sensibilità) e dà esito negativo nel 90% dei sani (specificità). Una persona risulta positiva: qual è la probabilità che sia malata?
+
+Con $M$ = "malato" e $+$ = "test positivo": $P(+ \mid M) = 0{,}95$, $P(+ \mid \bar M) = 0{,}10$. Per le probabilità totali $P(+) = 0{,}95 \cdot 0{,}02 + 0{,}10 \cdot 0{,}98 = 0{,}019 + 0{,}098 = 0{,}117$, e per Bayes
+$$P(M \mid +) = \frac{0{,}019}{0{,}117} = 0{,}16.$$
+Solo il 16% dei positivi è malato. Non è un difetto del test: la malattia è rara, e i falsi positivi, il 10% di una popolazione grande, sono molti più dei veri positivi. Per questo un test di screening positivo si conferma con un secondo test.
+
+**Esercizio 5. Carte.** Da un mazzo di 40 carte con 4 assi se ne estraggono 5 senza reimmissione. Probabilità di esattamente 2 assi?
+
+I casi possibili sono le $\binom{40}{5} = 658\,008$ mani; quelle favorevoli si ottengono scegliendo 2 assi fra 4 e 3 carte fra le 36 non assi: $\binom{4}{2}\binom{36}{3} = 6 \cdot 7140 = 42\,840$. La probabilità è $\frac{42\,840}{658\,008} = 0{,}065$. È la legge ipergeometrica.
+
+**Esercizio 6. Una funzione di ripartizione con due parametri.** $F(x) = 0$ per $x < 0$, $F(x) = ax^2$ per $0 \le x < 2$, $F(x) = b$ per $x \ge 2$. Per quali $a, b$ è la funzione di ripartizione di una variabile con densità? Calcolare la densità e $P(0{,}5 \le X \le 1)$.
+
+Serve $F(x) \to 1$ per $x \to +\infty$, quindi $b = 1$; serve la continuità (una variabile con densità non ha "salti"), quindi in 2 $4a = 1$, $a = \frac14$. La densità è la derivata, $f(x) = \frac{x}{2}$ su $(0, 2)$ e 0 altrove. $P(0{,}5 \le X \le 1) = F(1) - F(0{,}5) = \frac14 - \frac{1}{16} = \frac{3}{16}$.
+
+**Esercizio 7. Dall'uniforme all'esponenziale.** $X$ è uniforme su $(0, 1)$ e $Y = -\frac12\ln X$. Trovare la legge di $Y$.
+
+$Y$ è positiva. Per $y > 0$: $F_Y(y) = P\left(-\tfrac12\ln X \le y\right) = P(\ln X \ge -2y) = P(X \ge e^{-2y}) = 1 - e^{-2y}$. È l'esponenziale di parametro 2. È il modo in cui un computer genera numeri esponenziali a partire da numeri uniformi.
+
+**Esercizio 8. Una trasformazione non monotona.** $X$ è uniforme su $(0, 1)$ e $Y = (2X - 1)^2$. Densità di $Y$?
+
+$Y \in [0, 1]$. Per $0 \le y \le 1$: $F_Y(y) = P(|2X - 1| \le \sqrt y) = P\left(\frac{1 - \sqrt y}{2} \le X \le \frac{1 + \sqrt y}{2}\right) = \sqrt y$, la lunghezza dell'intervallo. Derivando, $f_Y(y) = \frac{1}{2\sqrt y}$ su $(0, 1)$. La densità è illimitata vicino a 0: tutti gli $X$ vicini a $\frac12$ finiscono vicino a $Y = 0$.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-02 … STA-04)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Bayes con tre macchine.** Tre macchine producono il 50%, il 30% e il 20% dei pezzi, con difettosità dell'1%, del 2% e del 3%. Un pezzo è difettoso: da quale macchina viene più probabilmente?
+
+*Passo 1: le probabilità congiunte.* $P(M_1 \cap D) = 0{,}5 \cdot 0{,}01 = 0{,}005$; $P(M_2 \cap D) = 0{,}3 \cdot 0{,}02 = 0{,}006$; $P(M_3 \cap D) = 0{,}2 \cdot 0{,}03 = 0{,}006$.
+
+*Passo 2: probabilità totale.* $P(D) = 0{,}017$.
+
+*Passo 3: Bayes.* $P(M_1 \mid D) = \frac{0{,}005}{0{,}017} = 0{,}29$; $P(M_2 \mid D) = P(M_3 \mid D) = \frac{0{,}006}{0{,}017} = 0{,}35$.
+
+*Passo 4: la lettura.* La macchina 1 produce metà dei pezzi ma è la meno probabile come origine di un difetto. Le probabilità a posteriori sommano a 1: è il controllo da fare sempre.
+
+**Guidato 2. Due eventi indipendenti senza che sembri.** Si lanciano due dadi. $A$ = "la somma è 7", $B$ = "il primo dado mostra 3". Sono indipendenti?
+
+*Passo 1.* $P(A) = \frac{6}{36} = \frac16$ (le coppie $(1, 6), \dots, (6, 1)$).
+
+*Passo 2.* $P(B) = \frac16$.
+
+*Passo 3.* $A \cap B = \{(3, 4)\}$, quindi $P(A \cap B) = \frac{1}{36} = P(A)P(B)$: indipendenti.
+
+*Passo 4: il confronto.* Con "la somma è 8" al posto di 7 non lo sarebbero: $P = \frac{5}{36}$ e $P(\text{somma } 8 \cap B) = \frac{1}{36} \ne \frac{5}{216}$. Con la somma 7, qualunque sia il primo dado c'è sempre esattamente un valore del secondo che funziona, e sapere il primo non cambia niente.
+
+**Guidato 3. $Y = X^2$ con $X$ uniforme su $(-1, 2)$.**
+
+*Passo 1: i valori di $Y$.* $X \in (-1, 2)$, quindi $Y \in [0, 4)$.
+
+*Passo 2: per $0 \le y \le 1$.* $Y \le y$ se $-\sqrt y \le X \le \sqrt y$, un intervallo tutto dentro $(-1, 2)$ di lunghezza $2\sqrt y$: $F_Y(y) = \frac{2\sqrt y}{3}$.
+
+*Passo 3: per $1 < y < 4$.* Ora $-\sqrt y < -1$, e l'intervallo utile è $(-1, \sqrt y]$: $F_Y(y) = \frac{\sqrt y + 1}{3}$.
+
+*Passo 4: la densità.* Derivando, $f_Y(y) = \frac{1}{3\sqrt y}$ su $(0, 1)$ e $\frac{1}{6\sqrt y}$ su $(1, 4)$. Controllo: $\int_0^1 \frac{dy}{3\sqrt y} + \int_1^4 \frac{dy}{6\sqrt y} = \frac23 + \frac13 = 1$.
+
 ### Riepilogo
 
 Un esperimento aleatorio si modella con uno spazio campionario $\Omega$, i cui sottoinsiemi sono gli eventi, e una probabilità che verifica gli assiomi ($P[\Omega] = 1$, valori in $[0, 1]$, additività sugli eventi disgiunti); ne seguono la regola del complementare e l'inclusione-esclusione. Negli spazi equiprobabili la probabilità è casi favorevoli su casi possibili e si calcola con disposizioni ($n!/(n-k)!$ o $n^k$) e combinazioni ($\binom{n}{k}$ o $\binom{n+k-1}{k}$). La probabilità condizionata $P[F \mid E] = P[E \cap F]/P[E]$ dà la regola del prodotto e della catena, la formula delle probabilità totali su una partizione e la formula di Bayes per risalire dalle osservazioni alle cause. Due eventi sono indipendenti se la probabilità dell'intersezione è il prodotto, il che non ha niente a che fare con l'essere disgiunti. Una variabile aleatoria è una funzione numerica del risultato; la sua legge si descrive con la densità discreta nel caso discreto, con una densità $f$ (non negativa, di integrale 1) nel caso continuo, e in ogni caso con la funzione di ripartizione $F_X(x) = P[X \le x]$, crescente, continua a destra, con $F_X' = f$ dove $f$ è continua. La legge di $Y = \phi(X)$ si trova sommando le probabilità dei valori con la stessa immagine nel caso discreto, e passando per $F_Y$ e derivando nel caso con densità.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (STA-01 … STA-04)
+> Regole del calcolo delle probabilità, combinatoria e variabili aleatorie, con i termini per l'orale.
+
+#### Regole
+
+$$P(\bar E) = 1 - P(E), \quad P(E \cup F) = P(E) + P(F) - P(E \cap F), \quad P(F \mid E) = \frac{P(E \cap F)}{P(E)}, \quad P(E \cap F) = P(E)\,P(F \mid E).$$
+
+$$P(F) = \sum_i P(F \mid E_i)P(E_i), \qquad P(E_k \mid F) = \frac{P(F \mid E_k)P(E_k)}{\sum_i P(F \mid E_i)P(E_i)} \qquad (E_i \text{ partizione}).$$
+
+Indipendenza: $P(E \cap F) = P(E)P(F)$; per tre eventi servono anche le coppie.
+
+#### Combinatoria
+
+| Conteggio | Formula |
+|---|---|
+| Disposizioni con ripetizione | $n^k$ |
+| Disposizioni semplici | $\frac{n!}{(n - k)!}$ |
+| Permutazioni | $n!$ |
+| Combinazioni | $\binom{n}{k}$ |
+| Ipergeometrica | $\frac{\binom{K}{k}\binom{N - K}{n - k}}{\binom{N}{n}}$ |
+
+#### Variabili aleatorie
+
+- Discreta: $p(x) = P(X = x)$, $\sum p(x) = 1$. Con densità: $f \ge 0$, $\int f = 1$, $P(a \le X \le b) = \int_a^b f$.
+- Ripartizione: $F(x) = P(X \le x)$, crescente, continua a destra, da 0 a 1; $f = F'$ dove $F$ è derivabile.
+- Trasformazioni: si calcola $F_Y(y) = P(g(X) \le y)$ e si deriva; se $g$ è monotona, $f_Y(y) = f_X(g^{-1}(y))\,\lvert(g^{-1})'(y)\rvert$.
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Spazio campionario | insieme dei risultati possibili dell'esperimento |
+| Evento | sottoinsieme dello spazio campionario |
+| Probabilità classica, frequentista, assiomatica | casi favorevoli su possibili; limite delle frequenze; funzione che rispetta gli assiomi di Kolmogorov |
+| Eventi incompatibili / indipendenti | intersezione vuota / probabilità dell'intersezione uguale al prodotto |
+| Partizione | eventi incompatibili la cui unione è tutto lo spazio |
+| Probabilità a priori / a posteriori | prima e dopo l'osservazione, nella formula di Bayes |
+| Variabile aleatoria | funzione che associa un numero a ogni risultato |
+| Funzione di ripartizione | $F(x) = P(X \le x)$ |
+
+#### Domande che tornano spesso
+
+- Gli assiomi della probabilità e le conseguenze ($P(\bar E)$, unione di due eventi).
+- Definire la probabilità condizionata e dimostrare la formula delle probabilità totali e quella di Bayes.
+- Eventi incompatibili e indipendenti: che differenza c'è?
+- Proprietà della funzione di ripartizione; legame con la densità.
+- Come si trova la legge di $Y = g(X)$, anche per $g$ non monotona?
 
 ## 3 · Valori attesi, leggi notevoli e teoremi limite
 
@@ -792,9 +1011,147 @@ $$P[N_2 = k \mid N = n] = \frac{P[N_1 = n - k]\, P[N_2 = k]}{P[N = n]} = \binom{
 
 **Esercizio 8 (biscotti in gita).** In gita ogni studente mangia in media 6 biscotti, con deviazione standard 2. Quanti biscotti servono per 81 studenti per essere sicuri al 99% di non restare senza? Il totale $S$ è la somma di 81 variabili indipendenti, quindi per il TLC $S \approx N(81 \cdot 6, 81 \cdot 4) = N(486, 18^2)$. Si cerca $m$ con $P[S \le m] \ge 0{,}99$: $\frac{m - 486}{18} \ge \varphi_{0,99} = 2{,}3263$, cioè $m \ge 486 + 41{,}9$. Servono 528 biscotti.
 
+#### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle esercitazioni del corso (`Esercitazione_26_11`, `TestoEsercitazioneGuidata15_11`) e delle raccolte di esercizi; tavole della normale del corso; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-04 … STA-06, STA-18)
+
+**Esercizio 4. Una geometrica troncata e un'estrazione che dipende da lei.** Tizio lancia una moneta equa finché esce testa, ma al massimo 4 volte; $N$ è il numero di lanci. Poi Caio estrae, con reimmissione, $N$ palline da un'urna con 6 rosse e 4 nere; $X$ è il numero di rosse. (a) Legge, speranza e varianza di $N$. (b) $E[X]$. (c) $P(X = 2)$. (d) Sapendo che $X = 2$, qual è la probabilità che Tizio abbia lanciato 4 volte?
+
+(a) $N = 1$ se la prima è testa, $P = \frac12$; $N = 2$ con probabilità $\frac14$; $N = 3$ con $\frac18$; $N = 4$ in tutti gli altri casi, cioè se i primi tre lanci sono croce: $\frac18$ (il quarto lancio si fa comunque, qualunque sia l'esito). Le probabilità sommano a 1. $E[N] = \frac12 + \frac24 + \frac38 + \frac48 = \frac{15}{8}$, $E[N^2] = \frac12 + 1 + \frac98 + 2 = \frac{37}{8}$, $\operatorname{Var}(N) = \frac{37}{8} - \frac{225}{64} = \frac{71}{64}$.
+
+(b) Dato $N = n$, $X \sim B(n, 0{,}6)$, con speranza $0{,}6n$. Per la formula della speranza totale (paragrafo 3.2), $E[X] = \sum_n E[X \mid N = n]\,P(N = n) = 0{,}6\,E[N] = 1{,}125$.
+
+(c) Con la formula delle probabilità totali, sommando sui valori di $N$ per cui due rosse sono possibili:
+$$P(X = 2) = \frac14 \cdot 0{,}6^2 + \frac18 \cdot \binom{3}{2}0{,}6^2 \cdot 0{,}4 + \frac18 \cdot \binom{4}{2}0{,}6^2 \cdot 0{,}4^2 = 0{,}09 + 0{,}054 + 0{,}0432 = 0{,}1872.$$
+
+(d) Bayes: $P(N = 4 \mid X = 2) = \frac{0{,}0432}{0{,}1872} = 0{,}23$.
+
+**Esercizio 5. Il massimo di variabili normali.** $X_1, \dots, X_n$ sono indipendenti con legge $N(0, 1)$ e $M = \max(X_1, \dots, X_n)$. (a) Funzione di ripartizione di $M$. (b) Per $n = 50$, $P(M > 2{,}5)$. (c) Quanto deve essere grande $n$ perché $P(M > 2{,}5) > \frac12$?
+
+(a) $M \le x$ se e solo se tutte le $X_i$ sono $\le x$, e per l'indipendenza $F_M(x) = \Phi(x)^n$. (b) $\Phi(2{,}5) = 0{,}99379$, quindi $P(M > 2{,}5) = 1 - 0{,}99379^{50} = 0{,}268$. (c) Serve $\Phi(2{,}5)^n < \frac12$, cioè $n > \frac{\ln 0{,}5}{\ln 0{,}99379} = 111{,}3$: $n \ge 112$. È il motivo per cui, guardando molti dati, prima o poi si trova un valore "anomalo" anche se non c'è niente di anomalo.
+
+**Esercizio 6. Combinazione lineare di normali.** $X \sim N(1, 4)$ e $Y \sim N(-2, 9)$ sono indipendenti. Calcolare $P(2X - Y > 9)$.
+
+Una combinazione lineare di normali indipendenti è normale, con $E[2X - Y] = 2 \cdot 1 - (-2) = 4$ e $\operatorname{Var}(2X - Y) = 4 \cdot 4 + 9 = 25$ (le varianze si sommano anche con il segno meno, perché $\operatorname{Var}(-Y) = \operatorname{Var}(Y)$). Quindi $P(2X - Y > 9) = P\left(Z > \frac{9 - 4}{5}\right) = 1 - \Phi(1) = 0{,}159$.
+
+**Esercizio 7. Una legge congiunta con un parametro.** $X$ e $Y$ hanno la legge congiunta
+
+| $X \backslash Y$ | $-1$ | $0$ | $2$ |
+|---|---|---|---|
+| 0 | $a$ | $2a$ | $2a$ |
+| 1 | $2a$ | $a$ | $2a$ |
+
+(a) Trovare $a$. (b) Leggi marginali; $X$ è una legge notevole? (c) $E[Y]$ e $E[Y \mid X = 1]$. (d) Covarianza: sono indipendenti?
+
+(a) La somma deve fare 1: $10a = 1$, $a = 0{,}1$. (b) $P(X = 0) = P(X = 1) = 0{,}5$: $X$ è di Bernoulli di parametro $\frac12$. $P(Y = -1) = 0{,}3$, $P(Y = 0) = 0{,}3$, $P(Y = 2) = 0{,}4$. (c) $E[Y] = -0{,}3 + 0{,}8 = 0{,}5$. Dato $X = 1$ la legge di $Y$ è la seconda riga divisa per $0{,}5$: $0{,}4$, $0{,}2$, $0{,}4$, e $E[Y \mid X = 1] = -0{,}4 + 0{,}8 = 0{,}4$. (d) $E[XY] = 1 \cdot (-1 \cdot 0{,}2 + 0 + 2 \cdot 0{,}2) = 0{,}2$, $\operatorname{Cov}(X, Y) = 0{,}2 - 0{,}5 \cdot 0{,}5 = -0{,}05 \ne 0$: non sono indipendenti. Bastava anche una casella: $P(X = 0, Y = -1) = 0{,}1 \ne 0{,}5 \cdot 0{,}3$.
+
+**Esercizio 8. Teorema centrale per una somma di uniformi.** $X_1, \dots, X_{48}$ sono indipendenti e uniformi su $(0, 2)$. Calcolare approssimativamente $P(44 \le X_1 + \dots + X_{48} \le 52)$.
+
+Per una uniforme su $(0, 2)$, $\mu = 1$ e $\sigma^2 = \frac{(2 - 0)^2}{12} = \frac13$. La somma ha media 48 e varianza $\frac{48}{3} = 16$, deviazione standard 4. Per il teorema centrale è circa normale: $P\left(-1 \le Z \le 1\right) = 0{,}683$.
+
+**Esercizio 9. Assenza di memoria.** La durata di un componente è esponenziale con media 1000 ore. Sapendo che ha funzionato per 500 ore, qual è la probabilità che arrivi a 1500?
+
+$P(T > 1500 \mid T > 500) = \frac{e^{-1500/1000}}{e^{-500/1000}} = e^{-1} = 0{,}368$, la stessa probabilità che un componente nuovo superi le 1000 ore. L'esponenziale "non invecchia": è il modello giusto per i guasti casuali, sbagliato per l'usura.
+
+**Esercizio 10. Binomiale e approssimazione di Poisson.** Un lotto di 500 pezzi ha probabilità di difetto 0,004 per pezzo, indipendentemente. Probabilità di al più un difettoso?
+
+Esattamente $P(X \le 1) = 0{,}996^{500} + 500 \cdot 0{,}004 \cdot 0{,}996^{499} = 0{,}4055$. Con $n$ grande e $p$ piccolo, $X$ è circa di Poisson con $\lambda = np = 2$: $P(X \le 1) \approx e^{-2}(1 + 2) = 0{,}4060$. L'approssimazione sbaglia alla quarta cifra.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-04, STA-05, STA-18)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Una densità con una costante.** Sia $f(x) = c\,x^2$ per $0 < x < 3$ e 0 altrove.
+
+*Passo 1: la costante.* $\int_0^3 cx^2\,dx = 9c = 1$, quindi $c = \frac19$.
+
+*Passo 2: la speranza.* $E[X] = \int_0^3 x \cdot \frac{x^2}{9}\,dx = \frac{81}{36} = \frac94$.
+
+*Passo 3: il momento secondo.* $E[X^2] = \int_0^3 \frac{x^4}{9}\,dx = \frac{243}{45} = \frac{27}{5}$.
+
+*Passo 4: la varianza.* $\operatorname{Var}(X) = \frac{27}{5} - \frac{81}{16} = \frac{27}{80}$.
+
+*Passo 5: un controllo di buon senso.* La densità cresce verso destra, quindi la media deve stare oltre il centro dell'intervallo, 1,5: infatti $\frac94 = 2{,}25$.
+
+**Guidato 2. Usare la tavola della normale.** Le altezze sono $N(170, 64)$ in centimetri. (a) Che frazione supera 186 cm? (b) Sotto quale altezza sta il 90% delle persone?
+
+*Passo 1: standardizzare.* $Z = \frac{X - 170}{8}$; la varianza è 64, la deviazione standard 8.
+
+*Passo 2: la probabilità.* $P(X > 186) = P(Z > 2) = 1 - \Phi(2) = 1 - 0{,}9772 = 0{,}0228$.
+
+*Passo 3: il quantile.* Si cerca $z$ con $\Phi(z) = 0{,}90$: dalla tavola $z = 1{,}2816$.
+
+*Passo 4: tornare alla scala originale.* $x = 170 + 1{,}2816 \cdot 8 = 180{,}3$ cm.
+
+**Guidato 3. Normale al posto della binomiale, con la correzione di continuità.** $X \sim B(100; 0{,}3)$. Approssimare $P(X \le 25)$.
+
+*Passo 1: media e varianza.* $np = 30$, $np(1 - p) = 21$.
+
+*Passo 2: la correzione.* $X$ è intera, e $X \le 25$ equivale a $X < 25{,}5$: si usa 25,5.
+
+*Passo 3: standardizzare.* $\frac{25{,}5 - 30}{\sqrt{21}} = -0{,}98$.
+
+*Passo 4: la tavola.* $\Phi(-0{,}98) = 0{,}164$. Il valore esatto è 0,163; senza correzione si troverebbe $\Phi(-1{,}09) = 0{,}138$, molto peggio.
+
 ### Riepilogo
 
 La speranza è la media dei valori di una variabile pesata con la sua legge; è lineare, monotona, si calcola per le funzioni di $X$ con la formula di trasferimento e, per variabili a valori interi o positive, con la formula delle code. La speranza condizionata e la formula delle torri permettono di calcolarla per casi. La varianza $\mathbb{E}[X^2] - \mathbb{E}[X]^2$ misura la dispersione, scala con $a^2$, si somma per variabili indipendenti e controlla le code con Chebyshev. Covarianza e correlazione misurano la dipendenza lineare di due variabili; l'indipendenza implica covarianza nulla, non il viceversa. Le leggi discrete notevoli nascono dai lanci di una moneta: Bernoulli, binomiale (numero di successi, $np$ e $np(1-p)$), geometrica e Pascal (tempi di successo, senza memoria la prima), Poisson come limite della binomiale per eventi rari ($\lambda = np$, speranza e varianza $\lambda$), ipergeometrica per le estrazioni senza reimmissione. Fra le continue, l'uniforme, l'esponenziale (tempi di attesa senza memoria, media $\tau = 1/\lambda$) e la normale, che si riduce alla standard con $Z = (X - \mu)/\sigma$ e si usa con le tavole di $\Phi$, i quantili $\varphi_p$ e i valori critici $z_\alpha$. Per variabili i.i.d. la media ha speranza $\mu$ e varianza $\sigma^2/n$: per la legge dei grandi numeri si concentra attorno a $\mu$, e per il teorema del limite centrale è approssimativamente $N(\mu, \sigma^2/n)$.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (STA-04 … STA-06, STA-18)
+> Proprietà di speranza e varianza, leggi notevoli e teoremi limite, con i termini per l'orale.
+
+#### Speranza e varianza
+
+$$E[aX + b] = aE[X] + b, \quad E[X + Y] = E[X] + E[Y], \quad \operatorname{Var}(X) = E[X^2] - E[X]^2, \quad \operatorname{Var}(aX + b) = a^2\operatorname{Var}(X),$$
+
+$$\operatorname{Var}(X \pm Y) = \operatorname{Var}(X) + \operatorname{Var}(Y) \pm 2\operatorname{Cov}(X, Y), \quad \operatorname{Cov}(X, Y) = E[XY] - E[X]E[Y], \quad \rho = \frac{\operatorname{Cov}(X, Y)}{\sigma_X\sigma_Y} \in [-1, 1].$$
+
+Speranza totale: $E[X] = \sum_i E[X \mid A_i]P(A_i)$. Chebyshev: $P(|X - \mu| \ge k\sigma) \le \frac{1}{k^2}$.
+
+#### Leggi notevoli
+
+| Legge | Valori / densità | $E$ | $\operatorname{Var}$ |
+|---|---|---|---|
+| Bernoulli $B(p)$ | $P(1) = p$ | $p$ | $p(1 - p)$ |
+| Binomiale $B(n, p)$ | $\binom{n}{k}p^k(1 - p)^{n-k}$ | $np$ | $np(1 - p)$ |
+| Geometrica (primo successo) | $(1 - p)^{k-1}p$, $k \ge 1$ | $\frac1p$ | $\frac{1 - p}{p^2}$ |
+| Poisson $P(\lambda)$ | $e^{-\lambda}\frac{\lambda^k}{k!}$ | $\lambda$ | $\lambda$ |
+| Uniforme $U(a, b)$ | $\frac{1}{b - a}$ su $(a, b)$ | $\frac{a + b}{2}$ | $\frac{(b - a)^2}{12}$ |
+| Esponenziale $E(\lambda)$ | $\lambda e^{-\lambda x}$, $x > 0$ | $\frac1\lambda$ | $\frac{1}{\lambda^2}$ |
+| Normale $N(\mu, \sigma^2)$ | $\frac{1}{\sigma\sqrt{2\pi}}e^{-(x - \mu)^2/(2\sigma^2)}$ | $\mu$ | $\sigma^2$ |
+
+Normale: $Z = \frac{X - \mu}{\sigma}$, $\Phi(-z) = 1 - \Phi(z)$; regola 68-95-99,7. Somme di normali indipendenti sono normali.
+
+#### Teoremi limite
+
+- **Legge dei grandi numeri:** $\bar X_n \to \mu$ (in probabilità).
+- **Teorema centrale:** $\frac{X_1 + \dots + X_n - n\mu}{\sigma\sqrt n}$ è circa $N(0, 1)$ per $n$ grande.
+- **Binomiale con la normale:** $np$ e $n(1 - p)$ almeno 5 (o 10), con correzione di continuità $\pm 0{,}5$.
+- **Binomiale con la Poisson:** $n$ grande, $p$ piccolo, $\lambda = np$.
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Speranza (valore atteso) | media dei valori pesata con le probabilità |
+| Varianza, deviazione standard | dispersione attorno alla speranza, e la sua radice |
+| Indipendenza di variabili | la legge congiunta è il prodotto delle marginali |
+| Covarianza, correlazione | misura di dipendenza lineare; $\rho = \pm 1$ se c'è una relazione lineare esatta |
+| Legge marginale, condizionata | legge di una sola variabile; legge di $Y$ sapendo il valore di $X$ |
+| Assenza di memoria | $P(T > s + t \mid T > s) = P(T > t)$: esponenziale e geometrica |
+| Processo di Poisson | arrivi casuali: il numero in un intervallo è di Poisson, i tempi fra arrivi esponenziali |
+
+#### Domande che tornano spesso
+
+- Definire speranza e varianza; dimostrare $\operatorname{Var}(X) = E[X^2] - E[X]^2$.
+- Dimostrare la disuguaglianza di Chebyshev e ricavarne la legge dei grandi numeri.
+- Covarianza nulla implica indipendenza? Un controesempio.
+- Ricavare speranza e varianza della binomiale come somma di Bernoulli.
+- Enunciare il teorema centrale e spiegare perché giustifica gli intervalli per $n$ grande.
+- Perché l'esponenziale non ha memoria?
 
 ## 4 · Inferenza: stima, intervalli e test
 
@@ -999,6 +1356,36 @@ da arrotondare all'intero superiore. Per una proporzione, se non si sa nulla di 
 >
 > *Esempio.* Tre gruppi di tre misure: (20, 22, 24), (25, 27, 26), (21, 23, 22), con medie 22, 26, 22 e media generale $\frac{70}{3}$. Si trova $SS_B = 32$ e $SS_W = 8 + 2 + 2 = 12$, quindi $F = \frac{32/2}{12/6} = 8$, maggiore di $F_{0,05; 2, 6} = 5{,}14$: al 5% le medie non sono tutte uguali. Con due soli gruppi l'ANOVA equivale al test t con varianza combinata.
 
+### 4.9 Il funnel plot
+
+> [!aggiunta] Aggiunta in revisione · fonte: Spiegelhalter, "Funnel plots for comparing institutional performance", *Statistics in Medicine* 24 (2005); programma del corso, "se c'è tempo" (STA-13, STA-14)
+> **Il problema.** Si vogliono confrontare più strutture (ospedali, scuole, reparti di un'azienda) attraverso una proporzione: la mortalità dopo un intervento, la percentuale di promossi, la frazione di pezzi difettosi. La tentazione è fare una classifica dei tassi osservati $\hat p_i = \frac{x_i}{n_i}$, ma è un errore: una struttura con pochi casi ha un tasso molto variabile per puro caso, e finisce in cima o in fondo alla classifica senza essere né migliore né peggiore delle altre. Il **funnel plot** (grafico a imbuto) tiene conto proprio della numerosità.
+>
+> **La costruzione.** Si suppone (ipotesi nulla) che tutte le strutture abbiano la stessa probabilità vera $p$, stimata con il tasso complessivo
+> $$\bar p = \frac{\sum_i x_i}{\sum_i n_i}.$$
+> Sotto questa ipotesi $\hat p_i$ ha media $\bar p$ e deviazione standard $\sqrt{\bar p(1 - \bar p)/n_i}$, e per $n_i$ grande è circa normale (paragrafo 4.4). Nel piano con $n$ in ascissa e il tasso in ordinata si disegnano la retta $y = \bar p$ e le **curve di controllo**
+> $$\bar p \pm z\sqrt{\frac{\bar p(1 - \bar p)}{n}},$$
+> di solito con $z = 1{,}96$ (95%) e $z = 3{,}09$ (99,8%). Le curve si stringono al crescere di $n$, come un imbuto: con più casi il tasso osservato deve stare più vicino a quello medio. Poi si mette un punto $(n_i, \hat p_i)$ per ogni struttura.
+>
+> **La lettura.** Un punto dentro le curve al 95% è compatibile con la media: la differenza da $\bar p$ si spiega con il caso. Un punto fra le curve al 95% e al 99,8% è un segnale di **allerta**: succederebbe per caso a circa una struttura su venti. Un punto fuori dalle curve al 99,8% è un segnale di **allarme**: per caso succederebbe a circa una struttura su cinquecento, e conviene cercare una causa. Ogni punto, in pratica, è un test dell'ipotesi $p_i = \bar p$ al livello del 5% o dello 0,2%, e le curve sono le regioni di accettazione disegnate tutte insieme.
+>
+> **Esempio.** Dieci ospedali riportano i decessi dopo un intervento.
+>
+> | Ospedale | A | B | C | D | E | F | G | H | I | J |
+> |---|---|---|---|---|---|---|---|---|---|---|
+> | Interventi $n_i$ | 50 | 80 | 120 | 150 | 200 | 260 | 300 | 400 | 500 | 640 |
+> | Decessi $x_i$ | 6 | 4 | 10 | 18 | 14 | 34 | 21 | 30 | 70 | 36 |
+> | Tasso $\hat p_i$ | 0,120 | 0,050 | 0,083 | 0,120 | 0,070 | 0,131 | 0,070 | 0,075 | 0,140 | 0,056 |
+>
+> In tutto 243 decessi su 2700 interventi, quindi $\bar p = 0{,}09$. Per l'ospedale I, $\sqrt{0{,}09 \cdot 0{,}91/500} = 0{,}0128$, e le curve superiori valgono $0{,}09 + 1{,}96 \cdot 0{,}0128 = 0{,}115$ e $0{,}09 + 3{,}09 \cdot 0{,}0128 = 0{,}130$: il tasso 0,140 è fuori da entrambe, allarme ($z = \frac{0{,}140 - 0{,}09}{0{,}0128} = 3{,}9$). L'ospedale F ($z = 2{,}3$) è in allerta. A e D hanno lo stesso tasso, 12%, più alto della media, ma sono dentro l'imbuto: con 50 e 150 interventi una differenza così è normale. In basso, J ha $z = -3{,}0$: è in allerta "dalla parte buona", e varrebbe la pena di capire che cosa fa di diverso. Una classifica dei tassi avrebbe messo A e D fra i peggiori, alla pari di I, e B fra i migliori; il funnel plot dice che fra A, B, C, D, E, G, H non c'è nessuna differenza dimostrabile (figura 4.3).
+
+![Figura 4.3](figure/4-3.svg)
+
+*Figura 4.3. Funnel plot dei dieci ospedali: retta del tasso medio, curve di controllo al 95% (tratteggiate) e al 99,8% (punteggiate).*
+
+> [!attenzione]
+> Le curve si calcolano con $\bar p$, il tasso comune sotto l'ipotesi nulla, non con il tasso della singola struttura. E il funnel plot non dice *perché* un punto è fuori: casi più gravi, errori di registrazione o qualità peggiore danno lo stesso segnale. È uno strumento per decidere dove guardare, non un giudizio.
+
 ### Esempi ed esercizi svolti
 
 **Esercizio 1 (ore di straordinario).** Le ore mensili di straordinario dei dipendenti di un'azienda sono normali. In un campione di 81 dipendenti si trovano $\bar x = 24$ e $s = 6$. Intervalli al 99% ($\alpha = 0{,}01$, 80 gradi di libertà). Per la media: $t_{0,005; 80} = 2{,}639$, $\varepsilon = 2{,}639 \cdot \frac{6}{9} \approx 1{,}759$, quindi $22{,}24 \le \mu \le 25{,}76$; con la normale, $z_{0,005} = 2{,}576$ e $22{,}28 \le \mu \le 25{,}72$, quasi uguale perché $n$ è grande. Per la varianza: $\chi^2_{0,995; 80} = 51{,}172$ e $\chi^2_{0,005; 80} = 116{,}321$, quindi
@@ -1015,6 +1402,155 @@ $$\frac{80 \cdot 36}{116{,}321} \le \sigma^2 \le \frac{80 \cdot 36}{51{,}172}, \
 
 Per un campione grande di una popolazione qualsiasi con varianza ignota si usa la seconda riga con $s$ al posto di $\sigma_0$.
 
+#### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle esercitazioni e delle raccolte di esercizi del corso; valori critici dalle tavole del corso; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-13 … STA-16)
+> Ogni test si imposta con gli stessi cinque passi: (1) ipotesi $H_0$ e $H_1$, bilatera o unilatera; (2) statistica test e sua legge sotto $H_0$; (3) livello $\alpha$ e regione di rifiuto; (4) valore osservato; (5) decisione e, se si può, p-value.
+
+**Esercizio 3. Test sulla media con varianza nota, unilatero.** Un produttore dichiara che le sue lampadine durano in media 1000 ore, con $\sigma = 80$ ore. Un'associazione di consumatori ne prova 64 e trova $\bar x = 980$. C'è evidenza che la durata media sia minore di quella dichiarata?
+
+(1) $H_0: \mu = 1000$ contro $H_1: \mu < 1000$ (l'associazione sospetta una durata *minore*). (2) $Z = \frac{\bar X - 1000}{80/\sqrt{64}} \sim N(0, 1)$ sotto $H_0$. (3) Al 5% si rifiuta se $z < -1{,}645$. (4) $z = \frac{980 - 1000}{10} = -2$. (5) Si rifiuta al 5%. Il p-value è $\Phi(-2) = 0{,}023$: all'1% non si rifiuterebbe.
+
+**Esercizio 4. Test t su un piccolo campione.** Dieci misure di una lunghezza danno $\bar x = 12{,}4$ mm e $s = 0{,}9$ mm. Il valore nominale è 12 mm. Al 5%, le misure sono compatibili con il nominale?
+
+$H_0: \mu = 12$ contro $\mu \ne 12$; varianza ignota e $n$ piccolo, quindi $T = \frac{\bar X - 12}{S/\sqrt{10}} \sim t_9$ (popolazione supposta normale). $t = \frac{0{,}4}{0{,}9/\sqrt{10}} = 1{,}41$, e $t_{0,025; 9} = 2{,}262$. Non si rifiuta: il p-value è circa 0,19. Con la normale al posto della t si userebbe 1,96: per $n = 10$ la differenza fra le due tavole è già sensibile.
+
+**Esercizio 5. Due medie con varianza combinata.** Due metodi di studio: 12 studenti con il metodo 1 ottengono in media 78 punti con $s_1 = 6$, 10 studenti con il metodo 2 ottengono 72 con $s_2 = 5$. Al 5%, i metodi danno risultati diversi? Dare l'intervallo al 95% per la differenza.
+
+Si suppongono popolazioni normali con la stessa varianza. La varianza combinata è
+$$s_p^2 = \frac{11 \cdot 36 + 9 \cdot 25}{12 + 10 - 2} = \frac{621}{20} = 31{,}05, \qquad s_p = 5{,}57.$$
+L'errore standard della differenza è $s_p\sqrt{\frac{1}{12} + \frac{1}{10}} = 2{,}39$, e $t = \frac{78 - 72}{2{,}39} = 2{,}51$, con 20 gradi di libertà. Poiché $t_{0,025; 20} = 2{,}086$, si rifiuta $H_0: \mu_1 = \mu_2$ (p-value 0,021). L'intervallo è $6 \pm 2{,}086 \cdot 2{,}39 = [1{,}0;\ 11{,}0]$: non contiene lo 0, coerentemente con il test.
+
+**Esercizio 6. Dati appaiati.** Sei pazienti misurano la pressione prima e dopo un farmaco; le differenze "prima meno dopo" sono $3, 5, -1, 4, 2, 5$. Il farmaco abbassa la pressione?
+
+I dati non sono due campioni indipendenti: sono le stesse persone. Si lavora sulle differenze, con $H_0: \mu_D = 0$ contro $\mu_D > 0$. $\bar d = 3$, $s_D^2 = \frac{0 + 4 + 16 + 1 + 1 + 4}{5} = 5{,}2$, $s_D = 2{,}28$. $t = \frac{3}{2{,}28/\sqrt{6}} = 3{,}22$ con 5 gradi di libertà; $t_{0,05; 5} = 2{,}015$: si rifiuta, il farmaco abbassa la pressione (p-value unilatero circa 0,012). Trattare i dati come due campioni indipendenti sarebbe un errore: si perderebbe l'informazione che le misure vengono a coppie, e la variabilità fra persone diverse coprirebbe l'effetto.
+
+**Esercizio 7. Chi-quadro di adattamento: il dado è truccato?** In 120 lanci le facce da 1 a 6 escono $25, 17, 15, 23, 24, 16$ volte.
+
+$H_0$: il dado è equo, quindi ogni faccia è attesa $e_i = 20$ volte. $\chi^2 = \sum \frac{(o_i - e_i)^2}{e_i} = \frac{25 + 9 + 25 + 9 + 16 + 16}{20} = 5{,}0$. I gradi di libertà sono $6 - 1 = 5$ (le frequenze hanno un vincolo, la somma è 120). $\chi^2_{0,05; 5} = 11{,}07$: non si rifiuta, le differenze sono compatibili con il caso (p-value 0,42).
+
+**Esercizio 8. ANOVA con la tabella completa.** Tre macchine producono pezzi; il peso in grammi di quattro pezzi per macchina è: A: 10, 12, 11, 13; B: 14, 15, 13, 16; C: 11, 10, 12, 11. Le macchine producono pezzi dello stesso peso medio?
+
+Medie: $\bar x_A = 11{,}5$, $\bar x_B = 14{,}5$, $\bar x_C = 11$, media generale $\bar x = \frac{148}{12} = 12{,}33$.
+
+| Fonte | $SS$ | gradi di libertà | $MS = SS/\text{gdl}$ |
+|---|---|---|---|
+| fra i gruppi | $4\big[(11{,}5 - 12{,}33)^2 + (14{,}5 - 12{,}33)^2 + (11 - 12{,}33)^2\big] = 28{,}67$ | $k - 1 = 2$ | 14,33 |
+| dentro i gruppi | $5 + 5 + 2 = 12$ | $N - k = 9$ | 1,33 |
+| totale | 40,67 | 11 | |
+
+$F = \frac{14{,}33}{1{,}33} = 10{,}75$, e $F_{0,05; 2, 9} = 4{,}26$: si rifiuta l'uguaglianza delle medie (p-value 0,004). L'ANOVA dice solo che *almeno due* medie sono diverse; dalle medie si vede che è la macchina B a produrre pezzi più pesanti.
+
+**Esercizio 9. Quanti dati servono per vedere una differenza?** Nel test $H_0: \mu = 500$ contro $\mu > 500$ con $\sigma = 100$ e $\alpha = 5\%$ (paragrafo 4.6), quanti pesci servono perché la potenza sia del 90% quando $\mu = 520$?
+
+Si rifiuta se $\bar x > 500 + z_\alpha\frac{\sigma}{\sqrt n}$; la potenza in $\mu = 520$ è $P\left[Z > z_\alpha - \frac{20\sqrt n}{100}\right]$, che vale 0,90 quando $z_\alpha - \frac{20\sqrt n}{100} = -z_{0,10} = -1{,}2816$. Quindi
+$$\sqrt n = \frac{(1{,}645 + 1{,}2816) \cdot 100}{20} = 14{,}63, \qquad n \ge 214{,}1,$$
+cioè servono 215 pesci, più del doppio dei 100 del paragrafo 4.6, dove la potenza era del 64%.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-13 … STA-15)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Un sondaggio.** Su 1000 intervistati, 540 sono favorevoli a una proposta. Si può dire, all'1%, che la maggioranza è favorevole?
+
+*Passo 1: le ipotesi.* La domanda è se $p > 0{,}5$: $H_0: p = 0{,}5$ contro $H_1: p > 0{,}5$.
+
+*Passo 2: la statistica.* $Z = \frac{\hat p - 0{,}5}{\sqrt{0{,}5 \cdot 0{,}5/1000}}$, circa normale standard sotto $H_0$. Al denominatore va $p_0$, non $\hat p$: la legge si calcola supponendo vera $H_0$.
+
+*Passo 3: la regione di rifiuto.* All'1%, unilatero: $z > 2{,}326$.
+
+*Passo 4: il valore.* $z = \frac{0{,}04}{0{,}0158} = 2{,}53$.
+
+*Passo 5: decisione.* Si rifiuta $H_0$: p-value $1 - \Phi(2{,}53) = 0{,}006$.
+
+**Guidato 2. Un funnel plot in piccolo.** Tre reparti hanno avuto rispettivamente 3 pezzi difettosi su 40, 12 su 100 e 30 su 400. Che cosa dice il funnel plot al 95%?
+
+*Passo 1: il tasso comune.* $\bar p = \frac{3 + 12 + 30}{40 + 100 + 400} = \frac{45}{540} = 0{,}0833$.
+
+*Passo 2: le deviazioni standard.* $\sqrt{\bar p(1 - \bar p)/n}$ vale 0,0437 per $n = 40$, 0,0276 per $n = 100$, 0,0138 per $n = 400$.
+
+*Passo 3: i valori $z$.* Reparto 1: $\frac{0{,}075 - 0{,}0833}{0{,}0437} = -0{,}19$. Reparto 2: $\frac{0{,}12 - 0{,}0833}{0{,}0276} = 1{,}33$. Reparto 3: $\frac{0{,}075 - 0{,}0833}{0{,}0138} = -0{,}60$.
+
+*Passo 4: conclusione.* Tutti i $|z|$ sono minori di 1,96: i tre reparti sono dentro l'imbuto. Il 12% del secondo reparto sembra alto, ma con 100 pezzi è compatibile con un tasso dell'8%.
+
+**Guidato 3. Chi-quadro di indipendenza su una tabella $2 \times 2$.** Su 200 clienti, 60 dei 100 che hanno ricevuto un'offerta via email hanno comprato, contro 45 dei 100 che non l'hanno ricevuta. Acquisto e offerta sono indipendenti, al 5%?
+
+*Passo 1: la tabella.* Righe: email sì (60 comprano, 40 no), email no (45 comprano, 55 no). Totali di colonna: 105 comprano, 95 no.
+
+*Passo 2: le frequenze attese.* $e_{ij} = \frac{n_{i\cdot}\,n_{\cdot j}}{n}$: per entrambe le righe $\frac{100 \cdot 105}{200} = 52{,}5$ e $\frac{100 \cdot 95}{200} = 47{,}5$.
+
+*Passo 3: la statistica.* $\chi^2 = \frac{7{,}5^2}{52{,}5} + \frac{7{,}5^2}{47{,}5} + \frac{7{,}5^2}{52{,}5} + \frac{7{,}5^2}{47{,}5} = 4{,}51$, con $(2 - 1)(2 - 1) = 1$ grado di libertà.
+
+*Passo 4: decisione.* $\chi^2_{0,05; 1} = 3{,}841$: si rifiuta l'indipendenza. Il p-value è circa 0,034, quindi all'1% non si rifiuterebbe.
+
 ### Riepilogo
 
 Un campione è una famiglia di variabili i.i.d. con la legge della popolazione; uno stimatore è una funzione del campione, corretto se ha speranza uguale al parametro, consistente se l'errore quadratico medio (varianza più distorsione al quadrato) tende a zero, più efficiente di un altro se ha varianza minore. La media campionaria e la varianza campionaria con $n - 1$ sono stimatori corretti di $\mu$ e $\sigma^2$. Un intervallo di confidenza al livello $1 - \alpha$ è costruito in modo che la procedura contenga il parametro nella frazione $1 - \alpha$ dei campioni: per la media con varianza nota è $\bar x \pm z_{\alpha/2}\sigma/\sqrt n$ (esatto per popolazioni normali, approssimato per $n$ grande), con varianza ignota $\bar x \pm t_{\alpha/2, n-1}s/\sqrt n$, per la varianza si usano due valori critici della chi-quadro, per una proporzione $\hat p \pm z_{\alpha/2}\sqrt{\hat p(1-\hat p)/n}$ o la versione prudente con $\frac{1}{2\sqrt n}$. La numerosità per una precisione $\varepsilon$ è $n \ge z_{\alpha/2}^2\sigma^2/\varepsilon^2$. Per due medie si usano le differenze, con la varianza combinata o con i dati appaiati. Un test di ipotesi rifiuta $H_0$ quando la statistica test cade nella regione di rifiuto, con probabilità di errore di I tipo $\alpha$; la potenza è la probabilità di rifiutare quando $H_0$ è falsa, e il p-value è il più piccolo livello a cui i dati portano a rifiutare. Gli stessi schemi danno i test per media, proporzione, varianza, differenza di medie, il test chi-quadro di indipendenza per le tabelle a due vie e l'ANOVA a una via, che confronta più medie con la statistica F.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (STA-12 … STA-16)
+> Stimatori, intervalli, test e valori critici più usati, con i termini per l'orale.
+
+#### Stimatori
+
+$$\bar X = \frac{1}{n}\sum X_i, \quad S^2 = \frac{1}{n - 1}\sum (X_i - \bar X)^2, \quad E[\bar X] = \mu, \quad \operatorname{Var}(\bar X) = \frac{\sigma^2}{n}, \quad MSE = \operatorname{Var} + (\text{distorsione})^2.$$
+
+#### Intervalli al livello $1 - \alpha$
+
+| Parametro | Intervallo |
+|---|---|
+| $\mu$, $\sigma$ nota | $\bar x \pm z_{\alpha/2}\,\sigma/\sqrt n$ |
+| $\mu$, $\sigma$ ignota, normale | $\bar x \pm t_{\alpha/2, n-1}\,s/\sqrt n$ |
+| $p$, $n$ grande | $\hat p \pm z_{\alpha/2}\sqrt{\hat p(1 - \hat p)/n}$ |
+| $\sigma^2$, normale | $\left[\frac{(n-1)s^2}{\chi^2_{\alpha/2, n-1}}, \frac{(n-1)s^2}{\chi^2_{1-\alpha/2, n-1}}\right]$ |
+| $\mu_1 - \mu_2$, varianze uguali | $\bar x_1 - \bar x_2 \pm t_{\alpha/2, n_1+n_2-2}\,s_p\sqrt{1/n_1 + 1/n_2}$ |
+
+Numerosità per un errore massimo $\varepsilon$: $n \ge \left(\frac{z_{\alpha/2}\sigma}{\varepsilon}\right)^2$ per la media, $n \ge \frac{z_{\alpha/2}^2}{4\varepsilon^2}$ per una proporzione (caso peggiore $p = \frac12$).
+
+#### Test
+
+| $H_0$ | Statistica | Legge sotto $H_0$ |
+|---|---|---|
+| $\mu = \mu_0$, $\sigma$ nota | $\frac{\bar X - \mu_0}{\sigma/\sqrt n}$ | $N(0, 1)$ |
+| $\mu = \mu_0$, $\sigma$ ignota | $\frac{\bar X - \mu_0}{S/\sqrt n}$ | $t_{n-1}$ |
+| $p = p_0$ | $\frac{\hat p - p_0}{\sqrt{p_0(1 - p_0)/n}}$ | circa $N(0, 1)$ |
+| $\sigma^2 = \sigma_0^2$ | $\frac{(n-1)S^2}{\sigma_0^2}$ | $\chi^2_{n-1}$ |
+| $\mu_1 = \mu_2$ | $\frac{\bar X_1 - \bar X_2}{S_p\sqrt{1/n_1 + 1/n_2}}$ | $t_{n_1+n_2-2}$ |
+| appaiati | $\frac{\bar D}{S_D/\sqrt n}$ | $t_{n-1}$ |
+| adattamento, $k$ classi | $\sum \frac{(o_i - e_i)^2}{e_i}$ | $\chi^2_{k-1}$ |
+| indipendenza, $m \times k$ | $\sum \frac{(n_{ij} - e_{ij})^2}{e_{ij}}$, $e_{ij} = \frac{n_{i\cdot}n_{\cdot j}}{n}$ | $\chi^2_{(m-1)(k-1)}$ |
+| ANOVA, $k$ gruppi | $\frac{SS_B/(k-1)}{SS_W/(N-k)}$ | $F_{k-1, N-k}$ |
+
+Funnel plot: curve $\bar p \pm z\sqrt{\bar p(1 - \bar p)/n}$ con $z = 1{,}96$ e $3{,}09$.
+
+#### Valori critici della normale
+
+| $\alpha$ | 0,10 | 0,05 | 0,025 | 0,01 | 0,005 | 0,001 |
+|---|---|---|---|---|---|---|
+| $z_\alpha$ | 1,282 | 1,645 | 1,960 | 2,326 | 2,576 | 3,090 |
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Stimatore corretto, consistente, efficiente | speranza uguale al parametro; MSE che tende a 0; varianza minore |
+| Intervallo di confidenza | intervallo casuale che contiene il parametro con probabilità $1 - \alpha$ |
+| Ipotesi nulla e alternativa | l'affermazione da mettere alla prova e quella che si accetta se la si rifiuta |
+| Errore di I e II tipo | rifiutare $H_0$ vera; accettare $H_0$ falsa |
+| Livello di significatività | probabilità massima di errore di I tipo |
+| Potenza | probabilità di rifiutare $H_0$ quando è falsa |
+| p-value | probabilità, sotto $H_0$, di un risultato almeno così estremo |
+| Gradi di libertà | numero di quantità libere dopo i vincoli |
+| Funnel plot | confronto di tassi con curve di controllo che dipendono da $n$ |
+
+#### Domande che tornano spesso
+
+- Perché $S^2$ si divide per $n - 1$? Dimostrare che è corretto.
+- Ricavare l'intervallo per la media con varianza nota; che cosa vuol dire "al 95%"?
+- Quando si usa la t di Student e perché le sue code sono più pesanti della normale?
+- Definire errori di I e II tipo, potenza e p-value; legame fra test bilatero e intervallo di confidenza.
+- Test chi-quadro: come si calcolano le frequenze attese e i gradi di libertà?
+- Idea dell'ANOVA: perché si confronta la varianza fra i gruppi con quella dentro i gruppi?
+- A che cosa serve un funnel plot, e perché una classifica dei tassi è fuorviante?

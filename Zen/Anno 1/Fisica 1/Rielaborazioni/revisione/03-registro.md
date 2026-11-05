@@ -27,3 +27,17 @@ La dispensa ha pochi esempi numerici; questi sono stati scritti per i moduli, su
 ## Aggiunte
 
 Nessun blocco `[!aggiunta]`: gli argomenti trattati sono tutti negli appunti (`01-copertura.md`). La gravitazione universale e la legge di Hooke, usate nel modulo 2, sono negli appunti.
+
+## Ampliamento del 5 novembre 2026
+
+Dopo le risposte alle domande (`revisione/AMPLIAMENTO-ANNO-1.md`): FG1-1 nessun appunto delle lezioni mancanti, ma nel materiale nuovo ci sono gli appunti a mano delle esercitazioni (70 pagine) e i testi delle 12 esercitazioni del 2025; FG1-2 sì a un'appendice completa di esercizi, anche d'esame.
+
+| Dove | Che cosa | ID |
+|---|---|---|
+| Moduli 1-4, "Esercizi dalle esercitazioni" | 23 esercizi (più un guidato) delle esercitazioni 1, 3, 4, 5, 6, 8, 10, 11 (testi riformulati, risultati confrontati con quelli ufficiali): caduta e incontri, tempi minimi, leggi orarie, piani inclinati con attrito, pendolo conico, molle in serie e in parallelo, lavoro lungo percorsi diversi e conservatività, catena, urti elastici e obliqui, urto con molla, statica di travi e scale, momenti d'inerzia, pulegge, rotolamento, oscillazioni con carrucola | FG1-01 … FG1-07 |
+| Moduli 1-4, "Esercizi sul modello delle prove d'esame" | 6 esercizi nuovi sul modello delle prove del 2025-2026 (leggi orarie, oscillatori, massa che ruota su una molla, molla e piano inclinato, biglia colpita dalla stecca, asta che urta una massa) | FG1-01 … FG1-07 |
+| Moduli 1-4 | 12 esercizi guidati e un formulario per modulo | tutti |
+
+FG1-3 (programma del docente) è rimasta senza risposta: gli ID del programma restano quelli ricavati dalle lezioni.
+
+Gli appunti a mano delle esercitazioni (`Appunti Esercitazioni_compressed`, 70 pagine) non sono ancora stati trascritti: gli esercizi seguono i testi delle esercitazioni corrispondenti, con soluzioni scritte per esteso e controllate sui risultati ufficiali. La trascrizione degli appunti, per riprenderne i passaggi e le figure, è il prossimo passo per questo corso. Controlli: `strumenti/verifica_ampliamento.py`, 83 controlli.

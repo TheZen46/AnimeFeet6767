@@ -37,3 +37,19 @@ Fasi 4 e 5, svolte il 4 novembre 2026. Testo di partenza: le dispense `trascrizi
 | 4.8 | Autovalori complessi nei sistemi | AM1B-11 | Canuto-Tabacco, *Analisi Matematica 2* |
 
 Esercizi svolti nuovi (applicano solo il testo): modulo 1, esercizi 3-4; modulo 2, esercizi 3-5; modulo 3, esercizi 2-3; modulo 4, esercizi 1-4. Gli altri esempi ed esercizi vengono dalle dispense o dalle lezioni (L06, L08, L15, L23).
+
+## Ampliamento del 5 novembre 2026
+
+Dopo le risposte alle domande (`revisione/AMPLIAMENTO-ANNO-1.md`): AM1B-1 tutto materiale dell'autore; AM1B-2 lezione 22 senza appunti, da ricostruire; AM1B-3 la stabilità è chiesta, da ampliare; AM1B-4 sì agli esercizi; AM1B-5 l'integrale della lezione 6 va tenuto.
+
+| Dove | Che cosa | ID |
+|---|---|---|
+| 4.10 (nuovo) | Piano delle fasi dei sistemi $2 \times 2$: nodi, selle, fuochi, centri; criterio con traccia e determinante; linearizzazione e stabilità delle equazioni autonome. È la ricostruzione della lezione 22, fra la 21 (sistemi lineari) e la 23 | AM1B-09, AM1B-11 |
+| 4.11 (nuovo) | Studio qualitativo senza risolvere: esistenza e unicità nel punto, polinomio di Taylor della soluzione, grafico locale, soluzioni costanti | AM1B-08, AM1B-10 |
+| 4.12 (nuovo) | Equazioni di Bernoulli | AM1B-08 |
+| Moduli 1-4 | 33 esercizi svolti nuovi sul modello delle 8 prove scritte 2025-2026 e dei 12 fogli di esercizi, fra cui l'integrale della lezione 6 ricontrollato ($-\frac{64}{3\sqrt{3}}$, giusto) | tutti |
+| Moduli 1-4 | 12 esercizi guidati e un formulario per modulo | tutti |
+
+Le prove chiedono sempre: un integrale definito (sostituzione, per parti, fratti semplici), un integrale improprio con parametro o una funzione integrale, il dominio di una funzione di due variabili da disegnare, un limite nell'origine, i punti stazionari, due serie (una a termini positivi, una a segni alterni con convergenza assoluta), un problema di Cauchy (esistenza e unicità, Taylor o grafico locale senza risolvere, soluzione esplicita con intervallo) o un'equazione del secondo ordine con parametro. L'equazione di Bernoulli, il polinomio di Taylor della soluzione e il grafico locale non erano negli appunti e sono stati aggiunti.
+
+Controlli: `strumenti/verifica_ampliamento.py`, 46 controlli con sympy.

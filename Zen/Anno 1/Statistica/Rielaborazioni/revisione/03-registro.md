@@ -43,3 +43,18 @@ Altre piccole correzioni di notazione: $\sigma^2$ al posto di "$\sigma = \mathrm
 Gli esempi delle aggiunte usano, dove possibile, i dati degli esempi degli appunti (moneta con 60 teste, pezzi venduti, ore di straordinario, tabella genere × colore degli occhi); quelli della differenza di medie, del paradosso di Simpson e dell'ANOVA sono costruiti per il modulo.
 
 Le aggiunte valgono circa il 12% del modulo 1, meno del 3% dei moduli 2 e 3 e circa il 37% del modulo 4 (domanda 1 di `01-copertura.md`).
+
+## Ampliamento del 5 novembre 2026
+
+Dopo le risposte alle domande (`revisione/AMPLIAMENTO-ANNO-1.md`): STA-1 le aggiunte su test e ANOVA restano e vanno completate con tutto ciò che serve all'esame; STA-2 la lezione sulla regressione non c'è nemmeno nel materiale nuovo; STA-3 senza risposta; STA-4 il funnel plot va integrato per intero.
+
+| Dove | Che cosa | ID |
+|---|---|---|
+| 4.9 (nuovo) | Funnel plot: costruzione delle curve di controllo, lettura (allerta, allarme), esempio con dieci ospedali e figura 4.3 | STA-13, STA-14 |
+| 4, esercizi 3-9 | Test z unilatero, test t su piccolo campione, due medie con varianza combinata, dati appaiati, chi-quadro di adattamento, ANOVA con la tabella, numerosità per una potenza data | STA-14 … STA-16 |
+| 3, esercizi 4-10 | Geometrica troncata con estrazione condizionata (speranza totale e Bayes), massimo di normali, combinazioni lineari, legge congiunta con parametro, teorema centrale, assenza di memoria, approssimazione di Poisson | STA-04 … STA-06, STA-18 |
+| 2, esercizi 4-8 | Test diagnostico (Bayes), ipergeometrica, ripartizione con parametri, trasformazioni di variabili | STA-01 … STA-04 |
+| 1, esercizi 4-6 | Regressione completa con residui e $R^2$, paradosso di Simpson con i numeri, coefficiente di variazione | STA-08 … STA-11 |
+| Tutti i moduli | 12 esercizi guidati e un formulario per modulo, con le domande dell'orale | tutti |
+
+Nei file nuovi non ci sono temi d'esame di Statistica (i fogli `2025-01` … `2026-06` sono di Geometria): gli esercizi seguono le due esercitazioni del corso (`Esercitazione_26_11`, `TestoEsercitazioneGuidata15_11`) e le raccolte di esercizi, con dati nuovi. Controlli: `strumenti/verifica_ampliamento.py`, 77 controlli con scipy.

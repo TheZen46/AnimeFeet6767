@@ -167,7 +167,31 @@ def fig_4_2():
     salva(fig, "4-2")
 
 
+
+def fig_4_3():
+    """Funnel plot dei dieci ospedali del paragrafo 4.9."""
+    n = np.array([50, 80, 120, 150, 200, 260, 300, 400, 500, 640])
+    d = np.array([6, 4, 10, 18, 14, 34, 21, 30, 70, 36])
+    p = d.sum() / n.sum()
+    xs = np.linspace(40, 700, 300)
+    se = np.sqrt(p * (1 - p) / xs)
+    fig, ax = plt.subplots(figsize=(6.2, 3.4))
+    ax.axhline(p, color="black", lw=1)
+    for z, ls in [(1.96, "--"), (3.09, ":")]:
+        ax.plot(xs, p + z * se, color=GR, ls=ls, lw=1.2)
+        ax.plot(xs, np.clip(p - z * se, 0, None), color=GR, ls=ls, lw=1.2)
+    ax.scatter(n, d / n, color=ACC, zorder=3, s=22)
+    for lab, x, y in zip("ABCDEFGHIJ", n, d / n):
+        ax.annotate(lab, (x, y), textcoords="offset points", xytext=(5, 3), fontsize=9)
+    ax.set_xlabel("numero di interventi $n_i$")
+    ax.set_ylabel("tasso $\\hat p_i$")
+    ax.set_ylim(0, 0.23)
+    ax.text(690, p + 0.004, "$\\bar p = 0{,}09$", ha="right", fontsize=9)
+    ax.text(700, p + 1.96 * np.sqrt(p * (1 - p) / 700) + 0.003, "95%", ha="right", fontsize=8, color=GR)
+    ax.text(700, p + 3.09 * np.sqrt(p * (1 - p) / 700) + 0.003, "99,8%", ha="right", fontsize=8, color=GR)
+    salva(fig, "4-3")
+
 if __name__ == "__main__":
-    for f in (fig_1_1, fig_1_2, fig_2_1, fig_3_1, fig_3_2, fig_4_1, fig_4_2):
+    for f in (fig_1_1, fig_1_2, fig_2_1, fig_3_1, fig_3_2, fig_4_1, fig_4_2, fig_4_3):
         f()
     print("figure scritte in", OUT)

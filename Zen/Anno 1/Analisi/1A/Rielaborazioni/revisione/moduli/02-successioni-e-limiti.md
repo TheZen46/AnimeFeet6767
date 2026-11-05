@@ -247,6 +247,90 @@ Il teorema serve anche a dimostrare che un limite **non** esiste: basta trovare 
 > [!esempio] Con i limiti notevoli
 > $\lim_{x \to 0} \frac{1 - \cos(3x)}{x \sin x} = \lim_{x \to 0} \frac{1 - \cos(3x)}{(3x)^2} \cdot \frac{9x^2}{x \sin x} = \frac{1}{2} \cdot 9 \cdot \lim_{x \to 0} \frac{x}{\sin x} = \frac{9}{2}$.
 
+### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello dei fogli "Limiti", del tutorato e delle prove scritte; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-08, AM1A-09)
+> Prima di ogni calcolo conviene scrivere la forma del limite ($\frac{0}{0}$, $\frac{\infty}{\infty}$, $\infty - \infty$, $1^\infty$, …): è quella che dice quale strumento usare.
+
+**Esercizio 1. Verificare un limite con la definizione.** Mostrare che $\lim_{n \to \infty} \frac{3n + 1}{n + 2} = 3$.
+
+Dato $\varepsilon > 0$, si cerca $\bar{n}$ tale che $\left|\frac{3n + 1}{n + 2} - 3\right| < \varepsilon$ per ogni $n > \bar{n}$. Si semplifica la differenza:
+$$\left|\frac{3n + 1 - 3n - 6}{n + 2}\right| = \frac{5}{n + 2} < \varepsilon \iff n + 2 > \frac{5}{\varepsilon} \iff n > \frac{5}{\varepsilon} - 2.$$
+Basta prendere $\bar{n}$ uguale alla parte intera di $\frac{5}{\varepsilon}$. Per $\varepsilon = 0{,}01$, ad esempio, la distanza da 3 è minore di un centesimo da $n = 499$ in poi. Nella verifica non si calcola il limite: lo si conosce già e si controlla la definizione.
+
+**Esercizio 2. Limiti di successioni.**
+(a) $\displaystyle\lim_{n \to \infty} \frac{n^2 + n \sin n}{3n^2 + 1}$; (b) $\displaystyle\lim_{n \to \infty} \frac{2^n + n^3}{3^n - n}$; (c) $\displaystyle\lim_{n \to \infty} \left(\sqrt{n^2 + 3n} - n\right)$; (d) $\displaystyle\lim_{n \to \infty} \left(1 + \frac{2}{n}\right)^n$.
+
+(a) Si divide per $n^2$: $\frac{1 + \frac{\sin n}{n}}{3 + \frac{1}{n^2}}$. Il termine $\frac{\sin n}{n}$ tende a 0 perché è il prodotto di una successione limitata, $\sin n$, per una infinitesima, $\frac{1}{n}$. Il limite è $\frac{1}{3}$. Non si può dire che $\sin n$ "tende a qualcosa": non ha limite, ma non serve.
+
+(b) Si raccoglie l'infinito più forte, $3^n$: $\frac{3^n\left(\left(\frac{2}{3}\right)^n + \frac{n^3}{3^n}\right)}{3^n\left(1 - \frac{n}{3^n}\right)}$. Per la gerarchia degli infiniti $\frac{n^3}{3^n} \to 0$ e $\frac{n}{3^n} \to 0$; $\left(\frac{2}{3}\right)^n \to 0$ perché la base è minore di 1. Il limite è 0.
+
+(c) Forma $\infty - \infty$: si razionalizza. $\sqrt{n^2 + 3n} - n = \frac{3n}{\sqrt{n^2 + 3n} + n} = \frac{3}{\sqrt{1 + \frac{3}{n}} + 1} \to \frac{3}{2}$.
+
+(d) È il limite notevole $\left(1 + \frac{a}{n}\right)^n \to e^a$ con $a = 2$: il limite è $e^2$.
+
+**Esercizio 3. Limiti notevoli con un cambio di scala.**
+(a) $\displaystyle\lim_{x \to 0} \frac{e^{3x} - 1}{\sin(2x)}$; (b) $\displaystyle\lim_{x \to 0} \frac{\ln(1 + x^2)}{1 - \cos x}$; (c) $\displaystyle\lim_{x \to +\infty} x\big(\ln(x + 1) - \ln x\big)$.
+
+(a) Si fa comparire in ogni pezzo il suo limite notevole, moltiplicando e dividendo:
+$$\frac{e^{3x} - 1}{3x} \cdot \frac{2x}{\sin(2x)} \cdot \frac{3x}{2x} \to 1 \cdot 1 \cdot \frac{3}{2} = \frac{3}{2}.$$
+(b) $\frac{\ln(1 + x^2)}{x^2} \cdot \frac{x^2}{1 - \cos x} \to 1 \cdot 2 = 2$, perché $\frac{1 - \cos x}{x^2} \to \frac{1}{2}$.
+(c) Per le proprietà del logaritmo, $x \ln\left(1 + \frac{1}{x}\right)$. Con $y = \frac{1}{x} \to 0^+$ diventa $\frac{\ln(1 + y)}{y} \to 1$.
+
+**Esercizio 4. Una forma $1^\infty$.** Calcolare $\lim_{x \to +\infty} \left(\frac{x + 2}{x - 1}\right)^x$.
+
+La base tende a 1 e l'esponente a $+\infty$. Si scrive $f^g = e^{g \ln f}$ e si studia l'esponente:
+$$x \ln\frac{x + 2}{x - 1} = x \ln\left(1 + \frac{3}{x - 1}\right) = \frac{3x}{x - 1} \cdot \frac{\ln\left(1 + \frac{3}{x - 1}\right)}{\frac{3}{x - 1}} \to 3 \cdot 1 = 3.$$
+Il limite è $e^3$. L'errore tipico è "la base tende a 1, e 1 elevato a qualsiasi cosa fa 1": $1^\infty$ è una forma indeterminata.
+
+**Esercizio 5. Una forma $0^0$.** Calcolare $\lim_{x \to 0^+} x^x$.
+
+$x^x = e^{x \ln x}$, e $x \ln x \to 0$ per $x \to 0^+$ (il logaritmo va all'infinito più lentamente di qualsiasi potenza: è la gerarchia scritta con $y = \frac{1}{x}$, $x \ln x = -\frac{\ln y}{y} \to 0$). Il limite è $e^0 = 1$.
+
+**Esercizio 6. Un limite con un parametro.** Calcolare $\lim_{x \to +\infty} \left(\sqrt{x^2 + ax} - x\right)$ al variare di $a \in \mathbb{R}$.
+
+Razionalizzando, $\frac{ax}{\sqrt{x^2 + ax} + x} = \frac{a}{\sqrt{1 + \frac{a}{x}} + 1} \to \frac{a}{2}$ per ogni $a$. Per $a = 0$ il limite è 0, coerente con la formula. Lo stesso conto per $x \to -\infty$ va rifatto con $\sqrt{x^2} = -x$: la funzione tende a $+\infty$, perché è la somma di due quantità positive che crescono.
+
+**Esercizio 7. Limiti che non esistono.** Mostrare che non esistono (a) $\lim_{x \to 0} \frac{|x|}{x}$ e (b) $\lim_{x \to 0} \sin\frac{1}{x}$.
+
+(a) Per $x > 0$ la funzione vale 1, per $x < 0$ vale $-1$: il limite destro è 1, quello sinistro $-1$, e un limite che esiste deve averli uguali. (b) Lungo $x_n = \frac{1}{n\pi}$, che tende a 0, la funzione vale $\sin(n\pi) = 0$; lungo $x_n = \frac{1}{\frac{\pi}{2} + 2n\pi}$ vale 1. Due successioni che tendono a 0 danno due limiti diversi: per il teorema ponte il limite non esiste.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-09)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Limite di funzione con la definizione.** Verificare che $\lim_{x \to 2} (3x - 1) = 5$.
+
+*Passo 1: scrivere che cosa si deve trovare.* Per ogni $\varepsilon > 0$ serve un $\delta > 0$ tale che $0 < |x - 2| < \delta$ implichi $|(3x - 1) - 5| < \varepsilon$.
+
+*Passo 2: semplificare.* $|(3x - 1) - 5| = |3x - 6| = 3|x - 2|$.
+
+*Passo 3: scegliere $\delta$.* $3|x - 2| < \varepsilon$ se $|x - 2| < \frac{\varepsilon}{3}$: basta $\delta = \frac{\varepsilon}{3}$.
+
+*Passo 4: rileggere.* Più piccola è la tolleranza $\varepsilon$ sull'uscita, più stretto deve essere l'intorno di 2: qui la funzione "allarga" le distanze di un fattore 3, e $\delta$ è $\varepsilon$ diviso 3.
+
+**Guidato 2. La forma $1^\infty$ con il coseno.** Calcolare $\lim_{x \to 0} (\cos x)^{1/x^2}$.
+
+*Passo 1: la forma.* $\cos x \to 1$ e $\frac{1}{x^2} \to +\infty$: è $1^\infty$.
+
+*Passo 2: passare all'esponenziale.* $(\cos x)^{1/x^2} = \exp\left(\frac{\ln(\cos x)}{x^2}\right)$.
+
+*Passo 3: il limite dell'esponente.* Si scrive $\ln(\cos x) = \ln\big(1 + (\cos x - 1)\big)$ e si usa il limite notevole del logaritmo con $y = \cos x - 1 \to 0$:
+$$\frac{\ln\big(1 + (\cos x - 1)\big)}{\cos x - 1} \cdot \frac{\cos x - 1}{x^2} \to 1 \cdot \left(-\frac{1}{2}\right) = -\frac{1}{2}.$$
+
+*Passo 4: tornare alla funzione.* Il limite è $e^{-1/2} = \frac{1}{\sqrt{e}}$. Lo stesso risultato si ritrova nel modulo 5 con lo sviluppo $\ln(\cos x) = -\frac{x^2}{2} + o(x^2)$.
+
+**Guidato 3. Una successione con la gerarchia degli infiniti.** Calcolare $\lim_{n \to \infty} \frac{n^2 \, 2^n + n!}{3^n + (n + 1)!}$.
+
+*Passo 1: ordinare gli infiniti.* Fra potenze, esponenziali e fattoriali, il fattoriale vince: $n^2 \ll 2^n \ll 3^n \ll n!$. Al numeratore il termine dominante è $n!$, al denominatore $(n + 1)!$.
+
+*Passo 2: raccogliere.* $\frac{n!\left(\frac{n^2 2^n}{n!} + 1\right)}{(n + 1)!\left(\frac{3^n}{(n + 1)!} + 1\right)} = \frac{1}{n + 1} \cdot \frac{\frac{n^2 2^n}{n!} + 1}{\frac{3^n}{(n + 1)!} + 1}$.
+
+*Passo 3: i limiti dei pezzi.* Le due frazioni interne tendono a 0, quindi il secondo fattore tende a 1; il primo, $\frac{1}{n + 1}$, tende a 0. Il limite è 0.
+
+*Passo 4: il controllo del rapporto.* Che $\frac{3^n}{n!} \to 0$ si vede anche così: il rapporto fra un termine e il precedente è $\frac{3}{n + 1}$, che da $n = 3$ in poi è minore di $\frac{3}{4}$, quindi i termini si riducono almeno di un quarto a ogni passo.
+
 ## Riepilogo
 
 Una successione converge a $l$ se, per ogni $\varepsilon > 0$, da un certo indice in poi $|a_n - l| < \varepsilon$; diverge a $+\infty$ se da un certo indice in poi supera ogni quota $K$. Le successioni monotone hanno sempre limite, uguale al loro estremo superiore o inferiore: così si definisce $e = \lim \left(1 + \frac{1}{n}\right)^n$. Le sottosuccessioni hanno lo stesso limite della successione, e due sottosuccessioni con limiti diversi provano che il limite non esiste.
@@ -254,3 +338,64 @@ Una successione converge a $l$ se, per ogni $\varepsilon > 0$, da un certo indic
 Per le funzioni il limite in $x_0$ descrive il comportamento vicino a $x_0$, escluso il punto; il limite esiste se e solo se esistono e coincidono il destro e il sinistro. Il limite è unico, conserva il segno e si confronta con i carabinieri; l'algebra dei limiti lo calcola su somme, prodotti e quozienti, tranne nelle forme indeterminate $+\infty - \infty$, $0 \cdot \infty$, $\frac{0}{0}$, $\frac{\infty}{\infty}$, $1^\infty$, $0^0$, $\infty^0$. Polinomi e funzioni razionali all'infinito si comportano come il rapporto dei termini di grado massimo. I limiti notevoli da ricordare sono
 $$\frac{\sin x}{x} \to 1, \quad \frac{1 - \cos x}{x^2} \to \frac{1}{2}, \quad \frac{\ln(1 + x)}{x} \to 1, \quad \frac{e^x - 1}{x} \to 1, \quad \frac{(1 + x)^\alpha - 1}{x} \to \alpha \qquad (x \to 0),$$
 e il teorema di sostituzione, insieme all'identità $f^g = e^{g \ln f}$, riduce a questi molti altri limiti.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1A-08, AM1A-09)
+> Le definizioni, i teoremi e i limiti da avere sotto mano, con il paragrafo in cui sono spiegati.
+
+### Definizioni di limite
+
+| Caso | Definizione |
+|---|---|
+| $a_n \to l$ | $\forall \varepsilon > 0\ \exists \bar{n} : n > \bar{n} \Rightarrow \lvert a_n - l\rvert < \varepsilon$ |
+| $a_n \to +\infty$ | $\forall M\ \exists \bar{n} : n > \bar{n} \Rightarrow a_n > M$ |
+| $f(x) \to l$ per $x \to c$ | $\forall \varepsilon > 0\ \exists \delta > 0 : 0 < \lvert x - c\rvert < \delta \Rightarrow \lvert f(x) - l\rvert < \varepsilon$ |
+| $f(x) \to l$ per $x \to +\infty$ | $\forall \varepsilon > 0\ \exists M : x > M \Rightarrow \lvert f(x) - l\rvert < \varepsilon$ |
+
+### Teoremi
+
+- Unicità del limite; limite destro e sinistro uguali se e solo se esiste il limite.
+- Permanenza del segno: se $l > 0$, la funzione è positiva in un intorno del punto (escluso il punto).
+- Confronto (carabinieri): $f \le g \le h$ e $f, h \to l$ implicano $g \to l$.
+- Limitata per infinitesima è infinitesima.
+- Successioni monotone: hanno sempre limite, finito se e solo se sono limitate.
+- Teorema ponte: $f(x) \to l$ per $x \to c$ se e solo se $f(x_n) \to l$ per ogni successione $x_n \to c$, $x_n \ne c$.
+
+### Algebra dei limiti e forme indeterminate
+
+$l + \infty = \infty$, $l \cdot \infty = \infty$ per $l \ne 0$, $\frac{l}{\infty} = 0$, $\frac{l}{0^\pm} = \pm\infty$ per $l > 0$. Forme indeterminate: $\infty - \infty$, $0 \cdot \infty$, $\frac{0}{0}$, $\frac{\infty}{\infty}$, $1^\infty$, $0^0$, $\infty^0$; le ultime tre si trattano con $f^g = e^{g \ln f}$.
+
+### Limiti notevoli ($x \to 0$)
+
+$$\frac{\sin x}{x} \to 1, \quad \frac{1 - \cos x}{x^2} \to \frac{1}{2}, \quad \frac{\tan x}{x} \to 1, \quad \frac{\arcsin x}{x} \to 1, \quad \frac{\arctan x}{x} \to 1,$$
+
+$$\frac{e^x - 1}{x} \to 1, \quad \frac{\ln(1 + x)}{x} \to 1, \quad \frac{(1 + x)^\alpha - 1}{x} \to \alpha, \quad (1 + x)^{1/x} \to e, \quad \left(1 + \frac{a}{x}\right)^x \to e^a \ (x \to \pm\infty).$$
+
+### Gerarchia degli infiniti
+
+Per $n \to \infty$: $\ln n \ll n^\alpha \ (\alpha > 0) \ll a^n \ (a > 1) \ll n! \ll n^n$. Per $x \to +\infty$: $\frac{(\ln x)^\beta}{x^\alpha} \to 0$ e $\frac{x^\alpha}{a^x} \to 0$; per $x \to 0^+$: $x^\alpha \ln x \to 0$.
+
+Polinomi e razionali all'infinito: conta solo il termine di grado massimo; $\frac{P(x)}{Q(x)}$ tende a 0, al rapporto dei coefficienti direttivi o a $\pm\infty$ secondo che il grado di $P$ sia minore, uguale o maggiore di quello di $Q$.
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Intorno | intervallo aperto che contiene il punto; di $+\infty$: semiretta $(M, +\infty)$ |
+| Punto di accumulazione | ogni suo intorno contiene punti del dominio diversi da lui |
+| Successione convergente, divergente, irregolare | ha limite finito; ha limite infinito; non ha limite |
+| Sottosuccessione | successione ottenuta prendendo infiniti termini in ordine |
+| Forma indeterminata | combinazione di limiti il cui risultato dipende dalle funzioni, non solo dai limiti |
+| Infinitesimo | funzione che tende a 0 |
+| Numero $e$ | limite di $\left(1 + \frac{1}{n}\right)^n$, successione crescente e limitata |
+
+### Domande che tornano spesso
+
+- Dare la definizione di limite di successione e di funzione nei vari casi, e verificarla su un esempio.
+- Dimostrare l'unicità del limite.
+- Enunciare e dimostrare il teorema del confronto.
+- Perché una successione monotona e limitata converge? Applicarlo a $\left(1 + \frac{1}{n}\right)^n$.
+- Dimostrare $\frac{\sin x}{x} \to 1$ e ricavarne $\frac{1 - \cos x}{x^2} \to \frac{1}{2}$.
+- Come si mostra che un limite non esiste?
+- Che cosa sono le forme indeterminate esponenziali e come si trattano?

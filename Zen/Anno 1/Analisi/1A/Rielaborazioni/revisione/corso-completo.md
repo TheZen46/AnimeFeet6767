@@ -307,6 +307,51 @@ $$\sin(x + \pi) = -\sin x, \quad \cos(x + \pi) = -\cos x, \quad \sin\left(x + \t
 
 *Figura 1.7. Le trasformazioni del grafico di una stessa funzione, ad esempio $\sin x$: $\sin x + 1$, $\sin(x - \pi/4)$, $2\sin x$, $\sin 2x$, $|\sin x|$.*
 
+### 1.10 Logica e tecniche di dimostrazione
+
+> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 1*, cap. 1; fogli di esercizi del corso, "Connettivi logici. Principio di induzione" (AM1A-18)
+> All'esame ogni affermazione va "adeguatamente motivata": serve sapere che cosa vuol dire dimostrare, e quali schemi di ragionamento sono corretti. Questo paragrafo raccoglie gli strumenti di logica che si usano in tutto il corso.
+>
+> **Proposizioni e connettivi.** Una **proposizione** è un'affermazione che è vera (V) o falsa (F). Da due proposizioni $p$ e $q$ se ne costruiscono altre con i **connettivi**: la negazione $\neg p$ ("non $p$"), la congiunzione $p \wedge q$ ("$p$ e $q$"), la disgiunzione $p \vee q$ ("$p$ o $q$", non esclusivo), l'implicazione $p \Rightarrow q$ ("se $p$ allora $q$") e l'equivalenza $p \Leftrightarrow q$ ("$p$ se e solo se $q$"). Il valore di verità di ognuna dipende solo da quelli di $p$ e $q$, ed è dato dalla **tavola di verità**:
+>
+> | $p$ | $q$ | $\neg p$ | $p \wedge q$ | $p \vee q$ | $p \Rightarrow q$ | $p \Leftrightarrow q$ |
+> |---|---|---|---|---|---|---|
+> | V | V | F | V | V | V | V |
+> | V | F | F | F | V | F | F |
+> | F | V | V | F | V | V | F |
+> | F | F | V | F | F | V | V |
+>
+> L'implicazione è falsa in un solo caso, quando $p$ è vera e $q$ è falsa. Se $p$ è falsa, $p \Rightarrow q$ è vera qualunque sia $q$: "se $2 + 2 = 5$, allora la Luna è di formaggio" è un'implicazione vera. Nell'implicazione $p$ si chiama **ipotesi** (o condizione sufficiente per $q$) e $q$ **tesi** (o condizione necessaria per $p$).
+>
+> **Tautologie ed equivalenze utili.** Una **tautologia** è una proposizione composta che è vera per tutti i valori delle proposizioni che la compongono; si verifica con la tavola di verità, come l'induzione perfetta delle reti logiche. Le più usate sono:
+>
+> - $(p \Rightarrow q) \Leftrightarrow (\neg p \vee q)$: l'implicazione scritta con "o";
+> - $\neg(p \Rightarrow q) \Leftrightarrow (p \wedge \neg q)$: per negare un'implicazione si mostra un caso in cui l'ipotesi è vera e la tesi falsa;
+> - $(p \Rightarrow q) \Leftrightarrow (\neg q \Rightarrow \neg p)$: la **contronominale**, equivalente all'implicazione di partenza;
+> - $\neg(p \wedge q) \Leftrightarrow (\neg p \vee \neg q)$ e $\neg(p \vee q) \Leftrightarrow (\neg p \wedge \neg q)$: le leggi di De Morgan;
+> - $\big((p \Rightarrow q) \wedge (q \Rightarrow r)\big) \Rightarrow (p \Rightarrow r)$: la proprietà transitiva, su cui si costruiscono le catene di passaggi.
+>
+> L'**inversa** $q \Rightarrow p$, invece, non è equivalente a $p \Rightarrow q$: "se $x = 2$ allora $x^2 = 4$" è vera, "se $x^2 = 4$ allora $x = 2$" è falsa ($x = -2$).
+>
+> **Quantificatori.** Per le affermazioni che dipendono da una variabile si usano il **quantificatore universale** $\forall$ ("per ogni") e il **quantificatore esistenziale** $\exists$ ("esiste"). La negazione scambia i quantificatori e nega la proprietà:
+> $$\neg\big(\forall x : P(x)\big) \Leftrightarrow \exists x : \neg P(x), \qquad \neg\big(\exists x : P(x)\big) \Leftrightarrow \forall x : \neg P(x).$$
+> Ad esempio "$A$ è limitato superiormente" si scrive $\exists M \in \mathbb{R}\ \forall x \in A : x \le M$, e la sua negazione, "$A$ non è limitato superiormente", è $\forall M \in \mathbb{R}\ \exists x \in A : x > M$. L'ordine dei quantificatori conta: "$\forall x\ \exists y : y > x$" è vera nei reali (basta $y = x + 1$), "$\exists y\ \forall x : y > x$" è falsa (non c'è un numero più grande di tutti).
+>
+> **Schemi di dimostrazione.** Per dimostrare $p \Rightarrow q$ si può:
+>
+> 1. **dimostrazione diretta**: si parte da $p$ e si arriva a $q$ con una catena di implicazioni;
+> 2. **per contronominale**: si suppone $\neg q$ e si arriva a $\neg p$;
+> 3. **per assurdo**: si suppone $p$ vera e $q$ falsa e si arriva a una contraddizione, cioè a un'affermazione e alla sua negazione insieme;
+> 4. **per induzione**, quando $q$ è un'affermazione su tutti i naturali da un certo $n_0$ in poi (paragrafo 1.4).
+>
+> Per dimostrare che un'affermazione del tipo "$\forall x : P(x)$" è **falsa** basta un **controesempio**, cioè un solo $x$ per cui $P(x)$ è falsa. Al contrario, nessun numero di esempi dimostra un'affermazione universale. Il caso classico è $n^2 + n + 41$, che è primo per $n = 0, 1, \dots, 39$, ma per $n = 40$ vale $1681 = 41^2$.
+>
+> **Un esempio per assurdo: $\sqrt{2}$ non è razionale.** Si supponga $\sqrt{2} = \frac{m}{n}$ con $m, n$ interi positivi e la frazione ridotta ai minimi termini. Allora $m^2 = 2n^2$, quindi $m^2$ è pari, e quindi $m$ è pari (se $m$ fosse dispari, anche $m^2$ lo sarebbe: è una contronominale). Scritto $m = 2k$, si ha $4k^2 = 2n^2$, cioè $n^2 = 2k^2$, e per lo stesso motivo anche $n$ è pari. Ma allora $m$ e $n$ hanno il fattore comune 2, contro l'ipotesi che la frazione fosse ridotta. La contraddizione mostra che l'ipotesi $\sqrt{2} \in \mathbb{Q}$ è falsa.
+>
+> **Un esempio per induzione: la somma dei primi $n$ naturali.** $P(n)$: $1 + 2 + \dots + n = \frac{n(n + 1)}{2}$. *Passo base*, $n = 1$: $1 = \frac{1 \cdot 2}{2}$. *Passo induttivo*: si suppone $P(n)$ e si aggiunge $n + 1$ a entrambi i membri,
+> $$1 + 2 + \dots + n + (n + 1) = \frac{n(n + 1)}{2} + (n + 1) = \frac{(n + 1)(n + 2)}{2},$$
+> che è $P(n + 1)$. Nel passo induttivo non si dimostra $P(n)$: la si usa come ipotesi (**ipotesi induttiva**) per ottenere $P(n + 1)$.
+
 ### Esempi ed esercizi svolti
 
 > [!esempio] Domini
@@ -321,11 +366,178 @@ $$\sin(x + \pi) = -\sin x, \quad \cos(x + \pi) = -\cos x, \quad \sin\left(x + \t
 >
 > **b)** $f(x) = \sqrt{x + 2} - 1$. Il dominio è $[-2, +\infty)$; la radice assume tutti i valori di $[0, +\infty)$, quindi l'immagine è $[-1, +\infty)$. Sul grafico, è quello di $\sqrt{x}$ traslato di 2 a sinistra e di 1 verso il basso.
 
+#### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello dei fogli del corso e delle prove scritte 2025-2026; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-01, AM1A-05, AM1A-07, AM1A-18)
+> Gli esercizi seguono i tipi che compaiono nei fogli e nelle prove d'esame: logica, induzione, estremi di insiemi, domini, inverse e trasformazioni di grafici.
+
+**Esercizio 1. Due ragionamenti, uno giusto e uno sbagliato.** Stabilire con la tavola di verità se sono tautologie (a) $\big(p \wedge (p \Rightarrow q)\big) \Rightarrow q$ e (b) $\big(q \wedge (p \Rightarrow q)\big) \Rightarrow p$.
+
+| $p$ | $q$ | $p \Rightarrow q$ | $p \wedge (p \Rightarrow q)$ | (a) | $q \wedge (p \Rightarrow q)$ | (b) |
+|---|---|---|---|---|---|---|
+| V | V | V | V | V | V | V |
+| V | F | F | F | V | F | V |
+| F | V | V | F | V | V | **F** |
+| F | F | V | F | V | F | V |
+
+(a) è sempre vera: è il *modus ponens*, lo schema "se vale $p$ e se $p$ implica $q$, allora vale $q$" che si usa in ogni dimostrazione diretta. (b) è falsa per $p$ falsa e $q$ vera: dal fatto che la tesi è vera non si può risalire all'ipotesi. È l'errore di confondere un'implicazione con la sua inversa.
+
+**Esercizio 2. Somma dei dispari.** Dimostrare per induzione che $1 + 3 + 5 + \dots + (2n - 1) = n^2$ per ogni $n \ge 1$.
+
+*Base*: per $n = 1$ il primo membro è 1 e il secondo $1^2 = 1$. *Passo*: se $1 + 3 + \dots + (2n - 1) = n^2$, aggiungendo il dispari successivo, $2(n + 1) - 1 = 2n + 1$, si ottiene $n^2 + 2n + 1 = (n + 1)^2$. Geometricamente: un quadrato $n \times n$ di puntini diventa un quadrato $(n + 1) \times (n + 1)$ aggiungendo una "cornice a L" di $2n + 1$ puntini.
+
+**Esercizio 3. Una divisibilità.** Dimostrare che $7^n - 1$ è divisibile per 6 per ogni $n \in \mathbb{N}$.
+
+*Base*: $7^0 - 1 = 0$, divisibile per 6. *Passo*: si suppone $7^n - 1 = 6h$ con $h$ intero. Allora
+$$7^{n+1} - 1 = 7 \cdot 7^n - 1 = 7(7^n - 1) + 7 - 1 = 7 \cdot 6h + 6 = 6(7h + 1),$$
+che è divisibile per 6. Il trucco è far comparire nell'espressione di $n + 1$ quella di $n$, per poter usare l'ipotesi induttiva.
+
+**Esercizio 4. Estremi di insiemi.** Determinare estremo superiore e inferiore, dicendo se sono massimo o minimo:
+(a) $A = \left\{\frac{n - 1}{n + 1} : n \in \mathbb{N}, n \ge 1\right\}$; (b) $B = \left\{(-1)^n\left(\frac{3}{n} + \frac{1}{n^2}\right) : n \ge 1\right\}$; (c) $C = \{x \in \mathbb{R} : x^2 - 5x + 4 < 0\}$; (d) $D = \left\{n - \frac{1}{n} : n \ge 1\right\}$.
+
+(a) $\frac{n - 1}{n + 1} = 1 - \frac{2}{n + 1}$: al crescere di $n$ la frazione sottratta diminuisce, quindi la successione cresce. Il primo termine, per $n = 1$, è 0, ed è il minimo. Tutti i termini sono minori di 1, e si avvicinano a 1 quanto si vuole: dato $\varepsilon > 0$, $1 - \frac{2}{n + 1} > 1 - \varepsilon$ appena $n + 1 > \frac{2}{\varepsilon}$. Quindi $\sup A = 1$, che non è un massimo perché nessun termine vale 1.
+
+(b) Si separano gli indici pari e dispari. Per $n$ pari i termini sono positivi, $\frac{3}{n} + \frac{1}{n^2}$, e decrescono con $n$: il più grande è quello con $n = 2$, $\frac{3}{2} + \frac{1}{4} = \frac{7}{4}$. Per $n$ dispari sono negativi, $-\left(\frac{3}{n} + \frac{1}{n^2}\right)$, e crescono verso 0: il più piccolo è quello con $n = 1$, $-4$. Quindi $\max B = \frac{7}{4}$ e $\min B = -4$. (Lo 0 non serve: è il limite dei termini, ma sta in mezzo fra il massimo e il minimo.)
+
+(c) $x^2 - 5x + 4 = (x - 1)(x - 4) < 0$ per $1 < x < 4$, quindi $C = (1, 4)$: $\inf C = 1$ e $\sup C = 4$, né minimo né massimo perché gli estremi dell'intervallo sono esclusi.
+
+(d) $n - \frac{1}{n}$ cresce con $n$ (cresce $n$ e diminuisce $\frac{1}{n}$): il minimo è il primo termine, $1 - 1 = 0$. L'insieme non è limitato superiormente, perché $n - \frac{1}{n} \ge n - 1$ supera qualsiasi $M$: $\sup D = +\infty$.
+
+**Esercizio 5. Dominio.** Determinare il dominio di $f(x) = \sqrt{\ln(3 - x)} + \frac{1}{x^2 - 1}$.
+
+Le condizioni vanno messe a sistema. Il logaritmo vuole $3 - x > 0$, cioè $x < 3$. La radice vuole $\ln(3 - x) \ge 0$, cioè $3 - x \ge 1$, quindi $x \le 2$. La frazione vuole $x^2 \ne 1$, cioè $x \ne \pm 1$. La condizione $x \le 2$ contiene già $x < 3$, e il dominio è
+$$(-\infty, -1) \cup (-1, 1) \cup (1, 2].$$
+
+**Esercizio 6. Composizioni e loro domini.** Siano $f(x) = x^2$ e $g(x) = \sqrt{x - 1}$. Scrivere $f \circ g$ e $g \circ f$ con i loro domini.
+
+$(f \circ g)(x) = f(g(x)) = \left(\sqrt{x - 1}\right)^2 = x - 1$, ma solo dove $g$ è definita: il dominio è $[1, +\infty)$, e il grafico è una semiretta, non tutta la retta $y = x - 1$. $(g \circ f)(x) = g(x^2) = \sqrt{x^2 - 1}$, definita per $x^2 \ge 1$, cioè $x \le -1$ oppure $x \ge 1$. Le due composte sono diverse: la composizione non è commutativa.
+
+**Esercizio 7. Un'inversa con le radici.** Sia $f(x) = x + \sqrt{x^2 + 4}$. Trovare dominio e immagine, mostrare che $f$ è invertibile e scrivere l'inversa.
+
+*Dominio*: $x^2 + 4 > 0$ sempre, quindi $\mathbb{R}$. *Segno*: $\sqrt{x^2 + 4} > \sqrt{x^2} = |x| \ge -x$, quindi $f(x) > 0$ per ogni $x$. *Invertibilità*: per $y > 0$ si risolve $y = x + \sqrt{x^2 + 4}$. Isolata la radice, $\sqrt{x^2 + 4} = y - x$; elevando al quadrato, $x^2 + 4 = y^2 - 2xy + x^2$, cioè
+$$x = \frac{y^2 - 4}{2y}.$$
+L'elevamento al quadrato può introdurre soluzioni false, quindi si controlla la condizione $y - x \ge 0$: $y - \frac{y^2 - 4}{2y} = \frac{y^2 + 4}{2y} > 0$ per $y > 0$. Per ogni $y > 0$ c'è quindi una e una sola soluzione: $f$ è iniettiva, la sua immagine è $(0, +\infty)$ e
+$$f^{-1} : (0, +\infty) \to \mathbb{R}, \qquad f^{-1}(y) = \frac{y^2 - 4}{2y}.$$
+Prova: $f(0) = 2$ e $f^{-1}(2) = \frac{4 - 4}{4} = 0$.
+
+**Esercizio 8. La restrizione invertibile più grande.** Sia $f(x) = x^2 - 4x + 3$. Trovare il più grande intervallo contenente $x_0 = 3$ su cui $f$ è invertibile, e l'inversa.
+
+Completando il quadrato, $f(x) = (x - 2)^2 - 1$: è una parabola con vertice in $(2, -1)$, decrescente su $(-\infty, 2]$ e crescente su $[2, +\infty)$. Il punto 3 sta nel secondo tratto, e nessun intervallo che contiene 3 e un punto a sinistra di 2 può andare bene, perché conterrebbe due punti simmetrici rispetto al vertice con la stessa immagine. L'intervallo è $[2, +\infty)$, l'immagine $[-1, +\infty)$. Da $y = (x - 2)^2 - 1$ con $x \ge 2$: $x - 2 = +\sqrt{y + 1}$, quindi $f^{-1}(y) = 2 + \sqrt{y + 1}$ per $y \ge -1$. Il segno davanti alla radice è quello giusto perché $x \ge 2$.
+
+**Esercizio 9. Un grafico per trasformazioni.** Disegnare $y = |\ln(x - 1)| - 1$ e trovarne gli zeri.
+
+Si parte da $\ln x$; $\ln(x - 1)$ è traslato di 1 a destra (asintoto verticale $x = 1$, zero in $x = 2$); il valore assoluto ribalta sopra l'asse la parte con $1 < x < 2$, dove il logaritmo è negativo; infine si trasla tutto di 1 verso il basso. Il grafico ha un punto angoloso in $(2, -1)$, il minimo. Gli zeri: $|\ln(x - 1)| = 1$, cioè $\ln(x - 1) = 1$ oppure $\ln(x - 1) = -1$, quindi $x = 1 + e$ e $x = 1 + \frac{1}{e}$.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-07, AM1A-18)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta, coprendo il resto, e si confronta solo dopo.
+
+**Guidato 1. Somma dei quadrati per induzione.** Dimostrare che per ogni $n \ge 1$
+$$\sum_{k=1}^{n} k^2 = \frac{n(n + 1)(2n + 1)}{6}.$$
+
+*Passo 1: scrivere $P(n)$ e controllare la base.* Per $n = 1$: primo membro $1$, secondo $\frac{1 \cdot 2 \cdot 3}{6} = 1$. Vale. Conviene controllare anche $n = 2$: $1 + 4 = 5$ e $\frac{2 \cdot 3 \cdot 5}{6} = 5$. Questo controllo non fa parte della dimostrazione, ma scopre subito un errore nella formula (con 2 al denominatore invece di 6, ad esempio, la base darebbe già $3 \ne 1$).
+
+*Passo 2: scrivere l'obiettivo.* Bisogna arrivare a $\sum_{k=1}^{n+1} k^2 = \frac{(n + 1)(n + 2)(2n + 3)}{6}$.
+
+*Passo 3: usare l'ipotesi induttiva.* $\sum_{k=1}^{n+1} k^2 = \sum_{k=1}^{n} k^2 + (n + 1)^2 = \frac{n(n + 1)(2n + 1)}{6} + (n + 1)^2$.
+
+*Passo 4: raccogliere.* Si mette in evidenza $\frac{n + 1}{6}$:
+$$\frac{n + 1}{6}\big(n(2n + 1) + 6(n + 1)\big) = \frac{n + 1}{6}(2n^2 + 7n + 6) = \frac{(n + 1)(n + 2)(2n + 3)}{6},$$
+perché $2n^2 + 7n + 6 = (n + 2)(2n + 3)$. È l'obiettivo del passo 2.
+
+**Guidato 2. Estremi di un insieme con il segno alterno.** Sia $A = \left\{(-1)^n + \frac{1}{n} : n \ge 1\right\}$. Trovare $\sup A$ e $\inf A$.
+
+*Passo 1: calcolare i primi termini.* $n = 1$: $-1 + 1 = 0$; $n = 2$: $1 + \frac{1}{2} = \frac{3}{2}$; $n = 3$: $-1 + \frac{1}{3} = -\frac{2}{3}$; $n = 4$: $\frac{5}{4}$; $n = 5$: $-\frac{4}{5}$.
+
+*Passo 2: separare pari e dispari.* Per $n$ pari i termini sono $1 + \frac{1}{n}$, decrescenti, con il più grande in $n = 2$. Per $n$ dispari sono $-1 + \frac{1}{n}$, decrescenti verso $-1$ senza raggiungerlo.
+
+*Passo 3: il massimo.* Ogni termine dispari è $\le 0$, ogni termine pari è $\le \frac{3}{2}$: quindi $\max A = \frac{3}{2}$.
+
+*Passo 4: l'estremo inferiore con la caratterizzazione.* Tutti i termini sono $> -1$, quindi $-1$ è un minorante. Per vedere che è il più grande dei minoranti, dato $\varepsilon > 0$ si cerca un elemento minore di $-1 + \varepsilon$: basta un $n$ dispari con $\frac{1}{n} < \varepsilon$. Quindi $\inf A = -1$, che non è un minimo.
+
+**Guidato 3. $\sqrt{3}$ non è razionale.**
+
+*Passo 1: l'ipotesi per assurdo.* Si suppone $\sqrt{3} = \frac{m}{n}$ con $m, n$ interi positivi primi fra loro.
+
+*Passo 2: togliere la radice.* $m^2 = 3n^2$, quindi 3 divide $m^2$.
+
+*Passo 3: da $m^2$ a $m$.* Se 3 non dividesse $m$, il resto della divisione di $m$ per 3 sarebbe 1 o 2, e quello di $m^2$ sarebbe 1 (perché $1^2 = 1$ e $2^2 = 4 = 3 + 1$): quindi 3 non dividerebbe $m^2$. Per contronominale, 3 divide $m$: $m = 3k$.
+
+*Passo 4: la contraddizione.* $9k^2 = 3n^2$ dà $n^2 = 3k^2$, e per il passo 3 anche $n$ è multiplo di 3. Allora $m$ e $n$ hanno il fattore comune 3, contro il passo 1.
+
 ### Riepilogo
 
 I numeri reali estendono i razionali e sono caratterizzati dalle proprietà algebriche, dall'ordinamento totale e dalla completezza: ogni insieme non vuoto e limitato superiormente ha un estremo superiore, cioè un più piccolo maggiorante, che si riconosce dalle due condizioni "$x \le S$ per ogni $x \in A$" e "per ogni $\varepsilon > 0$ c'è un $x \in A$ con $x > S - \varepsilon$". Il valore assoluto misura le distanze e soddisfa $|x + y| \le |x| + |y|$ e $\big||x| - |y|\big| \le |x - y|$.
 
 Una funzione associa a ogni punto del dominio un solo valore; immagine, controimmagine e grafico la descrivono. Una funzione iniettiva ha un'inversa, definita sull'immagine, il cui grafico è il simmetrico rispetto a $y = x$. Restringere il dominio rende invertibili funzioni come $x^2$, seno, coseno e tangente, da cui nascono radici e funzioni trigonometriche inverse. La monotonia stretta implica l'iniettività, non il contrario. Potenze, esponenziali e logaritmi sono strettamente monotone sui loro domini naturali, e $\log_a$ è l'inversa di $a^x$. Infine, traslazioni, dilatazioni, simmetrie e valori assoluti permettono di disegnare molti grafici partendo da quelli elementari.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1A-01 … AM1A-07, AM1A-18)
+> Le formule, le proprietà e i termini del modulo, con il paragrafo in cui sono spiegati.
+
+#### Disuguaglianze e valore assoluto
+
+$$|x| \le a \iff -a \le x \le a, \qquad |x| \ge a \iff x \le -a \ \vee\ x \ge a, \qquad |x + y| \le |x| + |y|, \qquad \big||x| - |y|\big| \le |x - y|.$$
+
+#### Estremo superiore
+
+$\lambda = \sup A$ se e solo se (i) $x \le \lambda$ per ogni $x \in A$ e (ii) per ogni $\varepsilon > 0$ esiste $x \in A$ con $x > \lambda - \varepsilon$. Per l'estremo inferiore: $x \ge \mu$ per ogni $x$ e, per ogni $\varepsilon > 0$, esiste $x < \mu + \varepsilon$. Un estremo è massimo (minimo) solo se appartiene all'insieme. Assioma di completezza: ogni insieme non vuoto limitato superiormente ha estremo superiore in $\mathbb{R}$.
+
+#### Induzione e binomio
+
+$$\sum_{k=1}^{n} k = \frac{n(n + 1)}{2}, \quad \sum_{k=1}^{n} k^2 = \frac{n(n + 1)(2n + 1)}{6}, \quad \sum_{k=0}^{n} q^k = \frac{1 - q^{n+1}}{1 - q}\ (q \ne 1), \quad (1 + x)^n \ge 1 + nx\ (x \ge -1).$$
+
+$$\binom{n}{k} = \frac{n!}{k!\,(n - k)!}, \qquad \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}, \qquad (a + b)^n = \sum_{k=0}^{n} \binom{n}{k} a^{n-k} b^k.$$
+
+#### Esponenziali, logaritmi, trigonometria
+
+$$a^{x+y} = a^x a^y, \quad (a^x)^y = a^{xy}, \quad \log_a(xy) = \log_a x + \log_a y, \quad \log_a x^y = y \log_a x, \quad \log_a x = \frac{\ln x}{\ln a}.$$
+
+$$\sin^2 x + \cos^2 x = 1, \quad \sin(2x) = 2 \sin x \cos x, \quad \cos(2x) = \cos^2 x - \sin^2 x = 1 - 2\sin^2 x.$$
+
+| Funzione | Dominio | Immagine |
+|---|---|---|
+| $\arcsin x$ | $[-1, 1]$ | $[-\pi/2, \pi/2]$ |
+| $\arccos x$ | $[-1, 1]$ | $[0, \pi]$ |
+| $\arctan x$ | $\mathbb{R}$ | $(-\pi/2, \pi/2)$ |
+| $\ln x$ | $(0, +\infty)$ | $\mathbb{R}$ |
+| $e^x$ | $\mathbb{R}$ | $(0, +\infty)$ |
+
+#### Logica
+
+$$(p \Rightarrow q) \equiv (\neg p \vee q) \equiv (\neg q \Rightarrow \neg p), \qquad \neg(p \Rightarrow q) \equiv p \wedge \neg q, \qquad \neg \forall x\, P(x) \equiv \exists x\, \neg P(x).$$
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Maggiorante, minorante | numero maggiore (minore) o uguale di tutti gli elementi dell'insieme |
+| Estremo superiore | il più piccolo dei maggioranti |
+| Massimo | estremo superiore che appartiene all'insieme |
+| Completezza | proprietà dei reali: ogni insieme limitato superiormente ha sup |
+| Densità di $\mathbb{Q}$ | fra due reali distinti c'è sempre un razionale |
+| Funzione | legge che associa a ogni punto del dominio un solo valore |
+| Iniettiva, suriettiva, biiettiva | punti diversi hanno immagini diverse; ogni valore è raggiunto; entrambe |
+| Funzione inversa | definita sull'immagine, ha il grafico simmetrico rispetto a $y = x$ |
+| Restrizione | la stessa legge su un sottoinsieme del dominio |
+| Monotona | crescente o decrescente; strettamente monotona implica iniettiva |
+| Funzione pari, dispari | $f(-x) = f(x)$; $f(-x) = -f(x)$ |
+| Tautologia | proposizione composta sempre vera |
+| Contronominale | $\neg q \Rightarrow \neg p$, equivalente a $p \Rightarrow q$ |
+| Controesempio | un caso che rende falsa un'affermazione universale |
+| Ipotesi induttiva | $P(n)$, supposta vera per dimostrare $P(n + 1)$ |
+
+#### Domande che tornano spesso
+
+- Definire estremo superiore e massimo; enunciare la caratterizzazione con $\varepsilon$; un esempio di insieme con sup e senza massimo.
+- Enunciare l'assioma di completezza e spiegare perché in $\mathbb{Q}$ non vale (l'insieme dei razionali con $x^2 < 2$).
+- Il principio di induzione; dimostrare la disuguaglianza di Bernoulli.
+- Quando una funzione è invertibile? Che relazione c'è fra il grafico di $f$ e quello di $f^{-1}$?
+- Perché una funzione strettamente monotona è iniettiva? Vale il viceversa?
+- Domini e immagini delle funzioni trigonometriche inverse.
+- Dimostrare per assurdo che $\sqrt{2}$ non è razionale.
 
 ## 2 · Successioni e limiti
 
@@ -566,6 +778,90 @@ Il teorema serve anche a dimostrare che un limite **non** esiste: basta trovare 
 > [!esempio] Con i limiti notevoli
 > $\lim_{x \to 0} \frac{1 - \cos(3x)}{x \sin x} = \lim_{x \to 0} \frac{1 - \cos(3x)}{(3x)^2} \cdot \frac{9x^2}{x \sin x} = \frac{1}{2} \cdot 9 \cdot \lim_{x \to 0} \frac{x}{\sin x} = \frac{9}{2}$.
 
+#### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello dei fogli "Limiti", del tutorato e delle prove scritte; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-08, AM1A-09)
+> Prima di ogni calcolo conviene scrivere la forma del limite ($\frac{0}{0}$, $\frac{\infty}{\infty}$, $\infty - \infty$, $1^\infty$, …): è quella che dice quale strumento usare.
+
+**Esercizio 1. Verificare un limite con la definizione.** Mostrare che $\lim_{n \to \infty} \frac{3n + 1}{n + 2} = 3$.
+
+Dato $\varepsilon > 0$, si cerca $\bar{n}$ tale che $\left|\frac{3n + 1}{n + 2} - 3\right| < \varepsilon$ per ogni $n > \bar{n}$. Si semplifica la differenza:
+$$\left|\frac{3n + 1 - 3n - 6}{n + 2}\right| = \frac{5}{n + 2} < \varepsilon \iff n + 2 > \frac{5}{\varepsilon} \iff n > \frac{5}{\varepsilon} - 2.$$
+Basta prendere $\bar{n}$ uguale alla parte intera di $\frac{5}{\varepsilon}$. Per $\varepsilon = 0{,}01$, ad esempio, la distanza da 3 è minore di un centesimo da $n = 499$ in poi. Nella verifica non si calcola il limite: lo si conosce già e si controlla la definizione.
+
+**Esercizio 2. Limiti di successioni.**
+(a) $\displaystyle\lim_{n \to \infty} \frac{n^2 + n \sin n}{3n^2 + 1}$; (b) $\displaystyle\lim_{n \to \infty} \frac{2^n + n^3}{3^n - n}$; (c) $\displaystyle\lim_{n \to \infty} \left(\sqrt{n^2 + 3n} - n\right)$; (d) $\displaystyle\lim_{n \to \infty} \left(1 + \frac{2}{n}\right)^n$.
+
+(a) Si divide per $n^2$: $\frac{1 + \frac{\sin n}{n}}{3 + \frac{1}{n^2}}$. Il termine $\frac{\sin n}{n}$ tende a 0 perché è il prodotto di una successione limitata, $\sin n$, per una infinitesima, $\frac{1}{n}$. Il limite è $\frac{1}{3}$. Non si può dire che $\sin n$ "tende a qualcosa": non ha limite, ma non serve.
+
+(b) Si raccoglie l'infinito più forte, $3^n$: $\frac{3^n\left(\left(\frac{2}{3}\right)^n + \frac{n^3}{3^n}\right)}{3^n\left(1 - \frac{n}{3^n}\right)}$. Per la gerarchia degli infiniti $\frac{n^3}{3^n} \to 0$ e $\frac{n}{3^n} \to 0$; $\left(\frac{2}{3}\right)^n \to 0$ perché la base è minore di 1. Il limite è 0.
+
+(c) Forma $\infty - \infty$: si razionalizza. $\sqrt{n^2 + 3n} - n = \frac{3n}{\sqrt{n^2 + 3n} + n} = \frac{3}{\sqrt{1 + \frac{3}{n}} + 1} \to \frac{3}{2}$.
+
+(d) È il limite notevole $\left(1 + \frac{a}{n}\right)^n \to e^a$ con $a = 2$: il limite è $e^2$.
+
+**Esercizio 3. Limiti notevoli con un cambio di scala.**
+(a) $\displaystyle\lim_{x \to 0} \frac{e^{3x} - 1}{\sin(2x)}$; (b) $\displaystyle\lim_{x \to 0} \frac{\ln(1 + x^2)}{1 - \cos x}$; (c) $\displaystyle\lim_{x \to +\infty} x\big(\ln(x + 1) - \ln x\big)$.
+
+(a) Si fa comparire in ogni pezzo il suo limite notevole, moltiplicando e dividendo:
+$$\frac{e^{3x} - 1}{3x} \cdot \frac{2x}{\sin(2x)} \cdot \frac{3x}{2x} \to 1 \cdot 1 \cdot \frac{3}{2} = \frac{3}{2}.$$
+(b) $\frac{\ln(1 + x^2)}{x^2} \cdot \frac{x^2}{1 - \cos x} \to 1 \cdot 2 = 2$, perché $\frac{1 - \cos x}{x^2} \to \frac{1}{2}$.
+(c) Per le proprietà del logaritmo, $x \ln\left(1 + \frac{1}{x}\right)$. Con $y = \frac{1}{x} \to 0^+$ diventa $\frac{\ln(1 + y)}{y} \to 1$.
+
+**Esercizio 4. Una forma $1^\infty$.** Calcolare $\lim_{x \to +\infty} \left(\frac{x + 2}{x - 1}\right)^x$.
+
+La base tende a 1 e l'esponente a $+\infty$. Si scrive $f^g = e^{g \ln f}$ e si studia l'esponente:
+$$x \ln\frac{x + 2}{x - 1} = x \ln\left(1 + \frac{3}{x - 1}\right) = \frac{3x}{x - 1} \cdot \frac{\ln\left(1 + \frac{3}{x - 1}\right)}{\frac{3}{x - 1}} \to 3 \cdot 1 = 3.$$
+Il limite è $e^3$. L'errore tipico è "la base tende a 1, e 1 elevato a qualsiasi cosa fa 1": $1^\infty$ è una forma indeterminata.
+
+**Esercizio 5. Una forma $0^0$.** Calcolare $\lim_{x \to 0^+} x^x$.
+
+$x^x = e^{x \ln x}$, e $x \ln x \to 0$ per $x \to 0^+$ (il logaritmo va all'infinito più lentamente di qualsiasi potenza: è la gerarchia scritta con $y = \frac{1}{x}$, $x \ln x = -\frac{\ln y}{y} \to 0$). Il limite è $e^0 = 1$.
+
+**Esercizio 6. Un limite con un parametro.** Calcolare $\lim_{x \to +\infty} \left(\sqrt{x^2 + ax} - x\right)$ al variare di $a \in \mathbb{R}$.
+
+Razionalizzando, $\frac{ax}{\sqrt{x^2 + ax} + x} = \frac{a}{\sqrt{1 + \frac{a}{x}} + 1} \to \frac{a}{2}$ per ogni $a$. Per $a = 0$ il limite è 0, coerente con la formula. Lo stesso conto per $x \to -\infty$ va rifatto con $\sqrt{x^2} = -x$: la funzione tende a $+\infty$, perché è la somma di due quantità positive che crescono.
+
+**Esercizio 7. Limiti che non esistono.** Mostrare che non esistono (a) $\lim_{x \to 0} \frac{|x|}{x}$ e (b) $\lim_{x \to 0} \sin\frac{1}{x}$.
+
+(a) Per $x > 0$ la funzione vale 1, per $x < 0$ vale $-1$: il limite destro è 1, quello sinistro $-1$, e un limite che esiste deve averli uguali. (b) Lungo $x_n = \frac{1}{n\pi}$, che tende a 0, la funzione vale $\sin(n\pi) = 0$; lungo $x_n = \frac{1}{\frac{\pi}{2} + 2n\pi}$ vale 1. Due successioni che tendono a 0 danno due limiti diversi: per il teorema ponte il limite non esiste.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-09)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Limite di funzione con la definizione.** Verificare che $\lim_{x \to 2} (3x - 1) = 5$.
+
+*Passo 1: scrivere che cosa si deve trovare.* Per ogni $\varepsilon > 0$ serve un $\delta > 0$ tale che $0 < |x - 2| < \delta$ implichi $|(3x - 1) - 5| < \varepsilon$.
+
+*Passo 2: semplificare.* $|(3x - 1) - 5| = |3x - 6| = 3|x - 2|$.
+
+*Passo 3: scegliere $\delta$.* $3|x - 2| < \varepsilon$ se $|x - 2| < \frac{\varepsilon}{3}$: basta $\delta = \frac{\varepsilon}{3}$.
+
+*Passo 4: rileggere.* Più piccola è la tolleranza $\varepsilon$ sull'uscita, più stretto deve essere l'intorno di 2: qui la funzione "allarga" le distanze di un fattore 3, e $\delta$ è $\varepsilon$ diviso 3.
+
+**Guidato 2. La forma $1^\infty$ con il coseno.** Calcolare $\lim_{x \to 0} (\cos x)^{1/x^2}$.
+
+*Passo 1: la forma.* $\cos x \to 1$ e $\frac{1}{x^2} \to +\infty$: è $1^\infty$.
+
+*Passo 2: passare all'esponenziale.* $(\cos x)^{1/x^2} = \exp\left(\frac{\ln(\cos x)}{x^2}\right)$.
+
+*Passo 3: il limite dell'esponente.* Si scrive $\ln(\cos x) = \ln\big(1 + (\cos x - 1)\big)$ e si usa il limite notevole del logaritmo con $y = \cos x - 1 \to 0$:
+$$\frac{\ln\big(1 + (\cos x - 1)\big)}{\cos x - 1} \cdot \frac{\cos x - 1}{x^2} \to 1 \cdot \left(-\frac{1}{2}\right) = -\frac{1}{2}.$$
+
+*Passo 4: tornare alla funzione.* Il limite è $e^{-1/2} = \frac{1}{\sqrt{e}}$. Lo stesso risultato si ritrova nel modulo 5 con lo sviluppo $\ln(\cos x) = -\frac{x^2}{2} + o(x^2)$.
+
+**Guidato 3. Una successione con la gerarchia degli infiniti.** Calcolare $\lim_{n \to \infty} \frac{n^2 \, 2^n + n!}{3^n + (n + 1)!}$.
+
+*Passo 1: ordinare gli infiniti.* Fra potenze, esponenziali e fattoriali, il fattoriale vince: $n^2 \ll 2^n \ll 3^n \ll n!$. Al numeratore il termine dominante è $n!$, al denominatore $(n + 1)!$.
+
+*Passo 2: raccogliere.* $\frac{n!\left(\frac{n^2 2^n}{n!} + 1\right)}{(n + 1)!\left(\frac{3^n}{(n + 1)!} + 1\right)} = \frac{1}{n + 1} \cdot \frac{\frac{n^2 2^n}{n!} + 1}{\frac{3^n}{(n + 1)!} + 1}$.
+
+*Passo 3: i limiti dei pezzi.* Le due frazioni interne tendono a 0, quindi il secondo fattore tende a 1; il primo, $\frac{1}{n + 1}$, tende a 0. Il limite è 0.
+
+*Passo 4: il controllo del rapporto.* Che $\frac{3^n}{n!} \to 0$ si vede anche così: il rapporto fra un termine e il precedente è $\frac{3}{n + 1}$, che da $n = 3$ in poi è minore di $\frac{3}{4}$, quindi i termini si riducono almeno di un quarto a ogni passo.
+
 ### Riepilogo
 
 Una successione converge a $l$ se, per ogni $\varepsilon > 0$, da un certo indice in poi $|a_n - l| < \varepsilon$; diverge a $+\infty$ se da un certo indice in poi supera ogni quota $K$. Le successioni monotone hanno sempre limite, uguale al loro estremo superiore o inferiore: così si definisce $e = \lim \left(1 + \frac{1}{n}\right)^n$. Le sottosuccessioni hanno lo stesso limite della successione, e due sottosuccessioni con limiti diversi provano che il limite non esiste.
@@ -573,6 +869,67 @@ Una successione converge a $l$ se, per ogni $\varepsilon > 0$, da un certo indic
 Per le funzioni il limite in $x_0$ descrive il comportamento vicino a $x_0$, escluso il punto; il limite esiste se e solo se esistono e coincidono il destro e il sinistro. Il limite è unico, conserva il segno e si confronta con i carabinieri; l'algebra dei limiti lo calcola su somme, prodotti e quozienti, tranne nelle forme indeterminate $+\infty - \infty$, $0 \cdot \infty$, $\frac{0}{0}$, $\frac{\infty}{\infty}$, $1^\infty$, $0^0$, $\infty^0$. Polinomi e funzioni razionali all'infinito si comportano come il rapporto dei termini di grado massimo. I limiti notevoli da ricordare sono
 $$\frac{\sin x}{x} \to 1, \quad \frac{1 - \cos x}{x^2} \to \frac{1}{2}, \quad \frac{\ln(1 + x)}{x} \to 1, \quad \frac{e^x - 1}{x} \to 1, \quad \frac{(1 + x)^\alpha - 1}{x} \to \alpha \qquad (x \to 0),$$
 e il teorema di sostituzione, insieme all'identità $f^g = e^{g \ln f}$, riduce a questi molti altri limiti.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1A-08, AM1A-09)
+> Le definizioni, i teoremi e i limiti da avere sotto mano, con il paragrafo in cui sono spiegati.
+
+#### Definizioni di limite
+
+| Caso | Definizione |
+|---|---|
+| $a_n \to l$ | $\forall \varepsilon > 0\ \exists \bar{n} : n > \bar{n} \Rightarrow \lvert a_n - l\rvert < \varepsilon$ |
+| $a_n \to +\infty$ | $\forall M\ \exists \bar{n} : n > \bar{n} \Rightarrow a_n > M$ |
+| $f(x) \to l$ per $x \to c$ | $\forall \varepsilon > 0\ \exists \delta > 0 : 0 < \lvert x - c\rvert < \delta \Rightarrow \lvert f(x) - l\rvert < \varepsilon$ |
+| $f(x) \to l$ per $x \to +\infty$ | $\forall \varepsilon > 0\ \exists M : x > M \Rightarrow \lvert f(x) - l\rvert < \varepsilon$ |
+
+#### Teoremi
+
+- Unicità del limite; limite destro e sinistro uguali se e solo se esiste il limite.
+- Permanenza del segno: se $l > 0$, la funzione è positiva in un intorno del punto (escluso il punto).
+- Confronto (carabinieri): $f \le g \le h$ e $f, h \to l$ implicano $g \to l$.
+- Limitata per infinitesima è infinitesima.
+- Successioni monotone: hanno sempre limite, finito se e solo se sono limitate.
+- Teorema ponte: $f(x) \to l$ per $x \to c$ se e solo se $f(x_n) \to l$ per ogni successione $x_n \to c$, $x_n \ne c$.
+
+#### Algebra dei limiti e forme indeterminate
+
+$l + \infty = \infty$, $l \cdot \infty = \infty$ per $l \ne 0$, $\frac{l}{\infty} = 0$, $\frac{l}{0^\pm} = \pm\infty$ per $l > 0$. Forme indeterminate: $\infty - \infty$, $0 \cdot \infty$, $\frac{0}{0}$, $\frac{\infty}{\infty}$, $1^\infty$, $0^0$, $\infty^0$; le ultime tre si trattano con $f^g = e^{g \ln f}$.
+
+#### Limiti notevoli ($x \to 0$)
+
+$$\frac{\sin x}{x} \to 1, \quad \frac{1 - \cos x}{x^2} \to \frac{1}{2}, \quad \frac{\tan x}{x} \to 1, \quad \frac{\arcsin x}{x} \to 1, \quad \frac{\arctan x}{x} \to 1,$$
+
+$$\frac{e^x - 1}{x} \to 1, \quad \frac{\ln(1 + x)}{x} \to 1, \quad \frac{(1 + x)^\alpha - 1}{x} \to \alpha, \quad (1 + x)^{1/x} \to e, \quad \left(1 + \frac{a}{x}\right)^x \to e^a \ (x \to \pm\infty).$$
+
+#### Gerarchia degli infiniti
+
+Per $n \to \infty$: $\ln n \ll n^\alpha \ (\alpha > 0) \ll a^n \ (a > 1) \ll n! \ll n^n$. Per $x \to +\infty$: $\frac{(\ln x)^\beta}{x^\alpha} \to 0$ e $\frac{x^\alpha}{a^x} \to 0$; per $x \to 0^+$: $x^\alpha \ln x \to 0$.
+
+Polinomi e razionali all'infinito: conta solo il termine di grado massimo; $\frac{P(x)}{Q(x)}$ tende a 0, al rapporto dei coefficienti direttivi o a $\pm\infty$ secondo che il grado di $P$ sia minore, uguale o maggiore di quello di $Q$.
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Intorno | intervallo aperto che contiene il punto; di $+\infty$: semiretta $(M, +\infty)$ |
+| Punto di accumulazione | ogni suo intorno contiene punti del dominio diversi da lui |
+| Successione convergente, divergente, irregolare | ha limite finito; ha limite infinito; non ha limite |
+| Sottosuccessione | successione ottenuta prendendo infiniti termini in ordine |
+| Forma indeterminata | combinazione di limiti il cui risultato dipende dalle funzioni, non solo dai limiti |
+| Infinitesimo | funzione che tende a 0 |
+| Numero $e$ | limite di $\left(1 + \frac{1}{n}\right)^n$, successione crescente e limitata |
+
+#### Domande che tornano spesso
+
+- Dare la definizione di limite di successione e di funzione nei vari casi, e verificarla su un esempio.
+- Dimostrare l'unicità del limite.
+- Enunciare e dimostrare il teorema del confronto.
+- Perché una successione monotona e limitata converge? Applicarlo a $\left(1 + \frac{1}{n}\right)^n$.
+- Dimostrare $\frac{\sin x}{x} \to 1$ e ricavarne $\frac{1 - \cos x}{x^2} \to \frac{1}{2}$.
+- Come si mostra che un limite non esiste?
+- Che cosa sono le forme indeterminate esponenziali e come si trattano?
 
 ## 3 · Continuità e confronto locale
 
@@ -781,11 +1138,142 @@ Per misurare l'ordine si sceglie un **campione**, cioè un infinitesimo o un inf
 > [!esempio] Ordine di infinitesimo
 > Per $x \to 0$, $f(x) = \sin x - x \cos x$ è un infinitesimo. Si mostrerà con Taylor (modulo 5) che $f(x) \sim \frac{x^3}{3}$: ha ordine 3 rispetto a $x$. Con i soli limiti notevoli ci si ferma a dire che $\sin x \sim x$ e $x \cos x \sim x$, cioè che i due termini si cancellano al primo ordine: per conoscere l'ordine della differenza servono gli sviluppi.
 
+#### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello del tutorato e delle prove scritte 2025-2026; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-10, AM1A-11, AM1A-15)
+> Il primo punto di quasi tutte le prove scritte è la continuità di una funzione definita a tratti con dei parametri: conviene saperlo fare senza esitazioni.
+
+**Esercizio 1. Continuità a tratti con un parametro.** Per quali $a \in \mathbb{R}$ è continua su $\mathbb{R}$ la funzione $f_a(x) = x^2 + ax$ per $x < 1$, $f_a(x) = a^2 x - 1$ per $x \ge 1$?
+
+*Fuori dal punto di raccordo.* Su $(-\infty, 1)$ e su $(1, +\infty)$ la funzione coincide con un polinomio, quindi è continua per ogni $a$. Resta il punto $x = 1$.
+
+*Nel punto di raccordo.* Serve che limite sinistro, limite destro e valore coincidano. Il valore e il limite destro sono $f_a(1) = a^2 - 1$; il limite sinistro è $\lim_{x \to 1^-} (x^2 + ax) = 1 + a$. La condizione è
+$$1 + a = a^2 - 1 \iff a^2 - a - 2 = 0 \iff a = 2 \ \vee\ a = -1.$$
+Per gli altri valori di $a$ il punto 1 è una discontinuità di salto, con salto $(a^2 - 1) - (1 + a) = (a + 1)(a - 2)$.
+
+**Esercizio 2. Tre tratti e due parametri.** Trovare $a, b \in \mathbb{R}$ per cui è continua su $\mathbb{R}$
+$$f(x) = \begin{cases} \dfrac{x^2 - 9}{x - 3} & x < 3, \\ ax + b & 3 \le x < 4, \\ \ln(x - 3) + b & x \ge 4. \end{cases}$$
+
+Ogni tratto è continuo sul suo intervallo aperto (il primo perché il denominatore non si annulla per $x < 3$, il terzo perché $x - 3 \ge 1 > 0$). In $x = 3$: il limite sinistro è $\lim_{x \to 3^-} (x + 3) = 6$, il valore è $3a + b$. In $x = 4$: il limite sinistro è $4a + b$, il valore $\ln 1 + b = b$. Le due condizioni sono
+$$3a + b = 6, \qquad 4a + b = b,$$
+e la seconda dà $a = 0$, quindi $b = 6$: la funzione vale $x + 3$ per $x < 3$, è costante uguale a 6 su $[3, 4)$ e vale $\ln(x - 3) + 6$ da 4 in poi.
+
+**Esercizio 3. Classificare le discontinuità.** Classificare in 0 le discontinuità di $f(x) = \frac{\sin x}{|x|}$ e di $h(x) = e^{1/x}$, e in 1 quella di $g(x) = \frac{x^2 - 1}{x - 1}$.
+
+Per $f$: da destra $\frac{\sin x}{x} \to 1$, da sinistra $\frac{\sin x}{-x} \to -1$. I limiti laterali esistono finiti e sono diversi: **salto** di ampiezza 2. Per $g$: per $x \ne 1$ la funzione vale $x + 1$, che tende a 2: il limite esiste finito, la funzione non è definita in 1 (o vi è definita con un altro valore): discontinuità **eliminabile**, si toglie ponendo $g(1) = 2$. Per $h$: per $x \to 0^+$, $\frac{1}{x} \to +\infty$ e $h \to +\infty$; per $x \to 0^-$, $h \to 0$. Un limite laterale è infinito: discontinuità **di seconda specie**.
+
+**Esercizio 4. Una soluzione e una sola.** Dimostrare che l'equazione $e^x = 3 - x$ ha esattamente una soluzione, e localizzarla in un intervallo di ampiezza $\frac{1}{2}$.
+
+Si studia $f(x) = e^x + x - 3$, continua su $\mathbb{R}$. *Esistenza*: $f(0) = -2 < 0$ e $f(1) = e - 2 > 0$, quindi per il teorema degli zeri c'è una soluzione in $(0, 1)$. *Unicità*: $f$ è somma di due funzioni strettamente crescenti, quindi è strettamente crescente e si annulla una volta sola. *Localizzazione*: $f\left(\frac{1}{2}\right) = \sqrt{e} - 2{,}5 \approx -0{,}85 < 0$, quindi la soluzione sta in $\left(\frac{1}{2}, 1\right)$. Ripetendo il dimezzamento si stringe l'intervallo quanto si vuole: è il metodo di bisezione, cioè la dimostrazione del teorema degli zeri trasformata in un algoritmo.
+
+**Esercizio 5. Asintoti obliqui diversi a $+\infty$ e $-\infty$.** Trovare gli asintoti di $f(x) = \frac{x^2}{|x| + 2}$.
+
+Il dominio è $\mathbb{R}$, quindi niente asintoti verticali. Per $x \to +\infty$, $f(x) = \frac{x^2}{x + 2}$: $m = \lim \frac{f(x)}{x} = \lim \frac{x}{x + 2} = 1$ e $q = \lim (f(x) - x) = \lim \frac{x^2 - x^2 - 2x}{x + 2} = -2$, asintoto $y = x - 2$. Per $x \to -\infty$, $f(x) = \frac{x^2}{-x + 2}$: $m = \lim \frac{x}{-x + 2} = -1$ e $q = \lim (f(x) + x) = \lim \frac{x^2 - x^2 + 2x}{-x + 2} = -2$, asintoto $y = -x - 2$. La funzione è pari, e infatti i due asintoti sono simmetrici rispetto all'asse $y$.
+
+**Esercizio 6. Weierstrass, con un controesempio.** (a) $f(x) = x e^{-x}$ ha massimo e minimo su $[0, 3]$? (b) E $g(x) = \frac{1}{x}$ su $(0, 1]$?
+
+(a) Sì: è continua su un intervallo chiuso e limitato, e il teorema di Weierstrass garantisce massimo e minimo (dove siano lo dice il modulo 5). (b) No: $g$ è continua ma l'intervallo non è chiuso, e infatti $g$ non è limitata superiormente ($\frac{1}{x} \to +\infty$ per $x \to 0^+$). Il minimo c'è, $g(1) = 1$. Le ipotesi di Weierstrass sono sufficienti, non necessarie: quando mancano il teorema non dice niente.
+
+**Esercizio 7. Ordini di infinitesimo e di infinito.** Determinare ordine e parte principale per $x \to 0$ di (a) $\sqrt{1 + x} - 1$, (b) $1 - \cos(2x)$, (c) $\ln(1 + x^3)$, (d) $\left(e^{x^2} - 1\right)\sin x$; e per $x \to +\infty$ di (e) $\sqrt{x^4 + x}$.
+
+(a) $\frac{(1 + x)^{1/2} - 1}{x} \to \frac{1}{2}$: ordine 1, parte principale $\frac{x}{2}$. (b) $\frac{1 - \cos(2x)}{(2x)^2} \to \frac{1}{2}$, quindi $1 - \cos(2x) \sim 2x^2$: ordine 2. (c) $\ln(1 + x^3) \sim x^3$: ordine 3. (d) $e^{x^2} - 1 \sim x^2$ e $\sin x \sim x$, e le equivalenze si moltiplicano: $\sim x^3$, ordine 3. (e) $\sqrt{x^4 + x} = x^2\sqrt{1 + x^{-3}} \sim x^2$: infinito di ordine 2.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-10, AM1A-11, AM1A-15)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Continuità con due parametri.** Trovare $a, b$ per cui è continua su $\mathbb{R}$ la funzione $f(x) = 2x + a$ per $x \le 0$, $f(x) = x^2 + b$ per $0 < x \le 1$, $f(x) = e^{x - 1}$ per $x > 1$.
+
+*Passo 1: dove possono esserci problemi.* I tre tratti sono continui sui loro intervalli; restano i raccordi $x = 0$ e $x = 1$.
+
+*Passo 2: il raccordo in 0.* Valore e limite sinistro: $f(0) = a$. Limite destro: $\lim_{x \to 0^+} (x^2 + b) = b$. Condizione: $a = b$.
+
+*Passo 3: il raccordo in 1.* Valore e limite sinistro: $f(1) = 1 + b$. Limite destro: $\lim_{x \to 1^+} e^{x - 1} = 1$. Condizione: $1 + b = 1$, cioè $b = 0$.
+
+*Passo 4: mettere insieme.* $a = b = 0$. La funzione è $2x$, poi $x^2$, poi $e^{x - 1}$. Si controlla che non ci siano salti: in 0 tutti i tratti valgono 0, in 1 valgono 1.
+
+**Guidato 2. Tutti gli asintoti di una funzione razionale.** Trovare gli asintoti di $f(x) = \frac{x^3}{x^2 - 4}$.
+
+*Passo 1: dominio.* $x \ne \pm 2$.
+
+*Passo 2: asintoti verticali.* Nei punti esclusi il numeratore vale $\pm 8 \ne 0$ e il denominatore tende a 0: la funzione tende all'infinito. Il segno si legge dai fattori. Per $x \to 2^+$, $x^2 - 4 \to 0^+$ e $f \to +\infty$; per $x \to 2^-$, $f \to -\infty$. La funzione è dispari, quindi per $x \to -2^+$, $f \to +\infty$ e per $x \to -2^-$, $f \to -\infty$. Asintoti $x = 2$ e $x = -2$.
+
+*Passo 3: asintoti orizzontali.* Il grado del numeratore supera quello del denominatore: $f \to \pm\infty$, niente asintoti orizzontali.
+
+*Passo 4: asintoti obliqui.* $m = \lim \frac{x^3}{x(x^2 - 4)} = 1$; $q = \lim \left(\frac{x^3}{x^2 - 4} - x\right) = \lim \frac{4x}{x^2 - 4} = 0$. L'asintoto è $y = x$, sia a $+\infty$ sia a $-\infty$. Per i polinomi si arriva allo stesso risultato con la divisione: $\frac{x^3}{x^2 - 4} = x + \frac{4x}{x^2 - 4}$.
+
+**Guidato 3. Ordine di un prodotto.** Determinare ordine e parte principale per $x \to 0$ di $f(x) = (1 - \cos x)\ln(1 + 2x)$.
+
+*Passo 1: un fattore alla volta.* $1 - \cos x \sim \frac{x^2}{2}$; $\ln(1 + 2x) \sim 2x$.
+
+*Passo 2: moltiplicare.* Le equivalenze asintotiche si moltiplicano: $f(x) \sim \frac{x^2}{2} \cdot 2x = x^3$.
+
+*Passo 3: la conclusione.* Ordine 3, parte principale $x^3$. Attenzione: le equivalenze si moltiplicano e si dividono, ma **non** si sommano. Per $\sin x - x$ scrivere $\sin x \sim x$ darebbe "0", che non ha senso come parte principale: servono gli sviluppi del modulo 5.
+
 ### Riepilogo
 
 Una funzione è continua in $x_0$ se $\lim_{x \to x_0} f(x) = f(x_0)$. Somme, prodotti, quozienti e composte di funzioni continue sono continue, e tutte le funzioni elementari lo sono sul loro dominio. Sugli intervalli la continuità ha conseguenze globali: se $f(a) f(b) < 0$ esiste uno zero in $(a, b)$, trovabile per bisezione; $f$ assume tutti i valori intermedi e trasforma intervalli in intervalli; su $[a, b]$ chiuso e limitato è limitata e ha massimo e minimo (Weierstrass, dimostrato con Bolzano-Weierstrass). Per le funzioni continue su un intervallo, iniettività e monotonia stretta coincidono, e l'inversa è continua.
 
 Gli asintoti descrivono il comportamento all'infinito ($m = \lim \frac{f}{x}$, $q = \lim (f - mx)$) e vicino ai punti in cui la funzione diverge. I simboli $O$, $o$, $\sim$ confrontano le funzioni con il limite del loro rapporto; ordine e parte principale misurano quanto in fretta un infinitesimo tende a zero, o un infinito all'infinito, rispetto a un campione. Valgono la gerarchia $\ln x \ll x^\alpha \ll a^x$ per $x \to +\infty$ e le regole di calcolo dell'o piccolo, che il modulo 5 usa per gli sviluppi di Taylor.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1A-10, AM1A-11, AM1A-15)
+> Definizioni, teoremi e procedure del modulo, con i termini per l'orale.
+
+#### Continuità e discontinuità
+
+$f$ è continua in $x_0$ se $\lim_{x \to x_0} f(x) = f(x_0)$. Somme, prodotti, quozienti (dove il denominatore non si annulla) e composizioni di funzioni continue sono continue; le funzioni elementari sono continue nel loro dominio.
+
+| Discontinuità in $x_0$ | Limiti laterali |
+|---|---|
+| eliminabile | esistono finiti e uguali, ma diversi da $f(x_0)$ (o $f$ non è definita) |
+| di salto (prima specie) | esistono finiti e diversi |
+| di seconda specie | almeno uno è infinito o non esiste |
+
+#### Teoremi sulle funzioni continue
+
+| Teorema | Ipotesi | Tesi |
+|---|---|---|
+| Permanenza del segno | $f$ continua in $x_0$, $f(x_0) > 0$ | $f > 0$ in un intorno di $x_0$ |
+| Esistenza degli zeri | $f$ continua su $[a, b]$, $f(a) f(b) < 0$ | esiste $c \in (a, b)$ con $f(c) = 0$ |
+| Valori intermedi | $f$ continua su un intervallo | assume tutti i valori fra due suoi valori |
+| Weierstrass | $f$ continua su $[a, b]$ chiuso e limitato | $f$ ha massimo e minimo |
+| Bolzano-Weierstrass | successione limitata | ha una sottosuccessione convergente |
+| Continuità dell'inversa | $f$ continua e strettamente monotona su un intervallo | $f^{-1}$ è continua |
+
+#### Asintoti
+
+- Verticale $x = x_0$: $f(x) \to \pm\infty$ per $x \to x_0^+$ o $x_0^-$.
+- Orizzontale $y = l$: $f(x) \to l$ per $x \to +\infty$ o $-\infty$.
+- Obliquo $y = mx + q$: $m = \lim \frac{f(x)}{x}$ finito e non nullo, $q = \lim (f(x) - mx)$ finito.
+
+#### Simboli di Landau ($x \to x_0$)
+
+$f = o(g)$ se $\frac{f}{g} \to 0$; $f \sim g$ se $\frac{f}{g} \to 1$; $f = O(g)$ se $\frac{f}{g}$ è limitata vicino a $x_0$. Regole: $o(x^n) + o(x^n) = o(x^n)$, $x^m \cdot o(x^n) = o(x^{m+n})$, $o(x^n) = o(x^m)$ se $n \ge m$; le equivalenze $\sim$ si moltiplicano e si dividono, non si sommano. Ordine di infinitesimo $\alpha$: $\frac{f(x)}{(x - x_0)^\alpha} \to l \ne 0$; la parte principale è $l\,(x - x_0)^\alpha$.
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Funzione continua | il limite in ogni punto coincide con il valore |
+| Punto di raccordo | punto in cui cambia l'espressione di una funzione a tratti |
+| Discontinuità eliminabile, di salto, di seconda specie | vedi la tabella sopra |
+| Insieme chiuso e limitato | intervallo $[a, b]$ con gli estremi inclusi e finiti |
+| Metodo di bisezione | dimezzamento ripetuto dell'intervallo con il cambio di segno |
+| Asintoto | retta a cui il grafico si avvicina indefinitamente |
+| Infinitesimo di ordine superiore | $f = o(g)$: tende a 0 più velocemente di $g$ |
+| Parte principale | il termine $l(x - x_0)^\alpha$ equivalente all'infinitesimo |
+
+#### Domande che tornano spesso
+
+- Definire la continuità e classificare le discontinuità, con un esempio per tipo.
+- Enunciare e dimostrare il teorema di esistenza degli zeri (con la bisezione).
+- Enunciare il teorema di Weierstrass e mostrare con controesempi che le ipotesi servono.
+- Dedurre il teorema dei valori intermedi da quello degli zeri.
+- Come si trovano gli asintoti obliqui? Perché servono entrambi i limiti per $m$ e $q$?
+- Definire $o$, $\sim$ e l'ordine di infinitesimo; perché le equivalenze non si sommano?
 
 ## 4 · Derivate e teoremi del valor medio
 
@@ -831,6 +1319,7 @@ Si calcolano dalla definizione, usando i limiti notevoli del modulo 2.
 - **Seno.** Con le formule di addizione,
 $$\frac{\sin(x + h) - \sin x}{h} = \sin x \cdot \frac{\cos h - 1}{h} + \cos x \cdot \frac{\sin h}{h} \longrightarrow \sin x \cdot 0 + \cos x \cdot 1 = \cos x,$$
 perché $\frac{\cos h - 1}{h} = -\frac{1 - \cos h}{h^2} \cdot h \to -\frac{1}{2} \cdot 0 = 0$. Quindi $(\sin x)' = \cos x$, e allo stesso modo $(\cos x)' = -\sin x$.
+
 - **Esponenziale.** $\frac{e^{x+h} - e^x}{h} = e^x \cdot \frac{e^h - 1}{h} \to e^x$, quindi $(e^x)' = e^x$. Per una base $a > 0$, scrivendo $a^x = e^{x \ln a}$ si ottiene $(a^x)' = a^x \ln a$.
 - **Potenze.** Per $x > 0$ e $\alpha \in \mathbb{R}$, con $y = \frac{h}{x} \to 0$:
 $$\frac{(x + h)^\alpha - x^\alpha}{h} = x^\alpha \cdot \frac{\left(1 + \frac{h}{x}\right)^\alpha - 1}{h} = x^{\alpha - 1} \cdot \frac{(1 + y)^\alpha - 1}{y} \longrightarrow \alpha\, x^{\alpha - 1}.$$
@@ -1044,6 +1533,97 @@ Non dice quale sia $\bar{x}$, ma è esatta, non solo approssimata.
 >
 > La risposta è $\alpha = \beta = 1$, con $f'(0) = 1$.
 
+### Esempi ed esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello del tutorato e delle prove scritte 2025-2026; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-12, AM1A-13, AM1A-16)
+> Il secondo punto di quasi tutte le prove è la derivabilità di una funzione a tratti; seguono la retta tangente, la derivata dell'inversa e le disuguaglianze con Lagrange.
+
+**Esercizio 1. Calcolo di derivate.** Derivare (a) $x^2 e^{-x}$, (b) $\ln\left(x + \sqrt{x^2 + 1}\right)$, (c) $\arctan\frac{1}{x}$, (d) $x^x$ per $x > 0$, (e) $\sin^2(3x)$.
+
+(a) Prodotto: $2x e^{-x} + x^2 \cdot (-e^{-x}) = (2x - x^2)e^{-x}$.
+
+(b) Catena, con la derivata dell'argomento $1 + \frac{x}{\sqrt{x^2 + 1}} = \frac{\sqrt{x^2 + 1} + x}{\sqrt{x^2 + 1}}$:
+$$\frac{1}{x + \sqrt{x^2 + 1}} \cdot \frac{\sqrt{x^2 + 1} + x}{\sqrt{x^2 + 1}} = \frac{1}{\sqrt{x^2 + 1}}.$$
+
+(c) $\frac{1}{1 + \frac{1}{x^2}} \cdot \left(-\frac{1}{x^2}\right) = -\frac{1}{x^2 + 1}$ per $x \ne 0$. È la derivata di $-\arctan x$: infatti $\arctan\frac{1}{x} = \frac{\pi}{2} - \arctan x$ per $x > 0$ (e $-\frac{\pi}{2} - \arctan x$ per $x < 0$), che differiscono da $-\arctan x$ per una costante su ciascuna semiretta.
+
+(d) Si scrive $x^x = e^{x \ln x}$: la derivata è $e^{x \ln x}(\ln x + 1) = x^x(\ln x + 1)$. Non si può usare la regola delle potenze ($x \cdot x^{x-1}$), perché l'esponente non è costante, né quella degli esponenziali ($x^x \ln x$), perché la base non è costante.
+
+(e) $2\sin(3x) \cdot \cos(3x) \cdot 3 = 3\sin(6x)$.
+
+**Esercizio 2. Derivabilità a tratti con due parametri.** Per quali $a, b$ è derivabile su $(0, +\infty)$ la funzione $f(x) = ax^2 + b$ per $0 < x \le 1$, $f(x) = \ln x + 1$ per $x > 1$?
+
+*Continuità in 1* (senza continuità non c'è derivabilità): $f(1) = a + b$ e $\lim_{x \to 1^+} (\ln x + 1) = 1$, quindi $a + b = 1$.
+
+*Derivate dei due tratti*: $2ax$ a sinistra, $\frac{1}{x}$ a destra. Con la continuità, per il teorema del limite della derivata basta confrontare i limiti: $2a$ da sinistra, 1 da destra. Serve $a = \frac{1}{2}$, e quindi $b = \frac{1}{2}$. Con questi valori $f'(1) = 1$.
+
+**Esercizio 3. Punti di non derivabilità.** Studiare la derivabilità di (a) $f(x) = x|x|$ in 0 e (b) $g(x) = |x - 1|(x + 1)$ in 1.
+
+(a) Rapporto incrementale: $\frac{x|x| - 0}{x} = |x| \to 0$. Derivabile, con $f'(0) = 0$: il valore assoluto, moltiplicato per $x$, "si raddrizza".
+
+(b) Per $x > 1$, $g(x) = (x - 1)(x + 1) = x^2 - 1$, con derivata $2x \to 2$; per $x < 1$, $g(x) = -(x^2 - 1)$, con derivata $-2x \to -2$. $g$ è continua in 1 ($g(1) = 0$) e le derivate laterali sono $2$ e $-2$: punto angoloso.
+
+**Esercizio 4. Retta tangente.** Scrivere la tangente al grafico di $f(x) = \ln(1 + x^2)$ nel punto di ascissa 1.
+
+$f(1) = \ln 2$; $f'(x) = \frac{2x}{1 + x^2}$, quindi $f'(1) = 1$. La tangente è $y = \ln 2 + (x - 1)$.
+
+**Esercizio 5. Derivata della funzione inversa.** (a) Mostrare che $f(x) = x^3 + x + 1$ è invertibile e calcolare $(f^{-1})'(3)$. (b) Lo stesso per $g(x) = e^x + x$ e $(g^{-1})'(1)$.
+
+(a) $f'(x) = 3x^2 + 1 > 0$, quindi $f$ è strettamente crescente su $\mathbb{R}$ e invertibile. Non serve trovare l'inversa: serve il punto $x_0$ con $f(x_0) = 3$, che si trova a occhio, $x_0 = 1$. Per la formula della derivata dell'inversa,
+$$(f^{-1})'(3) = \frac{1}{f'(1)} = \frac{1}{4}.$$
+(b) $g' = e^x + 1 > 0$; $g(0) = 1$, quindi $(g^{-1})'(1) = \frac{1}{g'(0)} = \frac{1}{2}$.
+
+**Esercizio 6. Disuguaglianze con Lagrange.** Dimostrare (a) $|\sin a - \sin b| \le |a - b|$ per ogni $a, b$; (b) $\ln(1 + x) < x$ per ogni $x > 0$; (c) $e^x \ge 1 + x$ per ogni $x$, con l'uguaglianza solo in 0.
+
+(a) Per Lagrange su $[a, b]$ esiste $\xi$ con $\sin a - \sin b = \cos\xi\,(a - b)$, e $|\cos\xi| \le 1$.
+
+(b) Su $[0, x]$: $\ln(1 + x) - \ln 1 = \frac{1}{1 + \xi}\,x$ con $0 < \xi < x$, e $\frac{1}{1 + \xi} < 1$.
+
+(c) Per $x > 0$, su $[0, x]$: $e^x - 1 = e^\xi x$ con $0 < \xi < x$, quindi $e^\xi > 1$ e $e^x - 1 > x$. Per $x < 0$, su $[x, 0]$: $e^0 - e^x = e^\xi(0 - x)$ con $x < \xi < 0$, cioè $e^x - 1 = e^\xi x$; ora $e^\xi < 1$ e $x < 0$, quindi $e^\xi x > x$. In 0 vale l'uguaglianza. La disuguaglianza dice che la retta $y = 1 + x$, tangente al grafico di $e^x$ in 0, sta sempre sotto il grafico: è la convessità del modulo 5.
+
+**Esercizio 7. Limiti con de l'Hôpital.** (a) $\displaystyle\lim_{x \to 0} \frac{x - \sin x}{x^3}$; (b) $\displaystyle\lim_{x \to +\infty} \frac{\ln x}{\sqrt{x}}$; (c) $\displaystyle\lim_{x \to 0^+} x \ln x$.
+
+(a) Tre volte la forma $\frac{0}{0}$: $\frac{1 - \cos x}{3x^2} \to \frac{\sin x}{6x} \to \frac{1}{6}$ (l'ultimo passo con il limite notevole). (b) Forma $\frac{\infty}{\infty}$: $\frac{1/x}{1/(2\sqrt{x})} = \frac{2}{\sqrt{x}} \to 0$. (c) Forma $0 \cdot \infty$: si riscrive come $\frac{\ln x}{1/x}$, forma $\frac{\infty}{\infty}$, e il rapporto delle derivate è $\frac{1/x}{-1/x^2} = -x \to 0$.
+
+**Esercizio 8. Raccordo derivabile.** Mostrare che $f(x) = \sin x$ per $x < 0$, $f(x) = x + x^2$ per $x \ge 0$, è derivabile in 0.
+
+Continuità: entrambi i tratti valgono 0 in 0. Derivate: $\cos x \to 1$ da sinistra, $1 + 2x \to 1$ da destra. Per il teorema del limite della derivata, $f'(0) = 1$. Il grafico passa "liscio" da un tratto all'altro, con la stessa tangente $y = x$.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-12, AM1A-13, AM1A-16)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Un parametro per la derivabilità.** Sia $f_k(x) = e^{2x} - 1$ per $x < 0$ e $f_k(x) = x^2 + kx$ per $x \ge 0$. Per quali $k$ è continua? Per quali è derivabile?
+
+*Passo 1: continuità.* In 0: limite sinistro $e^0 - 1 = 0$, valore $0$. Continua per ogni $k$.
+
+*Passo 2: le derivate dei tratti.* $2e^{2x}$ per $x < 0$, $2x + k$ per $x > 0$.
+
+*Passo 3: i limiti delle derivate.* Da sinistra 2, da destra $k$.
+
+*Passo 4: conclusione.* Derivabile se e solo se $k = 2$, con $f_2'(0) = 2$. Per $k \ne 2$ c'è un punto angoloso, con semitangenti di pendenza 2 e $k$.
+
+**Guidato 2. La derivata dell'arcoseno.** Ricavare $(\arcsin)'(y)$ dalla formula della derivata dell'inversa.
+
+*Passo 1: la funzione da invertire.* $\sin$ ristretto a $\left[-\frac{\pi}{2}, \frac{\pi}{2}\right]$ è strettamente crescente, con derivata $\cos x$, positiva all'interno.
+
+*Passo 2: la formula.* Per $y = \sin x$ con $x \in \left(-\frac{\pi}{2}, \frac{\pi}{2}\right)$: $(\arcsin)'(y) = \frac{1}{\cos x}$.
+
+*Passo 3: esprimere in $y$.* $\cos x = \sqrt{1 - \sin^2 x} = \sqrt{1 - y^2}$, con il segno $+$ perché il coseno è positivo nell'intervallo.
+
+*Passo 4: risultato.* $(\arcsin)'(y) = \frac{1}{\sqrt{1 - y^2}}$ per $-1 < y < 1$. Negli estremi $\pm 1$ la derivata non esiste: il grafico dell'arcoseno ha lì tangente verticale, simmetrica della tangente orizzontale del seno in $\pm\frac{\pi}{2}$.
+
+**Guidato 3. Una radice e una sola con Rolle.** Dimostrare che $x^5 + x - 1 = 0$ ha esattamente una soluzione reale.
+
+*Passo 1: esistenza.* $p(x) = x^5 + x - 1$ è continua, $p(0) = -1 < 0$ e $p(1) = 1 > 0$: per il teorema degli zeri c'è una soluzione in $(0, 1)$.
+
+*Passo 2: unicità per assurdo.* Se ci fossero due soluzioni $x_1 < x_2$, sarebbe $p(x_1) = p(x_2) = 0$ e, per Rolle, esisterebbe $\xi \in (x_1, x_2)$ con $p'(\xi) = 0$.
+
+*Passo 3: la contraddizione.* $p'(x) = 5x^4 + 1 \ge 1$ non si annulla mai.
+
+*Passo 4: conclusione.* La soluzione è unica, e sta in $(0, 1)$. Lo stesso schema (zeri per l'esistenza, Rolle o la monotonia per l'unicità) serve in molti esercizi d'esame del tipo "quante soluzioni ha l'equazione".
+
 ### Riepilogo
 
 La derivata $f'(x_0) = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}$ è il coefficiente angolare della tangente, $y = f(x_0) + f'(x_0)(x - x_0)$. Una funzione derivabile è continua, non il contrario. Le derivate elementari si ricavano dai limiti notevoli; le regole sono
@@ -1051,6 +1631,71 @@ $$(f g)' = f' g + f g', \qquad \left(\frac{f}{g}\right)' = \frac{f' g - f g'}{g^
 Punti angolosi, cuspidi e flessi a tangente verticale si riconoscono dalle derivate unilaterali.
 
 Nei punti di estremo interni in cui è derivabile, la funzione ha derivata nulla (Fermat). Rolle, Cauchy e Lagrange garantiscono un punto interno in cui la derivata assume un valore preciso; da Lagrange seguono la formula $f(x_2) - f(x_1) = f'(\bar{x})(x_2 - x_1)$ e il fatto che su un intervallo una funzione a derivata nulla è costante. De l'Hôpital scioglie le forme $\frac{0}{0}$ e $\frac{\infty}{\infty}$ con il limite del rapporto delle derivate, e da esso segue il teorema del limite della derivata.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1A-12, AM1A-13, AM1A-16)
+> Derivate, regole e teoremi del modulo, con i termini per l'orale.
+
+#### Derivate fondamentali
+
+| $f(x)$ | $f'(x)$ | $f(x)$ | $f'(x)$ |
+|---|---|---|---|
+| $x^\alpha$ | $\alpha x^{\alpha - 1}$ | $\sin x$ | $\cos x$ |
+| $e^x$ | $e^x$ | $\cos x$ | $-\sin x$ |
+| $a^x$ | $a^x \ln a$ | $\tan x$ | $1 + \tan^2 x = \frac{1}{\cos^2 x}$ |
+| $\ln \lvert x \rvert$ | $\frac{1}{x}$ | $\arcsin x$ | $\frac{1}{\sqrt{1 - x^2}}$ |
+| $\log_a x$ | $\frac{1}{x \ln a}$ | $\arccos x$ | $-\frac{1}{\sqrt{1 - x^2}}$ |
+| $\lvert x \rvert$ | $\frac{\lvert x \rvert}{x}$ ($x \ne 0$) | $\arctan x$ | $\frac{1}{1 + x^2}$ |
+
+#### Regole
+
+$$(f \pm g)' = f' \pm g', \quad (fg)' = f'g + fg', \quad \left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2}, \quad (g \circ f)'(x) = g'(f(x))\,f'(x),$$
+
+$$(f^{-1})'(y_0) = \frac{1}{f'(x_0)} \text{ con } y_0 = f(x_0),\ f'(x_0) \ne 0, \qquad (f^g)' = f^g\left(g' \ln f + g\frac{f'}{f}\right).$$
+
+Tangente in $x_0$: $y = f(x_0) + f'(x_0)(x - x_0)$. Derivabile implica continua.
+
+#### Teoremi
+
+| Teorema | Ipotesi | Tesi |
+|---|---|---|
+| Fermat | $x_0$ estremo locale interno, $f$ derivabile in $x_0$ | $f'(x_0) = 0$ |
+| Rolle | $f$ continua su $[a, b]$, derivabile in $(a, b)$, $f(a) = f(b)$ | $\exists \xi : f'(\xi) = 0$ |
+| Lagrange | $f$ continua su $[a, b]$, derivabile in $(a, b)$ | $\exists \xi : f(b) - f(a) = f'(\xi)(b - a)$ |
+| Cauchy | $f, g$ come sopra, $g' \ne 0$ | $\exists \xi : \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f'(\xi)}{g'(\xi)}$ |
+| de l'Hôpital | forma $\frac{0}{0}$ o $\frac{\infty}{\infty}$, $g' \ne 0$ vicino al punto, esiste $\lim \frac{f'}{g'}$ | $\lim \frac{f}{g} = \lim \frac{f'}{g'}$ |
+| Limite della derivata | $f$ continua in $x_0$, derivabile intorno, $f' \to L$ finito | $f'(x_0) = L$ |
+
+#### Punti di non derivabilità (con $f$ continua)
+
+| Tipo | Derivate laterali |
+|---|---|
+| Punto angoloso | finite e diverse (almeno una finita) |
+| Cuspide | infinite di segno opposto |
+| Flesso a tangente verticale | infinite dello stesso segno |
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Rapporto incrementale | $\frac{f(x_0 + h) - f(x_0)}{h}$, pendenza della secante |
+| Derivata | limite del rapporto incrementale, pendenza della tangente |
+| Derivata destra e sinistra | limiti unilaterali del rapporto incrementale |
+| Punto critico (stazionario) | punto in cui $f'(x_0) = 0$ |
+| Estremo locale | massimo o minimo in un intorno del punto |
+| Teorema del valor medio | Lagrange: esiste un punto con tangente parallela alla secante |
+| Funzione di classe $C^1$ | derivabile con derivata continua |
+
+#### Domande che tornano spesso
+
+- Definire la derivata e la retta tangente; dimostrare che derivabile implica continua (e che il contrario è falso).
+- Dimostrare la regola del prodotto e quella della funzione composta.
+- Ricavare la derivata dell'inversa e applicarla ad $\arctan$ e $\arcsin$.
+- Enunciare e dimostrare Fermat, Rolle e Lagrange; interpretarli sul grafico.
+- Conseguenze di Lagrange: funzione con derivata nulla su un intervallo, monotonia e segno della derivata.
+- Enunciare de l'Hôpital e mostrare un caso in cui le ipotesi non valgono.
+- Classificare i punti di non derivabilità.
 
 ## 5 · Monotonia, convessità, studio di funzione e Taylor
 
@@ -1265,6 +1910,34 @@ Il prodotto dei due polinomi ha grado fino a $2n$; i termini di grado $> n$ sono
 > $$f(x) - f(x_0) = \frac{f^{(n)}(x_0)}{n!}(x - x_0)^n + o\big((x - x_0)^n\big),$$
 > quindi vicino a $x_0$ la differenza ha il segno di $f^{(n)}(x_0)(x - x_0)^n$. Se $n$ è pari, $x_0$ è un punto di minimo stretto quando $f^{(n)}(x_0) > 0$ e di massimo stretto quando $f^{(n)}(x_0) < 0$. Se $n$ è dispari, non è un estremo ma un flesso a tangente orizzontale. Il caso più usato è $n = 2$: $f'(x_0) = 0$ e $f''(x_0) > 0$ danno un minimo, $f''(x_0) < 0$ un massimo. Per $x^3$ in 0 la prima derivata non nulla è la terza: flesso; per $x^4$ è la quarta, positiva: minimo.
 
+### 5.9 Gli sviluppi negli esercizi, passo per passo
+
+> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 1*, cap. 7; prove scritte 2025-2026 (AM1A-17)
+> Negli esercizi d'esame gli sviluppi servono quasi sempre in tre situazioni: un limite in forma $\frac{0}{0}$ in cui i limiti notevoli non bastano, l'ordine di infinitesimo di una differenza, e il polinomio di Taylor di una funzione composta. Il procedimento è sempre lo stesso.
+>
+> 1. **Decidere l'ordine.** Si sviluppa il pezzo "più semplice" (di solito il denominatore) e si guarda il suo primo termine: se è $x^n$, numeratore e denominatore vanno sviluppati fino all'ordine $n$. Se dopo le cancellazioni al numeratore resta solo $o(x^n)$, si torna indietro e si sviluppa di un ordine in più.
+> 2. **Sviluppare ogni pezzo** con gli sviluppi notevoli, sempre con il resto: $o(x^n)$ va scritto, perché ricorda fin dove si è arrivati.
+> 3. **Comporre.** Se compare $f(g(x))$ con $g(x) \to 0$, si pone $t = g(x)$, si sviluppa $f(t)$, si sostituisce lo sviluppo di $g$ e si buttano i termini di grado maggiore di $n$. Per sapere quante potenze di $t$ servono si guarda l'ordine di $g$: se $g \sim x^m$, allora $t^k$ ha ordine $km$, e bastano le potenze con $km \le n$.
+> 4. **Sommare e semplificare**, raccogliendo i termini dello stesso grado e tutti i resti in un solo $o(x^n)$.
+>
+> **Esempio: $e^{\sin x}$ fino all'ordine 3.** Con $t = \sin x = x - \frac{x^3}{6} + o(x^3)$, che ha ordine 1, servono le potenze di $t$ fino alla terza:
+> $$e^t = 1 + t + \frac{t^2}{2} + \frac{t^3}{6} + o(t^3).$$
+> Sostituendo: $t^2 = x^2 + o(x^3)$ (il doppio prodotto $-\frac{x^4}{3}$ è di ordine 4) e $t^3 = x^3 + o(x^3)$. Quindi
+> $$e^{\sin x} = 1 + \left(x - \frac{x^3}{6}\right) + \frac{x^2}{2} + \frac{x^3}{6} + o(x^3) = 1 + x + \frac{x^2}{2} + o(x^3).$$
+> Il termine di terzo grado si cancella: per conoscere il primo termine dopo $\frac{x^2}{2}$ bisognerebbe sviluppare fino all'ordine 4 (si troverebbe $-\frac{x^4}{8}$).
+>
+> **Esempio: un limite con un parametro.** Calcolare, al variare di $k \in \mathbb{R}$, $\displaystyle\lim_{x \to 0} \frac{e^{kx} - \sqrt{1 + 2x}}{x^2}$.
+>
+> Il denominatore è $x^2$: si sviluppa il numeratore fino all'ordine 2. $e^{kx} = 1 + kx + \frac{k^2 x^2}{2} + o(x^2)$ e, con $(1 + y)^{1/2} = 1 + \frac{y}{2} - \frac{y^2}{8} + o(y^2)$ e $y = 2x$, $\sqrt{1 + 2x} = 1 + x - \frac{x^2}{2} + o(x^2)$. La differenza è
+> $$(k - 1)x + \frac{k^2 + 1}{2}x^2 + o(x^2).$$
+> Se $k \ne 1$ il termine dominante è $(k - 1)x$, e il rapporto si comporta come $\frac{k - 1}{x}$: il limite destro è $+\infty$ o $-\infty$ secondo il segno di $k - 1$, il sinistro è opposto, e il limite non esiste. Se $k = 1$ il numeratore è $x^2 + o(x^2)$ e il limite vale 1. È la struttura tipica degli esercizi con parametro: il parametro decide quale termine si cancella.
+>
+> **Esempio: l'esponenziale di una forma $1^\infty$.** Calcolare $\displaystyle\lim_{x \to 0} \frac{(1 + x)^{a/x} - e^a}{x}$.
+>
+> Si scrive $(1 + x)^{a/x} = e^{\frac{a}{x}\ln(1 + x)}$ e si sviluppa l'esponente: $\frac{a}{x}\left(x - \frac{x^2}{2} + o(x^2)\right) = a - \frac{a}{2}x + o(x)$. Quindi
+> $$(1 + x)^{a/x} = e^a \cdot e^{-\frac{a}{2}x + o(x)} = e^a\left(1 - \frac{a}{2}x + o(x)\right),$$
+> e il limite è $-\frac{a\,e^a}{2}$. Per $a = 0$ il numeratore è identicamente nullo e il limite è 0, coerente con la formula.
+
 ### Esempi ed esercizi svolti
 
 > [!esempio] Un limite con due sviluppi
@@ -1272,6 +1945,95 @@ Il prodotto dei due polinomi ha grado fino a $2n$; i termini di grado $> n$ sono
 
 > [!esempio] Studio locale
 > Per $f(x) = \cos x + \frac{x^2}{2}$, in 0 si ha $f'(0) = 0$ e $f''(0) = -1 + 1 = 0$. Lo sviluppo $f(x) = 1 + \frac{x^4}{24} + o(x^4)$ mostra che la prima derivata non nulla è la quarta, positiva: 0 è un punto di minimo stretto.
+
+#### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove scritte 2025-2026 e del tutorato; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-14, AM1A-15, AM1A-17)
+> Gli esercizi riprendono la struttura delle prove: studio di funzione completo, numero di soluzioni di un'equazione, estremi globali, sviluppi e ordini di infinitesimo.
+
+**Esercizio 1. Studio completo di $g(x) = x^2 \ln x$.**
+
+*Dominio e segno.* $x > 0$. Il fattore $x^2$ è positivo, quindi $g$ ha il segno di $\ln x$: negativa su $(0, 1)$, nulla in 1, positiva dopo.
+
+*Limiti.* Per $x \to 0^+$, $x^2 \ln x \to 0$ per la gerarchia (paragrafo 2.8): la funzione si può prolungare per continuità con $g(0) = 0$. Per $x \to +\infty$, $g \to +\infty$, e $\frac{g(x)}{x} = x \ln x \to +\infty$: niente asintoto obliquo.
+
+*Derivata prima.* $g'(x) = 2x\ln x + x = x(2\ln x + 1)$. Si annulla per $\ln x = -\frac{1}{2}$, cioè $x = e^{-1/2} = \frac{1}{\sqrt{e}} \approx 0{,}61$. È negativa prima e positiva dopo: $g$ decresce su $\left(0, e^{-1/2}\right]$ e cresce su $\left[e^{-1/2}, +\infty\right)$. Il minimo vale $g\left(e^{-1/2}\right) = e^{-1} \cdot \left(-\frac{1}{2}\right) = -\frac{1}{2e} \approx -0{,}18$, ed è globale. Inoltre $g'(x) \to 0$ per $x \to 0^+$: il grafico parte dall'origine con tangente orizzontale.
+
+*Derivata seconda.* $g''(x) = 2\ln x + 3$, nulla per $x = e^{-3/2} \approx 0{,}22$: $g$ è concava su $\left(0, e^{-3/2}\right]$ e convessa dopo. Il flesso è nel punto $\left(e^{-3/2}, -\frac{3}{2e^3}\right) \approx (0{,}22;\ -0{,}07)$.
+
+*Immagine e numero di soluzioni.* L'immagine è $\left[-\frac{1}{2e}, +\infty\right)$. L'equazione $g(x) = k$ non ha soluzioni per $k < -\frac{1}{2e}$, ne ha una per $k = -\frac{1}{2e}$, due per $-\frac{1}{2e} < k < 0$ (una per tratto di monotonia), e una per $k \ge 0$ (per $k = 0$ è $x = 1$, perché lo 0 non è nel dominio).
+
+**Esercizio 2. Estremi globali su un intervallo chiuso.** Trovare massimo e minimo di $f(x) = x e^{-x}$ su $[0, 3]$.
+
+Per Weierstrass esistono. I candidati sono gli estremi dell'intervallo e i punti critici interni. $f'(x) = (1 - x)e^{-x}$ si annulla solo in 1. I valori sono $f(0) = 0$, $f(1) = e^{-1} \approx 0{,}37$, $f(3) = 3e^{-3} \approx 0{,}15$. Il massimo è $\frac{1}{e}$ in $x = 1$, il minimo 0 in $x = 0$. Il minimo cade in un estremo dell'intervallo, dove la derivata non è nulla ($f'(0) = 1$): il teorema di Fermat vale solo per i punti interni.
+
+**Esercizio 3. Un minimo globale con una disuguaglianza.** Sia $f(x) = e^x - 1 - x + \sin^2 x$. Dire se 0 è un punto di minimo locale e se $f$ ha minimo globale.
+
+$f(0) = 0$, $f'(x) = e^x - 1 + 2\sin x\cos x = e^x - 1 + \sin 2x$, quindi $f'(0) = 0$; $f''(x) = e^x + 2\cos 2x$, quindi $f''(0) = 3 > 0$: minimo locale stretto. Per il minimo globale non serve studiare tutta la funzione: per l'esercizio 6 del modulo 4, $e^x - 1 - x \ge 0$ per ogni $x$, e $\sin^2 x \ge 0$. Quindi $f(x) \ge 0 = f(0)$ ovunque: 0 è anche punto di minimo globale.
+
+**Esercizio 4. Polinomio di McLaurin di una composta e ordine di un prodotto.** Sia $f(x) = \ln(1 + x) - \sqrt{1 + x}$. (a) Scrivere il polinomio di McLaurin di ordine 2 di $g(x) = f(x^2)$. (b) Trovare l'ordine di infinitesimo per $x \to 0$ di $h(x) = \big(g(x) + 1\big)(x - \sin x)$.
+
+(a) Si sviluppa $f$ al primo ordine in $y$ e si pone $y = x^2$: $\ln(1 + y) = y + o(y)$, $\sqrt{1 + y} = 1 + \frac{y}{2} + o(y)$, quindi $f(y) = -1 + \frac{y}{2} + o(y)$ e
+$$g(x) = -1 + \frac{x^2}{2} + o(x^2).$$
+Il polinomio è $-1 + \frac{x^2}{2}$. Basta l'ordine 1 in $y$, perché $y^2 = x^4$ è già oltre l'ordine 2 in $x$.
+
+(b) $g(x) + 1 = \frac{x^2}{2} + o(x^2) \sim \frac{x^2}{2}$ e $x - \sin x = \frac{x^3}{6} + o(x^3) \sim \frac{x^3}{6}$. Il prodotto è $\sim \frac{x^5}{12}$: ordine 5.
+
+**Esercizio 5. Il polinomio che approssima meglio.** Trovare un polinomio $P$ di grado 2 tale che $f(x) - P(x)$, con $f(x) = x + \sqrt{x^2 + 4}$, sia un infinitesimo di ordine maggiore di 2 per $x \to 0$.
+
+È il polinomio di McLaurin di ordine 2. $\sqrt{x^2 + 4} = 2\sqrt{1 + \frac{x^2}{4}} = 2\left(1 + \frac{x^2}{8} + o(x^2)\right) = 2 + \frac{x^2}{4} + o(x^2)$, quindi $P(x) = 2 + x + \frac{x^2}{4}$. Per l'unicità dello sviluppo è l'unico polinomio di grado al più 2 con questa proprietà.
+
+**Esercizio 6. Un limite con due composizioni.** Calcolare $\displaystyle\lim_{x \to 0} \frac{\ln(1 + \sin x) - x}{1 - \cos x}$.
+
+Il denominatore è $\frac{x^2}{2} + o(x^2)$: serve l'ordine 2. Con $t = \sin x = x + o(x^2)$ (il termine successivo è $-\frac{x^3}{6}$), $\ln(1 + t) = t - \frac{t^2}{2} + o(t^2) = x - \frac{x^2}{2} + o(x^2)$. Il numeratore è $-\frac{x^2}{2} + o(x^2)$ e il limite è $-1$.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-14, AM1A-15, AM1A-17)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Studio di $f(x) = x\,e^{1/x}$.**
+
+*Passo 1: dominio, segno, simmetrie.* $x \ne 0$. L'esponenziale è positivo, quindi $f$ ha il segno di $x$. Non è né pari né dispari.
+
+*Passo 2: limiti in 0.* Per $x \to 0^+$, con $y = \frac{1}{x} \to +\infty$: $f = \frac{e^y}{y} \to +\infty$, asintoto verticale da destra. Per $x \to 0^-$, $\frac{1}{x} \to -\infty$ ed $e^{1/x} \to 0$: $f \to 0 \cdot 0 = 0$. Da sinistra il grafico arriva nell'origine (che non fa parte del grafico).
+
+*Passo 3: limiti all'infinito e asintoti obliqui.* $f \to \pm\infty$ per $x \to \pm\infty$. $m = \lim \frac{f(x)}{x} = \lim e^{1/x} = 1$; $q = \lim \big(f(x) - x\big) = \lim x\left(e^{1/x} - 1\right) = \lim_{y \to 0} \frac{e^y - 1}{y} = 1$. Asintoto $y = x + 1$ da entrambe le parti.
+
+*Passo 4: derivata prima.* $f'(x) = e^{1/x} + x e^{1/x}\left(-\frac{1}{x^2}\right) = e^{1/x}\,\frac{x - 1}{x}$. Il segno è quello di $\frac{x - 1}{x}$: positivo per $x < 0$ e per $x > 1$, negativo su $(0, 1)$. $f$ cresce su $(-\infty, 0)$, decresce su $(0, 1]$, cresce su $[1, +\infty)$. In 1 c'è un minimo locale, $f(1) = e$, che non è globale perché $f \to -\infty$ a $-\infty$. Per $x \to 0^-$, $f'(x) \to 0$: il grafico arriva nell'origine con tangente orizzontale.
+
+*Passo 5: derivata seconda.* Derivando $e^{1/x}\left(1 - \frac{1}{x}\right)$ si ottiene $f''(x) = \frac{e^{1/x}}{x^3}$: convessa per $x > 0$, concava per $x < 0$. Non ci sono flessi, perché il cambio di concavità avviene in un punto fuori dal dominio.
+
+*Passo 6: immagine e numero di soluzioni.* Il ramo sinistro copre $(-\infty, 0)$, il ramo destro $[e, +\infty)$. L'equazione $f(x) = k$ ha una soluzione per $k < 0$, nessuna per $0 \le k < e$, una per $k = e$, due per $k > e$ (una in $(0, 1)$ e una in $(1, +\infty)$).
+
+**Guidato 2. Ordine di infinitesimo con un parametro.** Per quali $a \in \mathbb{R}$ l'infinitesimo $f(x) = \sin x - x\cos(ax)$ ha ordine maggiore di 3 per $x \to 0$? Qual è allora l'ordine?
+
+*Passo 1: sviluppare all'ordine 3.* $\sin x = x - \frac{x^3}{6} + o(x^3)$ e $x\cos(ax) = x\left(1 - \frac{a^2x^2}{2} + o(x^2)\right) = x - \frac{a^2}{2}x^3 + o(x^3)$.
+
+*Passo 2: la differenza.* $f(x) = \left(\frac{a^2}{2} - \frac{1}{6}\right)x^3 + o(x^3)$. Se il coefficiente non è nullo l'ordine è 3.
+
+*Passo 3: annullare il coefficiente.* $\frac{a^2}{2} = \frac{1}{6}$ per $a^2 = \frac{1}{3}$, cioè $a = \pm\frac{1}{\sqrt{3}}$.
+
+*Passo 4: andare all'ordine 5.* Con $a^2 = \frac{1}{3}$ i termini di grado 3 si cancellano e serve l'ordine successivo. $\sin x$ ha il termine $\frac{x^5}{120}$, $x\cos(ax)$ ha $x \cdot \frac{a^4 x^4}{24} = \frac{x^5}{9 \cdot 24} = \frac{x^5}{216}$. Quindi $f(x) = \left(\frac{1}{120} - \frac{1}{216}\right)x^5 + o(x^5) = \frac{x^5}{270} + o(x^5)$: ordine 5.
+
+#### Una prova d'esame simulata
+
+> [!aggiunta] Aggiunta in revisione · fonte: prova nuova, con la struttura delle prove scritte del 2026 (un esercizio da 22 punti); soluzione controllata con `strumenti/verifica_ampliamento.py` (AM1A-07, AM1A-11 … AM1A-17)
+
+Si consideri, al variare di $a \in \mathbb{R}$, la funzione $f_a(x) = \ln(1 + x)$ per $-1 < x \le 0$ e $f_a(x) = x - ax^2$ per $x > 0$.
+
+(a) Studiare continuità e derivabilità di $f_a$ in 0; per quali $a$ esiste anche $f_a''(0)$? [5 punti]
+(b) Con $a = 1$, tracciare il grafico di $f_1$, con limiti, asintoti, monotonia, estremi e concavità. [8 punti]
+(c) Trovare maggioranti, minoranti, sup, inf, massimo e minimo di $A = \left\{(-1)^n\frac{n}{n + 1} : n \ge 1\right\}$. [5 punti]
+(d) Calcolare $\displaystyle\lim_{x \to 0} \frac{\ln(1 + \sin x) - x}{1 - \cos x}$. [4 punti]
+
+*Soluzione (a).* I due tratti valgono 0 in 0: continua per ogni $a$. Le derivate sono $\frac{1}{1 + x} \to 1$ da sinistra e $1 - 2ax \to 1$ da destra: derivabile per ogni $a$, con $f_a'(0) = 1$. Le derivate seconde sono $-\frac{1}{(1 + x)^2} \to -1$ e $-2a$: per il teorema del limite della derivata applicato a $f'$, esiste $f_a''(0)$ se e solo se $a = \frac{1}{2}$.
+
+*Soluzione (b).* Il dominio è $(-1, +\infty)$. Per $x \to -1^+$, $\ln(1 + x) \to -\infty$: asintoto verticale $x = -1$. Per $x \to +\infty$, $x - x^2 \to -\infty$, e $\frac{f(x)}{x} = 1 - x \to -\infty$: niente asintoto obliquo. Sul tratto sinistro $f$ è crescente; su quello destro $f' = 1 - 2x$ è positiva fino a $\frac{1}{2}$ e negativa dopo. Poiché $f$ è derivabile in 0 con $f'(0) = 1 > 0$, è crescente su $\left(-1, \frac{1}{2}\right]$ e decrescente dopo: il massimo globale è $f\left(\frac{1}{2}\right) = \frac{1}{4}$, e non c'è minimo. Zeri: $x = 0$ e $x = 1$. Concavità: $f'' < 0$ su entrambi i tratti, e $f'$ è decrescente su tutto il dominio (in 0 vale 1 da entrambe le parti), quindi $f$ è concava su $(-1, +\infty)$.
+
+*Soluzione (c).* Per $n$ pari i termini sono $\frac{n}{n + 1} = 1 - \frac{1}{n + 1}$, crescenti verso 1; per $n$ dispari sono $-\frac{n}{n + 1}$, decrescenti verso $-1$. Tutti stanno in $(-1, 1)$ e si avvicinano quanto si vuole a entrambi gli estremi: $\sup A = 1$, $\inf A = -1$, senza massimo né minimo. I maggioranti sono $[1, +\infty)$, i minoranti $(-\infty, -1]$.
+
+*Soluzione (d).* È l'esercizio 6: il limite vale $-1$.
 
 ### Riepilogo
 
@@ -1281,3 +2043,68 @@ La formula di Taylor approssima $f$ con il polinomio $T_{n,x_0} f(x) = \sum_{k=0
 $$e^x = \sum_{k=0}^{n} \frac{x^k}{k!} + o(x^n), \quad \ln(1 + x) = \sum_{k=1}^{n} \frac{(-1)^{k-1}}{k} x^k + o(x^n), \quad \sin x = \sum_{k=0}^{n} \frac{(-1)^k x^{2k+1}}{(2k+1)!} + o(x^{2n+2}),$$
 $$\cos x = \sum_{k=0}^{n} \frac{(-1)^k x^{2k}}{(2k)!} + o(x^{2n+1}), \quad (1 + x)^\alpha = \sum_{k=0}^{n} \binom{\alpha}{k} x^k + o(x^n).$$
 Per l'unicità del polinomio di Taylor, gli sviluppi di somme, prodotti, quozienti e composte si ottengono con l'algebra, troncando al grado voluto, e servono per calcolare limiti, ordini di infinitesimo e la natura dei punti critici.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1A-14, AM1A-15, AM1A-17)
+> Criteri, procedura dello studio di funzione, sviluppi e termini per l'orale.
+
+#### Monotonia, estremi, convessità
+
+| Condizione su un intervallo | Conclusione |
+|---|---|
+| $f' > 0$ ($f' < 0$) | $f$ strettamente crescente (decrescente) |
+| $f' = 0$ | $f$ costante |
+| $f'(x_0) = 0$, $f'' (x_0) > 0$ | minimo locale stretto |
+| $f'(x_0) = 0$, $f''(x_0) < 0$ | massimo locale stretto |
+| prima derivata non nulla in $x_0$ di ordine $n$ | $n$ pari: estremo (minimo se positiva); $n$ dispari: flesso |
+| $f'' \ge 0$ | $f$ convessa: grafico sopra le tangenti, $f' $ crescente |
+| $f''$ cambia segno in $x_0$ | flesso in $x_0$ |
+
+Estremi globali su $[a, b]$: si confrontano i valori agli estremi, nei punti critici interni e nei punti di non derivabilità.
+
+#### Studio di funzione: i passi
+
+1. Dominio, simmetrie (pari, dispari, periodica), segno e intersezioni con gli assi.
+2. Limiti agli estremi del dominio e asintoti (verticali, orizzontali, obliqui).
+3. Continuità e derivabilità; punti angolosi, cuspidi, prolungamenti.
+4. Derivata prima: monotonia, estremi locali e globali.
+5. Derivata seconda: convessità e flessi (quando richiesto).
+6. Grafico, immagine, numero di soluzioni di $f(x) = k$.
+
+#### Taylor
+
+$$f(x) = \sum_{k=0}^{n} \frac{f^{(k)}(x_0)}{k!}(x - x_0)^k + o\big((x - x_0)^n\big) \quad \text{(Peano)}, \qquad R_n(x) = \frac{f^{(n+1)}(\xi)}{(n + 1)!}(x - x_0)^{n+1} \quad \text{(Lagrange)}.$$
+
+| Funzione ($x \to 0$) | Sviluppo |
+|---|---|
+| $e^x$ | $1 + x + \frac{x^2}{2} + \frac{x^3}{6} + \dots + \frac{x^n}{n!} + o(x^n)$ |
+| $\ln(1 + x)$ | $x - \frac{x^2}{2} + \frac{x^3}{3} - \dots + (-1)^{n-1}\frac{x^n}{n} + o(x^n)$ |
+| $\sin x$ | $x - \frac{x^3}{6} + \frac{x^5}{120} - \dots + o(x^{2n})$ |
+| $\cos x$ | $1 - \frac{x^2}{2} + \frac{x^4}{24} - \dots + o(x^{2n+1})$ |
+| $(1 + x)^\alpha$ | $1 + \alpha x + \binom{\alpha}{2}x^2 + \dots + o(x^n)$; $\sqrt{1 + x} = 1 + \frac{x}{2} - \frac{x^2}{8} + o(x^2)$ |
+| $\frac{1}{1 - x}$ | $1 + x + x^2 + \dots + x^n + o(x^n)$ |
+| $\arctan x$ | $x - \frac{x^3}{3} + \frac{x^5}{5} - \dots + o(x^{2n+2})$ |
+| $\tan x$ | $x + \frac{x^3}{3} + o(x^4)$ |
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Punto critico | $f'(x_0) = 0$ |
+| Estremo locale / globale | massimo o minimo in un intorno / su tutto il dominio |
+| Funzione convessa | il segmento fra due punti del grafico sta sopra il grafico |
+| Flesso | punto in cui cambia la concavità, con retta tangente |
+| Polinomio di Taylor | il polinomio di grado $n$ che ha in $x_0$ le stesse derivate di $f$ fino all'ordine $n$ |
+| Polinomio di McLaurin | polinomio di Taylor in $x_0 = 0$ |
+| Resto di Peano / di Lagrange | $o((x - x_0)^n)$ / espressione con $f^{(n+1)}(\xi)$ |
+| Unicità dello sviluppo | un solo polinomio di grado $n$ approssima $f$ a meno di $o((x - x_0)^n)$ |
+
+#### Domande che tornano spesso
+
+- Dimostrare con Lagrange il legame fra segno della derivata e monotonia.
+- Condizioni necessarie e sufficienti per un estremo; perché $f'(x_0) = 0$ non basta ($x^3$)?
+- Definire la convessità; legame con la derivata seconda e con le tangenti.
+- Enunciare la formula di Taylor con i due resti; ricavare lo sviluppo di $e^x$ o di $\sin x$.
+- Come si usano gli sviluppi per calcolare un limite e per decidere la natura di un punto critico?
+- Descrivere i passi dello studio di funzione.

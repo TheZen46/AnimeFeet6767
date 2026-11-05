@@ -5,7 +5,7 @@ titolo: Matrici, sistemi lineari e determinanti
 programma: [GEO-04]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 2 · Matrici, sistemi lineari e determinanti
@@ -173,6 +173,111 @@ coerente con $\det A = 8$ (il pivot $-8$ moltiplicato per $-1$ dello scambio e p
 
 **Esercizio 3 (prodotto e trasposta).** Se $A$ è una qualsiasi matrice $m \times n$, le matrici $AA^T$ (di ordine $m$) e $A^TA$ (di ordine $n$) sono simmetriche: $(AA^T)^T = (A^T)^T A^T = AA^T$. Ogni matrice quadrata si scrive come somma di una simmetrica e di una antisimmetrica: $A = \frac{A + A^T}{2} + \frac{A - A^T}{2}$.
 
+### Esercizi sul modello delle prove d'esame
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove scritte 2024-2026 e dei fogli "Matrici e sistemi lineari"; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-04)
+> L'esercizio tipico è un sistema con un parametro: per quali valori è risolubile, quando la soluzione è unica, e la soluzione per un valore fissato.
+
+**Esercizio 4. Un sistema con un parametro.** Discutere al variare di $a \in \mathbb{R}$ e risolvere
+$$\begin{cases} x + y + z = 1 \\ x + ay + z = a \\ x + y + az = a^2 \end{cases}$$
+
+*Determinante.* Sottraendo la prima riga dalle altre, la matrice dei coefficienti diventa triangolare con diagonale $1, a - 1, a - 1$: $\det A = (a - 1)^2$.
+
+*$a \ne 1$.* $\det A \ne 0$: per Cramer (o Rouché-Capelli) la soluzione esiste ed è unica. Sottraendo la prima equazione dalla seconda, $(a - 1)y = a - 1$, cioè $y = 1$; dalla terza, $(a - 1)z = a^2 - 1$, cioè $z = a + 1$; infine $x = 1 - y - z = -a - 1$. Controllo nella terza: $-a - 1 + 1 + a(a + 1) = a^2$.
+
+*$a = 1$.* Le tre equazioni diventano tutte $x + y + z = 1$: rango della matrice e della completa uguale a 1, il sistema è risolubile con $3 - 1 = 2$ parametri liberi: $(x, y, z) = (1 - s - t, s, t)$.
+
+**Esercizio 5. Invertibilità con un parametro.** Per quali $h$ è invertibile $A_h = \begin{pmatrix} 1 & h & 0 \\ 0 & 1 & h \\ h & 0 & 1 \end{pmatrix}$? Calcolare l'inversa per $h = 1$.
+
+Con Laplace sulla prima colonna: $\det A_h = 1 \cdot (1 - 0) + h \cdot (h^2 - 0) = 1 + h^3$. È nullo solo per $h = -1$ (unica radice reale di $h^3 = -1$). Per $h = 1$, $\det = 2$, e con Gauss-Jordan su $(A \mid I)$ o con la matrice dei complementi algebrici:
+$$A_1^{-1} = \frac12\begin{pmatrix} 1 & -1 & 1 \\ 1 & 1 & -1 \\ -1 & 1 & 1 \end{pmatrix}.$$
+Controllo della prima riga di $A_1 A_1^{-1}$: $(1, 1, 0) \cdot$ colonne $= \frac12(1 + 1,\ -1 + 1,\ 1 - 1) = (1, 0, 0)$.
+
+**Esercizio 6. Rango con un parametro.** Rango di $C_k = \begin{pmatrix} 1 & 2 & k \\ 2 & 4 & 2 \\ k & 2 & 1 \end{pmatrix}$ al variare di $k$.
+
+$\det C_k = 1(4 - 4) - 2(2 - 2k) + k(4 - 4k) = -4 + 4k + 4k - 4k^2 = -4(k - 1)^2$. Per $k \ne 1$ il rango è 3. Per $k = 1$ tutte le righe sono multiple di $(1, 2, 1)$: rango 1. Non c'è nessun valore con rango 2: lo si vede anche dal minore $\begin{vmatrix} 2 & k \\ 4 & 2 \end{vmatrix} = 4 - 4k$, nullo proprio per $k = 1$.
+
+**Esercizio 7. Una matrice che è la propria inversa.** Sia $B = \begin{pmatrix} 1 & 0 & 0 \\ 2 & -1 & 0 \\ 3 & 0 & -1 \end{pmatrix}$. Mostrare che $B^2 = I$ e dedurre $B^{-1}$.
+
+Riga per colonna: la prima riga di $B^2$ è $(1, 0, 0)$; la seconda è $(2 \cdot 1 + (-1) \cdot 2,\ (-1)^2,\ 0) = (0, 1, 0)$; la terza è $(3 \cdot 1 + (-1) \cdot 3,\ 0,\ (-1)^2) = (0, 0, 1)$. Quindi $B^2 = I$ e $B^{-1} = B$. Come applicazione, $f(x) = Bx$ soddisfa $f(f(x)) = x$: è un'**involuzione**. Il determinante deve valere $\pm 1$, perché $\det(B)^2 = \det(B^2) = 1$ (Binet); qui è triangolare e vale $1 \cdot (-1) \cdot (-1) = 1$.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-04)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Rouché-Capelli passo per passo.** Discutere $\begin{cases} x + 2y = 3 \\ 2x + ky = 6 \end{cases}$ al variare di $k$.
+
+*Passo 1: il determinante.* $\det A = k - 4$.
+
+*Passo 2: $k \ne 4$.* Soluzione unica: dalla seconda meno due volte la prima, $(k - 4)y = 0$, quindi $y = 0$ e $x = 3$.
+
+*Passo 3: $k = 4$, i ranghi.* $A = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$ ha rango 1; la completa $\begin{pmatrix} 1 & 2 & 3 \\ 2 & 4 & 6 \end{pmatrix}$ ha rango 1 (la seconda riga è il doppio della prima).
+
+*Passo 4: conclusione per $k = 4$.* Ranghi uguali: risolubile, con $2 - 1 = 1$ parametro: $(3 - 2t, t)$. Se il termine noto della seconda equazione fosse stato diverso da 6, la completa avrebbe avuto rango 2 e il sistema sarebbe stato impossibile.
+
+**Guidato 2. L'inversa con Gauss-Jordan.** Invertire $A = \begin{pmatrix} 2 & 1 \\ 5 & 3 \end{pmatrix}$.
+
+*Passo 1.* Si scrive $(A \mid I) = \left(\begin{smallmatrix} 2 & 1 & | & 1 & 0 \\ 5 & 3 & | & 0 & 1 \end{smallmatrix}\right)$.
+
+*Passo 2.* $R_2 \to 2R_2 - 5R_1$: $\left(\begin{smallmatrix} 2 & 1 & | & 1 & 0 \\ 0 & 1 & | & -5 & 2 \end{smallmatrix}\right)$.
+
+*Passo 3.* $R_1 \to R_1 - R_2$, poi $R_1 \to \frac12 R_1$: $\left(\begin{smallmatrix} 1 & 0 & | & 3 & -1 \\ 0 & 1 & | & -5 & 2 \end{smallmatrix}\right)$.
+
+*Passo 4.* $A^{-1} = \begin{pmatrix} 3 & -1 \\ -5 & 2 \end{pmatrix}$. Con la formula delle $2 \times 2$, $\frac{1}{\det A}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}$ con $\det A = 1$, si ritrova lo stesso risultato.
+
+**Guidato 3. Un determinante $4 \times 4$ con le proprietà.** Calcolare $\det\begin{pmatrix} 1 & 2 & 0 & 1 \\ 2 & 4 & 1 & 3 \\ 0 & 1 & 1 & 0 \\ 1 & 2 & 0 & 2 \end{pmatrix}$.
+
+*Passo 1: fare zeri.* $R_2 \to R_2 - 2R_1$ dà $(0, 0, 1, 1)$; $R_4 \to R_4 - R_1$ dà $(0, 0, 0, 1)$. Il determinante non cambia.
+
+*Passo 2: Laplace sulla prima colonna.* Resta un solo elemento non nullo, l'1 in alto a sinistra: il determinante è quello della $3 \times 3$ con righe $(0, 1, 1)$, $(1, 1, 0)$, $(0, 0, 1)$.
+
+*Passo 3: Laplace sull'ultima riga.* $1 \cdot \begin{vmatrix} 0 & 1 \\ 1 & 1 \end{vmatrix} = -1$.
+
+*Passo 4: risultato.* $\det = -1$. Senza le operazioni di riga lo sviluppo di Laplace avrebbe richiesto quattro determinanti $3 \times 3$.
+
 ## Riepilogo
 
 Le matrici si sommano coefficiente per coefficiente e si moltiplicano righe per colonne; il prodotto è associativo e distributivo ma non commutativo, e ammette divisori dello zero. La trasposta rovescia l'ordine dei prodotti; una matrice quadrata è invertibile se ha un'inversa da entrambi i lati, e le invertibili formano $\mathrm{GL}_n$. Le operazioni elementari sulle righe corrispondono al prodotto per matrici elementari, e con l'algoritmo di Gauss portano ogni matrice a scala e poi in forma totalmente ridotta: riducendo $(A \mid I)$ si trova l'inversa, riducendo $(A \mid B)$ si risolve il sistema, che è compatibile se non c'è un pivot nell'ultima colonna e ha $n - p$ parametri liberi. Il determinante si calcola con Laplace lungo una riga o una colonna, con Sarrus per $n = 3$, o riducendo a scala; cambia segno con gli scambi, è multiplicativo (Binet) e non nullo esattamente per le matrici invertibili, la cui inversa è l'aggiunta divisa per il determinante. Ne seguono la regola di Cramer e il rango come ordine massimo di un minore non nullo (orlati di Kronecker); per Rouché-Capelli un sistema è compatibile se e solo se $A$ e $(A \mid B)$ hanno lo stesso rango $r$, e allora le soluzioni dipendono da $n - r$ parametri.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (GEO-04)
+> Operazioni, determinante, rango e sistemi, con i termini per l'orale.
+
+### Matrici
+
+$$(AB)^T = B^T A^T, \quad (AB)^{-1} = B^{-1}A^{-1}, \quad \begin{pmatrix} a & b \\ c & d \end{pmatrix}^{-1} = \frac{1}{ad - bc}\begin{pmatrix} d & -b \\ -c & a \end{pmatrix}, \quad A^{-1} = \frac{1}{\det A}\operatorname{adj}(A).$$
+
+Il prodotto non è commutativo; $AB = 0$ non implica $A = 0$ o $B = 0$.
+
+### Determinante
+
+- Laplace lungo la riga $i$: $\det A = \sum_j (-1)^{i+j}a_{ij}\det A_{ij}$.
+- Scambiare due righe cambia il segno; moltiplicare una riga per $c$ moltiplica per $c$; sommare a una riga un multiplo di un'altra non cambia nulla.
+- $\det(AB) = \det A \det B$ (Binet), $\det A^T = \det A$, $\det A^{-1} = \frac{1}{\det A}$, $\det(cA) = c^n\det A$.
+- Triangolare: prodotto della diagonale. $\det A \ne 0 \iff A$ invertibile $\iff$ righe indipendenti.
+
+### Rango e sistemi
+
+Il rango è il numero di pivot dopo la riduzione, cioè il massimo ordine di un minore non nullo. **Rouché-Capelli**: $AX = B$ è risolubile se e solo se $\operatorname{rk} A = \operatorname{rk}(A \mid B)$; allora le soluzioni dipendono da $n - \operatorname{rk} A$ parametri. **Cramer**: se $A$ è quadrata e invertibile, $x_i = \frac{\det A_i}{\det A}$, con $A_i$ ottenuta mettendo $B$ al posto della colonna $i$.
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Matrice ridotta per righe | il primo elemento non nullo di ogni riga sta a destra di quello sopra |
+| Matrice totalmente ridotta | ridotta, con pivot 1 e zeri sopra e sotto ogni pivot |
+| Matrice elementare | ottenuta dall'identità con una sola operazione elementare |
+| Matrice invertibile | esiste $A^{-1}$ con $AA^{-1} = A^{-1}A = I$ |
+| Rango | dimensione dello spazio delle righe (o delle colonne) |
+| Sistema omogeneo | termini noti nulli: ha sempre la soluzione nulla |
+| Complemento algebrico | $(-1)^{i+j}\det A_{ij}$ |
+
+### Domande che tornano spesso
+
+- Che cosa sono le operazioni elementari e perché non cambiano le soluzioni di un sistema?
+- Caratterizzazioni delle matrici invertibili.
+- Proprietà del determinante; enunciare Binet e Laplace.
+- Enunciare e dimostrare Rouché-Capelli; struttura delle soluzioni (soluzione particolare più omogeneo).
+- Enunciare Cramer.

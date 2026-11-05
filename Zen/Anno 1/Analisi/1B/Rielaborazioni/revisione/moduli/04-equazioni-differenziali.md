@@ -5,7 +5,7 @@ titolo: Equazioni differenziali ordinarie e sistemi
 programma: [AM1B-08, AM1B-09, AM1B-10, AM1B-11, AM1B-12]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 4 · Equazioni differenziali ordinarie e sistemi
@@ -102,6 +102,7 @@ Nel caso $\Delta < 0$ le funzioni $e^{(\alpha \pm i\beta)t}$ sono soluzioni comp
 - Se $f$ è una somma di termini di questo tipo, si sommano le soluzioni particolari (sovrapposizione).
 
 > [!esempio] Due soluzioni particolari
+>
 > - $y'' + y = t^2$. $P(\lambda) = \lambda^2 + 1$ ha radici $\pm i$; $\alpha = 0$ non è radice, quindi $y_p = At^2 + Bt + C$. Sostituendo, $2A + At^2 + Bt + C = t^2$: $A = 1$, $B = 0$, $C = -2$. L'integrale generale è $y = c_1\cos t + c_2\sin t + t^2 - 2$.
 > - $y'' + y = t^2\cos t$. Qui $\alpha + i\beta = i$ è radice semplice, quindi $\mu = 1$ e $y_p = t\big((At^2 + Bt + C)\cos t + (Dt^2 + Et + F)\sin t\big)$, con sei coefficienti da trovare sostituendo.
 
@@ -116,6 +117,7 @@ Un **sistema del primo ordine** in forma normale è $y' = f(t, y)$, con $y(t) \i
 > Se, oltre alle ipotesi di unicità, $f$ è **sublineare** in $y$, cioè $\lVert f(t, y)\rVert \le \alpha(t) + \beta(t)\lVert y\rVert$ con $\alpha$, $\beta$ continue e non negative (e $D = \mathbb{R}^n$), la soluzione è definita su tutto $I$.
 
 > [!esempio] Globale e non globale
+>
 > - $y' = t^2\sin y + e^t y$: $f$ è di classe $C^1$ e $\lvert f\rvert \le t^2 + e^t\lvert y\rvert$. Ogni problema di Cauchy ha un'unica soluzione definita su tutto $\mathbb{R}$.
 > - $y' = y^2$, $y(0) = 1$: $f$ è $C^1$, quindi la soluzione è unica, ma $y^2$ cresce più che linearmente. Separando si trova $y(t) = \frac{1}{1 - t}$, che "esplode" per $t \to 1^-$: la soluzione è definita solo su $(-\infty, 1)$.
 
@@ -127,6 +129,7 @@ Un **sistema del primo ordine** in forma normale è $y' = f(t, y)$, con $y(t) \i
 Un **sistema lineare** è $y' = A(t)\, y + b(t)$, con $A(t)$ matrice $n \times n$ e $b(t) \in \mathbb{R}^n$ continue su $I$. Poiché $\lVert A(t)y\rVert \le \lVert A(t)\rVert\, \lVert y\rVert$, la condizione di sublinearità vale sempre.
 
 > [!teorema] Sistemi lineari
+>
 > 1. Ogni problema di Cauchy per un sistema lineare ha un'unica soluzione, definita su tutto $I$.
 > 2. Le soluzioni dell'omogeneo $y' = A(t)y$ formano uno spazio vettoriale di dimensione $n$.
 > 3. Le soluzioni del sistema completo sono $y = y_o + y_p$, con $y_p$ una soluzione particolare e $y_o$ le soluzioni dell'omogeneo.
@@ -169,6 +172,7 @@ che completano la base.
 
 > [!teorema] Stabilità dei sistemi lineari a coefficienti costanti
 > Per $y' = Ay$ l'origine è un equilibrio, e:
+>
 > 1. è asintoticamente stabile se e solo se ogni autovalore ha parte reale negativa;
 > 2. è stabile se ogni autovalore ha parte reale $\le 0$ e quelli con parte reale nulla sono regolari;
 > 3. è instabile negli altri casi: c'è un autovalore con parte reale positiva, oppure uno con parte reale nulla e non regolare.
@@ -177,9 +181,56 @@ Il motivo sta nella forma delle soluzioni: per un autovalore $\alpha + i\beta$ c
 
 > [!esempio] Oscillatore smorzato
 > $y'' + k y' + y = 0$, con $k \in \mathbb{R}$. Con $y_1 = y$, $y_2 = y'$ diventa il sistema con matrice $\begin{pmatrix} 0 & 1 \\ -1 & -k \end{pmatrix}$, il cui polinomio caratteristico è $\lambda^2 + k\lambda + 1$, con radici $\frac{-k \pm \sqrt{k^2 - 4}}{2}$.
+>
 > - $k > 0$ (attrito): per $k \ge 2$ radici reali negative, per $0 < k < 2$ complesse con parte reale $-\frac{k}{2} < 0$. In entrambi i casi l'origine è asintoticamente stabile: le oscillazioni si smorzano.
 > - $k = 0$: radici $\pm i$, semplici. L'origine è stabile ma non asintoticamente: le traiettorie nel piano $(y, y')$ sono circonferenze, il moto armonico non si smorza.
 > - $k < 0$: almeno una radice ha parte reale positiva e l'origine è instabile: il sistema riceve energia.
+
+## 4.10 Il piano delle fasi dei sistemi lineari $2 \times 2$
+
+> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 2*; dispense del corso, § stabilità; ricostruzione della lezione 22 (19/05/2026), di cui mancano gli appunti, fra la lezione 21 sui sistemi lineari e la 23 (AM1B-09, AM1B-11)
+> Per un sistema $y' = Ay$ con $A$ matrice reale $2 \times 2$ e $\det A \ne 0$, l'unico equilibrio è l'origine. Disegnando nel piano $(y_1, y_2)$ le traiettorie, cioè le curve $t \mapsto (y_1(t), y_2(t))$, si ottiene il **ritratto di fase**, che ha poche forme possibili decise dagli autovalori $\lambda_1, \lambda_2$.
+>
+> | Autovalori | Nome | Stabilità dell'origine |
+> |---|---|---|
+> | reali, entrambi negativi | nodo stabile: le traiettorie entrano nell'origine | asintoticamente stabile |
+> | reali, entrambi positivi | nodo instabile: le traiettorie escono | instabile |
+> | reali, di segno opposto | sella: si entra lungo un autovettore e si esce lungo l'altro | instabile |
+> | $\alpha \pm i\beta$ con $\alpha < 0$ | fuoco stabile: spirali verso l'origine | asintoticamente stabile |
+> | $\alpha \pm i\beta$ con $\alpha > 0$ | fuoco instabile: spirali verso l'esterno | instabile |
+> | $\pm i\beta$ | centro: curve chiuse (ellissi) intorno all'origine | stabile, non asintoticamente |
+>
+> Gli autovalori sono le radici di $\lambda^2 - (\operatorname{tr} A)\,\lambda + \det A = 0$, quindi la classificazione si legge anche da **traccia** e **determinante**: se $\det A < 0$ è una sella; se $\det A > 0$ e $\operatorname{tr} A < 0$ l'origine è asintoticamente stabile (nodo se $(\operatorname{tr} A)^2 \ge 4\det A$, fuoco altrimenti); se $\det A > 0$ e $\operatorname{tr} A > 0$ è instabile; se $\det A > 0$ e $\operatorname{tr} A = 0$ è un centro.
+>
+> **Esempi.** $A = \begin{pmatrix} -2 & 1 \\ 0 & -3 \end{pmatrix}$: autovalori $-2$, $-3$, nodo stabile. $A = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$: sella, con soluzioni $y_1 = c_1 e^t$, $y_2 = c_2 e^{-t}$, e traiettorie sulle iperboli $y_1 y_2 = c_1 c_2$. $A = \begin{pmatrix} 1 & 2 \\ -2 & 1 \end{pmatrix}$: $\operatorname{tr} A = 2$, $\det A = 5$, autovalori $1 \pm 2i$, fuoco instabile. $A = \begin{pmatrix} 0 & 1 \\ -4 & 0 \end{pmatrix}$, cioè $y'' + 4y = 0$ scritto come sistema: autovalori $\pm 2i$, centro; le traiettorie sono le ellissi $4y_1^2 + y_2^2 = \text{cost}$, che sono la conservazione dell'energia dell'oscillatore armonico.
+>
+> **Linearizzazione.** Per un sistema non lineare autonomo $y' = F(y)$ con $F$ di classe $C^1$ e un equilibrio $\tilde{y}$ ($F(\tilde{y}) = 0$), vicino a $\tilde{y}$ il sistema si comporta come quello lineare con la matrice jacobiana $J = DF(\tilde{y})$. Vale il **teorema di linearizzazione**: se tutti gli autovalori di $J$ hanno parte reale negativa, $\tilde{y}$ è asintoticamente stabile; se almeno uno ha parte reale positiva, è instabile. Se ci sono autovalori con parte reale nulla (centri, per esempio) il teorema non conclude.
+>
+> Per una sola equazione autonoma $y' = f(y)$ il criterio diventa: un equilibrio $\tilde{y}$ è asintoticamente stabile se $f'(\tilde{y}) < 0$ e instabile se $f'(\tilde{y}) > 0$. Per l'equazione logistica $y' = y(1 - y)$, con $f'(y) = 1 - 2y$: $f'(0) = 1 > 0$, l'equilibrio 0 è instabile; $f'(1) = -1 < 0$, l'equilibrio 1 è asintoticamente stabile. Lo si vede anche dal segno di $f$: fra 0 e 1 le soluzioni crescono verso 1, sopra 1 decrescono verso 1.
+
+## 4.11 Studio qualitativo senza risolvere
+
+> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 2*; prove scritte 2025-2026 (AM1B-08, AM1B-10)
+> Molte domande d'esame chiedono informazioni sulla soluzione di un problema di Cauchy $y' = f(t, y)$, $y(t_0) = y_0$, *senza risolverlo*. Gli strumenti sono quattro.
+>
+> **1. Esistenza e unicità locale.** Se $f$ e $\frac{\partial f}{\partial y}$ sono continue in un intorno di $(t_0, y_0)$, il teorema di Cauchy garantisce una e una sola soluzione in un intorno di $t_0$. Basta controllare queste due continuità nel punto: per $y' = t e^{-y}$, $f$ e $f_y = -t e^{-y}$ sono continue ovunque, e il problema ha soluzione unica per ogni dato iniziale. Per $y' = \sqrt{|y|}$ con $y(0) = 0$, invece, $f_y$ non esiste in $y = 0$, e infatti le soluzioni sono infinite ($y \equiv 0$ e $y = \frac{t^2}{4}$ per $t \ge 0$, per esempio).
+>
+> **2. Derivate nel punto iniziale.** L'equazione dà subito $y'(t_0) = f(t_0, y_0)$. Derivando l'equazione rispetto a $t$, con la regola della catena ($y$ è funzione di $t$), si ottiene $y''(t) = f_t(t, y) + f_y(t, y)\,y'(t)$, e quindi $y''(t_0)$. Così si scrive il **polinomio di Taylor** della soluzione,
+> $$y(t) = y_0 + y'(t_0)(t - t_0) + \frac{y''(t_0)}{2}(t - t_0)^2 + o\big((t - t_0)^2\big),$$
+> e si calcolano limiti come $\lim_{t \to t_0} \frac{y(t) - y_0}{t - t_0} = y'(t_0)$.
+>
+> **3. Grafico locale.** Il segno di $y'(t_0)$ dice se la soluzione cresce o decresce vicino a $t_0$, quello di $y''(t_0)$ se è convessa o concava; insieme danno il disegno della soluzione vicino al punto iniziale, con la tangente $y = y_0 + y'(t_0)(t - t_0)$.
+>
+> **4. Soluzioni costanti.** Se $f(t, \tilde{y}) = 0$ per ogni $t$, la costante $y \equiv \tilde{y}$ è una soluzione (un equilibrio). Per l'unicità, nessun'altra soluzione può attraversarla: per $y' = (y - 1)t$ la retta $y = 1$ separa le soluzioni che restano sopra da quelle che restano sotto, e con $y(0) = 1$ la soluzione è proprio $y \equiv 1$.
+
+## 4.12 Equazioni di Bernoulli
+
+> [!aggiunta] Aggiunta in revisione · fonte: Canuto-Tabacco, *Analisi Matematica 2*; prova scritta del 17/06/2025 (AM1B-08)
+> Un'equazione della forma
+> $$y' = a(t)\,y + b(t)\,y^\alpha, \qquad \alpha \ne 0, 1,$$
+> si chiama **di Bernoulli**. Non è lineare per il termine $y^\alpha$, ma lo diventa con il cambio di variabile $z = y^{1 - \alpha}$. Infatti, dove $y \ne 0$, $z' = (1 - \alpha)y^{-\alpha}y'$, e moltiplicando l'equazione per $(1 - \alpha)y^{-\alpha}$:
+> $$z' = (1 - \alpha)a(t)\,z + (1 - \alpha)b(t),$$
+> che è lineare del primo ordine e si risolve con la formula del paragrafo 4.4. Se $\alpha > 0$ anche $y \equiv 0$ è una soluzione, che il cambio di variabile perde e va aggiunta a parte. Il caso più frequente è $\alpha = 2$, con $z = \frac{1}{y}$.
 
 ## Esempi ed esercizi svolti
 
@@ -191,6 +242,153 @@ Il motivo sta nella forma delle soluzioni: per un autovalore $\alpha + i\beta$ c
 
 **Esercizio 4.** Stabilità dell'origine per $y' = \begin{pmatrix} -1 & 2 \\ 0 & -3 \end{pmatrix} y$. La matrice è triangolare, con autovalori $-1$ e $-3$, entrambi negativi: l'origine è asintoticamente stabile.
 
+### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello dei fogli "Equazioni differenziali", "… lineari", "Sistemi …", "Esistenza e unicità" e delle prove scritte 2025-2026; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-08 … AM1B-11)
+> La seconda parte di ogni prova è un problema di Cauchy: esistenza e unicità, polinomio di Taylor o grafico locale senza risolvere, poi la soluzione esplicita con il suo intervallo di definizione.
+
+**Esercizio 5. Separabile, con l'intervallo massimale.** Risolvere $y' = x e^{y}$, $y(0) = 0$, e scrivere senza risolverla il polinomio di Taylor di grado 2 della soluzione.
+
+*Senza risolvere.* $f = x e^y$ e $f_y = x e^y$ sono continue: soluzione unica. $y'(0) = 0 \cdot e^0 = 0$. Derivando, $y'' = e^y + x e^y y'$, quindi $y''(0) = 1$. Il polinomio è $P_2(x) = \frac{x^2}{2}$: la soluzione ha un minimo in 0.
+
+*Risolvendo.* $e^{-y}\,dy = x\,dx$, quindi $-e^{-y} = \frac{x^2}{2} + C$ e, con $y(0) = 0$, $C = -1$: $e^{-y} = 1 - \frac{x^2}{2}$ e
+$$y(x) = -\ln\left(1 - \frac{x^2}{2}\right), \qquad -\sqrt{2} < x < \sqrt{2}.$$
+L'intervallo è quello che contiene 0 su cui l'argomento del logaritmo è positivo: agli estremi la soluzione va a $+\infty$ (esplode in tempo finito). Lo sviluppo $-\ln(1 - u) = u + o(u)$ con $u = \frac{x^2}{2}$ ritrova il polinomio di Taylor.
+
+**Esercizio 6. Bernoulli.** Risolvere $y' = \frac{y}{t} + y^2$, $y(1) = 1$.
+
+È di Bernoulli con $\alpha = 2$: si pone $z = \frac{1}{y}$, $z' = -\frac{y'}{y^2} = -\frac{1}{ty} - 1 = -\frac{z}{t} - 1$. L'equazione lineare $z' + \frac{z}{t} = -1$ si moltiplica per $t$: $(tz)' = -t$, quindi $tz = -\frac{t^2}{2} + C$. Con $z(1) = 1$: $C = \frac{3}{2}$, e
+$$z = \frac{3 - t^2}{2t}, \qquad y(t) = \frac{2t}{3 - t^2}, \qquad 0 < t < \sqrt{3}.$$
+L'intervallo contiene $t_0 = 1$ e si ferma in 0 (dove il coefficiente $\frac{1}{t}$ non è definito) e in $\sqrt{3}$ (dove la soluzione esplode).
+
+**Esercizio 7. Un parametro in un'equazione del secondo ordine.** Per quale $k$ la funzione $e^{2x}\cos(3x)$ risolve $y'' - 4y' + ky = 0$? Per $k = -5$, quali soluzioni tendono a 0 per $x \to +\infty$?
+
+$e^{2x}\cos(3x)$ è soluzione se $2 \pm 3i$ sono radici del polinomio caratteristico, cioè se $\lambda^2 - 4\lambda + k = (\lambda - 2)^2 + 9 = \lambda^2 - 4\lambda + 13$: $k = 13$. Per $k = -5$, $\lambda^2 - 4\lambda - 5 = (\lambda - 5)(\lambda + 1)$, e $y = c_1 e^{5x} + c_2 e^{-x}$. Tende a 0 per $x \to +\infty$ se e solo se $c_1 = 0$: le soluzioni cercate sono $y = c\,e^{-x}$.
+
+**Esercizio 8. Risonanza nel metodo di somiglianza.** Risolvere $y'' - 5y' + 6y = 3e^{3x}$, $y(0) = 0$, $y'(0) = 0$.
+
+$\lambda^2 - 5\lambda + 6 = (\lambda - 2)(\lambda - 3)$: $y_o = c_1 e^{2x} + c_2 e^{3x}$. Il termine noto ha $\alpha = 3$, radice semplice: si cerca $y_p = Ax e^{3x}$ (con $Ae^{3x}$ si otterrebbe 0, perché è già una soluzione dell'omogenea). Sostituendo, i termini con $x e^{3x}$ si cancellano e resta $A(2 \cdot 3 - 5)e^{3x} = 3e^{3x}$, quindi $A = 3$. Dalle condizioni iniziali, $c_1 + c_2 = 0$ e $2c_1 + 3c_2 + 3 = 0$: $c_1 = 3$, $c_2 = -3$.
+$$y(x) = 3e^{2x} - 3e^{3x} + 3x e^{3x}.$$
+
+**Esercizio 9. Il dato iniziale cambia tutto.** Sia $y' = (y + 1)t^2$, $y(0) = y_0$. Discutere esistenza e unicità e risolvere.
+
+$f = (y + 1)t^2$ e $f_y = t^2$ sono continue ovunque: per ogni $y_0$ la soluzione esiste ed è unica. $y \equiv -1$ è una soluzione costante, quindi per $y_0 = -1$ la soluzione è quella. Per $y_0 \ne -1$ si separano le variabili: $\ln|y + 1| = \frac{t^3}{3} + C$, e
+$$y(t) = -1 + (y_0 + 1)e^{t^3/3}, \qquad t \in \mathbb{R}.$$
+La formula comprende anche il caso $y_0 = -1$. Le soluzioni non attraversano mai la retta $y = -1$, come previsto dall'unicità.
+
+**Esercizio 10. Grafico locale senza risolvere.** Disegnare vicino a $x_0 = 1$ la soluzione di $y' = \frac{x^2 - y}{1 + y^2}$, $y(1) = 0$.
+
+$f$ e $f_y$ sono continue ($1 + y^2 \ne 0$): soluzione unica. $y'(1) = \frac{1 - 0}{1} = 1 > 0$: crescente, con tangente $y = x - 1$. Derivando con la regola del quoziente,
+$$y'' = \frac{(2x - y')(1 + y^2) - (x^2 - y)\,2yy'}{(1 + y^2)^2},$$
+e in $x = 1$, con $y = 0$ e $y' = 1$: $y''(1) = 1 > 0$. Vicino a 1 la soluzione è crescente e convessa, sopra la tangente: $y(x) = (x - 1) + \frac{(x - 1)^2}{2} + o\big((x - 1)^2\big)$.
+
+**Esercizio 11. Classificare l'equilibrio.** Classificare l'origine per $y' = Ay$ con $A = \begin{pmatrix} 1 & -5 \\ 1 & -3 \end{pmatrix}$.
+
+$\operatorname{tr} A = -2$, $\det A = -3 + 5 = 2 > 0$: l'origine è asintoticamente stabile. $(\operatorname{tr} A)^2 = 4 < 8 = 4\det A$, quindi gli autovalori sono complessi, $-1 \pm i$: è un fuoco stabile, e le traiettorie spiraleggiano verso l'origine.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-08 … AM1B-11)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Il polinomio di Taylor della soluzione.** Sia $y' = y^2 e^x$, $y(0) = 1$. Scrivere il polinomio di Taylor di ordine 2 della soluzione e poi risolvere.
+
+*Passo 1: esistenza e unicità.* $f = y^2 e^x$ e $f_y = 2ye^x$ sono continue: soluzione unica vicino a 0.
+
+*Passo 2: $y'(0)$.* Dall'equazione, $y'(0) = 1^2 \cdot e^0 = 1$.
+
+*Passo 3: $y''(0)$.* Derivando $y' = y^2 e^x$: $y'' = 2yy'e^x + y^2 e^x$. In 0: $y''(0) = 2 \cdot 1 \cdot 1 + 1 = 3$.
+
+*Passo 4: il polinomio.* $P_2(x) = 1 + x + \frac{3}{2}x^2$.
+
+*Passo 5: la soluzione.* Separando, $\frac{dy}{y^2} = e^x\,dx$: $-\frac{1}{y} = e^x + C$, con $C = -2$. Quindi $y = \frac{1}{2 - e^x}$, definita per $x < \ln 2$ (l'intervallo che contiene 0). Controllo: $\frac{1}{2 - e^x} = \frac{1}{1 - x - \frac{x^2}{2} + o(x^2)} = 1 + x + \frac{x^2}{2} + x^2 + o(x^2) = 1 + x + \frac{3}{2}x^2 + o(x^2)$.
+
+**Guidato 2. Un'equazione lineare del primo ordine con intervallo.** Risolvere $y' + \frac{2}{t}y = \frac{\cos t}{t^2}$, $y(\pi) = 0$.
+
+*Passo 1: il coefficiente.* $\frac{2}{t}$ non è definito in 0, e $t_0 = \pi > 0$: si lavora su $(0, +\infty)$.
+
+*Passo 2: il fattore integrante.* $e^{\int 2/t} = t^2$. Moltiplicando, $(t^2 y)' = \cos t$.
+
+*Passo 3: integrare.* $t^2 y = \sin t + C$, e con $y(\pi) = 0$: $C = 0$.
+
+*Passo 4: la soluzione.* $y(t) = \frac{\sin t}{t^2}$ su $(0, +\infty)$. Per $t \to 0^+$ la soluzione si comporta come $\frac{1}{t}$ ed esplode, coerentemente con il coefficiente singolare.
+
+**Guidato 3. Un sistema non lineare linearizzato.** Trovare gli equilibri del sistema $x' = x - xy$, $y' = -y + xy$ e studiarne la stabilità con la linearizzazione.
+
+*Passo 1: gli equilibri.* $x(1 - y) = 0$ e $y(x - 1) = 0$: $(0, 0)$ e $(1, 1)$.
+
+*Passo 2: la jacobiana.* $J(x, y) = \begin{pmatrix} 1 - y & -x \\ y & x - 1 \end{pmatrix}$.
+
+*Passo 3: nell'origine.* $J(0, 0) = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$: autovalori $\pm 1$, sella, equilibrio instabile.
+
+*Passo 4: in $(1, 1)$.* $J(1, 1) = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$: autovalori $\pm i$, parte reale nulla. Il teorema di linearizzazione non conclude. (Per questo sistema, il modello preda-predatore di Lotka-Volterra, si dimostra con una quantità conservata che le traiettorie intorno a $(1, 1)$ sono chiuse: l'equilibrio è stabile, non asintoticamente.)
+
 ## Riepilogo
 
 Le equazioni differenziali nascono dalla modellizzazione: la legge di Newton per la caduta con attrito e per la molla, la crescita esponenziale e logistica per le popolazioni. Un'equazione di ordine $n$ ha come soluzioni funzioni derivabili $n$ volte su un intervallo; il problema di Cauchy aggiunge $n$ condizioni iniziali. Le equazioni separabili si risolvono separando le variabili, dopo aver trovato le soluzioni costanti; l'unicità può mancare quando $h$ non è lipschitziana, come nel pennello di Peano. Le lineari del primo ordine hanno la formula $y = e^{A}(\int b\, e^{-A} + \alpha)$. Le lineari del secondo ordine a coefficienti costanti si risolvono con il polinomio caratteristico, nei tre casi del discriminante, e il metodo di somiglianza dà una soluzione particolare per termini noti polinomiali, esponenziali e trigonometrici, tenendo conto della molteplicità della radice. Per i sistemi la continuità di $f$ dà l'esistenza, la continuità delle derivate in $y$ l'unicità, la sublinearità l'esistenza globale. I sistemi lineari hanno soluzioni globali che formano uno spazio di dimensione $n$, descritte da una matrice fondamentale; a coefficienti costanti si costruiscono con autovalori e autovettori, generalizzati quando un autovalore non è regolare. Il segno della parte reale degli autovalori decide la stabilità dell'origine.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1B-08 … AM1B-12)
+> Metodi risolutivi, teoremi e criteri di stabilità, con i termini per l'orale.
+
+### Equazioni del primo ordine
+
+| Tipo | Forma | Metodo |
+|---|---|---|
+| Separabile | $y' = a(t)\,b(y)$ | soluzioni costanti dove $b = 0$; poi $\int \frac{dy}{b(y)} = \int a(t)\,dt$ |
+| Lineare | $y' = a(t)y + f(t)$ | $y = e^{A(t)}\left(\int f(t)e^{-A(t)}dt + C\right)$, $A' = a$ |
+| Bernoulli | $y' = a(t)y + b(t)y^\alpha$ | $z = y^{1-\alpha}$ dà un'equazione lineare; $y \equiv 0$ a parte se $\alpha > 0$ |
+
+### Secondo ordine a coefficienti costanti: $y'' + ay' + by = f(t)$
+
+| Radici di $\lambda^2 + a\lambda + b$ | Integrale dell'omogenea |
+|---|---|
+| reali distinte $\lambda_1, \lambda_2$ | $c_1 e^{\lambda_1 t} + c_2 e^{\lambda_2 t}$ |
+| reale doppia $\lambda$ | $(c_1 + c_2 t)e^{\lambda t}$ |
+| complesse $\alpha \pm i\beta$ | $e^{\alpha t}(c_1\cos\beta t + c_2\sin\beta t)$ |
+
+Somiglianza: per $f = P_n(t)e^{\alpha t}$ si cerca $y_p = t^\mu Q_n(t)e^{\alpha t}$, con $\mu$ la molteplicità di $\alpha$ come radice (0 se non lo è); per $f = e^{\alpha t}(P\cos\beta t + Q\sin\beta t)$ si guarda $\alpha + i\beta$.
+
+### Teoremi
+
+- **Cauchy (esistenza e unicità locale):** $f$ e $f_y$ continue vicino a $(t_0, y_0)$ $\Rightarrow$ una e una sola soluzione in un intorno di $t_0$.
+- **Esistenza globale (lineari):** coefficienti continui su un intervallo $I$ $\Rightarrow$ la soluzione esiste su tutto $I$.
+- **Struttura:** l'integrale generale di un'equazione o di un sistema lineare è $y_o + y_p$; le soluzioni dell'omogenea di ordine $n$ formano uno spazio vettoriale di dimensione $n$.
+- **Sistemi $y' = Ay$:** con autovettori $v_i$ di autovalori $\lambda_i$, $y = \sum c_i e^{\lambda_i t}v_i$ (se $A$ è diagonalizzabile); matrice fondamentale $\Phi(t)$ con $\Phi' = A\Phi$.
+
+### Stabilità
+
+| Caso | Criterio |
+|---|---|
+| $y' = Ay$ | asintoticamente stabile $\iff$ tutti gli autovalori con parte reale $< 0$ |
+| $2 \times 2$ | $\det A < 0$ sella; $\det A > 0$: $\operatorname{tr} A < 0$ stabile, $> 0$ instabile, $= 0$ centro |
+| $y' = F(y)$ non lineare | autovalori della jacobiana nell'equilibrio: tutti $\operatorname{Re} < 0$ stabile, uno $\operatorname{Re} > 0$ instabile |
+| $y' = f(y)$ scalare | $f'(\tilde{y}) < 0$ stabile, $f'(\tilde{y}) > 0$ instabile |
+
+### Senza risolvere
+
+$$y'(t_0) = f(t_0, y_0), \qquad y''(t_0) = f_t(t_0, y_0) + f_y(t_0, y_0)\,f(t_0, y_0).$$
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Ordine di un'equazione | ordine massimo di derivata che compare |
+| Problema di Cauchy | equazione più condizioni iniziali nel punto $t_0$ |
+| Integrale generale | famiglia di tutte le soluzioni, con costanti arbitrarie |
+| Soluzione massimale | soluzione definita sull'intervallo più grande possibile |
+| Equazione autonoma | $f$ non dipende da $t$ |
+| Equilibrio | soluzione costante, zero di $f$ |
+| Stabile / asintoticamente stabile | le soluzioni vicine restano vicine / tendono all'equilibrio |
+| Ritratto di fase | disegno delle traiettorie nel piano $(y_1, y_2)$ |
+| Nodo, sella, fuoco, centro | le forme del ritratto di fase di un sistema lineare $2 \times 2$ |
+
+### Domande che tornano spesso
+
+- Enunciare il teorema di esistenza e unicità; un esempio in cui l'unicità manca ($y' = \sqrt{|y|}$).
+- Ricavare la formula risolutiva delle equazioni lineari del primo ordine.
+- Perché le soluzioni di un'equazione lineare omogenea di ordine $n$ formano uno spazio di dimensione $n$?
+- Come si passa da un'equazione di ordine $n$ a un sistema del primo ordine?
+- Spiegare il metodo di somiglianza e il caso di risonanza.
+- Definire la stabilità e classificare gli equilibri dei sistemi lineari $2 \times 2$.

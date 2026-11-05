@@ -52,6 +52,7 @@ Si calcolano dalla definizione, usando i limiti notevoli del modulo 2.
 - **Seno.** Con le formule di addizione,
 $$\frac{\sin(x + h) - \sin x}{h} = \sin x \cdot \frac{\cos h - 1}{h} + \cos x \cdot \frac{\sin h}{h} \longrightarrow \sin x \cdot 0 + \cos x \cdot 1 = \cos x,$$
 perché $\frac{\cos h - 1}{h} = -\frac{1 - \cos h}{h^2} \cdot h \to -\frac{1}{2} \cdot 0 = 0$. Quindi $(\sin x)' = \cos x$, e allo stesso modo $(\cos x)' = -\sin x$.
+
 - **Esponenziale.** $\frac{e^{x+h} - e^x}{h} = e^x \cdot \frac{e^h - 1}{h} \to e^x$, quindi $(e^x)' = e^x$. Per una base $a > 0$, scrivendo $a^x = e^{x \ln a}$ si ottiene $(a^x)' = a^x \ln a$.
 - **Potenze.** Per $x > 0$ e $\alpha \in \mathbb{R}$, con $y = \frac{h}{x} \to 0$:
 $$\frac{(x + h)^\alpha - x^\alpha}{h} = x^\alpha \cdot \frac{\left(1 + \frac{h}{x}\right)^\alpha - 1}{h} = x^{\alpha - 1} \cdot \frac{(1 + y)^\alpha - 1}{y} \longrightarrow \alpha\, x^{\alpha - 1}.$$
@@ -265,6 +266,97 @@ Non dice quale sia $\bar{x}$, ma è esatta, non solo approssimata.
 >
 > La risposta è $\alpha = \beta = 1$, con $f'(0) = 1$.
 
+## Esempi ed esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello del tutorato e delle prove scritte 2025-2026; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-12, AM1A-13, AM1A-16)
+> Il secondo punto di quasi tutte le prove è la derivabilità di una funzione a tratti; seguono la retta tangente, la derivata dell'inversa e le disuguaglianze con Lagrange.
+
+**Esercizio 1. Calcolo di derivate.** Derivare (a) $x^2 e^{-x}$, (b) $\ln\left(x + \sqrt{x^2 + 1}\right)$, (c) $\arctan\frac{1}{x}$, (d) $x^x$ per $x > 0$, (e) $\sin^2(3x)$.
+
+(a) Prodotto: $2x e^{-x} + x^2 \cdot (-e^{-x}) = (2x - x^2)e^{-x}$.
+
+(b) Catena, con la derivata dell'argomento $1 + \frac{x}{\sqrt{x^2 + 1}} = \frac{\sqrt{x^2 + 1} + x}{\sqrt{x^2 + 1}}$:
+$$\frac{1}{x + \sqrt{x^2 + 1}} \cdot \frac{\sqrt{x^2 + 1} + x}{\sqrt{x^2 + 1}} = \frac{1}{\sqrt{x^2 + 1}}.$$
+
+(c) $\frac{1}{1 + \frac{1}{x^2}} \cdot \left(-\frac{1}{x^2}\right) = -\frac{1}{x^2 + 1}$ per $x \ne 0$. È la derivata di $-\arctan x$: infatti $\arctan\frac{1}{x} = \frac{\pi}{2} - \arctan x$ per $x > 0$ (e $-\frac{\pi}{2} - \arctan x$ per $x < 0$), che differiscono da $-\arctan x$ per una costante su ciascuna semiretta.
+
+(d) Si scrive $x^x = e^{x \ln x}$: la derivata è $e^{x \ln x}(\ln x + 1) = x^x(\ln x + 1)$. Non si può usare la regola delle potenze ($x \cdot x^{x-1}$), perché l'esponente non è costante, né quella degli esponenziali ($x^x \ln x$), perché la base non è costante.
+
+(e) $2\sin(3x) \cdot \cos(3x) \cdot 3 = 3\sin(6x)$.
+
+**Esercizio 2. Derivabilità a tratti con due parametri.** Per quali $a, b$ è derivabile su $(0, +\infty)$ la funzione $f(x) = ax^2 + b$ per $0 < x \le 1$, $f(x) = \ln x + 1$ per $x > 1$?
+
+*Continuità in 1* (senza continuità non c'è derivabilità): $f(1) = a + b$ e $\lim_{x \to 1^+} (\ln x + 1) = 1$, quindi $a + b = 1$.
+
+*Derivate dei due tratti*: $2ax$ a sinistra, $\frac{1}{x}$ a destra. Con la continuità, per il teorema del limite della derivata basta confrontare i limiti: $2a$ da sinistra, 1 da destra. Serve $a = \frac{1}{2}$, e quindi $b = \frac{1}{2}$. Con questi valori $f'(1) = 1$.
+
+**Esercizio 3. Punti di non derivabilità.** Studiare la derivabilità di (a) $f(x) = x|x|$ in 0 e (b) $g(x) = |x - 1|(x + 1)$ in 1.
+
+(a) Rapporto incrementale: $\frac{x|x| - 0}{x} = |x| \to 0$. Derivabile, con $f'(0) = 0$: il valore assoluto, moltiplicato per $x$, "si raddrizza".
+
+(b) Per $x > 1$, $g(x) = (x - 1)(x + 1) = x^2 - 1$, con derivata $2x \to 2$; per $x < 1$, $g(x) = -(x^2 - 1)$, con derivata $-2x \to -2$. $g$ è continua in 1 ($g(1) = 0$) e le derivate laterali sono $2$ e $-2$: punto angoloso.
+
+**Esercizio 4. Retta tangente.** Scrivere la tangente al grafico di $f(x) = \ln(1 + x^2)$ nel punto di ascissa 1.
+
+$f(1) = \ln 2$; $f'(x) = \frac{2x}{1 + x^2}$, quindi $f'(1) = 1$. La tangente è $y = \ln 2 + (x - 1)$.
+
+**Esercizio 5. Derivata della funzione inversa.** (a) Mostrare che $f(x) = x^3 + x + 1$ è invertibile e calcolare $(f^{-1})'(3)$. (b) Lo stesso per $g(x) = e^x + x$ e $(g^{-1})'(1)$.
+
+(a) $f'(x) = 3x^2 + 1 > 0$, quindi $f$ è strettamente crescente su $\mathbb{R}$ e invertibile. Non serve trovare l'inversa: serve il punto $x_0$ con $f(x_0) = 3$, che si trova a occhio, $x_0 = 1$. Per la formula della derivata dell'inversa,
+$$(f^{-1})'(3) = \frac{1}{f'(1)} = \frac{1}{4}.$$
+(b) $g' = e^x + 1 > 0$; $g(0) = 1$, quindi $(g^{-1})'(1) = \frac{1}{g'(0)} = \frac{1}{2}$.
+
+**Esercizio 6. Disuguaglianze con Lagrange.** Dimostrare (a) $|\sin a - \sin b| \le |a - b|$ per ogni $a, b$; (b) $\ln(1 + x) < x$ per ogni $x > 0$; (c) $e^x \ge 1 + x$ per ogni $x$, con l'uguaglianza solo in 0.
+
+(a) Per Lagrange su $[a, b]$ esiste $\xi$ con $\sin a - \sin b = \cos\xi\,(a - b)$, e $|\cos\xi| \le 1$.
+
+(b) Su $[0, x]$: $\ln(1 + x) - \ln 1 = \frac{1}{1 + \xi}\,x$ con $0 < \xi < x$, e $\frac{1}{1 + \xi} < 1$.
+
+(c) Per $x > 0$, su $[0, x]$: $e^x - 1 = e^\xi x$ con $0 < \xi < x$, quindi $e^\xi > 1$ e $e^x - 1 > x$. Per $x < 0$, su $[x, 0]$: $e^0 - e^x = e^\xi(0 - x)$ con $x < \xi < 0$, cioè $e^x - 1 = e^\xi x$; ora $e^\xi < 1$ e $x < 0$, quindi $e^\xi x > x$. In 0 vale l'uguaglianza. La disuguaglianza dice che la retta $y = 1 + x$, tangente al grafico di $e^x$ in 0, sta sempre sotto il grafico: è la convessità del modulo 5.
+
+**Esercizio 7. Limiti con de l'Hôpital.** (a) $\displaystyle\lim_{x \to 0} \frac{x - \sin x}{x^3}$; (b) $\displaystyle\lim_{x \to +\infty} \frac{\ln x}{\sqrt{x}}$; (c) $\displaystyle\lim_{x \to 0^+} x \ln x$.
+
+(a) Tre volte la forma $\frac{0}{0}$: $\frac{1 - \cos x}{3x^2} \to \frac{\sin x}{6x} \to \frac{1}{6}$ (l'ultimo passo con il limite notevole). (b) Forma $\frac{\infty}{\infty}$: $\frac{1/x}{1/(2\sqrt{x})} = \frac{2}{\sqrt{x}} \to 0$. (c) Forma $0 \cdot \infty$: si riscrive come $\frac{\ln x}{1/x}$, forma $\frac{\infty}{\infty}$, e il rapporto delle derivate è $\frac{1/x}{-1/x^2} = -x \to 0$.
+
+**Esercizio 8. Raccordo derivabile.** Mostrare che $f(x) = \sin x$ per $x < 0$, $f(x) = x + x^2$ per $x \ge 0$, è derivabile in 0.
+
+Continuità: entrambi i tratti valgono 0 in 0. Derivate: $\cos x \to 1$ da sinistra, $1 + 2x \to 1$ da destra. Per il teorema del limite della derivata, $f'(0) = 1$. Il grafico passa "liscio" da un tratto all'altro, con la stessa tangente $y = x$.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-12, AM1A-13, AM1A-16)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Un parametro per la derivabilità.** Sia $f_k(x) = e^{2x} - 1$ per $x < 0$ e $f_k(x) = x^2 + kx$ per $x \ge 0$. Per quali $k$ è continua? Per quali è derivabile?
+
+*Passo 1: continuità.* In 0: limite sinistro $e^0 - 1 = 0$, valore $0$. Continua per ogni $k$.
+
+*Passo 2: le derivate dei tratti.* $2e^{2x}$ per $x < 0$, $2x + k$ per $x > 0$.
+
+*Passo 3: i limiti delle derivate.* Da sinistra 2, da destra $k$.
+
+*Passo 4: conclusione.* Derivabile se e solo se $k = 2$, con $f_2'(0) = 2$. Per $k \ne 2$ c'è un punto angoloso, con semitangenti di pendenza 2 e $k$.
+
+**Guidato 2. La derivata dell'arcoseno.** Ricavare $(\arcsin)'(y)$ dalla formula della derivata dell'inversa.
+
+*Passo 1: la funzione da invertire.* $\sin$ ristretto a $\left[-\frac{\pi}{2}, \frac{\pi}{2}\right]$ è strettamente crescente, con derivata $\cos x$, positiva all'interno.
+
+*Passo 2: la formula.* Per $y = \sin x$ con $x \in \left(-\frac{\pi}{2}, \frac{\pi}{2}\right)$: $(\arcsin)'(y) = \frac{1}{\cos x}$.
+
+*Passo 3: esprimere in $y$.* $\cos x = \sqrt{1 - \sin^2 x} = \sqrt{1 - y^2}$, con il segno $+$ perché il coseno è positivo nell'intervallo.
+
+*Passo 4: risultato.* $(\arcsin)'(y) = \frac{1}{\sqrt{1 - y^2}}$ per $-1 < y < 1$. Negli estremi $\pm 1$ la derivata non esiste: il grafico dell'arcoseno ha lì tangente verticale, simmetrica della tangente orizzontale del seno in $\pm\frac{\pi}{2}$.
+
+**Guidato 3. Una radice e una sola con Rolle.** Dimostrare che $x^5 + x - 1 = 0$ ha esattamente una soluzione reale.
+
+*Passo 1: esistenza.* $p(x) = x^5 + x - 1$ è continua, $p(0) = -1 < 0$ e $p(1) = 1 > 0$: per il teorema degli zeri c'è una soluzione in $(0, 1)$.
+
+*Passo 2: unicità per assurdo.* Se ci fossero due soluzioni $x_1 < x_2$, sarebbe $p(x_1) = p(x_2) = 0$ e, per Rolle, esisterebbe $\xi \in (x_1, x_2)$ con $p'(\xi) = 0$.
+
+*Passo 3: la contraddizione.* $p'(x) = 5x^4 + 1 \ge 1$ non si annulla mai.
+
+*Passo 4: conclusione.* La soluzione è unica, e sta in $(0, 1)$. Lo stesso schema (zeri per l'esistenza, Rolle o la monotonia per l'unicità) serve in molti esercizi d'esame del tipo "quante soluzioni ha l'equazione".
+
 ## Riepilogo
 
 La derivata $f'(x_0) = \lim_{h \to 0} \frac{f(x_0 + h) - f(x_0)}{h}$ è il coefficiente angolare della tangente, $y = f(x_0) + f'(x_0)(x - x_0)$. Una funzione derivabile è continua, non il contrario. Le derivate elementari si ricavano dai limiti notevoli; le regole sono
@@ -272,3 +364,68 @@ $$(f g)' = f' g + f g', \qquad \left(\frac{f}{g}\right)' = \frac{f' g - f g'}{g^
 Punti angolosi, cuspidi e flessi a tangente verticale si riconoscono dalle derivate unilaterali.
 
 Nei punti di estremo interni in cui è derivabile, la funzione ha derivata nulla (Fermat). Rolle, Cauchy e Lagrange garantiscono un punto interno in cui la derivata assume un valore preciso; da Lagrange seguono la formula $f(x_2) - f(x_1) = f'(\bar{x})(x_2 - x_1)$ e il fatto che su un intervallo una funzione a derivata nulla è costante. De l'Hôpital scioglie le forme $\frac{0}{0}$ e $\frac{\infty}{\infty}$ con il limite del rapporto delle derivate, e da esso segue il teorema del limite della derivata.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1A-12, AM1A-13, AM1A-16)
+> Derivate, regole e teoremi del modulo, con i termini per l'orale.
+
+### Derivate fondamentali
+
+| $f(x)$ | $f'(x)$ | $f(x)$ | $f'(x)$ |
+|---|---|---|---|
+| $x^\alpha$ | $\alpha x^{\alpha - 1}$ | $\sin x$ | $\cos x$ |
+| $e^x$ | $e^x$ | $\cos x$ | $-\sin x$ |
+| $a^x$ | $a^x \ln a$ | $\tan x$ | $1 + \tan^2 x = \frac{1}{\cos^2 x}$ |
+| $\ln \lvert x \rvert$ | $\frac{1}{x}$ | $\arcsin x$ | $\frac{1}{\sqrt{1 - x^2}}$ |
+| $\log_a x$ | $\frac{1}{x \ln a}$ | $\arccos x$ | $-\frac{1}{\sqrt{1 - x^2}}$ |
+| $\lvert x \rvert$ | $\frac{\lvert x \rvert}{x}$ ($x \ne 0$) | $\arctan x$ | $\frac{1}{1 + x^2}$ |
+
+### Regole
+
+$$(f \pm g)' = f' \pm g', \quad (fg)' = f'g + fg', \quad \left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2}, \quad (g \circ f)'(x) = g'(f(x))\,f'(x),$$
+
+$$(f^{-1})'(y_0) = \frac{1}{f'(x_0)} \text{ con } y_0 = f(x_0),\ f'(x_0) \ne 0, \qquad (f^g)' = f^g\left(g' \ln f + g\frac{f'}{f}\right).$$
+
+Tangente in $x_0$: $y = f(x_0) + f'(x_0)(x - x_0)$. Derivabile implica continua.
+
+### Teoremi
+
+| Teorema | Ipotesi | Tesi |
+|---|---|---|
+| Fermat | $x_0$ estremo locale interno, $f$ derivabile in $x_0$ | $f'(x_0) = 0$ |
+| Rolle | $f$ continua su $[a, b]$, derivabile in $(a, b)$, $f(a) = f(b)$ | $\exists \xi : f'(\xi) = 0$ |
+| Lagrange | $f$ continua su $[a, b]$, derivabile in $(a, b)$ | $\exists \xi : f(b) - f(a) = f'(\xi)(b - a)$ |
+| Cauchy | $f, g$ come sopra, $g' \ne 0$ | $\exists \xi : \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f'(\xi)}{g'(\xi)}$ |
+| de l'Hôpital | forma $\frac{0}{0}$ o $\frac{\infty}{\infty}$, $g' \ne 0$ vicino al punto, esiste $\lim \frac{f'}{g'}$ | $\lim \frac{f}{g} = \lim \frac{f'}{g'}$ |
+| Limite della derivata | $f$ continua in $x_0$, derivabile intorno, $f' \to L$ finito | $f'(x_0) = L$ |
+
+### Punti di non derivabilità (con $f$ continua)
+
+| Tipo | Derivate laterali |
+|---|---|
+| Punto angoloso | finite e diverse (almeno una finita) |
+| Cuspide | infinite di segno opposto |
+| Flesso a tangente verticale | infinite dello stesso segno |
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Rapporto incrementale | $\frac{f(x_0 + h) - f(x_0)}{h}$, pendenza della secante |
+| Derivata | limite del rapporto incrementale, pendenza della tangente |
+| Derivata destra e sinistra | limiti unilaterali del rapporto incrementale |
+| Punto critico (stazionario) | punto in cui $f'(x_0) = 0$ |
+| Estremo locale | massimo o minimo in un intorno del punto |
+| Teorema del valor medio | Lagrange: esiste un punto con tangente parallela alla secante |
+| Funzione di classe $C^1$ | derivabile con derivata continua |
+
+### Domande che tornano spesso
+
+- Definire la derivata e la retta tangente; dimostrare che derivabile implica continua (e che il contrario è falso).
+- Dimostrare la regola del prodotto e quella della funzione composta.
+- Ricavare la derivata dell'inversa e applicarla ad $\arctan$ e $\arcsin$.
+- Enunciare e dimostrare Fermat, Rolle e Lagrange; interpretarli sul grafico.
+- Conseguenze di Lagrange: funzione con derivata nulla su un intervallo, monotonia e segno della derivata.
+- Enunciare de l'Hôpital e mostrare un caso in cui le ipotesi non valgono.
+- Classificare i punti di non derivabilità.

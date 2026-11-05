@@ -2,7 +2,7 @@
 corso: Reti Logiche
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # Reti Logiche
@@ -310,9 +310,208 @@ Per la SOP: la colonna $00$ dà $\bar{Y}\bar{Z}$; le celle $100$ e $110$ (adiace
 
 Raccogliendo $x$: $x(1 + y + yz + yzw + z + w + zw) = x \cdot 1 = x$, perché una somma che contiene 1 vale 1. È l'assorbimento, $x + xP = x$, applicato a ogni termine.
 
+#### Esercizi del laboratorio con il simulatore
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni con il simulatore Deeds (testi riscritti, dati e soluzioni nuovi) (RL-01, RL-02, RL-08)
+> Gli esercizi che seguono ricalcano quelli fatti in laboratorio con Deeds: si disegna lo schema, si ricava la tabella con la simulazione funzionale (l'animazione, in cui si cambiano gli interruttori e si guardano le uscite) e si controlla con la simulazione temporale. Qui il lavoro si fa a mano, come all'esame, e la simulazione serve da verifica.
+
+**Esercizio 4. Analisi di una rete di porte semplici.** Gli ingressi $A$ e $B$ vanno a una NAND e a una OR; le due uscite entrano in una AND, che dà $U$. Ricavare la tabella di verità e dire che funzione è.
+
+Si ragiona porta per porta, scrivendo una colonna per ogni uscita intermedia: $N = \overline{AB}$ e $O = A + B$.
+
+| $A$ | $B$ | $N = \overline{AB}$ | $O = A + B$ | $U = N \cdot O$ |
+|---|---|---|---|---|
+| 0 | 0 | 1 | 0 | 0 |
+| 0 | 1 | 1 | 1 | 1 |
+| 1 | 0 | 1 | 1 | 1 |
+| 1 | 1 | 0 | 1 | 0 |
+
+L'uscita vale 1 quando gli ingressi sono diversi: è lo XOR. Lo si vede anche con l'algebra, distribuendo: $\overline{AB}(A + B) = (\bar{A} + \bar{B})(A + B) = \bar{A}B + A\bar{B}$, perché $\bar{A}A$ e $\bar{B}B$ valgono 0. Per la simulazione temporale conviene far cambiare gli ingressi nell'ordine di Gray, $00, 01, 11, 10$: cambia un ingresso alla volta e ogni variazione dell'uscita si attribuisce subito a quell'ingresso.
+
+**Esercizio 5. Controllo di parità a più livelli.** Un ricevitore riceve tre bit di dato $D_2 D_1 D_0$ e un bit di parità $RP$, calcolato dal trasmettitore con la **parità dispari**: il numero totale di 1 nei quattro bit deve essere dispari. La rete di controllo è costruita così: $C_1 = D_2\bar{D}_1 + \bar{D}_2 D_1$, $C_2 = D_0\overline{RP} + \bar{D}_0\,RP$, $ERR = C_1 C_2 + \bar{C}_1\bar{C}_2$. Che cosa fanno $C_1$, $C_2$ ed $ERR$? Si può fare la stessa rete con meno porte?
+
+$C_1$ è la forma SOP di $D_2 \oplus D_1$ e $C_2$ quella di $D_0 \oplus RP$: ciascuna vale 1 se fra i suoi due bit c'è un solo 1. $ERR = C_1 C_2 + \bar{C}_1\bar{C}_2$ è lo XNOR di $C_1$ e $C_2$, quindi
+$$ERR = \overline{C_1 \oplus C_2} = \overline{D_2 \oplus D_1 \oplus D_0 \oplus RP}.$$
+Lo XOR dei quattro bit vale 1 quando il numero di 1 è dispari, cioè quando la trasmissione è corretta; $ERR$ ne è la negazione e vale 1 quando il numero di 1 è pari, cioè quando c'è un errore. La rete di partenza ha nove porte su quattro livelli (più i NOT); quella con le XOR ha due XOR e una XNOR, oppure tre XOR in cui l'ultima ha un ingresso negato.
+
+Due prove. Il dato $101$ ha due 1, quindi il trasmettitore manda $RP = 1$: i quattro bit $1011$ hanno tre 1 e $ERR = 0$. Se durante la trasmissione $D_1$ si altera, il ricevitore vede $1111$, con quattro 1, ed $ERR = 1$. Se si alterano due bit, per esempio $D_1$ e $RP$, il ricevitore vede $1110$, con tre 1, ed $ERR = 0$: come detto nel modulo 2, un solo bit di parità non vede gli errori doppi.
+
+**Esercizio 6. Sintesi AND-OR e OR-AND, e scelta della più economica.** La funzione $F(X, Y, Z)$ vale 1 per $XYZ = 001, 010, 111$ e 0 altrove. Trovare le due sintesi minime e dire quale costa meno.
+
+| $X \backslash YZ$ | 00 | 01 | 11 | 10 |
+|---|---|---|---|---|
+| 0 | 0 | 1 | 0 | 1 |
+| 1 | 0 | 0 | 1 | 0 |
+
+*Gli 1.* Si controllano i vicini di ogni 1: la cella $001$ è adiacente a $000$, $011$ e $101$, tutte a 0; lo stesso succede per $010$ (vicini $000$, $011$, $110$) e per $111$ (vicini $110$, $101$, $011$). Nessun 1 si raggruppa, e la sintesi AND-OR è la forma canonica:
+$$F = \bar{X}\bar{Y}Z + \bar{X}Y\bar{Z} + XYZ.$$
+
+*Gli 0.* Gli zeri sono $000, 011, 100, 101, 110$. Lo 0 in $011$ ha tutti i vicini a 1 e resta solo: $(X + \bar{Y} + \bar{Z})$. Lo 0 in $000$ si può raggruppare solo con $100$ (gli altri vicini sono 1): gruppo con $Y = 0$, $Z = 0$, fattore $(Y + Z)$. Lo 0 in $101$ si raggruppa solo con $100$: $X = 1$, $Y = 0$, fattore $(\bar{X} + Y)$. Lo 0 in $110$ si raggruppa solo con $100$: $X = 1$, $Z = 0$, fattore $(\bar{X} + Z)$. Tutti e quattro i gruppi sono essenziali:
+$$F = (Y + Z)(\bar{X} + Y)(\bar{X} + Z)(X + \bar{Y} + \bar{Z}).$$
+
+*Costo.* Si contano le porte e gli ingressi delle porte, senza i NOT. La SOP ha tre AND a tre ingressi e una OR a tre ingressi: 4 porte e 12 ingressi. La POS ha tre OR a due ingressi, una OR a tre e una AND a quattro: 5 porte e 13 ingressi. Costa meno la SOP. Non c'è una regola generale: conviene raggruppare gli 1 quando sono pochi e gli 0 quando sono pochi gli 0, ma il conto va sempre fatto.
+
+**Esercizio 7. Porta logica programmabile.** La rete ha due ingressi di controllo $F_1 F_0$ e due ingressi dati $A$, $B$. Con $F_1 F_0 = 00$ l'uscita è il NOR di $A$ e $B$, con $01$ lo XNOR, con $10$ la NAND; la combinazione $11$ non si presenta mai. Trovare la sintesi AND-OR minima.
+
+Prima la tabella, riga per riga del controllo: NOR dà $1, 0, 0, 0$ per $AB = 00, 01, 10, 11$; XNOR dà $1, 0, 0, 1$; NAND dà $1, 1, 1, 0$. Poi la mappa, con righe $F_1 F_0$ e colonne $AB$ entrambe in ordine di Gray (attenzione: la riga $10$ è l'ultima, la $11$ la terza):
+
+| $F_1 F_0 \backslash AB$ | 00 | 01 | 11 | 10 |
+|---|---|---|---|---|
+| 00 | 1 | 0 | 0 | 0 |
+| 01 | 1 | 0 | 1 | 0 |
+| 11 | – | – | – | – |
+| 10 | 1 | 1 | 0 | 1 |
+
+I gruppi, usando le indifferenze della riga $11$: la colonna $AB = 00$ è tutta a 1 o indifferente, e dà $\bar{A}\bar{B}$; le celle $F_1 = 1$, $A = 0$ (righe 11 e 10, colonne 00 e 01) danno $F_1\bar{A}$; le celle $F_1 = 1$, $B = 0$ (righe 11 e 10, colonne 00 e 10) danno $F_1\bar{B}$; l'1 in $01\,11$ con l'indifferenza sotto di lui dà $F_0 AB$. Quindi
+$$U = \bar{A}\bar{B} + F_1\bar{A} + F_1\bar{B} + F_0 AB.$$
+Verifica sulle tre righe: con $F_1 F_0 = 00$ resta $\bar{A}\bar{B}$, il NOR; con $01$ resta $\bar{A}\bar{B} + AB$, lo XNOR; con $10$ resta $\bar{A}\bar{B} + \bar{A} + \bar{B} = \bar{A} + \bar{B}$, la NAND.
+
+**Esercizio 8. Una funzione di quattro variabili con molte indifferenze.** La funzione $F(X, Y, Z, T)$ si comporta così: con $X = 0$ vale 1 per $YZT = 000, 010, 011, 111$ e 0 per le altre combinazioni; con $X = 1$ si presentano solo $YZT = 001$, in cui $F = 1$, e $YZT = 101$, in cui $F = 0$. Trovare la sintesi AND-OR minima.
+
+Le combinazioni con $X = 1$ che non si presentano sono indifferenze. Mappa con righe $XY$ e colonne $ZT$:
+
+| $XY \backslash ZT$ | 00 | 01 | 11 | 10 |
+|---|---|---|---|---|
+| 00 | 1 | 0 | 1 | 1 |
+| 01 | 0 | 0 | 1 | 0 |
+| 11 | – | 0 | – | – |
+| 10 | – | 1 | – | – |
+
+Si parte dagli 1 che hanno meno possibilità. L'1 in $1001$ (riga 10, colonna 01) ha sopra lo 0 di $0001$ e sotto lo 0 di $1101$: si può allargare solo lungo la riga, che è tutta a 1 o indifferente, e il gruppo è $X\bar{Y}$. L'1 in $0111$ sta nella colonna $ZT = 11$, che non contiene 0: gruppo $ZT$, che copre anche $0011$. Restano $0000$ e $0010$: con le indifferenze della riga 10 formano la quaterna $\bar{Y}\bar{T}$ (righe 00 e 10, colonne 00 e 10). Quindi
+$$F = ZT + X\bar{Y} + \bar{Y}\bar{T}.$$
+Le indifferenze hanno permesso gruppi da quattro celle dove, senza, ci sarebbero state coppie o celle isolate.
+
+**Esercizio 9. Analisi di un decoder con abilitazione.** Una rete a due livelli ha tre ingressi $EN$, $S_1$, $S_0$ e quattro uscite $U_0 = EN\,\bar{S}_1\bar{S}_0$, $U_1 = EN\,\bar{S}_1 S_0$, $U_2 = EN\,S_1\bar{S}_0$, $U_3 = EN\,S_1 S_0$. Che ruolo hanno gli ingressi?
+
+Con $EN = 0$ tutte le uscite valgono 0, qualunque sia la selezione. Con $EN = 1$ si accende una sola uscita, quella il cui indice è il numero binario $S_1 S_0$: per $S_1 S_0 = 10$ vale 1 solo $U_2$. $S_1 S_0$ scelgono quindi *quale* uscita, ed $EN$ decide *se* accenderla. È il decoder 2→4 con abilitazione del modulo 2, cioè un DEMUX 1→4 in cui $EN$ fa da ingresso dati: con $n$ ingressi di selezione le uscite sono $2^n$. Con due di questi blocchi si fa un decoder 3→8: il bit più alto $S_2$ va sull'$EN$ del secondo blocco e, negato, sull'$EN$ del primo; gli altri due bit vanno su entrambi.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi, soluzioni verificate con `strumenti/verifica_ampliamento.py` (RL-01, RL-02)
+> Ogni esercizio è diviso in passi. Conviene provare un passo alla volta, coprendo il resto, e confrontare solo dopo.
+
+**Guidato 1. Una spia per i numeri primi.** Tre interruttori $A$, $B$, $C$ formano un numero binario $N = ABC$ ($A$ è il bit più significativo). La spia $U$ deve accendersi quando $N$ è un numero primo. Progettare la rete AND-OR e la rete OR-AND minime, e la versione a sole NAND.
+
+*Passo 1: la specifica diventa una tabella.* $N$ va da 0 a 7; i primi sono 2, 3, 5, 7 (1 non è primo). Quindi $U = 1$ per $ABC = 010, 011, 101, 111$.
+
+*Passo 2: la mappa.* Righe $A$, colonne $BC$:
+
+| $A \backslash BC$ | 00 | 01 | 11 | 10 |
+|---|---|---|---|---|
+| 0 | 0 | 0 | 1 | 1 |
+| 1 | 0 | 1 | 1 | 0 |
+
+*Passo 3: gli implicanti primi.* Sulla prima riga le celle $011$ e $010$ formano $\bar{A}B$. Sulla seconda riga $101$ e $111$ formano $AC$. C'è anche il gruppo verticale $BC$ (celle $011$ e $111$), che però copre solo 1 già coperti: è un implicante primo ma non essenziale. Gli essenziali sono $\bar{A}B$ (unico a coprire $010$) e $AC$ (unico a coprire $101$), e bastano:
+$$U = \bar{A}B + AC.$$
+
+*Passo 4: la sintesi OR-AND.* Gli 0 sono $000, 001, 100, 110$. La coppia $000$, $001$ ha $A = 0$, $B = 0$: fattore $(A + B)$. La coppia $100$, $110$ ha $A = 1$, $C = 0$: fattore $(\bar{A} + C)$. Quindi $U = (A + B)(\bar{A} + C)$.
+
+*Passo 5: sole NAND.* Dalla SOP, negando due volte: $U = \overline{\overline{\bar{A}B} \cdot \overline{AC}}$. Servono una NAND per $\bar{A}B$, una per $AC$ e una finale, più il NOT di $A$ (una NAND con gli ingressi uniti).
+
+*Passo 6: controllo.* Si prova una cella a 1 e una a 0 su tutte le forme. Per $N = 5$, $ABC = 101$: $\bar{A}B + AC = 0 + 1 = 1$ e $(A + B)(\bar{A} + C) = 1 \cdot 1 = 1$. Per $N = 6$, $ABC = 110$: $\bar{A}B + AC = 0 + 0 = 0$ e $(A + B)(\bar{A} + C) = 1 \cdot 0 = 0$.
+
+**Guidato 2. Il segmento $a$ del visualizzatore a sette segmenti.** Un visualizzatore riceve una cifra decimale in BCD, $ABCD$ con $A$ più significativo, e accende il segmento $a$ (quello in alto) per le cifre 0, 2, 3, 5, 6, 7, 8, 9. Le combinazioni da 10 a 15 non arrivano mai. Trovare la sintesi AND-OR minima.
+
+*Passo 1.* Gli 1 sono i mintermini 0, 2, 3, 5, 6, 7, 8, 9; gli 0 sono 1 e 4; le indifferenze sono da 10 a 15.
+
+*Passo 2.* Mappa con righe $AB$ e colonne $CD$:
+
+| $AB \backslash CD$ | 00 | 01 | 11 | 10 |
+|---|---|---|---|---|
+| 00 | 1 | 0 | 1 | 1 |
+| 01 | 0 | 1 | 1 | 1 |
+| 11 | – | – | – | – |
+| 10 | 1 | 1 | – | – |
+
+*Passo 3: i gruppi più grandi.* Le righe $11$ e $10$ sono tutte a 1 o indifferenti: ottetto $A$. Le colonne $11$ e $10$ sono tutte a 1 o indifferenti: ottetto $C$. Restano $0101$ e $0000$. La cella $0101$ con $0111$, $1101$, $1111$ forma la quaterna $BD$. La cella $0000$ con $0010$, $1000$, $1010$ (i quattro angoli) forma la quaterna $\bar{B}\bar{D}$.
+
+*Passo 4.*
+$$a = A + C + BD + \bar{B}\bar{D} = A + C + \overline{B \oplus D}.$$
+Senza le indifferenze, al posto di $A$ e di $C$ ci sarebbero gruppi più piccoli e più variabili per termine: è il caso tipico in cui le combinazioni impossibili fanno risparmiare molto.
+
+*Passo 5: controllo sugli 0.* Per la cifra 1 ($0001$): $A = 0$, $C = 0$, $BD = 0$, $\bar{B}\bar{D} = 0$, e $a = 0$. Per la cifra 4 ($0100$): $BD = 0$ e $\bar{B}\bar{D} = 0$, quindi $a = 0$.
+
+**Guidato 3. Semplificazione con l'algebra.** Semplificare $F = \overline{(\bar{A} + B)\,\bar{C}} + A\bar{B}C$.
+
+*Passo 1: De Morgan sul prodotto negato.* $\overline{(\bar{A} + B)\,\bar{C}} = \overline{\bar{A} + B} + \bar{\bar{C}} = A\bar{B} + C$.
+
+*Passo 2: assorbimento.* $F = A\bar{B} + C + A\bar{B}C$, e il termine $A\bar{B}C$ è assorbito da $A\bar{B}$ (anche da $C$): $F = A\bar{B} + C$.
+
+*Passo 3: controllo con la tabella.* $F$ vale 0 solo quando $C = 0$ e $A\bar{B} = 0$, cioè per $ABC = 000, 010, 110$. Nella forma di partenza, per $ABC = 110$: $(\bar{A} + B)\bar{C} = 1$, il primo termine vale 0, il secondo pure, $F = 0$. Torna.
+
 ### Riepilogo
 
 Una funzione booleana di $n$ variabili è descritta dalla sua tabella di verità, che ha $2^n$ righe; le funzioni possibili sono $2^{2^n}$. Le funzioni di una e due variabili sono realizzate dalle porte NOT, AND, OR, XOR e dalle loro negate. L'algebra di Boole permette di trasformare un'espressione in un'altra equivalente; le proprietà vengono a coppie per il principio di dualità, e le leggi di De Morgan scambiano somme e prodotti sotto negazione. Il teorema di Shannon dà le due forme canoniche: la somma dei mintermini degli 1 e il prodotto dei maxtermini degli 0, da cui le reti a due livelli AND-OR e OR-AND. Le mappe di Karnaugh rendono visibili le adiacenze: si coprono gli 1 (o gli 0) con il minimo numero di gruppi rettangolari di $2^k$ celle, i più grandi possibile, usando gli implicanti primi essenziali. Le indifferenze si usano solo se allargano i gruppi; le variabili riportate permettono di sintetizzare con mappe più piccole una funzione di più variabili, con un risultato quasi minimo. Le porte NAND e NOR sono complete da sole, e una rete AND-OR diventa una rete di sole NAND con la stessa struttura.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (RL-01, RL-02)
+> Il formulario raccoglie quello che serve avere sotto mano negli esercizi e all'orale. Non sostituisce le spiegazioni: ogni riga rimanda a un paragrafo del modulo.
+
+#### Conteggi e forme
+
+| Che cosa | Formula o regola | Par. |
+|---|---|---|
+| Combinazioni di $n$ ingressi | $2^n$ righe della tabella | 1.1 |
+| Funzioni distinte di $n$ variabili | $2^{2^n}$ (16 per $n = 2$) | 1.1 |
+| Mintermine di una riga | prodotto di tutte le variabili, negata dove vale 0 | 1.4 |
+| Maxtermine di una riga | somma di tutte le variabili, negata dove vale 1 | 1.4 |
+| Prima forma canonica (SOP) | somma dei mintermini delle righe con $f = 1$ | 1.4 |
+| Seconda forma canonica (POS) | prodotto dei maxtermini delle righe con $f = 0$ | 1.4 |
+| Gruppo di $2^k$ celle su $n$ variabili | prodotto (o somma) di $n - k$ variabili | 1.5 |
+
+#### Identità che si usano di più
+
+$$A + \bar{A}B = A + B \qquad A(\bar{A} + B) = AB \qquad A + AB = A \qquad A + BC = (A + B)(A + C)$$
+
+$$\overline{A + B + C} = \bar{A}\,\bar{B}\,\bar{C} \qquad \overline{ABC} = \bar{A} + \bar{B} + \bar{C} \qquad AB + \bar{A}C + BC = AB + \bar{A}C$$
+
+$$A \oplus B = A\bar{B} + \bar{A}B \qquad \overline{A \oplus B} = AB + \bar{A}\bar{B} \qquad A \oplus 1 = \bar{A} \qquad A \oplus A = 0$$
+
+#### Teoremi
+
+- **Shannon:** $f = \bar{x}_1\, f(0, x_2, \dots) + x_1\, f(1, x_2, \dots)$ e, nella forma duale, $f = (x_1 + f(0, \dots))(\bar{x}_1 + f(1, \dots))$.
+- **Dualità:** un'identità resta vera scambiando $+$ con $\cdot$ e 0 con 1.
+- **Completezza:** {AND, OR, NOT}, {NAND} e {NOR} bastano a realizzare ogni funzione.
+- **Da AND-OR a NAND:** $AB + CD = \overline{\overline{AB} \cdot \overline{CD}}$; **da OR-AND a NOR:** $(A + B)(C + D) = \overline{\overline{A + B} + \overline{C + D}}$.
+
+#### Mappe di Karnaugh: la procedura
+
+1. Ordine di Gray su righe e colonne (00, 01, 11, 10); i bordi opposti sono adiacenti.
+2. Si individuano gli implicanti primi, gruppi rettangolari di $2^k$ celle più grandi possibile.
+3. Si prendono gli essenziali (coprono un 1 che nessun altro copre), poi si coprono gli 1 rimasti con il minimo numero di primi.
+4. Indifferenze: si usano solo se allargano un gruppo, non vanno mai coperte per forza.
+5. POS: si raggruppano gli 0; nel fattore la variabile è negata se nel gruppo vale 1.
+6. Controllo finale su almeno una cella a 1 e una a 0.
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Variabile booleana, bit | grandezza con due soli valori, 0 e 1 |
+| Rete combinatoria | rete le cui uscite dipendono solo dagli ingressi presenti |
+| Tabella di verità | elenco dell'uscita per tutte le $2^n$ combinazioni: è la specifica |
+| Induzione perfetta | dimostrazione di un'identità controllando tutte le combinazioni |
+| Rete a due livelli | AND-OR o OR-AND: ogni segnale attraversa al più due porte, è la più veloce |
+| Implicante | prodotto che, quando vale 1, fa valere 1 la funzione |
+| Implicante primo | implicante non contenuto in uno più grande |
+| Implicante essenziale | implicante primo che copre un 1 coperto da nessun altro |
+| Indifferenza (*don't care*) | combinazione che non si presenta o il cui valore non interessa |
+| Variabile riportata | variabile scritta in una cella della mappa; dà una sintesi quasi minima |
+| Termine di consenso | prodotto ridondante $BC$ ottenuto da $AB$ e $\bar{A}C$ |
+| Funzione di parità | XOR di più variabili; mappa a scacchiera, nessun gruppo possibile |
+| Costo di una rete | numero di porte e di ingressi delle porte (i NOT sugli ingressi non si contano) |
+| Completezza funzionale | proprietà di un insieme di porte di realizzare ogni funzione |
+
+#### Domande che tornano spesso
+
+- Perché le funzioni di $n$ variabili sono $2^{2^n}$?
+- Enunciare e dimostrare il teorema di Shannon; come se ne ricavano le forme canoniche?
+- Perché nella mappa si usa il codice Gray? Quando due celle sono adiacenti?
+- Differenza fra implicante primo ed essenziale, con un esempio.
+- Come si usano le indifferenze, e perché non si devono coprire per forza?
+- Perché la NAND è funzionalmente completa? Come si passa da una rete AND-OR a una di sole NAND?
+- Perché le funzioni di parità sono il caso peggiore per le reti a due livelli?
 
 ## 2 · Reti combinatorie standard, ritardi e aritmetica
 
@@ -533,7 +732,40 @@ L'**unità aritmetico-logica** (ALU, *arithmetic logic unit*) mette insieme più
 ![Figura 2.8](figure/2-8.svg)
 
 > [!nota] Virgola fissa e virgola mobile
-> I numeri non interi si rappresentano in **virgola fissa** decidendo quanti bit stanno dopo la virgola: con tre bit frazionari $0{,}375 = 0{,}011_2$, perché $0{,}375 = 2^{-2} + 2^{-3}$. La precisione assoluta è la stessa per tutti i numeri. In **virgola mobile** il numero si scrive come in notazione scientifica, $7{,}3 \cdot 10^2$, con un bit di segno, un esponente e una mantissa: la precisione relativa è la stessa per numeri grandi e piccoli, mentre quella assoluta cambia con l'esponente. I formati standard non fanno parte di questo corso.
+> I numeri non interi si rappresentano in **virgola fissa** decidendo quanti bit stanno dopo la virgola: con tre bit frazionari $0{,}375 = 0{,}011_2$, perché $0{,}375 = 2^{-2} + 2^{-3}$. La precisione assoluta è la stessa per tutti i numeri. In **virgola mobile** il numero si scrive come in notazione scientifica, $7{,}3 \cdot 10^2$, con un bit di segno, un esponente e una mantissa: la precisione relativa è la stessa per numeri grandi e piccoli, mentre quella assoluta cambia con l'esponente. All'esame del corso la virgola mobile non viene chiesta, ma il formato standard si usa ovunque (è quello dei `float` e dei `double` del C) ed è spiegato nel paragrafo 2.8.
+
+### 2.8 Numeri in virgola mobile: lo standard IEEE 754
+
+> [!aggiunta] Aggiunta in revisione · fonte: Patterson e Hennessy, *Struttura e progetto dei calcolatori*; standard IEEE 754 (RL-03)
+> **Parte frazionaria in binario.** Le cifre dopo la virgola pesano $2^{-1}, 2^{-2}, 2^{-3}, \dots$, cioè $0{,}5$, $0{,}25$, $0{,}125$, … Per convertire una frazione decimale si moltiplica ripetutamente per 2 e si prende ogni volta la parte intera come bit, dal primo dopo la virgola in poi. Per $0{,}375$: $0{,}375 \cdot 2 = 0{,}75$ (bit 0), $0{,}75 \cdot 2 = 1{,}5$ (bit 1, si tiene $0{,}5$), $0{,}5 \cdot 2 = 1{,}0$ (bit 1, si tiene 0 e ci si ferma): $0{,}375 = 0{,}011_2$. Non tutte le frazioni finiscono: $0{,}1$ dà $0{,}000110011001100\dots_2$ con il gruppo $0011$ che si ripete per sempre, quindi $0{,}1$ in binario non si scrive esattamente con un numero finito di bit.
+>
+> **L'idea della virgola mobile.** Ogni numero diverso da zero si può scrivere in binario nella forma **normalizzata** $\pm 1{,}m \times 2^E$, con una sola cifra 1 prima della virgola: per esempio $6{,}75 = 110{,}11_2 = 1{,}1011_2 \times 2^2$. Si memorizzano tre campi: il **segno** $s$ (0 positivo, 1 negativo), l'**esponente** $E$ e la **mantissa** $m$, cioè le cifre dopo la virgola. L'1 prima della virgola c'è sempre e non si memorizza (**bit nascosto**), così si guadagna un bit di precisione.
+>
+> **Il formato a 32 bit (singola precisione).** Il primo bit è il segno, poi 8 bit di esponente, poi 23 bit di mantissa. L'esponente non si scrive in complemento a 2 ma **polarizzato** (*biased*): nel campo si scrive $e = E + 127$, così il campo è un naturale fra 0 e 255 e i numeri si confrontano come interi. Il valore di un numero normalizzato è
+> $$N = (-1)^s \times 1{,}m \times 2^{\,e - 127}, \qquad 1 \le e \le 254.$$
+> Il formato a 64 bit (doppia precisione) ha lo stesso schema con 11 bit di esponente, polarizzazione 1023, e 52 bit di mantissa.
+>
+> **Esempio: $-6{,}75$ in singola precisione.** Segno: negativo, $s = 1$. Modulo in binario: $6 = 110_2$ e $0{,}75 = 0{,}11_2$, quindi $110{,}11_2$. Normalizzazione: si sposta la virgola di due posti a sinistra, $1{,}1011_2 \times 2^2$. Esponente: $e = 2 + 127 = 129 = 1000\,0001_2$. Mantissa: le cifre dopo la virgola, $1011$, seguite da 19 zeri. Il numero è
+> $$1\;\,10000001\;\,10110000000000000000000 = \texttt{C0D80000}_{16}.$$
+>
+> **Esempio inverso: $\texttt{41200000}_{16}$.** In binario $0\;10000010\;01000\dots0$: segno positivo, $e = 130$, quindi $E = 3$, mantissa $01$. Il valore è $1{,}01_2 \times 2^3 = 1010_2 = 10$.
+>
+> **Valori speciali.** I due valori estremi del campo esponente sono riservati.
+>
+> | Campo $e$ | Mantissa | Significato |
+> |---|---|---|
+> | 0 | 0 | $\pm 0$ (lo zero ha due rappresentazioni, con i due segni) |
+> | 0 | $\ne 0$ | numero **denormalizzato** $(-1)^s \times 0{,}m \times 2^{-126}$, per i valori piccolissimi |
+> | da 1 a 254 | qualsiasi | numero normalizzato |
+> | 255 | 0 | $\pm\infty$, per esempio il risultato di $1/0$ |
+> | 255 | $\ne 0$ | NaN (*not a number*), per esempio $0/0$ o $\sqrt{-1}$ |
+>
+> **Intervallo e precisione.** Il più grande numero a 32 bit è $(2 - 2^{-23}) \times 2^{127} \approx 3{,}4 \times 10^{38}$, il più piccolo normalizzato positivo è $2^{-126} \approx 1{,}18 \times 10^{-38}$. La mantissa con il bit nascosto ha 24 bit significativi, circa 7 cifre decimali: la distanza fra 1 e il numero rappresentabile successivo è $2^{-23} \approx 1{,}19 \times 10^{-7}$ (l'*epsilon di macchina*). La precisione è relativa: fra $2^{20}$ e $2^{21}$ due numeri consecutivi distano $2^{20-23} = 0{,}125$, fra 1 e 2 distano $2^{-23}$.
+>
+> **Somma di due numeri in virgola mobile.** (1) Si porta il numero con l'esponente minore allo stesso esponente dell'altro, spostando la sua mantissa a destra; (2) si sommano le mantisse; (3) si normalizza il risultato; (4) si arrotonda ai bit disponibili. Per $1{,}5 + 0{,}375$: $1{,}1_2 \times 2^0 + 1{,}1_2 \times 2^{-2} = 1{,}1_2 \times 2^0 + 0{,}011_2 \times 2^0 = 1{,}111_2 \times 2^0 = 1{,}875$. Lo spostamento del passo (1) fa perdere i bit meno significativi del numero piccolo: in singola precisione $2^{24} + 1$ dà di nuovo $2^{24}$, perché l'1 finisce oltre il ventiquattresimo bit. Per questo con i numeri in virgola mobile la somma non è associativa: $(2^{24} + 1) - 2^{24} = 0$, mentre $(2^{24} - 2^{24}) + 1 = 1$.
+
+> [!attenzione]
+> Nell'esponente polarizzato il campo $e$ non è l'esponente: $E = e - 127$. Un errore frequente è dimenticare il bit nascosto quando si ricostruisce il valore, e leggere $0{,}m$ invece di $1{,}m$.
 
 ### Esempi ed esercizi svolti
 
@@ -547,9 +779,214 @@ Con righe $A$ e colonne $BC$, la riga $A = 0$ è tutta a 0, la riga $A = 1$ vale
 
 **Esercizio 4.** Generatore di parità per 4 bit $B_3 B_2 B_1 B_0$. Il bit di parità pari è $P = B_3 \oplus B_2 \oplus B_1 \oplus B_0$, che si realizza con tre porte XOR a due ingressi, in fila oppure ad albero ($(B_3 \oplus B_2) \oplus (B_1 \oplus B_0)$, più veloce perché i livelli sono due invece di tre). Con la mappa sarebbe una scacchiera, senza nessun raggruppamento possibile.
 
+#### Esercizi del laboratorio con il simulatore
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni con il simulatore Deeds (testi riscritti, dati e soluzioni nuovi) (RL-02, RL-03, RL-08)
+> Come nel modulo 1, gli esercizi seguono quelli del laboratorio: si completa lo schema, si ricava la tabella e si controlla con il diagramma temporale.
+
+**Esercizio 5. Il MUX 2→1 nel tempo, e un'alea nascosta.** Un MUX 2→1 ha ingressi dati $I_0$, $I_1$, selezione $SEL$ e uscita $U = \overline{SEL}\,I_0 + SEL\,I_1$. Nella simulazione $I_0$ è un'onda quadra veloce, $I_1$ un'onda quadra lenta, e $SEL$ cambia ogni tanto. Che cosa si vede su $U$? Che cosa succede se $SEL$ scende da 1 a 0 mentre $I_0 = I_1 = 1$?
+
+Finché $SEL = 0$ l'uscita ricopia l'onda veloce, finché $SEL = 1$ quella lenta: guardando $U$ si capisce a colpo d'occhio quale ingresso è selezionato, ed è il motivo per cui i due ingressi si fanno a frequenze diverse. Il secondo caso è più interessante. Con $I_0 = I_1 = 1$ l'uscita deve restare a 1, ma prima della commutazione la tiene alta la AND di $SEL\,I_1$, dopo la AND di $\overline{SEL}\,I_0$, e $\overline{SEL}$ arriva in ritardo perché passa per il NOT: per un istante entrambe le AND sono spente e $U$ fa un impulso a 0. È l'alea statica del paragrafo 2.3: sulla mappa del MUX (paragrafo 2.1) le celle $111$ e $011$ sono coperte da gruppi diversi. Si elimina aggiungendo il consenso $I_0 I_1$:
+$$U = \overline{SEL}\,I_0 + SEL\,I_1 + I_0 I_1.$$
+
+**Esercizio 6. DEMUX 1→2.** Ingresso dati $IN$, selezione $S$, uscite $O_0$ e $O_1$. Scrivere tabella ed equazioni e spiegare che cosa si vede in simulazione se $IN$ è un'onda quadra.
+
+L'ingresso va sull'uscita scelta, l'altra resta a 0: $O_0 = \bar{S}\,IN$ e $O_1 = S\,IN$. In tabella: per $S = 0$ si ha $O_0 = IN$, $O_1 = 0$; per $S = 1$ si ha $O_0 = 0$, $O_1 = IN$. Nel diagramma temporale l'onda quadra "salta" da un'uscita all'altra ogni volta che cambia $S$, e l'uscita non selezionata è piatta a 0. Il circuito è fatto di due AND e un NOT: è lo stesso schema del MUX senza la OR finale.
+
+**Esercizio 7. Un canale di comunicazione condiviso.** Quattro sorgenti $A$, $B$, $C$, $D$ devono spedire dati a due destinatari $O_0$ e $O_1$ usando un solo filo, il canale $CH$. Il trasmettitore ha un MUX 4→1 con selezione $S_1 S_0$, il ricevitore un DEMUX 1→2 con selezione $S_{OUT}$. (a) Come si impostano le selezioni per mandare $C$ a $O_1$? (b) Si può mandare nello stesso momento $A$ a $O_0$ e $B$ a $O_1$? (c) Come si condivide il canale fra tutte le sorgenti?
+
+(a) Il MUX mette sul canale l'ingresso il cui indice è $S_1 S_0$: per $C$, che è l'ingresso 2, serve $S_1 S_0 = 10$. Il DEMUX porta il canale su $O_1$ con $S_{OUT} = 1$. Quindi $CH = C$, $O_1 = C$ e $O_0 = 0$.
+
+(b) No: sul filo c'è un solo segnale alla volta. Il canale è una risorsa condivisa, e due trasmissioni contemporanee si possono fare solo con due fili.
+
+(c) Si divide il tempo in intervalli e in ciascuno si dà il canale a una sorgente: per esempio si fa contare $S_1 S_0$ da 00 a 11 e si ricomincia, e si sceglie $S_{OUT}$ secondo il destinatario di quell'intervallo. È la **multiplazione a divisione di tempo**, e il contatore che genera le selezioni è proprio quello del modulo 3. Trasmettitore e ricevitore devono essere d'accordo su chi trasmette in ogni intervallo: in pratica le selezioni sono generate dallo stesso clock.
+
+**Esercizio 8. Che cosa fa questa rete a MUX?** Un MUX 8→1 ha sulle selezioni $C B A$ ($C$ più significativo) e sugli ingressi dati, da $I_0$ a $I_7$, le costanti $0, 0, 0, 1, 0, 1, 1, 1$. (a) Che funzione realizza? Si potrebbe usare per controllare la parità? (b) Modificare gli ingressi dati per realizzare $U = C\bar{A} + B\bar{C}A + \bar{B}\bar{A}\bar{C}$.
+
+(a) L'uscita vale 1 per gli indici 3, 5, 6, 7, cioè $CBA = 011, 101, 110, 111$: le combinazioni con almeno due 1. È la funzione **maggioranza**, $U = AB + AC + BC$, la stessa del riporto del full adder. Per la parità servirebbero gli 1 sugli indici con un numero dispari di 1, cioè 1, 2, 4, 7, quindi ingressi $0, 1, 1, 0, 1, 0, 0, 1$: con questi ingressi no.
+
+(b) Si calcola $U$ riga per riga. Per $CBA = 000$ vale 1 il terzo termine; per $011$ il secondo; per $100$ e $110$ il primo ($C = 1$, $A = 0$); per tutte le altre righe nessun termine. Gli ingressi dati sono quindi $I_0 \dots I_7 = 1, 0, 0, 1, 1, 0, 1, 0$. La stessa funzione si fa con un MUX 4→1, mettendo $C$ e $B$ sulle selezioni e $A$ come variabile riportata: le coppie di righe danno $\bar{A}$ per $CB = 00$, $A$ per $01$, $\bar{A}$ per $10$ e $\bar{A}$ per $11$.
+
+**Esercizio 9. Comparatore di due numeri a 2 bit.** Ingressi $A = A_1 A_0$ e $B = B_1 B_0$, naturali da 0 a 3; uscite $G$ ($A > B$), $E$ ($A = B$), $L$ ($A < B$). Trovare le sintesi minime.
+
+Mappa di $G$ con righe $A_1 A_0$ e colonne $B_1 B_0$, tutte in ordine di Gray; ogni cella vale 1 se il numero della riga è maggiore di quello della colonna:
+
+| $A_1 A_0 \backslash B_1 B_0$ | 00 | 01 | 11 | 10 |
+|---|---|---|---|---|
+| 00 | 0 | 0 | 0 | 0 |
+| 01 | 1 | 0 | 0 | 0 |
+| 11 | 1 | 1 | 0 | 1 |
+| 10 | 1 | 1 | 0 | 0 |
+
+La quaterna in basso a sinistra (righe 11 e 10, colonne 00 e 01) dà $A_1\bar{B}_1$: se il bit alto di $A$ è 1 e quello di $B$ è 0, $A$ è maggiore qualunque siano gli altri bit. La coppia nella riga 11, colonne 00 e 10, dà $A_1 A_0\bar{B}_0$; la coppia nella colonna 00, righe 01 e 11, dà $A_0\bar{B}_1\bar{B}_0$. Quindi
+$$G = A_1\bar{B}_1 + A_1 A_0\bar{B}_0 + A_0\bar{B}_1\bar{B}_0.$$
+$L$ si ottiene scambiando i ruoli di $A$ e $B$: $L = \bar{A}_1 B_1 + B_1 B_0\bar{A}_0 + B_0\bar{A}_1\bar{A}_0$. La mappa di $E$ ha gli 1 solo sulla diagonale ($A = B$), quattro celle non adiacenti: la SOP minima è la forma canonica con quattro mintermini, mentre su più livelli la stessa funzione è $E = \overline{A_1 \oplus B_1} \cdot \overline{A_0 \oplus B_0}$, come nel paragrafo 2.7. In ogni caso le tre uscite non sono indipendenti: per ogni coppia ne vale 1 una sola, e $E = \overline{G + L}$.
+
+**Esercizio 10. Moltiplicatore di due numeri a 2 bit.** Ingressi $A_1 A_0$ e $B_1 B_0$; uscita $P = P_3 P_2 P_1 P_0 = A \times B$, da 0 a 9.
+
+Il prodotto massimo è $3 \times 3 = 9 = 1001_2$, quindi bastano 4 bit. Dalle sedici righe della tabella e dalle mappe si ottiene:
+$$P_0 = A_0 B_0, \qquad P_3 = A_1 A_0 B_1 B_0, \qquad P_2 = A_1 B_1\bar{A}_0 + A_1 B_1\bar{B}_0 = A_1 B_1\,\overline{A_0 B_0},$$
+$$P_1 = A_0 B_1\bar{A}_1 + A_0 B_1\bar{B}_0 + A_1 B_0\bar{A}_0 + A_1 B_0\bar{B}_1.$$
+$P_0$ è 1 solo se entrambi i fattori sono dispari; $P_3$ è 1 solo per $3 \times 3$. La forma a più livelli è quella della moltiplicazione in colonna del paragrafo 2.7: i prodotti parziali sono $A_0 B_0$, $A_1 B_0$, $A_0 B_1$, $A_1 B_1$, e
+$$P_1 = A_1 B_0 \oplus A_0 B_1, \quad c = A_1 B_0 \cdot A_0 B_1, \quad P_2 = A_1 B_1 \oplus c, \quad P_3 = A_1 B_1 \cdot c,$$
+cioè quattro AND per i prodotti parziali e due semisommatori. Prova: $A = 11$, $B = 10$ dà prodotti parziali $A_0 B_0 = 0$, $A_1 B_0 = 0$, $A_0 B_1 = 1$, $A_1 B_1 = 1$; quindi $P_1 = 1$, $c = 0$, $P_2 = 1$, $P_3 = 0$: $P = 0110 = 6$.
+
+**Esercizio 11. Valore assoluto di un numero a 3 bit.** L'ingresso $I_2 I_1 I_0$ è un numero in complemento a 2, da $-4$ a $+3$. L'uscita $Y_1 Y_0$ deve dare il suo valore assoluto; se l'ingresso è $-4$, il cui valore assoluto non sta in 2 bit, l'uscita di errore $ERR$ va a 1 e $Y_1 Y_0$ non interessano.
+
+| $I_2 I_1 I_0$ | valore | $\lvert\cdot\rvert$ | $Y_1 Y_0$ | $ERR$ |
+|---|---|---|---|---|
+| 000 | 0 | 0 | 00 | 0 |
+| 001 | 1 | 1 | 01 | 0 |
+| 010 | 2 | 2 | 10 | 0 |
+| 011 | 3 | 3 | 11 | 0 |
+| 100 | −4 | – | – – | 1 |
+| 101 | −3 | 3 | 11 | 0 |
+| 110 | −2 | 2 | 10 | 0 |
+| 111 | −1 | 1 | 01 | 0 |
+
+Per i negativi il valore assoluto si ottiene con la regola del paragrafo 2.6, negando i bit e sommando 1: per $101$ si ha $010 + 1 = 011 = 3$. Dalla tabella: $Y_0 = I_0$ (cambiare segno non cambia il bit meno significativo), $ERR = I_2\bar{I}_1\bar{I}_0$ e, con l'indifferenza in $100$,
+$$Y_1 = I_1\bar{I}_0 + \bar{I}_2 I_1 + I_2\bar{I}_1 = I_1 \oplus I_2 I_0.$$
+L'ultima forma si legge così: il bit $Y_1$ è $I_1$ per i positivi, e per i negativi è $I_1$ invertito quando $I_0 = 1$ (il "+1" della regola genera un riporto solo se $I_0 = 0$).
+
+**Esercizio 12. Sommatore a 2 bit: a cascata o a due livelli?** Un sommatore a 2 bit è fatto con un semisommatore sul bit 0 e un full adder sul bit 1: $S_0 = A_0 \oplus B_0$, $c_1 = A_0 B_0$, $S_1 = A_1 \oplus B_1 \oplus c_1$, $S_2 = A_1 B_1 + c_1(A_1 + B_1)$. Ricavare la versione a due livelli e confrontarle.
+
+La tabella ha sedici righe; si sintetizzano le tre uscite con le mappe.
+$$S_0 = A_0\bar{B}_0 + \bar{A}_0 B_0, \qquad S_2 = A_1 B_1 + A_1 A_0 B_0 + A_0 B_1 B_0,$$
+$$S_1 = A_1\bar{B}_1\bar{A}_0 + A_1\bar{B}_1\bar{B}_0 + \bar{A}_1 B_1\bar{A}_0 + \bar{A}_1 B_1\bar{B}_0 + \bar{A}_1\bar{B}_1 A_0 B_0 + A_1 B_1 A_0 B_0.$$
+$S_2$ è il riporto: c'è se i due bit alti sono 1, oppure se c'è il riporto dal bit 0 e almeno un bit alto è 1. $S_1$ è uno XOR di tre variabili "mascherato" e non si semplifica: sei prodotti. Nella versione a cascata il segnale più lento attraversa l'AND di $c_1$ e poi le porte del full adder; nella versione a due livelli ogni uscita attraversa due porte. Si guadagna velocità e si paga in porte: è lo stesso compromesso del sommatore a $n$ bit, dove la rete a due livelli diventerebbe enorme e si usano soluzioni intermedie come il calcolo anticipato del riporto (*carry look-ahead*).
+
+**Esercizio 13. Riconoscere una rete e rifarla con un MUX.** Una rete ha ingressi $A$, $B$: una NOR riceve $A$ e $B$, una AND riceve $A$ e $B$, e una seconda NOR riceve le uscite delle prime due. (a) Che funzione è? (b) Rifarla con un MUX 2→1.
+
+(a) La seconda NOR dà $\overline{\overline{A + B} + AB} = (A + B)\,\overline{AB}$, che vale 1 quando almeno un ingresso è 1 ma non entrambi: è lo XOR. (b) Con $A$ sulla selezione: per $A = 0$ l'uscita deve essere $B$, per $A = 1$ deve essere $\bar{B}$. Quindi $I_0 = B$ e $I_1 = \bar{B}$, con la variabile riportata del paragrafo 1.6. Con un MUX 4→1 servirebbero entrambe le variabili sulle selezioni e le costanti $0, 1, 1, 0$, come nella figura 2.3.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi, soluzioni verificate con `strumenti/verifica_ampliamento.py` (RL-02, RL-03)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Funzione con un MUX 4→1 e una variabile riportata.** Realizzare $F(A, B, C) = \sum m(1, 2, 6, 7)$ con un MUX 4→1, con $A$ e $B$ sulle selezioni.
+
+*Passo 1.* Si scrivono le righe a coppie, con la stessa coppia $AB$: per $AB = 00$ le righe sono $m_0 = 0$ e $m_1 = 1$; per $01$, $m_2 = 1$ e $m_3 = 0$; per $10$, $m_4 = 0$ e $m_5 = 0$; per $11$, $m_6 = 1$ e $m_7 = 1$.
+
+*Passo 2.* In ogni coppia la prima riga ha $C = 0$ e la seconda $C = 1$; l'uscita si scrive in funzione di $C$: $(0, 1)$ è $C$, $(1, 0)$ è $\bar{C}$, $(0, 0)$ è 0, $(1, 1)$ è 1.
+
+*Passo 3.* Gli ingressi dati sono $I_0 = C$, $I_1 = \bar{C}$, $I_2 = 0$, $I_3 = 1$.
+
+*Passo 4: controllo.* Per $ABC = 011$ il MUX sceglie $I_1 = \bar{C} = 0$, e infatti $m_3$ non è nella lista. Per $ABC = 110$ sceglie $I_3 = 1$, e $m_6$ è nella lista.
+
+**Guidato 2. Somme in complemento a 2 su 8 bit, con l'overflow.** Calcolare $100 + 50$, $100 - 50$ e $-100 - 50$ su 8 bit e dire quando c'è overflow.
+
+*Passo 1: gli operandi.* $100 = 0110\,0100$ e $50 = 0011\,0010$. Per $-50$: si negano i bit di $50$ ($1100\,1101$) e si somma 1: $1100\,1110$. Per $-100$: $1001\,1011 + 1 = 1001\,1100$.
+
+*Passo 2: $100 + 50$.* $0110\,0100 + 0011\,0010 = 1001\,0110$. Due positivi danno un risultato con il primo bit a 1, cioè negativo ($-106$): è overflow, e infatti $150 > 127$.
+
+*Passo 3: $100 - 50 = 100 + (-50)$.* $0110\,0100 + 1100\,1110 = 1\;0011\,0010$. Si scarta il nono bit: $0011\,0010 = 50$. Operandi di segno diverso: l'overflow non è possibile, e il riporto finale a 1 non significa niente.
+
+*Passo 4: $-100 - 50$.* $1001\,1100 + 1100\,1110 = 1\;0110\,1010$. Scartato il nono bit resta $0110\,1010 = 106$, positivo: due negativi hanno dato un positivo, è overflow ($-150 < -128$).
+
+*Passo 5: la regola dei riporti.* Nel passo 2 entra un riporto nel bit 7 ($c_7 = 1$) e non ne esce ($c_8 = 0$): $V = c_8 \oplus c_7 = 1$. Nel passo 3 entra e esce ($c_7 = c_8 = 1$): $V = 0$. Nel passo 4 non entra ma esce ($c_7 = 0$, $c_8 = 1$): $V = 1$.
+
+**Guidato 3. Trovare ed eliminare un'alea statica.** Sia $U = A\bar{C} + BC$. (a) Trovare la transizione che può dare un'alea. (b) Eliminarla.
+
+*Passo 1: la mappa.* Righe $A$, colonne $BC$: il gruppo $BC$ copre le celle $011$ e $111$, il gruppo $A\bar{C}$ le celle $100$ e $110$. Quindi $U = 1$ per $011, 100, 110, 111$.
+
+*Passo 2: coppie di 1 adiacenti coperte da gruppi diversi.* Le celle $110$ (coperta da $A\bar{C}$) e $111$ (coperta da $BC$) sono adiacenti e differiscono per $C$. Con $A = B = 1$ e $C$ che cambia, l'uscita deve restare a 1, ma passa da una AND all'altra: se $C$ scende da 1 a 0, la AND di $BC$ si spegne subito, mentre quella di $A\bar{C}$ si accende solo dopo il ritardo del NOT su $C$. In quell'intervallo $U = 0$.
+
+*Passo 3: il consenso.* Da $A\bar{C}$ e $BC$, togliendo $C$, il consenso è $AB$: copre entrambe le celle. $U = A\bar{C} + BC + AB$ è la stessa funzione senza l'alea.
+
+*Passo 4: controllo.* Durante la transizione, con $A = B = 1$, la AND di $AB$ resta accesa qualunque cosa facciano $C$ e $\bar{C}$.
+
+**Guidato 4. Da decimale a IEEE 754.** Scrivere $-13{,}625$ in singola precisione.
+
+*Passo 1: segno.* Negativo, $s = 1$.
+
+*Passo 2: modulo in binario.* $13 = 1101_2$; $0{,}625 \cdot 2 = 1{,}25$ (1), $0{,}25 \cdot 2 = 0{,}5$ (0), $0{,}5 \cdot 2 = 1$ (1): $0{,}625 = 0{,}101_2$. Quindi $13{,}625 = 1101{,}101_2$.
+
+*Passo 3: normalizzazione.* $1101{,}101_2 = 1{,}101101_2 \times 2^3$.
+
+*Passo 4: esponente.* $e = 3 + 127 = 130 = 1000\,0010_2$.
+
+*Passo 5: mantissa.* Le cifre dopo la virgola, $101101$, seguite da 17 zeri.
+
+*Passo 6: il numero.* $1\;10000010\;10110100000000000000000$, cioè a gruppi di 4 bit $1100\,0001\,0101\,1010\,0000\dots = \texttt{C15A0000}_{16}$.
+
 ### Riepilogo
 
 I blocchi standard delle reti combinatorie sono il multiplexer, che sceglie un ingresso dati secondo la selezione, il demultiplexer, che porta un ingresso su un'uscita scelta, il decoder, che accende una sola uscita per ogni combinazione e quindi produce tutti i mintermini, e l'encoder, che fa l'inverso. Il MUX è universale: con le variabili sulle selezioni e la tabella di verità sugli ingressi dati realizza qualsiasi funzione. Nel circuito reale ogni porta ha un ritardo di propagazione, e percorsi di lunghezza diversa producono alee: un'alea statica si vede sulla mappa come una transizione fra celle a 1 coperte da gruppi diversi, e si elimina con il termine di consenso. I numeri si scrivono in notazione posizionale; ottale ed esadecimale raggruppano i bit a 3 e a 4, il BCD codifica le cifre decimali e il codice Gray cambia un bit alla volta. La somma si fa con half e full adder in cascata; i numeri negativi si rappresentano in complemento a 2, che si ottiene negando i bit e sommando 1, e con cui la somma si fa con lo stesso sommatore. L'overflow in complemento a 2 si riconosce dal segno del risultato. Sottrattore, comparatore e moltiplicatore si costruiscono con il sommatore, e l'ALU li riunisce con un MUX che sceglie l'operazione.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (RL-02, RL-03)
+> Formule, schemi e termini del modulo, con il paragrafo in cui sono spiegati.
+
+#### Blocchi standard
+
+| Blocco | Equazioni | Par. |
+|---|---|---|
+| MUX 2→1 | $U = \overline{SEL}\,I_0 + SEL\,I_1$ | 2.1 |
+| MUX 4→1 | $U = \bar{S}_1\bar{S}_0 I_0 + \bar{S}_1 S_0 I_1 + S_1\bar{S}_0 I_2 + S_1 S_0 I_3$ | 2.1 |
+| DEMUX 1→4 | $U_k = (\text{mintermine } k \text{ di } S_1 S_0) \cdot IN$ | 2.2 |
+| Decoder $n \to 2^n$ | $U_k = 1$ solo se gli ingressi formano $k$: ogni uscita è un mintermine | 2.2 |
+| Encoder con priorità a 4 ingressi | $Y_1 = I_3 + I_2$, $Y_0 = I_3 + \bar{I}_2 I_1$, $V = I_3 + I_2 + I_1 + I_0$ | 2.2 |
+| Funzione con MUX $2^n \to 1$ | variabili sulle selezioni, tabella sugli ingressi dati | 2.1 |
+| Funzione con MUX $2^{n-1} \to 1$ | $n - 1$ variabili sulle selezioni, ingressi $0$, $1$, $x$ o $\bar{x}$ | 2.1 |
+
+#### Ritardi e alee
+
+- Alea statica di 1 in una SOP: due celle a 1 adiacenti coperte da gruppi diversi.
+- Si elimina con il termine di consenso: da $AB$ e $\bar{A}C$ si aggiunge $BC$.
+- Una rete sincrona campiona le uscite combinatorie solo quando sono a regime.
+
+#### Numeri
+
+| Che cosa | Formula | Par. |
+|---|---|---|
+| Valore posizionale | $N = \sum_k a_k B^k$ | 2.4 |
+| Naturali su $n$ bit | da $0$ a $2^n - 1$ | 2.4 |
+| Complemento a 2 su $n$ bit | $N = -a_{n-1} 2^{n-1} + \sum_{k < n-1} a_k 2^k$, da $-2^{n-1}$ a $2^{n-1} - 1$ | 2.6 |
+| Cambio di segno | si negano tutti i bit e si somma 1 | 2.6 |
+| Estensione del segno | si ripete il bit di segno a sinistra | 2.6 |
+| Overflow in complemento a 2 | operandi dello stesso segno e risultato di segno opposto; $V = c_n \oplus c_{n-1}$ | 2.6 |
+| Sottrazione | $A - B = A + \bar{B} + 1$ | 2.6 |
+| IEEE 754 a 32 bit | $(-1)^s \times 1{,}m \times 2^{e - 127}$; campi 1, 8, 23 bit | 2.8 |
+| IEEE 754 a 64 bit | $(-1)^s \times 1{,}m \times 2^{e - 1023}$; campi 1, 11, 52 bit | 2.8 |
+
+#### Aritmetica
+
+$$\text{half adder: } S = A \oplus B,\ C = AB \qquad \text{full adder: } S = A \oplus B \oplus C_{in},\ C_{out} = AB + AC_{in} + BC_{in}$$
+
+Il sommatore a cascata a $n$ bit ha un ritardo che cresce con $n$ (il riporto attraversa tutti gli stadi). Comparatore di un bit: $A > B$ è $A\bar{B}$, $A = B$ è $\overline{A \oplus B}$, $A < B$ è $\bar{A}B$; per $n$ bit l'uguaglianza è l'AND delle XNOR. Il prodotto di due numeri di $n$ bit ha fino a $2n$ bit, e i prodotti parziali sono AND.
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Multiplexer | selettore: copia sull'uscita l'ingresso dati scelto dalla selezione |
+| Rete universale | blocco con cui si realizza qualsiasi funzione (il MUX lo è) |
+| Demultiplexer | porta un ingresso sull'uscita scelta, le altre restano a 0 |
+| Decoder | accende una sola uscita per ogni combinazione: genera tutti i mintermini |
+| Encoder con priorità | dà il numero dell'ingresso attivo di indice più alto |
+| Ritardo di propagazione | tempo fra la variazione di un ingresso e quella dell'uscita |
+| Alea statica / dinamica | impulso indesiderato su un'uscita che deve restare costante / che deve cambiare una volta |
+| MSB, LSB | bit di peso massimo e di peso minimo |
+| BCD | ogni cifra decimale scritta con 4 bit |
+| Codice Gray | sequenza in cui due valori consecutivi differiscono per un bit |
+| Bit di parità | bit che rende pari (o dispari) il numero di 1; rivela un errore singolo |
+| Overflow | risultato che non sta nei bit disponibili |
+| Complemento a 2 | rappresentazione dei negativi con il bit alto di peso $-2^{n-1}$ |
+| Bit nascosto | l'1 prima della virgola della mantissa normalizzata, non memorizzato |
+| Esponente polarizzato | campo $e = E + 127$ (o $+1023$) invece dell'esponente in complemento a 2 |
+| ALU | rete che esegue più operazioni sugli stessi operandi e ne sceglie una con un MUX |
+
+#### Domande che tornano spesso
+
+- Perché il MUX è una rete universale? Come si realizza una funzione di 3 variabili con un MUX 4→1?
+- Che differenza c'è fra DEMUX e decoder?
+- Che cos'è un'alea statica, perché nasce e come si elimina? Disegnare il diagramma temporale di $IN + \overline{IN}$.
+- Perché il complemento a 2 è preferito a modulo e segno? Come si riconosce l'overflow?
+- Come si passa da un sommatore a un sottrattore con una sola rete?
+- Perché il sommatore a cascata è lento?
+- Come si scrive un numero in IEEE 754? Che cosa sono il bit nascosto, i denormalizzati, infinito e NaN?
 
 ## 3 · Flip-flop, registri e contatori
 
@@ -625,6 +1062,11 @@ I tre FF che servono sono il D, il JK e il T, tutti con la stessa idea: la tabel
 | T | $T = 0$ / $T = 1$ | $Q$ / $\bar{Q}$ | $Q^+ = T \oplus Q$ |
 
 Nel FF JK la combinazione $J = K = 1$ non fa più oscillare: lo stato si inverte una volta per fronte. Il FF **T** (*toggle*) si ottiene da un JK con $J = K = T$, oppure da un D con $D = T \oplus Q$.
+
+> [!aggiunta] Aggiunta in revisione · fonte: Donzellini e altri, *Introduzione al progetto di sistemi digitali*; esercitazioni con il simulatore (RL-04)
+> **Flip-flop D con abilitazione (E-PET).** Nei registri serve spesso un FF che al fronte carichi $D$ solo quando un segnale lo autorizza, e altrimenti conservi lo stato. È il FF **E-PET** (*enabled positive edge triggered*), che ha un ingresso $E$ in più:
+> $$Q^+ = E\,D + \bar{E}\,Q.$$
+> Dentro c'è un FF D con davanti un MUX 2→1: con $E = 1$ il MUX porta $D$ all'ingresso del FF, con $E = 0$ gli riporta la sua stessa uscita. L'abilitazione non agisce sul clock: il clock arriva a tutti i FF, e quello che cambia è il valore che il FF carica. Fermare il clock con una porta (*clock gating*) sarebbe una cattiva idea, perché la porta ritarda il clock di quel FF rispetto agli altri e può creare fronti spuri.
 
 I FF hanno spesso due ingressi **asincroni**, attivi bassi, che agiscono subito senza aspettare il clock: $\overline{PR}$ (*preset*) forza lo stato a 1 quando vale 0, $\overline{CL}$ (*clear*) lo forza a 0. Si usano per l'inizializzazione: il segnale $\overline{RES}$ di una rete va sui $\overline{CL}$ di tutti i FF, e quando non servono si collegano a 1.
 
@@ -721,8 +1163,8 @@ Analizzare una rete sincrona vuol dire ricavarne il comportamento dal circuito. 
 > [!esempio] Due flip-flop in cascata
 > L'ingresso $IN$ va a un primo FF, la cui uscita $U_0$ va all'ingresso $D$ di un secondo FF con uscita $U_1$; i due FF hanno lo stesso clock e lo stesso $\overline{RES}$. Finché $\overline{RES} = 0$ le uscite sono a 0. Poi, a ogni fronte, $U_0$ prende il valore che $IN$ aveva appena prima del fronte, e $U_1$ quello che $U_0$ aveva appena prima: $U_1$ è $U_0$ ritardato di un periodo di clock. Un impulso di $IN$ che comincia e finisce fra due fronti non viene visto affatto.
 
-> [!dubbio]
-> Negli appunti (L08 e L07) il primo FF è un JK con $IN$ su $J$, ma non si legge dove sia collegato $K$. Se $K = \overline{IN}$, il JK si comporta come un FF D e il diagramma è quello descritto sopra. Va confermato sul circuito.
+> [!nota]
+> Il primo FF si può fare anche con un JK, mettendo $IN$ su $J$ e $\overline{IN}$ su $K$. Con $J = IN$ e $K = \overline{IN}$ il JK riceve solo i comandi di set ($JK = 10$) e di reset ($JK = 01$), quindi $Q^+ = IN$: si comporta esattamente come un FF D, e il diagramma è quello descritto sopra. È il modo di ottenere un FF D da un JK.
 
 > [!esempio] Un registro a scorrimento con retroazione
 > Quattro FF D sono in fila con uscite $D$, $C$, $B$, $A$ (il primo è $D$). L'ingresso del primo FF è $IN \oplus B \oplus A$, l'uscita di ogni FF è l'ingresso del successivo; il reset porta tutto a $0000$ (figura 3.8).
@@ -749,9 +1191,237 @@ Analizzare una rete sincrona vuol dire ricavarne il comportamento dal circuito. 
 
 **Esercizio 4.** Un registro universale a 4 bit contiene $Q_3 Q_2 Q_1 Q_0 = 1011$, con ingresso seriale a destra 0 e a sinistra 0. Dopo un fronte con $S_0 S_1 = 01$ (scorrimento a destra, ogni bit prende il valore del vicino di sinistra) contiene $0101$; dopo un fronte con $S_0 S_1 = 10$ (a sinistra) partendo da $1011$ contiene $0110$.
 
+#### Esercizi del laboratorio con il simulatore
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni con il simulatore Deeds (testi riscritti, sequenze e soluzioni nuove) (RL-04, RL-05, RL-08)
+> Negli esercizi sui flip-flop la tabella di verità non basta: si lavora sul diagramma temporale. Le sequenze sono scritte come tabelle, un intervallo o un fronte per riga, ed è il modo più comodo di risolverle anche a mano.
+
+**Esercizio 5. Latch SR a NAND, e il rilascio contemporaneo.** Il latch ha ingressi attivi bassi $\bar{S}$ e $\bar{R}$. (a) Completare la sequenza. (b) Che cosa mostra il simulatore se, dopo $\bar{S} = \bar{R} = 0$, i due ingressi tornano a 1 nello stesso istante? (c) Perché in un circuito reale l'oscillazione non dura?
+
+| Intervallo | $\bar{S}$ | $\bar{R}$ | $Q$ | $\bar{Q}$ | Comando |
+|---|---|---|---|---|---|
+| 1 | 1 | 0 | 0 | 1 | reset |
+| 2 | 1 | 1 | 0 | 1 | memoria |
+| 3 | 0 | 1 | 1 | 0 | set |
+| 4 | 1 | 1 | 1 | 0 | memoria |
+| 5 | 0 | 0 | 1 | 1 | vietato: le uscite non sono complementari |
+| 6 | 1 | 1 | ? | ? | rilascio contemporaneo |
+
+(a) Le prime cinque righe seguono la tabella dell'esercizio 1: il comando è attivo quando l'ingresso vale 0, e nell'intervallo 5 entrambe le NAND hanno un ingresso a 0, quindi entrambe le uscite valgono 1. (b) Nell'intervallo 6 le due NAND vedono gli ingressi esterni a 1 e l'altra uscita a 1, quindi entrambe passano a 0 dopo lo stesso ritardo; a quel punto vedono l'altra uscita a 0 e tornano entrambe a 1, e così via. Nel simulatore le porte hanno ritardi identici e le uscite oscillano insieme con periodo pari a due ritardi. (c) In un circuito reale le due porte non sono mai identiche: una è un po' più veloce, la sua uscita cambia per prima e blocca l'altra, e il latch si ferma in uno dei due stati. Quale, non si può prevedere. È la ragione per cui la combinazione è vietata, e lo stesso fenomeno, con tempi più lunghi, è la metastabilità del paragrafo 3.2.
+
+**Esercizio 6. Latch D con preset e clear.** Il latch D ha anche gli ingressi asincroni attivi bassi $\overline{PR}$ e $\overline{CL}$, che hanno la precedenza su tutto. Completare la colonna $Q$.
+
+| Intervallo | $\overline{PR}$ | $\overline{CL}$ | $EN$ | $D$ | $Q$ |
+|---|---|---|---|---|---|
+| 1 | 1 | 0 | – | – | 0 |
+| 2 | 1 | 1 | 0 | 1 | 0 |
+| 3 | 1 | 1 | 1 | 1 | 1 |
+| 4 | 1 | 1 | 1 | 0 | 0 |
+| 5 | 1 | 1 | 0 | 1 | 0 |
+| 6 | 0 | 1 | 0 | 0 | 1 |
+| 7 | 1 | 1 | 0 | 0 | 1 |
+| 8 | 1 | 1 | 1 | 0 | 0 |
+
+Nell'intervallo 1 il clear porta $Q$ a 0: è l'inizializzazione. Nel 2 il latch è chiuso e conserva 0 anche se $D = 1$. Nel 3 e nel 4 è aperto e trasparente, e $Q$ segue $D$ (prima 1, poi 0). Nel 5 si chiude sul valore che aveva, 0. Nel 6 il preset forza 1 senza guardare $EN$, e nel 7 il latch chiuso conserva quell'1. Nell'8 si riapre e copia $D = 0$.
+
+**Esercizio 7. JK a comando diretto, e lo stato sconosciuto.** Un latch JK senza clock (il JK del paragrafo 3.2 sempre abilitato) ha anche $\overline{PR}$ e $\overline{CL}$. (a) Che cosa mostra il simulatore se la rete non viene inizializzata? (b) Che cosa succede con $J = K = 1$?
+
+(a) All'accensione lo stato di una rete con retroazione non è determinato dalla rete stessa: dipende da come si sono assestate le porte. Il simulatore non ha nessun modo di saperlo e mostra $Q$ come sconosciuto (in Deeds con una riga a metà fra 0 e 1, in altri simulatori con il simbolo X) finché un comando non lo fissa. Anche con $J = K = 0$ lo stato resta sconosciuto, perché "memoria" vuol dire conservare un valore che non si conosce. Il primo set, reset o clear lo rende definito. È il motivo per cui ogni rete sequenziale ha un reset (paragrafo 3.1). (b) Con $J = K = 1$ il comando è "commuta", ma senza clock la commutazione non si ferma: l'uscita cambia, la retroazione cambia gli ingressi delle porte e l'uscita cambia di nuovo, con un periodo legato ai ritardi delle porte. È l'oscillazione che il FF JK sul fronte elimina.
+
+**Esercizio 8. FF D sul fronte con preset e clear.** Il FF D-PET parte con un impulso di $\overline{CL}$. La tabella dà il valore di $D$ appena prima di ogni fronte di salita e gli eventi asincroni fra un fronte e il successivo. Completare $Q$.
+
+| Fronte | $D$ prima del fronte | $Q$ dopo il fronte | Fra questo fronte e il successivo |
+|---|---|---|---|
+| – | – | 0 | impulso di $\overline{CL}$ |
+| 1 | 1 | 1 | |
+| 2 | 1 | 1 | |
+| 3 | 0 | 0 | impulso di $\overline{PR}$: $Q$ va subito a 1 |
+| 4 | 1 | 1 | |
+| 5 | 0 | 0 | |
+| 6 | 0 | 0 | |
+
+La regola è quella del paragrafo 3.7: si legge $D$ appena prima del fronte, $Q$ cambia appena dopo. Il preset fra il terzo e il quarto fronte agisce subito, senza aspettare il clock; al quarto fronte il FF carica di nuovo $D = 1$, quindi $Q$ resta a 1. Gli ingressi asincroni servono soprattutto all'inizializzazione, ma possono intervenire in qualsiasi momento: per questo in simulazione si provano anche nel mezzo del funzionamento.
+
+**Esercizio 9. FF D con abilitazione (E-PET).** Il FF parte da $Q = 0$. Completare la tabella con $Q^+ = E\,D + \bar{E}\,Q$.
+
+| Fronte | $E$ | $D$ | $Q$ dopo il fronte |
+|---|---|---|---|
+| 1 | 0 | 1 | 0 |
+| 2 | 1 | 1 | 1 |
+| 3 | 0 | 0 | 1 |
+| 4 | 1 | 0 | 0 |
+| 5 | 0 | 1 | 0 |
+| 6 | 1 | 1 | 1 |
+
+Con $E = 0$ il fronte non cambia niente, anche se $D$ è diverso da $Q$ (fronti 1, 3 e 5); con $E = 1$ il FF si comporta come un D normale.
+
+**Esercizio 10. FF JK sul fronte.** Il FF parte da $Q = 0$ dopo il clear. Completare la tabella con l'equazione $Q^+ = J\bar{Q} + \bar{K}Q$.
+
+| Fronte | $J$ | $K$ | $Q$ prima | $Q$ dopo | Comando |
+|---|---|---|---|---|---|
+| 1 | 1 | 0 | 0 | 1 | set |
+| 2 | 0 | 0 | 1 | 1 | memoria |
+| 3 | 1 | 1 | 1 | 0 | commutazione |
+| 4 | 1 | 1 | 0 | 1 | commutazione |
+| 5 | 0 | 1 | 1 | 0 | reset |
+| 6 | 0 | 1 | 0 | 0 | reset (già a 0) |
+| 7 | 1 | 0 | 0 | 1 | set |
+| 8 | 1 | 1 | 1 | 0 | commutazione |
+
+Con $J = K = 1$ tenuti fissi per più fronti, $Q$ cambia una volta per fronte: è un divisore di frequenza per 2, ed è il FF T del paragrafo 3.3.
+
+**Esercizio 11. Un registro a scorrimento letto in complemento a 2.** Un registro a scorrimento a 3 bit fatto con FF E-PET ha ingresso $DATA$, abilitazione $E$ sempre a 1 e reset iniziale. A ogni fronte $Q_a$ prende $DATA$, $Q_b$ prende $Q_a$ e $Q_c$ prende $Q_b$. Le uscite $Q_a Q_b Q_c$ si leggono come un numero in complemento a 2 con $Q_a$ bit di segno. Quale sequenza di $DATA$ fa assumere alle uscite i valori $0, -4, +2, -3, -2, +3, +1$?
+
+*Ragionamento.* Dopo ogni fronte il nuovo $Q_a$ è il bit entrato, e $Q_b Q_c$ sono i vecchi $Q_a Q_b$. Quindi il valore di $DATA$ si legge sul bit $Q_a$ del valore successivo, e i bit $Q_b Q_c$ di ogni valore devono coincidere con i bit $Q_a Q_b$ del precedente (altrimenti la sequenza è impossibile).
+
+| Fronte | $DATA$ | $Q_a Q_b Q_c$ | Valore |
+|---|---|---|---|
+| reset | – | 000 | 0 |
+| 1 | 1 | 100 | −4 |
+| 2 | 0 | 010 | +2 |
+| 3 | 1 | 101 | −3 |
+| 4 | 1 | 110 | −2 |
+| 5 | 0 | 011 | +3 |
+| 6 | 0 | 001 | +1 |
+
+La sequenza è $DATA = 1, 0, 1, 1, 0, 0$. Controllo della coerenza: per esempio $-3 = 101$ ha $Q_b Q_c = 01$, uguale ai primi due bit di $+2 = 010$.
+
+**Esercizio 12. Contatore modulo 16 con FF D.** Progettare il contatore sincrono a 4 bit con FF D (negli appunti della lezione 9 è il contatore modulo 16 a 4 FF) e confrontarlo con quello a FF T.
+
+Ogni bit si inverte quando tutti i bit più bassi valgono 1, cioè $Q_i^+ = Q_i \oplus (Q_{i-1} \cdots Q_0)$. Con i FF D l'ingresso è lo stato successivo:
+$$D_0 = \bar{Q}_0, \quad D_1 = Q_1 \oplus Q_0, \quad D_2 = Q_2 \oplus Q_1 Q_0, \quad D_3 = Q_3 \oplus Q_2 Q_1 Q_0.$$
+Con i FF T bastava $T_i = Q_{i-1} \cdots Q_0$: la XOR è già dentro il FF T. Prova da $0111$: $D_0 = 0$, $D_1 = 1 \oplus 1 = 0$, $D_2 = 1 \oplus 1 = 0$, $D_3 = 0 \oplus 1 = 1$, quindi $1000$, cioè da 7 a 8. Da $1111$ tutte le XOR danno 0 e il contatore torna a $0000$: il terminal count è $TC = Q_3 Q_2 Q_1 Q_0$.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi, soluzioni verificate con `strumenti/verifica_ampliamento.py` (RL-04, RL-05)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Contatore modulo 6 con FF T.** Progettare un contatore che conti $0, 1, 2, 3, 4, 5, 0, \dots$ con tre FF T, e controllare che cosa fa se parte da uno stato non usato.
+
+*Passo 1: la tabella degli stati.* Gli stati $Q_2 Q_1 Q_0$ vanno da $000$ a $101$; i codici $110$ e $111$ non si usano e sono indifferenze.
+
+*Passo 2: gli ingressi T.* Per un FF T, $T_i = 1$ se il bit deve cambiare: $T_i = Q_i \oplus Q_i^+$.
+
+| $Q_2 Q_1 Q_0$ | $Q_2^+ Q_1^+ Q_0^+$ | $T_2 T_1 T_0$ |
+|---|---|---|
+| 000 | 001 | 001 |
+| 001 | 010 | 011 |
+| 010 | 011 | 001 |
+| 011 | 100 | 111 |
+| 100 | 101 | 001 |
+| 101 | 000 | 101 |
+
+*Passo 3: le sintesi.* $T_0 = 1$ sempre. $T_1$ vale 1 per $001$ e $011$, 0 per $101$: serve $Q_0 = 1$ e $Q_2 = 0$, $T_1 = \bar{Q}_2 Q_0$. $T_2$ vale 1 per $011$ e $101$ e, con le indifferenze in $111$, $T_2 = Q_1 Q_0 + Q_2 Q_0$.
+
+*Passo 4: gli stati non usati.* Da $110$: $T_2 = 0$, $T_1 = 0$, $T_0 = 1$, quindi va in $111$. Da $111$: $T_2 = 1$, $T_1 = 0$, $T_0 = 1$, quindi va in $010$, che è nella sequenza. Il contatore rientra da solo in due fronti.
+
+*Passo 5: il terminal count.* L'ultimo stato è $101$; fra gli stati usati è l'unico con $Q_2 = 1$ e $Q_0 = 1$, quindi $TC = Q_2 Q_0$.
+
+**Guidato 2. Frequenza massima di un contatore.** Un contatore sincrono a 3 bit con FF JK ha $J_0 = K_0 = 1$, $J_1 = K_1 = Q_0$, $J_2 = K_2 = Q_1 Q_0$ (una AND a due ingressi). I FF hanno $t_p = 12$ ns, $t_s = 6$ ns, $t_h = 2$ ns; la AND ha ritardo fra 3 e 7 ns. Trovare la frequenza massima e controllare il tempo di hold.
+
+*Passo 1: il percorso più lungo.* Da un fronte, le uscite dei FF cambiano entro 12 ns; il segnale più lento è quello che attraversa la AND, che aggiunge al massimo 7 ns; deve arrivare a $J_2$, $K_2$ almeno 6 ns prima del fronte successivo.
+
+*Passo 2.* $T_{min} = 12 + 7 + 6 = 25$ ns, quindi $f_{max} = 1/(25\ \text{ns}) = 40$ MHz.
+
+*Passo 3: hold.* Il percorso più veloce è quello senza porte, da $Q_0$ a $J_1$: ci mette almeno il $t_p$ minimo del FF. Se il costruttore garantisce un $t_p$ minimo di almeno 2 ns, la condizione $t_{p,min} + t_{comb,min} \ge t_h$ è rispettata anche nel caso peggiore, con $t_{comb,min} = 0$.
+
+*Passo 4: il controllo delle unità.* 25 ns sono $25 \cdot 10^{-9}$ s; l'inverso è $4 \cdot 10^{7}$ Hz, cioè 40 MHz.
+
+**Guidato 3. Diagramma temporale di una rete con due FF.** Due FF D hanno uscite $A$ e $B$ e reset iniziale a $00$; gli ingressi sono $D_A = IN \oplus B$ e $D_B = A$. Calcolare gli stati per $IN = 1, 1, 0, 0, 1, 0$ (valori appena prima dei fronti 1-6).
+
+*Passo 1: le equazioni dello stato successivo.* $A^+ = IN \oplus B$, $B^+ = A$.
+
+*Passo 2: fronte per fronte.* Si usa sempre lo stato *prima* del fronte.
+
+| Fronte | $IN$ | $A B$ prima | $A^+ = IN \oplus B$ | $B^+ = A$ | $A B$ dopo |
+|---|---|---|---|---|---|
+| 1 | 1 | 00 | 1 | 0 | 10 |
+| 2 | 1 | 10 | 1 | 1 | 11 |
+| 3 | 0 | 11 | 1 | 1 | 11 |
+| 4 | 0 | 11 | 1 | 1 | 11 |
+| 5 | 1 | 11 | 0 | 1 | 01 |
+| 6 | 0 | 01 | 1 | 0 | 10 |
+
+*Passo 3: l'errore da evitare.* Al fronte 2 è sbagliato calcolare $B^+$ con il nuovo valore di $A$: i due FF campionano insieme, e $B$ prende il valore che $A$ aveva *prima* del fronte. Qui il valore è lo stesso (1), ma al fronte 5 si vede la differenza: $A$ passa a 0 mentre $B$ prende il vecchio $A = 1$.
+
 ### Riepilogo
 
 Una retroazione trasforma una rete combinatoria in un elemento di memoria: il latch SR, con due NOR o due NAND incrociate, conserva lo stato e risponde ai comandi di set e reset, con una combinazione vietata. Con l'abilitazione si ottengono il latch D, senza combinazioni vietate, e il latch JK, che però oscilla con $J = K = 1$ perché è trasparente. I flip-flop cambiano solo sul fronte del clock e risolvono il problema; i tipi D, JK e T hanno equazioni caratteristiche $Q^+ = D$, $Q^+ = J\bar{Q} + \bar{K}Q$, $Q^+ = T \oplus Q$, e per il progetto si usa la tabella di eccitazione. I tempi di setup, hold, propagazione e durata minima vanno rispettati, e il periodo minimo di una rete sincrona è $t_p + t_{comb} + t_s$. I registri memorizzano parole di bit e possono caricare in parallelo o scorrere, e il registro universale sceglie l'operazione con un MUX per bit. I contatori sincroni si fanno con FF T ($T_i$ uguale al prodotto dei bit più bassi) o con FF D, segnalano l'ultimo stato con il terminal count e si collegano in cascata con l'abilitazione. Per analizzare una rete sincrona si scrivono le equazioni dei FF e si calcola lo stato fronte per fronte.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (RL-04, RL-05)
+> Tabelle ed equazioni dei flip-flop, tempi e strutture del modulo, con i termini da saper spiegare all'orale.
+
+#### Elementi di memoria
+
+| Elemento | Comportamento | Equazione o tabella | Par. |
+|---|---|---|---|
+| Latch SR a NOR | $SR = 00$ memoria, $01$ reset, $10$ set, $11$ vietato | $Q^+ = S + \bar{R}Q$ (con $SR \ne 11$) | 3.2 |
+| Latch SR a NAND | ingressi attivi bassi, vietato $\bar{S}\bar{R} = 00$ | | 3.2 |
+| Latch D | trasparente con $EN = 1$, memoria con $EN = 0$ | $Q^+ = EN\,D + \overline{EN}\,Q$ | 3.2 |
+| FF D (PET) | carica $D$ sul fronte di salita | $Q^+ = D$ | 3.3 |
+| FF JK | $00$ memoria, $01$ reset, $10$ set, $11$ commuta | $Q^+ = J\bar{Q} + \bar{K}Q$ | 3.3 |
+| FF T | $T = 1$ commuta | $Q^+ = T \oplus Q$ | 3.3 |
+| FF E-PET | carica $D$ solo se $E = 1$ | $Q^+ = E\,D + \bar{E}\,Q$ | 3.3 |
+
+#### Tabella di eccitazione
+
+| $Q \to Q^+$ | $D$ | $J$ | $K$ | $T$ |
+|---|---|---|---|---|
+| 0 → 0 | 0 | 0 | – | 0 |
+| 0 → 1 | 1 | 1 | – | 1 |
+| 1 → 0 | 0 | – | 1 | 1 |
+| 1 → 1 | 1 | – | 0 | 0 |
+
+Conversioni: un FF T da un D con $D = T \oplus Q$; un FF T da un JK con $J = K = T$; un FF D da un JK con $J = D$, $K = \bar{D}$.
+
+#### Tempi
+
+$$T_{CK} \ge t_p + t_{comb,max} + t_s, \qquad f_{max} = \frac{1}{T_{min}}, \qquad t_{p,min} + t_{comb,min} \ge t_h.$$
+
+#### Registri e contatori
+
+- Registro universale, bit $i$: $S_0 S_1 = 00$ tiene $Q_i$, $01$ carica $Q_{i+1}$ (destra), $10$ carica $Q_{i-1}$ (sinistra), $11$ carica $P_i$.
+- Contatore binario con FF T: $T_0 = 1$, $T_i = Q_{i-1} \cdots Q_0$. Con FF D: $D_i = Q_i \oplus (Q_{i-1} \cdots Q_0)$.
+- Terminal count in avanti: $TC = Q_{k-1} \cdots Q_0$; modulo $N$: si riconosce lo stato $N - 1$ e si azzera in modo sincrono.
+- Cascata: il $TC$ di un contatore va sull'$EN$ del successivo.
+
+#### Analisi di una rete sincrona
+
+I valori si leggono appena prima del fronte, le uscite cambiano appena dopo; tutti i FF campionano nello stesso istante, quindi ogni FF usa i valori *vecchi* degli altri. Gli ingressi asincroni agiscono subito e hanno la precedenza sul clock.
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Rete sequenziale | rete le cui uscite dipendono anche dalla storia passata degli ingressi |
+| Stato | valore memorizzato nei FF; $Q^+$ è lo stato dopo il prossimo comando o fronte |
+| Retroazione | collegamento di un'uscita a un ingresso della stessa rete |
+| Latch | elemento di memoria sensibile al livello; trasparente quando è abilitato |
+| Flip-flop | elemento di memoria che cambia solo sul fronte del clock |
+| PET / NET | fronte di salita / di discesa |
+| Master-slave | due latch in serie abilitati da livelli opposti del clock |
+| Ingressi asincroni | preset e clear, agiscono subito senza il clock |
+| Tabella caratteristica | dagli ingressi allo stato successivo |
+| Tabella di eccitazione | dalla transizione voluta agli ingressi da dare |
+| Setup, hold | tempi prima e dopo il fronte in cui l'ingresso deve restare fermo |
+| Metastabilità | uscita a un livello intermedio per un tempo imprevedibile, se i tempi non sono rispettati |
+| Registro PIPO, SISO, SIPO, PISO | modi di caricare e leggere i bit, in parallelo o in serie |
+| Contatore sincrono | tutti i FF hanno lo stesso clock e cambiano insieme |
+| Terminal count | uscita che segnala l'ultimo stato del conteggio |
+| LFSR | registro a scorrimento con retroazione XOR, genera sequenze lunghe |
+
+#### Domande che tornano spesso
+
+- Come nasce la memoria da una retroazione? Perché serve il reset?
+- Perché la combinazione $S = R = 1$ è vietata nel latch SR? Che cosa succede al rilascio contemporaneo?
+- Differenza fra latch e flip-flop; perché nelle reti sincrone si usano i FF sul fronte?
+- Tabella caratteristica ed equazione del JK; perché il latch JK oscilla e il FF JK no?
+- Ricavare la tabella di eccitazione del JK. Perché con i JK le reti vengono spesso più semplici?
+- Definire setup e hold e ricavare il periodo minimo di una rete sincrona.
+- Progettare un contatore modulo $N$ e collegare due contatori in cascata.
 
 ## 4 · Macchine a stati finiti e progetto con ASM
 
@@ -871,8 +1541,8 @@ Alcune macchine piccole ricorrono in quasi tutti gli esercizi, da sole o come pa
 
 ![Figura 4.5](figure/4-5.svg)
 
-> [!dubbio]
-> Negli appunti (L09) il rilevatore di fronti è indicato come "macchina a 2 stati", ma il diagramma temporale usa quattro stati (a, b, c, d). Le due cose tornano se i 2 stati sono quelli della versione di Mealy: va confermato quale versione è stata fatta a lezione.
+> [!nota]
+> Negli appunti di L09 il rilevatore di fronti è chiamato "macchina a 2 stati", ma il diagramma della lezione ha quattro stati, a, b, c, d: è la versione di Moore descritta sopra. I due stati sono quelli della versione di Mealy, che si vede nell'esercizio 3 alla fine del modulo.
 
 **Rilevatore di impulso lungo.** Specifica: $OUT = 1$ per un periodo se $IN$ resta a 1 per almeno due periodi. Stati: a (attesa, si resta finché $IN = 0$), b ($IN$ è 1 da un fronte: se torna a 0 si torna in a), c ($OUT$: $IN$ è 1 da due fronti), d (attesa che $IN$ torni a 0, senza uscita). Da c si va in d se $IN = 1$ e in a se $IN = 0$.
 
@@ -938,8 +1608,8 @@ Quando non basta, il progetto si rende più sicuro definendo anche le transizion
 > [!attenzione]
 > Nella mappa di $J_Z$ le celle con $X = 1$ o $Y = 1$ sono 1 o indifferenze, e resta il termine $START \cdot L$ della cella di wait: $J_Z = X + Y + START \cdot L$. Scrivere $J_Z = 1 + START \cdot L$ vorrebbe dire $J_Z = 1$, e la macchina lascerebbe lo stato wait anche senza $START$.
 
-> [!dubbio]
-> Negli appunti lo stato stop ha solo un anello su se stesso: la lavatrice si ferma fino al reset. Va confermato se la specifica prevedeva il ritorno in wait (per esempio quando $START$ torna a 0).
+> [!nota]
+> Lo stato stop ha solo un anello su se stesso: finito il ciclo, la lavatrice resta ferma fino al reset, come nella specifica della lezione. Se si volesse ripartire con un nuovo $START$, basterebbe aggiungere in stop un rombo su $START$ che riporta in wait quando $START = 0$, così che il ciclo successivo parta solo con una nuova transizione da 0 a 1.
 
 > [!esempio] Trasmettitore seriale
 > **Specifica.** Ingressi $GO$, $D_0$, $D_1$; uscita $LN$ (la linea). Alla transizione di $GO$ da 0 a 1 la macchina trasmette su $LN$ il pacchetto $1, D_0, D_1, 0$, un bit per periodo: un bit di start a 1, i due bit di dato, un bit di stop a 0.
@@ -975,6 +1645,175 @@ Quando non basta, il progetto si rende più sicuro definendo anche le transizion
 
 **Esercizio 3.** Progettare il rilevatore di fronti di Mealy. Un FF D memorizza il valore precedente dell'ingresso: $D = IN$, stato $X$. L'uscita è $OUT = IN \oplus X$: subito dopo un fronte di $IN$ e fino al fronte successivo del clock, $IN$ e $X$ sono diversi e $OUT = 1$; al fronte del clock $X$ si aggiorna e $OUT$ torna a 0. L'impulso di uscita comincia con il fronte di $IN$ e non con il clock, quindi dura meno di un periodo: è la differenza con la versione di Moore.
 
+#### Esercizi del laboratorio con il simulatore
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni con il simulatore Deeds (reti e sequenze nuove); specifica del ricevitore ricostruita dal pacchetto $1\,1\,B\,0\,0$ dell'esercitazione 9 (RL-06, RL-07, RL-08)
+> In laboratorio l'analisi delle reti sequenziali si fa prima a mano, su carta, per due sequenze d'ingresso, e poi si controlla con la simulazione. Le reti che seguono hanno la stessa struttura di quelle dell'esercitazione: si scrivono le equazioni, si calcola lo stato fronte per fronte e si riconosce che cosa fa la macchina.
+
+**Esercizio 4. Analisi: due FF JK e un ingresso.** Due FF JK con uscite $Q_1$, $Q_0$ e reset iniziale a $00$ hanno $J_0 = K_0 = X$ e $J_1 = K_1 = X\,Q_0$; l'uscita è $Z = X\,Q_1 Q_0$. Calcolare gli stati per $X = 1, 1, 0, 1, 1, 1$ (valori appena prima dei fronti) e dire che cosa fa la rete.
+
+Con $J = K$ ogni FF è un T: $Q_0$ commuta quando $X = 1$, $Q_1$ commuta quando $X = 1$ e $Q_0 = 1$.
+
+| Fronte | $X$ | $Q_1 Q_0$ prima | $T_1 = X Q_0$ | $T_0 = X$ | $Q_1 Q_0$ dopo |
+|---|---|---|---|---|---|
+| 1 | 1 | 00 | 0 | 1 | 01 |
+| 2 | 1 | 01 | 1 | 1 | 10 |
+| 3 | 0 | 10 | 0 | 0 | 10 |
+| 4 | 1 | 10 | 0 | 1 | 11 |
+| 5 | 1 | 11 | 1 | 1 | 00 |
+| 6 | 1 | 00 | 0 | 1 | 01 |
+
+È un contatore modulo 4 con abilitazione $X$: conta quando $X = 1$ e si ferma quando $X = 0$ (fronte 3). $Z$ vale 1 nel periodo prima del fronte 5, quando lo stato è $11$ e $X = 1$: è il terminal count abilitato del paragrafo 3.6, ed è un'uscita di Mealy perché dipende da $X$.
+
+**Esercizio 5. Analisi: riconoscere la funzione.** Due FF D con uscite $Q_1$, $Q_0$ e reset a $00$ hanno $D_0 = X$ e $D_1 = X\,Q_0$; l'uscita è $Z = Q_1$. (a) Disegnare l'ASM. (b) Calcolare gli stati per la sequenza A: $X = 1, 1, 1, 0, 1, 0, 1, 1$. (c) Dire che cosa fa la macchina.
+
+(a) Dalla tabella degli stati: da $00$ con $X = 1$ si va in $01$, con $X = 0$ si resta in $00$; da $01$ con $X = 1$ si va in $11$, con $X = 0$ in $00$; da $11$ con $X = 1$ si resta in $11$, con $X = 0$ si va in $00$. Il codice $10$ non si raggiunge dal reset (e da $10$ si andrebbe in $00$ o $01$). Gli stati sono a = 00, b = 01, c = 11, con $Z$ solo in c; dopo ogni blocco di stato c'è un rombo su $X$.
+
+(b)
+
+| Fronte | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| $X$ | 1 | 1 | 1 | 0 | 1 | 0 | 1 | 1 |
+| $Q_1 Q_0$ dopo | 01 | 11 | 11 | 00 | 01 | 00 | 01 | 11 |
+| $Z$ | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
+
+(c) $Q_0$ è $X$ ritardato di un periodo e $Q_1$ è il prodotto dei due ultimi campioni di $X$: $Z = 1$ quando gli ultimi due campioni di $X$ valevano 1. È un **rilevatore della sequenza 11**, con sovrapposizione (dopo tre 1 di fila $Z$ resta a 1). Il riconoscimento delle sequenze è un tipo di esercizio che si ritrova nella guida 1 qui sotto.
+
+**Esercizio 6. Analisi: un contatore che cambia verso.** Due FF T con uscite $Q_1$, $Q_0$ e reset a $00$ hanno $T_0 = 1$ e $T_1 = Q_0 \oplus DN$. Calcolare gli stati con $DN = 0$ per quattro fronti e poi $DN = 1$ per quattro fronti.
+
+Con $DN = 0$, $T_1 = Q_0$: è il contatore in avanti, $00 \to 01 \to 10 \to 11 \to 00$. Con $DN = 1$, $T_1 = \bar{Q}_0$: $Q_1$ commuta quando $Q_0 = 0$, e partendo da $00$ si ha $00 \to 11 \to 10 \to 01 \to 00$, cioè $0, 3, 2, 1, 0$: il conteggio all'indietro. È il contatore avanti e indietro del paragrafo 4.2, fatto con due FF T e una XOR. La XOR fa da "invertitore comandato": con $DN = 1$ nega $Q_0$, e il bit alto cambia quando quello basso passa da 0 a 1 all'indietro, cioè quando vale 0 prima del fronte.
+
+**Esercizio 7. Un ricevitore seriale.** La linea $LN$ è a 0 quando è a riposo. Un pacchetto è formato da cinque bit, uno per periodo di clock: due bit di start a 1, un bit di dato $B$, due bit di stop a 0, cioè $1\,1\,B\,0\,0$. Il ricevitore deve attivare $VAL$ per un periodo alla fine di un pacchetto corretto, con $DAT = B$ nello stesso periodo, e attivare $ERR$ se un pacchetto cominciato non finisce con i due 0. Un 1 isolato sulla linea, seguito da 0, è un disturbo e si ignora. Progettare l'ASM di Moore e dire quanti FF servono.
+
+*Gli stati ricordano quanto del pacchetto è arrivato.*
+
+| Stato | Che cosa si è ricevuto | Uscite | $LN = 0$ | $LN = 1$ |
+|---|---|---|---|---|
+| I | riposo | – | I | S1 |
+| S1 | primo 1 | – | I (disturbo) | S2 |
+| S2 | $1\,1$ | – | B0 | B1 |
+| B0 | $1\,1\,0$ | – | P0 | E |
+| B1 | $1\,1\,1$ | – | P1 | E |
+| P0 | $1\,1\,0\,0$ | – | V0 | E |
+| P1 | $1\,1\,1\,0$ | – | V1 | E |
+| V0 | pacchetto con $B = 0$ | $VAL$ | I | S1 |
+| V1 | pacchetto con $B = 1$ | $VAL$, $DAT$ | I | S1 |
+| E | stop sbagliato | $ERR$ | I | E |
+
+Il bit di dato non si può "ricordare" in un FF a parte senza un datapath, quindi la macchina lo ricorda nello stato: i rami B0-P0-V0 e B1-P1-V1 sono uguali, ma uno sa che $B = 0$ e l'altro che $B = 1$. Dagli stati V0 e V1 si può ripartire subito con un nuovo pacchetto, perché un 1 sulla linea è il primo bit di start. Dallo stato E si esce quando la linea torna a 0. Gli stati sono dieci, quindi servono $\lceil \log_2 10 \rceil = 4$ FF (o 10 con la codifica one-hot).
+
+*Perché non basta un registro a scorrimento.* Viene l'idea di far scorrere la linea in un registro a 5 bit e di riconoscere con una AND la configurazione $1\,1\,B\,0\,0$. Ma con $B = 1$, un periodo dopo un pacchetto corretto il registro contiene $1\,1\,0\,0\,0$, cioè gli ultimi quattro bit del pacchetto seguiti dallo 0 di riposo, che sembra un secondo pacchetto con $B = 0$. La macchina a stati non sbaglia perché sa dove comincia il pacchetto: parte sempre dallo stato di riposo. È lo stesso motivo per cui nel paragrafo 4.5 il generatore di sequenze ha bisogno dello stato di attesa.
+
+### Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi, soluzioni verificate con `strumenti/verifica_ampliamento.py` (RL-06, RL-07)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Rilevatore della sequenza 101 (Moore).** L'ingresso $X$ è sincronizzato con il clock. L'uscita $Z$ deve valere 1 per un periodo dopo che gli ultimi tre campioni di $X$ sono stati $1, 0, 1$. Le sequenze possono sovrapporsi: in $1\,0\,1\,0\,1$ la sequenza compare due volte.
+
+*Passo 1: che cosa deve ricordare la macchina.* Il pezzo più lungo della sequenza già ricevuto: niente (a), "1" (b), "10" (c), "101" (d, con $Z$).
+
+*Passo 2: le transizioni.* Da a: con 1 si va in b, con 0 si resta. Da b: con 1 si resta in b (l'ultimo 1 può essere l'inizio), con 0 si va in c. Da c: con 1 si va in d, con 0 si torna in a (l'ultimo pezzo "100" non è l'inizio di niente). Da d: con 1 si va in b, con 0 si va in c, perché l'ultimo 1 di "101" seguito da 0 dà già "10". Questa è la sovrapposizione.
+
+*Passo 3: codifica e tabella.* a = 00, b = 01, c = 10, d = 11, così $Z = Q_1 Q_0$.
+
+| $Q_1 Q_0$ | $X$ | $Q_1^+ Q_0^+$ |
+|---|---|---|
+| 00 | 0 | 00 |
+| 00 | 1 | 01 |
+| 01 | 0 | 10 |
+| 01 | 1 | 01 |
+| 10 | 0 | 00 |
+| 10 | 1 | 11 |
+| 11 | 0 | 10 |
+| 11 | 1 | 01 |
+
+*Passo 4: la sintesi con i FF D.* La colonna $Q_0^+$ vale 1 esattamente quando $X = 1$: $D_0 = X$. La colonna $Q_1^+$ vale 1 per $(01, 0)$, $(11, 0)$ e $(10, 1)$; le prime due formano il gruppo $Q_0\bar{X}$, la terza è isolata:
+$$D_1 = Q_0\bar{X} + Q_1\bar{Q}_0 X, \qquad D_0 = X, \qquad Z = Q_1 Q_0.$$
+
+*Passo 5: controllo con una sequenza.* Per $X = 1, 0, 1, 0, 1, 1$: stati $01, 10, 11, 10, 11, 01$, e $Z = 1$ dopo il terzo e il quinto fronte, cioè proprio dopo ognuno dei due "101".
+
+**Guidato 2. Lo stesso rilevatore in versione Mealy.** Rifare il guidato 1 con un'uscita di Mealy.
+
+*Passo 1.* Con Mealy l'uscita può dipendere dall'ingresso presente: quando la macchina ha già ricevuto "10" e arriva un 1, l'uscita si attiva subito, nello stesso periodo. Lo stato d non serve più: bastano a (niente), b ("1"), c ("10").
+
+*Passo 2: transizioni e uscita.* Da a: 1 → b, 0 → a. Da b: 1 → b, 0 → c. Da c: 1 → b con l'uscita condizionata $Z$, 0 → a.
+
+*Passo 3: codifica e sintesi.* a = 00, b = 01, c = 10, codice 11 indifferente. Si va in b con ogni 1, quindi $D_0 = X$; si va in c solo da b con $X = 0$, e con l'indifferenza $D_1 = Q_0\bar{X}$. L'uscita è $Z = Q_1 X$.
+
+*Passo 4: confronto.* La versione di Mealy ha uno stato in meno (tre invece di quattro, anche se i FF restano due) e reti più semplici; l'uscita arriva un periodo prima, ma segue $X$ in modo asincrono e ne ricopia le eventuali variazioni durante il periodo, come spiegato nel paragrafo 4.6.
+
 ### Riepilogo
 
 Ogni rete sequenziale sincrona è una macchina a stati finiti, con un registro di stato, una rete dello stato successivo e una rete delle uscite; nella macchina di Moore le uscite dipendono solo dallo stato, in quella di Mealy anche dagli ingressi. Il diagramma ASM la descrive con blocchi di stato, blocchi decisionali e uscite condizionate, e ogni periodo di clock percorre un blocco ASM. Il progetto va dalla specifica all'ASM, dalla scelta e codifica degli stati alla tabella degli stati e alla sintesi degli ingressi dei FF, D o JK; l'analisi fa il percorso inverso. Sincronizzatore, rilevatore di fronti, rilevatore di impulso lungo e generatore di sequenze sono le strutture che ricorrono; Moore e Mealy risolvono gli stessi problemi con tempi e numeri di stati diversi, e una specifica ambigua può dare macchine non equivalenti. I codici non usati vanno controllati perché la macchina non vi resti intrappolata. Nei sistemi più grandi una MSF fa da controllore di un datapath fatto di registri e contatori, e ogni progetto si verifica con il simulatore confrontando il diagramma temporale ottenuto con quello atteso.
+
+### Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (RL-06, RL-07, RL-08)
+> Struttura, procedure e termini delle macchine a stati finiti, con il paragrafo in cui sono spiegati.
+
+#### Struttura
+
+| Che cosa | Formula o regola | Par. |
+|---|---|---|
+| Parti di una MSF | registro di stato, rete dello stato successivo, rete delle uscite | 4.1 |
+| Stato successivo | $X^+ = f(X, I)$, caricato al fronte | 4.1 |
+| Uscite di Moore | $U = g(X)$: cambiano solo dopo un fronte | 4.1 |
+| Uscite di Mealy | $U = g(X, I)$: reagiscono subito agli ingressi | 4.1 |
+| Numero di FF | almeno $\lceil \log_2(\text{stati}) \rceil$; one-hot: uno per stato | 4.3 |
+| Ingressi dei FF D | coincidono con lo stato successivo | 4.3 |
+| Ingressi dei FF JK | dalla tabella di eccitazione, con molte indifferenze | 3.3, 4.3 |
+
+#### Il diagramma ASM
+
+- Blocco di stato (rettangolo): nome, codice, uscite di Moore attive.
+- Blocco decisionale (rombo): condizione sugli ingressi, uscite 1 e 0, nello stesso periodo.
+- Uscita condizionata (ovale): uscita di Mealy, attiva nello stato se la condizione è vera.
+- Un blocco ASM (stato con i suoi rombi e ovali) corrisponde a un periodo di clock.
+
+#### Procedure
+
+*Progetto.* (0) Specifica e diagramma temporale di esempio; (1) ASM; (2) numero di FF e codifica; (3) tabella delle uscite e tabella degli stati; (4) ingressi dei FF e sintesi con le mappe; (5) controllo dei codici non usati; (6) verifica con un diagramma temporale o con il simulatore.
+
+*Analisi.* (1) Si riconoscono registro di stato e reti; (2) equazioni dei FF e delle uscite; (3) tabella degli stati (con i JK tramite $Q^+ = J\bar{Q} + \bar{K}Q$); (4) nomi degli stati e ASM; (5) diagramma temporale.
+
+*Criteri di codifica.* Codici adiacenti a stati collegati; $00\dots0$ allo stato di reset; uscite uguali a bit dello stato quando possibile.
+
+#### Strutture ricorrenti
+
+| Struttura | Stati | Idea |
+|---|---|---|
+| Sincronizzatore | 2 | un FF D con $D = IN$ |
+| Rilevatore di fronti | 4 (Moore), 2 (Mealy) | Mealy: $OUT = IN \oplus X$ con $D = IN$ |
+| Rilevatore di impulso lungo | 4 | conta i periodi in cui $IN$ resta a 1 |
+| Generatore di sequenze | uno per passo più l'attesa | lo stato di attesa fa reagire alla transizione, non al livello |
+| Riconoscitore di sequenza | uno per prefisso ricevuto | la sovrapposizione decide dove si torna |
+| Controllore e datapath | dipende dall'algoritmo | la MSF comanda registri e contatori e legge i loro segnali di stato |
+
+#### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Macchina a stati finiti | rete sequenziale sincrona con un numero finito di stati |
+| Macchina di Moore / di Mealy | uscite funzione del solo stato / dello stato e degli ingressi |
+| Uscita anticipata | uscita di Mealy, attiva già nel periodo in cui cambia l'ingresso |
+| Ingresso sincronizzato | ingresso che cambia lontano dai fronti, di solito tramite un FF |
+| Tabella degli stati | stato presente e ingressi → stato successivo |
+| Codifica one-hot | un FF per stato, uno solo a 1 alla volta |
+| Codici non usati | combinazioni dei FF che non corrispondono a stati; vanno controllate |
+| Bit flip | cambio spontaneo di un FF per un disturbo |
+| Reset sincrono / asincrono | agisce al fronte / subito, tramite il clear |
+| Datapath | parte che elabora e memorizza i dati |
+| Controllore | MSF che comanda il datapath con i segnali di controllo |
+| Segnali di stato | segnali che il datapath restituisce al controllore |
+| Simulazione | calcolo delle uscite di uno schema per una sequenza di stimoli |
+
+#### Domande che tornano spesso
+
+- Disegnare la struttura di una MSF e spiegare la differenza fra Moore e Mealy, con un diagramma temporale.
+- Quali sono gli elementi del diagramma ASM? Che cosa succede in un periodo di clock?
+- Quanti FF servono per $n$ stati? Che vantaggi ha la codifica one-hot?
+- Progettare il rilevatore di fronti nelle due versioni.
+- Perché una specifica può dare macchine non equivalenti? Esempio delle macchine M1 e M2.
+- Che cosa sono i codici non usati, e come si rende sicura una macchina?
+- A che cosa serve la divisione fra controllore e datapath?

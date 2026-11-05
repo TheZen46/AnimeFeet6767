@@ -5,7 +5,7 @@ titolo: Dinamica del punto materiale
 programma: [FG1-01, FG1-05]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 2 · Dinamica del punto materiale
@@ -121,6 +121,122 @@ Sommando: $a = \frac{m_2 g - m_1 g\sin\theta - \mu_d m_1 g\cos\theta}{m_1 + m_2}
 
 **Esercizio 3 (curva piana).** Un'auto percorre una curva piana di raggio 50 m. La forza centripeta è l'attrito statico fra gomme e asfalto, al più $\mu_s mg$. Deve essere $m\frac{v^2}{R} \le \mu_s mg$, cioè $v \le \sqrt{\mu_s g R}$: con $\mu_s = 0{,}8$, $v \le \sqrt{0{,}8 \cdot 9{,}8 \cdot 50} \approx 19{,}8$ m/s (circa 71 km/h), indipendentemente dalla massa.
 
+### Esercizi dalle esercitazioni
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni 3 (13/03/2025) e 6 (03/04/2025) del corso, testi riformulati, con i risultati confrontati con quelli delle esercitazioni; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-01, FG1-05)
+> Per ogni corpo si disegna il diagramma delle forze, si scelgono gli assi (lungo il piano e perpendicolare, se c'è un piano inclinato) e si scrive $\vec F = m\vec a$ componente per componente. Le reazioni vincolari e le tensioni sono incognite come le accelerazioni.
+
+**Esercizio 4. Fin dove si può inclinare il piano?** Un corpo sta su un piano inclinato scabro con $\mu_s = 0{,}3$ e $\mu_d = 0{,}2$, all'altezza $h = 2$ m. (a) Angolo massimo $\alpha_0$ di equilibrio. (b) Accelerazione e tempo di discesa se il piano è inclinato di $2\alpha_0$.
+
+(a) In equilibrio, lungo il piano $mg\sin\alpha = f_s$ e perpendicolarmente $N = mg\cos\alpha$. Con $f_s \le \mu_s N$ si ottiene $\tan\alpha \le \mu_s$: $\alpha_0 = \arctan 0{,}3 = 16{,}7°$. Non dipende dalla massa.
+
+(b) Con $\alpha = 33{,}4°$ il corpo scivola e l'attrito è dinamico: $a = g(\sin\alpha - \mu_d\cos\alpha) = 9{,}81(0{,}551 - 0{,}2 \cdot 0{,}835) = 3{,}76$ m/s². Il tratto è $\frac{h}{\sin\alpha} = 3{,}63$ m, percorso partendo da fermo in $t = \sqrt{\frac{2 \cdot 3{,}63}{3{,}76}} = 1{,}39$ s.
+
+**Esercizio 5. Due masse legate che scivolano.** Due corpi uguali di massa $m$, legati da una fune, scivolano su un piano inclinato di $\alpha$; solo il corpo 1 ha attrito ($\mu_d$), il corpo 2 no, e sta più in basso (così la fune resta tesa). Trovare la tensione e l'angolo per cui scendono a velocità costante.
+
+Con la stessa accelerazione $a$ lungo il piano, verso il basso: corpo 1, $ma = mg\sin\alpha - \mu_d mg\cos\alpha + T$; corpo 2, $ma = mg\sin\alpha - T$ (la fune frena il corpo senza attrito e tira quello con attrito). Sottraendo, $0 = -\mu_d mg\cos\alpha + 2T$:
+$$T = \frac12\mu_d mg\cos\alpha.$$
+Sommando, $2ma = 2mg\sin\alpha - \mu_d mg\cos\alpha$, e $a = 0$ per $\tan\alpha = \frac{\mu_d}{2}$. Il sistema si comporta come un unico corpo con coefficiente d'attrito dimezzato.
+
+**Esercizio 6. Il seggiolino della giostra.** Un seggiolino di 5 kg è appeso a una fune di 5 m attaccata alla cima di un palo che ruota con $\omega = 1{,}5$ rad/s; l'angolo fra fune e palo è costante. Distanza dal palo e tensione.
+
+Il seggiolino fa un moto circolare uniforme di raggio $r = L\sin\theta$. In verticale $T\cos\theta = mg$; in orizzontale la componente della tensione verso il palo è la forza centripeta, $T\sin\theta = m\omega^2 L\sin\theta$. Dalla seconda $T = m\omega^2 L = 56{,}3$ N, e dalla prima $\cos\theta = \frac{g}{\omega^2 L} = 0{,}872$, $\theta = 29{,}3°$, $r = 5\sin\theta = 2{,}45$ m. È il **pendolo conico**: c'è una soluzione con $\theta \ne 0$ solo se $\omega^2 > \frac{g}{L}$.
+
+**Esercizio 7. Molle in serie e in parallelo, e la pistola giocattolo.** (a) Costante equivalente di due molle $k_1$, $k_2$ in serie e in parallelo e periodo di una massa $m$ attaccata. (b) Una pistola a molla si carica con una forza massima di 10 N; si aggiunge una seconda molla uguale alla prima ($k = 200$ N/m). Conviene metterla in serie o in parallelo per sparare più veloce un proiettile di 50 g?
+
+(a) In **parallelo** le molle si allungano dello stesso tratto e le forze si sommano: $k_p = k_1 + k_2$. In **serie** trasmettono la stessa forza e gli allungamenti si sommano: $\frac{1}{k_s} = \frac{1}{k_1} + \frac{1}{k_2}$. Il periodo è $T = 2\pi\sqrt{m/k_{eq}}$.
+
+(b) A forza massima fissata $F$, la molla equivalente si comprime di $\frac{F}{k_{eq}}$ e immagazzina $E = \frac{F^2}{2k_{eq}}$: conviene la costante più piccola. In serie $k_s = 100$ N/m ed $E = 0{,}5$ J, quindi $v = \sqrt{2E/m} = 4{,}47$ m/s; in parallelo $k_p = 400$ N/m, $E = 0{,}125$ J, $v = 2{,}24$ m/s; con una molla sola $v = 3{,}16$ m/s. In serie: la molla più "morbida" a parità di forza si carica di più.
+
+### Esercizi sul modello delle prove d'esame
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizio nuovo sul modello della prova del 05/02/2026, con dati diversi; soluzione verificata con `strumenti/verifica_ampliamento.py` (FG1-01, FG1-05, FG1-07)
+
+**Esercizio 8. Una massa che gira attaccata a una molla.** Su un piano orizzontale liscio un punto di 200 g, attaccato a una molla di lunghezza a riposo 10 cm e $k = 50$ N/m fissata al centro, fa un moto circolare uniforme con periodo 0,5 s. (a) Allungamento della molla. (b) Energia meccanica. (c) Momento angolare rispetto al centro.
+
+(a) La forza elastica è la forza centripeta: $k(l - l_0) = m\omega^2 l$, con $\omega = \frac{2\pi}{T} = 12{,}57$ rad/s e $m\omega^2 = 31{,}6$ N/m. Quindi $l = \frac{kl_0}{k - m\omega^2} = \frac{5}{18{,}4} = 0{,}271$ m, allungamento $0{,}171$ m. Se fosse $m\omega^2 \ge k$ non ci sarebbe soluzione: la molla non riuscirebbe a trattenere il punto.
+
+(b) $E = \frac12 m(\omega l)^2 + \frac12 k(l - l_0)^2 = 1{,}16 + 0{,}74 = 1{,}90$ J.
+
+(c) $L = m l^2\omega = 0{,}185$ kg·m²/s, perpendicolare al piano; per un moto in senso orario visto dall'alto, per la regola della mano destra, è diretto verso il basso.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: il guidato 1 è l'esercizio 3 dell'esercitazione 3 (13/03/2025), testo riformulato; gli altri sono nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-01, FG1-05)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Si muove o no?** Una massa $m_1 = 5$ kg su un piano inclinato di 30° ($\mu_s = 0{,}5$, $\mu_d = 0{,}3$) è legata, con una fune che passa su una carrucola ideale in cima al piano, a una massa $m_2 = 10$ kg appesa. Le masse partono ferme: si muovono? Con che accelerazione?
+
+*Passo 1: chi vince senza attrito.* Il peso di $m_2$ tira con $m_2 g = 98{,}1$ N; la componente del peso di $m_1$ lungo il piano tira dall'altra parte con $m_1 g\sin 30° = 24{,}5$ N. Se si muovono, $m_2$ scende.
+
+*Passo 2: il test dell'attrito statico.* L'attrito si oppone al moto incipiente, quindi verso il basso del piano, al più $\mu_s m_1 g\cos 30° = 21{,}2$ N. Le forze che trattengono valgono al più $24{,}5 + 21{,}2 = 45{,}8$ N $< 98{,}1$ N: si muovono.
+
+*Passo 3: le equazioni con l'attrito dinamico.* $m_2 a = m_2 g - T$; $m_1 a = T - m_1 g\sin 30° - \mu_d m_1 g\cos 30°$.
+
+*Passo 4: sommare.* $a = \frac{98{,}1 - 24{,}5 - 12{,}7}{15} = 4{,}06$ m/s², e $T = m_2(g - a) = 57{,}5$ N.
+
+**Guidato 2. La curva sopraelevata.** Con che inclinazione va costruita una curva di raggio 100 m perché un'auto a 72 km/h la percorra senza bisogno di attrito?
+
+*Passo 1: le forze.* Peso e reazione normale, perpendicolare alla strada inclinata di $\theta$.
+
+*Passo 2: le equazioni.* In verticale $N\cos\theta = mg$; in orizzontale $N\sin\theta = m\frac{v^2}{R}$.
+
+*Passo 3: dividere.* $\tan\theta = \frac{v^2}{gR} = \frac{400}{981}$, $\theta = 22{,}2°$. Non dipende dalla massa: va bene per tutte le auto alla stessa velocità.
+
+**Guidato 3. Il pendolo: periodo e tensione.** Un pendolo di 0,8 m e massa $m$ è lasciato da fermo a 60° dalla verticale. Periodo delle piccole oscillazioni e tensione nel punto più basso.
+
+*Passo 1: il periodo.* Per piccole oscillazioni $T = 2\pi\sqrt{L/g} = 1{,}79$ s. A 60° le oscillazioni non sono piccole e il periodo vero è un po' più lungo.
+
+*Passo 2: la velocità in basso.* Con l'energia: $v^2 = 2gL(1 - \cos 60°) = gL$.
+
+*Passo 3: la tensione.* In basso $T - mg = m\frac{v^2}{L} = mg$, quindi $T = 2mg$: il filo deve reggere il doppio del peso.
+
 ## Riepilogo
 
 I principi di Newton dicono che senza forza risultante un corpo mantiene il suo stato di moto, che la forza risultante produce un'accelerazione $a = F/m$, e che le forze fra due corpi sono uguali e opposte. La massa misura l'inerzia, la forza si misura in newton e si definisce con il dinamometro. Vicino alla Terra il peso è $mg$; i vincoli esercitano reazioni normali e, se ruvidi, attriti: dinamico, $\mu_d N$ opposto al moto, e statico, fino a $\mu_s N$, che si adatta per impedire lo scivolamento (un corpo su un piano inclinato resta fermo se $\tan\theta \le \mu_s$). Le funi ideali trasmettono la stessa tensione e impongono la stessa accelerazione ai corpi collegati. Ogni problema si imposta con il diagramma di corpo libero e $F = ma$ in componenti. Un moto circolare richiede una forza centripeta $mv^2/R$ fornita dalle forze presenti. La forza elastica $-kx$ produce oscillazioni armoniche con periodo $2\pi\sqrt{m/k}$, e il pendolo semplice, per piccole oscillazioni, oscilla con periodo $2\pi\sqrt{L/g}$.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FG1-01, FG1-05)
+> Principi, forze e oscillazioni, con i termini per l'orale.
+
+### Principi e forze
+
+$$\vec F = m\vec a, \qquad \vec F_{12} = -\vec F_{21}, \qquad P = mg, \qquad f_s \le \mu_s N, \qquad f_d = \mu_d N, \qquad F_{el} = -k\,\Delta x, \qquad F_c = m\frac{v^2}{R}.$$
+
+| Situazione | Risultato |
+|---|---|
+| Piano inclinato liscio | $a = g\sin\alpha$ |
+| Piano inclinato scabro, discesa | $a = g(\sin\alpha - \mu_d\cos\alpha)$ |
+| Equilibrio limite sul piano | $\tan\alpha_0 = \mu_s$ |
+| Curva piana | $v_{max} = \sqrt{\mu_s g R}$ |
+| Curva sopraelevata senza attrito | $\tan\theta = \frac{v^2}{gR}$ |
+| Pendolo conico | $T = m\omega^2 L$, $\cos\theta = \frac{g}{\omega^2 L}$ |
+| Giro della morte, punto più alto | $v_{min} = \sqrt{gR}$ |
+
+### Oscillazioni
+
+$$m\ddot x = -kx \Rightarrow x = A\cos(\omega t + \varphi),\ \omega = \sqrt{\frac{k}{m}}, \qquad \text{pendolo: } \omega = \sqrt{\frac{g}{L}} \text{ per piccole oscillazioni},$$
+
+$$k_{parallelo} = k_1 + k_2, \qquad \frac{1}{k_{serie}} = \frac{1}{k_1} + \frac{1}{k_2}.$$
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Sistema inerziale | riferimento in cui vale il primo principio |
+| Massa inerziale | resistenza di un corpo a cambiare velocità |
+| Reazione vincolare | forza che il vincolo esercita per impedire certi moti |
+| Attrito statico, dinamico | si oppone al moto incipiente / al moto relativo |
+| Forza centripeta | risultante delle forze diretta verso il centro nel moto circolare |
+| Forza apparente | termine $-m\vec a_O$ che compare in un riferimento accelerato |
+| Moto armonico | soluzione di $\ddot x = -\omega^2 x$ |
+| Isocronismo | il periodo delle piccole oscillazioni non dipende dall'ampiezza |
+
+### Domande che tornano spesso
+
+- Enunciare i tre principi della dinamica; che cos'è un sistema inerziale?
+- Differenza fra attrito statico e dinamico; perché $f_s$ è una disuguaglianza?
+- Ricavare il moto armonico della molla e il periodo del pendolo per piccole oscillazioni.
+- Che cosa fornisce la forza centripeta in una curva, in un pendolo conico, in un satellite?
+- Peso apparente in un ascensore accelerato.

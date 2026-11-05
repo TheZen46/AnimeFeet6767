@@ -5,7 +5,7 @@ titolo: Macchine a stati finiti e progetto con ASM
 programma: [RL-06, RL-07, RL-08]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 4 · Macchine a stati finiti e progetto con ASM
@@ -126,8 +126,8 @@ Alcune macchine piccole ricorrono in quasi tutti gli esercizi, da sole o come pa
 
 ![Figura 4.5](../figure/4-5.svg)
 
-> [!dubbio]
-> Negli appunti (L09) il rilevatore di fronti è indicato come "macchina a 2 stati", ma il diagramma temporale usa quattro stati (a, b, c, d). Le due cose tornano se i 2 stati sono quelli della versione di Mealy: va confermato quale versione è stata fatta a lezione.
+> [!nota]
+> Negli appunti di L09 il rilevatore di fronti è chiamato "macchina a 2 stati", ma il diagramma della lezione ha quattro stati, a, b, c, d: è la versione di Moore descritta sopra. I due stati sono quelli della versione di Mealy, che si vede nell'esercizio 3 alla fine del modulo.
 
 **Rilevatore di impulso lungo.** Specifica: $OUT = 1$ per un periodo se $IN$ resta a 1 per almeno due periodi. Stati: a (attesa, si resta finché $IN = 0$), b ($IN$ è 1 da un fronte: se torna a 0 si torna in a), c ($OUT$: $IN$ è 1 da due fronti), d (attesa che $IN$ torni a 0, senza uscita). Da c si va in d se $IN = 1$ e in a se $IN = 0$.
 
@@ -193,8 +193,8 @@ Quando non basta, il progetto si rende più sicuro definendo anche le transizion
 > [!attenzione]
 > Nella mappa di $J_Z$ le celle con $X = 1$ o $Y = 1$ sono 1 o indifferenze, e resta il termine $START \cdot L$ della cella di wait: $J_Z = X + Y + START \cdot L$. Scrivere $J_Z = 1 + START \cdot L$ vorrebbe dire $J_Z = 1$, e la macchina lascerebbe lo stato wait anche senza $START$.
 
-> [!dubbio]
-> Negli appunti lo stato stop ha solo un anello su se stesso: la lavatrice si ferma fino al reset. Va confermato se la specifica prevedeva il ritorno in wait (per esempio quando $START$ torna a 0).
+> [!nota]
+> Lo stato stop ha solo un anello su se stesso: finito il ciclo, la lavatrice resta ferma fino al reset, come nella specifica della lezione. Se si volesse ripartire con un nuovo $START$, basterebbe aggiungere in stop un rombo su $START$ che riporta in wait quando $START = 0$, così che il ciclo successivo parta solo con una nuova transizione da 0 a 1.
 
 > [!esempio] Trasmettitore seriale
 > **Specifica.** Ingressi $GO$, $D_0$, $D_1$; uscita $LN$ (la linea). Alla transizione di $GO$ da 0 a 1 la macchina trasmette su $LN$ il pacchetto $1, D_0, D_1, 0$, un bit per periodo: un bit di start a 1, i due bit di dato, un bit di stop a 0.
@@ -230,6 +230,175 @@ Quando non basta, il progetto si rende più sicuro definendo anche le transizion
 
 **Esercizio 3.** Progettare il rilevatore di fronti di Mealy. Un FF D memorizza il valore precedente dell'ingresso: $D = IN$, stato $X$. L'uscita è $OUT = IN \oplus X$: subito dopo un fronte di $IN$ e fino al fronte successivo del clock, $IN$ e $X$ sono diversi e $OUT = 1$; al fronte del clock $X$ si aggiorna e $OUT$ torna a 0. L'impulso di uscita comincia con il fronte di $IN$ e non con il clock, quindi dura meno di un periodo: è la differenza con la versione di Moore.
 
+### Esercizi del laboratorio con il simulatore
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni con il simulatore Deeds (reti e sequenze nuove); specifica del ricevitore ricostruita dal pacchetto $1\,1\,B\,0\,0$ dell'esercitazione 9 (RL-06, RL-07, RL-08)
+> In laboratorio l'analisi delle reti sequenziali si fa prima a mano, su carta, per due sequenze d'ingresso, e poi si controlla con la simulazione. Le reti che seguono hanno la stessa struttura di quelle dell'esercitazione: si scrivono le equazioni, si calcola lo stato fronte per fronte e si riconosce che cosa fa la macchina.
+
+**Esercizio 4. Analisi: due FF JK e un ingresso.** Due FF JK con uscite $Q_1$, $Q_0$ e reset iniziale a $00$ hanno $J_0 = K_0 = X$ e $J_1 = K_1 = X\,Q_0$; l'uscita è $Z = X\,Q_1 Q_0$. Calcolare gli stati per $X = 1, 1, 0, 1, 1, 1$ (valori appena prima dei fronti) e dire che cosa fa la rete.
+
+Con $J = K$ ogni FF è un T: $Q_0$ commuta quando $X = 1$, $Q_1$ commuta quando $X = 1$ e $Q_0 = 1$.
+
+| Fronte | $X$ | $Q_1 Q_0$ prima | $T_1 = X Q_0$ | $T_0 = X$ | $Q_1 Q_0$ dopo |
+|---|---|---|---|---|---|
+| 1 | 1 | 00 | 0 | 1 | 01 |
+| 2 | 1 | 01 | 1 | 1 | 10 |
+| 3 | 0 | 10 | 0 | 0 | 10 |
+| 4 | 1 | 10 | 0 | 1 | 11 |
+| 5 | 1 | 11 | 1 | 1 | 00 |
+| 6 | 1 | 00 | 0 | 1 | 01 |
+
+È un contatore modulo 4 con abilitazione $X$: conta quando $X = 1$ e si ferma quando $X = 0$ (fronte 3). $Z$ vale 1 nel periodo prima del fronte 5, quando lo stato è $11$ e $X = 1$: è il terminal count abilitato del paragrafo 3.6, ed è un'uscita di Mealy perché dipende da $X$.
+
+**Esercizio 5. Analisi: riconoscere la funzione.** Due FF D con uscite $Q_1$, $Q_0$ e reset a $00$ hanno $D_0 = X$ e $D_1 = X\,Q_0$; l'uscita è $Z = Q_1$. (a) Disegnare l'ASM. (b) Calcolare gli stati per la sequenza A: $X = 1, 1, 1, 0, 1, 0, 1, 1$. (c) Dire che cosa fa la macchina.
+
+(a) Dalla tabella degli stati: da $00$ con $X = 1$ si va in $01$, con $X = 0$ si resta in $00$; da $01$ con $X = 1$ si va in $11$, con $X = 0$ in $00$; da $11$ con $X = 1$ si resta in $11$, con $X = 0$ si va in $00$. Il codice $10$ non si raggiunge dal reset (e da $10$ si andrebbe in $00$ o $01$). Gli stati sono a = 00, b = 01, c = 11, con $Z$ solo in c; dopo ogni blocco di stato c'è un rombo su $X$.
+
+(b)
+
+| Fronte | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| $X$ | 1 | 1 | 1 | 0 | 1 | 0 | 1 | 1 |
+| $Q_1 Q_0$ dopo | 01 | 11 | 11 | 00 | 01 | 00 | 01 | 11 |
+| $Z$ | 0 | 1 | 1 | 0 | 0 | 0 | 0 | 1 |
+
+(c) $Q_0$ è $X$ ritardato di un periodo e $Q_1$ è il prodotto dei due ultimi campioni di $X$: $Z = 1$ quando gli ultimi due campioni di $X$ valevano 1. È un **rilevatore della sequenza 11**, con sovrapposizione (dopo tre 1 di fila $Z$ resta a 1). Il riconoscimento delle sequenze è un tipo di esercizio che si ritrova nella guida 1 qui sotto.
+
+**Esercizio 6. Analisi: un contatore che cambia verso.** Due FF T con uscite $Q_1$, $Q_0$ e reset a $00$ hanno $T_0 = 1$ e $T_1 = Q_0 \oplus DN$. Calcolare gli stati con $DN = 0$ per quattro fronti e poi $DN = 1$ per quattro fronti.
+
+Con $DN = 0$, $T_1 = Q_0$: è il contatore in avanti, $00 \to 01 \to 10 \to 11 \to 00$. Con $DN = 1$, $T_1 = \bar{Q}_0$: $Q_1$ commuta quando $Q_0 = 0$, e partendo da $00$ si ha $00 \to 11 \to 10 \to 01 \to 00$, cioè $0, 3, 2, 1, 0$: il conteggio all'indietro. È il contatore avanti e indietro del paragrafo 4.2, fatto con due FF T e una XOR. La XOR fa da "invertitore comandato": con $DN = 1$ nega $Q_0$, e il bit alto cambia quando quello basso passa da 0 a 1 all'indietro, cioè quando vale 0 prima del fronte.
+
+**Esercizio 7. Un ricevitore seriale.** La linea $LN$ è a 0 quando è a riposo. Un pacchetto è formato da cinque bit, uno per periodo di clock: due bit di start a 1, un bit di dato $B$, due bit di stop a 0, cioè $1\,1\,B\,0\,0$. Il ricevitore deve attivare $VAL$ per un periodo alla fine di un pacchetto corretto, con $DAT = B$ nello stesso periodo, e attivare $ERR$ se un pacchetto cominciato non finisce con i due 0. Un 1 isolato sulla linea, seguito da 0, è un disturbo e si ignora. Progettare l'ASM di Moore e dire quanti FF servono.
+
+*Gli stati ricordano quanto del pacchetto è arrivato.*
+
+| Stato | Che cosa si è ricevuto | Uscite | $LN = 0$ | $LN = 1$ |
+|---|---|---|---|---|
+| I | riposo | – | I | S1 |
+| S1 | primo 1 | – | I (disturbo) | S2 |
+| S2 | $1\,1$ | – | B0 | B1 |
+| B0 | $1\,1\,0$ | – | P0 | E |
+| B1 | $1\,1\,1$ | – | P1 | E |
+| P0 | $1\,1\,0\,0$ | – | V0 | E |
+| P1 | $1\,1\,1\,0$ | – | V1 | E |
+| V0 | pacchetto con $B = 0$ | $VAL$ | I | S1 |
+| V1 | pacchetto con $B = 1$ | $VAL$, $DAT$ | I | S1 |
+| E | stop sbagliato | $ERR$ | I | E |
+
+Il bit di dato non si può "ricordare" in un FF a parte senza un datapath, quindi la macchina lo ricorda nello stato: i rami B0-P0-V0 e B1-P1-V1 sono uguali, ma uno sa che $B = 0$ e l'altro che $B = 1$. Dagli stati V0 e V1 si può ripartire subito con un nuovo pacchetto, perché un 1 sulla linea è il primo bit di start. Dallo stato E si esce quando la linea torna a 0. Gli stati sono dieci, quindi servono $\lceil \log_2 10 \rceil = 4$ FF (o 10 con la codifica one-hot).
+
+*Perché non basta un registro a scorrimento.* Viene l'idea di far scorrere la linea in un registro a 5 bit e di riconoscere con una AND la configurazione $1\,1\,B\,0\,0$. Ma con $B = 1$, un periodo dopo un pacchetto corretto il registro contiene $1\,1\,0\,0\,0$, cioè gli ultimi quattro bit del pacchetto seguiti dallo 0 di riposo, che sembra un secondo pacchetto con $B = 0$. La macchina a stati non sbaglia perché sa dove comincia il pacchetto: parte sempre dallo stato di riposo. È lo stesso motivo per cui nel paragrafo 4.5 il generatore di sequenze ha bisogno dello stato di attesa.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi, soluzioni verificate con `strumenti/verifica_ampliamento.py` (RL-06, RL-07)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Rilevatore della sequenza 101 (Moore).** L'ingresso $X$ è sincronizzato con il clock. L'uscita $Z$ deve valere 1 per un periodo dopo che gli ultimi tre campioni di $X$ sono stati $1, 0, 1$. Le sequenze possono sovrapporsi: in $1\,0\,1\,0\,1$ la sequenza compare due volte.
+
+*Passo 1: che cosa deve ricordare la macchina.* Il pezzo più lungo della sequenza già ricevuto: niente (a), "1" (b), "10" (c), "101" (d, con $Z$).
+
+*Passo 2: le transizioni.* Da a: con 1 si va in b, con 0 si resta. Da b: con 1 si resta in b (l'ultimo 1 può essere l'inizio), con 0 si va in c. Da c: con 1 si va in d, con 0 si torna in a (l'ultimo pezzo "100" non è l'inizio di niente). Da d: con 1 si va in b, con 0 si va in c, perché l'ultimo 1 di "101" seguito da 0 dà già "10". Questa è la sovrapposizione.
+
+*Passo 3: codifica e tabella.* a = 00, b = 01, c = 10, d = 11, così $Z = Q_1 Q_0$.
+
+| $Q_1 Q_0$ | $X$ | $Q_1^+ Q_0^+$ |
+|---|---|---|
+| 00 | 0 | 00 |
+| 00 | 1 | 01 |
+| 01 | 0 | 10 |
+| 01 | 1 | 01 |
+| 10 | 0 | 00 |
+| 10 | 1 | 11 |
+| 11 | 0 | 10 |
+| 11 | 1 | 01 |
+
+*Passo 4: la sintesi con i FF D.* La colonna $Q_0^+$ vale 1 esattamente quando $X = 1$: $D_0 = X$. La colonna $Q_1^+$ vale 1 per $(01, 0)$, $(11, 0)$ e $(10, 1)$; le prime due formano il gruppo $Q_0\bar{X}$, la terza è isolata:
+$$D_1 = Q_0\bar{X} + Q_1\bar{Q}_0 X, \qquad D_0 = X, \qquad Z = Q_1 Q_0.$$
+
+*Passo 5: controllo con una sequenza.* Per $X = 1, 0, 1, 0, 1, 1$: stati $01, 10, 11, 10, 11, 01$, e $Z = 1$ dopo il terzo e il quinto fronte, cioè proprio dopo ognuno dei due "101".
+
+**Guidato 2. Lo stesso rilevatore in versione Mealy.** Rifare il guidato 1 con un'uscita di Mealy.
+
+*Passo 1.* Con Mealy l'uscita può dipendere dall'ingresso presente: quando la macchina ha già ricevuto "10" e arriva un 1, l'uscita si attiva subito, nello stesso periodo. Lo stato d non serve più: bastano a (niente), b ("1"), c ("10").
+
+*Passo 2: transizioni e uscita.* Da a: 1 → b, 0 → a. Da b: 1 → b, 0 → c. Da c: 1 → b con l'uscita condizionata $Z$, 0 → a.
+
+*Passo 3: codifica e sintesi.* a = 00, b = 01, c = 10, codice 11 indifferente. Si va in b con ogni 1, quindi $D_0 = X$; si va in c solo da b con $X = 0$, e con l'indifferenza $D_1 = Q_0\bar{X}$. L'uscita è $Z = Q_1 X$.
+
+*Passo 4: confronto.* La versione di Mealy ha uno stato in meno (tre invece di quattro, anche se i FF restano due) e reti più semplici; l'uscita arriva un periodo prima, ma segue $X$ in modo asincrono e ne ricopia le eventuali variazioni durante il periodo, come spiegato nel paragrafo 4.6.
+
 ## Riepilogo
 
 Ogni rete sequenziale sincrona è una macchina a stati finiti, con un registro di stato, una rete dello stato successivo e una rete delle uscite; nella macchina di Moore le uscite dipendono solo dallo stato, in quella di Mealy anche dagli ingressi. Il diagramma ASM la descrive con blocchi di stato, blocchi decisionali e uscite condizionate, e ogni periodo di clock percorre un blocco ASM. Il progetto va dalla specifica all'ASM, dalla scelta e codifica degli stati alla tabella degli stati e alla sintesi degli ingressi dei FF, D o JK; l'analisi fa il percorso inverso. Sincronizzatore, rilevatore di fronti, rilevatore di impulso lungo e generatore di sequenze sono le strutture che ricorrono; Moore e Mealy risolvono gli stessi problemi con tempi e numeri di stati diversi, e una specifica ambigua può dare macchine non equivalenti. I codici non usati vanno controllati perché la macchina non vi resti intrappolata. Nei sistemi più grandi una MSF fa da controllore di un datapath fatto di registri e contatori, e ogni progetto si verifica con il simulatore confrontando il diagramma temporale ottenuto con quello atteso.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (RL-06, RL-07, RL-08)
+> Struttura, procedure e termini delle macchine a stati finiti, con il paragrafo in cui sono spiegati.
+
+### Struttura
+
+| Che cosa | Formula o regola | Par. |
+|---|---|---|
+| Parti di una MSF | registro di stato, rete dello stato successivo, rete delle uscite | 4.1 |
+| Stato successivo | $X^+ = f(X, I)$, caricato al fronte | 4.1 |
+| Uscite di Moore | $U = g(X)$: cambiano solo dopo un fronte | 4.1 |
+| Uscite di Mealy | $U = g(X, I)$: reagiscono subito agli ingressi | 4.1 |
+| Numero di FF | almeno $\lceil \log_2(\text{stati}) \rceil$; one-hot: uno per stato | 4.3 |
+| Ingressi dei FF D | coincidono con lo stato successivo | 4.3 |
+| Ingressi dei FF JK | dalla tabella di eccitazione, con molte indifferenze | 3.3, 4.3 |
+
+### Il diagramma ASM
+
+- Blocco di stato (rettangolo): nome, codice, uscite di Moore attive.
+- Blocco decisionale (rombo): condizione sugli ingressi, uscite 1 e 0, nello stesso periodo.
+- Uscita condizionata (ovale): uscita di Mealy, attiva nello stato se la condizione è vera.
+- Un blocco ASM (stato con i suoi rombi e ovali) corrisponde a un periodo di clock.
+
+### Procedure
+
+*Progetto.* (0) Specifica e diagramma temporale di esempio; (1) ASM; (2) numero di FF e codifica; (3) tabella delle uscite e tabella degli stati; (4) ingressi dei FF e sintesi con le mappe; (5) controllo dei codici non usati; (6) verifica con un diagramma temporale o con il simulatore.
+
+*Analisi.* (1) Si riconoscono registro di stato e reti; (2) equazioni dei FF e delle uscite; (3) tabella degli stati (con i JK tramite $Q^+ = J\bar{Q} + \bar{K}Q$); (4) nomi degli stati e ASM; (5) diagramma temporale.
+
+*Criteri di codifica.* Codici adiacenti a stati collegati; $00\dots0$ allo stato di reset; uscite uguali a bit dello stato quando possibile.
+
+### Strutture ricorrenti
+
+| Struttura | Stati | Idea |
+|---|---|---|
+| Sincronizzatore | 2 | un FF D con $D = IN$ |
+| Rilevatore di fronti | 4 (Moore), 2 (Mealy) | Mealy: $OUT = IN \oplus X$ con $D = IN$ |
+| Rilevatore di impulso lungo | 4 | conta i periodi in cui $IN$ resta a 1 |
+| Generatore di sequenze | uno per passo più l'attesa | lo stato di attesa fa reagire alla transizione, non al livello |
+| Riconoscitore di sequenza | uno per prefisso ricevuto | la sovrapposizione decide dove si torna |
+| Controllore e datapath | dipende dall'algoritmo | la MSF comanda registri e contatori e legge i loro segnali di stato |
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Macchina a stati finiti | rete sequenziale sincrona con un numero finito di stati |
+| Macchina di Moore / di Mealy | uscite funzione del solo stato / dello stato e degli ingressi |
+| Uscita anticipata | uscita di Mealy, attiva già nel periodo in cui cambia l'ingresso |
+| Ingresso sincronizzato | ingresso che cambia lontano dai fronti, di solito tramite un FF |
+| Tabella degli stati | stato presente e ingressi → stato successivo |
+| Codifica one-hot | un FF per stato, uno solo a 1 alla volta |
+| Codici non usati | combinazioni dei FF che non corrispondono a stati; vanno controllate |
+| Bit flip | cambio spontaneo di un FF per un disturbo |
+| Reset sincrono / asincrono | agisce al fronte / subito, tramite il clear |
+| Datapath | parte che elabora e memorizza i dati |
+| Controllore | MSF che comanda il datapath con i segnali di controllo |
+| Segnali di stato | segnali che il datapath restituisce al controllore |
+| Simulazione | calcolo delle uscite di uno schema per una sequenza di stimoli |
+
+### Domande che tornano spesso
+
+- Disegnare la struttura di una MSF e spiegare la differenza fra Moore e Mealy, con un diagramma temporale.
+- Quali sono gli elementi del diagramma ASM? Che cosa succede in un periodo di clock?
+- Quanti FF servono per $n$ stati? Che vantaggi ha la codifica one-hot?
+- Progettare il rilevatore di fronti nelle due versioni.
+- Perché una specifica può dare macchine non equivalenti? Esempio delle macchine M1 e M2.
+- Che cosa sono i codici non usati, e come si rende sicura una macchina?
+- A che cosa serve la divisione fra controllore e datapath?

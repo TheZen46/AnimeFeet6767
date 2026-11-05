@@ -5,7 +5,7 @@ titolo: Probabilità e variabili aleatorie
 programma: [STA-01, STA-02, STA-03, STA-04]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 2 · Probabilità e variabili aleatorie
@@ -269,6 +269,117 @@ $$\frac{10!\, 2^{10}}{20!} = \frac{1}{19 \cdot 17 \cdot 15 \cdots 3 \cdot 1} \ap
 
 **Esercizio 4 (una densità a due parametri).** Nella densità $f = a$ su $[-1, 0]$, $f = b$ su $[1, \frac32]$ del paragrafo 2.8, con $a = \frac12$ si ha $b = 1$; allora $P[X > 0] = \frac{b}{2} = \frac12$ e $F_X(x) = \frac{x + 1}{2}$ su $[-1, 0]$, costante $\frac12$ su $[0, 1]$, $\frac12 + (x - 1)$ su $[1, \frac32]$. La funzione di ripartizione è continua, con un tratto piatto dove la densità è nulla.
 
+### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle esercitazioni del corso e della raccolta di esercizi di probabilità; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-01 … STA-04)
+
+**Esercizio 4. Il test diagnostico.** Una malattia colpisce il 2% della popolazione. Un test la rileva nel 95% dei malati (sensibilità) e dà esito negativo nel 90% dei sani (specificità). Una persona risulta positiva: qual è la probabilità che sia malata?
+
+Con $M$ = "malato" e $+$ = "test positivo": $P(+ \mid M) = 0{,}95$, $P(+ \mid \bar M) = 0{,}10$. Per le probabilità totali $P(+) = 0{,}95 \cdot 0{,}02 + 0{,}10 \cdot 0{,}98 = 0{,}019 + 0{,}098 = 0{,}117$, e per Bayes
+$$P(M \mid +) = \frac{0{,}019}{0{,}117} = 0{,}16.$$
+Solo il 16% dei positivi è malato. Non è un difetto del test: la malattia è rara, e i falsi positivi, il 10% di una popolazione grande, sono molti più dei veri positivi. Per questo un test di screening positivo si conferma con un secondo test.
+
+**Esercizio 5. Carte.** Da un mazzo di 40 carte con 4 assi se ne estraggono 5 senza reimmissione. Probabilità di esattamente 2 assi?
+
+I casi possibili sono le $\binom{40}{5} = 658\,008$ mani; quelle favorevoli si ottengono scegliendo 2 assi fra 4 e 3 carte fra le 36 non assi: $\binom{4}{2}\binom{36}{3} = 6 \cdot 7140 = 42\,840$. La probabilità è $\frac{42\,840}{658\,008} = 0{,}065$. È la legge ipergeometrica.
+
+**Esercizio 6. Una funzione di ripartizione con due parametri.** $F(x) = 0$ per $x < 0$, $F(x) = ax^2$ per $0 \le x < 2$, $F(x) = b$ per $x \ge 2$. Per quali $a, b$ è la funzione di ripartizione di una variabile con densità? Calcolare la densità e $P(0{,}5 \le X \le 1)$.
+
+Serve $F(x) \to 1$ per $x \to +\infty$, quindi $b = 1$; serve la continuità (una variabile con densità non ha "salti"), quindi in 2 $4a = 1$, $a = \frac14$. La densità è la derivata, $f(x) = \frac{x}{2}$ su $(0, 2)$ e 0 altrove. $P(0{,}5 \le X \le 1) = F(1) - F(0{,}5) = \frac14 - \frac{1}{16} = \frac{3}{16}$.
+
+**Esercizio 7. Dall'uniforme all'esponenziale.** $X$ è uniforme su $(0, 1)$ e $Y = -\frac12\ln X$. Trovare la legge di $Y$.
+
+$Y$ è positiva. Per $y > 0$: $F_Y(y) = P\left(-\tfrac12\ln X \le y\right) = P(\ln X \ge -2y) = P(X \ge e^{-2y}) = 1 - e^{-2y}$. È l'esponenziale di parametro 2. È il modo in cui un computer genera numeri esponenziali a partire da numeri uniformi.
+
+**Esercizio 8. Una trasformazione non monotona.** $X$ è uniforme su $(0, 1)$ e $Y = (2X - 1)^2$. Densità di $Y$?
+
+$Y \in [0, 1]$. Per $0 \le y \le 1$: $F_Y(y) = P(|2X - 1| \le \sqrt y) = P\left(\frac{1 - \sqrt y}{2} \le X \le \frac{1 + \sqrt y}{2}\right) = \sqrt y$, la lunghezza dell'intervallo. Derivando, $f_Y(y) = \frac{1}{2\sqrt y}$ su $(0, 1)$. La densità è illimitata vicino a 0: tutti gli $X$ vicini a $\frac12$ finiscono vicino a $Y = 0$.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-02 … STA-04)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Bayes con tre macchine.** Tre macchine producono il 50%, il 30% e il 20% dei pezzi, con difettosità dell'1%, del 2% e del 3%. Un pezzo è difettoso: da quale macchina viene più probabilmente?
+
+*Passo 1: le probabilità congiunte.* $P(M_1 \cap D) = 0{,}5 \cdot 0{,}01 = 0{,}005$; $P(M_2 \cap D) = 0{,}3 \cdot 0{,}02 = 0{,}006$; $P(M_3 \cap D) = 0{,}2 \cdot 0{,}03 = 0{,}006$.
+
+*Passo 2: probabilità totale.* $P(D) = 0{,}017$.
+
+*Passo 3: Bayes.* $P(M_1 \mid D) = \frac{0{,}005}{0{,}017} = 0{,}29$; $P(M_2 \mid D) = P(M_3 \mid D) = \frac{0{,}006}{0{,}017} = 0{,}35$.
+
+*Passo 4: la lettura.* La macchina 1 produce metà dei pezzi ma è la meno probabile come origine di un difetto. Le probabilità a posteriori sommano a 1: è il controllo da fare sempre.
+
+**Guidato 2. Due eventi indipendenti senza che sembri.** Si lanciano due dadi. $A$ = "la somma è 7", $B$ = "il primo dado mostra 3". Sono indipendenti?
+
+*Passo 1.* $P(A) = \frac{6}{36} = \frac16$ (le coppie $(1, 6), \dots, (6, 1)$).
+
+*Passo 2.* $P(B) = \frac16$.
+
+*Passo 3.* $A \cap B = \{(3, 4)\}$, quindi $P(A \cap B) = \frac{1}{36} = P(A)P(B)$: indipendenti.
+
+*Passo 4: il confronto.* Con "la somma è 8" al posto di 7 non lo sarebbero: $P = \frac{5}{36}$ e $P(\text{somma } 8 \cap B) = \frac{1}{36} \ne \frac{5}{216}$. Con la somma 7, qualunque sia il primo dado c'è sempre esattamente un valore del secondo che funziona, e sapere il primo non cambia niente.
+
+**Guidato 3. $Y = X^2$ con $X$ uniforme su $(-1, 2)$.**
+
+*Passo 1: i valori di $Y$.* $X \in (-1, 2)$, quindi $Y \in [0, 4)$.
+
+*Passo 2: per $0 \le y \le 1$.* $Y \le y$ se $-\sqrt y \le X \le \sqrt y$, un intervallo tutto dentro $(-1, 2)$ di lunghezza $2\sqrt y$: $F_Y(y) = \frac{2\sqrt y}{3}$.
+
+*Passo 3: per $1 < y < 4$.* Ora $-\sqrt y < -1$, e l'intervallo utile è $(-1, \sqrt y]$: $F_Y(y) = \frac{\sqrt y + 1}{3}$.
+
+*Passo 4: la densità.* Derivando, $f_Y(y) = \frac{1}{3\sqrt y}$ su $(0, 1)$ e $\frac{1}{6\sqrt y}$ su $(1, 4)$. Controllo: $\int_0^1 \frac{dy}{3\sqrt y} + \int_1^4 \frac{dy}{6\sqrt y} = \frac23 + \frac13 = 1$.
+
 ## Riepilogo
 
 Un esperimento aleatorio si modella con uno spazio campionario $\Omega$, i cui sottoinsiemi sono gli eventi, e una probabilità che verifica gli assiomi ($P[\Omega] = 1$, valori in $[0, 1]$, additività sugli eventi disgiunti); ne seguono la regola del complementare e l'inclusione-esclusione. Negli spazi equiprobabili la probabilità è casi favorevoli su casi possibili e si calcola con disposizioni ($n!/(n-k)!$ o $n^k$) e combinazioni ($\binom{n}{k}$ o $\binom{n+k-1}{k}$). La probabilità condizionata $P[F \mid E] = P[E \cap F]/P[E]$ dà la regola del prodotto e della catena, la formula delle probabilità totali su una partizione e la formula di Bayes per risalire dalle osservazioni alle cause. Due eventi sono indipendenti se la probabilità dell'intersezione è il prodotto, il che non ha niente a che fare con l'essere disgiunti. Una variabile aleatoria è una funzione numerica del risultato; la sua legge si descrive con la densità discreta nel caso discreto, con una densità $f$ (non negativa, di integrale 1) nel caso continuo, e in ogni caso con la funzione di ripartizione $F_X(x) = P[X \le x]$, crescente, continua a destra, con $F_X' = f$ dove $f$ è continua. La legge di $Y = \phi(X)$ si trova sommando le probabilità dei valori con la stessa immagine nel caso discreto, e passando per $F_Y$ e derivando nel caso con densità.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (STA-01 … STA-04)
+> Regole del calcolo delle probabilità, combinatoria e variabili aleatorie, con i termini per l'orale.
+
+### Regole
+
+$$P(\bar E) = 1 - P(E), \quad P(E \cup F) = P(E) + P(F) - P(E \cap F), \quad P(F \mid E) = \frac{P(E \cap F)}{P(E)}, \quad P(E \cap F) = P(E)\,P(F \mid E).$$
+
+$$P(F) = \sum_i P(F \mid E_i)P(E_i), \qquad P(E_k \mid F) = \frac{P(F \mid E_k)P(E_k)}{\sum_i P(F \mid E_i)P(E_i)} \qquad (E_i \text{ partizione}).$$
+
+Indipendenza: $P(E \cap F) = P(E)P(F)$; per tre eventi servono anche le coppie.
+
+### Combinatoria
+
+| Conteggio | Formula |
+|---|---|
+| Disposizioni con ripetizione | $n^k$ |
+| Disposizioni semplici | $\frac{n!}{(n - k)!}$ |
+| Permutazioni | $n!$ |
+| Combinazioni | $\binom{n}{k}$ |
+| Ipergeometrica | $\frac{\binom{K}{k}\binom{N - K}{n - k}}{\binom{N}{n}}$ |
+
+### Variabili aleatorie
+
+- Discreta: $p(x) = P(X = x)$, $\sum p(x) = 1$. Con densità: $f \ge 0$, $\int f = 1$, $P(a \le X \le b) = \int_a^b f$.
+- Ripartizione: $F(x) = P(X \le x)$, crescente, continua a destra, da 0 a 1; $f = F'$ dove $F$ è derivabile.
+- Trasformazioni: si calcola $F_Y(y) = P(g(X) \le y)$ e si deriva; se $g$ è monotona, $f_Y(y) = f_X(g^{-1}(y))\,\lvert(g^{-1})'(y)\rvert$.
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Spazio campionario | insieme dei risultati possibili dell'esperimento |
+| Evento | sottoinsieme dello spazio campionario |
+| Probabilità classica, frequentista, assiomatica | casi favorevoli su possibili; limite delle frequenze; funzione che rispetta gli assiomi di Kolmogorov |
+| Eventi incompatibili / indipendenti | intersezione vuota / probabilità dell'intersezione uguale al prodotto |
+| Partizione | eventi incompatibili la cui unione è tutto lo spazio |
+| Probabilità a priori / a posteriori | prima e dopo l'osservazione, nella formula di Bayes |
+| Variabile aleatoria | funzione che associa un numero a ogni risultato |
+| Funzione di ripartizione | $F(x) = P(X \le x)$ |
+
+### Domande che tornano spesso
+
+- Gli assiomi della probabilità e le conseguenze ($P(\bar E)$, unione di due eventi).
+- Definire la probabilità condizionata e dimostrare la formula delle probabilità totali e quella di Bayes.
+- Eventi incompatibili e indipendenti: che differenza c'è?
+- Proprietà della funzione di ripartizione; legame con la densità.
+- Come si trova la legge di $Y = g(X)$, anche per $g$ non monotona?

@@ -33,3 +33,17 @@ Gli appunti hanno gli argomenti ma non sempre un esempio leggibile o completo; q
 ## Aggiunte
 
 Nessun blocco `[!aggiunta]`: tutti gli argomenti del programma sono negli appunti (`01-copertura.md`).
+
+## Ampliamento del 5 novembre 2026
+
+Dopo le risposte alle domande (`revisione/AMPLIAMENTO-ANNO-1.md`): GEO-1 nessun appunto della lezione 1; GEO-2 sì a un'appendice di esercizi d'esame, molto completa; GEO-3 il riassunto per capitoli è dell'autore, da rendere più argomentato e chiaro.
+
+| Dove | Che cosa | ID |
+|---|---|---|
+| 4.8 (nuovo) | Forme quadratiche (segnatura, criterio del determinante) e classificazione affine delle coniche con gli invarianti, riduzione a forma canonica: è nel programma 2025/26 e mancava | GEO-05, GEO-06 |
+| Moduli 1-4 | "Esercizi sul modello delle prove d'esame": 22 esercizi con dati nuovi sui tipi delle 13 prove 2024-2026 (complessi e polinomi, piani, proiezioni, sfere, sistemi con parametro, invertibilità e rango, sottospazi di $\mathbb{R}^4$, matrici associate, nucleo con parametro, diagonalizzazione su $\mathbb{R}$ e su $\mathbb{C}$, coniche) | GEO-02 … GEO-07 |
+| Moduli 1-4 | 11 esercizi guidati e un formulario per modulo | tutti |
+
+GEO-3: il riassunto per capitoli non è ripreso come testo; il suo contenuto (definizioni ed enunciati) è ora nei formulari di fine modulo, con le tabelle dei termini e delle domande per l'orale, collegati ai paragrafi in cui ogni enunciato è spiegato e dimostrato.
+
+Un esercizio scritto in un primo momento (una matrice involutoria) coincideva con un tema d'esame del febbraio 2026 ed è stato sostituito. Controlli: `strumenti/verifica_ampliamento.py`, 47 controlli con sympy.

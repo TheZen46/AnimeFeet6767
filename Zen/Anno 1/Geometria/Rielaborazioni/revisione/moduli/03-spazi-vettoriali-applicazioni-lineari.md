@@ -5,7 +5,7 @@ titolo: Spazi vettoriali e applicazioni lineari
 programma: [GEO-05]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 3 · Spazi vettoriali e applicazioni lineari
@@ -173,6 +173,120 @@ Fra spazi della stessa dimensione, suriettiva vuol dire invertibile, cioè $\det
 
 **Esercizio 3 (equazioni di uno span).** Trovare un'equazione cartesiana di $W = \langle (1, 0, 1), (0, 1, 1)\rangle \subseteq \mathbb{R}^3$. Un vettore $(x, y, z)$ sta in $W$ se la matrice con colonne $(1, 0, 1)$, $(0, 1, 1)$, $(x, y, z)$ ha rango 2, cioè determinante nullo: $\begin{vmatrix} 1 & 0 & x \\ 0 & 1 & y \\ 1 & 1 & z \end{vmatrix} = z - x - y = 0$. Quindi $W$ è il piano $x + y - z = 0$.
 
+### Esercizi sul modello delle prove d'esame
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove scritte 2024-2026 e dei fogli "Spazi vettoriali", "Applicazioni lineari", "Matrici associate"; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-05)
+> Due esercizi su cinque, in ogni prova, sono di questo modulo: sottospazi di $\mathbb{R}^4$ (basi, intersezione, somma, equazioni) e un'applicazione lineare (matrice associata, nucleo, immagine, spesso con un parametro).
+
+**Esercizio 4. Intersezione e somma in $\mathbb{R}^4$.** $V = \{(x, y, z, t) : x + y - z = 0,\ y + t = 0\}$ e $W = \langle (1, 0, 1, 0), (1, 1, 0, 0) \rangle$. (a) Basi e dimensioni di $V$ e $W$. (b) $V \cap W$ e $V + W$, con un'equazione cartesiana di $V + W$. (c) $(1, 0, 1, 3) \in V + W$?
+
+(a) $V$ è dato da due equazioni indipendenti in 4 incognite: $\dim V = 2$. Con $y = s$ e $x = u$ liberi, $t = -s$ e $z = u + s$: $V = \langle (1, 0, 1, 0), (0, 1, 1, -1) \rangle$. I due generatori di $W$ non sono proporzionali: $\dim W = 2$.
+
+(b) Un vettore di $W$ è $a(1, 0, 1, 0) + b(1, 1, 0, 0) = (a + b, b, a, 0)$; sta in $V$ se $(a + b) + b - a = 2b = 0$ e $b + 0 = 0$: quindi $b = 0$, e $V \cap W = \langle (1, 0, 1, 0) \rangle$, di dimensione 1. Per Grassmann $\dim(V + W) = 2 + 2 - 1 = 3$, con base $(1, 0, 1, 0)$, $(0, 1, 1, -1)$, $(1, 1, 0, 0)$. Un iperpiano di $\mathbb{R}^4$ ha una sola equazione $ax + by + cz + dt = 0$; imponendo il passaggio per i tre vettori: $a + c = 0$, $b + c - d = 0$, $a + b = 0$. Con $b = 1$: $a = -1$, $c = 1$, $d = 2$, e
+$$V + W:\ -x + y + z + 2t = 0.$$
+(c) $-1 + 0 + 1 + 6 = 6 \ne 0$: no.
+
+**Esercizio 5. Matrice associata in due basi.** Sia $f(x, y, z) = (x + y,\ y - z,\ x + z)$ e $\mathcal{F} = ((1, 1, 0), (1, 0, 1), (0, 1, 1))$. (a) $M^{\mathcal{E}}_{\mathcal{F}}(f)$, con $\mathcal{E}$ base canonica in partenza. (b) Nucleo e immagine.
+
+(a) Nella colonna $j$ vanno le coordinate di $f(e_j)$ rispetto a $\mathcal{F}$. $f(e_1) = (1, 0, 1) = f_2$: coordinate $(0, 1, 0)$. $f(e_2) = (1, 1, 0) = f_1$: $(1, 0, 0)$. $f(e_3) = (0, -1, 1)$: si risolve $af_1 + bf_2 + cf_3 = (0, -1, 1)$, cioè $a + b = 0$, $a + c = -1$, $b + c = 1$, con soluzione $a = -1$, $b = 1$, $c = 0$. Quindi
+$$M^{\mathcal{E}}_{\mathcal{F}}(f) = \begin{pmatrix} 0 & 1 & -1 \\ 1 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}.$$
+In alternativa, con $P$ la matrice che ha per colonne i vettori di $\mathcal{F}$, si calcola $P^{-1}A$, dove $A$ è la matrice di $f$ nella base canonica.
+
+(b) La matrice ha rango 2, quindi $\dim\operatorname{Im} f = 2$ e, per il teorema della dimensione, $\dim\ker f = 1$. Il nucleo: $x + y = 0$, $y - z = 0$, $x + z = 0$ danno $\ker f = \langle (-1, 1, 1) \rangle$. L'immagine è generata da $f_1$ e $f_2$, cioè $\operatorname{Im} f = \langle (1, 1, 0), (1, 0, 1) \rangle$, il piano $x - y - z = 0$.
+
+**Esercizio 6. Un'applicazione definita su una base.** $f : \mathbb{R}^3 \to \mathbb{R}^3$ è lineare con $f(1, 1, 0) = (2, 1, 1)$, $f(1, 0, 1) = (1, 1, 0)$, $f(0, 0, 1) = (1, 0, 1)$. Trovare $f(x, y, z)$ e il nucleo.
+
+Si scrivono i vettori della base canonica come combinazioni dei tre dati: $e_3 = (0, 0, 1)$, $e_1 = (1, 0, 1) - e_3$, $e_2 = (1, 1, 0) - e_1$. Per linearità $f(e_3) = (1, 0, 1)$, $f(e_1) = (1, 1, 0) - (1, 0, 1) = (0, 1, -1)$, $f(e_2) = (2, 1, 1) - (0, 1, -1) = (2, 0, 2)$. Quindi
+$$f(x, y, z) = x(0, 1, -1) + y(2, 0, 2) + z(1, 0, 1) = (2y + z,\ x,\ -x + 2y + z).$$
+La seconda e la terza colonna sono proporzionali: rango 2, $\ker f = \langle (0, 1, -2) \rangle$ (infatti $f(e_2) - 2f(e_3) = 0$).
+
+**Esercizio 7. Nucleo con un parametro.** $f_a$ ha matrice $\begin{pmatrix} 1 & 2 & 1 \\ 0 & a & 1 \\ 1 & 2 & a \end{pmatrix}$ nella base canonica. Per quali $a$ è $\ker f_a \ne \{0\}$? Basi di nucleo e immagine per $a = 0$.
+
+$\det = 1(a^2 - 2) - 2(0 - 1) + 1(0 - a) = a^2 - a = a(a - 1)$: il nucleo non è banale per $a = 0$ e $a = 1$. Per $a = 0$ il sistema $x + 2y + z = 0$, $z = 0$, $x + 2y = 0$ dà $\ker f_0 = \langle (-2, 1, 0) \rangle$. L'immagine ha dimensione $3 - 1 = 2$ ed è generata da due colonne indipendenti, per esempio la prima e la terza: $\operatorname{Im} f_0 = \langle (1, 0, 1), (1, 1, 0) \rangle$.
+
+**Esercizio 8. Un complemento diretto.** Sia $W = \{x_4 = 0\} \subset \mathbb{R}^4$. Trovare $S$ con $S \oplus W = \mathbb{R}^4$. È unico?
+
+$\dim W = 3$, quindi $S$ deve avere dimensione 1 e intersecare $W$ solo nello 0: basta un vettore fuori da $W$, per esempio $S = \langle e_4 \rangle$. Non è unico: va bene $\langle (1, 2, 3, 1) \rangle$, o qualsiasi vettore con $x_4 \ne 0$. Il complemento diretto di un sottospazio esiste sempre ma non è unico (lo è il complemento ortogonale, del modulo 4).
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (GEO-05)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Da un sottospazio generato alle equazioni cartesiane.** Trovare le equazioni di $U = \langle (1, 1, 0, 1), (0, 1, 1, 0) \rangle$ in $\mathbb{R}^4$.
+
+*Passo 1: quante equazioni.* $\dim U = 2$ in $\mathbb{R}^4$: servono $4 - 2 = 2$ equazioni indipendenti.
+
+*Passo 2: la condizione.* $(x, y, z, t) \in U$ se la matrice con righe i due generatori e il vettore ha rango 2.
+
+*Passo 3: ridurre.* Un vettore di $U$ è $a(1, 1, 0, 1) + b(0, 1, 1, 0) = (a, a + b, b, a)$: quindi $x = a$, $z = b$, e le altre coordinate devono essere $y = x + z$ e $t = x$.
+
+*Passo 4: le equazioni.* $U: x - y + z = 0,\ x - t = 0$. Controllo sui generatori: $(1, 1, 0, 1)$ dà $0$ e $0$; $(0, 1, 1, 0)$ dà $0$ e $0$.
+
+**Guidato 2. Cambiamento di base per un endomorfismo.** $f$ ha matrice $A = \begin{pmatrix} 2 & 1 \\ 0 & 3 \end{pmatrix}$ nella base canonica di $\mathbb{R}^2$. Trovare la matrice rispetto a $\mathcal{B}' = ((1, 0), (1, 1))$.
+
+*Passo 1: la matrice di passaggio.* $P$ ha per colonne i vettori di $\mathcal{B}'$: $P = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$, $P^{-1} = \begin{pmatrix} 1 & -1 \\ 0 & 1 \end{pmatrix}$.
+
+*Passo 2: $AP$.* $\begin{pmatrix} 2 & 3 \\ 0 & 3 \end{pmatrix}$.
+
+*Passo 3: $P^{-1}AP$.* $\begin{pmatrix} 2 & 0 \\ 0 & 3 \end{pmatrix}$.
+
+*Passo 4: la lettura.* Nella nuova base la matrice è diagonale: $(1, 0)$ e $(1, 1)$ sono autovettori di autovalori 2 e 3. È esattamente il problema del modulo 4.
+
+**Guidato 3. Il teorema della dimensione come controllo.** $f : \mathbb{R}^4 \to \mathbb{R}^3$ ha matrice $\begin{pmatrix} 1 & 0 & 1 & 2 \\ 0 & 1 & 1 & 1 \\ 1 & 1 & 2 & 3 \end{pmatrix}$. Dimensioni di nucleo e immagine; $f$ è suriettiva?
+
+*Passo 1: il rango.* La terza riga è la somma delle prime due: rango 2.
+
+*Passo 2: l'immagine.* $\dim\operatorname{Im} f = 2 < 3$: non è suriettiva.
+
+*Passo 3: il nucleo.* $\dim\ker f = 4 - 2 = 2$. Dalle prime due righe: $x = -z - 2t$, $y = -z - t$, quindi $\ker f = \langle (-1, -1, 1, 0), (-2, -1, 0, 1) \rangle$.
+
+*Passo 4: controllo.* $2 + 2 = 4$, la dimensione del dominio.
+
 ## Riepilogo
 
 Uno spazio vettoriale è un insieme con somma e prodotto per scalari che verificano gli assiomi; esempi sono $\mathbb{K}^n$, le matrici, i polinomi. Un sottospazio contiene lo zero ed è chiuso per le operazioni; le soluzioni di un sistema omogeneo ne sono un esempio, quelle di un sistema non omogeneo un sottospazio traslato. Lo span di alcuni vettori è l'insieme delle loro combinazioni lineari; i vettori sono indipendenti se l'unica combinazione nulla è quella banale, cosa che in $\mathbb{K}^n$ si controlla con il rango o il determinante. Una base è un sistema di generatori indipendente, tutte le basi hanno lo stesso numero di elementi, la dimensione, e ogni vettore ha coordinate uniche rispetto a una base. Intersezione e somma di sottospazi sono sottospazi, legati dalla formula di Grassmann. Un'applicazione lineare è determinata dai valori su una base e corrisponde a una matrice (le cui colonne sono le immagini dei vettori della base); il nucleo è un sottospazio che decide l'iniettività, l'immagine ha dimensione uguale al rango, e $\dim V = \dim\ker f + \dim\mathrm{Im} f$. Cambiando base la matrice di un endomorfismo diventa $P^{-1}AP$: matrici simili hanno rango e determinante uguali.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (GEO-05)
+> Definizioni, teoremi e procedure su spazi vettoriali e applicazioni lineari, con i termini per l'orale.
+
+### Sottospazi
+
+- $U \subseteq V$ è un sottospazio se contiene 0 ed è chiuso per somma e prodotto per scalari. Le soluzioni di un sistema omogeneo formano un sottospazio; quelle di un sistema non omogeneo no.
+- In $\mathbb{R}^n$: $\dim U$ = numero di generatori indipendenti = $n$ − numero di equazioni cartesiane indipendenti.
+- **Grassmann:** $\dim(U + W) = \dim U + \dim W - \dim(U \cap W)$. Somma diretta $U \oplus W$: $U \cap W = \{0\}$.
+- Per $U \cap W$: si mettono a sistema le equazioni, o si impone a una combinazione dei generatori di uno di soddisfare le equazioni dell'altro. Per $U + W$: si uniscono i generatori e si tolgono quelli dipendenti.
+
+### Applicazioni lineari
+
+$$f(\lambda u + \mu v) = \lambda f(u) + \mu f(v), \qquad \dim V = \dim\ker f + \dim\operatorname{Im} f, \qquad \operatorname{Im} f = \langle f(v_1), \dots, f(v_n) \rangle.$$
+
+$f$ è iniettiva $\iff \ker f = \{0\}$; suriettiva $\iff \operatorname{rk} = \dim W$; un endomorfismo è iniettivo se e solo se è suriettivo. Un'applicazione lineare è determinata dai valori su una base.
+
+### Matrici associate
+
+Colonna $j$ di $M^{\mathcal{B}}_{\mathcal{C}}(f)$ = coordinate di $f(v_j)$ rispetto a $\mathcal{C}$. $M^{\mathcal{B}}_{\mathcal{D}}(g \circ f) = M^{\mathcal{C}}_{\mathcal{D}}(g)\,M^{\mathcal{B}}_{\mathcal{C}}(f)$. Cambiamento di base: $A' = P^{-1}AP$, con $P$ che ha per colonne i vettori della nuova base scritti nella vecchia.
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Spazio vettoriale | insieme con somma e prodotto per scalari che rispettano gli assiomi |
+| Combinazione lineare, span | somma di multipli; insieme di tutte le combinazioni |
+| Linearmente indipendenti | nessuno è combinazione degli altri; l'unica combinazione nulla è quella banale |
+| Base, dimensione | generatori indipendenti; numero di vettori di una base (lo stesso per tutte) |
+| Coordinate | coefficienti di un vettore rispetto a una base |
+| Somma diretta | somma con intersezione nulla: ogni vettore si scrive in un solo modo |
+| Nucleo, immagine | vettori mandati in 0; vettori raggiunti |
+| Isomorfismo | applicazione lineare biiettiva |
+| Matrici simili | $B = P^{-1}AP$: stesso endomorfismo in basi diverse |
+
+### Domande che tornano spesso
+
+- Definire base e dimensione; perché tutte le basi hanno lo stesso numero di vettori?
+- Enunciare e dimostrare la formula di Grassmann.
+- Nucleo e immagine sono sottospazi: dimostrarlo. Enunciare e dimostrare il teorema della dimensione.
+- Come si costruisce la matrice associata, e come cambia cambiando base?
+- Proprietà invarianti per similitudine.

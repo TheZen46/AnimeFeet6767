@@ -5,7 +5,7 @@ titolo: "Inferenza: stima, intervalli e test"
 programma: [STA-12, STA-13, STA-14, STA-15, STA-16, STA-17]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 4 · Inferenza: stima, intervalli e test
@@ -211,6 +211,36 @@ da arrotondare all'intero superiore. Per una proporzione, se non si sa nulla di 
 >
 > *Esempio.* Tre gruppi di tre misure: (20, 22, 24), (25, 27, 26), (21, 23, 22), con medie 22, 26, 22 e media generale $\frac{70}{3}$. Si trova $SS_B = 32$ e $SS_W = 8 + 2 + 2 = 12$, quindi $F = \frac{32/2}{12/6} = 8$, maggiore di $F_{0,05; 2, 6} = 5{,}14$: al 5% le medie non sono tutte uguali. Con due soli gruppi l'ANOVA equivale al test t con varianza combinata.
 
+## 4.9 Il funnel plot
+
+> [!aggiunta] Aggiunta in revisione · fonte: Spiegelhalter, "Funnel plots for comparing institutional performance", *Statistics in Medicine* 24 (2005); programma del corso, "se c'è tempo" (STA-13, STA-14)
+> **Il problema.** Si vogliono confrontare più strutture (ospedali, scuole, reparti di un'azienda) attraverso una proporzione: la mortalità dopo un intervento, la percentuale di promossi, la frazione di pezzi difettosi. La tentazione è fare una classifica dei tassi osservati $\hat p_i = \frac{x_i}{n_i}$, ma è un errore: una struttura con pochi casi ha un tasso molto variabile per puro caso, e finisce in cima o in fondo alla classifica senza essere né migliore né peggiore delle altre. Il **funnel plot** (grafico a imbuto) tiene conto proprio della numerosità.
+>
+> **La costruzione.** Si suppone (ipotesi nulla) che tutte le strutture abbiano la stessa probabilità vera $p$, stimata con il tasso complessivo
+> $$\bar p = \frac{\sum_i x_i}{\sum_i n_i}.$$
+> Sotto questa ipotesi $\hat p_i$ ha media $\bar p$ e deviazione standard $\sqrt{\bar p(1 - \bar p)/n_i}$, e per $n_i$ grande è circa normale (paragrafo 4.4). Nel piano con $n$ in ascissa e il tasso in ordinata si disegnano la retta $y = \bar p$ e le **curve di controllo**
+> $$\bar p \pm z\sqrt{\frac{\bar p(1 - \bar p)}{n}},$$
+> di solito con $z = 1{,}96$ (95%) e $z = 3{,}09$ (99,8%). Le curve si stringono al crescere di $n$, come un imbuto: con più casi il tasso osservato deve stare più vicino a quello medio. Poi si mette un punto $(n_i, \hat p_i)$ per ogni struttura.
+>
+> **La lettura.** Un punto dentro le curve al 95% è compatibile con la media: la differenza da $\bar p$ si spiega con il caso. Un punto fra le curve al 95% e al 99,8% è un segnale di **allerta**: succederebbe per caso a circa una struttura su venti. Un punto fuori dalle curve al 99,8% è un segnale di **allarme**: per caso succederebbe a circa una struttura su cinquecento, e conviene cercare una causa. Ogni punto, in pratica, è un test dell'ipotesi $p_i = \bar p$ al livello del 5% o dello 0,2%, e le curve sono le regioni di accettazione disegnate tutte insieme.
+>
+> **Esempio.** Dieci ospedali riportano i decessi dopo un intervento.
+>
+> | Ospedale | A | B | C | D | E | F | G | H | I | J |
+> |---|---|---|---|---|---|---|---|---|---|---|
+> | Interventi $n_i$ | 50 | 80 | 120 | 150 | 200 | 260 | 300 | 400 | 500 | 640 |
+> | Decessi $x_i$ | 6 | 4 | 10 | 18 | 14 | 34 | 21 | 30 | 70 | 36 |
+> | Tasso $\hat p_i$ | 0,120 | 0,050 | 0,083 | 0,120 | 0,070 | 0,131 | 0,070 | 0,075 | 0,140 | 0,056 |
+>
+> In tutto 243 decessi su 2700 interventi, quindi $\bar p = 0{,}09$. Per l'ospedale I, $\sqrt{0{,}09 \cdot 0{,}91/500} = 0{,}0128$, e le curve superiori valgono $0{,}09 + 1{,}96 \cdot 0{,}0128 = 0{,}115$ e $0{,}09 + 3{,}09 \cdot 0{,}0128 = 0{,}130$: il tasso 0,140 è fuori da entrambe, allarme ($z = \frac{0{,}140 - 0{,}09}{0{,}0128} = 3{,}9$). L'ospedale F ($z = 2{,}3$) è in allerta. A e D hanno lo stesso tasso, 12%, più alto della media, ma sono dentro l'imbuto: con 50 e 150 interventi una differenza così è normale. In basso, J ha $z = -3{,}0$: è in allerta "dalla parte buona", e varrebbe la pena di capire che cosa fa di diverso. Una classifica dei tassi avrebbe messo A e D fra i peggiori, alla pari di I, e B fra i migliori; il funnel plot dice che fra A, B, C, D, E, G, H non c'è nessuna differenza dimostrabile (figura 4.3).
+
+![Figura 4.3](../figure/4-3.svg)
+
+*Figura 4.3. Funnel plot dei dieci ospedali: retta del tasso medio, curve di controllo al 95% (tratteggiate) e al 99,8% (punteggiate).*
+
+> [!attenzione]
+> Le curve si calcolano con $\bar p$, il tasso comune sotto l'ipotesi nulla, non con il tasso della singola struttura. E il funnel plot non dice *perché* un punto è fuori: casi più gravi, errori di registrazione o qualità peggiore danno lo stesso segnale. È uno strumento per decidere dove guardare, non un giudizio.
+
 ## Esempi ed esercizi svolti
 
 **Esercizio 1 (ore di straordinario).** Le ore mensili di straordinario dei dipendenti di un'azienda sono normali. In un campione di 81 dipendenti si trovano $\bar x = 24$ e $s = 6$. Intervalli al 99% ($\alpha = 0{,}01$, 80 gradi di libertà). Per la media: $t_{0,005; 80} = 2{,}639$, $\varepsilon = 2{,}639 \cdot \frac{6}{9} \approx 1{,}759$, quindi $22{,}24 \le \mu \le 25{,}76$; con la normale, $z_{0,005} = 2{,}576$ e $22{,}28 \le \mu \le 25{,}72$, quasi uguale perché $n$ è grande. Per la varianza: $\chi^2_{0,995; 80} = 51{,}172$ e $\chi^2_{0,005; 80} = 116{,}321$, quindi
@@ -227,6 +257,155 @@ $$\frac{80 \cdot 36}{116{,}321} \le \sigma^2 \le \frac{80 \cdot 36}{51{,}172}, \
 
 Per un campione grande di una popolazione qualsiasi con varianza ignota si usa la seconda riga con $s$ al posto di $\sigma_0$.
 
+### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle esercitazioni e delle raccolte di esercizi del corso; valori critici dalle tavole del corso; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-13 … STA-16)
+> Ogni test si imposta con gli stessi cinque passi: (1) ipotesi $H_0$ e $H_1$, bilatera o unilatera; (2) statistica test e sua legge sotto $H_0$; (3) livello $\alpha$ e regione di rifiuto; (4) valore osservato; (5) decisione e, se si può, p-value.
+
+**Esercizio 3. Test sulla media con varianza nota, unilatero.** Un produttore dichiara che le sue lampadine durano in media 1000 ore, con $\sigma = 80$ ore. Un'associazione di consumatori ne prova 64 e trova $\bar x = 980$. C'è evidenza che la durata media sia minore di quella dichiarata?
+
+(1) $H_0: \mu = 1000$ contro $H_1: \mu < 1000$ (l'associazione sospetta una durata *minore*). (2) $Z = \frac{\bar X - 1000}{80/\sqrt{64}} \sim N(0, 1)$ sotto $H_0$. (3) Al 5% si rifiuta se $z < -1{,}645$. (4) $z = \frac{980 - 1000}{10} = -2$. (5) Si rifiuta al 5%. Il p-value è $\Phi(-2) = 0{,}023$: all'1% non si rifiuterebbe.
+
+**Esercizio 4. Test t su un piccolo campione.** Dieci misure di una lunghezza danno $\bar x = 12{,}4$ mm e $s = 0{,}9$ mm. Il valore nominale è 12 mm. Al 5%, le misure sono compatibili con il nominale?
+
+$H_0: \mu = 12$ contro $\mu \ne 12$; varianza ignota e $n$ piccolo, quindi $T = \frac{\bar X - 12}{S/\sqrt{10}} \sim t_9$ (popolazione supposta normale). $t = \frac{0{,}4}{0{,}9/\sqrt{10}} = 1{,}41$, e $t_{0,025; 9} = 2{,}262$. Non si rifiuta: il p-value è circa 0,19. Con la normale al posto della t si userebbe 1,96: per $n = 10$ la differenza fra le due tavole è già sensibile.
+
+**Esercizio 5. Due medie con varianza combinata.** Due metodi di studio: 12 studenti con il metodo 1 ottengono in media 78 punti con $s_1 = 6$, 10 studenti con il metodo 2 ottengono 72 con $s_2 = 5$. Al 5%, i metodi danno risultati diversi? Dare l'intervallo al 95% per la differenza.
+
+Si suppongono popolazioni normali con la stessa varianza. La varianza combinata è
+$$s_p^2 = \frac{11 \cdot 36 + 9 \cdot 25}{12 + 10 - 2} = \frac{621}{20} = 31{,}05, \qquad s_p = 5{,}57.$$
+L'errore standard della differenza è $s_p\sqrt{\frac{1}{12} + \frac{1}{10}} = 2{,}39$, e $t = \frac{78 - 72}{2{,}39} = 2{,}51$, con 20 gradi di libertà. Poiché $t_{0,025; 20} = 2{,}086$, si rifiuta $H_0: \mu_1 = \mu_2$ (p-value 0,021). L'intervallo è $6 \pm 2{,}086 \cdot 2{,}39 = [1{,}0;\ 11{,}0]$: non contiene lo 0, coerentemente con il test.
+
+**Esercizio 6. Dati appaiati.** Sei pazienti misurano la pressione prima e dopo un farmaco; le differenze "prima meno dopo" sono $3, 5, -1, 4, 2, 5$. Il farmaco abbassa la pressione?
+
+I dati non sono due campioni indipendenti: sono le stesse persone. Si lavora sulle differenze, con $H_0: \mu_D = 0$ contro $\mu_D > 0$. $\bar d = 3$, $s_D^2 = \frac{0 + 4 + 16 + 1 + 1 + 4}{5} = 5{,}2$, $s_D = 2{,}28$. $t = \frac{3}{2{,}28/\sqrt{6}} = 3{,}22$ con 5 gradi di libertà; $t_{0,05; 5} = 2{,}015$: si rifiuta, il farmaco abbassa la pressione (p-value unilatero circa 0,012). Trattare i dati come due campioni indipendenti sarebbe un errore: si perderebbe l'informazione che le misure vengono a coppie, e la variabilità fra persone diverse coprirebbe l'effetto.
+
+**Esercizio 7. Chi-quadro di adattamento: il dado è truccato?** In 120 lanci le facce da 1 a 6 escono $25, 17, 15, 23, 24, 16$ volte.
+
+$H_0$: il dado è equo, quindi ogni faccia è attesa $e_i = 20$ volte. $\chi^2 = \sum \frac{(o_i - e_i)^2}{e_i} = \frac{25 + 9 + 25 + 9 + 16 + 16}{20} = 5{,}0$. I gradi di libertà sono $6 - 1 = 5$ (le frequenze hanno un vincolo, la somma è 120). $\chi^2_{0,05; 5} = 11{,}07$: non si rifiuta, le differenze sono compatibili con il caso (p-value 0,42).
+
+**Esercizio 8. ANOVA con la tabella completa.** Tre macchine producono pezzi; il peso in grammi di quattro pezzi per macchina è: A: 10, 12, 11, 13; B: 14, 15, 13, 16; C: 11, 10, 12, 11. Le macchine producono pezzi dello stesso peso medio?
+
+Medie: $\bar x_A = 11{,}5$, $\bar x_B = 14{,}5$, $\bar x_C = 11$, media generale $\bar x = \frac{148}{12} = 12{,}33$.
+
+| Fonte | $SS$ | gradi di libertà | $MS = SS/\text{gdl}$ |
+|---|---|---|---|
+| fra i gruppi | $4\big[(11{,}5 - 12{,}33)^2 + (14{,}5 - 12{,}33)^2 + (11 - 12{,}33)^2\big] = 28{,}67$ | $k - 1 = 2$ | 14,33 |
+| dentro i gruppi | $5 + 5 + 2 = 12$ | $N - k = 9$ | 1,33 |
+| totale | 40,67 | 11 | |
+
+$F = \frac{14{,}33}{1{,}33} = 10{,}75$, e $F_{0,05; 2, 9} = 4{,}26$: si rifiuta l'uguaglianza delle medie (p-value 0,004). L'ANOVA dice solo che *almeno due* medie sono diverse; dalle medie si vede che è la macchina B a produrre pezzi più pesanti.
+
+**Esercizio 9. Quanti dati servono per vedere una differenza?** Nel test $H_0: \mu = 500$ contro $\mu > 500$ con $\sigma = 100$ e $\alpha = 5\%$ (paragrafo 4.6), quanti pesci servono perché la potenza sia del 90% quando $\mu = 520$?
+
+Si rifiuta se $\bar x > 500 + z_\alpha\frac{\sigma}{\sqrt n}$; la potenza in $\mu = 520$ è $P\left[Z > z_\alpha - \frac{20\sqrt n}{100}\right]$, che vale 0,90 quando $z_\alpha - \frac{20\sqrt n}{100} = -z_{0,10} = -1{,}2816$. Quindi
+$$\sqrt n = \frac{(1{,}645 + 1{,}2816) \cdot 100}{20} = 14{,}63, \qquad n \ge 214{,}1,$$
+cioè servono 215 pesci, più del doppio dei 100 del paragrafo 4.6, dove la potenza era del 64%.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (STA-13 … STA-15)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Un sondaggio.** Su 1000 intervistati, 540 sono favorevoli a una proposta. Si può dire, all'1%, che la maggioranza è favorevole?
+
+*Passo 1: le ipotesi.* La domanda è se $p > 0{,}5$: $H_0: p = 0{,}5$ contro $H_1: p > 0{,}5$.
+
+*Passo 2: la statistica.* $Z = \frac{\hat p - 0{,}5}{\sqrt{0{,}5 \cdot 0{,}5/1000}}$, circa normale standard sotto $H_0$. Al denominatore va $p_0$, non $\hat p$: la legge si calcola supponendo vera $H_0$.
+
+*Passo 3: la regione di rifiuto.* All'1%, unilatero: $z > 2{,}326$.
+
+*Passo 4: il valore.* $z = \frac{0{,}04}{0{,}0158} = 2{,}53$.
+
+*Passo 5: decisione.* Si rifiuta $H_0$: p-value $1 - \Phi(2{,}53) = 0{,}006$.
+
+**Guidato 2. Un funnel plot in piccolo.** Tre reparti hanno avuto rispettivamente 3 pezzi difettosi su 40, 12 su 100 e 30 su 400. Che cosa dice il funnel plot al 95%?
+
+*Passo 1: il tasso comune.* $\bar p = \frac{3 + 12 + 30}{40 + 100 + 400} = \frac{45}{540} = 0{,}0833$.
+
+*Passo 2: le deviazioni standard.* $\sqrt{\bar p(1 - \bar p)/n}$ vale 0,0437 per $n = 40$, 0,0276 per $n = 100$, 0,0138 per $n = 400$.
+
+*Passo 3: i valori $z$.* Reparto 1: $\frac{0{,}075 - 0{,}0833}{0{,}0437} = -0{,}19$. Reparto 2: $\frac{0{,}12 - 0{,}0833}{0{,}0276} = 1{,}33$. Reparto 3: $\frac{0{,}075 - 0{,}0833}{0{,}0138} = -0{,}60$.
+
+*Passo 4: conclusione.* Tutti i $|z|$ sono minori di 1,96: i tre reparti sono dentro l'imbuto. Il 12% del secondo reparto sembra alto, ma con 100 pezzi è compatibile con un tasso dell'8%.
+
+**Guidato 3. Chi-quadro di indipendenza su una tabella $2 \times 2$.** Su 200 clienti, 60 dei 100 che hanno ricevuto un'offerta via email hanno comprato, contro 45 dei 100 che non l'hanno ricevuta. Acquisto e offerta sono indipendenti, al 5%?
+
+*Passo 1: la tabella.* Righe: email sì (60 comprano, 40 no), email no (45 comprano, 55 no). Totali di colonna: 105 comprano, 95 no.
+
+*Passo 2: le frequenze attese.* $e_{ij} = \frac{n_{i\cdot}\,n_{\cdot j}}{n}$: per entrambe le righe $\frac{100 \cdot 105}{200} = 52{,}5$ e $\frac{100 \cdot 95}{200} = 47{,}5$.
+
+*Passo 3: la statistica.* $\chi^2 = \frac{7{,}5^2}{52{,}5} + \frac{7{,}5^2}{47{,}5} + \frac{7{,}5^2}{52{,}5} + \frac{7{,}5^2}{47{,}5} = 4{,}51$, con $(2 - 1)(2 - 1) = 1$ grado di libertà.
+
+*Passo 4: decisione.* $\chi^2_{0,05; 1} = 3{,}841$: si rifiuta l'indipendenza. Il p-value è circa 0,034, quindi all'1% non si rifiuterebbe.
+
 ## Riepilogo
 
 Un campione è una famiglia di variabili i.i.d. con la legge della popolazione; uno stimatore è una funzione del campione, corretto se ha speranza uguale al parametro, consistente se l'errore quadratico medio (varianza più distorsione al quadrato) tende a zero, più efficiente di un altro se ha varianza minore. La media campionaria e la varianza campionaria con $n - 1$ sono stimatori corretti di $\mu$ e $\sigma^2$. Un intervallo di confidenza al livello $1 - \alpha$ è costruito in modo che la procedura contenga il parametro nella frazione $1 - \alpha$ dei campioni: per la media con varianza nota è $\bar x \pm z_{\alpha/2}\sigma/\sqrt n$ (esatto per popolazioni normali, approssimato per $n$ grande), con varianza ignota $\bar x \pm t_{\alpha/2, n-1}s/\sqrt n$, per la varianza si usano due valori critici della chi-quadro, per una proporzione $\hat p \pm z_{\alpha/2}\sqrt{\hat p(1-\hat p)/n}$ o la versione prudente con $\frac{1}{2\sqrt n}$. La numerosità per una precisione $\varepsilon$ è $n \ge z_{\alpha/2}^2\sigma^2/\varepsilon^2$. Per due medie si usano le differenze, con la varianza combinata o con i dati appaiati. Un test di ipotesi rifiuta $H_0$ quando la statistica test cade nella regione di rifiuto, con probabilità di errore di I tipo $\alpha$; la potenza è la probabilità di rifiutare quando $H_0$ è falsa, e il p-value è il più piccolo livello a cui i dati portano a rifiutare. Gli stessi schemi danno i test per media, proporzione, varianza, differenza di medie, il test chi-quadro di indipendenza per le tabelle a due vie e l'ANOVA a una via, che confronta più medie con la statistica F.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (STA-12 … STA-16)
+> Stimatori, intervalli, test e valori critici più usati, con i termini per l'orale.
+
+### Stimatori
+
+$$\bar X = \frac{1}{n}\sum X_i, \quad S^2 = \frac{1}{n - 1}\sum (X_i - \bar X)^2, \quad E[\bar X] = \mu, \quad \operatorname{Var}(\bar X) = \frac{\sigma^2}{n}, \quad MSE = \operatorname{Var} + (\text{distorsione})^2.$$
+
+### Intervalli al livello $1 - \alpha$
+
+| Parametro | Intervallo |
+|---|---|
+| $\mu$, $\sigma$ nota | $\bar x \pm z_{\alpha/2}\,\sigma/\sqrt n$ |
+| $\mu$, $\sigma$ ignota, normale | $\bar x \pm t_{\alpha/2, n-1}\,s/\sqrt n$ |
+| $p$, $n$ grande | $\hat p \pm z_{\alpha/2}\sqrt{\hat p(1 - \hat p)/n}$ |
+| $\sigma^2$, normale | $\left[\frac{(n-1)s^2}{\chi^2_{\alpha/2, n-1}}, \frac{(n-1)s^2}{\chi^2_{1-\alpha/2, n-1}}\right]$ |
+| $\mu_1 - \mu_2$, varianze uguali | $\bar x_1 - \bar x_2 \pm t_{\alpha/2, n_1+n_2-2}\,s_p\sqrt{1/n_1 + 1/n_2}$ |
+
+Numerosità per un errore massimo $\varepsilon$: $n \ge \left(\frac{z_{\alpha/2}\sigma}{\varepsilon}\right)^2$ per la media, $n \ge \frac{z_{\alpha/2}^2}{4\varepsilon^2}$ per una proporzione (caso peggiore $p = \frac12$).
+
+### Test
+
+| $H_0$ | Statistica | Legge sotto $H_0$ |
+|---|---|---|
+| $\mu = \mu_0$, $\sigma$ nota | $\frac{\bar X - \mu_0}{\sigma/\sqrt n}$ | $N(0, 1)$ |
+| $\mu = \mu_0$, $\sigma$ ignota | $\frac{\bar X - \mu_0}{S/\sqrt n}$ | $t_{n-1}$ |
+| $p = p_0$ | $\frac{\hat p - p_0}{\sqrt{p_0(1 - p_0)/n}}$ | circa $N(0, 1)$ |
+| $\sigma^2 = \sigma_0^2$ | $\frac{(n-1)S^2}{\sigma_0^2}$ | $\chi^2_{n-1}$ |
+| $\mu_1 = \mu_2$ | $\frac{\bar X_1 - \bar X_2}{S_p\sqrt{1/n_1 + 1/n_2}}$ | $t_{n_1+n_2-2}$ |
+| appaiati | $\frac{\bar D}{S_D/\sqrt n}$ | $t_{n-1}$ |
+| adattamento, $k$ classi | $\sum \frac{(o_i - e_i)^2}{e_i}$ | $\chi^2_{k-1}$ |
+| indipendenza, $m \times k$ | $\sum \frac{(n_{ij} - e_{ij})^2}{e_{ij}}$, $e_{ij} = \frac{n_{i\cdot}n_{\cdot j}}{n}$ | $\chi^2_{(m-1)(k-1)}$ |
+| ANOVA, $k$ gruppi | $\frac{SS_B/(k-1)}{SS_W/(N-k)}$ | $F_{k-1, N-k}$ |
+
+Funnel plot: curve $\bar p \pm z\sqrt{\bar p(1 - \bar p)/n}$ con $z = 1{,}96$ e $3{,}09$.
+
+### Valori critici della normale
+
+| $\alpha$ | 0,10 | 0,05 | 0,025 | 0,01 | 0,005 | 0,001 |
+|---|---|---|---|---|---|---|
+| $z_\alpha$ | 1,282 | 1,645 | 1,960 | 2,326 | 2,576 | 3,090 |
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Stimatore corretto, consistente, efficiente | speranza uguale al parametro; MSE che tende a 0; varianza minore |
+| Intervallo di confidenza | intervallo casuale che contiene il parametro con probabilità $1 - \alpha$ |
+| Ipotesi nulla e alternativa | l'affermazione da mettere alla prova e quella che si accetta se la si rifiuta |
+| Errore di I e II tipo | rifiutare $H_0$ vera; accettare $H_0$ falsa |
+| Livello di significatività | probabilità massima di errore di I tipo |
+| Potenza | probabilità di rifiutare $H_0$ quando è falsa |
+| p-value | probabilità, sotto $H_0$, di un risultato almeno così estremo |
+| Gradi di libertà | numero di quantità libere dopo i vincoli |
+| Funnel plot | confronto di tassi con curve di controllo che dipendono da $n$ |
+
+### Domande che tornano spesso
+
+- Perché $S^2$ si divide per $n - 1$? Dimostrare che è corretto.
+- Ricavare l'intervallo per la media con varianza nota; che cosa vuol dire "al 95%"?
+- Quando si usa la t di Student e perché le sue code sono più pesanti della normale?
+- Definire errori di I e II tipo, potenza e p-value; legame fra test bilatero e intervallo di confidenza.
+- Test chi-quadro: come si calcolano le frequenze attese e i gradi di libertà?
+- Idea dell'ANOVA: perché si confronta la varianza fra i gruppi con quella dentro i gruppi?
+- A che cosa serve un funnel plot, e perché una classifica dei tassi è fuorviante?

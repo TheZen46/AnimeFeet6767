@@ -5,7 +5,7 @@ titolo: Algebra booleana e sintesi delle reti combinatorie
 programma: [RL-01, RL-02]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 1 · Algebra booleana e sintesi delle reti combinatorie
@@ -300,6 +300,205 @@ Per la SOP: la colonna $00$ dà $\bar{Y}\bar{Z}$; le celle $100$ e $110$ (adiace
 
 Raccogliendo $x$: $x(1 + y + yz + yzw + z + w + zw) = x \cdot 1 = x$, perché una somma che contiene 1 vale 1. È l'assorbimento, $x + xP = x$, applicato a ogni termine.
 
+### Esercizi del laboratorio con il simulatore
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni con il simulatore Deeds (testi riscritti, dati e soluzioni nuovi) (RL-01, RL-02, RL-08)
+> Gli esercizi che seguono ricalcano quelli fatti in laboratorio con Deeds: si disegna lo schema, si ricava la tabella con la simulazione funzionale (l'animazione, in cui si cambiano gli interruttori e si guardano le uscite) e si controlla con la simulazione temporale. Qui il lavoro si fa a mano, come all'esame, e la simulazione serve da verifica.
+
+**Esercizio 4. Analisi di una rete di porte semplici.** Gli ingressi $A$ e $B$ vanno a una NAND e a una OR; le due uscite entrano in una AND, che dà $U$. Ricavare la tabella di verità e dire che funzione è.
+
+Si ragiona porta per porta, scrivendo una colonna per ogni uscita intermedia: $N = \overline{AB}$ e $O = A + B$.
+
+| $A$ | $B$ | $N = \overline{AB}$ | $O = A + B$ | $U = N \cdot O$ |
+|---|---|---|---|---|
+| 0 | 0 | 1 | 0 | 0 |
+| 0 | 1 | 1 | 1 | 1 |
+| 1 | 0 | 1 | 1 | 1 |
+| 1 | 1 | 0 | 1 | 0 |
+
+L'uscita vale 1 quando gli ingressi sono diversi: è lo XOR. Lo si vede anche con l'algebra, distribuendo: $\overline{AB}(A + B) = (\bar{A} + \bar{B})(A + B) = \bar{A}B + A\bar{B}$, perché $\bar{A}A$ e $\bar{B}B$ valgono 0. Per la simulazione temporale conviene far cambiare gli ingressi nell'ordine di Gray, $00, 01, 11, 10$: cambia un ingresso alla volta e ogni variazione dell'uscita si attribuisce subito a quell'ingresso.
+
+**Esercizio 5. Controllo di parità a più livelli.** Un ricevitore riceve tre bit di dato $D_2 D_1 D_0$ e un bit di parità $RP$, calcolato dal trasmettitore con la **parità dispari**: il numero totale di 1 nei quattro bit deve essere dispari. La rete di controllo è costruita così: $C_1 = D_2\bar{D}_1 + \bar{D}_2 D_1$, $C_2 = D_0\overline{RP} + \bar{D}_0\,RP$, $ERR = C_1 C_2 + \bar{C}_1\bar{C}_2$. Che cosa fanno $C_1$, $C_2$ ed $ERR$? Si può fare la stessa rete con meno porte?
+
+$C_1$ è la forma SOP di $D_2 \oplus D_1$ e $C_2$ quella di $D_0 \oplus RP$: ciascuna vale 1 se fra i suoi due bit c'è un solo 1. $ERR = C_1 C_2 + \bar{C}_1\bar{C}_2$ è lo XNOR di $C_1$ e $C_2$, quindi
+$$ERR = \overline{C_1 \oplus C_2} = \overline{D_2 \oplus D_1 \oplus D_0 \oplus RP}.$$
+Lo XOR dei quattro bit vale 1 quando il numero di 1 è dispari, cioè quando la trasmissione è corretta; $ERR$ ne è la negazione e vale 1 quando il numero di 1 è pari, cioè quando c'è un errore. La rete di partenza ha nove porte su quattro livelli (più i NOT); quella con le XOR ha due XOR e una XNOR, oppure tre XOR in cui l'ultima ha un ingresso negato.
+
+Due prove. Il dato $101$ ha due 1, quindi il trasmettitore manda $RP = 1$: i quattro bit $1011$ hanno tre 1 e $ERR = 0$. Se durante la trasmissione $D_1$ si altera, il ricevitore vede $1111$, con quattro 1, ed $ERR = 1$. Se si alterano due bit, per esempio $D_1$ e $RP$, il ricevitore vede $1110$, con tre 1, ed $ERR = 0$: come detto nel modulo 2, un solo bit di parità non vede gli errori doppi.
+
+**Esercizio 6. Sintesi AND-OR e OR-AND, e scelta della più economica.** La funzione $F(X, Y, Z)$ vale 1 per $XYZ = 001, 010, 111$ e 0 altrove. Trovare le due sintesi minime e dire quale costa meno.
+
+| $X \backslash YZ$ | 00 | 01 | 11 | 10 |
+|---|---|---|---|---|
+| 0 | 0 | 1 | 0 | 1 |
+| 1 | 0 | 0 | 1 | 0 |
+
+*Gli 1.* Si controllano i vicini di ogni 1: la cella $001$ è adiacente a $000$, $011$ e $101$, tutte a 0; lo stesso succede per $010$ (vicini $000$, $011$, $110$) e per $111$ (vicini $110$, $101$, $011$). Nessun 1 si raggruppa, e la sintesi AND-OR è la forma canonica:
+$$F = \bar{X}\bar{Y}Z + \bar{X}Y\bar{Z} + XYZ.$$
+
+*Gli 0.* Gli zeri sono $000, 011, 100, 101, 110$. Lo 0 in $011$ ha tutti i vicini a 1 e resta solo: $(X + \bar{Y} + \bar{Z})$. Lo 0 in $000$ si può raggruppare solo con $100$ (gli altri vicini sono 1): gruppo con $Y = 0$, $Z = 0$, fattore $(Y + Z)$. Lo 0 in $101$ si raggruppa solo con $100$: $X = 1$, $Y = 0$, fattore $(\bar{X} + Y)$. Lo 0 in $110$ si raggruppa solo con $100$: $X = 1$, $Z = 0$, fattore $(\bar{X} + Z)$. Tutti e quattro i gruppi sono essenziali:
+$$F = (Y + Z)(\bar{X} + Y)(\bar{X} + Z)(X + \bar{Y} + \bar{Z}).$$
+
+*Costo.* Si contano le porte e gli ingressi delle porte, senza i NOT. La SOP ha tre AND a tre ingressi e una OR a tre ingressi: 4 porte e 12 ingressi. La POS ha tre OR a due ingressi, una OR a tre e una AND a quattro: 5 porte e 13 ingressi. Costa meno la SOP. Non c'è una regola generale: conviene raggruppare gli 1 quando sono pochi e gli 0 quando sono pochi gli 0, ma il conto va sempre fatto.
+
+**Esercizio 7. Porta logica programmabile.** La rete ha due ingressi di controllo $F_1 F_0$ e due ingressi dati $A$, $B$. Con $F_1 F_0 = 00$ l'uscita è il NOR di $A$ e $B$, con $01$ lo XNOR, con $10$ la NAND; la combinazione $11$ non si presenta mai. Trovare la sintesi AND-OR minima.
+
+Prima la tabella, riga per riga del controllo: NOR dà $1, 0, 0, 0$ per $AB = 00, 01, 10, 11$; XNOR dà $1, 0, 0, 1$; NAND dà $1, 1, 1, 0$. Poi la mappa, con righe $F_1 F_0$ e colonne $AB$ entrambe in ordine di Gray (attenzione: la riga $10$ è l'ultima, la $11$ la terza):
+
+| $F_1 F_0 \backslash AB$ | 00 | 01 | 11 | 10 |
+|---|---|---|---|---|
+| 00 | 1 | 0 | 0 | 0 |
+| 01 | 1 | 0 | 1 | 0 |
+| 11 | – | – | – | – |
+| 10 | 1 | 1 | 0 | 1 |
+
+I gruppi, usando le indifferenze della riga $11$: la colonna $AB = 00$ è tutta a 1 o indifferente, e dà $\bar{A}\bar{B}$; le celle $F_1 = 1$, $A = 0$ (righe 11 e 10, colonne 00 e 01) danno $F_1\bar{A}$; le celle $F_1 = 1$, $B = 0$ (righe 11 e 10, colonne 00 e 10) danno $F_1\bar{B}$; l'1 in $01\,11$ con l'indifferenza sotto di lui dà $F_0 AB$. Quindi
+$$U = \bar{A}\bar{B} + F_1\bar{A} + F_1\bar{B} + F_0 AB.$$
+Verifica sulle tre righe: con $F_1 F_0 = 00$ resta $\bar{A}\bar{B}$, il NOR; con $01$ resta $\bar{A}\bar{B} + AB$, lo XNOR; con $10$ resta $\bar{A}\bar{B} + \bar{A} + \bar{B} = \bar{A} + \bar{B}$, la NAND.
+
+**Esercizio 8. Una funzione di quattro variabili con molte indifferenze.** La funzione $F(X, Y, Z, T)$ si comporta così: con $X = 0$ vale 1 per $YZT = 000, 010, 011, 111$ e 0 per le altre combinazioni; con $X = 1$ si presentano solo $YZT = 001$, in cui $F = 1$, e $YZT = 101$, in cui $F = 0$. Trovare la sintesi AND-OR minima.
+
+Le combinazioni con $X = 1$ che non si presentano sono indifferenze. Mappa con righe $XY$ e colonne $ZT$:
+
+| $XY \backslash ZT$ | 00 | 01 | 11 | 10 |
+|---|---|---|---|---|
+| 00 | 1 | 0 | 1 | 1 |
+| 01 | 0 | 0 | 1 | 0 |
+| 11 | – | 0 | – | – |
+| 10 | – | 1 | – | – |
+
+Si parte dagli 1 che hanno meno possibilità. L'1 in $1001$ (riga 10, colonna 01) ha sopra lo 0 di $0001$ e sotto lo 0 di $1101$: si può allargare solo lungo la riga, che è tutta a 1 o indifferente, e il gruppo è $X\bar{Y}$. L'1 in $0111$ sta nella colonna $ZT = 11$, che non contiene 0: gruppo $ZT$, che copre anche $0011$. Restano $0000$ e $0010$: con le indifferenze della riga 10 formano la quaterna $\bar{Y}\bar{T}$ (righe 00 e 10, colonne 00 e 10). Quindi
+$$F = ZT + X\bar{Y} + \bar{Y}\bar{T}.$$
+Le indifferenze hanno permesso gruppi da quattro celle dove, senza, ci sarebbero state coppie o celle isolate.
+
+**Esercizio 9. Analisi di un decoder con abilitazione.** Una rete a due livelli ha tre ingressi $EN$, $S_1$, $S_0$ e quattro uscite $U_0 = EN\,\bar{S}_1\bar{S}_0$, $U_1 = EN\,\bar{S}_1 S_0$, $U_2 = EN\,S_1\bar{S}_0$, $U_3 = EN\,S_1 S_0$. Che ruolo hanno gli ingressi?
+
+Con $EN = 0$ tutte le uscite valgono 0, qualunque sia la selezione. Con $EN = 1$ si accende una sola uscita, quella il cui indice è il numero binario $S_1 S_0$: per $S_1 S_0 = 10$ vale 1 solo $U_2$. $S_1 S_0$ scelgono quindi *quale* uscita, ed $EN$ decide *se* accenderla. È il decoder 2→4 con abilitazione del modulo 2, cioè un DEMUX 1→4 in cui $EN$ fa da ingresso dati: con $n$ ingressi di selezione le uscite sono $2^n$. Con due di questi blocchi si fa un decoder 3→8: il bit più alto $S_2$ va sull'$EN$ del secondo blocco e, negato, sull'$EN$ del primo; gli altri due bit vanno su entrambi.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi, soluzioni verificate con `strumenti/verifica_ampliamento.py` (RL-01, RL-02)
+> Ogni esercizio è diviso in passi. Conviene provare un passo alla volta, coprendo il resto, e confrontare solo dopo.
+
+**Guidato 1. Una spia per i numeri primi.** Tre interruttori $A$, $B$, $C$ formano un numero binario $N = ABC$ ($A$ è il bit più significativo). La spia $U$ deve accendersi quando $N$ è un numero primo. Progettare la rete AND-OR e la rete OR-AND minime, e la versione a sole NAND.
+
+*Passo 1: la specifica diventa una tabella.* $N$ va da 0 a 7; i primi sono 2, 3, 5, 7 (1 non è primo). Quindi $U = 1$ per $ABC = 010, 011, 101, 111$.
+
+*Passo 2: la mappa.* Righe $A$, colonne $BC$:
+
+| $A \backslash BC$ | 00 | 01 | 11 | 10 |
+|---|---|---|---|---|
+| 0 | 0 | 0 | 1 | 1 |
+| 1 | 0 | 1 | 1 | 0 |
+
+*Passo 3: gli implicanti primi.* Sulla prima riga le celle $011$ e $010$ formano $\bar{A}B$. Sulla seconda riga $101$ e $111$ formano $AC$. C'è anche il gruppo verticale $BC$ (celle $011$ e $111$), che però copre solo 1 già coperti: è un implicante primo ma non essenziale. Gli essenziali sono $\bar{A}B$ (unico a coprire $010$) e $AC$ (unico a coprire $101$), e bastano:
+$$U = \bar{A}B + AC.$$
+
+*Passo 4: la sintesi OR-AND.* Gli 0 sono $000, 001, 100, 110$. La coppia $000$, $001$ ha $A = 0$, $B = 0$: fattore $(A + B)$. La coppia $100$, $110$ ha $A = 1$, $C = 0$: fattore $(\bar{A} + C)$. Quindi $U = (A + B)(\bar{A} + C)$.
+
+*Passo 5: sole NAND.* Dalla SOP, negando due volte: $U = \overline{\overline{\bar{A}B} \cdot \overline{AC}}$. Servono una NAND per $\bar{A}B$, una per $AC$ e una finale, più il NOT di $A$ (una NAND con gli ingressi uniti).
+
+*Passo 6: controllo.* Si prova una cella a 1 e una a 0 su tutte le forme. Per $N = 5$, $ABC = 101$: $\bar{A}B + AC = 0 + 1 = 1$ e $(A + B)(\bar{A} + C) = 1 \cdot 1 = 1$. Per $N = 6$, $ABC = 110$: $\bar{A}B + AC = 0 + 0 = 0$ e $(A + B)(\bar{A} + C) = 1 \cdot 0 = 0$.
+
+**Guidato 2. Il segmento $a$ del visualizzatore a sette segmenti.** Un visualizzatore riceve una cifra decimale in BCD, $ABCD$ con $A$ più significativo, e accende il segmento $a$ (quello in alto) per le cifre 0, 2, 3, 5, 6, 7, 8, 9. Le combinazioni da 10 a 15 non arrivano mai. Trovare la sintesi AND-OR minima.
+
+*Passo 1.* Gli 1 sono i mintermini 0, 2, 3, 5, 6, 7, 8, 9; gli 0 sono 1 e 4; le indifferenze sono da 10 a 15.
+
+*Passo 2.* Mappa con righe $AB$ e colonne $CD$:
+
+| $AB \backslash CD$ | 00 | 01 | 11 | 10 |
+|---|---|---|---|---|
+| 00 | 1 | 0 | 1 | 1 |
+| 01 | 0 | 1 | 1 | 1 |
+| 11 | – | – | – | – |
+| 10 | 1 | 1 | – | – |
+
+*Passo 3: i gruppi più grandi.* Le righe $11$ e $10$ sono tutte a 1 o indifferenti: ottetto $A$. Le colonne $11$ e $10$ sono tutte a 1 o indifferenti: ottetto $C$. Restano $0101$ e $0000$. La cella $0101$ con $0111$, $1101$, $1111$ forma la quaterna $BD$. La cella $0000$ con $0010$, $1000$, $1010$ (i quattro angoli) forma la quaterna $\bar{B}\bar{D}$.
+
+*Passo 4.*
+$$a = A + C + BD + \bar{B}\bar{D} = A + C + \overline{B \oplus D}.$$
+Senza le indifferenze, al posto di $A$ e di $C$ ci sarebbero gruppi più piccoli e più variabili per termine: è il caso tipico in cui le combinazioni impossibili fanno risparmiare molto.
+
+*Passo 5: controllo sugli 0.* Per la cifra 1 ($0001$): $A = 0$, $C = 0$, $BD = 0$, $\bar{B}\bar{D} = 0$, e $a = 0$. Per la cifra 4 ($0100$): $BD = 0$ e $\bar{B}\bar{D} = 0$, quindi $a = 0$.
+
+**Guidato 3. Semplificazione con l'algebra.** Semplificare $F = \overline{(\bar{A} + B)\,\bar{C}} + A\bar{B}C$.
+
+*Passo 1: De Morgan sul prodotto negato.* $\overline{(\bar{A} + B)\,\bar{C}} = \overline{\bar{A} + B} + \bar{\bar{C}} = A\bar{B} + C$.
+
+*Passo 2: assorbimento.* $F = A\bar{B} + C + A\bar{B}C$, e il termine $A\bar{B}C$ è assorbito da $A\bar{B}$ (anche da $C$): $F = A\bar{B} + C$.
+
+*Passo 3: controllo con la tabella.* $F$ vale 0 solo quando $C = 0$ e $A\bar{B} = 0$, cioè per $ABC = 000, 010, 110$. Nella forma di partenza, per $ABC = 110$: $(\bar{A} + B)\bar{C} = 1$, il primo termine vale 0, il secondo pure, $F = 0$. Torna.
+
 ## Riepilogo
 
 Una funzione booleana di $n$ variabili è descritta dalla sua tabella di verità, che ha $2^n$ righe; le funzioni possibili sono $2^{2^n}$. Le funzioni di una e due variabili sono realizzate dalle porte NOT, AND, OR, XOR e dalle loro negate. L'algebra di Boole permette di trasformare un'espressione in un'altra equivalente; le proprietà vengono a coppie per il principio di dualità, e le leggi di De Morgan scambiano somme e prodotti sotto negazione. Il teorema di Shannon dà le due forme canoniche: la somma dei mintermini degli 1 e il prodotto dei maxtermini degli 0, da cui le reti a due livelli AND-OR e OR-AND. Le mappe di Karnaugh rendono visibili le adiacenze: si coprono gli 1 (o gli 0) con il minimo numero di gruppi rettangolari di $2^k$ celle, i più grandi possibile, usando gli implicanti primi essenziali. Le indifferenze si usano solo se allargano i gruppi; le variabili riportate permettono di sintetizzare con mappe più piccole una funzione di più variabili, con un risultato quasi minimo. Le porte NAND e NOR sono complete da sole, e una rete AND-OR diventa una rete di sole NAND con la stessa struttura.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (RL-01, RL-02)
+> Il formulario raccoglie quello che serve avere sotto mano negli esercizi e all'orale. Non sostituisce le spiegazioni: ogni riga rimanda a un paragrafo del modulo.
+
+### Conteggi e forme
+
+| Che cosa | Formula o regola | Par. |
+|---|---|---|
+| Combinazioni di $n$ ingressi | $2^n$ righe della tabella | 1.1 |
+| Funzioni distinte di $n$ variabili | $2^{2^n}$ (16 per $n = 2$) | 1.1 |
+| Mintermine di una riga | prodotto di tutte le variabili, negata dove vale 0 | 1.4 |
+| Maxtermine di una riga | somma di tutte le variabili, negata dove vale 1 | 1.4 |
+| Prima forma canonica (SOP) | somma dei mintermini delle righe con $f = 1$ | 1.4 |
+| Seconda forma canonica (POS) | prodotto dei maxtermini delle righe con $f = 0$ | 1.4 |
+| Gruppo di $2^k$ celle su $n$ variabili | prodotto (o somma) di $n - k$ variabili | 1.5 |
+
+### Identità che si usano di più
+
+$$A + \bar{A}B = A + B \qquad A(\bar{A} + B) = AB \qquad A + AB = A \qquad A + BC = (A + B)(A + C)$$
+
+$$\overline{A + B + C} = \bar{A}\,\bar{B}\,\bar{C} \qquad \overline{ABC} = \bar{A} + \bar{B} + \bar{C} \qquad AB + \bar{A}C + BC = AB + \bar{A}C$$
+
+$$A \oplus B = A\bar{B} + \bar{A}B \qquad \overline{A \oplus B} = AB + \bar{A}\bar{B} \qquad A \oplus 1 = \bar{A} \qquad A \oplus A = 0$$
+
+### Teoremi
+
+- **Shannon:** $f = \bar{x}_1\, f(0, x_2, \dots) + x_1\, f(1, x_2, \dots)$ e, nella forma duale, $f = (x_1 + f(0, \dots))(\bar{x}_1 + f(1, \dots))$.
+- **Dualità:** un'identità resta vera scambiando $+$ con $\cdot$ e 0 con 1.
+- **Completezza:** {AND, OR, NOT}, {NAND} e {NOR} bastano a realizzare ogni funzione.
+- **Da AND-OR a NAND:** $AB + CD = \overline{\overline{AB} \cdot \overline{CD}}$; **da OR-AND a NOR:** $(A + B)(C + D) = \overline{\overline{A + B} + \overline{C + D}}$.
+
+### Mappe di Karnaugh: la procedura
+
+1. Ordine di Gray su righe e colonne (00, 01, 11, 10); i bordi opposti sono adiacenti.
+2. Si individuano gli implicanti primi, gruppi rettangolari di $2^k$ celle più grandi possibile.
+3. Si prendono gli essenziali (coprono un 1 che nessun altro copre), poi si coprono gli 1 rimasti con il minimo numero di primi.
+4. Indifferenze: si usano solo se allargano un gruppo, non vanno mai coperte per forza.
+5. POS: si raggruppano gli 0; nel fattore la variabile è negata se nel gruppo vale 1.
+6. Controllo finale su almeno una cella a 1 e una a 0.
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Variabile booleana, bit | grandezza con due soli valori, 0 e 1 |
+| Rete combinatoria | rete le cui uscite dipendono solo dagli ingressi presenti |
+| Tabella di verità | elenco dell'uscita per tutte le $2^n$ combinazioni: è la specifica |
+| Induzione perfetta | dimostrazione di un'identità controllando tutte le combinazioni |
+| Rete a due livelli | AND-OR o OR-AND: ogni segnale attraversa al più due porte, è la più veloce |
+| Implicante | prodotto che, quando vale 1, fa valere 1 la funzione |
+| Implicante primo | implicante non contenuto in uno più grande |
+| Implicante essenziale | implicante primo che copre un 1 coperto da nessun altro |
+| Indifferenza (*don't care*) | combinazione che non si presenta o il cui valore non interessa |
+| Variabile riportata | variabile scritta in una cella della mappa; dà una sintesi quasi minima |
+| Termine di consenso | prodotto ridondante $BC$ ottenuto da $AB$ e $\bar{A}C$ |
+| Funzione di parità | XOR di più variabili; mappa a scacchiera, nessun gruppo possibile |
+| Costo di una rete | numero di porte e di ingressi delle porte (i NOT sugli ingressi non si contano) |
+| Completezza funzionale | proprietà di un insieme di porte di realizzare ogni funzione |
+
+### Domande che tornano spesso
+
+- Perché le funzioni di $n$ variabili sono $2^{2^n}$?
+- Enunciare e dimostrare il teorema di Shannon; come se ne ricavano le forme canoniche?
+- Perché nella mappa si usa il codice Gray? Quando due celle sono adiacenti?
+- Differenza fra implicante primo ed essenziale, con un esempio.
+- Come si usano le indifferenze, e perché non si devono coprire per forza?
+- Perché la NAND è funzionalmente completa? Come si passa da una rete AND-OR a una di sole NAND?
+- Perché le funzioni di parità sono il caso peggiore per le reti a due livelli?

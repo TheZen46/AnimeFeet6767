@@ -88,3 +88,19 @@ Per modulo:
 ## 4. Figure
 
 Le 19 figure, segnate `[!figura]` nei moduli, sono ridisegnate al computer in `figure/` (SVG, adatte al PDF in A4). Sono tutte grafici o schemi fatti ex novo: nessuna viene dal materiale del docente.
+
+## Ampliamento del 5 novembre 2026
+
+Dopo le risposte alle domande (`revisione/AMPLIAMENTO-ANNO-1.md`): AM1A-1, AM1A-2 e AM1A-4 senza materiale, da integrare in modo completo; AM1A-3 molti più esercizi; AM1A-5 il rimando al "Landau" non è identificato e non compare nei moduli.
+
+| Dove | Che cosa | ID |
+|---|---|---|
+| 1.10 (nuovo) | Logica e tecniche di dimostrazione: connettivi, tavole di verità, tautologie, quantificatori e negazione, diretta, contronominale, assurdo, induzione, controesempio | AM1A-18 |
+| 5.9 (nuovo) | Gli sviluppi negli esercizi, passo per passo: scelta dell'ordine, composizione, limiti con parametro, forme $1^\infty$ | AM1A-17 |
+| Moduli 1-5 | 37 esercizi svolti nuovi sul modello dei fogli, del tutorato e delle prove scritte 2025-2026 (continuità e derivabilità a tratti con parametri, inverse, estremi di insiemi, studi di funzione completi, sviluppi), più una prova d'esame simulata nel modulo 5 | AM1A-07 … AM1A-17 |
+| Moduli 1-5 | 14 esercizi guidati e un formulario per modulo, con i termini e le domande dell'orale | tutti |
+| Modulo 4 | Nasce la sezione "Esempi ed esercizi svolti", che mancava | AM1A-12, 13, 16 |
+
+Le prove scritte lette (10, dal 22/01/2025 al 04/09/2026) chiedono sempre: continuità e derivabilità di una funzione a tratti con parametri, studio di funzione con monotonia e convessità, invertibilità su un intorno e derivata dell'inversa, estremi di un insieme, limiti e ordini di infinitesimo con Taylor, disuguaglianze come $e^x \ge 1 + x$. Tutti questi tipi sono ora coperti da almeno un esercizio svolto. I testi d'esame non sono riportati: gli esercizi hanno funzioni e dati nuovi.
+
+Tutti i risultati sono controllati da `strumenti/verifica_ampliamento.py` (74 controlli con sympy e con l'aritmetica esatta).

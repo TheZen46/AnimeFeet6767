@@ -215,8 +215,139 @@ Per misurare l'ordine si sceglie un **campione**, cioè un infinitesimo o un inf
 > [!esempio] Ordine di infinitesimo
 > Per $x \to 0$, $f(x) = \sin x - x \cos x$ è un infinitesimo. Si mostrerà con Taylor (modulo 5) che $f(x) \sim \frac{x^3}{3}$: ha ordine 3 rispetto a $x$. Con i soli limiti notevoli ci si ferma a dire che $\sin x \sim x$ e $x \cos x \sim x$, cioè che i due termini si cancellano al primo ordine: per conoscere l'ordine della differenza servono gli sviluppi.
 
+### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello del tutorato e delle prove scritte 2025-2026; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-10, AM1A-11, AM1A-15)
+> Il primo punto di quasi tutte le prove scritte è la continuità di una funzione definita a tratti con dei parametri: conviene saperlo fare senza esitazioni.
+
+**Esercizio 1. Continuità a tratti con un parametro.** Per quali $a \in \mathbb{R}$ è continua su $\mathbb{R}$ la funzione $f_a(x) = x^2 + ax$ per $x < 1$, $f_a(x) = a^2 x - 1$ per $x \ge 1$?
+
+*Fuori dal punto di raccordo.* Su $(-\infty, 1)$ e su $(1, +\infty)$ la funzione coincide con un polinomio, quindi è continua per ogni $a$. Resta il punto $x = 1$.
+
+*Nel punto di raccordo.* Serve che limite sinistro, limite destro e valore coincidano. Il valore e il limite destro sono $f_a(1) = a^2 - 1$; il limite sinistro è $\lim_{x \to 1^-} (x^2 + ax) = 1 + a$. La condizione è
+$$1 + a = a^2 - 1 \iff a^2 - a - 2 = 0 \iff a = 2 \ \vee\ a = -1.$$
+Per gli altri valori di $a$ il punto 1 è una discontinuità di salto, con salto $(a^2 - 1) - (1 + a) = (a + 1)(a - 2)$.
+
+**Esercizio 2. Tre tratti e due parametri.** Trovare $a, b \in \mathbb{R}$ per cui è continua su $\mathbb{R}$
+$$f(x) = \begin{cases} \dfrac{x^2 - 9}{x - 3} & x < 3, \\ ax + b & 3 \le x < 4, \\ \ln(x - 3) + b & x \ge 4. \end{cases}$$
+
+Ogni tratto è continuo sul suo intervallo aperto (il primo perché il denominatore non si annulla per $x < 3$, il terzo perché $x - 3 \ge 1 > 0$). In $x = 3$: il limite sinistro è $\lim_{x \to 3^-} (x + 3) = 6$, il valore è $3a + b$. In $x = 4$: il limite sinistro è $4a + b$, il valore $\ln 1 + b = b$. Le due condizioni sono
+$$3a + b = 6, \qquad 4a + b = b,$$
+e la seconda dà $a = 0$, quindi $b = 6$: la funzione vale $x + 3$ per $x < 3$, è costante uguale a 6 su $[3, 4)$ e vale $\ln(x - 3) + 6$ da 4 in poi.
+
+**Esercizio 3. Classificare le discontinuità.** Classificare in 0 le discontinuità di $f(x) = \frac{\sin x}{|x|}$ e di $h(x) = e^{1/x}$, e in 1 quella di $g(x) = \frac{x^2 - 1}{x - 1}$.
+
+Per $f$: da destra $\frac{\sin x}{x} \to 1$, da sinistra $\frac{\sin x}{-x} \to -1$. I limiti laterali esistono finiti e sono diversi: **salto** di ampiezza 2. Per $g$: per $x \ne 1$ la funzione vale $x + 1$, che tende a 2: il limite esiste finito, la funzione non è definita in 1 (o vi è definita con un altro valore): discontinuità **eliminabile**, si toglie ponendo $g(1) = 2$. Per $h$: per $x \to 0^+$, $\frac{1}{x} \to +\infty$ e $h \to +\infty$; per $x \to 0^-$, $h \to 0$. Un limite laterale è infinito: discontinuità **di seconda specie**.
+
+**Esercizio 4. Una soluzione e una sola.** Dimostrare che l'equazione $e^x = 3 - x$ ha esattamente una soluzione, e localizzarla in un intervallo di ampiezza $\frac{1}{2}$.
+
+Si studia $f(x) = e^x + x - 3$, continua su $\mathbb{R}$. *Esistenza*: $f(0) = -2 < 0$ e $f(1) = e - 2 > 0$, quindi per il teorema degli zeri c'è una soluzione in $(0, 1)$. *Unicità*: $f$ è somma di due funzioni strettamente crescenti, quindi è strettamente crescente e si annulla una volta sola. *Localizzazione*: $f\left(\frac{1}{2}\right) = \sqrt{e} - 2{,}5 \approx -0{,}85 < 0$, quindi la soluzione sta in $\left(\frac{1}{2}, 1\right)$. Ripetendo il dimezzamento si stringe l'intervallo quanto si vuole: è il metodo di bisezione, cioè la dimostrazione del teorema degli zeri trasformata in un algoritmo.
+
+**Esercizio 5. Asintoti obliqui diversi a $+\infty$ e $-\infty$.** Trovare gli asintoti di $f(x) = \frac{x^2}{|x| + 2}$.
+
+Il dominio è $\mathbb{R}$, quindi niente asintoti verticali. Per $x \to +\infty$, $f(x) = \frac{x^2}{x + 2}$: $m = \lim \frac{f(x)}{x} = \lim \frac{x}{x + 2} = 1$ e $q = \lim (f(x) - x) = \lim \frac{x^2 - x^2 - 2x}{x + 2} = -2$, asintoto $y = x - 2$. Per $x \to -\infty$, $f(x) = \frac{x^2}{-x + 2}$: $m = \lim \frac{x}{-x + 2} = -1$ e $q = \lim (f(x) + x) = \lim \frac{x^2 - x^2 + 2x}{-x + 2} = -2$, asintoto $y = -x - 2$. La funzione è pari, e infatti i due asintoti sono simmetrici rispetto all'asse $y$.
+
+**Esercizio 6. Weierstrass, con un controesempio.** (a) $f(x) = x e^{-x}$ ha massimo e minimo su $[0, 3]$? (b) E $g(x) = \frac{1}{x}$ su $(0, 1]$?
+
+(a) Sì: è continua su un intervallo chiuso e limitato, e il teorema di Weierstrass garantisce massimo e minimo (dove siano lo dice il modulo 5). (b) No: $g$ è continua ma l'intervallo non è chiuso, e infatti $g$ non è limitata superiormente ($\frac{1}{x} \to +\infty$ per $x \to 0^+$). Il minimo c'è, $g(1) = 1$. Le ipotesi di Weierstrass sono sufficienti, non necessarie: quando mancano il teorema non dice niente.
+
+**Esercizio 7. Ordini di infinitesimo e di infinito.** Determinare ordine e parte principale per $x \to 0$ di (a) $\sqrt{1 + x} - 1$, (b) $1 - \cos(2x)$, (c) $\ln(1 + x^3)$, (d) $\left(e^{x^2} - 1\right)\sin x$; e per $x \to +\infty$ di (e) $\sqrt{x^4 + x}$.
+
+(a) $\frac{(1 + x)^{1/2} - 1}{x} \to \frac{1}{2}$: ordine 1, parte principale $\frac{x}{2}$. (b) $\frac{1 - \cos(2x)}{(2x)^2} \to \frac{1}{2}$, quindi $1 - \cos(2x) \sim 2x^2$: ordine 2. (c) $\ln(1 + x^3) \sim x^3$: ordine 3. (d) $e^{x^2} - 1 \sim x^2$ e $\sin x \sim x$, e le equivalenze si moltiplicano: $\sim x^3$, ordine 3. (e) $\sqrt{x^4 + x} = x^2\sqrt{1 + x^{-3}} \sim x^2$: infinito di ordine 2.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni controllate con `strumenti/verifica_ampliamento.py` (AM1A-10, AM1A-11, AM1A-15)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Continuità con due parametri.** Trovare $a, b$ per cui è continua su $\mathbb{R}$ la funzione $f(x) = 2x + a$ per $x \le 0$, $f(x) = x^2 + b$ per $0 < x \le 1$, $f(x) = e^{x - 1}$ per $x > 1$.
+
+*Passo 1: dove possono esserci problemi.* I tre tratti sono continui sui loro intervalli; restano i raccordi $x = 0$ e $x = 1$.
+
+*Passo 2: il raccordo in 0.* Valore e limite sinistro: $f(0) = a$. Limite destro: $\lim_{x \to 0^+} (x^2 + b) = b$. Condizione: $a = b$.
+
+*Passo 3: il raccordo in 1.* Valore e limite sinistro: $f(1) = 1 + b$. Limite destro: $\lim_{x \to 1^+} e^{x - 1} = 1$. Condizione: $1 + b = 1$, cioè $b = 0$.
+
+*Passo 4: mettere insieme.* $a = b = 0$. La funzione è $2x$, poi $x^2$, poi $e^{x - 1}$. Si controlla che non ci siano salti: in 0 tutti i tratti valgono 0, in 1 valgono 1.
+
+**Guidato 2. Tutti gli asintoti di una funzione razionale.** Trovare gli asintoti di $f(x) = \frac{x^3}{x^2 - 4}$.
+
+*Passo 1: dominio.* $x \ne \pm 2$.
+
+*Passo 2: asintoti verticali.* Nei punti esclusi il numeratore vale $\pm 8 \ne 0$ e il denominatore tende a 0: la funzione tende all'infinito. Il segno si legge dai fattori. Per $x \to 2^+$, $x^2 - 4 \to 0^+$ e $f \to +\infty$; per $x \to 2^-$, $f \to -\infty$. La funzione è dispari, quindi per $x \to -2^+$, $f \to +\infty$ e per $x \to -2^-$, $f \to -\infty$. Asintoti $x = 2$ e $x = -2$.
+
+*Passo 3: asintoti orizzontali.* Il grado del numeratore supera quello del denominatore: $f \to \pm\infty$, niente asintoti orizzontali.
+
+*Passo 4: asintoti obliqui.* $m = \lim \frac{x^3}{x(x^2 - 4)} = 1$; $q = \lim \left(\frac{x^3}{x^2 - 4} - x\right) = \lim \frac{4x}{x^2 - 4} = 0$. L'asintoto è $y = x$, sia a $+\infty$ sia a $-\infty$. Per i polinomi si arriva allo stesso risultato con la divisione: $\frac{x^3}{x^2 - 4} = x + \frac{4x}{x^2 - 4}$.
+
+**Guidato 3. Ordine di un prodotto.** Determinare ordine e parte principale per $x \to 0$ di $f(x) = (1 - \cos x)\ln(1 + 2x)$.
+
+*Passo 1: un fattore alla volta.* $1 - \cos x \sim \frac{x^2}{2}$; $\ln(1 + 2x) \sim 2x$.
+
+*Passo 2: moltiplicare.* Le equivalenze asintotiche si moltiplicano: $f(x) \sim \frac{x^2}{2} \cdot 2x = x^3$.
+
+*Passo 3: la conclusione.* Ordine 3, parte principale $x^3$. Attenzione: le equivalenze si moltiplicano e si dividono, ma **non** si sommano. Per $\sin x - x$ scrivere $\sin x \sim x$ darebbe "0", che non ha senso come parte principale: servono gli sviluppi del modulo 5.
+
 ## Riepilogo
 
 Una funzione è continua in $x_0$ se $\lim_{x \to x_0} f(x) = f(x_0)$. Somme, prodotti, quozienti e composte di funzioni continue sono continue, e tutte le funzioni elementari lo sono sul loro dominio. Sugli intervalli la continuità ha conseguenze globali: se $f(a) f(b) < 0$ esiste uno zero in $(a, b)$, trovabile per bisezione; $f$ assume tutti i valori intermedi e trasforma intervalli in intervalli; su $[a, b]$ chiuso e limitato è limitata e ha massimo e minimo (Weierstrass, dimostrato con Bolzano-Weierstrass). Per le funzioni continue su un intervallo, iniettività e monotonia stretta coincidono, e l'inversa è continua.
 
 Gli asintoti descrivono il comportamento all'infinito ($m = \lim \frac{f}{x}$, $q = \lim (f - mx)$) e vicino ai punti in cui la funzione diverge. I simboli $O$, $o$, $\sim$ confrontano le funzioni con il limite del loro rapporto; ordine e parte principale misurano quanto in fretta un infinitesimo tende a zero, o un infinito all'infinito, rispetto a un campione. Valgono la gerarchia $\ln x \ll x^\alpha \ll a^x$ per $x \to +\infty$ e le regole di calcolo dell'o piccolo, che il modulo 5 usa per gli sviluppi di Taylor.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1A-10, AM1A-11, AM1A-15)
+> Definizioni, teoremi e procedure del modulo, con i termini per l'orale.
+
+### Continuità e discontinuità
+
+$f$ è continua in $x_0$ se $\lim_{x \to x_0} f(x) = f(x_0)$. Somme, prodotti, quozienti (dove il denominatore non si annulla) e composizioni di funzioni continue sono continue; le funzioni elementari sono continue nel loro dominio.
+
+| Discontinuità in $x_0$ | Limiti laterali |
+|---|---|
+| eliminabile | esistono finiti e uguali, ma diversi da $f(x_0)$ (o $f$ non è definita) |
+| di salto (prima specie) | esistono finiti e diversi |
+| di seconda specie | almeno uno è infinito o non esiste |
+
+### Teoremi sulle funzioni continue
+
+| Teorema | Ipotesi | Tesi |
+|---|---|---|
+| Permanenza del segno | $f$ continua in $x_0$, $f(x_0) > 0$ | $f > 0$ in un intorno di $x_0$ |
+| Esistenza degli zeri | $f$ continua su $[a, b]$, $f(a) f(b) < 0$ | esiste $c \in (a, b)$ con $f(c) = 0$ |
+| Valori intermedi | $f$ continua su un intervallo | assume tutti i valori fra due suoi valori |
+| Weierstrass | $f$ continua su $[a, b]$ chiuso e limitato | $f$ ha massimo e minimo |
+| Bolzano-Weierstrass | successione limitata | ha una sottosuccessione convergente |
+| Continuità dell'inversa | $f$ continua e strettamente monotona su un intervallo | $f^{-1}$ è continua |
+
+### Asintoti
+
+- Verticale $x = x_0$: $f(x) \to \pm\infty$ per $x \to x_0^+$ o $x_0^-$.
+- Orizzontale $y = l$: $f(x) \to l$ per $x \to +\infty$ o $-\infty$.
+- Obliquo $y = mx + q$: $m = \lim \frac{f(x)}{x}$ finito e non nullo, $q = \lim (f(x) - mx)$ finito.
+
+### Simboli di Landau ($x \to x_0$)
+
+$f = o(g)$ se $\frac{f}{g} \to 0$; $f \sim g$ se $\frac{f}{g} \to 1$; $f = O(g)$ se $\frac{f}{g}$ è limitata vicino a $x_0$. Regole: $o(x^n) + o(x^n) = o(x^n)$, $x^m \cdot o(x^n) = o(x^{m+n})$, $o(x^n) = o(x^m)$ se $n \ge m$; le equivalenze $\sim$ si moltiplicano e si dividono, non si sommano. Ordine di infinitesimo $\alpha$: $\frac{f(x)}{(x - x_0)^\alpha} \to l \ne 0$; la parte principale è $l\,(x - x_0)^\alpha$.
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Funzione continua | il limite in ogni punto coincide con il valore |
+| Punto di raccordo | punto in cui cambia l'espressione di una funzione a tratti |
+| Discontinuità eliminabile, di salto, di seconda specie | vedi la tabella sopra |
+| Insieme chiuso e limitato | intervallo $[a, b]$ con gli estremi inclusi e finiti |
+| Metodo di bisezione | dimezzamento ripetuto dell'intervallo con il cambio di segno |
+| Asintoto | retta a cui il grafico si avvicina indefinitamente |
+| Infinitesimo di ordine superiore | $f = o(g)$: tende a 0 più velocemente di $g$ |
+| Parte principale | il termine $l(x - x_0)^\alpha$ equivalente all'infinitesimo |
+
+### Domande che tornano spesso
+
+- Definire la continuità e classificare le discontinuità, con un esempio per tipo.
+- Enunciare e dimostrare il teorema di esistenza degli zeri (con la bisezione).
+- Enunciare il teorema di Weierstrass e mostrare con controesempi che le ipotesi servono.
+- Dedurre il teorema dei valori intermedi da quello degli zeri.
+- Come si trovano gli asintoti obliqui? Perché servono entrambi i limiti per $m$ e $q$?
+- Definire $o$, $\sim$ e l'ordine di infinitesimo; perché le equivalenze non si sommano?

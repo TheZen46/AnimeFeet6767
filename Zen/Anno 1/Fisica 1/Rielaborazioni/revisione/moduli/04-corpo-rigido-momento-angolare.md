@@ -5,7 +5,7 @@ titolo: Corpo rigido e momento angolare
 programma: [FG1-03, FG1-07, FG1-02]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 4 · Corpo rigido e momento angolare
@@ -141,6 +141,144 @@ Sono le due equazioni cardinali con le derivate nulle. Se la risultante è nulla
 
 **Esercizio 3 (momento angolare di un punto in moto rettilineo).** Un punto che si muove di moto rettilineo uniforme ha, rispetto a un polo $O$ fuori dalla retta, momento angolare $L = mvd$, dove $d$ è la distanza di $O$ dalla retta: è costante, come deve essere perché la forza è nulla. È anche un caso (banale) della legge delle aree: il raggio vettore spazza triangoli di uguale area in tempi uguali.
 
+### Esercizi dalle esercitazioni
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercitazioni 10 (08/05/2025) e 11 (15/05/2025) del corso, testi riformulati, con i risultati confrontati con quelli delle esercitazioni; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-03, FG1-07)
+> Per il corpo rigido le equazioni sono due: $\vec F_{ext} = M\vec a_{CM}$ e $\vec\tau_{ext} = I\vec\alpha$ (rispetto a un asse fisso o al centro di massa). In statica si annullano entrambe, e conviene calcolare i momenti rispetto al punto in cui agiscono più forze incognite: i loro momenti sono nulli.
+
+**Esercizio 4. Una trave su due appoggi.** Una trave omogenea di 1 m e 2 kg poggia orizzontale su due appoggi agli estremi $A$ e $B$; una massa di 0,5 kg è appoggiata a $\frac{L}{3}$ da $A$. Reazioni degli appoggi.
+
+Equilibrio delle forze: $R_A + R_B = (M + m)g = 24{,}5$ N. Momenti rispetto ad $A$: $R_B L = Mg\frac{L}{2} + mg\frac{L}{3}$, quindi $R_B = 9{,}81 + 1{,}64 = 11{,}45$ N e $R_A = 13{,}08$ N. L'appoggio più vicino alla massa regge di più, come ci si aspetta.
+
+**Esercizio 5. La scala appoggiata al muro.** Una scala omogenea poggia su un muro verticale liscio e su un pavimento con $\mu_s = 0{,}1$. Angolo massimo con il muro?
+
+Forze: peso $Mg$ nel centro, reazione del muro $N_m$ orizzontale (muro liscio), reazione del pavimento $N_p$ verticale e attrito $f$ orizzontale. Traslazione: $N_p = Mg$, $f = N_m$. Momenti rispetto al piede della scala, con $\theta$ l'angolo con il muro: $N_m L\cos\theta = Mg\frac{L}{2}\sin\theta$, quindi $f = \frac{Mg}{2}\tan\theta$. La condizione $f \le \mu_s N_p$ dà $\tan\theta \le 2\mu_s = 0{,}2$: $\theta_{max} = 11{,}3°$. Con un pavimento così scivoloso la scala deve stare quasi verticale.
+
+**Esercizio 6. Momenti d'inerzia di corpi pieni.** (a) Parallelepipedo omogeneo di lati $a$, $b$, $c$ e massa $M$, rispetto all'asse per il centro parallelo a $c$. (b) Asta di lunghezza $L$ rispetto a un estremo.
+
+(a) Il corpo si divide in sottili lastre perpendicolari all'asse, ognuna con il momento di una lastra rettangolare, e il risultato non dipende da $c$: $I = \frac{M}{12}(a^2 + b^2)$. (b) Per un'asta rispetto al centro $I_{CM} = \frac{ML^2}{12}$; per il teorema di Steiner, rispetto all'estremo, a distanza $\frac{L}{2}$, $I = \frac{ML^2}{12} + M\frac{L^2}{4} = \frac{ML^2}{3}$.
+
+**Esercizio 7. La puleggia che continua a girare.** Una massa di 2 kg appesa a una fune avvolta su una puleggia (disco) di 10 kg e raggio 0,5 m scende da ferma e si sgancia dopo 2 m. Velocità angolare della puleggia dopo lo sgancio.
+
+Finché la fune è tesa: $ma = mg - T$ e $TR = I\alpha = \frac12 MR^2\frac{a}{R}$, cioè $T = \frac12 Ma$. Quindi $a = \frac{mg}{m + M/2} = 2{,}80$ m/s². Dopo 2 m, $v = \sqrt{2ah} = 3{,}35$ m/s e $\omega = \frac{v}{R} = 6{,}70$ rad/s. Dopo lo sgancio nessuna forza fa momento sulla puleggia (l'asse è senza attrito) e $\omega$ resta 6,70 rad/s.
+
+**Esercizio 8. L'asta incernierata che cade.** Un'asta omogenea di lunghezza $L$, incernierata a un estremo, parte da ferma dalla posizione verticale in alto. Velocità angolare quando passa per la verticale in basso.
+
+Il centro scende di $L$ (da $\frac{L}{2}$ sopra la cerniera a $\frac{L}{2}$ sotto). Conservazione dell'energia con $I = \frac{ML^2}{3}$: $MgL = \frac12 \cdot \frac{ML^2}{3}\omega^2$, quindi $\omega = \sqrt{\frac{6g}{L}}$. La reazione della cerniera non fa lavoro perché il suo punto di applicazione è fermo.
+
+**Esercizio 9. Un disco che rotola su un piano a 45°.** Disco pieno di 2 kg e raggio 0,5 m, $\mu_s = 0{,}5$. (a) Accelerazione angolare. (b) Attrito. (c) Angolo oltre il quale striscia.
+
+Puro rotolamento: $a = \alpha R$. Traslazione: $Ma = Mg\sin\theta - f$; rotazione attorno al centro: $fR = \frac12 MR^2\alpha$, cioè $f = \frac12 Ma$. Quindi $a = \frac23 g\sin\theta = 4{,}62$ m/s², $\alpha = \frac{a}{R} = 9{,}25$ rad/s², $f = \frac13 Mg\sin\theta = 4{,}62$ N. Il rotolamento regge finché $f \le \mu_s Mg\cos\theta$, cioè $\tan\theta \le 3\mu_s = 1{,}5$: $\theta_{max} = 56{,}3°$. L'attrito statico nel rotolamento non dissipa energia, perché il punto di contatto è fermo.
+
+**Esercizio 10. Molla, fune e carrucola: il periodo.** Una massa di 1 kg è appesa a una fune che passa su una carrucola (disco di 10 kg, raggio 0,5 m) ed è legata dall'altra parte a una molla ($k = 30$ N/m). (a) Allungamento all'equilibrio. (b) Periodo delle piccole oscillazioni.
+
+(a) All'equilibrio la tensione è la stessa da entrambe le parti (la carrucola non accelera): $k\Delta l = mg$, $\Delta l = 0{,}327$ m. (b) Spostando la massa di $x$, le equazioni danno $\left(m + \frac{M}{2}\right)\ddot x = -kx$: la carrucola si comporta come una massa aggiunta $\frac{I}{R^2} = \frac{M}{2}$. Il periodo è $2\pi\sqrt{\frac{m + M/2}{k}} = 2\pi\sqrt{\frac{6}{30}} = 2{,}81$ s.
+
+### Esercizi sul modello delle prove d'esame
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello delle prove del 03/09/2025 e del 05/02/2026, con dati e geometrie diversi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-03, FG1-06, FG1-07)
+
+**Esercizio 11. La biglia colpita dalla stecca.** Una biglia di 170 g e raggio 2,85 cm, ferma, riceve un colpo centrale con impulso $J = 1{,}5$ N·s. (a) Velocità iniziale. (b) Velocità angolare quando smette di strisciare. (c) Lavoro dell'attrito fino a quel momento.
+
+(a) $v_0 = \frac{J}{m} = 8{,}82$ m/s; il colpo è centrale e non dà rotazione: $\omega_0 = 0$.
+
+(b) All'inizio la biglia striscia: l'attrito dinamico la frena e le dà un momento che la fa girare, finché $v = \omega R$. Il momento angolare rispetto al punto di contatto con il piano si conserva (l'attrito passa per quel punto, peso e normale sono allineati): $mv_0 R = mvR + \frac25 mR^2\omega = \frac75 mvR$. Quindi $v = \frac57 v_0 = 6{,}30$ m/s e $\omega = \frac{v}{R} = 221$ rad/s.
+
+(c) $W_a = \Delta K = \frac12 mv^2 + \frac12 \cdot \frac25 mR^2\omega^2 - \frac12 mv_0^2 = \frac{7}{10}mv^2 - \frac12 mv_0^2 = -1{,}89$ J: due settimi dell'energia iniziale. Non serve conoscere il coefficiente d'attrito: decide solo quanto dura lo strisciamento.
+
+**Esercizio 12. L'asta che cade e urta una massa.** Un'asta di 1 kg e 1 m, incernierata in un estremo $O$, è lasciata da ferma in orizzontale. Quando passa per la verticale urta una massa puntiforme di 0,5 kg appesa a un filo lungo 1 m fissato in $O$, che resta attaccata alla punta dell'asta. (a) $\omega$ prima dell'urto. (b) $\omega$ subito dopo. (c) Angolo massimo raggiunto dopo l'urto.
+
+(a) Energia: $Mg\frac{L}{2} = \frac12 \cdot \frac{ML^2}{3}\omega^2$, $\omega = \sqrt{\frac{3g}{L}} = 5{,}42$ rad/s.
+
+(b) Nell'urto la cerniera esercita forze impulsive, quindi la quantità di moto non si conserva; si conserva però il momento angolare rispetto a $O$, perché quelle forze passano per $O$. $\frac{ML^2}{3}\omega = \left(\frac{ML^2}{3} + mL^2\right)\omega'$, quindi $\omega' = \frac{1/3}{1/3 + 1/2}\omega = 0{,}4\,\omega = 2{,}17$ rad/s.
+
+(c) Dopo l'urto si conserva l'energia: $\frac12\left(\frac13 + \frac12\right)\omega'^2 = 1{,}96$ J deve diventare l'energia potenziale del centro dell'asta (che sale di $\frac{L}{2}(1 - \cos\theta)$) e della massa (che sale di $L(1 - \cos\theta)$): $\left(Mg\frac{L}{2} + mgL\right)(1 - \cos\theta) = 9{,}81(1 - \cos\theta)$. Quindi $\cos\theta = 0{,}8$, $\theta = 36{,}9°$.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (FG1-03, FG1-07)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. La sfera che rotola giù.** Una sfera piena parte da ferma e rotola senza strisciare giù da un'altezza di 1 m. Velocità in fondo.
+
+*Passo 1: l'energia cinetica di un corpo che rotola.* $K = \frac12 Mv^2 + \frac12 I\omega^2$ con $\omega = \frac{v}{R}$ e $I = \frac25 MR^2$: $K = \frac{7}{10}Mv^2$.
+
+*Passo 2: la conservazione.* L'attrito statico non lavora: $Mgh = \frac{7}{10}Mv^2$.
+
+*Passo 3: risultato.* $v = \sqrt{\frac{10}{7}gh} = 3{,}74$ m/s, contro i 4,43 m/s di un corpo che scivola senza attrito: una parte dell'energia va nella rotazione.
+
+**Guidato 2. L'asta tenuta da una fune orizzontale.** Un'asta di 2 kg, incernierata in basso in $O$, forma 40° con la verticale ed è tenuta da una fune orizzontale attaccata all'altro estremo. Tensione della fune.
+
+*Passo 1: dove calcolare i momenti.* Rispetto a $O$, così la reazione della cerniera (incognita) non compare.
+
+*Passo 2: i bracci.* Il peso, applicato al centro, ha braccio $\frac{L}{2}\sin 40°$; la tensione, orizzontale, applicata all'estremo, ha braccio $L\cos 40°$.
+
+*Passo 3: l'equilibrio dei momenti.* $TL\cos 40° = Mg\frac{L}{2}\sin 40°$, quindi $T = \frac{Mg}{2}\tan 40° = 8{,}23$ N.
+
+*Passo 4: la cerniera.* Dall'equilibrio delle forze, la cerniera dà una componente orizzontale uguale e opposta a $T$ e una verticale uguale a $Mg$.
+
+**Guidato 3. Steiner per un disco forato.** Un disco omogeneo di raggio $R$ e massa (prima del foro) $M$ ha un foro circolare di raggio $\frac{R}{2}$ con il centro a $\frac{R}{2}$ dal centro del disco. Momento d'inerzia rispetto all'asse per il centro del disco.
+
+*Passo 1: la massa del foro.* L'area del foro è un quarto di quella del disco: $m_f = \frac{M}{4}$.
+
+*Passo 2: il momento del disco pieno.* $\frac12 MR^2$.
+
+*Passo 3: il momento del foro con Steiner.* Rispetto al proprio centro $\frac12 m_f\left(\frac{R}{2}\right)^2 = \frac{MR^2}{32}$; spostato a distanza $\frac{R}{2}$: $\frac{MR^2}{32} + \frac{M}{4}\cdot\frac{R^2}{4} = \frac{3MR^2}{32}$.
+
+*Passo 4: sottrarre.* $I = \frac12 MR^2 - \frac{3}{32}MR^2 = \frac{13}{32}MR^2$. I momenti d'inerzia rispetto allo stesso asse si sommano e si sottraggono come le masse.
+
 ## Riepilogo
 
 Un corpo rigido ha 6 gradi di libertà; nella rotazione attorno a un asse fisso tutti i punti hanno la stessa $\omega$ e $\alpha$, con $v = R\omega$ e $a_t = R\alpha$. L'energia cinetica di rotazione è $\frac12 I\omega^2$, con il momento d'inerzia $I = \int R^2\, dm$ che dipende dall'asse e si trasporta con Huygens-Steiner ($I = I_{CM} + Md^2$): $\frac{1}{12}Ml^2$ per l'asta al centro, $MR^2$ per l'anello, $\frac12 MR^2$ per il disco, $\frac25 MR^2$ per la sfera. Il momento di una forza è $RF\sin\varphi$ e, per un asse fisso, $\tau = I\alpha$. Nel puro rotolamento $v_{CM} = \omega R$, l'attrito statico fornisce il momento e non compie lavoro, e i corpi con più massa lontana dall'asse accelerano meno. Una carrucola con massa equivale a una massa aggiuntiva $I/R^2$. Il momento angolare rispetto a un polo fisso o al centro di massa varia del momento delle forze esterne e si conserva se questo è nullo. Le forze centrali sono conservative e conservano il momento angolare: il moto è piano e la velocità areolare è costante. Un corpo rigido è in equilibrio se risultante e momento risultante delle forze esterne sono nulli.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (FG1-03, FG1-07)
+> Rotazioni, momenti d'inerzia, equazioni cardinali e momento angolare, con i termini per l'orale.
+
+### Rotazioni
+
+$$v = \omega r, \quad a_t = \alpha r, \quad K_{rot} = \frac12 I\omega^2, \quad \vec\tau = \vec r \times \vec F, \quad \tau = I\alpha, \quad \vec L = I\vec\omega, \quad \vec\tau_{ext} = \frac{d\vec L}{dt}.$$
+
+### Momenti d'inerzia ($I_{CM}$)
+
+| Corpo | Asse | $I$ |
+|---|---|---|
+| Anello, guscio cilindrico | asse di simmetria | $MR^2$ |
+| Disco, cilindro pieno | asse di simmetria | $\frac12 MR^2$ |
+| Sfera piena | diametro | $\frac25 MR^2$ |
+| Guscio sferico | diametro | $\frac23 MR^2$ |
+| Asta | perpendicolare per il centro | $\frac{1}{12}ML^2$ |
+| Asta | perpendicolare per un estremo | $\frac13 ML^2$ |
+| Lastra rettangolare $a \times b$ | perpendicolare per il centro | $\frac{1}{12}M(a^2 + b^2)$ |
+
+Steiner: $I = I_{CM} + Md^2$.
+
+### Equazioni cardinali e rotolamento
+
+$\vec F_{ext} = M\vec a_{CM}$, $\vec\tau_{ext} = \frac{d\vec L}{dt}$. Equilibrio: entrambe nulle. Puro rotolamento: $v_{CM} = \omega R$; $K = \frac12 Mv^2\left(1 + \frac{I}{MR^2}\right)$; su un piano inclinato $a = \frac{g\sin\theta}{1 + I/(MR^2)}$, limite $\tan\theta \le \mu_s\left(1 + \frac{MR^2}{I}\right)$.
+
+### Momento angolare
+
+Si conserva rispetto a un polo se il momento delle forze esterne rispetto a quel polo è nullo: in un urto con una cerniera, rispetto alla cerniera. Forze centrali: $\vec L$ costante, moto piano, velocità areolare costante.
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Corpo rigido | sistema in cui le distanze fra i punti non cambiano |
+| Momento d'inerzia | $\sum m_i r_i^2$: resistenza a cambiare velocità angolare |
+| Momento di una forza | $\vec r \times \vec F$, capacità di far ruotare |
+| Coppia | due forze opposte non allineate: risultante nulla, momento non nullo |
+| Puro rotolamento | il punto di contatto ha velocità nulla |
+| Momento angolare | $\vec r \times \vec p$; per un corpo rigido attorno a un asse fisso, $I\omega$ |
+| Forza centrale | diretta sempre verso un punto fisso, con modulo che dipende dalla distanza |
+
+### Domande che tornano spesso
+
+- Definire il momento d'inerzia e ricavarlo per l'asta e per il disco; dimostrare Steiner.
+- Seconda equazione cardinale e sua forma per un asse fisso.
+- Energia cinetica di un corpo che rotola; perché l'attrito statico non lavora?
+- Condizioni di equilibrio di un corpo rigido, con un esempio (scala, trave).
+- Conservazione del momento angolare: quando vale? Esempi (pattinatore, urto con cerniera).
+- Forze centrali e seconda legge di Keplero.

@@ -5,7 +5,7 @@ titolo: Funzioni di più variabili
 programma: [AM1B-03, AM1B-04, AM1B-05, AM1B-06, AM1B-07]
 anno_accademico: 2026/27
 autore: Mobius
-versione: 2026-11-04
+versione: 2026-11-05
 ---
 
 # 3 · Funzioni di più variabili
@@ -44,6 +44,7 @@ $$G(f) = \{(x, z) \in \mathbb{R}^{n+1} : x \in \operatorname{dom}(f),\ z = f(x)\
 Per $n = 2$ il grafico è una superficie nello spazio.
 
 > [!esempio] Domini
+>
 > - $f(x, y) = \frac{x^2 + y^2}{x^2 - y^2}$: serve $x^2 \neq y^2$, cioè $y \neq \pm x$. Il dominio è il piano senza le due bisettrici.
 > - $f(x, y, z) = \ln(1 - x^2 - y^2 - z^2)$: serve $x^2 + y^2 + z^2 < 1$. Il dominio è la palla aperta $B_1(0) \subseteq \mathbb{R}^3$.
 > - $f(x, y) = \ln(xy - x^2)$: serve $x(y - x) > 0$, cioè $x > 0$ e $y > x$, oppure $x < 0$ e $y < x$. Il dominio è l'unione di due regioni angolari aperte del piano, delimitate dall'asse $y$ e dalla bisettrice.
@@ -66,6 +67,7 @@ Valgono, come in una variabile, l'unicità del limite, l'algebra dei limiti e il
 La differenza con una variabile è che ci si può avvicinare a $x_0$ lungo infinite curve diverse, e il limite deve esistere indipendentemente dal percorso. Ne viene un modo per dimostrare che un limite **non** esiste: trovare due curve lungo le quali si ottengono limiti diversi.
 
 > [!esempio] Tre limiti nell'origine
+>
 > - $\lim_{(x,y) \to (0,0)} \frac{x^3}{x^2 + y^2}$. Poiché $x^2 + y^2 \ge x^2$, si ha $\left\lvert\frac{x^3}{x^2 + y^2}\right\rvert \le \frac{\lvert x\rvert^3}{x^2} = \lvert x\rvert \to 0$: il limite è 0 per confronto.
 > - $\lim_{(x,y) \to (0,0)} \frac{x + y}{x - y}$. Lungo l'asse $x$ ($y = 0$) la funzione vale 1, lungo l'asse $y$ ($x = 0$) vale $-1$: il limite non esiste.
 > - $\lim_{(x,y) \to (0,0)} \frac{x^2 y}{x^4 + y^2}$. Lungo ogni retta $y = mx$ si ottiene $\frac{m x^3}{x^4 + m^2 x^2} = \frac{m x}{x^2 + m^2} \to 0$. Ma lungo la parabola $y = x^2$ la funzione vale $\frac{x^4}{2x^4} = \frac{1}{2}$: il limite non esiste. Provare tutte le rette non basta.
@@ -164,6 +166,7 @@ Come in una variabile il viceversa è falso: $f(x, y) = xy$ ha gradiente nullo n
 
 > [!teorema] Criterio dell'Hessiana
 > Sia $x_0$ un punto critico e $f$ di classe $C^2$ in un suo intorno.
+>
 > 1. Se $H_f(x_0)$ è definita positiva (tutti gli autovalori positivi), $x_0$ è un minimo locale.
 > 2. Se è definita negativa (tutti gli autovalori negativi), $x_0$ è un massimo locale.
 > 3. Se è indefinita (autovalori di segno opposto), $x_0$ è un punto di sella.
@@ -178,6 +181,7 @@ Per $n = 2$, con $\Delta = \det H_f(x_0) = f_{xx} f_{yy} - f_{xy}^2$:
 
 > [!esempio] Cinque punti critici nell'origine
 > In tutti i casi l'unico punto critico è $(0, 0)$.
+>
 > - $x^2 + y^2$: $H = \operatorname{diag}(2, 2)$, $\Delta = 4 > 0$, $f_{xx} > 0$: minimo (globale).
 > - $-x^2 - y^2$: $H = \operatorname{diag}(-2, -2)$, $\Delta = 4$, $f_{xx} < 0$: massimo.
 > - $x^2 - y^2$: $H = \operatorname{diag}(2, -2)$, $\Delta = -4 < 0$: sella; la funzione cresce lungo l'asse $x$ e decresce lungo l'asse $y$.
@@ -194,6 +198,145 @@ In $(0, 1, 1)$ l'argomento del coseno è 0, e $\nabla f(0, 1, 1) = \left(\frac{1
 
 **Esercizio 3.** Massimo e minimo di $f(x, y) = x^2 + y^2 - 2x$ sul disco chiuso $K = \{x^2 + y^2 \le 4\}$. $K$ è compatto e $f$ continua: per Weierstrass gli estremi esistono. All'interno, $\nabla f = (2x - 2, 2y) = 0$ dà $(1, 0)$, con $f(1, 0) = -1$. Sulla frontiera $x^2 + y^2 = 4$ la funzione vale $4 - 2x$ con $x \in [-2, 2]$: minimo 0 in $(2, 0)$, massimo 8 in $(-2, 0)$. Confrontando: il minimo globale è $-1$ in $(1, 0)$, il massimo globale è 8 in $(-2, 0)$.
 
+### Altri esercizi svolti
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi sul modello dei fogli "Funzioni di più variabili", "Derivate parziali", "Ottimizzazione" e delle prove scritte 2025-2026; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-03 … AM1B-06)
+> Nelle prove si chiede quasi sempre di disegnare un dominio, di calcolare un limite nell'origine, e di trovare e classificare i punti stazionari; a volte una derivata direzionale o la differenziabilità.
+
+**Esercizio 4. Un dominio da disegnare.** Dominio di $f(x, y) = \sqrt{4 - x^2 - y^2} + \ln(y - x^2)$.
+
+La radice vuole $x^2 + y^2 \le 4$: il disco chiuso di centro l'origine e raggio 2, bordo compreso. Il logaritmo vuole $y > x^2$: la parte di piano strettamente sopra la parabola $y = x^2$, che resta esclusa. Il dominio è l'intersezione: la "lente" dentro il cerchio e sopra la parabola. Le due curve si incontrano dove $y + y^2 = 4$, cioè $y = \frac{-1 + \sqrt{17}}{2} \approx 1{,}56$ e $x = \pm\sqrt{y} \approx \pm 1{,}25$. Nel disegno l'arco di circonferenza va tratto pieno (incluso) e l'arco di parabola tratteggiato (escluso); i due punti d'incontro sono esclusi, perché stanno sulla parabola.
+
+**Esercizio 5. Un dominio con una frazione sotto radice.** Dominio di $f(x, y) = \sqrt{\dfrac{xy - 1}{x^2 + y^2 - 9}}$.
+
+Serve la frazione $\ge 0$ con il denominatore non nullo. Numeratore e denominatore devono avere lo stesso segno: (i) $xy \ge 1$ e $x^2 + y^2 > 9$: le due regioni del primo e del terzo quadrante che stanno al di là dei rami dell'iperbole $xy = 1$ (dalla parte opposta agli assi), limitatamente ai punti fuori dal cerchio di raggio 3; oppure (ii) $xy \le 1$ e $x^2 + y^2 < 9$, cioè l'interno del cerchio tolte le due regioni oltre l'iperbole. L'iperbole fa parte del dominio (numeratore nullo), la circonferenza no (denominatore nullo). Conviene disegnare prima le due curve, che dividono il piano in sei regioni, e poi controllare il segno con un punto per regione: $(0, 0)$ dà $\frac{-1}{-9} > 0$ (sì), $(4, 4)$ dà $\frac{15}{23} > 0$ (sì), $(4, 0)$ dà $\frac{-1}{7} < 0$ (no).
+
+**Esercizio 6. Limiti nell'origine.** (a) $\displaystyle\lim \frac{x^3 y}{x^2 + y^2}$; (b) $\displaystyle\lim \frac{e^{x^2 y} - 1}{x^2 + y^2}$; (c) $\displaystyle\lim \frac{\ln(1 + xy^3)}{(x^2 + y^2)^2}$; (d) $\displaystyle\lim \frac{x\sin(xy)}{x^2 + y^2}$.
+
+(a) In polari $\left|\frac{\rho^4\cos^3\theta\sin\theta}{\rho^2}\right| \le \rho^2 \to 0$ indipendentemente da $\theta$: il limite è 0. (b) $e^u - 1 \sim u$ con $u = x^2 y \to 0$, quindi la funzione si comporta come $\frac{x^2 y}{x^2 + y^2}$, che in modulo è $\le \rho\,|\cos^2\theta\sin\theta| \le \rho$: limite 0. (c) $\ln(1 + u) \sim u$ con $u = xy^3$: si studia $\frac{xy^3}{(x^2 + y^2)^2} = \cos\theta\sin^3\theta$, che non dipende da $\rho$ ma da $\theta$. Lungo l'asse $x$ vale 0, lungo la bisettrice $y = x$ vale $\frac{x^4}{4x^4} = \frac{1}{4}$: il limite non esiste. (d) $\sin(xy) \sim xy$, e $\left|\frac{x^2 y}{x^2 + y^2}\right| \le \rho$: limite 0.
+
+Il punto delicato, in (b) e (d), è che l'equivalenza $\sin u \sim u$ vale perché $u = xy \to 0$; formalmente si scrive $\frac{\sin(xy)}{xy} \to 1$ (con la convenzione che vale 1 dove $xy = 0$) e si moltiplica.
+
+**Esercizio 7. Derivate parziali e direzionali senza continuità.** Sia $g(x, y) = \frac{x^2 y}{x^4 + y^2}$ per $(x, y) \ne (0, 0)$, $g(0, 0) = 0$. Studiare in $(0, 0)$ continuità, derivate parziali e derivate direzionali.
+
+*Derivate parziali*: $g(h, 0) = 0$ e $g(0, h) = 0$ per ogni $h$, quindi i rapporti incrementali sono nulli e $g_x(0, 0) = g_y(0, 0) = 0$. *Derivate direzionali*: per $v = (a, b)$ con $b \ne 0$, $\frac{g(ta, tb)}{t} = \frac{a^2 b}{t^2 a^4 + b^2} \to \frac{a^2}{b}$; per $b = 0$ il rapporto è 0. Esistono tutte. *Continuità*: lungo le rette $y = mx$, $g = \frac{mx}{x^2 + m^2} \to 0$; ma lungo la parabola $y = x^2$, $g = \frac{x^4}{2x^4} = \frac{1}{2}$. Non è continua. In più variabili l'esistenza di tutte le derivate direzionali non implica nemmeno la continuità: serve la differenziabilità.
+
+**Esercizio 8. Punti stazionari.** Classificare i punti stazionari di $f(x, y) = x^2 - 2xy + y^3$.
+
+$\nabla f = (2x - 2y,\ -2x + 3y^2)$. Dalla prima equazione $x = y$, e la seconda diventa $3y^2 - 2y = 0$: $y = 0$ oppure $y = \frac{2}{3}$. Punti $(0, 0)$ e $\left(\frac{2}{3}, \frac{2}{3}\right)$. L'Hessiana è $\begin{pmatrix} 2 & -2 \\ -2 & 6y \end{pmatrix}$, con determinante $12y - 4$. In $(0, 0)$ vale $-4 < 0$: sella. In $\left(\frac{2}{3}, \frac{2}{3}\right)$ vale $4 > 0$ con $f_{xx} = 2 > 0$: minimo locale, $f = \frac{4}{9} - \frac{8}{9} + \frac{8}{27} = -\frac{4}{27}$. Non è globale, perché $f(0, y) = y^3 \to -\infty$.
+
+**Esercizio 9. Tre punti stazionari.** Classificare quelli di $f(x, y) = x^4 + y^4 - 4xy$.
+
+$\nabla f = (4x^3 - 4y,\ 4y^3 - 4x) = 0$ dà $y = x^3$ e $x = y^3 = x^9$, cioè $x(x^8 - 1) = 0$: $x = 0, \pm 1$. Punti $(0, 0)$, $(1, 1)$, $(-1, -1)$. Hessiana $\begin{pmatrix} 12x^2 & -4 \\ -4 & 12y^2 \end{pmatrix}$: in $(0, 0)$ il determinante è $-16$, sella; in $(\pm 1, \pm 1)$ è $144 - 16 = 128 > 0$ con $f_{xx} = 12 > 0$, minimi, con $f = -2$. Sono minimi globali: $f \to +\infty$ all'infinito (domina $x^4 + y^4$), quindi il minimo globale esiste ed è uno dei punti stazionari.
+
+**Esercizio 10. Derivata direzionale.** Calcolare la derivata di $f(x, y) = \sqrt{x + y^2 + 1}$ in $P = (0, 1)$ nella direzione $v = \left(\frac{3}{5}, \frac{4}{5}\right)$.
+
+$f$ è differenziabile vicino a $P$ (le derivate parziali sono continue dove il radicando è positivo), quindi $D_v f(P) = \nabla f(P) \cdot v$. $\nabla f = \left(\frac{1}{2\sqrt{x + y^2 + 1}},\ \frac{y}{\sqrt{x + y^2 + 1}}\right)$, in $P$: $\left(\frac{1}{2\sqrt{2}}, \frac{1}{\sqrt{2}}\right)$. Quindi
+$$D_v f(P) = \frac{3}{5} \cdot \frac{1}{2\sqrt{2}} + \frac{4}{5} \cdot \frac{1}{\sqrt{2}} = \frac{3 + 8}{10\sqrt{2}} = \frac{11\sqrt{2}}{20}.$$
+Il vettore $v$ ha norma 1: se non l'avesse, va prima normalizzato.
+
+**Esercizio 11. Piano tangente.** Scrivere il piano tangente al grafico di $f(x, y) = x e^{xy}$ nel punto $(1, 0)$.
+
+$f(1, 0) = 1$; $f_x = e^{xy}(1 + xy)$ e $f_y = x^2 e^{xy}$, quindi $f_x(1, 0) = 1$ e $f_y(1, 0) = 1$. Il piano è $z = 1 + (x - 1) + y$, cioè $z = x + y$.
+
+**Esercizio 12. Differenziabile qui, non lì.** Sia $f(x, y) = y\ln(1 + x^2 + y^2) + \sqrt{x^2 + y^2}$. È differenziabile vicino a $(1, 1)$? E in $(0, 0)$?
+
+Lontano dall'origine $\sqrt{x^2 + y^2}$ ha derivate parziali $\frac{x}{\sqrt{x^2 + y^2}}$, $\frac{y}{\sqrt{x^2 + y^2}}$, continue; anche il primo addendo è $C^1$. Per il teorema del differenziale totale, $f$ è differenziabile in un intorno di $(1, 1)$. In $(0, 0)$ il primo addendo è differenziabile, ma $\sqrt{x^2 + y^2}$ non ha nemmeno le derivate parziali: $\frac{\sqrt{h^2}}{h} = \frac{|h|}{h}$ non ha limite. Il grafico di $\sqrt{x^2 + y^2}$ è un cono, con la punta nell'origine.
+
+## Esercizi guidati
+
+> [!aggiunta] Aggiunta in revisione · fonte: esercizi nuovi; soluzioni verificate con `strumenti/verifica_ampliamento.py` (AM1B-03 … AM1B-06)
+> Ogni esercizio è diviso in passi: si prova un passo alla volta e si confronta solo dopo.
+
+**Guidato 1. Le rette non bastano.** Studiare $\lim_{(x, y) \to (0, 0)} \frac{xy^2}{x^2 + y^4}$.
+
+*Passo 1: lungo gli assi.* Per $y = 0$ e per $x = 0$ la funzione è nulla: se il limite esiste, vale 0.
+
+*Passo 2: lungo le rette.* Con $y = mx$: $\frac{m^2 x^3}{x^2 + m^4 x^4} = \frac{m^2 x}{1 + m^4 x^2} \to 0$ per ogni $m$.
+
+*Passo 3: le polari non chiudono.* $\frac{\rho^3\cos\theta\sin^2\theta}{\rho^2\cos^2\theta + \rho^4\sin^4\theta}$: per $\theta$ vicino a $\frac{\pi}{2}$ il denominatore può essere piccolo quanto il numeratore, e non si trova una stima uniforme in $\theta$. È il segnale di cercare un'altra curva.
+
+*Passo 4: la curva giusta.* I due termini del denominatore hanno lo stesso ordine se $x = y^2$: lungo questa parabola la funzione vale $\frac{y^4}{2y^4} = \frac{1}{2}$. Il limite non esiste.
+
+**Guidato 2. Classificare con l'Hessiana.** Punti stazionari di $f(x, y) = x^3 + y^3 - 3xy$.
+
+*Passo 1: il gradiente.* $\nabla f = (3x^2 - 3y,\ 3y^2 - 3x)$.
+
+*Passo 2: il sistema.* $y = x^2$ e $x = y^2 = x^4$, quindi $x(x^3 - 1) = 0$: $x = 0$ o $x = 1$. Punti $(0, 0)$ e $(1, 1)$.
+
+*Passo 3: l'Hessiana.* $H = \begin{pmatrix} 6x & -3 \\ -3 & 6y \end{pmatrix}$, $\det H = 36xy - 9$.
+
+*Passo 4: classificazione.* In $(0, 0)$: $\det H = -9 < 0$, sella. In $(1, 1)$: $\det H = 27 > 0$, $f_{xx} = 6 > 0$, minimo locale con $f(1, 1) = -1$. Non globale: $f(x, 0) = x^3 \to -\infty$.
+
+**Guidato 3. Estremi su un quadrato.** Massimo e minimo di $f(x, y) = x^2 + y^2 - x - y$ su $Q = [0, 1] \times [0, 1]$.
+
+*Passo 1: esistenza.* $f$ è continua e $Q$ è chiuso e limitato: per Weierstrass massimo e minimo esistono.
+
+*Passo 2: interno.* $\nabla f = (2x - 1, 2y - 1) = 0$ in $\left(\frac{1}{2}, \frac{1}{2}\right)$, dove $f = -\frac{1}{2}$.
+
+*Passo 3: bordo.* Sul lato $x = 0$: $f = y^2 - y$, con minimo $-\frac{1}{4}$ in $y = \frac{1}{2}$ e massimo 0 agli estremi. Gli altri tre lati, per simmetria, danno gli stessi valori. Nei vertici $f = 0$.
+
+*Passo 4: confronto.* I candidati valgono $-\frac{1}{2}$, $-\frac{1}{4}$ e 0: il minimo è $-\frac{1}{2}$ nel centro, il massimo 0 nei quattro vertici.
+
 ## Riepilogo
 
 $\mathbb{R}^n$ è uno spazio vettoriale con prodotto scalare, norma e distanza, e la disuguaglianza di Cauchy-Schwarz. Con le palle aperte si definiscono punti interni, esterni e di frontiera, insiemi aperti, chiusi, limitati e compatti. Una funzione di più variabili ha un dominio, un grafico e insiemi di livello, che per due variabili sono le curve di livello. Il limite deve essere lo stesso lungo ogni percorso: due percorsi con limiti diversi provano che non esiste, una maggiorazione uniforme (in coordinate polari) prova che esiste. Le derivate parziali formano il gradiente; la derivabilità non dà la continuità, la differenziabilità sì, e con essa la formula del gradiente per le derivate direzionali e il piano tangente; una funzione $C^1$ è differenziabile. Per le funzioni $C^2$ l'Hessiana è simmetrica (Schwarz) e compare nella formula di Taylor del secondo ordine. Gli estremi interni sono punti critici (Fermat); il segno degli autovalori dell'Hessiana, o in due variabili il segno del determinante e di $f_{xx}$, li classifica in minimi, massimi e selle, tranne nel caso semidefinito, in cui si studia direttamente il segno di $f - f(x_0)$. Su un compatto gli estremi globali esistono (Weierstrass) e si cercano fra i punti critici interni e la frontiera.
+
+## Formulario
+
+> [!aggiunta] Aggiunta in revisione · fonte: sintesi del modulo (AM1B-03 … AM1B-07)
+> Definizioni, teoremi e procedure del calcolo differenziale in più variabili, con i termini per l'orale.
+
+### Limiti in due variabili
+
+- Per mostrare che un limite **non esiste**: due curve per il punto lungo cui la funzione ha limiti diversi (rette $y = mx$, parabole $x = y^2$, …).
+- Per mostrare che **esiste** e vale $l$: in polari, $|f(\rho\cos\theta, \rho\sin\theta) - l| \le g(\rho)$ con $g(\rho) \to 0$ indipendente da $\theta$.
+- Le equivalenze di una variabile valgono con l'argomento che tende a 0: $\sin(xy) \sim xy$, $e^{u} - 1 \sim u$, $\ln(1 + u) \sim u$.
+
+### Derivate
+
+$$\frac{\partial f}{\partial x}(x_0, y_0) = \lim_{h \to 0} \frac{f(x_0 + h, y_0) - f(x_0, y_0)}{h}, \qquad \nabla f = \left(f_x, f_y\right), \qquad D_v f = \nabla f \cdot v \ \text{(se differenziabile, } \lVert v\rVert = 1).$$
+
+Differenziabilità in $x_0$: $f(x_0 + h) = f(x_0) + \nabla f(x_0) \cdot h + o(\lVert h\rVert)$. Piano tangente: $z = f(x_0, y_0) + f_x(x_0, y_0)(x - x_0) + f_y(x_0, y_0)(y - y_0)$.
+
+| Implicazioni | |
+|---|---|
+| $C^1$ in un intorno (derivate parziali continue) | $\Rightarrow$ differenziabile (differenziale totale) |
+| differenziabile | $\Rightarrow$ continua, derivabile in ogni direzione, $D_v f = \nabla f \cdot v$ |
+| derivate parziali (o direzionali) esistenti | $\not\Rightarrow$ continua |
+
+Il gradiente indica la direzione di massima crescita, con $\lVert\nabla f\rVert$ come pendenza massima, ed è perpendicolare agli insiemi di livello.
+
+### Estremi liberi
+
+Condizione necessaria (Fermat): $\nabla f(x_0) = 0$ nei punti interni. Hessiana $H = \begin{pmatrix} f_{xx} & f_{xy} \\ f_{yx} & f_{yy} \end{pmatrix}$, simmetrica se $f \in C^2$ (Schwarz). Con $\Delta = \det H(x_0)$:
+
+| $\Delta$ | $f_{xx}$ | Punto |
+|---|---|---|
+| $> 0$ | $> 0$ | minimo locale |
+| $> 0$ | $< 0$ | massimo locale |
+| $< 0$ | – | sella |
+| $= 0$ | – | caso dubbio: si studia il segno di $f - f(x_0)$ |
+
+Estremi su un compatto: si confrontano i punti stazionari interni e il massimo e il minimo sul bordo.
+
+### Termini per l'orale
+
+| Termine | In una riga |
+|---|---|
+| Insieme aperto, chiuso, limitato, compatto | ogni punto interno; contiene il bordo; sta in una palla; chiuso e limitato |
+| Punto interno, di frontiera | ha un intorno nell'insieme; ogni intorno ha punti dentro e fuori |
+| Insieme di livello | $\{f = c\}$: curve di livello in $\mathbb{R}^2$ |
+| Derivata direzionale | derivata lungo la retta per $x_0$ di direzione $v$ |
+| Differenziabilità | approssimazione lineare con errore $o(\lVert h\rVert)$ |
+| Punto di sella | punto stazionario che non è né massimo né minimo |
+| Matrice Hessiana | matrice delle derivate seconde |
+
+### Domande che tornano spesso
+
+- Definire la differenziabilità; dimostrare che differenziabile implica continua e che $D_v f = \nabla f \cdot v$.
+- Un esempio di funzione con derivate parziali ma non continua.
+- Enunciare il teorema del differenziale totale.
+- Perché il gradiente è la direzione di massima crescita? Perché è perpendicolare alle curve di livello?
+- Enunciare Fermat in più variabili e il criterio dell'Hessiana; che cosa fare nel caso dubbio.
+- Enunciare il teorema di Schwarz.
