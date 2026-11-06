@@ -430,7 +430,7 @@ Le coppie equivalenti sono quindi $A \equiv E$, $B \equiv H$ e $D \equiv F$; tut
 1. Si ha $w \neq \epsilon$: altrimenti uno solo tra $p$ e $q$ sarebbe finale, e l'algoritmo li distinguerebbe già nel caso base. Quindi $n \geq 1$.
 2. Siano $r = \delta(p, a_1)$ e $s = \delta(q, a_1)$. La stringa $a_2 \cdots a_n$ distingue $r$ da $s$, perché $\hat{\delta}(r, a_2\cdots a_n) = \hat{\delta}(p, w)$ e $\hat{\delta}(s, a_2\cdots a_n) = \hat{\delta}(q, w)$, e uno solo dei due è finale.
 3. La coppia $\{r, s\}$ non può essere sbagliata: sarebbe distinta da una stringa più corta di $w$, che per ipotesi è la più corta. Quindi l'algoritmo ha scoperto che $r$ ed $s$ sono distinguibili.
-4. Ma allora, nel passo induttivo con il simbolo $a_1$, l'algoritmo distingue anche $p$ da $q$: assurdo. $\square$
+4. Ma allora, nel passo induttivo con il simbolo $a_1$, l'algoritmo distingue anche $p$ da $q$: assurdo. 
 
 La dimostrazione mostra che l'algoritmo è **completo**: trova tutte le coppie distinguibili. Che sia anche **corretto**, cioè che ogni coppia marcata sia davvero distinguibile, segue dalla giustificazione del caso base e del passo induttivo data sopra. Quindi, se il table-filling dice che due stati sono equivalenti, lo sono davvero.
 
