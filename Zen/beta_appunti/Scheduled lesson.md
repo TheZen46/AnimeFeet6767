@@ -20,8 +20,7 @@
 	Lezione 6 (ricorda di fargli fare i disegni anche con il robot all'interno del grafico cartesiano)
 
 ### modulo 2 
-	Lezione 6
-	Lezione 7
+	
 
 ## Sistemi Operativi
 	
