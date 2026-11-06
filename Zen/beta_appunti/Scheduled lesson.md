@@ -1,6 +1,5 @@
 ## Fisica
 	Lezione 13
-	Lezione 14
  
 ## Algoritmi 
 	Lezione 11
