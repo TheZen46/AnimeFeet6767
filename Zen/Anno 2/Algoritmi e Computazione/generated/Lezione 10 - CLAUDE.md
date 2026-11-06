@@ -418,7 +418,7 @@ Si continua così fino a riempire la tabella. Il risultato finale, che si è ric
 Le coppie equivalenti sono quindi $A \equiv E$, $B \equiv H$ e $D \equiv F$; tutte le altre sono distinguibili.
 
 > [!warning] Il risultato finale della slide 80
-> La slide riporta come risultato finale «$E \equiv B$, $F \equiv D$, $H \equiv B$». Il docente ha segnalato in aula l'errore: la prima coppia è $E \equiv A$, non $E \equiv B$, come mostrano le caselle evidenziate nella tabella della stessa slide e il calcolo svolto qui sopra. Il docente ha annunciato una versione corretta delle slide; il PDF ricevuto con questa lezione è identico al precedente e contiene ancora l'errore. Il docente raccomanda di procurarsi sempre la versione più aggiornata delle slide: il corso viene tenuto per la prima volta, e il materiale può avere ancora qualche imprecisione.
+> La slide riporta come risultato finale «$E \equiv B$, $F \equiv D$, $H \equiv B$». Il docente ha segnalato in aula l'errore: la prima coppia è $E \equiv A$, non $E \equiv B$, come mostrano le caselle evidenziate nella tabella della stessa slide e il calcolo svolto qui sopra. Il docente ha annunciato una versione corretta delle slide; nell'ultima versione del pacchetto ricevuta, arrivata con i materiali della [[Lezione 12 - Grammatiche libere dal contesto e ambiguità|lezione 12]], la slide riporta correttamente «$E \equiv A$, $F \equiv D$, $H \equiv B$». Il docente raccomanda di procurarsi sempre la versione più aggiornata delle slide: il corso viene tenuto per la prima volta, e il materiale può avere ancora qualche imprecisione.
 
 ### La correttezza dell'algoritmo
 

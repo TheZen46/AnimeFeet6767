@@ -1274,7 +1274,7 @@ classDiagram
 ```
 
 > [!example]- Una soluzione possibile (da provare prima da soli)
-> La soluzione ufficiale verrà pubblicata dal docente e potrebbe differire. Questa versione include già `Variable` e `Context`, e usa i puntatori tradizionali con la soluzione «vecchio stile» alle perdite di memoria: ogni nodo possiede i suoi figli e li distrugge nel proprio distruttore, e la copia è cancellata. È stata compilata con g++ in modalità C++20 e controllata con Valgrind, senza perdite di memoria.
+> La soluzione del docente è discussa nella [[Lezione 11 - Soluzioni degli esercizi, algoritmi e iteratori#La soluzione dell'esercizio sulle espressioni|lezione 11]] e differisce da questa soprattutto nella gestione della memoria: lì i nodi non possiedono i figli, e tutti i nodi sono creati e distrutti da un gestore centralizzato, `ExpressionManager`. Questa versione include già `Variable` e `Context`, e usa i puntatori tradizionali con la soluzione «vecchio stile» alle perdite di memoria: ogni nodo possiede i suoi figli e li distrugge nel proprio distruttore, e la copia è cancellata. È stata compilata con g++ in modalità C++20 e controllata con Valgrind, senza perdite di memoria.
 >
 > ```cpp
 > #include <iostream>
@@ -1408,7 +1408,7 @@ classDiagram
 4. Sfida: rendere il progetto **generico**, usando i template.
 
 > [!example]- Una soluzione possibile (da provare prima da soli)
-> Anche qui la soluzione ufficiale potrebbe differire. Questa versione raccoglie la sfida: la pila è un template, e l'iteratore la scorre dalla cima verso il fondo. Il client `printAll` vede solo le interfacce astratte `Aggregate` e `Iterator`, e la rappresentazione interna (un `std::vector`) resta privata; l'iteratore concreto vi accede perché è dichiarato `friend`. Compilata con g++ in modalità C++20 e controllata con Valgrind.
+> La soluzione del docente è discussa nella [[Lezione 11 - Soluzioni degli esercizi, algoritmi e iteratori#La soluzione dell'esercizio sulla pila|lezione 11]]: invece di un iteratore esterno dichiarato `friend`, usa una classe iteratore annidata privata, restituita attraverso l'interfaccia pubblica. Questa versione raccoglie la sfida: la pila è un template, e l'iteratore la scorre dalla cima verso il fondo. Il client `printAll` vede solo le interfacce astratte `Aggregate` e `Iterator`, e la rappresentazione interna (un `std::vector`) resta privata; l'iteratore concreto vi accede perché è dichiarato `friend`. Compilata con g++ in modalità C++20 e controllata con Valgrind.
 >
 > ```cpp
 > #include <iostream>

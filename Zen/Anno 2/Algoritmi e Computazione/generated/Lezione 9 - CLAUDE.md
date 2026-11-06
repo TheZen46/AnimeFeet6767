@@ -1,15 +1,15 @@
 ---
 lezione: 9
 data: 2026-10-29
-argomenti: [soluzione dell'esercizio sui lavori, factory method, ciclo for su intervallo, iteratori della libreria standard, std::map, std::pair, std::unordered_map, complessità della ricerca, puntatori a funzione, oggetti funzione, operator(), static_cast, eccezioni, try, catch, throw, gerarchia delle eccezioni standard, eccezioni personalizzate, tokenizer]
+argomenti: [soluzione dell'esercizio sui lavori, factory method, ciclo for su intervallo, iteratori della libreria standard, std::map, std::pair, std::unordered_map, complessità della ricerca, puntatori a funzione, oggetti funzione, operator(), static_cast, eccezioni, try, catch, throw, gerarchia delle eccezioni standard, maschere delle eccezioni degli stream, eccezioni personalizzate, costruttori ereditati, tokenizer]
 ---
 
 # Lezione 9 — Mappe, oggetti funzione ed eccezioni
 
-La lezione di C++ si apre con la discussione della soluzione dell'esercizio sulla stampa dei lavori, proposto nella [[Lezione 05 - Funzioni virtuali e introduzione a UML#Esercizio: stampare un file di lavori|lezione 5]]. Poi introduce tre strumenti che il docente indica come direttamente utili per l'interprete del progetto: le **mappe**, cioè i contenitori che associano valori a chiavi; gli **oggetti funzione**, che permettono di trattare una funzione come un dato; le **eccezioni**, il meccanismo con cui un programma segnala e gestisce gli errori senza andare in crash. Si chiude con un esercizio che realizza la prima fase dell'interprete, il **tokenizer**. Il docente segue di nuovo il libro di Lischner [@lischner2020]; per gli oggetti funzione cita esplicitamente l'Exploration 44.
+La lezione di C++ si apre con la discussione della soluzione dell'esercizio sulla stampa dei lavori, proposto nella [[Lezione 05 - Funzioni virtuali e introduzione a UML#Esercizio: stampare un file di lavori|lezione 5]]. Poi introduce tre strumenti che il docente indica come direttamente utili per l'interprete del progetto: le **mappe**, cioè i contenitori che associano valori a chiavi; gli **oggetti funzione**, che permettono di trattare una funzione come un dato; le **eccezioni**, il meccanismo con cui un programma segnala e gestisce gli errori senza andare in crash. Si chiude con un esercizio che realizza la prima fase dell'interprete, il **tokenizer**. Il docente segue di nuovo il libro di Lischner [@lischner2020]: le slide di questa parte, il pacchetto *04_OOprogramming*, coprono l'Exploration 15 (*The Map Data Structure*), l'Exploration 44 (*Function Objects*) e l'Exploration 48 (*Exceptions*), più il testo dell'esercizio sul tokenizer.
 
 > [!warning] Materiali di questa lezione
-> Tra i materiali ricevuti non ci sono le slide di questa parte del corso (mappe, oggetti funzione, eccezioni, esercizio sul tokenizer): il pacchetto *03_OOprogramming* inviato insieme alla trascrizione è identico a quello della lezione 7. La nota si basa quindi sulla trascrizione. Il codice degli esempi è stato scritto seguendo la descrizione del docente e verificato compilandolo con g++ in modalità C++20: riproduce la struttura degli esempi mostrati in aula, ma non necessariamente il codice esatto delle slide o della soluzione pubblicata.
+> Le slide *04_OOprogramming* sono arrivate dopo la prima stesura di questa nota, insieme ai materiali della [[Lezione 11 - Soluzioni degli esercizi, algoritmi e iteratori|lezione 11]]; la nota è stata riallineata a esse. Il codice degli esempi segue le slide dove le slide riportano il codice, corretto dove le slide contengono errori (segnalati caso per caso), ed è stato verificato compilandolo con g++ in modalità C++20. La soluzione della prima parte (stampa dei lavori) resta invece una ricostruzione dalla trascrizione.
 
 ## La soluzione dell'esercizio sulla stampa dei lavori
 
@@ -267,7 +267,10 @@ int main() {
 }
 ```
 
-L'output è `Giulio 2`, `Maria 3`, `Silvia 1`. Ci sono diversi punti da notare.
+L'output è `Giulio 2`, `Maria 3`, `Silvia 1`. Nelle slide il `main` dell'esempio lascia la lettura delle stringhe come compito (un commento `TODO`, «leggere le stringhe nel vettore, per esempio da un file»), e il testo dell'esempio suggerisce di usare la semantica di spostamento esplicita, `std::move`, quando si inseriscono le stringhe lette nel vettore; qui, per avere un programma completo, il vettore è inizializzato direttamente. Ci sono diversi punti da notare.
+
+> [!warning] Refusi nel codice delle slide
+> Il codice delle slide sulle mappe non compila così com'è: mancano i punti e virgola dopo `std::map<std::string, int> counts{}`, dopo `std::vector<std::pair<std::string, int>> table{}` e dopo `auto result = count_words(pool)`. Nell'esempio della ricerca, poi, la dichiarazione `std::map counts{};` non specifica i parametri del template e non ha un inizializzatore da cui il compilatore possa dedurli: va scritto `std::map<std::string, int> counts{};`, come nel codice di questa nota. Il ciclo `for (auto word : pool)` delle slide copia ogni stringa; `auto const&`, usato qui, evita la copia.
 
 **L'accesso con le parentesi quadre.** Alla mappa si accede come a un vettore, perché `std::map` ridefinisce l'operatore `[]`. Ma non ci sono indici, perché una mappa non è una struttura sequenziale: al posto dell'indice si usa la chiave. L'istruzione `counts[word] += 1` funziona anche la prima volta che si incontra una parola, perché quando la chiave non è presente l'operatore `[]` inserisce una nuova voce con il valore **inizializzato per default**, cioè 0 per un intero [@cppref-map-at]. Chi non si fida, dice il docente, può prima cercare la parola e poi decidere se inserirla o incrementarla; si vedrà tra poco come.
 
@@ -325,7 +328,7 @@ for (std::string name : {"Silvia", "Maria", "Paolo"}) {
 }
 ```
 
-Con il vettore di prima l'output è `Silvia compare una volta`, `Maria compare 3 volte`, `Paolo non trovato`. Il tipo restituito da `find` sarebbe `std::map<std::string, int>::iterator`: anche qui `auto` fa risparmiare un po' di scrittura. Il docente invita ad abituarsi a questi template, perché la libreria standard fa risparmiare un sacco di tempo: probabilmente tutti gli algoritmi del secondo semestre sono già disponibili, «a gratis o quasi».
+Con il vettore di prima l'output è `Silvia compare una volta`, `Maria compare 3 volte`, `Paolo non trovato`. L'esempio delle slide è analogo: legge le parole dall'input standard con `while (std::cin >> word) counts[word] += 1;` e poi cerca la parola `"the"`, distinguendo i tre casi (assente, una volta, più volte). Il tipo restituito da `find` sarebbe `std::map<std::string, int>::iterator`: anche qui `auto` fa risparmiare un po' di scrittura. Il docente invita ad abituarsi a questi template, perché la libreria standard fa risparmiare un sacco di tempo: probabilmente tutti gli algoritmi del secondo semestre sono già disponibili, «a gratis o quasi».
 
 L'iteratore si usa **come un puntatore**. Per accedere all'oggetto puntato si scrive `*found`; per accedere ai campi della coppia puntata si usa l'operatore freccia, `found->second`, equivalente a `(*found).second`. È esattamente ciò che si scriverebbe se `found` fosse un puntatore a una `struct` con i campi `first` e `second`. In realtà l'iteratore non è un puntatore ma un oggetto, per il quale sono stati ridefiniti gli operatori `*` e `->`. Nel pattern Iterator visto nella teoria c'era il metodo `current()`; in un linguaggio come Java, che non permette di ridefinire gli operatori, l'iteratore somiglia molto di più allo schema astratto. Il concetto resta valido: ci vuole, dice il docente, un po' di elasticità.
 
@@ -365,7 +368,7 @@ int main(void) {
 Il programma stampa `2 4 6` e `1 4 9`. Quando una funzione diventa un dato si possono costruire strutture dati che incorporano funzionalità, da applicare poi a seconda dei casi. L'esempio del docente è un menu di un'interfaccia grafica: associando a ogni voce di menu un elemento di un array di funzioni, cliccando su una voce si chiama la funzione corrispondente, e si possono costruire interfacce in modo del tutto generale a seconda di ciò che si mette nell'array. È l'idea del pattern **Command**, citato nella [[Lezione 07 - Design pattern e classi come tipi#Visitor e gli altri pattern|lezione 7]] ma non approfondito. In Python passare una funzione a un'altra funzione è automatico: essendo tipizzato dinamicamente, Python non pone vincoli, e se poi tutto viene usato correttamente funziona «gratis».
 
 > [!warning] Programmazione di ordine superiore
-> Il docente chiama questa tecnica «programmazione di secondo ordine». Il termine più diffuso è programmazione con **funzioni di ordine superiore** (*higher-order functions*): funzioni che ricevono altre funzioni come argomenti o le restituiscono come risultato.
+> Il docente, come le slide (*second-order programming*), chiama questa tecnica «programmazione di secondo ordine». Il termine più diffuso è programmazione con **funzioni di ordine superiore** (*higher-order functions*): funzioni che ricevono altre funzioni come argomenti o le restituiscono come risultato.
 
 ### `operator()`
 
@@ -382,51 +385,71 @@ L'esempio riprende il generatore di identificativi della [[Lezione 07 - Design p
 class generate_id {
 public:
   generate_id() : counter_{0} {}
-  long operator()();                 // l'oggetto si chiama come una funzione
+  long operator()();                     // l'oggetto si chiama come una funzione
 private:
-  short counter_;                    // stato del singolo generatore
-  static short prefix_;              // dati condivisi dalla classe
-  static short const max_counter_{32767};
+  short counter_;                        // stato del singolo generatore
+  static short prefix_;                  // dati condivisi dalla classe
+  static short constexpr max_counter_{32767};
 };
 
 // generate_id.cpp
 short generate_id::prefix_{1};
 
 long generate_id::operator()() {
-  if (counter_ == max_counter_) {    // contatore esaurito: nuovo prefisso
-    ++prefix_;
+  if (counter_ == max_counter_)
     counter_ = 0;
-  }
-  ++counter_;
+  else
+    ++counter_;
   return static_cast<long>(prefix_) * (max_counter_ + 1) + counter_;
 }
 
-class movie {
-public:
-  movie(long id, std::string title) : id_{id}, title_{std::move(title)} {}
-  long id() const { return id_; }
-  std::string const& title() const { return title_; }
-private:
-  long id_;
-  std::string title_;
+struct movie {
+  long id;
+  std::string title;
+  int runtime;
 };
 
 // Factory method che riceve il generatore per riferimento non costante:
 // chiamarlo ne modifica lo stato interno
-movie make_movie(generate_id& gen, std::string const& title) {
-  return movie{gen(), title};
+movie* make_movie(generate_id& gen) {
+  std::string title{};
+  int runtime{};
+  std::cout << "Movie title: ";
+  if (not std::getline(std::cin >> std::ws, title))
+    return nullptr;
+  std::cout << "Runtime (minutes): ";
+  if (not (std::cin >> runtime))
+    return nullptr;
+  return new movie{gen(), title, runtime};   // "chiamata" dell'oggetto
 }
 
 int main() {
-  generate_id gen;
-  std::vector<movie> movies;
-  for (std::string t : {"Primo", "Secondo", "Terzo"})
-    movies.push_back(make_movie(gen, t));
-  for (auto const& m : movies) std::cout << m.id() << ' ' << m.title() << '\n';
+  generate_id gen{};
+  std::vector<movie*> movie_pool{};
+  movie* m{make_movie(gen)};
+  while (m != nullptr) {
+    movie_pool.push_back(m);
+    m = make_movie(gen);
+  }
+  std::cout << '\n';
+  for (movie* p : movie_pool) {
+    std::cout << p->id << ' ' << p->title << " (" << p->runtime << " min)\n";
+    delete p;
+  }
 }
 ```
 
-L'output è `32769 Primo`, `32770 Secondo`, `32771 Terzo`: il prefisso 1 moltiplicato per 32768, più il contatore. Il codice di calcolo è una ricostruzione, coerente con la descrizione del docente.
+Con l'input `Primo`, `120`, `Secondo film`, `95` seguito dalla fine dell'input, l'output finale è `32769 Primo (120 min)` e `32770 Secondo film (95 min)`: il prefisso 1 moltiplicato per 32768, più il contatore. La classe `generate_id` è quella delle slide; la struttura `movie`, che le slide non mostrano, è ridotta ai tre campi usati da `make_movie`.
+
+> [!warning] Errori nel codice delle slide
+> Il codice delle slide su `generate_id` e `make_movie` va corretto in alcuni punti per compilare e funzionare.
+> - Manca il punto e virgola dopo la chiusura della classe `generate_id`.
+> - In `make_movie` le variabili `title` e `runtime` non sono dichiarate; qui sono variabili locali. Inoltre `std::getline` letto subito dopo un `std::cin >> runtime` troverebbe il carattere di a capo rimasto nel buffer e leggerebbe una riga vuota: per questo si scrive `std::getline(std::cin >> std::ws, title)`, che salta prima gli spazi bianchi.
+> - Nel `main` si dichiara `movie m = make_movie(gen);`, ma `make_movie` restituisce un `movie*`: la variabile deve essere un puntatore.
+> - Il ciclo `while (m != nullptr) { movie_pool.push_back(m); }` non aggiorna mai `m`, quindi non termina: dentro il ciclo va chiamato di nuovo `make_movie`.
+> - Gli oggetti creati con `new` vanno distrutti; qui lo fa il ciclo finale con `delete`.
+>
+> C'è poi un'osservazione sul generatore stesso: quando il contatore raggiunge `max_counter_` riparte da 0, ma il prefisso, nel codice delle slide, non cambia mai. Dopo 32768 chiamate, quindi, gli identificativi si ripetono: per garantire l'unicità bisognerebbe incrementare il prefisso a ogni giro del contatore (`++prefix_` insieme a `counter_ = 0`). Per lo stesso motivo due oggetti `generate_id` distinti, che condividono il prefisso statico ma hanno ciascuno il proprio contatore, producono gli stessi identificativi: nel programma va usato un solo generatore, come fa il `main`.
 
 Il factory method `make_movie` riceve il generatore `gen` **per riferimento**, quindi il passaggio costa poco. Il riferimento non può però essere costante, perché chiamare il generatore ne aggiorna il contatore interno. Dentro `make_movie` il generatore si chiama esattamente come una funzione, `gen()`. Il film non ha la responsabilità di generare il proprio identificativo, ma ogni nuovo film ne riceve uno univoco: è la programmazione di ordine superiore all'opera, con una funzione passata come dato.
 
@@ -470,7 +493,7 @@ int main() {
 }
 ```
 
-Entrambi gli accessi sono errori. Con il metodo **`at`**, il programma genera un'eccezione, che si può gestire; se non la si gestisce, il programma termina con un messaggio di errore. È quella che il docente chiama una **degradazione controllata** (*graceful degradation*): l'errore c'è, ma si manifesta subito e in modo chiaro, non come un comportamento strano che magari emerge molto dopo. Con l'operatore **`[]`**, invece, non c'è alcun controllo, e il comportamento è **indefinito** [@cppref-vector-subscript]: il programma può stampare un valore qualsiasi, andare in crash, o sembrare funzionare. Perché allora esiste `[]`? Perché è il C++: l'operatore è un po' più efficiente, dato che `at` deve controllare l'indice e usa il meccanismo delle eccezioni. Con g++ l'esempio stampa `errore gestito: vector::_M_range_check: __n (which is 5) >= this->size() (which is 2)`; il testo del messaggio dipende dall'implementazione della libreria [@cppref-vector-at].
+Nelle slide i due casi sono due programmi distinti, che scrivono in posizione 5 con `data.at(5) = 0;` e con `data[5] = 0;` e chiedono che cosa succede. Entrambi gli accessi sono errori. Con il metodo **`at`**, il programma genera un'eccezione, che si può gestire; se non la si gestisce, il programma termina con un messaggio di errore. È quella che il docente chiama una **degradazione controllata** (*graceful degradation*): l'errore c'è, ma si manifesta subito e in modo chiaro, non come un comportamento strano che magari emerge molto dopo. Con l'operatore **`[]`**, invece, non c'è alcun controllo, e il comportamento è **indefinito** [@cppref-vector-subscript]: il programma può stampare un valore qualsiasi, andare in crash, o sembrare funzionare. Perché allora esiste `[]`? Perché è il C++: l'operatore è un po' più efficiente, dato che `at` deve controllare l'indice e usa il meccanismo delle eccezioni. Con g++ l'esempio stampa `errore gestito: vector::_M_range_check: __n (which is 5) >= this->size() (which is 2)`; il testo del messaggio dipende dall'implementazione della libreria [@cppref-vector-at].
 
 ### `try`, `throw` e `catch`
 
@@ -510,6 +533,8 @@ Tutte le eccezioni della libreria standard derivano da **`std::exception`**, dic
 
 Il docente dice che le eccezioni della libreria sono «predefinite nell'header exception». Più precisamente, `<exception>` dichiara la classe base, mentre le classi derivate più comuni stanno in `<stdexcept>`, come riportato nella tabella.
 
+Le slide spiegano la differenza tra i due rami principali della gerarchia. Gli **errori di runtime** (`std::runtime_error`) nascono da condizioni che si possono prevedere ma non impedire: un file che non esiste, un input malformato. Gli **errori logici** (`std::logic_error`) nascono da condizioni che il codice avrebbe potuto evitare, come un indice fuori dall'intervallo. Le eccezioni standard si possono usare così come sono oppure personalizzare, e secondo le slide personalizzarle è la scelta migliore.
+
 ### Un esempio con le stringhe
 
 Il docente mostra un esempio, artificiale ma istruttivo, di codice che manipola una stringa e può generare fino a quattro eccezioni in quattro punti diversi.
@@ -546,7 +571,7 @@ int main() {
 
 Il programma legge righe dall'input standard. Se una riga ha meno di 11 caratteri, l'accesso alla posizione 10 lancia `std::out_of_range`. Se ha meno di 20 caratteri, il tentativo di aggiungerle in coda tanti asterischi quanta è la dimensione massima possibile di una stringa (`max_size()`) lancia `std::length_error`. Il ciclo successivo raddoppia ripetutamente la dimensione della stringa, e prima o poi può esaurire la memoria. Il punto, osserva il docente, è che non serve controllare prima ogni condizione (per esempio con un `if` sulla lunghezza della riga): si scrive il codice e si gestiscono gli eventuali problemi in un secondo momento. Prevenire ogni errore appesantirebbe molto il codice e la sua lettura.
 
-I gestori sono ordinati dal più specifico al più generale: prima `std::out_of_range` e `std::length_error`, poi `std::exception`, infine il gestore universale. Quest'ultimo, in questo esempio, non dovrebbe mai essere raggiunto, perché tutte le eccezioni della libreria standard derivano da `std::exception`. Con g++ e le tre righe `corta`, `quindici caratt` (15 caratteri) e una riga di 38 caratteri, l'output è:
+I gestori sono ordinati dal più specifico al più generale: prima `std::out_of_range` e `std::length_error`, poi `std::exception`, infine il gestore universale. Quest'ultimo, in questo esempio, non dovrebbe mai essere raggiunto, perché tutte le eccezioni della libreria standard derivano da `std::exception`. Nelle slide il codice legge una sola riga, i gestori stampano anche una spiegazione (per esempio la dimensione massima della stringa superata) e il gestore universale termina il programma con `std::abort()`; qui è adattato per elaborare più righe in una sola esecuzione. Con g++ e le tre righe `corta`, `quindici caratt` (15 caratteri) e una riga di 38 caratteri, l'output è:
 
 ```text
 out_of_range: basic_string::at: __n (which is 10) >= this->size() (which is 5)
@@ -563,6 +588,31 @@ Quando una funzione incontra un errore che non sa recuperare, esegue un `throw` 
 ### Gli stream
 
 Gli stream di input e output, per default, **non lanciano eccezioni**. Per sapere se qualcosa è andato storto si controllano i loro bit di stato: per esempio il **badbit** viene impostato quando lo stream non si può più leggere o scrivere, il **failbit** quando un'operazione fallisce, come la lettura di un intero da un testo che non lo contiene. Si può però impostare una **maschera delle eccezioni** con il metodo `exceptions`: da quel momento gli stati di errore indicati nella maschera generano un'eccezione di tipo `std::ios_base::failure` [@cppref-iosexceptions].
+
+L'esempio delle slide imposta la maschera sul solo badbit di `std::cin` e `std::cout`, e legge interi finché può.
+
+```cpp
+#include <exception>
+#include <iostream>
+
+int main() {
+  std::cin.exceptions(std::ios_base::badbit);     // maschere delle eccezioni
+  std::cout.exceptions(std::ios_base::badbit);
+  int x{};
+  try {
+    while (std::cin >> x) std::cout << x << '\n';
+    if (not std::cin.eof())   // il ciclo è finito senza raggiungere la fine: input non valido
+      std::cerr << "Invalid integer input. Program terminated.\n";
+  } catch (std::ios_base::failure const& ex) {
+    std::cerr << "Major I/O failure! Program terminated.\n" << ex.what() << '\n';
+    std::terminate();
+  }
+}
+```
+
+Il programma distingue due situazioni. Un input non valido, per esempio `1 2 x`, non è un guasto dello stream: imposta solo il failbit, che non è nella maschera, quindi non genera eccezioni; il ciclo termina, e poiché non si è arrivati alla fine dell'input (`eof()` è falso) il programma stampa `1`, `2` e il messaggio di input non valido. Un guasto vero dello stream, invece, imposta il badbit e genera un'eccezione `std::ios_base::failure`, gestita stampando un messaggio e terminando con `std::terminate()`.
+
+Se si vuole che anche un input malformato generi un'eccezione, basta aggiungere il failbit alla maschera, come in questa variante su uno stream di stringa.
 
 ```cpp
 #include <iostream>
@@ -583,11 +633,11 @@ int main() {
 }
 ```
 
-L'output è `letto 12` seguito da `errore di lettura`. Allo stesso modo si può impostare la maschera su `std::cin` e `std::cout`.
+L'output è `letto 12` seguito da `errore di lettura`. Con il failbit nella maschera, però, anche il normale raggiungimento della fine dell'input durante una lettura imposta il failbit e genera un'eccezione: per questo l'esempio delle slide si limita al badbit.
 
 ### Eccezioni personalizzate
 
-Poiché le eccezioni sono oggetti, se ne possono definire di proprie, **derivando** dalle classi della libreria standard. L'esempio, tratto dal libro, è la classe dei numeri razionali. Al suo interno è definita una classe annidata `zero_denominator`, che deriva da `std::logic_error`. Il costruttore del razionale, se il denominatore è zero, lancia un'eccezione di questo tipo con il messaggio `denominator is zero`.
+Poiché le eccezioni sono oggetti, se ne possono definire di proprie, **derivando** dalle classi della libreria standard. L'esempio, tratto dal libro, è la classe dei numeri razionali. Al suo interno è definita una classe annidata `zero_denominator`, che deriva da `std::logic_error`. Il costruttore del razionale, se il denominatore è zero, lancia un'eccezione di questo tipo con il messaggio `The denominator was set to zero`.
 
 ```cpp
 #include <iostream>
@@ -598,12 +648,12 @@ class rational {
 public:
   class zero_denominator : public std::logic_error {   // eccezione annidata
   public:
-    explicit zero_denominator(std::string const& what) : std::logic_error{what} {}
+    using std::logic_error::logic_error;               // eredita i costruttori
   };
 
   rational(int num, int den) : numerator_{num}, denominator_{den} {
     if (denominator_ == 0)
-      throw zero_denominator{"denominator is zero"};
+      throw zero_denominator{"The denominator was set to zero"};
     reduce();
   }
   int numerator() const { return numerator_; }
@@ -644,9 +694,12 @@ L'output è:
 
 ```text
 3/2
-livello interno: denominator is zero, rilancio
-livello esterno: denominator is zero
+livello interno: The denominator was set to zero, rilancio
+livello esterno: The denominator was set to zero
 ```
+
+> [!warning] La classe `zero_denominator` delle slide
+> Nelle slide la classe è dichiarata come `class zero_denominator : public std::logic_error { }`, senza corpo. Così non compila: i costruttori non si ereditano automaticamente, e `std::logic_error` non ha un costruttore di default, quindi `zero_denominator{"The denominator was set to zero"}` non trova un costruttore adatto (g++ segnala `no matching function for call to 'rational::zero_denominator::zero_denominator(...)'`). Le soluzioni sono due: dichiarare un costruttore che inoltra la stringa alla classe base, `zero_denominator(std::string const& what) : std::logic_error{what} {}`, oppure ereditare i costruttori della base con `using std::logic_error::logic_error;`, come nel codice sopra [@cppref-using-decl]. Nelle stesse slide mancano il punto e virgola dopo le due classi e c'è un refuso nell'inizializzazione, `denominator{den}` invece di `denominator_{den}`. Il gestore delle slide stampa semplicemente `zero denominator in rational number` su `std::cerr`.
 
 Il codice che usa i razionali costruisce il numero e, se il denominatore è zero, cattura l'eccezione. Poiché la classe è annidata, il gestore deve nominarla con il nome qualificato `rational::zero_denominator`, altrimenti non funziona. L'esempio mostra anche il rilancio e la cattura tramite la classe base: il gestore esterno per `std::logic_error` intercetta l'eccezione derivata.
 
@@ -656,29 +709,60 @@ Dichiarare l'eccezione **dentro** la classe ha un vantaggio: se un'altra classe 
 
 Il pacchetto si chiude con un esercizio che, come il precedente, è propedeutico al progetto finale: ne realizza, dice il docente, sostanzialmente il primo terzo. Come anticipato nella [[Lezione 02 - Architettura di un interprete e linguaggi formali|lezione 2]], l'**analisi lessicale** separa le parti significative di un programma dagli spazi bianchi e trasforma il sorgente in una sequenza di **token**. Tecnicamente un token è una **coppia** (*tag*, *parola*): il tag è l'etichetta attaccata al token, la parola è la stringa letta in corrispondenza del token.
 
-Il linguaggio da riconoscere è un sottoinsieme del C:
+Il linguaggio da riconoscere, secondo il testo dell'esercizio nelle slide, è un sottoinsieme del C:
 
-1. le uniche parole chiave sono `int` e `return`;
-2. i simboli di punteggiatura sono le parentesi tonde, il punto e virgola e la virgola;
-3. gli operatori sono quelli aritmetici (`+`, `-`, `*`, `/`) e l'assegnamento `=`;
-4. con questi elementi un programma può contenere dichiarazioni di funzioni, dichiarazioni e definizioni di variabili, assegnamenti, costanti numeriche ed espressioni aritmetiche.
+1. le uniche parole chiave sono `int`, `float` e `return`;
+2. gli unici separatori sono le parentesi graffe `{` `}`, le parentesi tonde `(` `)`, il punto e virgola e la virgola;
+3. gli unici operatori sono `=`, `+`, `-`, `*`, `/`;
+4. con questi elementi un programma può contenere dichiarazioni e definizioni di funzioni (compresa la funzione `main`), dichiarazioni e definizioni di variabili, assegnamenti, costanti numeriche ed espressioni aritmetiche.
 
-> [!warning] Parole chiave
-> Nella trascrizione le parole chiave risultano «load e return», ma nell'esempio di output descritto subito dopo il docente indica `int` come parola chiave, e `load` non compare. Si assume quindi che le parole chiave siano `int` e `return`; conviene verificarlo sul testo dell'esercizio. Allo stesso modo, il docente cita tra gli operatori «l'uguaglianza»: dato che il linguaggio prevede assegnamenti, si tratta verosimilmente del simbolo `=`.
+> [!warning] Trascrizione e slide
+> Nella trascrizione le parole chiave risultano «load e return», e il docente cita tra gli operatori «l'uguaglianza». Le slide chiariscono che le parole chiave sono `int`, `float` e `return`, che anche le parentesi graffe sono separatori e che l'operatore in questione è `=`.
 
-Il risultato atteso è una sequenza di token: per esempio, `int` riceve il tag di parola chiave, `f` quello di identificatore (perché non è una parola chiave), la parentesi aperta il tag `LP` (*left parenthesis*), e così via. Questa sequenza è ciò che servirà poi all'analisi sintattica, su cui il docente tornerà. Il progetto finale potrà riguardare un altro linguaggio, ma la tecnica sarà esattamente la stessa. Le indicazioni sono:
+Il risultato atteso è una sequenza di token: `int` riceve il tag di parola chiave, `f` quello di identificatore (perché non è una parola chiave), la parentesi aperta il tag `LP` (*left parenthesis*), e così via. Le slide usano i tag `KWORD` (parola chiave), `ID` (identificatore), `LP` e `RP` (parentesi tonde), `LB` e `RB` (parentesi graffe, *braces*), `SC` (punto e virgola, *semicolon*), `OP` (operatore aritmetico), `ISEQ` (il simbolo `=` dell'assegnamento) e `CONST` (costante numerica). L'esempio delle slide è il programma seguente.
 
-1. definire una classe `token`;
+```c
+int f(int x) {
+  return x * x;
+}
+
+int main() {
+  int y = 10;
+  int z;
+  z = f(y) + 20;
+}
+```
+
+La sua tokenizzazione, riga per riga, è:
+
+```text
+(KWORD, "int")(ID, "f")(LP, "(")(KWORD, "int")(ID, "x")(RP, ")")(LB, "{")
+(KWORD, "return")(ID, "x")(OP, "*")(ID, "x")(SC, ";")
+(RB, "}")
+(KWORD, "int")(ID, "main")(LP, "(")(RP, ")")(LB, "{")
+(KWORD, "int")(ID, "y")(ISEQ, "=")(CONST, "10")(SC, ";")
+(KWORD, "int")(ID, "z")(SC, ";")
+(ID, "z")(ISEQ, "=")(ID, "f")(LP, "(")(ID, "y")(RP, ")")(OP, "+")(CONST, "20")(SC, ";")
+(RB, "}")
+```
+
+> [!warning] Un errore nell'esempio delle slide
+> Per l'ultima istruzione, `z = f(y) + 20;`, le slide riportano i token `(OP, "*")(CONST, "10")`, che non corrispondono al sorgente: i token corretti sono `(OP, "+")(CONST, "20")`, come sopra e come produce la soluzione più sotto. Le slide, inoltre, non indicano il tag della virgola, che nell'esempio non compare; qui si usa `COMMA`. Infine, il simbolo `=` è elencato tra gli operatori ma riceve un tag proprio, `ISEQ`, distinto da `OP`: è il modo in cui l'analisi sintattica potrà distinguere l'assegnamento dalle operazioni aritmetiche.
+
+Questa sequenza è ciò che servirà poi all'analisi sintattica, su cui il docente tornerà. Il progetto finale potrà riguardare un altro linguaggio, ma la tecnica sarà esattamente la stessa. Le indicazioni, dalla trascrizione e dalle slide, sono:
+
+1. definire una classe `Token` per rappresentare i token;
 2. realizzare il tokenizer come **oggetto funzione**, così da ripassare anche quell'argomento;
 3. leggere il file **carattere per carattere**, cercando di identificare i token;
 4. quando si incontra qualcosa che non è un token, cioè un simbolo non previsto, **lanciare un'eccezione**, definendo una propria classe di eccezioni: il programma non deve andare in crash;
-5. restituire il risultato come un **vettore di token**, da stampare per controllare il lavoro;
-6. come possibile miglioramento, fare in modo che l'eccezione riporti la **riga e la colonna** in cui si trova l'errore.
+5. restituire il risultato come un **vettore di token**, `std::vector<Token>`, da stampare per controllare il lavoro;
+6. provare a scrivere e tokenizzare qualche programma;
+7. come possibile miglioramento, fare in modo che l'eccezione riporti la **riga e la colonna** in cui si trova l'errore.
 
 Il docente pubblicherà la sua soluzione, e invita a provarci prima da soli.
 
 > [!example]- Una soluzione possibile (da provare prima da soli)
-> La soluzione ufficiale potrebbe differire. Questa versione usa un'enumerazione per i tag, un oggetto funzione `tokenizer` e un'eccezione `lexical_error`, derivata da `std::runtime_error`, che riporta riga e colonna del simbolo inatteso. È stata compilata con g++ in modalità C++20 e controllata con Valgrind.
+> La soluzione ufficiale potrebbe differire. Questa versione segue le indicazioni delle slide: una struttura `Token` con il tag e la parola, un oggetto funzione `Tokenizer` e un'eccezione `LexicalError`, derivata da `std::runtime_error`, che riporta riga e colonna del simbolo inatteso. Le costanti numeriche possono avere una parte decimale, dato che il linguaggio prevede il tipo `float`. È stata compilata con g++ in modalità C++20.
 >
 > ```cpp
 > #include <cctype>
@@ -688,69 +772,62 @@ Il docente pubblicherà la sua soluzione, e invita a provarci prima da soli.
 > #include <string>
 > #include <vector>
 >
-> enum class tag { keyword, identifier, number, lp, rp, semicolon, comma, op, assign };
->
-> struct token {                       // la coppia (tag, parola)
->   tag kind;
+> struct Token {                                   // la coppia (tag, parola)
+>   std::string tag;
 >   std::string word;
 > };
 >
-> std::string to_string(tag t) {
->   switch (t) {
->     case tag::keyword: return "KEYWORD";
->     case tag::identifier: return "ID";
->     case tag::number: return "NUM";
->     case tag::lp: return "LP";
->     case tag::rp: return "RP";
->     case tag::semicolon: return "SEMI";
->     case tag::comma: return "COMMA";
->     case tag::op: return "OP";
->     case tag::assign: return "ASSIGN";
->   }
->   return "?";
-> }
->
-> class lexical_error : public std::runtime_error {   // eccezione personalizzata
+> class LexicalError : public std::runtime_error { // eccezione personalizzata
 > public:
->   lexical_error(char c, int line, int column)
+>   LexicalError(char c, int line, int column)
 >       : std::runtime_error{"simbolo inatteso '" + std::string(1, c) + "' alla riga " +
->                            std::to_string(line) + ", colonna " + std::to_string(column)} {}
+>                            std::to_string(line) + ", colonna " + std::to_string(column)},
+>         line_{line}, column_{column} {}
+>   int line() const { return line_; }
+>   int column() const { return column_; }
+> private:
+>   int line_, column_;
 > };
 >
-> class tokenizer {                                    // oggetto funzione
+> class Tokenizer {                                // oggetto funzione
 > public:
->   std::vector<token> operator()(std::istream& in) {
->     std::vector<token> tokens;
+>   std::vector<Token> operator()(std::istream& in) {
+>     std::vector<Token> tokens;
 >     int line{1}, column{0};
 >     char c;
 >     while (in.get(c)) {
 >       ++column;
 >       if (c == '\n') { ++line; column = 0; continue; }
 >       if (std::isspace(static_cast<unsigned char>(c))) continue;
->       if (std::isalpha(static_cast<unsigned char>(c)) or c == '_') {   // parola chiave o identificatore
->         std::string word{c};
+>       if (std::isalpha(static_cast<unsigned char>(c)) or c == '_') {
+>         std::string word{c};                     // parola chiave o identificatore
 >         while (std::isalnum(static_cast<unsigned char>(in.peek())) or in.peek() == '_') {
 >           word += static_cast<char>(in.get());
 >           ++column;
 >         }
->         tokens.push_back({word == "int" or word == "return" ? tag::keyword : tag::identifier, word});
->       } else if (std::isdigit(static_cast<unsigned char>(c))) {        // costante numerica
->         std::string word{c};
->         while (std::isdigit(static_cast<unsigned char>(in.peek()))) {
+>         bool keyword{word == "int" or word == "float" or word == "return"};
+>         tokens.push_back({keyword ? "KWORD" : "ID", word});
+>       } else if (std::isdigit(static_cast<unsigned char>(c))) {
+>         std::string word{c};                     // costante intera o con parte decimale
+>         bool point{false};
+>         while (std::isdigit(static_cast<unsigned char>(in.peek())) or (in.peek() == '.' and not point)) {
+>           if (in.peek() == '.') point = true;
 >           word += static_cast<char>(in.get());
 >           ++column;
 >         }
->         tokens.push_back({tag::number, word});
+>         tokens.push_back({"CONST", word});
 >       } else {
 >         switch (c) {
->           case '(': tokens.push_back({tag::lp, "("}); break;
->           case ')': tokens.push_back({tag::rp, ")"}); break;
->           case ';': tokens.push_back({tag::semicolon, ";"}); break;
->           case ',': tokens.push_back({tag::comma, ","}); break;
->           case '=': tokens.push_back({tag::assign, "="}); break;
+>           case '(': tokens.push_back({"LP", "("}); break;
+>           case ')': tokens.push_back({"RP", ")"}); break;
+>           case '{': tokens.push_back({"LB", "{"}); break;
+>           case '}': tokens.push_back({"RB", "}"}); break;
+>           case ';': tokens.push_back({"SC", ";"}); break;
+>           case ',': tokens.push_back({"COMMA", ","}); break;
+>           case '=': tokens.push_back({"ISEQ", "="}); break;
 >           case '+': case '-': case '*': case '/':
->             tokens.push_back({tag::op, std::string(1, c)}); break;
->           default: throw lexical_error{c, line, column};
+>             tokens.push_back({"OP", std::string(1, c)}); break;
+>           default: throw LexicalError{c, line, column};
 >         }
 >       }
 >     }
@@ -760,22 +837,23 @@ Il docente pubblicherà la sua soluzione, e invita a provarci prima da soli.
 >
 > void run(std::string const& source) {
 >   std::istringstream in{source};
->   tokenizer tokenize;
+>   Tokenizer tokenize;
 >   try {
->     for (auto const& t : tokenize(in)) std::cout << '(' << to_string(t.kind) << ", " << t.word << ") ";
+>     for (auto const& t : tokenize(in)) std::cout << '(' << t.tag << ", \"" << t.word << "\")";
 >     std::cout << '\n';
->   } catch (lexical_error const& ex) {
+>   } catch (LexicalError const& ex) {
 >     std::cout << "errore lessicale: " << ex.what() << '\n';
 >   }
 > }
 >
 > int main() {
->   run("int f(int x, int y);\nint a = 3;\na = f(a, 2) * (a - 10);\nreturn a;\n");
->   run("int a = 3;\nint b = a # 2;\n");
+>   run("int f(int x) {\n  return x * x;\n}\nint main() {\n  int y = 10;\n  int z;\n  z = f(y) + 20;\n}\n");
+>   run("float g(float a, float b) {\n  return a / 2.5 - b;\n}\n");
+>   run("int main() {\n  int y = 10 # 2;\n}\n");
 > }
 > ```
 >
-> Per il primo programma l'output è la sequenza `(KEYWORD, int) (ID, f) (LP, () (KEYWORD, int) (ID, x) (COMMA, ,) (KEYWORD, int) (ID, y) (RP, )) (SEMI, ;) (KEYWORD, int) (ID, a) (ASSIGN, =) (NUM, 3) (SEMI, ;) ...`, fino a `(KEYWORD, return) (ID, a) (SEMI, ;)`. Per il secondo il tokenizer incontra il simbolo `#`, che non appartiene al linguaggio, e l'output è `errore lessicale: simbolo inatteso '#' alla riga 2, colonna 11`.
+> Per il programma delle slide l'output coincide con la sequenza riportata sopra (stampata su un'unica riga). Per il secondo programma si ottiene `(KWORD, "float")(ID, "g")(LP, "(")(KWORD, "float")(ID, "a")(COMMA, ",")(KWORD, "float")(ID, "b")(RP, ")")(LB, "{")(KWORD, "return")(ID, "a")(OP, "/")(CONST, "2.5")(OP, "-")(ID, "b")(SC, ";")(RB, "}")`. Nel terzo il tokenizer incontra il simbolo `#`, che non appartiene al linguaggio, e l'output è `errore lessicale: simbolo inatteso '#' alla riga 2, colonna 14`.
 >
 > Il riconoscimento di identificatori e numeri segue la logica di un automa a stati finiti: dal primo carattere si decide quale tipo di token si sta leggendo, e si continua a consumare caratteri finché restano nella classe ammessa. È il legame tra analisi lessicale e linguaggi regolari discusso nella [[Lezione 08 - Dalle espressioni regolari agli automi e ritorno#Specifica e algoritmo|lezione 8]].
 
@@ -783,4 +861,4 @@ Il docente pubblicherà la sua soluzione, e invita a provarci prima da soli.
 
 La soluzione dell'esercizio sui lavori mostra il cuore della programmazione orientata agli oggetti: una classe base astratta fissa il contratto (`print` e `parse` virtuali puri), un factory method crea l'oggetto giusto dall'etichetta della riga, e ogni oggetto sa leggersi e stamparsi; aggiungere un tipo richiede di cambiare una sola riga, quella del factory method. Un vettore si scorre con il ciclo su intervallo, con un indice o con gli iteratori, che sono il pattern Iterator della libreria standard.
 
-`std::map` associa valori a chiavi ordinate con l'operatore `<`, con operazioni di costo logaritmico; l'operatore `[]` inserisce le chiavi mancanti con valore di default, `find` restituisce un iteratore o `end()`, e l'iterazione produce coppie `std::pair` con i campi pubblici `first` e `second`. `std::unordered_map` ha la stessa interfaccia, non richiede l'ordine, e ha costo atteso costante ma non garantito. Gli oggetti funzione ridefiniscono `operator()` e permettono di trattare le funzioni come dati, in modo più elegante dei puntatori a funzione del C; `static_cast` è la forma sicura di conversione. Le eccezioni separano la rilevazione dell'errore dalla sua gestione: `throw` lancia un oggetto, i gestori `catch` vengono provati in ordine e catturano anche le classi derivate, `catch (...)` cattura tutto, `throw;` rilancia. Le eccezioni standard derivano da `std::exception`, e se ne possono derivare di proprie. L'esercizio sul tokenizer mette insieme oggetti funzione ed eccezioni per realizzare l'analisi lessicale di un sottoinsieme del C.
+`std::map` associa valori a chiavi ordinate con l'operatore `<`, con operazioni di costo logaritmico; l'operatore `[]` inserisce le chiavi mancanti con valore di default, `find` restituisce un iteratore o `end()`, e l'iterazione produce coppie `std::pair` con i campi pubblici `first` e `second`. `std::unordered_map` ha la stessa interfaccia, non richiede l'ordine, e ha costo atteso costante ma non garantito. Gli oggetti funzione ridefiniscono `operator()` e permettono di trattare le funzioni come dati, in modo più elegante dei puntatori a funzione del C; `static_cast` è la forma sicura di conversione. Le eccezioni separano la rilevazione dell'errore dalla sua gestione: `throw` lancia un oggetto, i gestori `catch` vengono provati in ordine e catturano anche le classi derivate, `catch (...)` cattura tutto, `throw;` rilancia. Le eccezioni standard derivano da `std::exception`, e se ne possono derivare di proprie. Gli errori di runtime sono prevedibili ma non evitabili, quelli logici evitabili nel codice; gli stream lanciano eccezioni solo per gli stati indicati nella loro maschera. L'esercizio sul tokenizer mette insieme oggetti funzione ed eccezioni per realizzare l'analisi lessicale di un sottoinsieme del C con le parole chiave `int`, `float` e `return`, trasformando il sorgente in una sequenza di coppie (tag, parola) come `(KWORD, "int")` o `(ID, "f")`.
