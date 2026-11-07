@@ -20,7 +20,7 @@
 | 2 | Il file system | file e directory, VFS e montaggio; gerarchia FHS (e la vera origine di `/usr`); nomi di file leciti e ostili; percorsi e loro risoluzione (`..` fisico e logico); `ls -l` colonna per colonna; creare, copiare, spostare (`rename` atomica), eliminare (`unlink`); inode; hard link e link simbolici; file cancellati ma aperti; mtime/ctime/atime; numeri magici e `file`; `/dev` e `/proc`; globbing avanzato; `find`; sicurezza dei link (CWE-59, TOCTOU) |
 | 3 | Cercare e trasformare testo | il testo come byte (righe, `\r\n`, locale); espressioni regolari: teoria (Kleene, Thompson), sintassi, BRE/ERE/PCRE, avido e pigro; motori ad automa e a backtracking, ReDoS; `grep`, `tr`, `cut`, `sort`, `uniq`, `comm`, `sed`, `awk`, `strings`; ricette per log, frequenze, flag; dati esterni che diventano istruzioni |
 | 4 | Flussi, pipe e script | descrittori di file e tabella dei file aperti; redirezioni come `open`+`dup2` (e perché l'ordine conta); here-document; `exec`; buffering; pipe nel kernel (EOF, `SIGPIPE`, `PIPESTATUS`, subshell); `tee`, `xargs`, sostituzione di processo, FIFO, coprocessi; script bash: argomenti, `getopts`, `[[ ]]`/`(( ))`, `case`, cicli, `while IFS= read -r`, funzioni, array, `trap`, `mktemp`; sicurezza degli script (`eval`, iniezione aritmetica, segreti negli argomenti, script setuid) |
-| 5 | Processi e ambiente | PID e PPID, `ps`, `top`, `/proc/<pid>`, segnali e `kill`, job control (`&`, `fg`, `bg`), ciclo `fork`/`exec`/`wait`, ereditarietà di ambiente e descrittori |
+| 5 | Processi e ambiente | processo, thread e `task_struct`; PID, PPID, albero, namespace; stati (`R S D T t Z`) e load average; `fork` (copy-on-write), `execve`, `exit`, `wait` e stato di uscita; zombie e orfani; `ps`, `pgrep`/`pkill`, `pstree`, `top`, `time`; `/proc/<PID>` (`cmdline`, `environ`, `status`, `exe`, `cwd`, `fd`, `maps`), `lsof`/`fuser`; segnali, disposizioni, maschere, `kill`, `trap`, core dump; job control, gruppi, sessioni, terminale, `nohup`/`disown`/`setsid`, `tmux`; demoni, systemd, cron; `nice`, `ulimit`, cgroup, fork bomb, `timeout`; eredità tra `fork` ed `exec`, ambiente e stack iniziale; sicurezza: segreti in `/proc`, `ptrace`, riuso dei PID, gestori non sicuri (regreSSHion), ricognizione in CTF |
 | 6 | Utenti e permessi | UID/GID, `/etc/passwd` e `/etc/shadow`, bit `rwx` e notazione ottale, `umask`, setuid/setgid e sticky bit, `sudo`; modelli DAC e MAC |
 | 7 | Rappresentare i dati | bit e byte, binario ed esadecimale, interi con e senza segno, complemento a due, endianness, ASCII e UTF-8, Base64, `xxd`/`hexdump`, CyberChef |
 | 8 | Python per interagire con i programmi | `bytes` e `str`, `int.to_bytes`/`struct`, file e socket, `subprocess`, introduzione a `pwntools` (`process`, `remote`, `send`/`recv`, `p64`/`u64`) |
@@ -38,7 +38,7 @@
 | 2 | 087 *The File System*; 086 *Symbolic Links* | *Linux Basics for Hackers* cap. 1 e 10; OSTEP cap. 39–40 (file e directory) | *Pondering Paths*, *Comprehending Commands*, *File Globbing* |
 | 3 | 088 (ripresa) | *Linux Basics for Hackers* cap. 2; *Automate the Boring Stuff* cap. 7 (regex) | *Practicing Piping* (parte), *Untangling Users* (parte) |
 | 4 | 078 *Data Dealings and Access Control* (parte su pipe) | *Linux Basics for Hackers* cap. 8 (scripting bash) | *Practicing Piping*, *Chaining Commands* |
-| 5 | — | *Linux Basics for Hackers* cap. 6; OSTEP cap. 4–5 (processi, API dei processi); CSAPP cap. 8.2–8.5 | *Processes and Jobs* |
+| 5 | — | *Linux Basics for Hackers* cap. 6; OSTEP cap. 4–6 (processi, API dei processi, esecuzione diretta limitata); CSAPP cap. 7.9, 8.2–8.5; *TLPI* (Kerrisk) cap. 20–28, 34, 36 come riferimento | *Processes and Jobs* |
 | 6 | 126 *Access Control — CSE365*; 078 | *Linux Basics for Hackers* cap. 5; *Security Engineering* (Anderson) cap. 6 (controllo d'accesso) | *Perceiving Permissions*, *Untangling Users*; modulo *Access Control* |
 | 7 | 084–079 *Dealing with Data 1–6* (Binary Data, Hex, Encoding Text, Playing with Encodings, Base64, Gleaning Challenge Insight) | CSAPP cap. 2 (rappresentazione dell'informazione); FDI2 | modulo *Dealing with Data* |
 | 8 | 079 *Gleaning Challenge Insight* | *Black Hat Python* cap. 1–2; *Automate the Boring Stuff* cap. 1–9 | modulo *Playing With Programs* (sfide di interazione) |
@@ -68,5 +68,6 @@ Nota sui nomi delle sfide: i nomi dei moduli del dojo vengono dall'elenco pubbli
 - [x] Lezione 2 — cartella `Lezione 02 - Il file system/`
 - [x] Lezione 3 — cartella `Lezione 03 - Cercare e trasformare testo/`
 - [x] Lezione 4 — cartella `Lezione 04 - Flussi, pipe e script/`
-- [ ] Lezioni 5–10
+- [x] Lezione 5 — cartella `Lezione 05 - Processi e ambiente/`
+- [ ] Lezioni 6–10
 - [ ] Simulazione di gara
