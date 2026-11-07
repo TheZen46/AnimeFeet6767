@@ -5,10 +5,7 @@
 	
 
 ## Metodi Matematici 
-	Lezione 11
-	Lezione 12 (no audio)
-	Lezione 13
-	Lezione 14
+	
 
 ## Ricerca Operativa
 	Lezione 12
