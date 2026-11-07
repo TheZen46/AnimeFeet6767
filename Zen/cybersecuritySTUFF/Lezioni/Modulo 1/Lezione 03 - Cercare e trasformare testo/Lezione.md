@@ -530,6 +530,33 @@ $ sed -E 's/(password=).*/\1*****/' config.ini           # nasconde un valore, t
 
 `sed -i 's/vecchio/nuovo/g' file` **sovrascrive** il file con il risultato. In realtà `sed` scrive un file temporaneo e lo rinomina sopra l'originale (la tecnica della `rename()` atomica, L2 §6.3): l'inode cambia, e un eventuale hard link all'originale non viene modificato. Con `-i.bak` conserva una copia dell'originale in `file.bak`. Prima di un `sed -i`, prova sempre il comando senza `-i` e guarda l'output: non c'è annullamento.
 
+### 10.6 Oltre la riga singola: lo spazio di riserva e `N`
+
+Il ciclo del §10.1 vede una riga alla volta, e questo basta nella maggior parte dei casi. Per i problemi che coinvolgono **più righe** `sed` ha un secondo buffer, lo **spazio di riserva** (*hold space*), inizialmente vuoto, che sopravvive da un ciclo all'altro, e alcuni comandi per spostare testo tra i due:
+
+| Comando | Effetto |
+|---|---|
+| `h` / `H` | copia / **accoda** (con un `\n` in mezzo) lo spazio di lavoro nello spazio di riserva |
+| `g` / `G` | copia / accoda lo spazio di riserva nello spazio di lavoro |
+| `x` | scambia i due spazi |
+| `N` | legge la riga **successiva** e la accoda allo spazio di lavoro, separata da `\n` |
+| `D` | cancella lo spazio di lavoro fino al primo `\n` e ricomincia il ciclo senza leggere una riga nuova |
+| `{ ... }` | raggruppa più comandi sotto un solo indirizzo |
+
+```
+$ printf 'uno\ndue\ntre\n' | sed -n '1!G;h;$p'          # inverte l'ordine delle righe, come tac
+tre
+due
+uno
+$ printf 'a\nb\nc\nd\n' | sed 'N;s/\n/ /'                # unisce le righe a coppie
+a b
+c d
+$ printf 'chiave=\nvalore\n' | sed '/=$/{N;s/=\n/=/}'    # ricuce un valore andato a capo
+chiave=valore
+```
+
+Il primo è un piccolo classico da leggere con calma: per ogni riga tranne la prima (`1!`) accoda allo spazio di lavoro il contenuto della riserva (`G`), cioè le righe precedenti già invertite; poi salva il risultato nella riserva (`h`); all'ultima riga (`$`) stampa (`p`). Dopo l'ultima, nella riserva c'è l'intero file al contrario. Il terzo esempio è utile davvero: nei dump, nelle email e nei log un valore spezzato su due righe sfugge a `grep`, e `N` lo ricompone. Quando un problema richiede più di due o tre di questi comandi, però, è il segnale che conviene passare ad `awk` o a Python.
+
 ## 11. `awk`: un linguaggio per dati a colonne
 
 ### 11.1 Il modello
@@ -593,6 +620,36 @@ $ awk 'BEGIN {print 2^10, 7/2, int(7/2), sprintf("%x", 255)}'
 ```
 
 A differenza dell'aritmetica di bash (L1 §8.5), awk usa numeri **in virgola mobile**: `7/2` fa 3.5. Attenzione: i numeri molto grandi (oltre 2^53) perdono precisione, e per gli indirizzi a 64 bit del Modulo 3 conviene usare `$(( ))` o Python. Su Debian e Ubuntu l'`awk` predefinito è spesso **mawk**, più veloce ma con meno funzioni di **gawk** (GNU awk): se un esempio trovato in rete usa funzioni come `gensub` o `strftime`, installa e usa `gawk`.
+
+### 11.5 Funzioni sulle stringhe e passaggio di dati dall'esterno
+
+awk ha un piccolo insieme di funzioni sulle stringhe, definite dallo standard POSIX e quindi disponibili sia in mawk sia in gawk. Sono quelle che trasformano un filtro in un vero estrattore di dati:
+
+| Funzione | Effetto |
+|---|---|
+| `length(s)` | lunghezza (senza argomento: di `$0`) |
+| `substr(s, i, n)` | sottostringa dalla posizione `i` (**contando da 1**), lunga `n` |
+| `index(s, t)` | posizione della prima occorrenza della stringa `t` in `s`, 0 se assente |
+| `split(s, a, sep)` | divide `s` nell'array `a` secondo il separatore (una regex) e restituisce il numero di pezzi |
+| `sub(re, r, s)` / `gsub(re, r, s)` | sostituisce la prima / tutte le corrispondenze di `re` in `s` (default `$0`); restituiscono il numero di sostituzioni; nel sostituto `&` è il testo trovato, come in `sed` |
+| `match(s, re)` | cerca `re` in `s`; imposta `RSTART` (posizione) e `RLENGTH` (lunghezza) |
+| `tolower(s)`, `toupper(s)` | minuscolo, maiuscolo |
+| `sprintf(fmt, ...)` | come `printf`, ma restituisce la stringa |
+
+```
+$ echo 'Pwn.College{AbC}' | awk '{print tolower($0), toupper(substr($0,1,3)), length($0), index($0,"{")}'
+pwn.college{abc} PWN 16 12
+$ echo 'id=42;nome=zen;id=7' | awk '{n = gsub(/id=/, "ID:"); print n, $0}'
+2 ID:42;nome=zen;ID:7
+$ echo 'flag{xyz} resto' | awk 'match($0, /\{[^}]*\}/) {print substr($0, RSTART+1, RLENGTH-2)}'
+xyz
+$ echo '72 105' | awk '{printf "%c%c\n", $1+0, $2+0}'      # codici ASCII → caratteri (Lezione 7)
+Hi
+```
+
+Il terzo esempio è l'equivalente awk di `grep -oP '\{\K[^}]*'`: `match` trova la parte tra graffe, `substr` ne toglie la prima e l'ultima. Il quarto mostra che `%c` con un numero stampa il carattere con quel codice: è un modo veloce per decodificare una sequenza di codici decimali, frequente nelle sfide introduttive.
+
+**Passare dati a un programma awk.** Un valore che viene dall'esterno non va mai incollato nel testo del programma (`awk "/$x/"`): se contiene `"` o `;` cambia il programma stesso (§15, punto 5). Le vie corrette sono due. `awk -v nome="$x" '...'` crea una variabile awk, ma attenzione: con `-v` awk interpreta le sequenze di escape, quindi una stringa `a\tb` arriva con una vera tabulazione. Se il valore deve arrivare **intatto**, esportalo e leggilo dall'ambiente: `X="$x" awk 'BEGIN {print ENVIRON["X"]}'` (`ENVIRON` è un array associativo con l'ambiente del processo, L1 §12).
 
 ## 12. `strings`: il testo dentro i binari
 
@@ -707,7 +764,7 @@ Questi strumenti sono spesso usati **dentro** script e programmi, con dati che v
 2. **ReDoS.** Una regex vulnerabile applicata a input esterno blocca il servizio (§5.2, CWE-1333).
 3. **Regex di convalida incomplete.** Una convalida come `grep -qE '[0-9]+'` "accetta solo numeri"? No: accetta qualunque riga che **contenga** una cifra, come `1; rm -rf /`. Senza le ancore `^...$` la regex cerca una sottostringa. Inoltre `$` può corrispondere prima di un `\n` finale in alcuni motori (in PCRE e Python), quindi `abc\n` passa un controllo `^abc$`: per un controllo rigoroso si usano le ancore assolute (in PCRE `\A ... \z`; in Python `\A ... \Z`, attenzione: le lettere hanno significati diversi nei due dialetti) o la corrispondenza dell'intera stringa (`re.fullmatch` in Python). È una classe di difetti che vedremo spesso nel Modulo 6 (CWE-185, *Incorrect Regular Expression*; CWE-20, *Improper Input Validation*).
 4. **Iniezione nei log.** Un attaccante che riesce a inserire un `\n` in un campo registrato in un log (un nome utente, un *User-Agent*) può creare righe false che sembrano legittime: chi analizza il log con `grep` vede eventi mai avvenuti (CWE-117, *Improper Output Neutralization for Logs*). Nelle analisi forensi, una riga di log non è una prova finché non ne hai verificato la coerenza.
-5. **`sed -i` e `awk` che eseguono comandi.** GNU `sed` ha il comando `e` e il flag `e` di `s`, che **eseguono** testo come comando di shell; `awk` ha `system()` e `print | "comando"`. Uno script che costruisce un programma sed o awk concatenando input esterno può quindi diventare un'esecuzione di comandi (CWE-78). Se un input deve entrare in un programma awk, passalo come variabile con `-v nome="$input"`, mai incollandolo nel testo del programma.
+5. **`sed -i` e `awk` che eseguono comandi.** GNU `sed` ha il comando `e` e il flag `e` di `s`, che **eseguono** testo come comando di shell; `awk` ha `system()` e `print | "comando"`. Uno script che costruisce un programma sed o awk concatenando input esterno può quindi diventare un'esecuzione di comandi (CWE-78). Se un input deve entrare in un programma awk, passalo come variabile con `-v nome="$input"` o attraverso `ENVIRON` (§11.5), mai incollandolo nel testo del programma.
 
 Il filo comune è quello delle due lezioni precedenti: **ogni volta che un dato attraversa un confine** (diventa argomento, modello, programma, riga di log), la domanda è se il ricevente lo interpreterà come dato o come istruzione.
 
@@ -776,7 +833,7 @@ $ ls -l /etc | tail -n +2 | head -2 | awk '{print $5, $NF}'
 
 `ls -l` allinea le colonne con un numero variabile di spazi: per `cut` due spazi consecutivi delimitano un campo vuoto, quindi il quinto "campo" non è la dimensione. `awk` tratta ogni sequenza di spazi come un separatore (§11.1). `tail -n +2` salta la riga `total` (§2). Avvertenza generale: l'output di `ls` è fatto per gli occhi; negli script è meglio `stat -c '%s %n'` o `find -printf` (L2 §7.2).
 
-### Esempio 5 — La classifica degli shell di login
+### Esempio 5 — La classifica delle shell di login
 
 ```
 $ cut -d: -f7 /etc/passwd | sort | uniq -c | sort -rn
@@ -785,7 +842,7 @@ $ cut -d: -f7 /etc/passwd | sort | uniq -c | sort -rn
       1 /bin/sync
 ```
 
-Una riga, quattro filtri: estrai il settimo campo, ordina, conta i gruppi, ordina per conteggio. Le righe con `nologin` sono account di servizio che non possono accedere in modo interattivo (Lezione 6). Su una macchina da analizzare, uno shell inatteso per un account di servizio (`www-data` con `/bin/bash`) è un indizio.
+Una riga, quattro filtri: estrai il settimo campo, ordina, conta i gruppi, ordina per conteggio. Le righe con `nologin` sono account di servizio che non possono accedere in modo interattivo (Lezione 6). Su una macchina da analizzare, una shell inattesa per un account di servizio (`www-data` con `/bin/bash`) è un indizio.
 
 ### Esempio 6 — ROT13 e cifrari di Cesare con `tr`
 
@@ -817,7 +874,7 @@ Livello ★ base, ★★ intermedio, ★★★ sfida. Prova ogni esercizio **pri
 
 6. Dalla riga `x <b>uno</b> y <b>due</b> z <b>tre</b>` estrai le tre parole in grassetto, una per riga, con **due** metodi: uno che funzioni con qualunque `grep -E`, uno con `grep -P`. Spiega perché `grep -oE '<b>.*</b>'` non va bene.
 7. Dall'output di `ls -l /usr/bin | tail -n +2`, stampa solo dimensione e nome dei 5 file più grandi. Prima prova con `cut` e spiega perché fallisce; poi risolvi con `awk` e `sort`.
-8. Da `/etc/passwd`: (a) la classifica degli shell di login (Esempio 5); (b) gli utenti ordinati per UID decrescente, solo nome e UID; (c) l'utente con l'UID più alto sotto 65534. Usa `cut`, `sort`, `awk` come preferisci, ma spiega ogni passaggio.
+8. Da `/etc/passwd`: (a) la classifica delle shell di login (Esempio 5); (b) gli utenti ordinati per UID decrescente, solo nome e UID; (c) l'utente con l'UID più alto sotto 65534. Usa `cut`, `sort`, `awk` come preferisci, ma spiega ogni passaggio.
 9. **`sed`.** Crea un file con queste righe:
    ```
    # configurazione

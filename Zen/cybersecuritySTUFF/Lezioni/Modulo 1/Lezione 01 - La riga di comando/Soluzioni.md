@@ -112,7 +112,7 @@ Percorso risolutivo:
 ```
 $ cd ~/l1_sfida
 $ ls -a
-.  ..  -parte1  .strumenti  .suggerimento  parte 2 di 3
+-parte1  .  ..  .strumenti  .suggerimento  'parte 2 di 3'
 $ cat ./-parte1                     → L1{la_shell_
 $ cat "parte 2 di 3"                → non_mente_
 $ cat .suggerimento                 → La chiave si chiama CHIAVE e vale: apriti
@@ -120,6 +120,8 @@ $ ls -a .strumenti                  → rivela
 $ .strumenti/rivela                 → la CHIAVE non e' nel mio ambiente   (codice di uscita 3)
 $ CHIAVE=apriti .strumenti/rivela   → mai}
 ```
+L'ordine dell'elenco dipende dalla *locale* (Lezione 3): quello sopra è l'ordine per byte della locale `C`, dove `-` (0x2d) viene prima di `.` (0x2e); con una locale come `it_IT.UTF-8` l'ordine può cambiare, perché le regole di collazione non confrontano i byte ma "lettere" con pesi diversi per la punteggiatura. Per un ordine prevedibile: `LC_ALL=C ls -a`. Le virgolette attorno a `'parte 2 di 3'` non fanno parte del nome: GNU `ls`, quando scrive su un terminale, cita i nomi che contengono spazi o caratteri speciali proprio perché tu possa copiarli in un comando (stile di quoting `shell-escape`, Lezione 2); con `ls -N` o in una pipe le virgolette spariscono.
+
 Concetti usati: file nascosti (`ls -a`, §8.7); `./` o `--` per il nome con il trattino (Esempio 3); virgolette per il nome con gli spazi (§7); un programma in una directory che non è in `PATH` va lanciato con un percorso che contiene una `/`, quindi senza ricerca in `PATH` (§10.1); una variabile d'ambiente passata solo a un comando (§12.1). Anche `export CHIAVE=apriti` funziona, ma lascia la variabile nella shell. Il codice di uscita 3, visibile con `echo $?`, indica che il programma ha "rifiutato" consapevolmente, non che è andato in crash (§11.1). Anche `CHIAVE=apriti bash -c .strumenti/rivela` funziona; `CHIAVE=apriti; .strumenti/rivela` (con il punto e virgola) **no**, perché così `CHIAVE` è solo una variabile di shell, non esportata.
 
 Le stringhe codificate nello script sono in Base64: le decodificheremo a mano nella Lezione 7.

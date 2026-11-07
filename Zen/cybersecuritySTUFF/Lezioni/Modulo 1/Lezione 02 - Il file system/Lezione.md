@@ -83,7 +83,7 @@ $ findmnt -n -o TARGET,SOURCE,FSTYPE /
 /      /dev/vda1   ext4
 $ df -h /home
 Filesystem      Size  Used Avail Use% Mounted on
-/dev/vda1       252G  8.5G   31G  22% /
+/dev/vda1        50G  8.5G   39G  18% /
 $ mount | grep -E ' /proc | /tmp '
 proc on /proc type proc (rw,nosuid,nodev,noexec,relatime)
 ```
@@ -218,10 +218,13 @@ Stessa scritta `..`, due risultati diversi, perché in un caso la interpreta la 
 | `-t` / `-S` / `-r` | ordina per data di modifica / per dimensione / inverte l'ordine |
 | `-F` | aggiunge un indicatore di tipo: `/` directory, `@` link, `*` eseguibile, `|` FIFO, `=` socket |
 | `-b` / `-Q` | mostra i caratteri non stampabili con escape / mette i nomi tra virgolette |
+| `-N` | mostra i nomi così come sono, senza alcuna citazione |
 | `--full-time` | data completa, con secondi e nanosecondi |
 | `-1` | un nome per riga (è il default quando l'output non è un terminale) |
 
 Combinazioni da memorizzare: `ls -la` (tutto, con dettagli), `ls -lt | head` (i più recenti), `ls -lS` (i più grandi), `ls -ld dir` (permessi della directory stessa).
+
+**Le virgolette che `ls` aggiunge da sé.** Dalla versione 8.25 di GNU coreutils (2016), quando l'output è un terminale `ls` usa lo stile di citazione `shell-escape`: un file chiamato `parte 2 di 3` compare come `'parte 2 di 3'`, un nome con un a capo come `'a'$'\n''b'`. Le virgolette **non** fanno parte del nome: sono scritte in modo che tu possa copiare il nome così com'è in un comando. Quando l'output va in una pipe o in un file (`ls | cat`), lo stile torna `literal` e i nomi escono senza modifiche, a capo compresi. Lo stile si sceglie con `--quoting-style=` (`literal`, `shell`, `shell-escape`, `c`, `escape`) oppure con la variabile d'ambiente `QUOTING_STYLE`. In gara è un aiuto prezioso: un nome che `ls` cita in modo strano contiene quasi certamente un carattere invisibile.
 
 ### 5.2 Leggere `ls -l` colonna per colonna
 
@@ -317,7 +320,7 @@ Su Linux **non c'è un cestino** a riga di comando: `rm` è definitivo dal punto
 
 **Due regole di prudenza**, valide sempre e a maggior ragione negli script:
 
-1. non scrivere mai `rm -rf $dir/` con una variabile non protetta: se `dir` è vuota il comando diventa `rm -rf /`. Usa `rm -rf -- "${dir:?}"/`, dove `${dir:?}` interrompe il comando con un errore se la variabile è vuota (L1 §8.3);
+1. non scrivere mai `rm -rf $dir/` con una variabile non protetta: se `dir` è vuota il comando diventa `rm -rf /`. GNU `rm` ha una rete di sicurezza, l'opzione `--preserve-root` attiva per default, che rifiuta di operare ricorsivamente proprio su `/`; ma la rete non copre la variante più comune, `rm -rf $dir/*`, che con `dir` vuota diventa `rm -rf /*`: il globbing produce `/bin`, `/etc`, `/home` … e nessuno di questi è `/`. Usa `rm -rf -- "${dir:?}"/`, dove `${dir:?}` interrompe il comando con un errore se la variabile è vuota (L1 §8.3), e in uno script `set -u` (Lezione 4);
 2. prima di un `rm` con un modello, esegui lo stesso modello con `ls` o `echo` per vedere che cosa verrà eliminato: `echo rm *.log`.
 
 ---
@@ -374,7 +377,9 @@ Riga per riga: dimensione 5 byte ma **8 blocchi** da 512 byte allocati (4096 byt
 
 ### 7.3 Le directory e il loro contatore di link
 
-Anche una directory è un inode, il cui contenuto è la tabella dei nomi. Il suo numero di link è sempre **2 + numero di sottodirectory**: un link è il suo nome nella directory madre, uno è la voce `.` dentro sé stessa, e ogni sottodirectory aggiunge una voce `..` che punta a lei. Nell'esempio del §5.2, `d` ha 4 link perché contiene due sottodirectory.
+Anche una directory è un inode, il cui contenuto è la tabella dei nomi. Sui file system Unix classici (ext2/3/4, xfs, tmpfs) il suo numero di link è **2 + numero di sottodirectory**: un link è il suo nome nella directory madre, uno è la voce `.` dentro sé stessa, e ogni sottodirectory aggiunge una voce `..` che punta a lei. Nell'esempio del §5.2, `d` ha 4 link perché contiene due sottodirectory.
+
+La regola non è una legge del kernel ma una convenzione del formato su disco, e ci sono eccezioni: **btrfs** mostra sempre 1 per le directory, e ext4 smette di contare quando una directory supera circa 65.000 sottodirectory (il contatore viene fissato a 1, che significa "non lo so"). Per questo `find`, che usa il conteggio per risparmiare letture su alcune piattaforme, ha l'opzione `-noleaf` per i file system che non lo rispettano. In un esercizio puoi contarci; in un'analisi forense su un file system sconosciuto, verifica.
 
 ## 8. Hard link
 
@@ -473,7 +478,8 @@ Quasi tutte le operazioni **seguono** i link (aprire, leggere, `stat`, `cd`), ma
 | `cat`, `open()`, `stat`, `cd` | bersaglio |
 | `ls -l`, `lstat()`, `readlink` | link stesso |
 | `rm link` | elimina il **link**, non il bersaglio |
-| `rm -r dir/` con `dir` link a una directory | dipende dalla barra finale: sii prudente |
+| `rm -r L` con `L` link a una directory | elimina **solo il link**, la directory puntata resta intatta |
+| `rm -r L/` (con la barra finale) | la barra costringe a risolvere il link: GNU `rm` **svuota la directory bersaglio**, poi fallisce con `cannot remove 'L/': Not a directory` perché `L` in sé non è una directory. Il messaggio d'errore arriva quando il danno è già fatto |
 | `chmod` | bersaglio (sul link non ha senso) |
 | `chown -h` | link stesso |
 | `cp` / `cp -P` / `cp -L` | dipende dalle opzioni (§6.2) |
@@ -506,9 +512,9 @@ Un inode registra più date, e confonderle è un errore frequente, anche nelle a
 
 Dettagli importanti:
 
-- **atime** costa caro (ogni lettura diventerebbe una scrittura), quindi quasi tutti i sistemi montano con `relatime`: atime viene aggiornato solo se è più vecchio di mtime o di più di 24 ore. Non è affidabile come prova che un file **non** sia stato letto;
+- **atime** costa caro (ogni lettura diventerebbe una scrittura), quindi quasi tutti i sistemi montano con `relatime`: atime viene aggiornato solo se è più vecchio di mtime o di ctime, oppure se risale a più di 24 ore prima. Con `noatime` non viene aggiornato mai. Non è affidabile come prova che un file **non** sia stato letto;
 - `touch -d '2020-01-01 12:00' f` imposta mtime e atime a piacere: le date di modifica sono **falsificabili** da chi ha i permessi sul file (*timestomping*);
-- **ctime invece non si può impostare** con le normali chiamate di sistema: ogni modifica, compreso un `touch`, la porta all'istante corrente. Un file con mtime nel 2020 e ctime di oggi è stato manipolato oggi:
+- **ctime invece non si può impostare** con le normali chiamate di sistema: ogni modifica, compreso un `touch`, la porta all'istante corrente. Si può falsificare solo per vie indirette che richiedono root: spostare l'orologio di sistema prima della modifica, oppure scrivere direttamente sulle strutture del disco smontato (`debugfs` su ext4). Un file con mtime nel 2020 e ctime di oggi è stato manipolato oggi:
 
 ```
 $ touch -d '2020-01-01 12:00' a.txt

@@ -57,7 +57,7 @@ Doug McIlroy, l'inventore delle pipe, riassunse la cosiddetta *filosofia Unix* i
 
 Il processore di un computer moderno funziona in almeno due **modalità di privilegio**. In *modalità kernel* il codice può fare qualunque cosa: accedere a tutta la memoria, programmare le periferiche, gestire le interruzioni. In *modalità utente* il codice è confinato: non può toccare direttamente il disco, la rete o la memoria di altri programmi. Su x86-64 queste modalità corrispondono agli *anelli di protezione* 0 e 3; li studieremo nel Modulo 2.
 
-Il **kernel** è il programma che gira in modalità kernel. Tutti gli altri programmi, compresa la shell, girano in modalità utente e, quando hanno bisogno di qualcosa che non possono fare da soli (aprire un file, creare un processo, scrivere sul terminale), lo chiedono al kernel con una **chiamata di sistema** (*system call*, o *syscall*): un'istruzione speciale del processore che passa il controllo al kernel in un punto d'ingresso prestabilito. Linux offre circa 350 chiamate di sistema su x86-64; quelle che conteranno di più in questo corso sono `read`, `write`, `open`, `close`, `fork` (o `clone`), `execve`, `wait4`, `exit`.
+Il **kernel** è il programma che gira in modalità kernel. Tutti gli altri programmi, compresa la shell, girano in modalità utente e, quando hanno bisogno di qualcosa che non possono fare da soli (aprire un file, creare un processo, scrivere sul terminale), lo chiedono al kernel con una **chiamata di sistema** (*system call*, o *syscall*): un'istruzione speciale del processore che passa il controllo al kernel in un punto d'ingresso prestabilito. Linux offre circa 370 chiamate di sistema su x86-64 (la tabella `asm/unistd_64.h` di un kernel 6.x ne elenca 373; ogni versione ne aggiunge qualcuna, e alcune vecchie restano solo per compatibilità); quelle che conteranno di più in questo corso sono `read`, `write`, `open`, `close`, `fork` (o `clone`), `execve`, `wait4`, `exit`.
 
 Un **processo**, nella definizione del libro OSTEP (cap. 4), è un *programma in esecuzione*: il codice del programma più lo stato che il kernel gli associa, cioè la memoria, i registri, i file aperti, la directory corrente, l'utente per conto del quale gira, l'ambiente. La shell è un processo; ogni comando esterno che lanci diventa un altro processo.
 
@@ -164,6 +164,14 @@ I file di avvio letti da bash (manuale, sezione *INVOCATION*):
 | non interattiva | nessuno, salvo il file indicato dalla variabile `BASH_ENV` |
 
 Di solito `~/.profile` contiene una riga che carica anche `~/.bashrc`, così le impostazioni valgono in entrambi i casi.
+
+Tre eccezioni alla tabella, che il manuale documenta e che sorprendono spesso:
+
+- **bash lanciata da `sshd` per un comando remoto** (`ssh host 'comando'`): la shell è non interattiva e non di login, eppure bash legge `~/.bashrc`, perché riconosce di avere lo standard input collegato a una connessione di rete. Per questo un `echo` messo in `~/.bashrc` può rompere `scp` e `rsync`, che si aspettano di parlare con il programma remoto senza testo in mezzo;
+- **bash invocata come `sh`** (per esempio `/bin/sh` che punta a bash, come su alcune distribuzioni non Debian): bash imita la Bourne shell, entra in *modalità POSIX* dopo la lettura dei file di avvio, legge solo `/etc/profile` e `~/.profile` se è di login, e solo il file indicato da `ENV` se è interattiva;
+- **identità reale ed effettiva diverse** (un programma setuid che lancia bash, Lezione 6): bash non legge `BASH_ENV` né `ENV` e, senza l'opzione `-p`, riporta l'identità effettiva a quella reale (§12.3).
+
+L'opzione `--norc` salta `~/.bashrc`, `--noprofile` salta i file di login, `--rcfile file` sostituisce `~/.bashrc`. Una shell "pulita" per gli esperimenti si ottiene con `env -i bash --norc --noprofile`.
 
 Perché conta:
 
@@ -367,7 +375,7 @@ Le virgolette (*quoting*, manuale di bash, sezione *QUOTING*) servono a **toglie
 |---|---|---|---|
 | `\c` (backslash) | nulla: protegge il solo carattere successivo | `echo a\ \ b \$HOME` | `a  b $HOME` |
 | `'...'` (singole) | **nulla**, nemmeno il backslash | `echo '$HOME \n *'` | `$HOME \n *` |
-| `"..."` (doppie) | `$`, `` ` ``, `\` (solo davanti a `$`, `` ` ``, `"`, `\`, a capo) | `echo "$HOME   *"` | `/home/hacker   *` |
+| `"..."` (doppie) | `$`, `` ` ``, `\` (solo davanti a `$`, `` ` ``, `"`, `\`, a capo); nelle shell interattive anche `!` (storia, §14.2) | `echo "$HOME   *"` | `/home/hacker   *` |
 | `$'...'` (ANSI-C, bash) | le sequenze di escape del C: `\n`, `\t`, `\xHH`, `\'` | `echo $'a\tb\x41'` | `a	bA` (con una tabulazione) |
 
 Conseguenze da memorizzare:
@@ -573,7 +581,9 @@ Quando la prima parola di un comando semplice è, per esempio, `ls`, bash la ris
 4. **builtin**: comandi implementati dentro la shell stessa (`cd`, `echo`, `printf`, `export`, `read`, `type`, `help`, `source` …);
 5. **programmi esterni**: se il nome **non contiene `/`**, bash lo cerca nelle directory elencate in `PATH`, separate da `:`, **da sinistra a destra**, e vince il primo file eseguibile trovato. Se il nome contiene una `/` (`./prog`, `/bin/ls`, `bin/prog`) non c'è alcuna ricerca: si esegue esattamente quel file.
 
-Se nulla corrisponde, bash stampa `command not found` e imposta il codice di uscita 127.
+Se nulla corrisponde, bash stampa `command not found` e imposta il codice di uscita 127 (prima, se è definita, chiama la funzione `command_not_found_handle`: è lei che su Ubuntu suggerisce quale pacchetto installare).
+
+Una precisazione per chi scrive script portabili: in *modalità POSIX* (`set -o posix`, o bash invocata come `sh`) i **builtin speciali** definiti dallo standard (`break`, `:`, `.`, `continue`, `eval`, `exec`, `exit`, `export`, `readonly`, `return`, `set`, `shift`, `trap`, `unset`) vengono trovati **prima** delle funzioni, e una funzione con lo stesso nome non li può nascondere.
 
 ```
 $ type cd
@@ -846,7 +856,7 @@ Bash conserva i comandi in una lista in memoria e, all'uscita, li salva nel file
 | `!$` | l'ultimo argomento del comando precedente |
 | `^vecchio^nuovo` | ripete l'ultimo comando sostituendo `vecchio` con `nuovo` |
 
-L'espansione della storia con `!` è attiva solo nelle shell interattive, ed è il motivo per cui `echo "ciao!"` a volte dà errori strani: tra virgolette singole `!` non è speciale.
+L'espansione della storia con `!` è attiva solo nelle shell interattive (si disattiva con `set +H`) e avviene **prima** di tutto il resto, già mentre la riga viene letta, quindi anche dentro le virgolette doppie. Bash la salta solo se `!` è seguito da uno spazio, da un a capo, da `=`, da `(` o dalla virgoletta doppia di chiusura: per questo `echo "ciao!"` funziona, mentre `echo "ciao!mondo"` risponde `bash: !mondo: event not found`, perché bash cerca nella storia un comando che inizi con `mondo`. Tra virgolette singole `!` non è speciale: `echo 'ciao!mondo'` funziona sempre. Una password con un punto esclamativo, digitata tra virgolette doppie in un comando, è il caso classico in cui questo morde.
 
 **Rilevanza in gara e in forensics.** `~/.bash_history` è uno dei primi file da leggere su una macchina da analizzare: rivela che cosa ha fatto l'utente, a volte password digitate per errore come comandi. Nelle sfide di categoria *forensics* o *misc* capita di trovarci la flag. Per lo stesso motivo un comando che inizia con uno spazio non viene salvato se `HISTCONTROL` contiene `ignorespace`: impara a controllare queste variabili prima di trarre conclusioni da una storia "vuota".
 
@@ -871,10 +881,10 @@ Le virgolette singole nella traccia sono aggiunte da bash solo per mostrarti dov
 
 ### 15.2 `strace`: le chiamate di sistema
 
-`strace` esegue un programma e stampa ogni chiamata di sistema che fa, con argomenti e risultato. Con `-f` segue anche i processi figli; con `-e trace=execve` mostra solo le esecuzioni di programmi.
+`strace` esegue un programma e stampa ogni chiamata di sistema che fa, con argomenti e risultato. Con `-f` segue anche i processi figli; con `-e trace=execve` mostra solo le esecuzioni di programmi; con `-s 200` mostra le stringhe fino a 200 caratteri (il default è 32, e le stringhe più lunghe compaiono troncate con `...`, un dettaglio che inganna spesso chi legge un `argv`).
 
 ```
-$ strace -f -e trace=execve bash -c 'echo ciao; /bin/echo "a  b" $HOME' 2>&1 | grep -v '^+++'
+$ strace -f -s 200 -e trace=execve bash -c 'echo ciao; /bin/echo "a  b" $HOME' 2>&1 | grep -v '^+++'
 execve("/usr/bin/bash", ["bash", "-c", "echo ciao; /bin/echo \"a  b\" $HOME"], 0x7ffd... /* 24 vars */) = 0
 ciao
 execve("/bin/echo", ["/bin/echo", "a  b", "/home/hacker"], 0x5638... /* 24 vars */) = 0
@@ -883,10 +893,12 @@ a  b /home/hacker
 
 Che cosa si vede, riga per riga:
 
-1. la prima `execve` lancia `bash` con tre argomenti; lo script tra virgolette singole arriva intatto, con `$HOME` ancora letterale, perché lo ha protetto la shell **esterna**;
+1. la prima `execve` lancia `bash` con tre argomenti; lo script tra virgolette singole arriva intatto, con `$HOME` ancora letterale, perché lo ha protetto la shell **esterna**. Nota che il primo argomento di `execve` è già `/usr/bin/bash`: la ricerca in `PATH` l'ha fatta chi lancia (qui `strace`), non il kernel, che vuole sempre un percorso;
 2. `echo ciao` **non** produce alcuna `execve`: è un builtin, eseguito dentro bash (§10.1);
 3. `/bin/echo` produce una `execve` con `argv` = `["/bin/echo", "a  b", "/home/hacker"]`: le virgolette sono sparite, i due spazi sono rimasti dentro un unico argomento, `$HOME` è stata espansa dalla shell **interna**;
 4. il terzo argomento di `execve` è l'ambiente, di cui `strace` mostra solo il numero di variabili.
+
+Un dettaglio che vale la pena notare: la seconda `execve` **non** è preceduta da `[pid N]`, cioè avviene nello stesso processo della prima. Bash, quando l'ultimo comando di `bash -c` è un programma esterno, non fa `fork`: chiama direttamente `execve`, perché dopo non avrebbe più nulla da fare. Se inverti l'ordine (`bash -c '/bin/echo "a  b" $HOME; echo fine'`) compaiono la riga `strace: Process N attached` e il prefisso `[pid N]` davanti alla `execve`: ora il figlio esiste davvero, perché la shell deve sopravvivergli per eseguire `echo fine`. È il modello `fork` + `execve` del §10.2 reso visibile.
 
 In quattro righe c'è tutta la Parte II e la Parte III di questa lezione. `strace` sarà uno strumento fondamentale del Modulo 3 (reverse engineering dinamico); se non è installato, `sudo apt install strace`.
 
