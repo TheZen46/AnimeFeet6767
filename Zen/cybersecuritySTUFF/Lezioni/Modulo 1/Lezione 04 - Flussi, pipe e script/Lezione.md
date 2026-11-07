@@ -29,13 +29,13 @@
 
 **Piano della lezione.**
 
-| Parte                                 | Sezioni | Domanda a cui risponde                                    |                                            |
-| ------------------------------------- | ------- | --------------------------------------------------------- | ------------------------------------------ |
-| I. I descrittori di file              | 1–3     | Da dove legge e dove scrive un programma? Come lo cambio? |                                            |
-| II. Le pipe e gli strumenti di flusso | 4–6     | Che cosa succede davvero in `a                            | b`? Come si costruiscono flussi complessi? |
-| III. Script bash                      | 7–13    | Come si scrive un programma in bash, in modo corretto?    |                                            |
-| IV. Sicurezza                         | 14      | Quali errori negli script diventano vulnerabilità?        |                                            |
-| V. La pratica                         | 15–20   | Esempi svolti, esercizi, autoverifica, riepilogo, fonti   |                                            |
+| Parte | Sezioni | Domanda a cui risponde |
+|---|---|---|
+| I. I descrittori di file | 1–3 | Da dove legge e dove scrive un programma? Come lo cambio? |
+| II. Le pipe e gli strumenti di flusso | 4–6 | Che cosa succede davvero in `a | b`? Come si costruiscono flussi complessi? |
+| III. Script bash | 7–13 | Come si scrive un programma in bash, in modo corretto? |
+| IV. Sicurezza | 14 | Quali errori negli script diventano vulnerabilità? |
+| V. La pratica | 15–20 | Esempi svolti, esercizi, autoverifica, riepilogo, fonti |
 
 ---
 
@@ -949,10 +949,12 @@ done
 
 ```
 ...
-23734 -> più alto
-23738 -> più basso
-23736 -> giusto in 19 tentativi
+653334 -> più alto
+653338 -> più basso
+653336 -> giusto in 20 tentativi
 ```
+
+Un dettaglio del gioco che vale la pena guardare, perché è un errore comune: per scegliere il numero segreto `indovina.sh` non usa `$RANDOM` da solo. La variabile `RANDOM` di bash restituisce un intero da **0 a 32767** (15 bit), quindi `$((RANDOM % 1000000 + 1))` produrrebbe solo numeri fino a 32768: il "milione" sarebbe una promessa falsa, e un giocatore attento lo scoprirebbe in 16 tentativi invece di 20. Lo script affianca due valori, `RANDOM << 15 | RANDOM`, per ottenere 30 bit. Bash 5.1 ha aggiunto `SRANDOM` (32 bit, presi dal generatore del kernel). Nessuna delle due è adatta alla crittografia: per segreti veri si legge `/dev/urandom` (L2 §12.1). Nel Modulo 5 vedremo sfide intere costruite su generatori prevedibili.
 
 È lo schema di tutte le sfide con un servizio da "battere": leggere una domanda, calcolare la risposta, scriverla, ripetere. Funziona perché il gioco è uno script bash, il cui `echo` scrive subito; con un programma C a buffer pieno (§3.2) servirebbe `stdbuf` o un pseudo-terminale. Nella Lezione 8 lo rifaremo con `pwntools`, e nella Lezione 10 attraverso la rete.
 

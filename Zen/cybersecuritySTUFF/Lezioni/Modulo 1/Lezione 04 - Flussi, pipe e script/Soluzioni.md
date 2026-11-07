@@ -279,7 +279,7 @@ La soluzione più sicura è non usare affatto l'aritmetica: un PIN è una **stri
 |---|---|---|
 | 1 | il file è `rwxrwxrwx`: **chiunque** può modificarlo, e cron lo esegue come root | CWE-732 |
 | 2 | `/tmp/backup_DATA` è prevedibile: un utente può crearlo prima, come directory propria o link simbolico, e ricevere i backup di tutti, o far scrivere root dove vuole | CWE-377, CWE-59 |
-| 3 | `$DEST`, `$u` non quotati: divisione in parole e globbing | CWE-78 (iniezione di argomenti) |
+| 3 | `$DEST`, `$u` non quotati: divisione in parole e globbing | CWE-88 (iniezione di argomenti) |
 | 4 | `for u in $(ls /home)`: si rompe con nomi con spazi o caratteri speciali (§10.1) | |
 | 5 | `eval` con il contenuto di `/etc/backup_note`: chi controlla quel file esegue comandi come root | CWE-95, CWE-78 |
 | 6 | password in chiaro nello script **e** negli argomenti di `curl`, visibile in `/proc/<PID>/cmdline` a tutti mentre gira | CWE-798, CWE-214 |

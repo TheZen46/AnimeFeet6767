@@ -693,7 +693,7 @@ $ echo $?
 
 Per la shell **0 è vero** (successo) e qualunque altro valore è falso: il contrario del C, dove 0 è falso. Le costruzioni `&&`, `||`, `if`, `while` usano tutte il codice di uscita. I comandi `true` e `false` esistono solo per restituire 0 e 1. L'operatore `!` davanti a un comando ne inverte il risultato.
 
-Il codice di una **pipeline** `A | B` è quello dell'ultimo comando, B; con `set -o pipefail` diventa il primo codice diverso da zero. L'array `PIPESTATUS` contiene i codici di tutti i comandi della pipeline. Il codice di `$(...)` dentro un'assegnazione (`x=$(cmd)`) è quello di `cmd`.
+Il codice di una **pipeline** `A | B` è quello dell'ultimo comando, B; con `set -o pipefail` diventa quello dell'**ultimo** comando (il più a destra) che è terminato con un codice diverso da zero, oppure 0 se tutti sono riusciti: `(exit 3) | (exit 5) | true` dà 5. L'array `PIPESTATUS` contiene i codici di tutti i comandi della pipeline. Il codice di `$(...)` dentro un'assegnazione (`x=$(cmd)`) è quello di `cmd`.
 
 ## 12. L'ambiente
 

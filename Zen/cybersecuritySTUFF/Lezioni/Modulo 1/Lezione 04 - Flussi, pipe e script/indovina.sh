@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-segreto=$(( RANDOM % 1000000 + 1 )); tentativi=0
+# RANDOM vale solo da 0 a 32767 (15 bit): due valori affiancati danno 30 bit, abbastanza per un milione
+segreto=$(( (RANDOM << 15 | RANDOM) % 1000000 + 1 )); tentativi=0
 echo "Ho pensato un numero tra 1 e 1000000. Hai 25 tentativi."
 while (( tentativi < 25 )); do
     IFS= read -r n || exit 1
