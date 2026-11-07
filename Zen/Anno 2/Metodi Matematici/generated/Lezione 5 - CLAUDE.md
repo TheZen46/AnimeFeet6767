@@ -21,7 +21,13 @@ Per poter calcolare le derivate serve un po' di regolarità. Si lavora su un dom
 > [!important] Definizione — Punto critico (o stazionario) 
 > Sia $f : D \subseteq \mathbb{R}^n \to \mathbb{R}$ di classe $C^1$, con $D$ aperto. Un punto $\hat{\mathbf{x}} \in D$ è un **punto critico**, o **stazionario** (i due termini sono sinonimi), per $f$ se $$\nabla f(\hat{\mathbf{x}}) = \mathbf{0}, \qquad \text{cioè} \qquad \frac{\partial f}{\partial x_1}(\hat{\mathbf{x}}) = 0, \ \ \frac{\partial f}{\partial x_2}(\hat{\mathbf{x}}) = 0, \ \ \dots, \ \ \frac{\partial f}{\partial x_n}(\hat{\mathbf{x}}) = 0 .$$
 
-Poiché il differenziale è descritto dal gradiente, chiedere che il gradiente sia nullo equivale a chiedere che il differenziale sia nullo, e quindi che siano nulle tutte le derivate direzionali. La condizione $\nabla f = \mathbf{0}$ consiste di $n$ equazioni nelle $n$ incognite $\hat{x}_1, \dots, \hat{x}_n$; il sistema può avere più soluzioni, e tutte sono candidati.
+Poiché il differenziale è descritto dal gradiente, chiedere che il gradiente sia nullo equivale a chiedere
+
+
+
+
+
+che il differenziale sia nullo, e quindi che siano nulle tutte le derivate direzionali. La condizione $\nabla f = \mathbf{0}$ consiste di $n$ equazioni nelle $n$ incognite $\hat{x}_1, \dots, \hat{x}_n$; il sistema può avere più soluzioni, e tutte sono candidati.
 
 ## Massimi e minimi locali
 
