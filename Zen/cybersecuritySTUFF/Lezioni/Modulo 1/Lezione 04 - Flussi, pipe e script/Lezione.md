@@ -29,13 +29,13 @@
 
 **Piano della lezione.**
 
-| Parte | Sezioni | Domanda a cui risponde |
-|---|---|---|
-| I. I descrittori di file | 1–3 | Da dove legge e dove scrive un programma? Come lo cambio? |
-| II. Le pipe e gli strumenti di flusso | 4–6 | Che cosa succede davvero in `a | b`? Come si costruiscono flussi complessi? |
-| III. Script bash | 7–13 | Come si scrive un programma in bash, in modo corretto? |
-| IV. Sicurezza | 14 | Quali errori negli script diventano vulnerabilità? |
-| V. La pratica | 15–20 | Esempi svolti, esercizi, autoverifica, riepilogo, fonti |
+| Parte                                 | Sezioni | Domanda a cui risponde                                    |                                            |
+| ------------------------------------- | ------- | --------------------------------------------------------- | ------------------------------------------ |
+| I. I descrittori di file              | 1–3     | Da dove legge e dove scrive un programma? Come lo cambio? |                                            |
+| II. Le pipe e gli strumenti di flusso | 4–6     | Che cosa succede davvero in `a                            | b`? Come si costruiscono flussi complessi? |
+| III. Script bash                      | 7–13    | Come si scrive un programma in bash, in modo corretto?    |                                            |
+| IV. Sicurezza                         | 14      | Quali errori negli script diventano vulnerabilità?        |                                            |
+| V. La pratica                         | 15–20   | Esempi svolti, esercizi, autoverifica, riepilogo, fonti   |                                            |
 
 ---
 
