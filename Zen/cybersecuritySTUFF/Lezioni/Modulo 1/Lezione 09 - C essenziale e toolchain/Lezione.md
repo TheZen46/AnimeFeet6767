@@ -64,15 +64,15 @@ Le sfide *pwn* e *reverse* delle CTF (Moduli 3 e 4) sono quasi sempre programmi 
 
 Avendo appena studiato Python (L8), conviene fissare le differenze che contano.
 
-| | Python | C |
-|---|---|---|
-| Esecuzione | interpretato (il sorgente diventa *bytecode* eseguito da una macchina virtuale) | **compilato** in codice macchina, eseguito direttamente dal processore |
-| Tipi | dinamici: il tipo è dell'oggetto, un nome può riferirsi a oggetti di tipo diverso | **statici**: il tipo è della variabile, deciso alla compilazione, e determina quanti byte occupa e come si interpretano |
-| Interi | precisione arbitraria (L8 §2.2) | dimensione fissa (8, 16, 32, 64 bit): **overflow** (§4.5) |
-| Memoria | gestita: oggetti creati e distrutti dall'interprete (*garbage collection*) | **manuale**: variabili automatiche sullo stack, memoria dinamica con `malloc`/`free` |
-| Errori | eccezioni, controlli su indici e tipi | nessun controllo: codice di ritorno ed `errno`, oppure comportamento indefinito |
-| Stringhe | oggetti `str` con la loro lunghezza | array di `char` terminati da `\0` (§8) |
-| Velocità | lento | veloce, vicino all'hardware |
+|            | Python                                                                            | C                                                                                                                       |
+| ---------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| Esecuzione | interpretato (il sorgente diventa *bytecode* eseguito da una macchina virtuale)   | **compilato** in codice macchina, eseguito direttamente dal processore                                                  |
+| Tipi       | dinamici: il tipo è dell'oggetto, un nome può riferirsi a oggetti di tipo diverso | **statici**: il tipo è della variabile, deciso alla compilazione, e determina quanti byte occupa e come si interpretano |
+| Interi     | precisione arbitraria (L8 §2.2)                                                   | dimensione fissa (8, 16, 32, 64 bit): **overflow** (§4.5)                                                               |
+| Memoria    | gestita: oggetti creati e distrutti dall'interprete (*garbage collection*)        | **manuale**: variabili automatiche sullo stack, memoria dinamica con `malloc`/`free`                                    |
+| Errori     | eccezioni, controlli su indici e tipi                                             | nessun controllo: codice di ritorno ed `errno`, oppure comportamento indefinito                                         |
+| Stringhe   | oggetti `str` con la loro lunghezza                                               | array di `char` terminati da `\0` (§8)                                                                                  |
+| Velocità   | lento                                                                             | veloce, vicino all'hardware                                                                                             |
 
 La riga più importante per noi è la quinta. In Python `l[10]` su una lista di 3 elementi è un `IndexError`; in C `a[10]` su un array di 3 elementi legge (o scrive) **quello che c'è** 7 posizioni dopo la fine dell'array: un'altra variabile, un indirizzo di ritorno, niente di sensato, oppure memoria non mappata, e allora il processo riceve `SIGSEGV` (L5 §8).
 
