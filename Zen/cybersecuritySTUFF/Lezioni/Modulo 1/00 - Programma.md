@@ -2,11 +2,11 @@
 
 **Obiettivo del modulo.** Alla fine del modulo lo studente lavora con sicurezza in un sistema Linux, legge e trasforma dati in qualunque rappresentazione, scrive piccoli programmi in Python e in C per interagire con altri programmi, e capisce come comunicano i processi in rete. Sono le competenze che ogni categoria CTF (pwn, reverse, crypto, web, forensics, misc) dà per scontate.
 
-**Durata.** 10 lezioni + 1 simulazione di gara. Ogni lezione richiede circa 2 ore di studio e 2–4 ore di esercizi.
+**Durata.** 10 lezioni + 1 simulazione di gara. Ogni lezione richiede circa 3–4 ore di studio e 3–4 ore di esercizi.
 
 **Ordine didattico.** Segue la sequenza del corso universitario CSE 365 di pwn.college (Arizona State University): *Linux Luminarium* → *Dealing with Data* → interazione con i programmi → *Access Control* → *Talking Web* → *Intercepting Communication*. Le lezioni di Python e C, che pwn.college distribuisce su più moduli, sono raccolte qui in due lezioni dedicate, perché il Modulo 2 (architettura) e il Modulo 3 (reverse engineering) le richiedono già.
 
-**Formato di ogni lezione.** Obiettivi, prerequisiti, teoria con le fonti citate, esempi svolti, esercizi su tre livelli (base, intermedio, sfida), domande di autoverifica, breve ripasso delle lezioni precedenti. Le soluzioni sono in un file separato (`Modulo01_LezioneNN_Soluzioni.md`), da aprire solo dopo aver provato.
+**Formato di ogni lezione.** Obiettivi, prerequisiti, teoria con le fonti citate, esempi svolti, esercizi su tre livelli (base, intermedio, sfida), domande di autoverifica, breve ripasso delle lezioni precedenti. Ogni lezione ha la sua cartella (`Lezione NN - Titolo/`) con `Lezione.md`, `Soluzioni.md` (da aprire solo dopo aver provato) ed eventuali file per gli esercizi, come gli script che preparano le mini-CTF. Ogni lezione è pensata come la trascrizione di una lezione universitaria vera e propria: teoria estesa e argomentata, non un riassunto.
 
 **Ambiente di lavoro.** Uno a scelta tra: il *dojo* di pwn.college (browser, nessuna installazione), una macchina virtuale Linux (Debian, Ubuntu o Kali), oppure WSL2 su Windows. Le lezioni assumono `bash` come shell.
 
@@ -16,7 +16,7 @@
 
 | # | Titolo | Contenuti principali |
 |---|---|---|
-| 1 | La riga di comando | terminale, shell e kernel; prompt; anatomia di un comando (argomenti e opzioni); tipi di comando e `PATH`; virgolette ed espansioni (introduzione); variabili di shell e d'ambiente; codice di uscita; documentazione (`man`, `help`, `--help`) |
+| 1 | La riga di comando | terminale, pseudo-terminale, shell e kernel; storia (Multics, Unix, bash, Linux); shell interattive e di login, file di avvio; prompt; grammatica (metacaratteri, comandi semplici, liste); `argv` e convenzioni delle opzioni; virgolette; le otto espansioni; variabili e parametri speciali; risoluzione dei comandi, `fork`/`execve`, shebang; codice di uscita e segnali; ambiente come input non fidato; documentazione; storia dei comandi; `set -x` e `strace` |
 | 2 | Il file system | gerarchia FHS, percorsi assoluti e relativi, `cd`/`pwd`/`ls`, inode, hard link e link simbolici, metadati (`stat`, `file`), file speciali (`/dev`, `/proc`) |
 | 3 | Cercare e trasformare testo | glob, `find`, `grep` ed espressioni regolari, `sed`, `awk`, `cut`, `tr`, `sort`, `uniq`, `wc`, `strings` |
 | 4 | Flussi, pipe e script | descrittori di file 0/1/2, redirezioni (`>`, `>>`, `<`, `2>`, `2>&1`, here-doc), pipe, `xargs`, `tee`, sostituzione di comando e di processo, script bash (condizioni, cicli, funzioni) |
@@ -64,6 +64,6 @@ Nota sui nomi delle sfide: i nomi dei moduli del dojo vengono dall'elenco pubbli
 ## Stato
 
 - [x] Programma del modulo
-- [x] Lezione 1 — `Modulo01_Lezione01_RigaDiComando.md` (+ soluzioni)
+- [x] Lezione 1 — cartella `Lezione 01 - La riga di comando/`
 - [ ] Lezioni 2–10
 - [ ] Simulazione di gara
