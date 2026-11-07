@@ -22,7 +22,7 @@
 
 **Ripasso dalle lezioni precedenti.**
 - Nella Lezione 1 abbiamo detto che ogni comando esterno è un **processo figlio** della shell, che riceve `argv` e una copia dell'ambiente (L1 §10.2). Oggi apriamo quella scatola.
-- Nella Lezione 2 abbiamo visto che `/proc` è un file system virtuale, costruito dal kernel al momento della lettura (L2 §8.3). Oggi è il nostro strumento principale.
+- Nella Lezione 2 abbiamo visto che `/proc` è un file system virtuale, costruito dal kernel al momento della lettura (L2 §12.2). Oggi è il nostro strumento principale.
 - Nella Lezione 4 abbiamo descritto la shell che crea una pipeline: `pipe`, poi due `fork`, poi `dup2` ed `execve` in ogni figlio, poi `wait` (L4 §4.1). Oggi guardiamo lo stesso schema dal punto di vista dei processi: chi nasce, chi aspetta chi, che cosa succede quando qualcuno muore.
 - Nella Lezione 4 abbiamo usato `trap ... EXIT` per pulire i file temporanei (L4 §13.1). `trap` è il modo in cui bash gestisce i **segnali**, che oggi studiamo per intero.
 
@@ -304,7 +304,7 @@ Lo **stato** restituito da `wait` è un intero che codifica che cosa è successo
 | `WIFSIGNALED(s)` | il figlio è stato ucciso da un segnale | `WTERMSIG(s)` dà il numero del segnale; `WCOREDUMP(s)` dice se ha prodotto un core dump |
 | `WIFSTOPPED(s)` | il figlio è stato fermato (solo con `WUNTRACED`) | `WSTOPSIG(s)` dà il segnale di stop |
 
-Su Linux la codifica concreta è: codice di uscita negli 8 bit alti del secondo byte (`status >> 8`), numero del segnale nei 7 bit bassi, bit 0x80 per il core dump. La shell la traduce in un solo numero, `$?`: il codice di uscita se il figlio è uscito normalmente, **128 + numero del segnale** se è stato ucciso (L1 §11). Da qui i valori che vedrai continuamente:
+Su Linux la codifica concreta è: codice di uscita nel **secondo byte** dello stato, cioè nei bit 8–15 (`(status >> 8) & 0xff`), numero del segnale nei 7 bit bassi (`status & 0x7f`), bit 0x80 per il core dump. Per esempio, `exit(7)` produce lo stato `0x0700`, e un `SIGSEGV` con core dump `0x008b` (0x80 + 11). È esattamente ciò che fanno le macro della tabella; non decodificare mai a mano in un programma vero. La shell la traduce in un solo numero, `$?`: il codice di uscita se il figlio è uscito normalmente, **128 + numero del segnale** se è stato ucciso (L1 §11). Da qui i valori che vedrai continuamente:
 
 | `$?` | Significato |
 |---|---|
@@ -505,9 +505,9 @@ Nelle CTF il tempo di esecuzione può essere un **canale laterale**: un controll
 
 ### 7.1 Una directory per processo
 
-Nella Lezione 2 abbiamo detto che `/proc` non è su disco: ogni lettura è servita dal kernel, che costruisce il contenuto sul momento (L2 §8.3). Per ogni processo esiste una directory `/proc/<PID>`, più il link simbolico **`/proc/self`**, che punta sempre alla directory del processo **che lo sta leggendo**: `cat /proc/self/status` mostra lo stato di `cat`, `ls -l /proc/self` mostra un numero diverso ogni volta. La shell ha anche `/proc/$$`.
+Nella Lezione 2 abbiamo detto che `/proc` non è su disco: ogni lettura è servita dal kernel, che costruisce il contenuto sul momento (L2 §12.2). Per ogni processo esiste una directory `/proc/<PID>`, più il link simbolico **`/proc/self`**, che punta sempre alla directory del processo **che lo sta leggendo**: `cat /proc/self/status` mostra lo stato di `cat`, `ls -l /proc/self` mostra un numero diverso ogni volta. La shell ha anche `/proc/$$`.
 
-L'accesso alle voci segue regole precise: alcune sono leggibili da tutti (`cmdline`, `status`, `stat`, `comm`, `maps` su molti sistemi), altre solo dal **proprietario** del processo e da root, ed eventualmente solo se un controllo di `ptrace` lo permetterebbe (`environ`, `cwd`, `exe`, `root`, `fd`, `mem`). È questa distinzione che rende `/proc` interessante dal punto di vista della sicurezza (§13.1).
+L'accesso alle voci segue regole precise: alcune sono leggibili da tutti (`cmdline`, `status`, `stat`, `comm`), altre solo dal **proprietario** del processo e da root, ed eventualmente solo se un controllo di `ptrace` lo permetterebbe (`environ`, `cwd`, `exe`, `root`, `fd`, `mem`, e anche `maps`: i suoi permessi sul file dicono `r--r--r--`, ma all'apertura il kernel fa un controllo di tipo `ptrace`, per non svelare gli indirizzi di un processo altrui, §7.4). È questa distinzione che rende `/proc` interessante dal punto di vista della sicurezza (§13.1).
 
 Ecco le voci che userai di più:
 
@@ -652,7 +652,7 @@ $ fuser -v /tmp/prova.txt      # PID e tipo di accesso
 $ fuser -v -n tcp 8080         # chi usa la porta TCP 8080
 ```
 
-`lsof +L1` è il comando che, in un'analisi forense, trova i file "cancellati ma non ancora spariti" (L2 §7.4): un attaccante che cancella il suo log mentre il processo lo tiene aperto non ha cancellato niente. Senza privilegi, `lsof` e `fuser` vedono solo i processi del tuo utente.
+`lsof +L1` è il comando che, in un'analisi forense, trova i file "cancellati ma non ancora spariti" (L2 §8.3): un attaccante che cancella il suo log mentre il processo lo tiene aperto non ha cancellato niente. Senza privilegi, `lsof` e `fuser` vedono solo i processi del tuo utente.
 
 ---
 
@@ -790,14 +790,25 @@ $ grep SigIgn /proc/$!/status
 SigIgn:	0000000000000001
 ```
 
-`0x1` = bit 0 = segnale 1 = **SIGHUP**: è esattamente ciò che fa `nohup` (§9.5). Un esempio più ricco, una bash con `trap ... USR1` lanciata in background da uno script:
+`0x1` = bit 0 = segnale 1 = **SIGHUP**: è esattamente ciò che fa `nohup` (§9.3). Un esempio più ricco: dalla tua shell interattiva lancia in background una bash con un `trap`, e guardane le maschere.
 
 ```
+$ bash -c 'trap "echo x" USR1; while :; do sleep 1; done' &
+$ grep -E 'SigIgn|SigCgt' /proc/$!/status
 SigIgn:	0000000000000004
 SigCgt:	0000000000010202
 ```
 
-`SigIgn 0x4` = bit 2 = segnale 3 = `SIGQUIT`. `SigCgt 0x10202` = bit 1, 9 e 16 = segnali 2 (`SIGINT`), 10 (`SIGUSR1`, il nostro `trap`) e 17 (`SIGCHLD`, che bash intercetta sempre per sapere quando i figli muoiono). Una piccola funzione per decodificare una maschera:
+`SigIgn 0x4` = bit 2 = segnale 3 = `SIGQUIT`: il manuale di bash (sezione *SIGNALS*) dice che bash, "in tutti i casi", ignora `SIGQUIT` per sé (e lo rimette al valore originale per i programmi che lancia). `SigCgt 0x10202` = bit 1, 9 e 16 = segnali 2 (`SIGINT`, che bash intercetta per gestire Ctrl-C mentre aspetta i figli), 10 (`SIGUSR1`, il nostro `trap`) e 17 (`SIGCHLD`, che bash intercetta sempre per sapere quando i figli muoiono).
+
+Lo stesso comando lanciato da uno **script** dà un risultato diverso, e la differenza è istruttiva:
+
+```
+SigIgn:	0000000000000006
+SigCgt:	0000000000010200
+```
+
+Ora anche `SIGINT` è ignorato (0x6 = `INT` e `QUIT`), e non compare più tra gli intercettati. La prima cosa la spiega la regola del §9.5: in una shell non interattiva i comandi lanciati con `&` partono con `INT` e `QUIT` ignorati. La seconda viene da un'altra regola di bash: un segnale che era **già ignorato** quando una shell non interattiva è partita non può essere intercettato né ripristinato con `trap`. Bash quindi non installa il suo gestore di `INT`, e lo stesso varrebbe per un `trap ... INT` scritto da te. Una piccola funzione per decodificare una maschera:
 
 ```bash
 decodifica() {          # uso: decodifica 0000000000010202
@@ -1227,7 +1238,7 @@ identico
 $ kill %1
 ```
 
-Spiegazione con la Lezione 2 (§7.4): `rm` toglie un **nome**, ma l'inode resta finché qualcuno lo usa, e un programma in esecuzione usa il proprio file. Il link magico `exe` dà accesso all'inode, non al nome. Lo stesso vale per i file aperti in `/proc/PID/fd/`. Nota anche che, mentre il programma gira, il file non si può **modificare** (`ETXTBSY`, *Text file busy*): il kernel lo impedisce perché le pagine di codice sono mappate dal file.
+Spiegazione con la Lezione 2 (§8.3): `rm` toglie un **nome**, ma l'inode resta finché qualcuno lo usa, e un programma in esecuzione usa il proprio file. Il link magico `exe` dà accesso all'inode, non al nome. Lo stesso vale per i file aperti in `/proc/PID/fd/`. Nota anche che, mentre il programma gira, il file non si può **modificare** (`ETXTBSY`, *Text file busy*): il kernel lo impedisce perché le pagine di codice sono mappate dal file.
 
 ### Esempio 4 — Scegliere il segnale giusto leggendo le maschere
 
@@ -1245,7 +1256,7 @@ SigCgt:	0000000000010802
 
 Decodifichiamo con la funzione del §8.6, o a mano:
 
-- `SigIgn 0x4004` = bit 2 e bit 14 = segnali 3 (`QUIT`) e **15 (`TERM`)**: ecco perché `kill` non fa niente. (Il `QUIT` ignorato viene dal fatto che è stato lanciato in background da una shell non interattiva, §9.5; da un terminale interattivo vedresti solo `0x4000`.)
+- `SigIgn 0x4004` = bit 2 e bit 14 = segnali 3 (`QUIT`) e **15 (`TERM`)**: ecco perché `kill` non fa niente. (Il `QUIT` ignorato è quello che bash ignora sempre per sé, §8.6. L'esempio è lanciato da una shell interattiva, come mostra il numero di job `[1]`; da uno script vedresti `SigIgn 0x4006`, con anche `INT`, e `SigCgt 0x10800`, senza `INT`, per le regole del §9.5 e del §8.6.)
 - `SigCgt 0x10802` = bit 1, 11, 16 = segnali 2 (`INT`, intercettato da bash), **12 (`USR2`)** e 17 (`CHLD`, sempre intercettato da bash).
 
 Quindi il processo **ascolta** `USR2`:
