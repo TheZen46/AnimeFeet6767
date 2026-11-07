@@ -17,7 +17,7 @@
 | # | Titolo | Contenuti principali |
 |---|---|---|
 | 1 | La riga di comando | terminale, pseudo-terminale, shell e kernel; storia (Multics, Unix, bash, Linux); shell interattive e di login, file di avvio; prompt; grammatica (metacaratteri, comandi semplici, liste); `argv` e convenzioni delle opzioni; virgolette; le otto espansioni; variabili e parametri speciali; risoluzione dei comandi, `fork`/`execve`, shebang; codice di uscita e segnali; ambiente come input non fidato; documentazione; storia dei comandi; `set -x` e `strace` |
-| 2 | Il file system | gerarchia FHS, percorsi assoluti e relativi, `cd`/`pwd`/`ls`, inode, hard link e link simbolici, metadati (`stat`, `file`), file speciali (`/dev`, `/proc`) |
+| 2 | Il file system | file e directory, VFS e montaggio; gerarchia FHS (e la vera origine di `/usr`); nomi di file leciti e ostili; percorsi e loro risoluzione (`..` fisico e logico); `ls -l` colonna per colonna; creare, copiare, spostare (`rename` atomica), eliminare (`unlink`); inode; hard link e link simbolici; file cancellati ma aperti; mtime/ctime/atime; numeri magici e `file`; `/dev` e `/proc`; globbing avanzato; `find`; sicurezza dei link (CWE-59, TOCTOU) |
 | 3 | Cercare e trasformare testo | glob, `find`, `grep` ed espressioni regolari, `sed`, `awk`, `cut`, `tr`, `sort`, `uniq`, `wc`, `strings` |
 | 4 | Flussi, pipe e script | descrittori di file 0/1/2, redirezioni (`>`, `>>`, `<`, `2>`, `2>&1`, here-doc), pipe, `xargs`, `tee`, sostituzione di comando e di processo, script bash (condizioni, cicli, funzioni) |
 | 5 | Processi e ambiente | PID e PPID, `ps`, `top`, `/proc/<pid>`, segnali e `kill`, job control (`&`, `fg`, `bg`), ciclo `fork`/`exec`/`wait`, ereditarietà di ambiente e descrittori |
@@ -65,5 +65,6 @@ Nota sui nomi delle sfide: i nomi dei moduli del dojo vengono dall'elenco pubbli
 
 - [x] Programma del modulo
 - [x] Lezione 1 — cartella `Lezione 01 - La riga di comando/`
-- [ ] Lezioni 2–10
+- [x] Lezione 2 — cartella `Lezione 02 - Il file system/`
+- [ ] Lezioni 3–10
 - [ ] Simulazione di gara
