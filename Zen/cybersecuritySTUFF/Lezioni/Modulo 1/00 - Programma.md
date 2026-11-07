@@ -22,7 +22,7 @@
 | 4 | Flussi, pipe e script | descrittori di file e tabella dei file aperti; redirezioni come `open`+`dup2` (e perché l'ordine conta); here-document; `exec`; buffering; pipe nel kernel (EOF, `SIGPIPE`, `PIPESTATUS`, subshell); `tee`, `xargs`, sostituzione di processo, FIFO, coprocessi; script bash: argomenti, `getopts`, `[[ ]]`/`(( ))`, `case`, cicli, `while IFS= read -r`, funzioni, array, `trap`, `mktemp`; sicurezza degli script (`eval`, iniezione aritmetica, segreti negli argomenti, script setuid) |
 | 5 | Processi e ambiente | processo, thread e `task_struct`; PID, PPID, albero, namespace; stati (`R S D T t Z`) e load average; `fork` (copy-on-write), `execve`, `exit`, `wait` e stato di uscita; zombie e orfani; `ps`, `pgrep`/`pkill`, `pstree`, `top`, `time`; `/proc/<PID>` (`cmdline`, `environ`, `status`, `exe`, `cwd`, `fd`, `maps`), `lsof`/`fuser`; segnali, disposizioni, maschere, `kill`, `trap`, core dump; job control, gruppi, sessioni, terminale, `nohup`/`disown`/`setsid`, `tmux`; demoni, systemd, cron; `nice`, `ulimit`, cgroup, fork bomb, `timeout`; eredità tra `fork` ed `exec`, ambiente e stack iniziale; sicurezza: segreti in `/proc`, `ptrace`, riuso dei PID, gestori non sicuri (regreSSHion), ricognizione in CTF |
 | 6 | Utenti e permessi | UID/GID, `/etc/passwd` e `/etc/shadow`, bit `rwx` e notazione ottale, `umask`, setuid/setgid e sticky bit, `sudo`; modelli DAC e MAC |
-| 7 | Rappresentare i dati | bit e byte, binario ed esadecimale, interi con e senza segno, complemento a due, endianness, ASCII e UTF-8, Base64, `xxd`/`hexdump`, CyberChef |
+| 7 | Rappresentare i dati | basi 2, 8, 10, 16 e conversioni; bit, byte, unità SI e IEC; interi senza segno e aritmetica modulare; complemento a due, estensione e troncamento; operazioni sui bit, maschere, proprietà dello XOR; endianness; IEEE 754 in breve; ASCII, code page, Unicode, UTF-8, UTF-16 e BOM, mojibake, normalizzazione; stringhe C e fine riga; hex, base64, base32, codifica URL, codifica vs cifratura vs hash; `xxd`, `od`, `file`, `strings`, `iconv`, Python `bytes`/`struct`, CyberChef; numeri magici e file dentro file |
 | 8 | Python per interagire con i programmi | `bytes` e `str`, `int.to_bytes`/`struct`, file e socket, `subprocess`, introduzione a `pwntools` (`process`, `remote`, `send`/`recv`, `p64`/`u64`) |
 | 9 | C essenziale e toolchain | compilazione (`gcc`, preprocessore, linker), tipi e dimensioni, puntatori e array, stringhe C, `malloc`/`free`, chiamate di sistema (`open`, `read`, `write`), primo uso di `gdb` |
 | 10 | Reti e comunicazione | modello TCP/IP, indirizzi e porte, TCP e UDP, socket, `nc`, DNS, HTTP e `curl`, catturare traffico con `tcpdump` e Wireshark |
@@ -69,5 +69,7 @@ Nota sui nomi delle sfide: i nomi dei moduli del dojo vengono dall'elenco pubbli
 - [x] Lezione 3 — cartella `Lezione 03 - Cercare e trasformare testo/`
 - [x] Lezione 4 — cartella `Lezione 04 - Flussi, pipe e script/`
 - [x] Lezione 5 — cartella `Lezione 05 - Processi e ambiente/`
-- [ ] Lezioni 6–10
+- [ ] Lezione 6
+- [x] Lezione 7 — cartella `Lezione 07 - Rappresentare i dati/`
+- [ ] Lezioni 8–10
 - [ ] Simulazione di gara
