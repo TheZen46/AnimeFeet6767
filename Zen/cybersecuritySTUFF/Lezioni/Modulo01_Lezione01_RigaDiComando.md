@@ -236,7 +236,7 @@ pwncollege
 
 Ogni processo ha un **ambiente**: un elenco di coppie `NOME=valore` che riceve dal padre al momento della creazione, accanto ad `argv`. Una variabile di shell **non** fa parte dell'ambiente finché non la esporti:
 
-```
+```bash
 $ SEGRETO=abc
 $ bash -c 'echo "figlio vede: [$SEGRETO]"'
 figlio vede: []
@@ -345,13 +345,13 @@ Esistono un `echo` interno alla shell e uno o più `echo` su disco (su molte dis
 
 Qualcuno ha creato un file chiamato `-n` che contiene la flag.
 
-```
+```shell
 $ cat -n
 ```
 
 Non succede niente: il cursore resta in attesa. `cat` ha interpretato `-n` come l'opzione "numera le righe" e, senza nomi di file, legge dalla tastiera (lo standard input; esci con Ctrl-D o Ctrl-C). Due soluzioni corrette:
 
-```
+```shell
 $ cat -- -n         # "--": fine delle opzioni
 $ cat ./-n          # il nome non inizia più con "-"
 ```
@@ -360,7 +360,7 @@ La seconda funziona con qualunque programma, anche con quelli che non supportano
 
 ### Esempio 4 — Ambiente ereditato e codice di uscita insieme
 
-```
+```shell
 $ bash -c 'echo "[$X]"; exit 7'; echo "uscita: $?"
 []
 uscita: 7
@@ -406,7 +406,7 @@ Livello ★ base, ★★ intermedio, ★★★ sfida. Prova ogni esercizio **pri
     ```
 11. **Teoria (sicurezza).** Un programma di sistema, eseguito con privilegi elevati, contiene l'istruzione C `system("tar -czf /tmp/backup.tgz /home/data")`. Spiega in 5–8 righe perché il comportamento dipende dalla variabile `PATH` di chi lo lancia, quale classe di difetto è (nome e CWE), e quali due mitigazioni lo eliminano. Non serve scrivere codice.
 12. **Mini-CTF.** Salva questo script come `setup_l1.sh` ed eseguilo con `bash setup_l1.sh` (crea solo file nella directory `~/l1_sfida`). **Non leggerne il contenuto**: è codificato apposta. La flag ha il formato `L1{...}` ed è divisa in tre parti; trovale tutte usando solo ciò che hai imparato in questa lezione.
-    ```bash
+13. ```bash
     #!/usr/bin/env bash
     # Prepara la sfida della Lezione 1 in ~/l1_sfida. Non leggere oltre: esegui e basta.
     set -e
@@ -423,7 +423,7 @@ Livello ★ base, ★★ intermedio, ★★★ sfida. Prova ogni esercizio **pri
     echo "La chiave si chiama CHIAVE e vale: apriti" > "$D/.suggerimento"
     echo "Sfida pronta in $D"
     ```
-    Suggerimento minimo: i file il cui nome inizia con `.` sono nascosti; `ls -a` li mostra.
+Suggerimento minimo: i file il cui nome inizia con `.` sono nascosti; `ls -a` li mostra.
 
 ### Allenamento su pwn.college
 
