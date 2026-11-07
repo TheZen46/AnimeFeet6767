@@ -23,5 +23,4 @@
 	
 
 ## Teoria dei Sistemi
-	Lezione 11
-	Lezione 12
+	
