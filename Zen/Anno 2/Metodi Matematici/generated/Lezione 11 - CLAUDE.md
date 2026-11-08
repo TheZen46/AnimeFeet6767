@@ -69,7 +69,7 @@ Per derivare $\psi$ bisogna tenere conto che $x$ compare tre volte: nell'integra
 $$\psi'(x) = \int_{\alpha(x)}^{\beta(x)} \frac{\partial f_2}{\partial x}(x, y)\, dy + f_2\big(x, \beta(x)\big)\,\beta'(x) - f_2\big(x, \alpha(x)\big)\,\alpha'(x) .$$
 Integrando in $x$, il primo pezzo è proprio il termine cercato, e gli altri due sono, a meno del segno, $I_3$ e $I_1$:
 $$I_2 + I_4 = \iint_D \frac{\partial f_2}{\partial x}\, dx\, dy - I_3 - I_1 .$$
-Portando $I_1$ e $I_3$ dall'altra parte si ottiene la tesi per i termini con $f_2$. $\blacksquare$
+Portando $I_1$ e $I_3$ dall'altra parte si ottiene la tesi per i termini con $f_2$.
 
 La fatica fatta, osserva il docente, "ci permetterà di non doverla mai più rifare": ci si è convinti che il teorema vale per i domini normali, e non c'è bisogno di verificarlo ogni volta.
 
