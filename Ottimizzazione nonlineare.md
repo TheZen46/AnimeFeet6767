@@ -1,0 +1,16 @@
+# Problema
+$\min\limits_{x\in\R^d}f(x)$
+$f:\R^d\to\R$
+
+## Obiettivo
+Approssimare $\min\limits_{x\in\R^d}f(x)$ con degli algoritmi
+
+
+
+Supponiamo $d=1$
+$f:\R\to\R$
+$f'(x)=0\rightarrow\text{soluzioni di questa equazione sono i candidati minimi}$
+
+### Osservazione
+$\min\limits_{x\in\R}f(x)\qquad\text{intendo minimo globale}$
+$\text{Cioè }m\text{ t.c. }m\le f(x)\quad \forall\ x\in\R\\\text{e }m=f(\overline x),\text{ con }\overline x\in\R$
