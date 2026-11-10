@@ -20,3 +20,13 @@ $\text{Cioè }m\text{ tale che }m\le f(x)\quad \forall\ x\in\R\\\text{e }m=f(\ov
 
 # Algoritmi del primo ordine
 Usano solo $f'(x)\bigl(\text{eventualmente }f(x)\bigr)$
+
+## Algoritmo di discesa del gradiente
+### Problema
+$\min\limits_{x\in\R}f(x)\qquad f:\R\to\R$
+
+### Supposizione
+$f$ sia derivabile, con derivata prima continua: $f\in C^1(\R)$
+
+### Teorema
+Se $f\in C^1(\R)$ allora $\forall\ x\in\R\quad f(x+h)=f(x)+f'(x))h+o\bigl(|h|\bigr)\qquad\forall\ h\in\R$
