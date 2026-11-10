@@ -13,4 +13,10 @@ $f'(x)=0\rightarrow\text{soluzioni di questa equazione sono i candidati minimi}$
 
 ### Osservazione
 $\min\limits_{x\in\R}f(x)\qquad\text{intendo minimo globale}$
-$\text{Cioè }m\text{ t.c. }m\le f(x)\quad \forall\ x\in\R\\\text{e }m=f(\overline x),\text{ con }\overline x\in\R$
+
+$\text{Cioè }m\text{ tale che }m\le f(x)\quad \forall\ x\in\R\\\text{e }m=f(\overline x),\text{ con }\overline x\in\R$
+
+
+
+# Algoritmi del primo ordine
+Usano solo $f'(x)\bigl(\text{eventualmente }f(x)\bigr)$
