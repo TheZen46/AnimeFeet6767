@@ -11,3 +11,6 @@ $\dot x=f(x,eq)$
 3) $\text{Punto instabile:} \text{Se non vale }\boxed{1}$
 
 $\dot x=Ax+Bu\Rightarrow 0=Ax_{ep}+Bu_{ep}$
+$\delta x=x-x_{ep}$
+$\delta\dot x=\dot x-0=A_x+\cancel{Bu_{ep}}-Ax_{ep}-\cancel{Bu_{ep}}$
+$\delta\dot x=A\delta x$
