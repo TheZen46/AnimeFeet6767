@@ -30,3 +30,4 @@ $f$ sia derivabile, con derivata prima continua: $f\in C^1(\R)$
 
 ### Teorema
 Se $f\in C^1(\R)$ allora $\forall\ x\in\R\quad f(x+h)=f(x)+f'(x))h+o\bigl(|h|\bigr)\qquad\forall\ h\in\R$
+.\underbrace{}_{}
