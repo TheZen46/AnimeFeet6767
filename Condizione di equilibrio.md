@@ -6,5 +6,6 @@ Stabilità di punto di equilibrio:
 
 $\dot x=f(x,eq)$
 
-1) $\text{Punto di equilibrio stabile: }\forall\epsilon>0\m{12}\exists\deleps>0:\m{12}\norm{x(0)-x_{ep}}\le\deleps\to\norm{x(t)-x_{ep}}\le\epsilon\quad\forall t$
-2) $\text{Se vale }\circ$
+1) $\boxed{1}\text{ Punto di equilibrio stabile: }\forall\epsilon>0\m{12}\exists\deleps>0:\m{12}\norm{x(0)-x_{ep}}\le\deleps\to\norm{x(t)-x_{ep}}\le\epsilon\quad\forall t$
+2) $\text{Punto asintoticamente stabile: }\text{Se vale }\boxed{1}\text{ e }\lim\limits_{\Large{t\to\infty}}\norm{x(t)-x_{ep}}=0$
+3) $\text{Punto instabile:} \text{Se non vale }\boxed{1}$
