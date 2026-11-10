@@ -6,4 +6,5 @@ Stabilità di punto di equilibrio:
 
 $\dot x=f(x,eq)$
 
-1) $\forall\epsilon>0\m{12}\exists\deleps>0:\m{12}\norm{x(0)-x_{ep}}\le\deleps\to\norm{x(t)-x_{ep}}\in\epsilom\quad\fotall t$
+1) $\text{Punto di equilibrio stabile: }\forall\epsilon>0\m{12}\exists\deleps>0:\m{12}\norm{x(0)-x_{ep}}\le\deleps\to\norm{x(t)-x_{ep}}\le\epsilon\quad\forall t$
+2) $\text{Se vale }\circ$
