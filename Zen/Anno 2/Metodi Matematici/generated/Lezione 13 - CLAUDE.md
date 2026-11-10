@@ -97,7 +97,7 @@ Sulla diagonale ci sono le lunghezze al quadrato dei due vettori tangenti; fuori
 
 **Dimostrazione.** Il determinante di una matrice $2 \times 2$ è il prodotto sulla diagonale meno il prodotto sull'antidiagonale, il che dà la prima uguaglianza. Per la disuguaglianza di Cauchy–Schwarz $|\partial_u\Phi\cdot\partial_v\Phi| \leq |\partial_u\Phi|\,|\partial_v\Phi|$, e elevando al quadrato (entrambi i membri sono positivi) si ottiene $\det A \geq 0$. Per vedere che è proprio $|\partial_u\Phi \wedge \partial_v\Phi|^2$, si prendono due vettori $\mathbf{w}, \mathbf{z}$ che formano un angolo $\vartheta$: il modulo del prodotto vettoriale è $|\mathbf{w}|\,|\mathbf{z}|\sin\vartheta$, quindi
 $$|\mathbf{w}\wedge\mathbf{z}|^2 = |\mathbf{w}|^2|\mathbf{z}|^2\sin^2\vartheta = |\mathbf{w}|^2|\mathbf{z}|^2\big(1 - \cos^2\vartheta\big) = |\mathbf{w}|^2|\mathbf{z}|^2 - \big(|\mathbf{w}|\,|\mathbf{z}|\cos\vartheta\big)^2 = |\mathbf{w}|^2|\mathbf{z}|^2 - (\mathbf{w}\cdot\mathbf{z})^2 .$$
-Con $\mathbf{w} = \partial_u\Phi$ e $\mathbf{z} = \partial_v\Phi$ si ottiene l'uguaglianza. Per una superficie regolare il prodotto vettoriale non è mai nullo, quindi $\det A > 0$. $\blacksquare$
+Con $\mathbf{w} = \partial_u\Phi$ e $\mathbf{z} = \partial_v\Phi$ si ottiene l'uguaglianza. Per una superficie regolare il prodotto vettoriale non è mai nullo, quindi $\det A > 0$. 
 
 ### L'area di una superficie
 
