@@ -3,7 +3,8 @@
 	Lezione 14
  
 ## Algoritmi 
-	
+	Lezione 13
+	Lezione 14
 
 ## Metodi Matematici 
 	Lezione 15
@@ -21,6 +22,8 @@
 
 ## Sistemi Operativi
 	Lezione 14
+	Lezione 15
 
 ## Teoria dei Sistemi
 	Lezione 13
+	Lezione 14
