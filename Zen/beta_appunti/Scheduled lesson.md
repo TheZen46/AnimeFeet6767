@@ -8,10 +8,12 @@
 
 ## Metodi Matematici 
 	Lezione 15
+	Lezione 16
 
 ## Ricerca Operativa
 	Lezione 12
 	Lezione 13
+	Lezione 14
 
 ## Robotica 
 ### modulo 1 
