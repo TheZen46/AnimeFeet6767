@@ -17,3 +17,4 @@ $\delta\dot x=A\delta x$
 
 Un sistema è stabile se il polinomio caratteristico della matrice A ha poli con $\Re<0$ o $\Re=0$ con molteplicità $1$
 Un sistema lineare è instabile quando il polinomio minimo della matrice $A$ ha poli con $\Re>0$ e/o poli con $\Re=0$ con molteplicità $>1$
+

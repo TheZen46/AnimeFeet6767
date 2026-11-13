@@ -3,14 +3,17 @@
 	Lezione 14
  
 ## Algoritmi 
-	
+	Lezione 13
+	Lezione 14
 
 ## Metodi Matematici 
 	Lezione 15
+	Lezione 16
 
 ## Ricerca Operativa
 	Lezione 12
 	Lezione 13
+	Lezione 14
 
 ## Robotica 
 ### modulo 1 
@@ -21,6 +24,8 @@
 
 ## Sistemi Operativi
 	Lezione 14
+	Lezione 15
 
 ## Teoria dei Sistemi
 	Lezione 13
+	Lezione 14
