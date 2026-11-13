@@ -11,5 +11,7 @@ Considero solo il caso di $\sin$
 Mi basta dimostrare la tesi per un intervallo $\bigl[\tilde a,\tilde b\bigr]\subseteq\bigl[a,b\bigr]$ in cui $f$ è continua
 Divido $\bigl[\tilde a,\tilde b\bigr]$ in $\overset{\boxed\star}{n}$ intervalli della stessa lunghezza: ( $\boxed\star\ \text{da decidere nel seguito}$ )
 $\tilde a=a_0,a_1,a_2,\ldots,a_n=\tilde b$
-$\displaystyle \int_\tilde a^\tilde bg(x)\sin(\lambda x)dx=\suml_{i=0}^{n-1}\underbrace{g(x)}_{{g(x_i)+\bigl(g(x)-g(x_i)\bigr)}}\m{-40}\sin(\lambda x)dx\qquad\forall i=0,\ldots,n-1\text{ scelgo }X:\in\bigl[a_i,a_{i+1}\bigr]=\suml_{i=0}^{n-1}\int_{a_i}^{a_{i+1}}g(x_i)\sin(\lambda x)dx+\suml_{i=0}^{n-1}\int_{a_i}^{a_{i+1}}\bigl(g(x)-g(x_i)\bigr)\sin(\lambda x)dx=\suml_{i=0}^{n-1}g(x_i)\frac1\lambda\bigl(\cos(\lambda a_i)-\cos(\lambda a_{i+1})\bigr)$
+$\displaystyle \int_\tilde a^\tilde bg(x)\sin(\lambda x)dx=\suml_{i=0}^{n-1}\underbrace{g(x)}_{{g(x_i)+\bigl(g(x)-g(x_i)\bigr)}}\m{-40}\sin(\lambda x)dx\qquad\forall i=0,\ldots,n-1\text{ scelgo }X:\in\bigl[a_i,a_{i+1}\bigr]=\suml_{i=0}^{n-1}\int_{a_i}^{a_{i+1}}g(x_i)\sin(\lambda x)dx+\suml_{i=0}^{n-1}\int_{a_i}^{a_{i+1}}\bigl(g(x)-g(x_i)\bigr)\sin(\lambda x)dx=\suml_{i=0}^{n-1}g(x_i)\frac1\lambda\bigl(\cos(\lambda a_i)-\cos(\lambda a_{i+1})\bigr)+\suml_{i=0}^{n-1}\int_{a_i}^{a_{i+1}}\bigl(g(x)-g(x_i)\bigr)\sin(\lambda x)dx$
 
+Passo a $|-|:$
+$\displaystyle \abs{\int_a^bg(x)\sin(\lambda x)dx}\le\frac{1}{\lambda}\suml_{i=0}^{n-1}\abs{g(x_i)}\bigl(\overset{\le1}{\abs{\cos(\lambda a_i)}}+\overset{\le1}{\abs{\cos(\lambda a_{i+1})}}\bigr)+\suml_{i=0}^{n-1}\int_{a_i}^{a_{i+1}}\biggl|{g(x)-g(x_i)}\biggr|\overset{\le1}{\biggl|{\sin(\lambda x)}}dx$
