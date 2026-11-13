@@ -17,4 +17,5 @@ Passo a $|-|:$
 $\displaystyle \abs{\int_a^bg(x)\sin(\lambda x)dx}\le\frac{1}{\lambda}\suml_{i=0}^{n-1}\abs{g(x_i)}\bigl(\overset{\le1}{\abs{\cos(\lambda a_i)}}+\overset{\le1}{\abs{\cos(\lambda a_{i+1})}}\bigr)+\suml_{i=0}^{n-1}\int_{a_i}^{a_{i+1}}\biggl|{g(x)-g(x_i)}\biggr|\ \overset{\le1}{\biggl|{\sin(\lambda x)}\biggr|}dx\le\frac{2}{\lambda}\suml_{i=0}^{n-1}\abs{g(x_i)}+\suml_{i=0}^{n-1}\int_{a_i}^{a_{i+1}}\biggl|g(x)-g(x_i)\biggr|dx$
 
 Osservo che $g$ è continua su $\bigl[\tilde a,\tilde b\bigr]$, quindi:
-- Limitata: $\exists M>0\text{ tale che }\forall x\in\bigl[\tilde a,\tilde b\bigr],\ \bigl|g(x)\big$
+- Limitata: $\exists M>0\text{ tale che }\forall x\in\bigl[\tilde a,\tilde b\bigr],\ \bigl|g(x)\bigr|\le M$
+- Uniformemente continua: $\forall\epsilon>0\ \exists\delta>0\text{ tale che }\forall x_1,x_2\in\bigl[\tilde a,\tilde b\bigr],\ \bigl|x_2-x_1\bigr|<\delta,\text{ vale }\bigl|x_2-x_2\bigr|<\epsilon$
