@@ -8,4 +8,7 @@ Sia $g:{a,b}\to\R$ continua a tratti. Allora $\displaystyle \lim\limits_{\lambda
 
 ## Dimostrazione
 Considero solo il caso di $\sin$
-Mi basta dimostrare la tesi per un intervallo $[\tilde a,\tilde b]\subseteq[a,b]$ in cui $f
+Mi basta dimostrare la tesi per un intervallo $\bigl[\tilde a,\tilde b\bigr]\subseteq\bigl[a,b\bigr]$ in cui $f$ è continua
+Divido $\bigl[\tilde a,\tilde b\bigr]$ in $\overset{\boxed\star}{n}$ intervalli della stessa lunghezza: ( $\boxed\star\ \text{da decidere nel seguito}$ )
+$\tilde a=a_0,a_1,a_2,\ldots,a_n=\tilde b$
+$\displaystyle \int_\tilde a^\tilde bg(x)\sin(\lambda x)dx=\su$
