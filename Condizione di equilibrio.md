@@ -15,5 +15,5 @@ $\delta x=x-x_{ep}$
 $\delta\dot x=\dot x-0=A_x+\cancel{Bu_{ep}}-Ax_{ep}-\cancel{Bu_{ep}}$
 $\delta\dot x=A\delta x$
 
-Un sistema è stabile se il polinomio caratteristico della matrice A ha poli a parte 
+Un sistema è stabile se il polinomio caratteristico della matrice A ha poli con $\Re<0$ o $\Re=0$ con molteplicità $1$
 Un sistema lineare è instabile quando il polinomio minimo della matrice $A$ ha poli con $\Re>0$ e/o poli con $\Re=0$ con molteplicità $>1$
