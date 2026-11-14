@@ -3,7 +3,6 @@
 ## corso: Sistemi Operativi lezione: 1 data: 2026-09-21 argomenti: [introduzione ai sistemi operativi, virtualizzazione, system call, concorrenza, persistenza, obiettivi di progetto, thread, time sharing, processo, creazione di un processo, stati di un processo, PCB, context switch] slide: ["02 - Introduction to Operating Systems", "04 - The Abstraction: The Process"] tags: [sistemi-operativi]
 
 ---
-
 # Lezione 1 — Introduzione ai sistemi operativi e astrazione di processo
 
 La lezione si divide in due parti. La prima presenta il sistema operativo nel suo insieme: che cosa fa, perché esiste e quali sono i tre grandi temi su cui è costruito il corso, cioè **virtualizzazione**, **concorrenza** e **persistenza**. La seconda entra nel primo e più importante di questi temi, la virtualizzazione della CPU, e introduce l'astrazione su cui si regge: il **processo**. Il linguaggio di riferimento per gli esempi è il C.
