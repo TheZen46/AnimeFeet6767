@@ -24,5 +24,12 @@ Esamino $\Phi_+$ in $\bigl(0,\pi\bigr]$: $\displaystyle \Phi_+(y)=\frac{f(x+y)-f
 Poiché $f$ è $C^1$ a tratti, esiste un intorno destro $\bigl(x,x+\delta\bigr)$ di $x$ in cui $f$ è $C^1$, $\delta>0$
 Inoltre, $\bigl[x,x+\delta\bigr]\to\R,\ x+y\mapsto\cases{f(x+y)&y\ne0\\f(x_+)&y=0}$ è continua
 Fisso $y\in\bigl(0,\delta\bigr]$ e applico il teorema di Lagrange:
-	Trovo $\eta\in\bigl(0,y\bigr)$ tale che $\displaystyle f(x+y)-f(x_+)=f'(x+\eta)y\Rightarrow\Phi_+(y)=\frac{f'(x+\eta)y}{2\sin(\frac12y)}=f'(x+\eta)\cdot\frac{y/2}{\sin(\frac y2)}$
-	$\lim\limits_{y\to0^+}\Phi_](y)=\biggl(\lim\limits_{y\to0^+}f'(x+y)\biggr)\cdot\biggl(\lim\limits_{y\to0^+}\frac{y/2}{\sin(y/w)}\biggr)$
+	Trovo $\eta\in\bigl(0,y\bigr)$ tale che $\displaystyle f(x+y)-f(x_+)=f'(x+\eta)y\Rightarrow\Phi_+(y)=\frac{f'(x+\eta)y}{2\sin(\frac12y)}=f'(x+\eta)\cdot\frac{y/2}{\sin(y/2)}$
+	$\displaystyle \lim\limits_{y\to0^+}\Phi_](y)=\biggl(\lim\limits_{y\to0^+}f'(x+y)\biggr)\cdot\underbrace{\biggl(\lim\limits_{y\to0^+}\frac{y/2}{\sin(y/2)}\biggr)}_{=1}$
+		$\array{0&<&\eta&<&y\\&&\downarrow&\Leftarrow&\downarrow\\&&0^+&&0^+}$
+	$=\lim\limits_{\large{z\to x^+}}f'(z)=f'(x_+)\ \ \exists$ finito perché $f$ è $C^1$ a tratti
+
+## Osservazione
+$f$ pari $\Rightarrow b_k=0$ / $f$ dispari $\Rightarrow a_k=0$
+
+$f$ pari: $b_k=\frac1\pi\int_{-\pi}^\pi f(t)\sin(kt)$
