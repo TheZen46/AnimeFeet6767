@@ -41,5 +41,9 @@ $e^{ikx}=\cos(kx)+i\sin(kx)$
 	$\displaystyle \cos(kx)=\frac{e^{ikx}+e^{-ikx}}2$
 	$\displaystyle \sin(kx)=\frac{e^{ikx}-e^{-ikx}}{2i}$
 
-$\displaystyle s_n(x)=\frac12a_0+\suml_{k=1}^n\Bigl(\frac{e^{ikx}+e^{-ikx}}2+b_k\frac{e^{ikx}-e^{-ikx}}{2i}\Bigr)=\suml_{k=1}^n e^{-ikx}\frac12\bigl(a_k+i\ b_k\bigr)+\frac12a_0\suml_{k=1}^n e^{ikx}\frac12\bigl(a_k-i\ b_k\bigr)$
-Introduciamo 
+$\displaystyle s_n(x)=\frac12a_0+\suml_{k=1}^n\Bigl(\frac{e^{ikx}+e^{-ikx}}2+b_k\frac{e^{ikx}-e^{-ikx}}{2i}\Bigr)=\suml_{k=1}^n e^{-ikx}\frac12\bigl(a_k+i\ b_k\bigr)+\frac12a_0+\suml_{k=1}^n e^{ikx}\frac12\bigl(a_k-i\ b_k\bigr)$
+Introduciamo i coefficienti di Fourier compessi
+$\alpha_k\coloneqq\frac1{2\pi}\int_{-\pi}^{\pi}f(t)e^{-ikt}dt,\quad K\in\mathcal Z$
+$\alpha_0=\frac12\frac1\pi\int_{-\pi}^{\pi}f(t)dt=\frac12a_0,\quad k=0$
+$\alpha_k=\frac1{2\pi}\int_{-\pi}^\pi f(t)\bigl(\cos(kt)-i\sin(kt)\bigr)dt=\frac12(a_k-i\ b_k),\quad k>0$
+$\alpha_{-k}=\frac1{2k}\int_{\pi}^\pi f(t)e^{ikt}dt=\frac1{2\pi}\int_{-\pi}^\pi f(t)\bigl(\cos(kt)+i\sin(kt)\bigr)dt=\frac12(a_k+i\ b_k=\overline{a_k}$
