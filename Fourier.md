@@ -1,1 +1,2 @@
-# Teorema
+# Teorema (Fourier)
+$\text{Sia }f:\R\to\R\ 2\pi\text{-periodica e di classe }C^1\text{ a tratti su tutti i periodi. Allora la serie di Fourier }\frac12 a_0+\suml_{k=1}^{+\infty}\bigl(a_k\cos(kx)+b_k\sin(kx\bigr)\text{ dove }\array{a_k=\frac1\pi\int_{-\pi}^\pi f(t)\cos(kt)dt&a_0=\frac1\pi\int_{-\pi}^\pi f(t)dt\\b_k=\frac1\pi\int_{-\pi}^\pi f(t)\sin(kt)dt&\bigl(k\in\mathcal{Z}_{>0}\bigr)}\text{, converge per ogni }x\in\R\text{ a }\frac12\bigl(f(x_+)+f(x_-)\bigr)\text{, ovvero alle medie tra i limiti monotoni }f(x_\pm)$
