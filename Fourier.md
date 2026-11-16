@@ -32,4 +32,6 @@ Fisso $y\in\bigl(0,\delta\bigr]$ e applico il teorema di Lagrange:
 ## Osservazione
 $f$ pari $\Rightarrow b_k=0$ / $f$ dispari $\Rightarrow a_k=0$
 
-$f$ pari: $b_k=\frac1\pi\int_{-\pi}^\pi f(t)\sin(kt)$
+$f$ pari: $\displaystyle b_k=\frac1\pi\int_{-\pi}^\pi f(t)\sin(kt)dt\overset{(t'=-t)}=\frac1\pi\int_{-\pi}^\pi \underbrace{f(-t')}_{=f(t')}\underbrace{\sin(-kt')}_{=-\sin(kt')}dt'=-\frac1\pi\int_{-\pi}^\pi f(t')\sin(kt')dt'=-bk\Rightarrow 2b_k=0\Rightarrow b_k=0$
+
+$f$ dispari: $\displaystyle b_k=\frac1\pi\int_{-\pi}^\pi f(t)\cos(kt)dt\overset{(t'=-t)}=\frac1\pi\int_{-\pi}^\pi \underbrace{f(-t')}_{=f(t')}\underbrace{\cos(-kt')}_{=-\cos(kt')}dt'=-\frac1\pi\int_{-\pi}^\pi f(t')\cos(kt')dt'=-ak\Rightarrow 2a_k=0\Rightarrow a_k=0$
