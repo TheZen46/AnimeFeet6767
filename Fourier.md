@@ -15,4 +15,6 @@ $\displaystyle s_n(x)=\frac1\pi\int_{-\pi}^{\pi}f(t)\biggl(\frac12+\suml_{k=1}^n
 		$\displaystyle \frac1\pi\int_0^\pi\frac{\sin\bigl((n+\frac12)y\bigr)}{2\sin(\frac12y)}dy=\frac1\pi\int_0^\pi\biggl(\frac12+\suml_{k=1}^n\cos(ky)\biggr)dy=\frac1\pi\biggl[\frac12y+\suml_{k=1}^n\frac1k\sin(ky)\biggr]_0^\pi=\color\yellow\frac12$
 		$\displaystyle \frac1\pi\int_{-\pi}^0\frac{\sin\bigl((n+\frac12)y\bigr)}{2\sin(\frac12y)}dy=\color\lightblue\frac12$
 $\displaystyle \frac12\bigl(f(x_+)+f(x_-)\bigr)={\color\lightblue\frac12}f(x_-)+{\color\yellow\frac12}f(x_+)=\frac1\pi\int_{-\pi}^0f(x_-)\frac{\sin\bigl((n+\frac12)y\bigr)}{2\sin(\frac12y)}dy+\frac1\pi\int_0^\pi f(x_+)\frac{\sin\bigl((n+\frac12)y\bigr)}{2\sin(\frac12y)}dy$
-$s_x($
+$\displaystyle s_n(x)-\frac12\bigl(f(x_+)+f(x_-)\bigr)=\frac1\pi\int_{-\pi}^0\bigl(f(x+y)f(x_-)\bigr)\frac{\sin\bigl((n+\frac12)y\bigr)}{2\sin(\frac12y)}dy+\frac1\pi\int_0^\pi\bigl(f(x+y)f(x_+)\bigr)\frac{\sin\bigl((n+\frac12)y\bigr)}{2\sin(\frac12y)}dy=\frac1\pi\int_{-\pi}^0\underbrace{\frac{f(x+y)-f(x_-)}{2\sin(\frac12y)}}_{\Large\Phi_-(y)}\sin\bigl((n+\frac12)y\bigr)dy+\frac1\pi\int_0^{\pi}\underbrace{\frac{f(x+y)-f(x_+)}{2\sin(\frac12y)}}_{\Large\Phi_+(y)}\sin\bigl((n+\frac12)y\bigr)dy$
+Verifichiamo che, per $n\to+\infty$, entrambi gli integrali convergano a zero per il lemma di Riemann
+Oer applicare Riemann devo cerigica
