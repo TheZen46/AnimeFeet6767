@@ -23,3 +23,6 @@ Siccome $f$ è per ipotesi continua a tratti, per confermare che $\Phi_+$ è con
 Esamino $\Phi_+$ in $\bigl(0,\pi\bigr]$: $\displaystyle \Phi_+(y)=\frac{f(x+y)-f(x_+)}{2\sin(\frac12y)}$
 Poiché $f$ è $C^1$ a tratti, esiste un intorno destro $\bigl(x,x+\delta\bigr)$ di $x$ in cui $f$ è $C^1$, $\delta>0$
 Inoltre, $\bigl[x,x+\delta\bigr]\to\R,\ x+y\mapsto\cases{f(x+y)&y\ne0\\f(x_+)&y=0}$ è continua
+Fisso $y\in\bigl(0,\delta\bigr]$ e applico il teorema di Lagrange:
+	Trovo $\eta\in\bigl(0,y\bigr)$ tale che $\displaystyle f(x+y)-f(x_+)=f'(x+\eta)y\Rightarrow\Phi_+(y)=\frac{f'(x+\eta)y}{2\sin(\frac12y)}=f'(x+\eta)\cdot\frac{y/2}{\sin(\frac y2)}$
+	$\lim\limits_{y\to0^+}\Phi_](y)=\biggl(\lim\limits_{y\to0^+}f'(x+y)\biggr)\cdot\biggl(\lim\limits_{y\to0^+}\frac{y/2}{\sin(y/w)}\biggr)$
