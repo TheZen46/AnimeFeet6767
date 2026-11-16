@@ -1,3 +1,9 @@
+
+Last transition to CLAUDE, Friday 6
+
+Next scheduled transition to CLAUDE, Wednesday 18
+
+
 ## Fisica
 	Lezione 13
 	Lezione 14
