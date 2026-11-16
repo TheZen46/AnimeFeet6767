@@ -23,7 +23,7 @@ L'esempio di partenza è quello già visto: uno spazio di indirizzamento di 64 b
 
 ## La traduzione degli indirizzi
 
-### VPN e offset e lsd e coke
+### VPN e offset
 
 Un indirizzo è composto da un certo numero di bit. Quando si parla di architettura a 16 bit, per esempio, si intende che gli indirizzi in memoria sono composti da 16 bit. Nell'esempio lo spazio di indirizzamento è di 64 byte, e per indirizzare 64 byte servono $\log_2 64 = 6$ bit.
 
