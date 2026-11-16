@@ -10,4 +10,6 @@ $\text{Se }f\text{ è continua in }x\text{, allora la serie di Fourier converge 
 Obiettivo: Mostrare che la successione delle somme parziali $\displaystyle s_n(x)=\frac12a_o+\suml_{k=1}^{a_k}\bigl(\cos(kx)+b_k\sin(kx)\bigr)$ converge a $\frac1s\bigl(f(x_+)+f(x_-)\bigr)$ per $n\to+\infty$
 In realtà, verificheremo che $\lim\limits_{n\to+\infty}\biggl(s_n(x)-\frac12\bigl(f(x_+)+f(x_-)\bigr)\biggr)=0$
 
-Sostituendo i coefficienti di Fourier, ottengo $\displaystyle s_n(x)=\frac1\pi\int_{-\pi}^{\pi}f(t)\biggl(\frac12+\suml_{k=1}^n\bigl(\cos(kt)\cos(kx)+\sin(kt)\sin(kx)\bigr)\biggr)dt=\frac1\pi\int_{-\pi}^{\pi}f(t)\biggl(\frac12+\suml_{k=1}^n\cos\bigl(k(t-x)\bigr)\biggr)\overset{(y\m2=\m2 t-x)}{\Large=}\frac1\pi\int_{-\pi}^{\pi}f(t)\biggl(\frac12+\suml_{k=1}^n\cos(ky)\biggr)dy\overset{\small\boxed\star}=\frac1\pi$
+Sostituendo i coefficienti di Fourier, ottengo:
+$\displaystyle s_n(x)=\frac1\pi\int_{-\pi}^{\pi}f(t)\biggl(\frac12+\suml_{k=1}^n\bigl(\cos(kt)\cos(kx)+\sin(kt)\sin(kx)\bigr)\biggr)dt=\frac1\pi\int_{-\pi}^{\pi}f(t)\biggl(\frac12+\suml_{k=1}^n\cos\bigl(k(t-x)\bigr)\biggr)\overset{(y\m2=\m2 t-x)}{\Large=}\frac1\pi\int_{-\pi}^{\pi}f(t)\biggl(\frac12+\suml_{k=1}^n\cos(ky)\biggr)dy\overset{\small\star}=\frac1\pi\int_{-\pi}^\pi f(x+y)\biggl(\frac12+\suml_{k=1}^n\cos(ky)\biggr)dy=\frac1\pi\int_{-\pi}^\pi f(x+y)\overbrace{\m8\frac{\sin\bigl((n+\frac12)y\bigr)}{2\sin(\frac12y)}\m8}^{\text{ID Trig Lagrange}}dy=\frac1\pi\int_{-\pi}^\pi $
+$\star:\int\text{ non dipende da punto centrale}$
