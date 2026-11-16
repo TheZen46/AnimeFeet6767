@@ -197,7 +197,9 @@ Un **thread** è, in prima approssimazione, una funzione che esegue nello _stess
 #include <stdlib.h>
 #include "common.h"
 
-volatile int counter = 0;
+volatile int counter = 0; /* Volatile è un type qualifier, dice al compilatore che questa specifica variabile  */
+                          /* non deve essere ottimizzata perché cambia molto spesso anche per ragioni esterne ,*/
+	                      /* forzando il programma a rileggerlo dalla memoria e aggiornare sempre la variabile */
 int loops;
 
 void *worker(void *arg) {
@@ -208,8 +210,7 @@ void *worker(void *arg) {
     return NULL;
 }
 
-int
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
     if (argc != 2) {
         fprintf(stderr, "usage: threads <value>\n");
