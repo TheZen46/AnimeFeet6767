@@ -17,7 +17,7 @@
     "pageSize": "A4",
     "marginType": "1",
     "showTitle": true,
-    "open": true,
+    "open": false,
     "scale": 63,
     "landscape": false,
     "marginTop": "10",
