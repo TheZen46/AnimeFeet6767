@@ -25,7 +25,7 @@ Poiché $f$ è $C^1$ a tratti, esiste un intorno destro $\bigl(x,x+\delta\bigr)$
 Inoltre, $\bigl[x,x+\delta\bigr]\to\R,\ x+y\mapsto\cases{f(x+y)&y\ne0\\f(x_+)&y=0}$ è continua
 Fisso $y\in\bigl(0,\delta\bigr]$ e applico il teorema di Lagrange:
 	Trovo $\eta\in\bigl(0,y\bigr)$ tale che $\displaystyle f(x+y)-f(x_+)=f'(x+\eta)y\Rightarrow\Phi_+(y)=\frac{f'(x+\eta)y}{2\sin(\frac12y)}=f'(x+\eta)\cdot\frac{y/2}{\sin(y/2)}$
-	$\displaystyle \lim\limits_{y\to0^+}\Phi_](y)=\biggl(\lim\limits_{y\to0^+}f'(x+y)\biggr)\cdot\underbrace{\biggl(\lim\limits_{y\to0^+}\frac{y/2}{\sin(y/2)}\biggr)}_{=1}$
+	$\displaystyle \lim\limits_{y\to0^+}\Phi_(y)=\biggl(\lim\limits_{y\to0^+}f'(x+y)\biggr)\cdot\underbrace{\biggl(\lim\limits_{y\to0^+}\frac{y/2}{\sin(y/2)}\biggr)}_{=1}$
 		$\array{0&<&\eta&<&y\\&&\downarrow&\Leftarrow&\downarrow\\&&0^+&&0^+}$
 	$=\lim\limits_{\large{z\to x^+}}f'(z)=f'(x_+)\ \ \exists$ finito perché $f$ è $C^1$ a tratti
 
@@ -42,7 +42,7 @@ $e^{ikx}=\cos(kx)+i\sin(kx)$
 	$\displaystyle \sin(kx)=\frac{e^{ikx}-e^{-ikx}}{2i}$
 
 $\displaystyle s_n(x)=\frac12a_0+\suml_{k=1}^n\Bigl(a_k\frac{e^{ikx}+e^{-ikx}}2+b_k\frac{e^{ikx}-e^{-ikx}}{2i}\Bigr)=\suml_{k=1}^n e^{-ikx}\frac12\overbrace{\bigl(a_k+i\ b_k\bigr)}^{=\m2\alpha_{-k}}+\underbrace{\frac12a_0}_{=\m2\alpha_0}e^{i0x}+\suml_{k=1}^n e^{ikx}\frac12\overbrace{\bigl(a_k-i\ b_k\bigr)}^{=\m2\alpha_k}$
-Introduciamo i coefficienti di Fourier compessi
+Introduciamo i coefficienti di Fourier complessi
 $\alpha_k\coloneqq\frac1{2\pi}\int_{-\pi}^{\pi}f(t)e^{-ikt}dt,\quad K\in\mathcal Z$
 $\alpha_0=\frac12\frac1\pi\int_{-\pi}^{\pi}f(t)dt=\frac12a_0,\quad k=0$
 $\alpha_k=\frac1{2\pi}\int_{-\pi}^\pi f(t)\bigl(\cos(kt)-i\sin(kt)\bigr)dt=\frac12(a_k-i\ b_k),\quad k>0$
