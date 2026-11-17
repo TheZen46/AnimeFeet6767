@@ -123,8 +123,7 @@ Per $k=0$:
 $\displaystyle\alpha_0=\frac{a_0}{2}.$
 
 Per $k>0$:
-$\displaystyle\alpha_k=\frac12(a_k-i b_k),\qquad
-\alpha_{-k}=\frac12(a_k+i b_k).$
+$\displaystyle\alpha_k=\frac12(a_k-i b_k),\qquad\alpha_{-k}=\frac12(a_k+i b_k)$
 
 Se $f$ è reale:
 $\displaystyle\alpha_{-k}=\overline{\alpha_k}.$
