@@ -23,7 +23,8 @@ Il modo più semplice per fare questa corrispondenza usa due registri:
 
 Base e bound fanno parte del **contesto** del processo, come il program counter. A ogni context switch vanno salvati quelli del processo che esce e caricati quelli del processo che entra, perché processi diversi stanno in zone diverse della memoria fisica. Quando un processo viene caricato, il sistema operativo decide dove metterlo in memoria fisica e imposta il registro base a quel valore. Da quel momento ogni accesso alla memoria viene tradotto così:
 
-> [!important] Rilocazione dinamica (base and bound) $$\text{indirizzo fisico} = \text{indirizzo virtuale} + \text{base}$$ con il controllo che l'indirizzo virtuale non sia negativo e sia minore del bound: $$0 \le \text{indirizzo virtuale} < \text{bound}$$ La traduzione avviene **durante l'esecuzione**, a ogni accesso: per questo si parla di **rilocazione dinamica**.
+> [!important] Rilocazione dinamica (base and bound) 
+> $$\text{indirizzo fisico} = \text{indirizzo virtuale} + \text{base}$$ con il controllo che l'indirizzo virtuale non sia negativo e sia minore del bound: $$0 \le \text{indirizzo virtuale} < \text{bound}$$ La traduzione avviene **durante l'esecuzione**, a ogni accesso: per questo si parla di **rilocazione dinamica**.
 
 Nell'esempio, il processore preleva l'istruzione all'indirizzo virtuale 128. In memoria fisica l'istruzione si trova a $128 + 32\ \text{KB} = 128 + 32,768 = 32,896$. Eseguendola, deve leggere il valore all'indirizzo virtuale 15 KB, che in memoria fisica si trova a $15\ \text{KB} + 32\ \text{KB} = 47\ \text{KB}$. Il processo è sempre lo stesso ovunque venga messo, fa sempre le stesse cose e usa sempre gli stessi riferimenti: le trasformazioni avvengono al di fuori di lui.
 
