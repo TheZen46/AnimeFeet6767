@@ -11,8 +11,7 @@ $\displaystyle\int_a^{a+2\pi}g(t)dt=\int_{-\pi}^{\pi}g(t)dt.$
 È questa proprietà che giustifica la traslazione dell'intervallo nella dimostrazione.
 
 ### Limiti laterali
-$\displaystyle f(x_-)=\lim_{h\to0^-}f(x+h),\qquad
-f(x_+)=\lim_{h\to0^+}f(x+h).$
+$\displaystyle f(x_-)=\lim_{h\to0^-}f(x+h),\qquad f(x_+)=\lim_{h\to0^+}f(x+h).$
 
 $f(x_-)$ è il limite da sinistra, mentre $f(x_+)$ è il limite da destra. Non è necessario che coincidano con il valore $f(x)$.
 
@@ -39,10 +38,7 @@ $\displaystyle\cos(kt)\cos(kx)+\sin(kt)\sin(kx)=\cos(k(t-x)).$
 $\displaystyle e^{i\theta}=\cos(\theta)+i\sin(\theta).$
 
 Da questa identità e da quella ottenuta sostituendo $\theta$ con $-\theta$:
-$\displaystyle
-\cos(\theta)=\frac{e^{i\theta}+e^{-i\theta}}2,\qquad
-\sin(\theta)=\frac{e^{i\theta}-e^{-i\theta}}{2i}.
-$
+$\displaystyle\cos(\theta)=\frac{e^{i\theta}+e^{-i\theta}}2,\qquad\sin(\theta)=\frac{e^{i\theta}-e^{-i\theta}}{2i}$
 
 ## Identità (nucleo di Dirichlet)
 
@@ -65,12 +61,7 @@ Il quoziente è da intendersi per continuità nei punti in cui il denominatore s
 - Per parità, $\displaystyle\int_{-\pi}^0D_n(y)dy=\frac\pi2$.
 
 Infatti:
-$\displaystyle
-\int_0^\pi D_n(y)dy
-=\int_0^\pi\left(\frac12+\suml_{k=1}^{n}\cos(ky)\right)dy
-=\left[\frac y2+\suml_{k=1}^{n}\frac{\sin(ky)}k\right]_0^\pi
-=\frac\pi2.
-$
+$\displaystyle\int_0^\pi D_n(y)dy=\int_0^\pi\left(\frac12+\suml_{k=1}^{n}\cos(ky)\right)dy=\left[\frac y2+\suml_{k=1}^{n}\frac{\sin(ky)}k\right]_0^\pi=\frac\pi2$
 
 ## Teorema (Lagrange)
 
@@ -94,20 +85,15 @@ $\displaystyle\lim_{y\to0}\frac{y/2}{\sin(y/2)}=1.$
 ## Lemma (Riemann-Lebesgue)
 
 Se $g$ è integrabile su un intervallo finito $[a,b]$, allora
-$\displaystyle
-\lim_{\lambda\to+\infty}\int_a^b g(y)\sin(\lambda y)dy=0
-$
-e analogamente
-$\displaystyle
-\lim_{\lambda\to+\infty}\int_a^b g(y)\cos(\lambda y)dy=0.
-$
+$\displaystyle\lim_{\lambda\to+\infty}\int_a^b g(y)\sin(\lambda y)dy=0$
 
-### Applicazione nella dimostrazione
+e analogamente
+
+$\displaystyle\lim_{\lambda\to+\infty}\int_a^b g(y)\cos(\lambda y)dy=0$
+
+### Applicazione nella dimostrazioni
 Nella dimostrazione si ottengono gli integrali
-$\displaystyle
-\int_{-\pi}^0\Phi_-(y)\sin((n+\frac12)y)dy,\qquad
-\int_0^\pi\Phi_+(y)\sin((n+\frac12)y)dy.
-$
+$\displaystyle\int_{-\pi}^0\Phi_-(y)\sin((n+\frac12)y)dy,\qquad\int_0^\pi\Phi_+(y)\sin((n+\frac12)y)dy$
 
 Le funzioni $\Phi_-$ e $\Phi_+$ non dipendono da $n$. Se sono integrabili, il lemma si applica perché
 $\displaystyle\lambda_n=n+\frac12\longrightarrow+\infty.$
