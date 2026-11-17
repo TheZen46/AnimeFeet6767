@@ -6,4 +6,4 @@ SO, sistema Operativo, serve a:
 * consentire i dispositivi di interagire con i dispositivi
 
 ### Virtualizzazione:
-Rende una risorsa fisica (CPU, memoria, disco) un'altra forma virtuale di sé stessa, una versione generalizzata, più potente e semplice da usare dell'originale. (es. 1 CPU $/rightarrow$  )
+Rende una risorsa fisica (CPU, memoria, disco) un'altra forma virtuale di sé stessa, una versione generalizzata, più potente e semplice da usare dell'originale. (es. 1 CPU $\rightarrow \ \infty$ CPUs   )
