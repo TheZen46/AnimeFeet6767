@@ -42,7 +42,7 @@ $e^{ikx}=\cos(kx)+i\sin(kx)$
 	$\displaystyle \sin(kx)=\frac{e^{ikx}-e^{-ikx}}{2i}$
 
 $\displaystyle s_n(x)=\frac12a_0+\suml_{k=1}^n\Bigl(a_k\frac{e^{ikx}+e^{-ikx}}2+b_k\frac{e^{ikx}-e^{-ikx}}{2i}\Bigr)=\suml_{k=1}^n e^{-ikx}\frac12\overbrace{\bigl(a_k+i\ b_k\bigr)}^{=\m2\alpha_{-k}}+\underbrace{\frac12a_0}_{=\m2\alpha_0}e^{i0x}+\suml_{k=1}^n e^{ikx}\frac12\overbrace{\bigl(a_k-i\ b_k\bigr)}^{=\m2\alpha_k}$
-Introduciamo i coefficienti di Fourier compessi
+Introduciamo i coefficienti di Fourier complessi
 $\alpha_k\coloneqq\frac1{2\pi}\int_{-\pi}^{\pi}f(t)e^{-ikt}dt,\quad K\in\mathcal Z$
 $\alpha_0=\frac12\frac1\pi\int_{-\pi}^{\pi}f(t)dt=\frac12a_0,\quad k=0$
 $\alpha_k=\frac1{2\pi}\int_{-\pi}^\pi f(t)\bigl(\cos(kt)-i\sin(kt)\bigr)dt=\frac12(a_k-i\ b_k),\quad k>0$
