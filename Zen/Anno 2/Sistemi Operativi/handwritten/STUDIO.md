@@ -5,4 +5,5 @@ SO, sistema Operativo, serve a:
 * permettere la condivisione di memoria ai programmi
 * consentire i dispositivi di interagire con i dispositivi
 
-Virtualizzazione 
+### Virtualizzazione:
+Rende una risorsa fisica (CPU, memoria, disco) un'altra forma virtuale di sé stessa, una versione generalizzata, più potente e semplice da usare dell'originale. (es. 1 CPU $/rightarrow$  )
