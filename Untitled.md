@@ -1,0 +1,2 @@
+$\dot x=Ax+Bu$
+$\displaystyle \array{x(0^-)=\overline{x_r}&x(t)=e^{At}x(0^-)+\int_{0^-}^t e^{A(t-\tau)Bu(\tau)d\tau}\\u(t)=\overline{u_r}(t)&x_r(t)e^{At}\overline{x_r}(0^-+\int_{0^-}^t e^{A(t-\tau)B\overline{u_r}(\tau)d\tau}$
