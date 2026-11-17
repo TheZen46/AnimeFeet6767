@@ -7,6 +7,7 @@ Next scheduled transition to CLAUDE, Wednesday 18
 ## Fisica
 	Lezione 13
 	Lezione 14
+	Lezione 15
  
 ## Algoritmi 
 	Lezione 13
@@ -29,6 +30,7 @@ Next scheduled transition to CLAUDE, Wednesday 18
 
 ### modulo 2 
 	Lezione 8
+	Lezione 9
 
 ## Sistemi Operativi
 	Lezione 14
@@ -38,3 +40,4 @@ Next scheduled transition to CLAUDE, Wednesday 18
 ## Teoria dei Sistemi
 	Lezione 13
 	Lezione 14
+	Lezione 15
