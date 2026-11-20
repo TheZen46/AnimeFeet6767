@@ -8,15 +8,18 @@ Next scheduled transition to CLAUDE, Wednesday 18
 	Lezione 13
 	Lezione 14
 	Lezione 15
+	Lezione 16
  
 ## Algoritmi 
 	Lezione 13
 	Lezione 14
+	Lezione 15
 
 ## Metodi Matematici 
 	Lezione 15
 	Lezione 16
 	Lezione 17
+	Lezione 18
 
 ## Ricerca Operativa
 	Lezione 12
@@ -41,3 +44,4 @@ Next scheduled transition to CLAUDE, Wednesday 18
 	Lezione 13
 	Lezione 14
 	Lezione 15
+	Lezione 16
