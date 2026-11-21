@@ -225,7 +225,7 @@ Il campo di una lamina non dipende dalla distanza ed è definito in tutto lo spa
 La seconda configurazione è un modo per generare un campo elettrico **uniforme confinato** in una regione limitata dello spazio, quella tra le due facce parallele, mentre fuori il campo si annulla.
 
 > [!tip] Anticipazione #approfondimento
-> La configurazione con due lamine di carica opposta è lo schema del **condensatore a facce piane parallele**, trattato nella [[Zen/Anno 2/Fisica 2/generated/Lezione 8 - CLAUDE|lezione 8]].
+> La configurazione con due lamine di carica opposta è lo schema del **condensatore a facce piane parallele**, trattato nella [[Zen/Anno 2/Fisica 2/generated/Lezione 08 - CLAUDE|lezione 8]].
 
 ## Esercizio: pallina carica appesa vicino a una lamina
 

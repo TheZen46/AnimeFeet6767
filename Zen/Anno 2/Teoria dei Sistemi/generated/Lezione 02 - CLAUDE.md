@@ -9,7 +9,7 @@ Questa nota ricostruisce la seconda lezione a partire dalla trascrizione della r
 
 ## 1. Riepilogo della lezione precedente
 
-Il docente riprende brevemente quanto visto in [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 1 - CLAUDE|Lezione 1 - CLAUDE]]. L'impulso di ordine zero $\delta(t)$ gode della proprietà del campionamento, anche nella forma estesa: per una funzione regolare $f$ vale $f(t),\delta(t-T) = f(T),\delta(t-T)$. Derivando l'impulso si ottengono gli impulsi di ordine positivo $\delta_k$, $k>0$, oggetti concentrati in un punto e impossibili da disegnare in modo significativo («frecce che salgono e scendono»). Integrando si scende di ordine: $\int_{0^-}^{t}\delta_k(\tau),d\tau = \delta_{k-1}(t)$. Gli impulsi di ordine negativo sono tutti nulli fino all'origine e poi diventano costanti, rette, parabole e così via: ogni integrazione aumenta di uno il grado del polinomio.
+Il docente riprende brevemente quanto visto in [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 01 - CLAUDE|Lezione 01 - CLAUDE]]. L'impulso di ordine zero $\delta(t)$ gode della proprietà del campionamento, anche nella forma estesa: per una funzione regolare $f$ vale $f(t),\delta(t-T) = f(T),\delta(t-T)$. Derivando l'impulso si ottengono gli impulsi di ordine positivo $\delta_k$, $k>0$, oggetti concentrati in un punto e impossibili da disegnare in modo significativo («frecce che salgono e scendono»). Integrando si scende di ordine: $\int_{0^-}^{t}\delta_k(\tau),d\tau = \delta_{k-1}(t)$. Gli impulsi di ordine negativo sono tutti nulli fino all'origine e poi diventano costanti, rette, parabole e così via: ogni integrazione aumenta di uno il grado del polinomio.
 
 ## 2. Regole di derivazione con le funzioni generalizzate
 

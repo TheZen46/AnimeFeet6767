@@ -18,7 +18,7 @@ La lezione completa i metodi per l'antitrasformata con due strumenti.
 
 ## 1. Riepilogo e uso combinato con l'identificazione
 
-L'ultima cosa vista nella [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 5 - CLAUDE|lezione 5]] è il **metodo del calcolo dei residui**. La formula è generale, ma è davvero conveniente solo in alcuni casi particolari: soprattutto per i poli reali semplici, per i quali il coefficiente si ottiene con un limite, senza derivate, ed è già il coefficiente reale dell'esponenziale.
+L'ultima cosa vista nella [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 05 - CLAUDE|lezione 5]] è il **metodo del calcolo dei residui**. La formula è generale, ma è davvero conveniente solo in alcuni casi particolari: soprattutto per i poli reali semplici, per i quali il coefficiente si ottiene con un limite, senza derivate, ed è già il coefficiente reale dell'esponenziale.
 
 La lezione si apre con un esempio che mostra come combinare i due metodi.
 
@@ -185,7 +185,7 @@ Se $G$ è già fattorizzata, modulo e fase si calcolano fattore per fattore, «q
 
 ### 7.2 Ritorno all'esercizio della lezione 5 (osservazione non svolta a lezione)
 
-Nella [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 5 - CLAUDE#3. Esercizio in aula — leggere un'antitrasformata prima di calcolarla|Lezione 5 - CLAUDE]] si era trovata, risolvendo un sistema $4\times4$, l'antitrasformata di $\frac{s^4}{(s+1)(s+2)(s^2+4)}$. La sua parte oscillante era $-\frac{2}{5}\sin 2t - \frac{6}{5}\cos 2t$. Con il metodo di questa lezione la si ottiene in una riga, osservando che
+Nella [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 05 - CLAUDE#3. Esercizio in aula — leggere un'antitrasformata prima di calcolarla|Lezione 5 - CLAUDE]] si era trovata, risolvendo un sistema $4\times4$, l'antitrasformata di $\frac{s^4}{(s+1)(s+2)(s^2+4)}$. La sua parte oscillante era $-\frac{2}{5}\sin 2t - \frac{6}{5}\cos 2t$. Con il metodo di questa lezione la si ottiene in una riga, osservando che
 
 $$\frac{s^4}{(s+1)(s+2)(s^2+4)} = \underbrace{\frac{s^4}{2(s+1)(s+2)}}_{G(s)}\cdot\frac{2}{s^2+4}, \qquad G(2j) = \frac{(2j)^4}{2(2j+1)(2j+2)} = 16\cdot\Big(-\frac{1}{40} - \frac{3}{40}j\Big) = -\frac{2}{5} - \frac{6}{5},j .$$
 

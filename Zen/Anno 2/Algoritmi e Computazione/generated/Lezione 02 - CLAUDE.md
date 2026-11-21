@@ -5,7 +5,7 @@
 ---
 # Lezione 2 — Architettura di un interprete e fondamenti dei linguaggi formali
 
-La lezione riprende il problema posto alla fine della [[Zen/Anno 2/Algoritmi e Computazione/generated/Lezione 1 - CLAUDE|prima lezione]]: costruire un interprete. Lo fa in due tempi. Nella prima parte, «tecnologica», mostra come la letteratura sui compilatori scompone il problema in tre fasi: analisi lessicale, sintattica e semantica. Nella seconda parte, sulle slide _Argomenti preliminari_, introduce i concetti di alfabeto, stringa e linguaggio, con l'obiettivo di mostrare che le tre fasi risolvono, dal punto di vista teorico, **lo stesso problema**: il _word problem_.
+La lezione riprende il problema posto alla fine della [[Zen/Anno 2/Algoritmi e Computazione/generated/Lezione 01 - CLAUDE|prima lezione]]: costruire un interprete. Lo fa in due tempi. Nella prima parte, «tecnologica», mostra come la letteratura sui compilatori scompone il problema in tre fasi: analisi lessicale, sintattica e semantica. Nella seconda parte, sulle slide _Argomenti preliminari_, introduce i concetti di alfabeto, stringa e linguaggio, con l'obiettivo di mostrare che le tre fasi risolvono, dal punto di vista teorico, **lo stesso problema**: il _word problem_.
 
 Il docente precisa che lo scopo non è ancora spiegare come si fa il progetto, ma far capire perché il corso è impostato in questo modo. Non bisogna quindi preoccuparsi se qualche dettaglio sfugge: conta la visione d'insieme, che verrà ripresa più volte.
 
@@ -163,7 +163,7 @@ Come qualcuno deve aver stabilito quali sono i token del linguaggio, così qualc
 <istruzione> := ...
 ```
 
-La prima regola dice che una funzione è formata da un tipo, un identificatore, una parentesi tonda aperta, i parametri, una parentesi tonda chiusa e un blocco. La seconda dice che un blocco è una sequenza di istruzioni racchiusa tra graffe. La terza è la più interessante: un elenco di istruzioni è **vuoto** ($\epsilon$) oppure è un'istruzione **seguita da un altro elenco di istruzioni**. La regola è _ricorsiva_: con una definizione finita descrive sequenze di istruzioni di lunghezza arbitraria. Le definizioni ricorsive vengono riprese nella [[Zen/Anno 2/Algoritmi e Computazione/generated/Lezione 4 - CLAUDE|lezione 4]].
+La prima regola dice che una funzione è formata da un tipo, un identificatore, una parentesi tonda aperta, i parametri, una parentesi tonda chiusa e un blocco. La seconda dice che un blocco è una sequenza di istruzioni racchiusa tra graffe. La terza è la più interessante: un elenco di istruzioni è **vuoto** ($\epsilon$) oppure è un'istruzione **seguita da un altro elenco di istruzioni**. La regola è _ricorsiva_: con una definizione finita descrive sequenze di istruzioni di lunghezza arbitraria. Le definizioni ricorsive vengono riprese nella [[Zen/Anno 2/Algoritmi e Computazione/generated/Lezione 04 - CLAUDE|lezione 4]].
 
 Il docente avverte di non prendere questa grammatica come quella effettiva del C++: è solo un esempio di ciò che c'è dietro, e scriverla per intero richiederebbe molto più spazio.
 

@@ -26,7 +26,7 @@ La lezione si articola in tre parti:
 
 ### 1.1 Impulsi di ordine non negativo
 
-Nella [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 3 - CLAUDE|Lezione 3 - CLAUDE]] si è visto che $\mathcal{L}{\delta(t)} = 1$. Per gli impulsi di ordine superiore basta la proprietà della derivata. L'impulso di ordine $1$ è la derivata dell'impulso di ordine zero, quindi
+Nella [[Zen/Anno 2/Teoria dei Sistemi/generated/Lezione 03 - CLAUDE|Lezione 03 - CLAUDE]] si è visto che $\mathcal{L}{\delta(t)} = 1$. Per gli impulsi di ordine superiore basta la proprietà della derivata. L'impulso di ordine $1$ è la derivata dell'impulso di ordine zero, quindi
 
 $$\mathcal{L}{\dot\delta(t)} = s,\mathcal{L}{\delta(t)} - \delta(0^-) = s\cdot 1 - 0 = s .$$
 

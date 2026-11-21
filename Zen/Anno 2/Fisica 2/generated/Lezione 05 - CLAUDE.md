@@ -11,7 +11,7 @@ La lezione completa il discorso sul flusso con un esempio in cui il campo non è
 
 ## Riepilogo: il flusso del campo elettrico
 
-La registrazione comincia mentre il docente riprende la definizione di flusso vista nella [[Zen/Anno 2/Fisica 2/generated/Lezione 4 - CLAUDE|lezione 4]]. A ogni elemento infinitesimo di superficie si associa il vettore $d\vec A = dA,\hat n$, che ha per modulo l'area dell'elemento e per direzione la normale alla superficie. Il flusso infinitesimo è il prodotto scalare $d\Phi_E = \vec E\cdot d\vec A$, e il flusso attraverso tutta la superficie chiusa si ottiene sommando i contributi di tutti gli elementi:
+La registrazione comincia mentre il docente riprende la definizione di flusso vista nella [[Zen/Anno 2/Fisica 2/generated/Lezione 04 - CLAUDE|lezione 4]]. A ogni elemento infinitesimo di superficie si associa il vettore $d\vec A = dA,\hat n$, che ha per modulo l'area dell'elemento e per direzione la normale alla superficie. Il flusso infinitesimo è il prodotto scalare $d\Phi_E = \vec E\cdot d\vec A$, e il flusso attraverso tutta la superficie chiusa si ottiene sommando i contributi di tutti gli elementi:
 
 $$ \Phi_E = \oint \vec E\cdot d\vec A . $$
 
@@ -187,4 +187,4 @@ L'intuizione suggerisce che le cariche, respingendosi, vadano sulla superficie, 
 > - **Carica netta e distribuzione.** Il teorema di Gauss garantisce che la carica **totale** sulla parete della cavità è nulla. Da solo non esclude che vi siano zone positive e zone negative che si compensano. Questa possibilità si esclude con il **potenziale elettrico**: linee di campo che andassero da una zona positiva a una negativa attraverso la cavità implicherebbero una differenza di potenziale tra due punti dello stesso conduttore, che invece è tutto allo stesso potenziale. L'argomento si vedrà quando verrà introdotto il potenziale.
 > - **Le punte.** Il dubbio del docente sulle punte ha una risposta precisa. Sulla superficie di un conduttore la densità di carica è maggiore dove la curvatura è maggiore, cioè sulle punte. È il principio del parafulmine. Anche questo si spiega con il potenziale.
 
-Il docente anticipa che questo risultato verrà sfruttato nella lezione successiva per calcolare il campo generato da una lamina conduttrice infinita: si veda [[Zen/Anno 2/Fisica 2/generated/Lezione 6 - CLAUDE|Lezione 6 - CLAUDE]].
+Il docente anticipa che questo risultato verrà sfruttato nella lezione successiva per calcolare il campo generato da una lamina conduttrice infinita: si veda [[Zen/Anno 2/Fisica 2/generated/Lezione 06 - CLAUDE|Lezione 06 - CLAUDE]].

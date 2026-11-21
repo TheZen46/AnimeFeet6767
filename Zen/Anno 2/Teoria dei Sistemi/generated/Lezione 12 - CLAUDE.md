@@ -6,7 +6,7 @@ argomenti: [esercitazione, equazione differenziale con derivata dell'ingresso, i
 fonti: [trascrizione parte 1, appunti manuali]
 tags: [teoria-dei-sistemi, lezione, esercitazione]
 ---
-
+0
 # Lezione 12 — Esercizi sulle equazioni di stato e polinomi di controllo
 
 Questa nota ricostruisce la dodicesima lezione, interamente dedicata agli esercizi. Le fonti sono la trascrizione della registrazione (parte 1) e gli appunti a mano «Lezione 12» (PDF, due pagine), che riportano testi e passaggi dei tre esercizi.

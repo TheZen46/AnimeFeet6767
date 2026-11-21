@@ -389,7 +389,7 @@ Qualunque SO moderno offre un insieme di chiamate di sistema per gestire i proce
 - **Miscellaneous Control**: altri controlli, per esempio sospendere un processo e farlo poi riprendere. Il professore cita in questa categoria anche i meccanismi di semaforizzazione.
 - **Status**: ottenere informazioni sullo stato di un processo, come lo stato in cui si trova o da quanto tempo esegue.
 
-Il professore aggiunge una chiamata di sistema che permette di **sostituire il codice** eseguito da un processo con quello di un altro programma. Il processo resta lo stesso, ma da quel momento esegue un codice diverso. Queste chiamate sono il tema di [[Zen/Anno 2/Sistemi Operativi/generated/Lezione 2 - CLAUDE|Lezione 2 - CLAUDE]].
+Il professore aggiunge una chiamata di sistema che permette di **sostituire il codice** eseguito da un processo con quello di un altro programma. Il processo resta lo stesso, ma da quel momento esegue un codice diverso. Queste chiamate sono il tema di [[Zen/Anno 2/Sistemi Operativi/generated/Lezione 02 - CLAUDE|Lezione 02 - CLAUDE]].
 
 ### Creazione di un processo
 

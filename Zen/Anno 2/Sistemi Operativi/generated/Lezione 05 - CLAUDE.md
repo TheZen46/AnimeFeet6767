@@ -318,7 +318,7 @@ L'ultima slide del capitolo, non commentata a lezione, elenca tre scheduler mult
 - **CFS** (_Completely Fair Scheduler_): approccio deterministico a **quote proporzionali** (_proportional-share_), con **più code**.
 - **BFS** (_BF Scheduler_): approccio a quote proporzionali con **un'unica coda**; le slide lo indicano come basato su EEVDF (_Earliest Eligible Virtual Deadline First_).
 
-OSTEP osserva che O(1) e CFS usano più code mentre BFS ne usa una sola, a dimostrazione che entrambi gli approcci possono funzionare [@arpacidusseau2023ostep, cap. 10]. Sull'evoluzione dello scheduler principale di Linux si veda l'approfondimento in [[Zen/Anno 2/Sistemi Operativi/generated/Lezione 3 - CLAUDE|Lezione 3]].
+OSTEP osserva che O(1) e CFS usano più code mentre BFS ne usa una sola, a dimostrazione che entrambi gli approcci possono funzionare [@arpacidusseau2023ostep, cap. 10]. Sull'evoluzione dello scheduler principale di Linux si veda l'approfondimento in [[Zen/Anno 2/Sistemi Operativi/generated/Lezione 03 - CLAUDE|Lezione 3]].
 
 > [!tip] Approfondimento — Scegliere la CPU di un processo in Linux #approfondimento 
 > Linux permette anche di indicare esplicitamente su quali CPU può eseguire un thread. La chiamata di sistema `sched_setaffinity()` imposta la **maschera di affinità** (_CPU affinity mask_) di un thread, cioè l'insieme delle CPU su cui può essere eseguito. La pagina di manuale nota che, su un sistema multiprocessore, impostare questa maschera può portare benefici di prestazioni. Dalla shell si ottiene lo stesso effetto con il comando `taskset` [@linuxman2schedaffinity].

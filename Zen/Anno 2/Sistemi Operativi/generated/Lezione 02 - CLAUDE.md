@@ -10,7 +10,7 @@ La lezione affronta i processi da due punti di vista complementari. Nella prima 
 
 ## Riepilogo della lezione precedente
 
-Il professore apre con un breve richiamo ai processi; per i dettagli si veda [[Zen/Anno 2/Sistemi Operativi/generated/Lezione 1 - CLAUDE|Lezione 1 - CLAUDE]]. Il sistema operativo implementa il concetto di **CPU virtuale**: anche con una sola CPU fisica, ogni processo ha l'illusione di eseguire su un processore tutto suo. A decidere di volta in volta quale processo debba eseguire è l'algoritmo di **scheduling**.
+Il professore apre con un breve richiamo ai processi; per i dettagli si veda [[Zen/Anno 2/Sistemi Operativi/generated/Lezione 01 - CLAUDE|Lezione 01 - CLAUDE]]. Il sistema operativo implementa il concetto di **CPU virtuale**: anche con una sola CPU fisica, ogni processo ha l'illusione di eseguire su un processore tutto suo. A decidere di volta in volta quale processo debba eseguire è l'algoritmo di **scheduling**.
 
 Un processo è l'esecuzione di un programma. Quando il SO lo manda in esecuzione, predispone un'area di memoria con il codice e i dati statici, l'**heap** per la memoria allocata dinamicamente (`malloc` in C, `new` in C++) e lo **stack** per le variabili locali. Heap e stack crescono in direzioni opposte. Lo stack si comporta come una pila: le variabili locali di una funzione chiamata vanno sopra quelle della funzione chiamante e vengono tolte per prime quando la funzione termina.
 
