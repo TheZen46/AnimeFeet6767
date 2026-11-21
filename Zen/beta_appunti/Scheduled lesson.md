@@ -40,7 +40,7 @@ Next scheduled transition to CLAUDE, Wednesday 18
 	Lezione 15
 	Lezione 16
 
-## Teoria dei Sistemi
+## Teoria dei Sistemi (pronto)
 	Lezione 13
 	Lezione 14
 	Lezione 15
