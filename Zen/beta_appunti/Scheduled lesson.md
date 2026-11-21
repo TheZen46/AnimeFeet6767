@@ -21,7 +21,7 @@ Next scheduled transition to CLAUDE, Wednesday 18
 	Lezione 17
 	Lezione 18
 
-## Ricerca Operativa
+## Ricerca Operativa (pronto)
 	Lezione 12
 	Lezione 13
 	Lezione 14
